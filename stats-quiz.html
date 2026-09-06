@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stats & Data Tools Review</title>
+<style>
+  :root {
+    --bg: #f7f6f2;
+    --card: #ffffff;
+    --border: #ddd9cf;
+    --text: #1f1e1b;
+    --muted: #6b6a64;
+    --accent: #185fa5;
+    --accent-bg: #e6f1fb;
+    --good: #0f6e56;
+    --good-bg: #e1f5ee;
+    --bad: #a32d2d;
+    --bad-bg: #fcebeb;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 24px 16px 64px;
+  }
+  .wrap {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  h1 {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0 0 4px;
+  }
+  .subtitle {
+    color: var(--muted);
+    font-size: 14px;
+    margin: 0 0 20px;
+  }
+  .modebar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .modebar button {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--text);
+  }
+  .modebar button.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+  .progress {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .progress-bar {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.2s;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 24px;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+    text-align: center;
+    user-select: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .card-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .card-content {
+    font-size: 18px;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+  .card-hint {
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--accent);
+    font-style: italic;
+  }
+  .card-explain {
+    margin-top: 16px;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .tap-hint {
+    margin-top: 20px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .navbar {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .navbar button {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .navbar button:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .option {
+    padding: 14px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    text-align: left;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  .option:hover { border-color: var(--accent); }
+  .option.correct {
+    background: var(--good-bg);
+    border-color: var(--good);
+    color: var(--good);
+    font-weight: 500;
+  }
+  .option.incorrect {
+    background: var(--bad-bg);
+    border-color: var(--bad);
+    color: var(--bad);
+    font-weight: 500;
+  }
+  .option.disabled { cursor: default; }
+  .quiz-question {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    line-height: 1.5;
+  }
+  .feedback {
+    margin-top: 16px;
+    padding: 14px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .feedback.good { background: var(--good-bg); color: var(--good); }
+  .feedback.bad { background: var(--bad-bg); color: var(--bad); }
+  .feedback b { font-weight: 600; }
+  .score-screen {
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .score-num {
+    font-size: 48px;
+    font-weight: 600;
+    margin: 12px 0;
+  }
+  .restart {
+    margin-top: 24px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .topbtn {
+    margin-top: 20px;
+    text-align: center;
+  }
+  .topbtn button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    font-size: 13px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Stats & Data Tools Review</h1>
+  <p class="subtitle">Definitions, terminology, and calculation-style scenario questions covering the full syllabus — 71 cards</p>
+
+  <div class="modebar">
+    <button id="btn-flash" class="active" onclick="setMode('flash')">Flashcards</button>
+    <button id="btn-quiz" onclick="setMode('quiz')">Quiz mode</button>
+  </div>
+
+  <div id="app"></div>
+</div>
+
+<script>
+const conceptQuestions = [
+  {id:"q1",prompt:"What is a 'population' in statistics?",options:[{id:"a",text:"The entire group of individuals or items you want to draw conclusions about"},{id:"b",text:"A small subset randomly chosen from a larger group"},{id:"c",text:"Only the data points collected in an experiment"},{id:"d",text:"The average of all observed values"}],correct:"a",explanation:"A population includes every member of the group of interest, as opposed to a sample, which is a subset of it.",hint:"Think 'the whole group', not a piece of it."},
+  {id:"q2",prompt:"What is a 'sample' in statistics?",options:[{id:"a",text:"A subset of the population used to make inferences about the whole"},{id:"b",text:"The complete dataset with no exclusions"},{id:"c",text:"A theoretical distribution"},{id:"d",text:"A visualization of data"}],correct:"a",explanation:"Sampling lets you estimate population characteristics without measuring every member.",hint:"It's smaller than the population."},
+  {id:"q3",prompt:"Why might sample size matter when estimating a population mean?",options:[{id:"a",text:"Smaller samples tend to give less precise, more variable estimates of the population mean"},{id:"b",text:"Sample size never affects accuracy"},{id:"c",text:"Larger samples always guarantee a biased estimate"},{id:"d",text:"Sample size only matters for medians, not means"}],correct:"a",explanation:"Larger samples generally reduce standard error, giving a more reliable estimate of the population parameter.",hint:"Think about variability of the estimate."},
+  {id:"q4",prompt:"Which measure of central tendency is most affected by extreme outliers?",options:[{id:"a",text:"Mean"},{id:"b",text:"Median"},{id:"c",text:"Mode"},{id:"d",text:"IQR"}],correct:"a",explanation:"The mean uses every value in its calculation, so outliers pull it strongly; the median is resistant to outliers.",hint:"This one sums all values and divides by n."},
+  {id:"q5",prompt:"What is the median of a dataset?",options:[{id:"a",text:"The middle value when data is sorted"},{id:"b",text:"The most frequently occurring value"},{id:"c",text:"The sum of values divided by count"},{id:"d",text:"The range of values"}],correct:"a",explanation:"The median splits sorted data into two equal halves.",hint:"Sort the data first, then find the center."},
+  {id:"q6",prompt:"What is the mode of a dataset?",options:[{id:"a",text:"The most frequently occurring value(s)"},{id:"b",text:"The average value"},{id:"c",text:"The middle value"},{id:"d",text:"The spread of the data"}],correct:"a",explanation:"A dataset can have one mode, multiple modes, or no mode at all.",hint:"Think 'most popular value'."},
+  {id:"q7",prompt:"What do quartiles divide a dataset into?",options:[{id:"a",text:"Four equal parts"},{id:"b",text:"Two equal parts"},{id:"c",text:"Ten equal parts"},{id:"d",text:"Three unequal parts"}],correct:"a",explanation:"Q1, Q2 (median), and Q3 split ordered data into four equal-sized groups.",hint:"The prefix 'quart-' is a clue."},
+  {id:"q8",prompt:"How is the Interquartile Range (IQR) calculated?",options:[{id:"a",text:"Q3 minus Q1"},{id:"b",text:"Max minus min"},{id:"c",text:"Mean minus median"},{id:"d",text:"Q1 plus Q3"}],correct:"a",explanation:"IQR = Q3 - Q1, representing the spread of the middle 50% of the data and used to detect outliers.",hint:"It measures the spread of the middle 50% of data."},
+  {id:"q9",prompt:"What does variance measure?",options:[{id:"a",text:"The average squared deviation of data points from the mean"},{id:"b",text:"The middle value of a dataset"},{id:"c",text:"The most common value"},{id:"d",text:"The correlation between two variables"}],correct:"a",explanation:"Variance quantifies how spread out data points are around the mean, using squared differences.",hint:"Squaring is involved."},
+  {id:"q10",prompt:"How does standard deviation relate to variance?",options:[{id:"a",text:"It's the square root of the variance"},{id:"b",text:"It's the variance squared"},{id:"c",text:"It's unrelated to variance"},{id:"d",text:"It's always larger than the variance"}],correct:"a",explanation:"Standard deviation puts spread back into the original units of the data by taking the square root of variance.",hint:"Think inverse of squaring."},
+  {id:"q11",prompt:"What does skewness describe?",options:[{id:"a",text:"The asymmetry of a distribution's shape"},{id:"b",text:"The central value of data"},{id:"c",text:"The number of data points"},{id:"d",text:"The correlation between variables"}],correct:"a",explanation:"Positive skew has a longer right tail; negative skew has a longer left tail.",hint:"Think about a distribution leaning left or right."},
+  {id:"q12",prompt:"What distinguishes a discrete random variable from a continuous one?",options:[{id:"a",text:"Discrete takes countable values; continuous can take any value in a range"},{id:"b",text:"Discrete is always negative; continuous is always positive"},{id:"c",text:"Discrete has no probability distribution"},{id:"d",text:"There is no meaningful difference"}],correct:"a",explanation:"Discrete variables (e.g., number of items) are countable; continuous variables (e.g., height) can take any value within an interval.",hint:"Think 'countable list' vs 'any value on a line'."},
+  {id:"q13",prompt:"Which distribution is symmetric, bell-shaped, and defined by its mean and standard deviation?",options:[{id:"a",text:"Normal distribution"},{id:"b",text:"Binomial distribution"},{id:"c",text:"Poisson distribution"},{id:"d",text:"Uniform distribution"}],correct:"a",explanation:"The normal distribution is the classic bell curve, fully described by its mean (center) and standard deviation (spread).",hint:"This is the classic 'bell curve'."},
+  {id:"q14",prompt:"The binomial distribution models what kind of scenario?",options:[{id:"a",text:"A fixed number of independent trials, each with two possible outcomes"},{id:"b",text:"The number of events in a fixed time interval"},{id:"c",text:"Values spread evenly across a range"},{id:"d",text:"Continuous measurements like height"}],correct:"a",explanation:"Binomial distributions apply to repeated yes/no (success/failure) trials, like coin flips.",hint:"Think 'success or failure' repeated n times."},
+  {id:"q15",prompt:"The Poisson distribution is typically used to model what?",options:[{id:"a",text:"The number of times an event occurs in a fixed interval of time or space"},{id:"b",text:"Two-outcome trials"},{id:"c",text:"A perfectly symmetric bell curve"},{id:"d",text:"Equally likely outcomes over a range"}],correct:"a",explanation:"Poisson distributions describe rare event counts, like calls received per hour.",hint:"Think 'how many events happen in an hour'."},
+  {id:"q16",prompt:"What characterizes a uniform distribution?",options:[{id:"a",text:"Every outcome in the range is equally likely"},{id:"b",text:"Outcomes cluster tightly around the mean"},{id:"c",text:"It's always skewed"},{id:"d",text:"It only applies to counts of events"}],correct:"a",explanation:"In a uniform distribution, all values across the range have equal probability.",hint:"Think 'rolling a fair die' — flat probability."},
+  {id:"q17",prompt:"What is the main purpose of a confidence interval?",options:[{id:"a",text:"To give a range of plausible values for a population parameter based on sample data"},{id:"b",text:"To calculate the exact population mean with certainty"},{id:"c",text:"To measure skewness"},{id:"d",text:"To visualize outliers"}],correct:"a",explanation:"A confidence interval expresses uncertainty around an estimate, e.g., 'we're 95% confident the true mean falls in this range'.",hint:"It's expressed as a range, with a confidence level like 95%."},
+  {id:"q18",prompt:"What is the goal of hypothesis testing?",options:[{id:"a",text:"To use sample data to evaluate evidence against a claim (null hypothesis) about a population"},{id:"b",text:"To calculate the mode of a dataset"},{id:"c",text:"To visualize data with a histogram"},{id:"d",text:"To compute the IQR"}],correct:"a",explanation:"Hypothesis testing uses sample evidence to decide whether to reject a null hypothesis about the population.",hint:"Involves a 'null hypothesis' and deciding whether to reject it."},
+  {id:"q19",prompt:"When is a t-test typically preferred over a z-test?",options:[{id:"a",text:"When the sample size is small and/or the population standard deviation is unknown"},{id:"b",text:"When the population standard deviation is known and sample size is huge"},{id:"c",text:"Only for categorical data"},{id:"d",text:"Never — they are the same test"}],correct:"a",explanation:"The t-test accounts for extra uncertainty when estimating standard deviation from a small sample.",hint:"Think about what happens when you don't know the population's spread."},
+  {id:"q20",prompt:"What does a p-value represent in hypothesis testing?",options:[{id:"a",text:"The probability of observing data at least as extreme as yours, assuming the null hypothesis is true"},{id:"b",text:"The probability the null hypothesis is true"},{id:"c",text:"The sample mean"},{id:"d",text:"The confidence level"}],correct:"a",explanation:"A small p-value suggests the observed data would be unlikely under the null hypothesis, providing evidence against it.",hint:"It's a probability tied to the null hypothesis being true."},
+  {id:"q21",prompt:"What does a z-score tell you?",options:[{id:"a",text:"How many standard deviations a data point is from the mean"},{id:"b",text:"The exact value of a data point"},{id:"c",text:"The correlation between two variables"},{id:"d",text:"The sample size needed for a test"}],correct:"a",explanation:"A z-score standardizes a value relative to the mean and standard deviation of its distribution.",hint:"Standardized distance from the mean, in SD units."},
+  {id:"q22",prompt:"Which two methods are commonly used for outlier detection?",options:[{id:"a",text:"IQR-based rule and z-score thresholds"},{id:"b",text:"Mode and median only"},{id:"c",text:"Histograms and scatter plots only"},{id:"d",text:"Confidence intervals and p-values"}],correct:"a",explanation:"Common outlier rules flag points beyond 1.5×IQR from Q1/Q3, or z-scores beyond a threshold like ±3.",hint:"One uses quartiles, the other uses standard deviations."},
+  {id:"q23",prompt:"What does a box-and-whisker plot visualize?",options:[{id:"a",text:"The quartiles, median, and potential outliers of a dataset"},{id:"b",text:"The relationship between two continuous variables"},{id:"c",text:"The frequency distribution of a single variable"},{id:"d",text:"Trends over time"}],correct:"a",explanation:"Box plots show Q1, median, Q3, whiskers (typically 1.5×IQR), and outlier points.",hint:"Think of a box with lines sticking out on both sides."},
+  {id:"q24",prompt:"What do the linear correlation coefficient and covariance both describe?",options:[{id:"a",text:"The relationship/association between two variables"},{id:"b",text:"The spread of a single variable"},{id:"c",text:"The center of a distribution"},{id:"d",text:"The number of outliers"}],correct:"a",explanation:"Covariance shows the direction of a relationship; the correlation coefficient standardizes this to a value between -1 and 1.",hint:"Think about how two variables move together."},
+  {id:"q25",prompt:"What is a scatter plot best used for?",options:[{id:"a",text:"Visualizing the relationship between two numeric variables"},{id:"b",text:"Showing the distribution of a single variable's frequency"},{id:"c",text:"Displaying quartiles and outliers"},{id:"d",text:"Comparing categorical proportions"}],correct:"a",explanation:"Scatter plots show how one variable relates to another, useful for spotting correlation or patterns.",hint:"It has x and y axes with individual points."},
+  {id:"q26",prompt:"What is a histogram used to visualize?",options:[{id:"a",text:"The frequency distribution of a single numeric variable across bins/ranges"},{id:"b",text:"The relationship between two variables"},{id:"c",text:"Only categorical data counts"},{id:"d",text:"Time series trends only"}],correct:"a",explanation:"Histograms group continuous data into bins to show shape, center, and spread of the distribution.",hint:"Bars represent counts within value ranges (bins)."},
+  {id:"q27",prompt:"What is NumPy, at its core?",options:[{id:"a",text:"A Python library for efficient numerical computing, built around array operations"},{id:"b",text:"A visualization library only"},{id:"c",text:"A database management system"},{id:"d",text:"A machine learning framework"}],correct:"a",explanation:"NumPy provides fast, vectorized operations on arrays and underlies many other data science libraries.",hint:"The name itself is a hint — 'Numerical Python'."},
+  {id:"q28",prompt:"What is NumPy's core data structure called?",options:[{id:"a",text:"ndarray"},{id:"b",text:"DataFrame"},{id:"c",text:"Series"},{id:"d",text:"list"}],correct:"a",explanation:"The ndarray (n-dimensional array) is NumPy's fundamental object for storing and operating on numerical data efficiently.",hint:"'n-dimensional array', abbreviated."},
+  {id:"q29",prompt:"How do you typically import NumPy in Python code?",options:[{id:"a",text:"import numpy as np"},{id:"b",text:"include numpy"},{id:"c",text:"require('numpy')"},{id:"d",text:"load numpy"}],correct:"a",explanation:"The conventional alias for NumPy is 'np', used throughout the data science ecosystem.",hint:"There's a very common two-letter alias used."},
+  {id:"q30",prompt:"What is Pandas primarily used for?",options:[{id:"a",text:"Working with labeled, tabular data through structures like DataFrames"},{id:"b",text:"Low-level numerical array math only"},{id:"c",text:"Creating web applications"},{id:"d",text:"3D graphics rendering"}],correct:"a",explanation:"Pandas builds on NumPy to provide DataFrame and Series objects for handling structured, labeled data like spreadsheets.",hint:"Think spreadsheet-like tables in Python."},
+  {id:"q31",prompt:"What does df.head() do?",options:[{id:"a",text:"Shows the first few rows of a DataFrame (default 5)"},{id:"b",text:"Shows summary statistics of numeric columns"},{id:"c",text:"Shows the last few rows of a DataFrame"},{id:"d",text:"Lists column data types and memory usage"}],correct:"a",explanation:"df.head() is a quick way to preview the top of a dataset.",hint:"Think 'top of the table'."},
+  {id:"q32",prompt:"What does df.tail() do?",options:[{id:"a",text:"Shows the last few rows of a DataFrame (default 5)"},{id:"b",text:"Shows the first few rows"},{id:"c",text:"Shows column names"},{id:"d",text:"Shows summary statistics"}],correct:"a",explanation:"df.tail() previews the bottom of the dataset, useful for checking end-of-file data.",hint:"Opposite of head()."},
+  {id:"q33",prompt:"What does df.describe() return?",options:[{id:"a",text:"Summary statistics (count, mean, std, min, max, quartiles) for numeric columns"},{id:"b",text:"The data types of each column"},{id:"c",text:"Just the column names"},{id:"d",text:"The first 5 rows"}],correct:"a",explanation:"df.describe() gives a quick statistical overview of numeric columns.",hint:"This connects directly to descriptive statistics concepts."},
+  {id:"q34",prompt:"What does df.info() show?",options:[{id:"a",text:"Column names, data types, non-null counts, and memory usage"},{id:"b",text:"Only the mean of each column"},{id:"c",text:"A scatter plot of the data"},{id:"d",text:"The correlation matrix"}],correct:"a",explanation:"df.info() gives a structural summary of the DataFrame, helpful for spotting missing data and checking dtypes.",hint:"Think 'structure and data health check'."},
+  {id:"q35",prompt:"What does df.columns return?",options:[{id:"a",text:"An index/list of the column labels in the DataFrame"},{id:"b",text:"The number of rows"},{id:"c",text:"The data types only"},{id:"d",text:"The first row of data"}],correct:"a",explanation:"df.columns gives you the column names, useful for referencing or renaming fields.",hint:"It's about labels, not values."},
+  {id:"r1",prompt:"What is a 'sample data set'?",options:[{id:"a",text:"The actual collected observations/data points drawn from a population"},{id:"b",text:"A theoretical probability distribution"},{id:"c",text:"The full population with no exclusions"},{id:"d",text:"A summary statistic like the mean"}],correct:"a",explanation:"A sample data set is the actual collected subset of observations you analyze, drawn from the larger population.",hint:"This is the raw data you actually have in hand."},
+  {id:"r2",prompt:"What does 'sampling from a population' mean?",options:[{id:"a",text:"The process of selecting a subset of individuals from a population to study"},{id:"b",text:"Calculating the mean of all population values"},{id:"c",text:"Removing outliers from data"},{id:"d",text:"Creating a histogram"}],correct:"a",explanation:"Sampling is the process of choosing a subset from the population, ideally in a way that represents it well.",hint:"It's the process, not the result."},
+  {id:"r3",prompt:"How does the sample mean differ from the population mean?",options:[{id:"a",text:"Sample mean is calculated from a subset and estimates the true population mean, which covers everyone"},{id:"b",text:"They are always exactly equal"},{id:"c",text:"Population mean is calculated from a small subset"},{id:"d",text:"There's no meaningful distinction"}],correct:"a",explanation:"The sample mean (x̄) estimates the population mean (μ); they can differ due to sampling variability.",hint:"One is a Greek letter (μ), the other often uses x-bar."},
+  {id:"r4",prompt:"What is the definition of a random variable?",options:[{id:"a",text:"A variable whose possible values are outcomes of a random phenomenon"},{id:"b",text:"A fixed constant value"},{id:"c",text:"The average of a dataset"},{id:"d",text:"A column name in a spreadsheet"}],correct:"a",explanation:"A random variable assigns numerical values to outcomes of a random process, forming the basis for probability distributions.",hint:"Think 'a variable whose value depends on chance'."},
+  {id:"r5",prompt:"What is meant by NumPy's 'underlying libraries'?",options:[{id:"a",text:"NumPy is built on lower-level, efficient code (like C) and serves as the foundation many other Python data libraries (e.g., Pandas) are built on"},{id:"b",text:"NumPy has no relationship to other libraries"},{id:"c",text:"NumPy replaces the need for Python entirely"},{id:"d",text:"NumPy is only used for web development"}],correct:"a",explanation:"NumPy's core functionality (its C-based array engine) underlies other libraries like Pandas, SciPy, and scikit-learn.",hint:"Think about what other data science libraries are built on top of."},
+  {id:"r6",prompt:"What is a Pandas DataFrame?",options:[{id:"a",text:"A 2-dimensional, labeled table-like data structure with rows and columns"},{id:"b",text:"A single column of numbers only"},{id:"c",text:"A NumPy array with no labels"},{id:"d",text:"A type of plot"}],correct:"a",explanation:"A Pandas DataFrame is a labeled, 2D table structure (rows and columns) for storing and manipulating tabular data.",hint:"Think of it as a table with row and column labels, like a spreadsheet."}
+];
+
+const practiceQuestions = [
+  {id:"p1",prompt:"A researcher measures the height of every student at a university (not just a subset). This complete measurement of the whole group is called a:",options:[{id:"a",text:"Sample"},{id:"b",text:"Census"},{id:"c",text:"Statistic"},{id:"d",text:"Distribution"}],correct:"b",explanation:"A census is when you measure every member of the population rather than a subset (a sample).",hint:"Think about what the government does every 10 years."},
+  {id:"p2",prompt:"A pollster surveys 500 randomly selected voters out of a city of 2 million to estimate opinions. This group of 500 is called the:",options:[{id:"a",text:"Population"},{id:"b",text:"Parameter"},{id:"c",text:"Sample"},{id:"d",text:"Census"}],correct:"c",explanation:"The 500 surveyed voters are a sample — a subset drawn from the larger population of 2 million.",hint:"It's the smaller group actually measured."},
+  {id:"p3",prompt:"In a dataset [3, 7, 7, 8, 10, 12, 50], why is the median a better measure of the 'typical' value than the mean?",options:[{id:"a",text:"The median is always smaller than the mean"},{id:"b",text:"The extreme value (50) pulls the mean upward, but the median is resistant to it"},{id:"c",text:"The mean can't be calculated for this dataset"},{id:"d",text:"The median and mean would be identical here"}],correct:"b",explanation:"Outliers like 50 have a strong effect on the mean because it uses every value, while the median only depends on the middle position.",hint:"Look at the outlier at the end of the list."},
+  {id:"p4",prompt:"For the dataset [1, 2, 2, 3, 3, 3, 4, 5], what is the mode?",options:[{id:"a",text:"3"},{id:"b",text:"2.875"},{id:"c",text:"3.5"},{id:"d",text:"There is no mode"}],correct:"a",explanation:"3 appears three times, more than any other value, making it the mode.",hint:"Count how many times each number appears."},
+  {id:"p5",prompt:"If Q1 = 20 and Q3 = 35 for a dataset, what is the IQR?",options:[{id:"a",text:"55"},{id:"b",text:"15"},{id:"c",text:"17.5"},{id:"d",text:"20"}],correct:"b",explanation:"IQR = Q3 - Q1 = 35 - 20 = 15.",hint:"Subtract, don't add."},
+  {id:"p6",prompt:"Using the 1.5×IQR rule with Q1 = 20, Q3 = 35 (so IQR = 15), which value would be flagged as an outlier?",options:[{id:"a",text:"40"},{id:"b",text:"58"},{id:"c",text:"30"},{id:"d",text:"25"}],correct:"b",explanation:"The upper fence is Q3 + 1.5×IQR = 35 + 22.5 = 57.5, so 58 falls above it and is flagged as an outlier.",hint:"Calculate the upper fence first: Q3 + 1.5×IQR."},
+  {id:"p7",prompt:"A dataset has a mean of 50 and standard deviation of 5. What is the variance?",options:[{id:"a",text:"10"},{id:"b",text:"25"},{id:"c",text:"2.5"},{id:"d",text:"55"}],correct:"b",explanation:"Variance is standard deviation squared: 5² = 25.",hint:"Variance and standard deviation are related by squaring."},
+  {id:"p8",prompt:"A distribution has most of its data bunched on the right side, with a long tail stretching toward lower values on the left. This is called:",options:[{id:"a",text:"Positively skewed"},{id:"b",text:"Negatively skewed"},{id:"c",text:"Normally distributed"},{id:"d",text:"Bimodal"}],correct:"b",explanation:"A long tail pointing toward lower (left) values indicates negative skew, sometimes called left-skewed.",hint:"The tail direction names the skew, not where the bulk of data sits."},
+  {id:"p9",prompt:"The number of cars that pass through a toll booth in a given hour is an example of what type of random variable?",options:[{id:"a",text:"Continuous"},{id:"b",text:"Discrete"},{id:"c",text:"Categorical"},{id:"d",text:"Ordinal"}],correct:"b",explanation:"You can only count cars in whole numbers (0, 1, 2, ...), making this a discrete random variable.",hint:"Can you have half a car pass through?"},
+  {id:"p10",prompt:"The exact amount of rainfall (in inches) recorded in a day is an example of what type of random variable?",options:[{id:"a",text:"Discrete"},{id:"b",text:"Continuous"},{id:"c",text:"Binary"},{id:"d",text:"Nominal"}],correct:"b",explanation:"Rainfall can take any value within a range (e.g., 1.347 inches), making it continuous.",hint:"Can this value be measured to any number of decimal places?"},
+  {id:"p11",prompt:"You flip a fair coin 20 times and count the number of heads. Which distribution models this scenario?",options:[{id:"a",text:"Poisson distribution"},{id:"b",text:"Binomial distribution"},{id:"c",text:"Normal distribution"},{id:"d",text:"Uniform distribution"}],correct:"b",explanation:"A fixed number of independent trials (20 flips), each with two outcomes (heads/tails), is the signature of a binomial distribution.",hint:"Fixed number of trials, two possible outcomes each time."},
+  {id:"p12",prompt:"A call center wants to model how many calls it receives per 15-minute interval. Which distribution is most appropriate?",options:[{id:"a",text:"Poisson distribution"},{id:"b",text:"Binomial distribution"},{id:"c",text:"Normal distribution"},{id:"d",text:"Uniform distribution"}],correct:"a",explanation:"Counting the number of events (calls) in a fixed interval of time is the classic use case for a Poisson distribution.",hint:"This is about counting rare events over a time window."},
+  {id:"p13",prompt:"A random number generator produces a value uniformly between 0 and 100, where every value in that range is equally likely. This describes a:",options:[{id:"a",text:"Normal distribution"},{id:"b",text:"Uniform distribution"},{id:"c",text:"Poisson distribution"},{id:"d",text:"Binomial distribution"}],correct:"b",explanation:"When every outcome across a range is equally likely, that's a uniform distribution.",hint:"The name of the distribution is a strong hint here."},
+  {id:"p14",prompt:"A 95% confidence interval for a population mean is reported as (48, 52). What does this most accurately mean?",options:[{id:"a",text:"There's a 95% chance the true population mean falls between 48 and 52, based on the method used to construct the interval"},{id:"b",text:"95% of the data falls between 48 and 52"},{id:"c",text:"The sample mean is always exactly 50"},{id:"d",text:"The population standard deviation is 48 to 52"}],correct:"a",explanation:"A confidence interval reflects the reliability of the estimation method: if repeated many times, about 95% of such intervals would contain the true population parameter.",hint:"Focus on what the confidence level describes — the method, not a single data point."},
+  {id:"p15",prompt:"A hypothesis test returns a p-value of 0.02, and the significance level (alpha) is 0.05. What is the appropriate conclusion?",options:[{id:"a",text:"Fail to reject the null hypothesis, since 0.02 is small"},{id:"b",text:"Reject the null hypothesis, since the p-value is less than alpha"},{id:"c",text:"The test is inconclusive"},{id:"d",text:"Accept the alternative hypothesis as proven true"}],correct:"b",explanation:"When the p-value is less than the significance level (0.02 < 0.05), there's enough evidence to reject the null hypothesis.",hint:"Compare the p-value directly to alpha."},
+  {id:"p16",prompt:"A researcher has a sample of only 12 observations and does not know the population standard deviation. Which test is most appropriate for comparing means?",options:[{id:"a",text:"z-test"},{id:"b",text:"t-test"},{id:"c",text:"Chi-square test"},{id:"d",text:"ANOVA"}],correct:"b",explanation:"With a small sample size and unknown population standard deviation, the t-test is the appropriate choice.",hint:"Small sample + unknown population SD points to one specific test."},
+  {id:"p17",prompt:"A data point has a z-score of -2.5. What does this tell you?",options:[{id:"a",text:"The value is 2.5 units above the mean"},{id:"b",text:"The value is 2.5 standard deviations below the mean"},{id:"c",text:"The value equals the median"},{id:"d",text:"The value is exactly at the mean"}],correct:"b",explanation:"A negative z-score means the value falls below the mean, and the magnitude (2.5) tells you how many standard deviations away.",hint:"Sign tells direction, magnitude tells distance in SD units."},
+  {id:"p18",prompt:"Which plot would be most useful for visualizing the relationship between hours studied and exam score across many students?",options:[{id:"a",text:"Box-and-whisker plot"},{id:"b",text:"Scatter plot"},{id:"c",text:"Histogram"},{id:"d",text:"Pie chart"}],correct:"b",explanation:"Scatter plots are ideal for visualizing the relationship between two numeric variables, like study hours and exam scores.",hint:"You need to see two variables plotted against each other."},
+  {id:"p19",prompt:"Two variables have a covariance of 45.2. On its own, what is the main limitation of this number?",options:[{id:"a",text:"It doesn't tell you the direction of the relationship"},{id:"b",text:"It's not standardized, so its magnitude is hard to interpret without knowing the variables' units/scale"},{id:"c",text:"It can only be negative"},{id:"d",text:"It only works for categorical data"}],correct:"b",explanation:"Unlike the correlation coefficient (which is standardized between -1 and 1), covariance's magnitude depends on the units of the variables, making it hard to interpret alone.",hint:"Compare this to why we usually convert covariance into a correlation coefficient."},
+  {id:"p20",prompt:"Why does a rule-of-thumb minimum sample size (like n = 30) matter for hypothesis testing and confidence intervals?",options:[{id:"a",text:"It guarantees a p-value below 0.05"},{id:"b",text:"It's the point where the Central Limit Theorem lets the sampling distribution of the mean be treated as approximately normal, even if the population isn't"},{id:"c",text:"It's a legal requirement for all statistical studies"},{id:"d",text:"Smaller samples always give more accurate results"}],correct:"b",explanation:"The Central Limit Theorem states that as sample size grows, the sampling distribution of the mean approaches normality regardless of the population's underlying shape.",hint:"This connects to a famous theorem about sampling distributions."},
+  {id:"p21",prompt:"You write `import numpy as np` at the top of your script. What does the `as np` part do?",options:[{id:"a",text:"Creates an alias so you can call NumPy functions using np. instead of numpy."},{id:"b",text:"Installs the NumPy library"},{id:"c",text:"Converts NumPy arrays to Pandas DataFrames"},{id:"d",text:"Restricts NumPy to only numeric data types"}],correct:"a",explanation:"'as np' aliases the numpy module to the shorter name np, which is the standard convention.",hint:"Think about why nearly everyone types np.array() instead of numpy.array()."},
+  {id:"p22",prompt:"You run `arr = np.array([4, 8, 15, 16, 23, 42])`. What type of object is `arr`?",options:[{id:"a",text:"A Python list"},{id:"b",text:"A NumPy ndarray"},{id:"c",text:"A Pandas Series"},{id:"d",text:"A dictionary"}],correct:"b",explanation:"np.array() constructs NumPy's core data structure, the ndarray (n-dimensional array).",hint:"This is NumPy's fundamental object, mentioned by name in the course material."},
+  {id:"p23",prompt:"You've loaded a spreadsheet into a variable called df and want to quickly preview just the first 3 rows. Which command should you use?",options:[{id:"a",text:"df.describe(3)"},{id:"b",text:"df.head(3)"},{id:"c",text:"df.info(3)"},{id:"d",text:"df.columns(3)"}],correct:"b",explanation:"df.head(n) previews the first n rows of a DataFrame; the default is 5 if no argument is given.",hint:"Think about which method previews the top of a dataset, then pass it a number."},
+  {id:"p24",prompt:"You suspect a large dataset has missing values in some columns and want to quickly see the non-null count and data type for each column. Which method should you call on your DataFrame?",options:[{id:"a",text:"df.describe()"},{id:"b",text:"df.head()"},{id:"c",text:"df.info()"},{id:"d",text:"df.tail()"}],correct:"c",explanation:"df.info() reports column names, dtypes, non-null counts, and memory usage \u2014 ideal for spotting missing data.",hint:"You need structural info about the DataFrame, not the actual values."},
+  {id:"p25",prompt:"You want a quick statistical summary (mean, std, min, max, and quartiles) of every numeric column in a DataFrame called df. Which method gives you this in one call?",options:[{id:"a",text:"df.columns()"},{id:"b",text:"df.describe()"},{id:"c",text:"df.info()"},{id:"d",text:"df.head()"}],correct:"b",explanation:"df.describe() computes descriptive statistics for numeric columns in a single call.",hint:"The method name matches exactly what you're asking for."},
+  {id:"p26",prompt:"Two variables have a correlation coefficient of -0.85. How should this be interpreted?",options:[{id:"a",text:"A strong negative linear relationship \u2014 as one variable increases, the other tends to decrease"},{id:"b",text:"A weak, unreliable relationship"},{id:"c",text:"No relationship exists between the variables"},{id:"d",text:"A strong positive relationship"}],correct:"a",explanation:"Correlation coefficients close to -1 indicate a strong negative linear relationship; close to +1 indicates a strong positive one.",hint:"Look at both the sign and how close the value is to 1 in magnitude."},
+  {id:"p27",prompt:"For a normal distribution, approximately what percentage of data falls within 2 standard deviations of the mean?",options:[{id:"a",text:"50%"},{id:"b",text:"68%"},{id:"c",text:"95%"},{id:"d",text:"99.7%"}],correct:"c",explanation:"This is the empirical rule (68-95-99.7 rule): about 95% of data in a normal distribution falls within 2 standard deviations of the mean.",hint:"This is part of the '68-95-99.7' empirical rule for normal distributions."},
+  {id:"p28",prompt:"All else being equal, if you increase your sample size while keeping the same confidence level, what happens to the width of the confidence interval?",options:[{id:"a",text:"It widens"},{id:"b",text:"It narrows, since larger samples give more precise estimates"},{id:"c",text:"It stays exactly the same"},{id:"d",text:"It becomes impossible to calculate"}],correct:"b",explanation:"Larger samples reduce the standard error of the estimate, producing a narrower, more precise confidence interval.",hint:"Think about how more data affects the precision of an estimate."},
+  {id:"p29",prompt:"A box plot shows a median line positioned close to the bottom of the box, with a whisker extending much farther above the box than below. What does this suggest about the distribution?",options:[{id:"a",text:"It is positively (right) skewed"},{id:"b",text:"It is negatively (left) skewed"},{id:"c",text:"It is perfectly symmetric"},{id:"d",text:"It has no outliers"}],correct:"a",explanation:"A longer whisker/tail extending upward, with the median pulled toward the lower end of the box, indicates positive (right) skew.",hint:"A longer stretch on one side of the box points to skew in that direction."},
+  {id:"p30",prompt:"You calculate the variance of a small sample as 64. What is the standard deviation?",options:[{id:"a",text:"8"},{id:"b",text:"32"},{id:"c",text:"4096"},{id:"d",text:"16"}],correct:"a",explanation:"Standard deviation is the square root of variance: \u221a64 = 8.",hint:"Take the square root of the variance."}
+];
+
+const questions = [...conceptQuestions, ...practiceQuestions];
+
+let mode = 'flash';
+let idx = 0;
+let flipped = false;
+let quizAnswered = null;
+let quizScore = 0;
+let quizDone = 0;
+let order = questions.map((_,i)=>i);
+let quizOptionOrder = {};
+
+function shuffle(arr){
+  for(let i=arr.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+
+function setMode(m){
+  mode = m;
+  idx = 0;
+  flipped = false;
+  quizAnswered = null;
+  quizScore = 0;
+  quizDone = 0;
+  order = shuffle(questions.map((_,i)=>i));
+  quizOptionOrder = {};
+  document.getElementById('btn-flash').classList.toggle('active', m==='flash');
+  document.getElementById('btn-quiz').classList.toggle('active', m==='quiz');
+  render();
+}
+
+function render(){
+  const app = document.getElementById('app');
+  if(mode === 'flash'){
+    renderFlash(app);
+  } else {
+    renderQuiz(app);
+  }
+}
+
+function renderFlash(app){
+  const q = questions[order[idx]];
+  const correctOpt = q.options.find(o=>o.id===q.correct);
+  app.innerHTML = `
+    <div class="progress"><span>Card ${idx+1} of ${questions.length}</span><span>Tap card to flip</span></div>
+    <div class="progress-bar"><div class="progress-fill" style="width:${((idx+1)/questions.length)*100}%"></div></div>
+    <div class="card" onclick="toggleFlip()">
+      ${!flipped ? `
+        <div class="card-label">Question</div>
+        <div class="card-content">${q.prompt}</div>
+        <div class="card-hint">Hint: ${q.hint}</div>
+        <div class="tap-hint">Tap to reveal answer</div>
+      ` : `
+        <div class="card-label">Answer</div>
+        <div class="card-content">${correctOpt.text}</div>
+        <div class="card-explain">${q.explanation}</div>
+        <div class="tap-hint">Tap to flip back</div>
+      `}
+    </div>
+    <div class="navbar">
+      <button onclick="prevCard()" ${idx===0?'disabled':''}>Previous</button>
+      <button onclick="nextCard()" ${idx===questions.length-1?'disabled':''}>Next</button>
+    </div>
+    <div class="topbtn"><button onclick="shuffleCards()">Shuffle deck</button></div>
+  `;
+}
+
+function toggleFlip(){ flipped = !flipped; render(); }
+function nextCard(){ if(idx<questions.length-1){ idx++; flipped=false; render(); } }
+function prevCard(){ if(idx>0){ idx--; flipped=false; render(); } }
+function shuffleCards(){ order = shuffle(questions.map((_,i)=>i)); idx=0; flipped=false; render(); }
+
+function renderQuiz(app){
+  if(idx >= questions.length){
+    app.innerHTML = `
+      <div class="score-screen">
+        <div class="card-label">Quiz complete</div>
+        <div class="score-num">${quizScore} / ${questions.length}</div>
+        <div style="color:var(--muted);font-size:14px;">${Math.round((quizScore/questions.length)*100)}% correct</div>
+        <button class="restart" onclick="setMode('quiz')">Try again</button>
+      </div>
+    `;
+    return;
+  }
+  const q = questions[order[idx]];
+  if(!quizOptionOrder[q.id]){
+    quizOptionOrder[q.id] = shuffle(q.options.map(o=>o.id));
+  }
+  const displayOptions = quizOptionOrder[q.id].map(id => q.options.find(o=>o.id===id));
+  app.innerHTML = `
+    <div class="progress"><span>Question ${idx+1} of ${questions.length}</span><span>Score: ${quizScore}</span></div>
+    <div class="progress-bar"><div class="progress-fill" style="width:${(idx/questions.length)*100}%"></div></div>
+    <div class="quiz-question">${q.prompt}</div>
+    <div class="options" id="options-container">
+      ${displayOptions.map(o => `<div class="option" data-id="${o.id}" onclick="answer('${o.id}')">${o.text}</div>`).join('')}
+    </div>
+    <div id="feedback-area"></div>
+    ${quizAnswered ? `<div class="navbar"><button onclick="nextQuiz()">${idx===questions.length-1?'See results':'Next question'}</button></div>` : ''}
+  `;
+  if(quizAnswered){
+    document.querySelectorAll('.option').forEach(el=>{
+      el.classList.add('disabled');
+      if(el.dataset.id === q.correct) el.classList.add('correct');
+      if(el.dataset.id === quizAnswered && quizAnswered !== q.correct) el.classList.add('incorrect');
+    });
+    const fb = document.getElementById('feedback-area');
+    const isCorrect = quizAnswered === q.correct;
+    fb.innerHTML = `<div class="feedback ${isCorrect?'good':'bad'}"><b>${isCorrect?"That's right.":"Not quite."}</b> ${q.explanation}</div>`;
+  }
+}
+
+function answer(optId){
+  if(quizAnswered) return;
+  quizAnswered = optId;
+  if(optId === questions[order[idx]].correct) quizScore++;
+  render();
+}
+
+function nextQuiz(){
+  idx++;
+  quizAnswered = null;
+  render();
+}
+
+setMode('flash');
+</script>
+</body>
+</html>
