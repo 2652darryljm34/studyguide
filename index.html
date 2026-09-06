@@ -18,6 +18,19 @@
     --bad: #a32d2d;
     --bad-bg: #fcebeb;
   }
+  [data-theme="dark"] {
+    --bg: #1a1918;
+    --card: #26241f;
+    --border: #3d3b35;
+    --text: #ece9e1;
+    --muted: #9a978d;
+    --accent: #6fb0ea;
+    --accent-bg: #1e3448;
+    --good: #6fd6ae;
+    --good-bg: #123a2e;
+    --bad: #f0928f;
+    --bad-bg: #442020;
+  }
   * { box-sizing: border-box; }
   body {
     margin: 0;
@@ -25,6 +38,24 @@
     background: var(--bg);
     color: var(--text);
     padding: 24px 16px 64px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .theme-toggle {
+    flex-shrink: 0;
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    font-size: 13px;
+    cursor: pointer;
+    white-space: nowrap;
   }
   .wrap {
     max-width: 640px;
@@ -222,8 +253,13 @@
 </head>
 <body>
 <div class="wrap">
-  <h1>Stats & Data Tools Review</h1>
-  <p class="subtitle">Definitions, terminology, and calculation-style scenario questions covering the full syllabus — 71 cards</p>
+  <div class="header-row">
+    <div>
+      <h1>Stats & Data Tools Review</h1>
+      <p class="subtitle">Definitions, terminology, and calculation-style scenario questions covering the full syllabus — 71 cards</p>
+    </div>
+    <button class="theme-toggle" id="theme-toggle-btn" onclick="toggleTheme()">Dark mode</button>
+  </div>
 
   <div class="modebar">
     <button id="btn-flash" class="active" onclick="setMode('flash')">Flashcards</button>
@@ -312,6 +348,30 @@ const practiceQuestions = [
 ];
 
 const questions = [...conceptQuestions, ...practiceQuestions];
+
+function applyTheme(theme){
+  document.documentElement.setAttribute('data-theme', theme);
+  const btn = document.getElementById('theme-toggle-btn');
+  if(btn) btn.textContent = theme === 'dark' ? 'Light mode' : 'Dark mode';
+  try { localStorage.setItem('stats-quiz-theme', theme); } catch(e) {}
+}
+
+function toggleTheme(){
+  const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  applyTheme(current === 'dark' ? 'light' : 'dark');
+}
+
+(function initTheme(){
+  let saved = null;
+  try { saved = localStorage.getItem('stats-quiz-theme'); } catch(e) {}
+  if(saved === 'dark' || saved === 'light'){
+    applyTheme(saved);
+  } else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){
+    applyTheme('dark');
+  } else {
+    applyTheme('light');
+  }
+})();
 
 let mode = 'flash';
 let idx = 0;
