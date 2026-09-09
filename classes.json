@@ -1,0 +1,17 @@
+{
+  "classes": [
+    {
+      "id": "itd256",
+      "name": "ITD 256",
+      "fullName": "Advanced Database Design and Management",
+      "quizzes": [
+        {
+          "id": "midterm-review",
+          "title": "Midterm Review",
+          "description": "Database fundamentals, data models, ER modeling, keys, normalization, and SQL.",
+          "file": "data/itd256-midterm-review.json"
+        }
+      ]
+    }
+  ]
+}

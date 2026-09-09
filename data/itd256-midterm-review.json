@@ -1,0 +1,477 @@
+{
+  "title": "ITD 256 Midterm Review",
+  "description": "Matches the exam structure: theory & SQL, ERD completion, and normalization/dependency sets.",
+  "sections": [
+    {
+      "name": "Theory & SQL",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Multiple Choice",
+          "question": "In the file/database terminology hierarchy, what is a 'field' also known as?",
+          "options": [
+            "Attribute",
+            "Entity instance",
+            "Record",
+            "Relation"
+          ],
+          "correct": 0,
+          "explanation": "A field is a character or group of characters with specific meaning, also known as an attribute."
+        },
+        {
+          "type": "mc",
+          "category": "Multiple Choice",
+          "question": "A logically connected set of fields that describes a person, place, or thing is called a:",
+          "options": [
+            "File",
+            "Record",
+            "Schema",
+            "Domain"
+          ],
+          "correct": 1,
+          "explanation": "A record is a logically connected set of one or more fields describing a person, place, or thing (also called an entity instance)."
+        },
+        {
+          "type": "mc",
+          "category": "Multiple Choice",
+          "question": "Which type of data exists in its original, raw state with no formatting applied?",
+          "options": [
+            "Structured data",
+            "Semistructured data",
+            "Unstructured data",
+            "Normalized data"
+          ],
+          "correct": 2,
+          "explanation": "Unstructured data exists in its original (raw) state, before any structure/formatting has been applied."
+        },
+        {
+          "type": "mc",
+          "category": "Multiple Choice",
+          "question": "A database created and maintained via a cloud service, with defined performance measures, is classified as a:",
+          "options": [
+            "Centralized database",
+            "Cloud database",
+            "Distributed database",
+            "Data warehouse"
+          ],
+          "correct": 1,
+          "explanation": "Classification by location includes centralized, distributed, and cloud databases; a cloud database is created and maintained with cloud services."
+        },
+        {
+          "type": "mc",
+          "category": "Multiple Choice",
+          "question": "Which term describes tools used to retrieve, process, and model data from a data warehouse to support decision making?",
+          "options": [
+            "Business intelligence",
+            "Online analytical processing (OLAP)",
+            "Data dictionary",
+            "Data mining"
+          ],
+          "correct": 1,
+          "explanation": "OLAP refers to tools used to retrieve, process, and model data from a data warehouse."
+        },
+        {
+          "type": "mc",
+          "category": "Multiple Choice",
+          "question": "Which DBMS function is responsible for storing definitions of data elements and their relationships?",
+          "options": [
+            "Data dictionary management",
+            "Data storage management",
+            "Security management",
+            "Backup and recovery management"
+          ],
+          "correct": 0,
+          "explanation": "Data dictionary management stores the definitions of data elements and their relationships in the data dictionary."
+        },
+        {
+          "type": "mc",
+          "category": "Multiple Choice",
+          "question": "A natural key is best described as:",
+          "options": [
+            "An artificially made-up identifier such as an auto-number",
+            "A real-world identifier that already uniquely identifies real-world objects",
+            "A key composed of multiple attributes",
+            "A key used strictly for data retrieval"
+          ],
+          "correct": 1,
+          "explanation": "A natural key (or natural identifier) is a real-world identifier already familiar to end users that uniquely identifies real-world objects."
+        },
+        {
+          "type": "mc",
+          "category": "Multiple Choice",
+          "question": "A surrogate primary key is especially useful when:",
+          "options": [
+            "There's an obvious short natural key available",
+            "The primary key would otherwise be composite with multiple data types, or too long to be usable",
+            "The table has no foreign keys",
+            "The table only has one row"
+          ],
+          "correct": 1,
+          "explanation": "Surrogate keys are useful when no natural key is suitable, when the primary key would be composite with multiple data types, or when it would be too long to be usable."
+        },
+        {
+          "type": "mc",
+          "category": "Multiple Choice",
+          "question": "A candidate key is defined as:",
+          "options": [
+            "Any attribute in a table",
+            "A minimal superkey",
+            "A foreign key in another table",
+            "A key that allows nulls"
+          ],
+          "correct": 1,
+          "explanation": "A candidate key is a minimal superkey \u2014 a superkey with no unnecessary attributes."
+        },
+        {
+          "type": "mc",
+          "category": "Multiple Choice",
+          "question": "Which career role focuses on managing and maintaining the DBMS and databases day to day?",
+          "options": [
+            "Database Analyst",
+            "Database Administrator",
+            "Database Architect",
+            "Data Scientist"
+          ],
+          "correct": 1,
+          "explanation": "The Database Administrator manages and maintains the DBMS and databases, requiring database fundamentals, SQL, and vendor courses."
+        },
+        {
+          "type": "tf",
+          "category": "True / False",
+          "question": "In a relational database, the order of rows and columns does not matter to the DBMS.",
+          "correct": true,
+          "explanation": "One of the defining characteristics of a relational table is that row/column order is irrelevant to the DBMS."
+        },
+        {
+          "type": "tf",
+          "category": "True / False",
+          "question": "A foreign key value must always match an existing primary key value in the related table and can never be null.",
+          "correct": false,
+          "explanation": "Referential integrity allows a foreign key to be either null or a value matching an existing primary key \u2014 it doesn't have to match."
+        },
+        {
+          "type": "tf",
+          "category": "True / False",
+          "question": "SQL's NATURAL JOIN automatically matches columns with identical names and compatible data types, without needing an ON or USING clause.",
+          "correct": true,
+          "explanation": "NATURAL JOIN determines common attributes itself by finding identically-named, compatible-type columns."
+        },
+        {
+          "type": "tf",
+          "category": "True / False",
+          "question": "Second normal form (2NF) requires eliminating transitive dependencies.",
+          "correct": false,
+          "explanation": "Eliminating transitive dependencies is the requirement for 3NF. 2NF requires eliminating partial dependencies."
+        },
+        {
+          "type": "tf",
+          "category": "True / False",
+          "question": "The HAVING clause filters individual rows before they are grouped by GROUP BY.",
+          "correct": false,
+          "explanation": "WHERE filters individual rows before grouping; HAVING filters the groups that GROUP BY already formed."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Fill in the Blank",
+          "question": "The SQL clause used to filter groups after GROUP BY is called ______.",
+          "answers": [
+            "HAVING"
+          ],
+          "explanation": "HAVING filters groups formed by GROUP BY, based on aggregate conditions."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Fill in the Blank",
+          "question": "A key composed of more than one attribute is called a ______ key.",
+          "answers": [
+            "composite"
+          ],
+          "explanation": "A composite key is made up of multiple attributes working together to uniquely identify a row."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Fill in the Blank",
+          "question": "______ integrity requires that every foreign key value be either null or match an existing primary key value in the related table.",
+          "answers": [
+            "referential"
+          ],
+          "explanation": "Referential integrity governs the validity of foreign key references between tables."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Fill in the Blank",
+          "question": "The acronym CRUD stands for Create, Read, ______, and Delete.",
+          "answers": [
+            "update"
+          ],
+          "explanation": "CRUD maps to INSERT (Create), SELECT (Read), UPDATE, and DELETE."
+        },
+        {
+          "type": "matching",
+          "category": "Matching",
+          "question": "Match each file/database term to its definition.",
+          "pairs": [
+            {
+              "left": "Field",
+              "right": "Character(s) with specific meaning; also called an attribute"
+            },
+            {
+              "left": "Record",
+              "right": "Set of related fields describing a person, place, or thing"
+            },
+            {
+              "left": "Table (DBMS)",
+              "right": "Collection of related records; also called an entity"
+            },
+            {
+              "left": "Data",
+              "right": "Raw facts with little meaning until organized"
+            }
+          ],
+          "explanation": "This mirrors Table 1.2's basic file terminology: data, field, record, and table build on one another."
+        },
+        {
+          "type": "matching",
+          "category": "Matching",
+          "question": "Match each SQL command category to what it's used for.",
+          "pairs": [
+            {
+              "left": "DDL",
+              "right": "Defines database structure (CREATE, ALTER, DROP)"
+            },
+            {
+              "left": "DML",
+              "right": "Manipulates data (INSERT, UPDATE, DELETE, SELECT)"
+            },
+            {
+              "left": "TCL",
+              "right": "Controls transactions (COMMIT, ROLLBACK)"
+            },
+            {
+              "left": "DCL",
+              "right": "Controls data access permissions"
+            }
+          ],
+          "explanation": "SQL functions fall into four categories: DDL, DML, TCL, and DCL."
+        },
+        {
+          "type": "short_answer",
+          "category": "SQL Writing",
+          "question": "Write a query to select all columns from the film table.",
+          "modelAnswer": "SELECT * FROM film;",
+          "explanation": "SELECT * returns every column; no WHERE clause means every row too."
+        },
+        {
+          "type": "short_answer",
+          "category": "SQL Writing",
+          "question": "Write a query to select the title and rental_rate columns from film, but only for rows where rental_rate is greater than 4.",
+          "modelAnswer": "SELECT title, rental_rate\nFROM film\nWHERE rental_rate > 4;",
+          "explanation": "SELECT names the columns you want; WHERE restricts which rows qualify."
+        },
+        {
+          "type": "short_answer",
+          "category": "SQL Writing",
+          "question": "Complete this query to count how many customers are in the customer table:\n\nSELECT ____ FROM customer;",
+          "modelAnswer": "SELECT COUNT(*) FROM customer;",
+          "explanation": "COUNT(*) is an aggregate function that reduces all matching rows to a single count."
+        },
+        {
+          "type": "short_answer",
+          "category": "SQL Writing",
+          "question": "Write a query using DISTINCT to list the unique rating values from the film table.",
+          "modelAnswer": "SELECT DISTINCT rating\nFROM film;",
+          "explanation": "DISTINCT removes duplicate values so each rating appears only once."
+        },
+        {
+          "type": "short_answer",
+          "category": "SQL Writing",
+          "question": "Write a query that joins film, film_category (using film_id), and category (using category_id) to list the titles of films where category.name = 'Comedy'.",
+          "modelAnswer": "SELECT title\nFROM film\nINNER JOIN film_category USING (film_id)\nINNER JOIN category USING (category_id)\nWHERE category.name = 'Comedy';",
+          "explanation": "Chaining two INNER JOIN ... USING clauses links all three tables through their shared key columns."
+        }
+      ]
+    },
+    {
+      "name": "ERD Completion",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "ERD",
+          "question": "A business rule states: \"A CUSTOMER can place many ORDERS, but each ORDER is placed by exactly one CUSTOMER.\" What is the cardinality between CUSTOMER and ORDER?",
+          "options": [
+            "1:1",
+            "1:M",
+            "M:N",
+            "0:1"
+          ],
+          "correct": 1,
+          "explanation": "One customer relates to many orders, while each order relates to only one customer \u2014 a classic 1:M relationship."
+        },
+        {
+          "type": "fill_blank",
+          "category": "ERD",
+          "question": "In Crow's Foot notation, a relationship in which an entity does not have to participate is called ______ participation.",
+          "answers": [
+            "optional"
+          ],
+          "explanation": "Optional participation (shown with a circle) means an entity instance doesn't need a related row on the other side; mandatory participation requires one."
+        },
+        {
+          "type": "mc",
+          "category": "ERD",
+          "question": "In Crow's Foot notation, which symbol pair represents \"one and only one\" (mandatory one)?",
+          "options": [
+            "Two parallel lines (double hash marks)",
+            "A circle plus a single line",
+            "A single line plus a crow's foot",
+            "A circle plus a crow's foot"
+          ],
+          "correct": 0,
+          "explanation": "Two parallel lines mean mandatory one. A circle adds \"optional,\" and a crow's foot adds \"many.\""
+        },
+        {
+          "type": "mc",
+          "category": "ERD",
+          "question": "On an ERD, where does the foreign key go for a 1:M relationship between CUSTOMER (1) and ORDER (M)?",
+          "options": [
+            "In the CUSTOMER table, referencing ORDER's primary key",
+            "In the ORDER table, referencing CUSTOMER's primary key",
+            "In a separate bridge table",
+            "Foreign keys aren't needed for 1:M relationships"
+          ],
+          "correct": 1,
+          "explanation": "The foreign key always goes on the \"many\" side of a 1:M relationship, referencing the primary key on the \"one\" side."
+        },
+        {
+          "type": "fill_blank",
+          "category": "ERD",
+          "question": "Business rule: \"One PROFESSOR teaches many CLASSes, but a CLASS is taught by only one PROFESSOR.\" The foreign key PROFESSOR_ID would be placed in the ______ table.",
+          "answers": [
+            "class",
+            "classes"
+          ],
+          "explanation": "CLASS is on the \"many\" side of this 1:M relationship, so it holds PROFESSOR_ID as a foreign key."
+        },
+        {
+          "type": "mc",
+          "category": "ERD",
+          "question": "Business rule: STUDENTs can enroll in many CLASSes, and each CLASS can have many STUDENTs. How should this be modeled on the ERD?",
+          "options": [
+            "Put a foreign key in the STUDENT table",
+            "Put a foreign key in the CLASS table",
+            "Create a composite/bridge entity holding both primary keys as foreign keys",
+            "Merge STUDENT and CLASS into one table"
+          ],
+          "correct": 2,
+          "explanation": "M:N relationships require a bridge (associative) entity containing both related primary keys as foreign keys."
+        },
+        {
+          "type": "mc",
+          "category": "ERD",
+          "question": "On a completed ERD, an entity's primary key is typically shown:",
+          "options": [
+            "Below a horizontal line inside the entity box",
+            "At the top of the attribute list, often underlined or above a dividing line",
+            "Outside the entity box entirely",
+            "It is never shown on an ERD"
+          ],
+          "correct": 1,
+          "explanation": "Primary key attributes are conventionally listed first (and marked, e.g. underlined) at the top of the entity box."
+        },
+        {
+          "type": "fill_blank",
+          "category": "ERD",
+          "question": "An attribute in an entity box that is neither the primary key nor a foreign key is simply called a ______ attribute.",
+          "answers": [
+            "descriptive",
+            "non-key",
+            "nonkey",
+            "regular"
+          ],
+          "explanation": "Descriptive (non-key) attributes describe the entity but don't participate in identifying rows or linking tables."
+        }
+      ]
+    },
+    {
+      "name": "Normalization & Dependency Sets",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Normalization",
+          "question": "A table is in 1NF, has no partial dependencies, but one non-key attribute (STU_HRS) determines another non-key attribute (STU_CLASS). What's the highest normal form this table currently satisfies?",
+          "options": [
+            "1NF",
+            "2NF",
+            "3NF",
+            "BCNF"
+          ],
+          "correct": 1,
+          "explanation": "No partial dependency means it clears 2NF, but a dependency between two non-key attributes is a transitive dependency, which violates 3NF."
+        },
+        {
+          "type": "short_answer",
+          "category": "Dependency Analysis",
+          "question": "An ASSIGNMENT table (1NF) has composite primary key (PROJ_NUM, EMP_NUM) and attributes PROJ_NAME, EMP_NAME, JOB_CLASS, CHG_HOUR, and HOURS, where:\n\u2022 PROJ_NUM determines PROJ_NAME\n\u2022 EMP_NUM determines EMP_NAME, JOB_CLASS, and CHG_HOUR\n\u2022 the full composite key determines HOURS\n\nWrite out the dependency set for this table, and label each dependency as partial or full.",
+          "modelAnswer": "PROJ_NUM -> PROJ_NAME  (partial dependency)\nEMP_NUM -> EMP_NAME, JOB_CLASS, CHG_HOUR  (partial dependency)\n(PROJ_NUM, EMP_NUM) -> HOURS  (full functional dependency on the composite key)",
+          "explanation": "A dependency is 'partial' when the determinant is only part of the composite key; it's 'full' when the whole composite key is required to determine the attribute."
+        },
+        {
+          "type": "short_answer",
+          "category": "Dependency Analysis",
+          "question": "Using the dependency set above, decompose the ASSIGNMENT table into 2NF. List the resulting tables with their attributes, underlining each primary key.",
+          "modelAnswer": "PROJECT(PROJ_NUM, PROJ_NAME)\nEMPLOYEE(EMP_NUM, EMP_NAME, JOB_CLASS, CHG_HOUR)\nASSIGNMENT(PROJ_NUM, EMP_NUM, HOURS)",
+          "explanation": "2NF removes partial dependencies by moving each into its own table, keyed on its determinant, and keeping the composite-key fact (HOURS) in the original bridge table."
+        },
+        {
+          "type": "mc",
+          "category": "Normalization",
+          "question": "In the 2NF EMPLOYEE table above, EMP_NUM determines JOB_CLASS, and JOB_CLASS determines CHG_HOUR. What kind of dependency is EMP_NUM -> CHG_HOUR?",
+          "options": [
+            "Partial dependency",
+            "Transitive dependency",
+            "Full functional dependency only",
+            "No dependency exists"
+          ],
+          "correct": 1,
+          "explanation": "CHG_HOUR depends on EMP_NUM only indirectly, through JOB_CLASS \u2014 that's the definition of a transitive dependency."
+        },
+        {
+          "type": "short_answer",
+          "category": "Dependency Analysis",
+          "question": "Continue the decomposition to 3NF by removing the transitive dependency identified above. List all resulting tables.",
+          "modelAnswer": "EMPLOYEE(EMP_NUM, EMP_NAME, JOB_CLASS)\nJOB(JOB_CLASS, CHG_HOUR)\nPROJECT(PROJ_NUM, PROJ_NAME)\nASSIGNMENT(PROJ_NUM, EMP_NUM, HOURS)",
+          "explanation": "Splitting JOB_CLASS/CHG_HOUR into its own JOB table removes the transitive dependency, leaving every table in 3NF."
+        },
+        {
+          "type": "tf",
+          "category": "True / False",
+          "question": "Denormalization is done to reduce data redundancy at the cost of processing speed.",
+          "correct": false,
+          "explanation": "It's the opposite: denormalization increases redundancy but can improve processing speed by reducing the number of joins needed."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Fill in the Blank",
+          "question": "A dependency in which a non-key attribute depends on another non-key attribute (rather than directly on the primary key) is called a ______ dependency.",
+          "answers": [
+            "transitive"
+          ],
+          "explanation": "Transitive dependencies are what 3NF eliminates."
+        },
+        {
+          "type": "mc",
+          "category": "Normalization",
+          "question": "Which of these correctly summarizes the requirement for 3NF?",
+          "options": [
+            "In 1NF, with no partial dependencies",
+            "In 2NF, with no transitive dependencies",
+            "Every determinant is a candidate key",
+            "No repeating groups exist anywhere in the database"
+          ],
+          "correct": 1,
+          "explanation": "3NF builds on 2NF by additionally requiring the elimination of transitive dependencies."
+        }
+      ]
+    }
+  ]
+}
