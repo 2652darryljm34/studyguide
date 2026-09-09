@@ -553,6 +553,76 @@
             "Dates written as 'YYYY-MM-DD' strings in the correct order (start, then end)"
           ],
           "explanation": "BETWEEN...AND... is inclusive of both endpoints and reads more clearly than chaining >= and <=."
+        },
+        {
+          "type": "mc",
+          "category": "Multiple Choice",
+          "question": "In data modeling, an 'entity' represents a:",
+          "options": [
+            "Characteristic of a person, place, thing, or event",
+            "Person, place, thing, or event itself",
+            "Restriction placed on data",
+            "Association among two or more entities"
+          ],
+          "correct": 1,
+          "explanation": "Entity = person, place, thing, or event. Attribute = a characteristic of an entity. Relationship = association among entities. Constraint = a restriction on data."
+        },
+        {
+          "type": "matching",
+          "category": "Matching",
+          "question": "Match each DBMS function to what it does.",
+          "pairs": [
+            {
+              "left": "Security management",
+              "right": "Enforces user security and data privacy"
+            },
+            {
+              "left": "Multiuser access control",
+              "right": "Lets multiple users access the database concurrently without compromising integrity"
+            },
+            {
+              "left": "Backup and recovery management",
+              "right": "Enables recovery of the database after a failure"
+            },
+            {
+              "left": "Data integrity management",
+              "right": "Minimizes redundancy and maximizes consistency"
+            }
+          ],
+          "explanation": "Along with data dictionary management, these are among the core functions a DBMS performs."
+        },
+        {
+          "type": "mc",
+          "category": "Multiple Choice",
+          "question": "In the object-oriented data model, a 'class' is analogous to which relational-model concept?",
+          "options": [
+            "A record",
+            "An entity or table",
+            "A foreign key",
+            "A dependency diagram"
+          ],
+          "correct": 1,
+          "explanation": "A class (a collection of similar objects with shared structure and behavior) is analogous to an entity/table in the relational model; an individual object is analogous to a record."
+        },
+        {
+          "type": "mc",
+          "category": "Multiple Choice",
+          "question": "In a database, a NULL value represents:",
+          "options": [
+            "The number zero",
+            "An empty text string",
+            "The absence of any data value — unknown, missing, or not applicable",
+            "A data-entry error that must be corrected"
+          ],
+          "correct": 2,
+          "explanation": "NULL means the absence of a data value: it could be unknown, known but missing, or simply inapplicable — it is not the same as zero or an empty string."
+        },
+        {
+          "type": "tf",
+          "category": "True / False",
+          "question": "At the conceptual (entity-relationship) level, a many-to-many (M:N) relationship is invalid and must always be resolved into a bridge entity before the ERD can even be drawn.",
+          "correct": false,
+          "explanation": "M:N relationships are valid at the conceptual/ERD level. A bridge (composite) entity is only required when moving to the logical or physical implementation, since relational tables can't directly implement M:N relationships."
         }
       ]
     },
@@ -756,6 +826,155 @@
             "regular"
           ],
           "explanation": "Descriptive (non-key) attributes describe the entity but don't participate in identifying rows or linking tables."
+        },
+        {
+          "type": "mc",
+          "category": "ERD",
+          "question": "Business rule: \"A BOOK may be written by one or more AUTHORs, and an AUTHOR may write one or more BOOKs.\" What is the cardinality between BOOK and AUTHOR?",
+          "options": [
+            "1:1",
+            "1:M",
+            "M:N",
+            "0:1"
+          ],
+          "correct": 2,
+          "explanation": "Each side can relate to many of the other (a book can have several authors, an author can write several books) — that's a many-to-many relationship."
+        },
+        {
+          "type": "mc",
+          "category": "ERD",
+          "question": "Same BOOK/AUTHOR business rule (\"one or more\" on both sides). Looking from BOOK toward AUTHOR, which connector belongs on the AUTHOR end?",
+          "options": [
+            "Connector E (double bar) — one and only one",
+            "Connector B (bar + crow's foot) — one or many",
+            "Connector C (circle + crow's foot) — zero or many",
+            "Connector F (circle + bar) — zero or one"
+          ],
+          "correct": 1,
+          "explanation": "\"One or more\" means mandatory participation with a maximum of many — connector B (bar + crow's foot) on both ends of an M:N relationship like this one."
+        },
+        {
+          "type": "fill_blank",
+          "category": "ERD",
+          "question": "To implement the BOOK/AUTHOR M:N relationship above, you'd create a bridge entity (e.g. BOOK_AUTHOR) holding BOOK_ID and AUTHOR_ID as foreign keys. Together, those two foreign keys would form the bridge entity's ______ primary key.",
+          "answers": [
+            "composite"
+          ],
+          "explanation": "As with the STUDENT/CLASS bridge entity, an M:N bridge entity's primary key is a composite of the two foreign keys it holds."
+        },
+        {
+          "type": "mc",
+          "category": "ERD",
+          "question": "Business rules: \"Each CUSTOMER must be assigned to exactly one SALES_REP. A SALES_REP may currently have zero assigned CUSTOMERs, or may have many.\" Looking from CUSTOMER toward SALES_REP, which connector belongs on the SALES_REP end?",
+          "options": [
+            "Connector E (double bar) — one and only one",
+            "Connector C (circle + crow's foot) — zero or many",
+            "Connector B (bar + crow's foot) — one or many",
+            "Connector F (circle + bar) — zero or one"
+          ],
+          "correct": 0,
+          "explanation": "Each CUSTOMER must be assigned to exactly one SALES_REP — mandatory, maximum one — so the SALES_REP end gets connector E."
+        },
+        {
+          "type": "mc",
+          "category": "ERD",
+          "question": "Same business rules as above. Looking from SALES_REP toward CUSTOMER, which connector belongs on the CUSTOMER end?",
+          "options": [
+            "Connector E (double bar) — one and only one",
+            "Connector F (circle + bar) — zero or one",
+            "Connector C (circle + crow's foot) — zero or many",
+            "Connector B (bar + crow's foot) — one or many"
+          ],
+          "correct": 2,
+          "explanation": "A SALES_REP might have zero customers (optional) but could have many, so the CUSTOMER end gets connector C (optional many)."
+        },
+        {
+          "type": "fill_blank",
+          "category": "ERD",
+          "question": "In the CUSTOMER/SALES_REP business rules above, the foreign key SALES_REP_ID would be placed in the ______ table.",
+          "answers": [
+            "customer",
+            "customers"
+          ],
+          "explanation": "CUSTOMER is on the \"many\" side of this 1:M relationship, so it holds SALES_REP_ID as a foreign key."
+        },
+        {
+          "type": "mc",
+          "category": "ERD Notation",
+          "question": "Using the Connector Options legend, which letter represents \"zero or one\" (optional one)?",
+          "options": [
+            "Connector F (circle + single bar)",
+            "Connector D (single bar only)",
+            "Connector C (circle + crow's foot)",
+            "Connector E (double bar)"
+          ],
+          "correct": 0,
+          "explanation": "A circle paired with a single bar means optional (zero) participation with a maximum of one — connector F."
+        },
+        {
+          "type": "mc",
+          "category": "ERD Notation",
+          "question": "Using the Connector Options legend, which letter represents \"one or many\" (mandatory many)?",
+          "options": [
+            "Connector A (crow's foot only)",
+            "Connector C (circle + crow's foot)",
+            "Connector B (bar + crow's foot)",
+            "Connector D (single bar only)"
+          ],
+          "correct": 2,
+          "explanation": "A single bar paired with a crow's foot means mandatory (at least one) participation with a maximum of many — connector B."
+        },
+        {
+          "type": "mc",
+          "category": "ERD Notation",
+          "question": "In Crow's Foot notation, cardinality (one vs. many) is shown by a single line vs. a crow's foot. What indicates participation (mandatory vs. optional)?",
+          "options": [
+            "A double bar (mandatory) vs. a circle (optional)",
+            "A single bar (mandatory) vs. a double bar (optional)",
+            "A crow's foot (mandatory) vs. a circle (optional)",
+            "Bold text (mandatory) vs. italic text (optional)"
+          ],
+          "correct": 0,
+          "explanation": "Participation is layered on top of the cardinality mark: a double bar means mandatory, a circle means optional."
+        },
+        {
+          "type": "mc",
+          "category": "ERD",
+          "question": "Echoing the professor's own example ERD: \"A PATIENT must be assigned to exactly one ROOM. A ROOM may currently be empty, or may have exactly one PATIENT assigned.\" What is the cardinality between PATIENT and ROOM?",
+          "options": [
+            "1:1",
+            "1:M",
+            "M:N",
+            "0:M"
+          ],
+          "correct": 0,
+          "explanation": "Each patient has exactly one room, and each room has at most one patient — a one-to-one relationship, just with different participation on each side."
+        },
+        {
+          "type": "mc",
+          "category": "ERD",
+          "question": "Same PATIENT/ROOM business rules. Looking from PATIENT toward ROOM, which connector belongs on the ROOM end (a room may be empty, or have exactly one patient)?",
+          "options": [
+            "Connector E (double bar) — one and only one",
+            "Connector F (circle + bar) — zero or one",
+            "Connector C (circle + crow's foot) — zero or many",
+            "Connector B (bar + crow's foot) — one or many"
+          ],
+          "correct": 1,
+          "explanation": "A ROOM's participation is optional (it may be empty) with a maximum of one patient — connector F (circle + single bar)."
+        },
+        {
+          "type": "mc",
+          "category": "ERD",
+          "question": "For the STUDENT/CLASS M:N relationship, once you introduce the ENROLLMENT bridge entity, the relationship from ENROLLMENT back to STUDENT (and back to CLASS) is best described as:",
+          "options": [
+            "Still M:N — bridge entities don't change the relationship type",
+            "A 1:1 relationship, since ENROLLMENT only ever links two rows",
+            "A mandatory 1:M relationship, with ENROLLMENT on the \"many\" side of each",
+            "No relationship exists between ENROLLMENT and its parent entities"
+          ],
+          "correct": 2,
+          "explanation": "A bridge entity converts one M:N relationship into two 1:M relationships: STUDENT-to-ENROLLMENT and CLASS-to-ENROLLMENT, with ENROLLMENT holding both foreign keys on the \"many\" side of each."
         }
       ]
     },
@@ -894,6 +1113,145 @@
           ],
           "correct": 0,
           "explanation": "Normalization reduces redundancy but increases the number of tables, which means more I/O operations and processing logic to join them back together."
+        },
+        {
+          "type": "matching",
+          "category": "Normalization",
+          "question": "Match each normal form to its defining characteristic.",
+          "pairs": [
+            {
+              "left": "1NF",
+              "right": "Table format, no repeating groups, and the primary key identified"
+            },
+            {
+              "left": "2NF",
+              "right": "In 1NF, with no partial dependencies"
+            },
+            {
+              "left": "3NF",
+              "right": "In 2NF, with no transitive dependencies"
+            }
+          ],
+          "explanation": "Each normal form builds on the one before it: 1NF sets up a clean table structure, 2NF removes partial dependencies, and 3NF removes transitive dependencies."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Fill in the Blank",
+          "question": "If each value of attribute A determines exactly one value of attribute B, we say B is functionally ______ on A (read: A determines B).",
+          "answers": [
+            "dependent"
+          ],
+          "explanation": "This is the formal definition of functional dependence: A is the determinant, B is the dependent attribute."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Fill in the Blank",
+          "question": "If attribute B depends on composite key A as a whole, but not on any subset of A, then B is ______ functionally dependent on A.",
+          "answers": [
+            "fully"
+          ],
+          "explanation": "Full functional dependence means the entire composite key is required to determine the attribute — removing any part of the key would break the dependency."
+        },
+        {
+          "type": "tf",
+          "category": "True / False",
+          "question": "Partial dependencies are generally easier to identify than transitive dependencies, since a transitive dependency can only occur between two non-key (nonprime) attributes.",
+          "correct": true,
+          "explanation": "Partial dependency detection is fairly mechanical (does part of the composite key alone determine an attribute?); transitive dependencies require noticing a chain between two non-key attributes, which is easier to overlook."
+        },
+        {
+          "type": "short_answer",
+          "category": "Dependency Analysis",
+          "question": "A STUDENT table (1NF) has primary key STU_ID and attributes STU_NAME, STU_HRS (accumulated credit hours), and STU_CLASS (classification, e.g. Freshman/Sophomore), where STU_HRS determines STU_CLASS. Write the dependency set for this table and identify the type of dependency between STU_HRS and STU_CLASS.",
+          "modelAnswer": "STU_ID -> STU_NAME, STU_HRS, STU_CLASS  (full functional dependency on the single-attribute PK)\nSTU_HRS -> STU_CLASS  (transitive dependency, since STU_HRS is a non-key attribute)",
+          "rubric": [
+            "Listed STU_ID -> STU_NAME, STU_HRS, STU_CLASS as the primary dependency on the PK",
+            "Identified STU_HRS -> STU_CLASS as a transitive dependency (a non-key attribute determining another non-key attribute)"
+          ],
+          "explanation": "Even though STU_ID determines everything (satisfying 1NF/2NF), STU_CLASS is really determined indirectly through STU_HRS — a textbook transitive dependency."
+        },
+        {
+          "type": "short_answer",
+          "category": "Dependency Analysis",
+          "question": "Decompose the STUDENT table above into 3NF by removing the transitive dependency you identified.",
+          "modelAnswer": "STUDENT(STU_ID, STU_NAME, STU_HRS)\nCLASSIFICATION(STU_HRS, STU_CLASS)",
+          "rubric": [
+            "Removed STU_CLASS from the STUDENT table",
+            "Created a new table keyed on STU_HRS holding STU_CLASS",
+            "STUDENT table retains STU_ID as its primary key, plus STU_NAME and STU_HRS"
+          ],
+          "explanation": "Splitting STU_HRS/STU_CLASS into their own table removes the transitive dependency, the same way JOB_CLASS/CHG_HOUR was split out of EMPLOYEE."
+        },
+        {
+          "type": "tf",
+          "category": "True / False",
+          "question": "If a table is already in 1NF and has a single-attribute (non-composite) primary key, it automatically satisfies 2NF as well.",
+          "correct": true,
+          "explanation": "Partial dependencies can only exist against part of a composite key. With a single-attribute primary key, there's no \"part\" of the key to be partially dependent on, so 2NF is automatic."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Fill in the Blank",
+          "question": "Denormalization is the process of producing a ______ normal form than the current one — done to increase processing speed, at the cost of increased data redundancy.",
+          "answers": [
+            "lower"
+          ],
+          "explanation": "Denormalization deliberately moves a table to a lower (less normalized) form, trading redundancy for fewer joins and faster reads."
+        },
+        {
+          "type": "mc",
+          "category": "Normalization",
+          "question": "A STUDENT table stores a precomputed STU_GPA value, even though it could always be recalculated by joining the ENROLL and COURSE tables. Storing it anyway to avoid that join every time is an example of:",
+          "options": [
+            "A repeating group",
+            "Preaggregated (derived) data — a form of denormalization",
+            "A referential integrity violation",
+            "A partial dependency"
+          ],
+          "correct": 1,
+          "explanation": "Storing a value that could be derived from other tables, purely to avoid extra join operations, is a classic denormalization case — preaggregated/derived data."
+        },
+        {
+          "type": "mc",
+          "category": "Normalization",
+          "question": "Which of the following is a legitimate reason a designer might choose to denormalize part of a database?",
+          "options": [
+            "To eliminate the need for primary keys",
+            "To avoid extra join operations for data that's frequently needed together, at the cost of some redundancy",
+            "To make every table automatically satisfy 3NF",
+            "To remove all foreign keys from the schema"
+          ],
+          "correct": 1,
+          "explanation": "Denormalization is a deliberate tradeoff: accept some redundancy in exchange for fewer joins and faster reads for frequently-needed data."
+        },
+        {
+          "type": "tf",
+          "category": "True / False",
+          "question": "A table can be in 3NF without also being in 2NF.",
+          "correct": false,
+          "explanation": "3NF is defined as \"in 2NF, with no transitive dependencies\" — a table can't be in 3NF unless it's already in 2NF."
+        },
+        {
+          "type": "mc",
+          "category": "Normalization",
+          "question": "A dependency diagram, drawn while working through a normalization problem, is used primarily to:",
+          "options": [
+            "Automatically generate the SQL CREATE TABLE statements",
+            "Depict all dependencies found within a table's structure, so an important one isn't overlooked",
+            "Replace the need for identifying a primary key",
+            "Draw the final ERD instead of an entity box"
+          ],
+          "correct": 1,
+          "explanation": "A dependency diagram gives an overview of every relationship among a table's attributes, making it far less likely you'll miss a partial or transitive dependency."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Fill in the Blank",
+          "question": "In a functional dependency written PROJ_NUM -> PROJ_NAME, PROJ_NUM is called the ______ attribute, and PROJ_NAME is called the dependent attribute.",
+          "answers": [
+            "determinant"
+          ],
+          "explanation": "The attribute on the left of the arrow (the one that determines the other) is the determinant; the attribute on the right is the dependent attribute."
         }
       ]
     }
