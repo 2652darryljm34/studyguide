@@ -12,6 +12,8 @@
   --good-bg: #e4f5ec;
   --bad: #c94a3f;
   --bad-bg: #fbe8e6;
+  --partial: #b0791f;
+  --partial-bg: #fbf1de;
   --shadow: 0 1px 2px rgba(32,37,55,0.06);
   --radius: 10px;
   --maxw: 780px;
@@ -322,7 +324,58 @@ a{ color: inherit; }
 }
 .feedback.good{ background: var(--good-bg); color: #1f5c3d; }
 .feedback.bad{ background: var(--bad-bg); color: #7f2c24; }
+.feedback.partial{ background: var(--partial-bg); color: #7a5210; }
 .feedback strong{ display: block; margin-bottom: 3px; }
+
+/* ---------- Rubric self-grading (short answer) ---------- */
+.rubric-box{
+  margin-top: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px 16px;
+  background: var(--card);
+}
+.rubric-title{
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin-bottom: 10px;
+}
+.rubric-list{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.rubric-item{
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.92rem;
+  cursor: pointer;
+}
+.rubric-item input[type=checkbox]{
+  margin-top: 3px;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+  flex-shrink: 0;
+}
+.rubric-review{
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.rubric-review-item{
+  font-size: 0.88rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.rubric-mark{ font-weight: 700; flex-shrink: 0; }
+.rubric-review-item.checked .rubric-mark{ color: var(--good); }
+.rubric-review-item.unchecked .rubric-mark{ color: var(--bad); }
+.rubric-review-item.unchecked{ color: var(--ink-soft); }
 
 .q-actions{
   display: flex;
@@ -401,6 +454,7 @@ a{ color: inherit; }
 }
 .review-tag.good{ background: var(--good-bg); color: #1f5c3d; }
 .review-tag.bad{ background: var(--bad-bg); color: #7f2c24; }
+.review-tag.partial{ background: var(--partial-bg); color: #7a5210; }
 .review-answer{ font-size: 0.9rem; margin: 4px 0; }
 .review-explain{ font-size: 0.88rem; color: var(--ink-soft); margin-top: 8px; }
 

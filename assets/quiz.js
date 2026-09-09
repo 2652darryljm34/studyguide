@@ -115,9 +115,15 @@ function render(){
   }
 }
 
-function finishQuestion(correct, detail){
-  answers.push({ item: flat[current], correct, detail: detail || null });
-  document.getElementById('score-tally').textContent = `Score: ${answers.filter(a => a.correct).length}/${answers.length}`;
+function fmtScore(n){
+  return Math.round(n * 100) / 100 % 1 === 0 ? String(Math.round(n)) : (Math.round(n * 100) / 100).toString();
+}
+
+function finishQuestion(score, detail){
+  // score is 0..1 credit for this question (1 = fully correct, fractional = partial credit)
+  answers.push({ item: flat[current], score, correct: score === 1, detail: detail || null });
+  const earned = answers.reduce((sum, a) => sum + a.score, 0);
+  document.getElementById('score-tally').textContent = `Score: ${fmtScore(earned)}/${answers.length}`;
 }
 
 function appendNextButton(card, isLast){
@@ -143,7 +149,7 @@ function renderMC(card, item, badge, options, correctIndex){
     btn.innerHTML = `<span class="option-letter">${letters[i] || i+1}</span><span>${escapeHtml(opt)}</span>`;
     btn.addEventListener('click', () => {
       const correct = i === correctIndex;
-      finishQuestion(correct, { yourAnswer: opt, correctAnswer: options[correctIndex] });
+      finishQuestion(correct ? 1 : 0, { yourAnswer: opt, correctAnswer: options[correctIndex] });
 
       document.querySelectorAll('#options .option').forEach((b, idx) => {
         b.disabled = true;
@@ -183,7 +189,7 @@ function renderFillBlank(card, item, badge){
     const accepted = (item.answers || []).map(normalizeAnswer);
     const correct = accepted.includes(norm) && norm.length > 0;
 
-    finishQuestion(correct, { yourAnswer: userVal, correctAnswer: (item.answers || [])[0] });
+    finishQuestion(correct ? 1 : 0, { yourAnswer: userVal, correctAnswer: (item.answers || [])[0] });
 
     input.disabled = true;
     document.getElementById('fb-check').disabled = true;
@@ -250,7 +256,7 @@ function renderMatching(card, item, badge){
     });
 
     document.getElementById('match-check').disabled = true;
-    finishQuestion(allCorrect);
+    finishQuestion(allCorrect ? 1 : 0);
 
     const feedbackEl = document.getElementById('feedback');
     feedbackEl.innerHTML = allCorrect
@@ -278,38 +284,95 @@ function renderShortAnswer(card, item, badge){
     document.getElementById('sa-reveal').remove();
 
     const feedbackEl = document.getElementById('feedback');
+    const rubric = item.rubric || [];
+
+    if(rubric.length === 0){
+      renderBinarySelfGrade(card, feedbackEl, item);
+      return;
+    }
+
     feedbackEl.innerHTML = `
       <div class="feedback" style="background:#eef1f6; color:var(--ink);">
         <strong>Model answer</strong>
         <pre class="model-answer">${nl2br(item.modelAnswer)}</pre>
         ${item.explanation ? `<div style="margin-top:8px;">${escapeHtml(item.explanation)}</div>` : ''}
       </div>
-      <div class="q-actions" style="justify-content:flex-start; margin-top:14px; gap:10px;">
-        <button class="btn primary" id="sa-got-it">I had this right</button>
-        <button class="btn ghost" id="sa-missed">I need to review this</button>
+      <div class="rubric-box">
+        <div class="rubric-title">Compare your answer against the model above, then check off what you actually got right:</div>
+        <div class="rubric-list" id="rubric-list">
+          ${rubric.map((c, i) => `
+            <label class="rubric-item">
+              <input type="checkbox" data-rubric-index="${i}">
+              <span>${escapeHtml(c)}</span>
+            </label>
+          `).join('')}
+        </div>
+      </div>
+      <div class="q-actions" style="justify-content:flex-start; margin-top:14px;">
+        <button class="btn primary" id="sa-score">Score my answer</button>
       </div>
     `;
 
-    document.getElementById('sa-got-it').addEventListener('click', () => {
-      finishQuestion(true, { yourAnswer: document.getElementById('sa-input').value, correctAnswer: item.modelAnswer, selfGraded: true });
-      document.getElementById('sa-got-it').disabled = true;
-      document.getElementById('sa-missed').disabled = true;
+    document.getElementById('sa-score').addEventListener('click', () => {
+      const boxes = Array.from(document.querySelectorAll('#rubric-list input[type=checkbox]'));
+      const checked = boxes.map(b => b.checked);
+      const numChecked = checked.filter(Boolean).length;
+      const fraction = numChecked / rubric.length;
+
+      finishQuestion(fraction, {
+        yourAnswer: document.getElementById('sa-input').value,
+        correctAnswer: item.modelAnswer,
+        selfGraded: true,
+        rubric,
+        checked
+      });
+
+      boxes.forEach(b => b.disabled = true);
+      document.getElementById('sa-score').remove();
+
+      const summary = document.createElement('div');
+      summary.className = 'feedback ' + (fraction === 1 ? 'good' : fraction === 0 ? 'bad' : 'partial');
+      summary.innerHTML = `<strong>Self-scored ${numChecked}/${rubric.length} on this question.</strong>`;
+      feedbackEl.appendChild(summary);
+
       appendNextButton(card, current + 1 === flat.length);
     });
-    document.getElementById('sa-missed').addEventListener('click', () => {
-      finishQuestion(false, { yourAnswer: document.getElementById('sa-input').value, correctAnswer: item.modelAnswer, selfGraded: true });
-      document.getElementById('sa-got-it').disabled = true;
-      document.getElementById('sa-missed').disabled = true;
-      appendNextButton(card, current + 1 === flat.length);
-    });
+  });
+}
+
+/* Fallback for any short_answer question written without a rubric */
+function renderBinarySelfGrade(card, feedbackEl, item){
+  feedbackEl.innerHTML = `
+    <div class="feedback" style="background:#eef1f6; color:var(--ink);">
+      <strong>Model answer</strong>
+      <pre class="model-answer">${nl2br(item.modelAnswer)}</pre>
+      ${item.explanation ? `<div style="margin-top:8px;">${escapeHtml(item.explanation)}</div>` : ''}
+    </div>
+    <div class="q-actions" style="justify-content:flex-start; margin-top:14px; gap:10px;">
+      <button class="btn primary" id="sa-got-it">I had this right</button>
+      <button class="btn ghost" id="sa-missed">I need to review this</button>
+    </div>
+  `;
+
+  document.getElementById('sa-got-it').addEventListener('click', () => {
+    finishQuestion(1, { yourAnswer: document.getElementById('sa-input').value, correctAnswer: item.modelAnswer, selfGraded: true });
+    document.getElementById('sa-got-it').disabled = true;
+    document.getElementById('sa-missed').disabled = true;
+    appendNextButton(card, current + 1 === flat.length);
+  });
+  document.getElementById('sa-missed').addEventListener('click', () => {
+    finishQuestion(0, { yourAnswer: document.getElementById('sa-input').value, correctAnswer: item.modelAnswer, selfGraded: true });
+    document.getElementById('sa-got-it').disabled = true;
+    document.getElementById('sa-missed').disabled = true;
+    appendNextButton(card, current + 1 === flat.length);
   });
 }
 
 /* ---------- Results ---------- */
 function renderResults(){
   const total = flat.length;
-  const correctCount = answers.filter(a => a.correct).length;
-  const pct = Math.round((correctCount / total) * 100);
+  const earned = answers.reduce((sum, a) => sum + a.score, 0);
+  const pct = Math.round((earned / total) * 100);
 
   let headline = "Nice work.";
   if(pct === 100) headline = "Perfect score.";
@@ -320,8 +383,8 @@ function renderResults(){
   appEl.innerHTML = `
     <div class="results">
       <div class="score-label">${escapeHtml(quizData.title || 'Quiz')} \u2014 results</div>
-      <div class="score">${correctCount}/${total}</div>
-      <div class="score-label">${pct}% correct &middot; ${headline}</div>
+      <div class="score">${fmtScore(earned)}/${total}</div>
+      <div class="score-label">${pct}% &middot; ${headline}</div>
       <div class="results-actions">
         <button class="btn primary" id="retry-btn">Retake quiz</button>
         <a class="btn ghost" href="index.html">Back to classes</a>
@@ -335,13 +398,27 @@ function renderResults(){
   const reviewEl = document.getElementById('review');
   answers.forEach(a => {
     const q = a.item;
-    const tagClass = a.correct ? 'good' : 'bad';
-    const tagText = a.correct ? 'Correct' : 'Incorrect';
+    const tagClass = a.score === 1 ? 'good' : a.score === 0 ? 'bad' : 'partial';
+    let tagText = a.score === 1 ? 'Correct' : a.score === 0 ? 'Incorrect' : 'Partial credit';
+    if(a.score !== 1 && a.score !== 0 && a.detail && a.detail.checked){
+      const numChecked = a.detail.checked.filter(Boolean).length;
+      tagText = `Partial credit (${numChecked}/${a.detail.checked.length})`;
+    }
     const item = document.createElement('div');
     item.className = 'review-item';
 
     let bodyHtml = '';
-    if(a.detail && a.detail.selfGraded){
+    if(a.detail && a.detail.rubric){
+      const rows = a.detail.rubric.map((c, i) => `
+        <div class="rubric-review-item ${a.detail.checked[i] ? 'checked' : 'unchecked'}">
+          <span class="rubric-mark">${a.detail.checked[i] ? '\u2713' : '\u2717'}</span> ${escapeHtml(c)}
+        </div>
+      `).join('');
+      bodyHtml = `
+        <pre class="model-answer">${nl2br(a.detail.correctAnswer)}</pre>
+        <div class="rubric-review">${rows}</div>
+      `;
+    } else if(a.detail && a.detail.selfGraded){
       bodyHtml = `<pre class="model-answer">${nl2br(a.detail.correctAnswer)}</pre>`;
     } else if(a.detail){
       bodyHtml = `

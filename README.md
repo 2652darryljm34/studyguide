@@ -19,7 +19,7 @@ A tiny static site for sharing self-study quizzes with classmates via GitHub Pag
    | `tf` | `correct` (`true`/`false`) | rendered as a True/False choice |
    | `fill_blank` | `answers` (array of acceptable strings) | case-insensitive, punctuation-insensitive match against any accepted answer |
    | `matching` | `pairs` (array of `{left, right}`) | learner matches each left item to a right item via dropdown; right side is shuffled |
-   | `short_answer` | `modelAnswer` (string) | self-graded: reveals the model answer, learner clicks "I had this right" / "I need to review this" (use for SQL to write or dependency sets, which can't be auto-checked) |
+   | `short_answer` | `modelAnswer` (string), `rubric` (array of strings) | self-graded: reveals the model answer, learner checks off which rubric criteria their own answer met, and gets partial credit for that fraction (use for SQL to write or dependency sets, which can't be auto-checked). Without a `rubric`, falls back to a plain "I had this right" / "I need to review this" toggle |
 
    Every question can also include `category` (a short label shown as a badge, e.g. `"Multiple Choice"`, `"SQL Writing"`) and `explanation` (shown after answering and in the final review).
 
@@ -44,6 +44,7 @@ A tiny static site for sharing self-study quizzes with classmates via GitHub Pag
           "category": "SQL Writing",
           "question": "Write a query to select all columns from the film table.",
           "modelAnswer": "SELECT * FROM film;",
+          "rubric": ["Used SELECT * to return every column", "Named the correct table: film"],
           "explanation": "SELECT * returns every column."
         }
       ]
