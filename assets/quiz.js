@@ -82,15 +82,18 @@ function render(){
   const total = flat.length;
   const pct = Math.round((current / total) * 100);
 
+  const earnedSoFar = answers.reduce((sum, a) => sum + a.score, 0);
+
   appEl.innerHTML = `
     <div class="page-head" style="padding-top:20px;">
       <h1>${escapeHtml(quizData.title || 'Quiz')}</h1>
       ${quizData.description ? `<p>${escapeHtml(quizData.description)}</p>` : ''}
+      ${quizData.guideFile ? `<div class="q-actions" style="justify-content:flex-start; margin-top:14px;"><a class="btn ghost" href="review.html?file=${encodeURIComponent(quizData.guideFile)}">Review the study guide &rarr;</a></div>` : ''}
     </div>
 
     <div class="quiz-meta">
       <span>${item.sectionName ? escapeHtml(item.sectionName) + ' &middot; ' : ''}Question ${current + 1} of ${total}</span>
-      <span id="score-tally">Score: ${answers.filter(a => a.correct).length}/${answers.length}</span>
+      <span id="score-tally">Score: ${fmtScore(earnedSoFar)}/${answers.length}</span>
     </div>
     <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
 

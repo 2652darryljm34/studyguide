@@ -3,10 +3,11 @@
 A tiny static site for sharing self-study quizzes with classmates via GitHub Pages.
 
 **Live structure:**
-- `index.html` — home page, lists every class and its quizzes (reads `classes.json`)
+- `index.html` — home page, lists every class, its study guides, and its quizzes (reads `classes.json`)
 - `quiz.html` — the actual quiz-taking screen (works for *any* quiz — it just reads whichever file is passed in the URL, e.g. `quiz.html?file=data/itd256-midterm-review.json`)
-- `classes.json` — the registry of classes and quizzes. **This is the only file you edit to add or reorganize content.**
-- `data/*.json` — one file per quiz, containing the questions
+- `review.html` — the study guide screen (works for *any* guide — same pattern, e.g. `review.html?file=data/itd256-midterm-guide.json`)
+- `classes.json` — the registry of classes, guides, and quizzes. **This is the only file you edit to add or reorganize content.**
+- `data/*.json` — one file per quiz or guide
 - `assets/` — shared CSS/JS, not something you need to touch
 
 ## Adding a new quiz to an existing class
@@ -67,6 +68,57 @@ Questions are shuffled within each section, but sections always run in the order
 ```
 
 That's it — the quiz shows up on the home page automatically.
+
+## Adding a study guide
+
+A study guide is long-form reference notes (definitions, tables, syntax, worked examples) rather than question-and-answer — meant to be read before taking the quiz.
+
+1. Create a new file in `data/`, e.g. `data/itd256-final-guide.json`. Guides are organized into **sections** (matching the quiz's sections works well), and each section has a list of `blocks`. Supported block types:
+
+   | type | fields | notes |
+   |---|---|---|
+   | `heading` | `text` | shown as a section heading, and listed in the page's table of contents |
+   | `subheading` | `text` | a smaller heading, not listed in the table of contents |
+   | `paragraph` | `text` | plain text |
+   | `list` | `items` (array), optional `ordered: true` | bullet list, or numbered if `ordered` is set |
+   | `table` | `headers` (array), `rows` (array of arrays) | a reference table |
+   | `code` | `text` | monospace block, for SQL syntax or worked examples |
+   | `note` | `text`, optional `label` | a callout box for tips/warnings |
+
+   Any `text` field supports light markup: `**bold**` and `` `code` ``.
+
+   Top-level fields: `title`, `description`, and optionally `quizFile` (path to the matching quiz — adds a "Take the quiz" button at the top of the guide). The matching quiz file can point back with a top-level `guideFile` field, which adds a "Review the study guide" link at the top of the quiz.
+
+```json
+{
+  "title": "ITD 256 Final Study Guide",
+  "description": "Optional one-line description shown under the title.",
+  "quizFile": "data/itd256-final-review.json",
+  "sections": [
+    {
+      "name": "Theory & SQL",
+      "blocks": [
+        { "type": "heading", "text": "Keys" },
+        { "type": "table", "headers": ["Term", "Definition"], "rows": [
+          ["Primary key", "Uniquely identifies a row."]
+        ]},
+        { "type": "note", "label": "Tip:", "text": "A **candidate key** is a minimal superkey." }
+      ]
+    }
+  ]
+}
+```
+
+2. Open `classes.json` and add an entry to that class's `guides` array:
+
+```json
+{
+  "id": "final-guide",
+  "title": "Final Study Guide",
+  "description": "Reference notes for the final exam.",
+  "file": "data/itd256-final-guide.json"
+}
+```
 
 ## Adding a whole new class
 

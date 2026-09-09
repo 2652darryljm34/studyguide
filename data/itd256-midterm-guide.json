@@ -1,0 +1,263 @@
+{
+  "title": "ITD 256 Midterm Study Guide",
+  "description": "Comprehensive notes covering everything the midterm quiz tests, organized to match the exam's three parts: Theory & SQL, ERD Completion, and Normalization & Dependency Sets.",
+  "quizFile": "data/itd256-midterm-review.json",
+  "sections": [
+    {
+      "name": "Theory & SQL",
+      "blocks": [
+        { "type": "heading", "text": "File & Database Terminology" },
+        { "type": "table", "headers": ["Term", "Definition"], "rows": [
+          ["Data", "Raw facts (e.g. a phone number, birth date) with little meaning until organized."],
+          ["Field", "A character or group of characters with specific meaning, used to define and store data. Also called an **attribute**."],
+          ["Record", "A logically connected set of fields describing a person, place, or thing. Also called an **entity instance**."],
+          ["File (non-DBMS) / Table (DBMS)", "A collection of related records. Called a **Table** (or entity) once you're inside a DBMS."]
+        ]},
+        { "type": "note", "label": "Build order:", "text": "Data → Field → Record → Table. Each level is built out of the one before it." },
+
+        { "type": "heading", "text": "Types of Databases" },
+        { "type": "list", "items": [
+          "**By structure:** Unstructured (raw, no formatting) → Semistructured (partially processed, e.g. XML) → Structured (fully formatted/processed).",
+          "**By location:** Centralized (single site) · Distributed (spread across sites) · Cloud (maintained via a cloud service with defined performance measures).",
+          "**By use:** Analytical / data warehouse databases store historical data for decision support. **OLAP** = tools to retrieve/process/model data from a warehouse. **Business intelligence** = capturing and processing business data to support decisions."
+        ]},
+
+        { "type": "heading", "text": "Structural & Data (In)dependence" },
+        { "type": "table", "headers": ["Term", "Meaning"], "rows": [
+          ["Structural dependence", "File access depends on its own structure — changing the structure breaks every program that reads it."],
+          ["Structural independence", "The file structure can change without breaking the programs that access it."],
+          ["Data dependence", "How data is accessed changes whenever the storage characteristics change."],
+          ["Data independence", "Storage characteristics can change without affecting the program's ability to access the data."]
+        ]},
+        { "type": "paragraph", "text": "**Logical format** = how data is represented to the application/user. **Physical format** = how it's actually stored on hardware. The physical format should be completely hidden from the user — that's the whole point of data independence." },
+
+        { "type": "heading", "text": "Data Redundancy & Anomalies" },
+        { "type": "paragraph", "text": "**Data redundancy**: unnecessarily storing the same data in different places, which raises the risk of ending up with different (inconsistent) versions of that data." },
+        { "type": "list", "items": [
+          "**Update anomaly** — a change made in one place isn't propagated everywhere, leaving inconsistent/incomplete data.",
+          "**Insertion anomaly** — you can't insert a new record without also supplying data you don't have yet.",
+          "**Deletion anomaly** — deleting one record accidentally destroys other data you still needed."
+        ]},
+
+        { "type": "heading", "text": "DBMS Functions" },
+        { "type": "table", "headers": ["Function", "What it does"], "rows": [
+          ["Data dictionary management", "Stores definitions of data elements and their relationships."],
+          ["Data storage management", "Handles efficient storage and performance tuning."],
+          ["Data transformation & presentation", "Formats data to match the user's logical expectations."],
+          ["Security management", "Enforces user security and data privacy."],
+          ["Multiuser access control", "Lets many users access the database concurrently without compromising integrity."],
+          ["Backup and recovery management", "Enables recovery of the database after a failure."],
+          ["Data integrity management", "Minimizes redundancy and maximizes consistency."],
+          ["Query language (SQL)", "The de facto standard for accessing data across nearly every DBMS vendor."]
+        ]},
+
+        { "type": "heading", "text": "Data Model Building Blocks" },
+        { "type": "list", "items": [
+          "**Entity** — a person, place, thing, or event.",
+          "**Attribute** — a characteristic of an entity.",
+          "**Relationship** — an association among entities (1:1, 1:M, or M:N).",
+          "**Constraint** — a restriction placed on data to ensure data integrity."
+        ]},
+        { "type": "paragraph", "text": "When translating business rules into a model: **nouns** become entities, **verbs** become relationships. Relationships are always **bidirectional** — always ask the cardinality question from both entities' points of view." },
+        { "type": "note", "label": "Notation:", "text": "Chen notation (diamonds for relationships) is the most **abstract** / conceptual style. Crow's Foot notation (used in this course) is less abstract. DDL SQL is the least abstract — it's the actual implementation." },
+
+        { "type": "heading", "text": "The Relational Model & Keys" },
+        { "type": "paragraph", "text": "A **relation** = a **table** = an **entity**: a matrix of intersecting rows (tuples) and columns (attributes). An **RDBMS** makes this model easy to use by hiding its underlying complexity from the user." },
+        { "type": "table", "headers": ["Key type", "Definition"], "rows": [
+          ["Primary key (PK)", "The attribute or combination of attributes that uniquely identifies a row."],
+          ["Natural key", "A real-world identifier already familiar to end users (e.g. a SSN or ISBN) that can double as a primary key."],
+          ["Surrogate key", "An artificial, made-up key (e.g. an auto-number). Useful when there's no good natural key, or the PK would otherwise be composite/too long."],
+          ["Composite key", "A key made up of more than one attribute."],
+          ["Superkey", "Any set of attributes that uniquely identifies a row — may include unnecessary attributes."],
+          ["Candidate key", "A **minimal** superkey — no unnecessary attributes."],
+          ["Secondary key", "Used strictly for data retrieval (e.g. searching by last name), not for uniqueness."],
+          ["Foreign key (FK)", "A copy of one table's primary key, placed in another table to link the two."]
+        ]},
+
+        { "type": "heading", "text": "Integrity Rules" },
+        { "type": "table", "headers": ["Rule", "Requirement"], "rows": [
+          ["Entity integrity", "All primary key values are unique, and no part of the primary key can be null."],
+          ["Referential integrity", "Every foreign key value must be either **null**, or match an existing primary key value in the related table."]
+        ]},
+        { "type": "note", "label": "Tip:", "text": "\"NULL\" means the absence of a data value (unknown, missing, or not applicable) — it is not the same as zero or an empty string." },
+
+        { "type": "heading", "text": "Data Dictionary, System Catalog, and Schema" },
+        { "type": "list", "items": [
+          "**Data dictionary** — description of all tables, created by the user/designer.",
+          "**System catalog** — the DBMS's own automatically-maintained data dictionary.",
+          "**Database schema** — the complete logical view of the entire database.",
+          "**Relational schema** — the same idea, but scoped to one individual table."
+        ]},
+
+        { "type": "heading", "text": "Relationship Types" },
+        { "type": "list", "items": [
+          "**1:M** — the norm for relational databases; the most common relationship type.",
+          "**1:1** — one entity instance relates to at most one instance of the other entity.",
+          "**M:N** — valid at the conceptual (ERD) level, but can't be implemented directly in a relational table. It requires a **bridge / composite / associative entity** holding both related primary keys as foreign keys."
+        ]},
+        { "type": "note", "label": "Golden rule:", "text": "The foreign key always goes on the \"many\" side of a 1:M relationship, referencing the primary key on the \"one\" side." },
+
+        { "type": "heading", "text": "SQL Command Categories" },
+        { "type": "table", "headers": ["Category", "Purpose", "Examples"], "rows": [
+          ["DDL", "Data Definition Language — defines the database structure", "CREATE, ALTER, DROP"],
+          ["DML", "Data Manipulation Language — manipulates the data itself", "INSERT, UPDATE, DELETE, SELECT"],
+          ["TCL", "Transaction Control Language", "COMMIT, ROLLBACK"],
+          ["DCL", "Data Control Language — controls access permissions", "GRANT, REVOKE"]
+        ]},
+        { "type": "table", "headers": ["DDL Command", "Description"], "rows": [
+          ["CREATE DATABASE", "Create a database schema."],
+          ["DROP DATABASE", "Permanently delete an entire database, including all tables."],
+          ["CREATE TABLE", "Create a new table — can include NOT NULL, UNIQUE, PRIMARY KEY, FOREIGN KEY, DEFAULT, and CHECK constraints."],
+          ["ALTER TABLE", "Modify an existing table's definition (add/modify/delete attributes or constraints)."],
+          ["DROP TABLE", "Permanently delete a table and its data."],
+          ["CREATE / DROP INDEX", "Create or delete an index on a table."],
+          ["CREATE / DROP VIEW", "Create or delete a dynamic subset of rows/columns from one or more tables."]
+        ]},
+
+        { "type": "heading", "text": "SELECT Statement Anatomy" },
+        { "type": "code", "text": "SELECT   columnlist\nFROM     tablelist\n[WHERE   conditionlist]\n[GROUP BY columnlist]\n[HAVING  conditionlist]\n[ORDER BY columnlist [ASC | DESC]];" },
+        { "type": "table", "headers": ["Clause", "Job"], "rows": [
+          ["SELECT", "Specifies the attributes/columns to return."],
+          ["FROM", "Specifies the table(s) data is retrieved from."],
+          ["WHERE", "Filters individual **rows** based on given criteria."],
+          ["GROUP BY", "Groups rows into collections that share the same value(s)."],
+          ["HAVING", "Filters the **groups** formed by GROUP BY (not individual rows)."],
+          ["ORDER BY", "Sorts the final result rows, ascending or descending."]
+        ]},
+        { "type": "note", "label": "Build order:", "text": "Write a query one clause at a time, always in this order — SELECT, FROM, WHERE, [GROUP BY], [HAVING], ORDER BY." },
+
+        { "type": "heading", "text": "Joins Reference" },
+        { "type": "list", "items": [
+          "**Inner join** — returns only rows that match in both tables.",
+          "**Outer join** (left / right / full) — returns matched rows, plus unmatched rows from one or both sides.",
+          "**NATURAL JOIN** — auto-matches identically-named, compatible-type columns and eliminates duplicate columns. No ON/USING needed.",
+          "**JOIN ... USING (column)** — matches on a named column that must exist (with the same name) in both tables.",
+          "**JOIN ... ON (condition)** — an explicit join condition; required when the tables have no identically-named common column.",
+          "**Recursive / self / unary join** — a table joined to itself (e.g. matching an employee to their own manager). All other joins are binary (between two different tables).",
+          "Old-style joins (`WHERE table1.pk = table2.fk`) still work, but aren't recommended — harder to maintain and easier to get wrong."
+        ]},
+
+        { "type": "heading", "text": "WHERE Clause Operators" },
+        { "type": "table", "headers": ["Symbol", "Meaning"], "rows": [
+          ["=", "Equal to"],
+          ["<", "Less than"],
+          ["<=", "Less than or equal to"],
+          [">", "Greater than"],
+          [">=", "Greater than or equal to"],
+          ["<> or !=", "Not equal to"]
+        ]},
+        { "type": "list", "items": [
+          "**AND / OR / NOT** — combine multiple conditions.",
+          "**BETWEEN ... AND ...** — tests a range, inclusive of both endpoints.",
+          "**IN** — tests whether a value matches any value in a given list.",
+          "**LIKE** — pattern matching; `%` matches any sequence of zero or more characters, `_` matches exactly one character.",
+          "**IS NULL / IS NOT NULL** — tests whether a value is missing."
+        ]},
+
+        { "type": "heading", "text": "Aggregate Functions" },
+        { "type": "table", "headers": ["Function", "Computes"], "rows": [
+          ["COUNT", "The number of rows (or non-null values) in a set."],
+          ["MIN / MAX", "The smallest / largest value in a set."],
+          ["SUM", "The total of all values in a set."],
+          ["AVG", "The mean (average) of all values in a set."]
+        ]},
+        { "type": "note", "label": "Remember:", "text": "Aggregate functions reduce a whole collection of rows down to a single summary row." },
+
+        { "type": "heading", "text": "Data Manipulation (DML) Syntax" },
+        { "type": "code", "text": "INSERT INTO tablename VALUES (value1, value2, ..., valueN);\n\nUPDATE tablename\nSET columnname = expression [, columnname = expression]\n[WHERE conditionlist];\n\nDELETE FROM tablename\n[WHERE conditionlist];\n\nCOMMIT [WORK];   -- permanently save pending changes\nROLLBACK;        -- undo pending changes, restore prior state" },
+        { "type": "note", "label": "Careful:", "text": "SQL does NOT ask for confirmation. An UPDATE or DELETE run without a WHERE clause immediately applies to every row in the table. Always use WHERE to limit the damage." },
+        { "type": "paragraph", "text": "**CRUD** = Create, Read, Update, Delete → maps to (C) **INSERT**, (R) **SELECT**, (U) **UPDATE**, (D) **DELETE**." }
+      ]
+    },
+    {
+      "name": "ERD Completion",
+      "blocks": [
+        { "type": "heading", "text": "The \"Connector Options\" Legend" },
+        { "type": "paragraph", "text": "This professor's exam ERDs use a 6-letter legend of Crow's Foot symbols to mark cardinality and participation on each end of a relationship line. Two of the six (A and D) are deliberate distractors — incomplete symbols that don't actually specify a valid combination." },
+        { "type": "table", "headers": ["Letter", "Symbol", "Meaning"], "rows": [
+          ["A", "line + crow's foot only", "Not valid alone — a crow's foot needs a participation mark too."],
+          ["B", "line + bar + crow's foot", "One or many (**mandatory many** — \"at least one\")."],
+          ["C", "line + circle + crow's foot", "Zero or many (**optional many**)."],
+          ["D", "line + single bar only", "Not valid alone — a bar alone doesn't say one-or-many."],
+          ["E", "line + double bar", "One and only one (**mandatory one**)."],
+          ["F", "line + circle + single bar", "Zero or one (**optional one**)."]
+        ]},
+        { "type": "code", "text": "Mandatory one   (E):  ────||\nOptional one    (F):  ────O|\nMandatory many  (B):  ────|<\nOptional many   (C):  ────O<" },
+        { "type": "note", "label": "The pattern:", "text": "Cardinality (one vs. many) = a single line vs. a crow's foot. Participation (mandatory vs. optional) = a double bar vs. a circle. A valid connector always combines exactly one of each." },
+
+        { "type": "heading", "text": "How to Read a Business Rule Into Cardinality & Participation" },
+        { "type": "list", "ordered": true, "items": [
+          "Identify the two entities in the relationship, and read the business rule from each entity's point of view, one direction at a time.",
+          "Ask: \"What's the **maximum** number of [Entity B] related to one [Entity A]?\" → gives you the **cardinality** (one, or many).",
+          "Ask: \"Is [Entity A] **required** to have at least one related [Entity B]?\" → gives you the **participation** (mandatory, or optional).",
+          "Repeat from the other entity's point of view — remember, relationships are always bidirectional, so each end gets its own connector."
+        ]},
+        { "type": "subheading", "text": "Worked example" },
+        { "type": "paragraph", "text": "\"A DEPARTMENT must employ at least one EMPLOYEE, and can employ many. Every EMPLOYEE must work for exactly one DEPARTMENT.\"" },
+        { "type": "list", "items": [
+          "DEPARTMENT end (viewed from EMPLOYEE's side): mandatory, max **one** → connector **E**.",
+          "EMPLOYEE end (viewed from DEPARTMENT's side): mandatory, max **many** → connector **B**."
+        ]},
+
+        { "type": "heading", "text": "Reading Entity Boxes: PK / FK / Descriptive Attributes" },
+        { "type": "table", "headers": ["Formatting", "Meaning"], "rows": [
+          ["**Bold + underlined**, listed first, above the dividing line", "Primary key"],
+          ["*Italic*", "Foreign key"],
+          ["Plain text", "Descriptive (non-key / regular) attribute — describes the entity, but doesn't identify rows or link tables"]
+        ]},
+
+        { "type": "heading", "text": "Relationship Types & How They're Implemented" },
+        { "type": "list", "items": [
+          "**1:M** (most common) — the foreign key goes on the \"many\" side, referencing the primary key on the \"one\" side.",
+          "**1:1** — one entity relates to at most one other; place the FK on whichever side makes structural sense (often the optional/dependent side).",
+          "**M:N** — can't be implemented directly in a relational table. Requires a **bridge (composite/associative) entity**. That bridge entity's primary key is typically the **composite** of both parent primary keys, each also stored as a foreign key.",
+          "Once a bridge entity exists, the single M:N relationship becomes **two 1:M relationships** — the bridge entity sits on the \"many\" side of each."
+        ]}
+      ]
+    },
+    {
+      "name": "Normalization & Dependency Sets",
+      "blocks": [
+        { "type": "heading", "text": "Normal Forms Summary" },
+        { "type": "table", "headers": ["Normal Form", "Requirement"], "rows": [
+          ["1NF", "Table format, no repeating groups, and the primary key identified."],
+          ["2NF", "In 1NF, with **no partial dependencies**."],
+          ["3NF", "In 2NF, with **no transitive dependencies**."]
+        ]},
+        { "type": "note", "label": "Shortcut:", "text": "If a 1NF table's primary key is a single attribute (not composite), it automatically satisfies 2NF too — partial dependencies can only exist against part of a composite key." },
+
+        { "type": "heading", "text": "Key Vocabulary" },
+        { "type": "list", "items": [
+          "**Functional dependence** — A determines B (written `A -> B`) if every value of A corresponds to exactly one value of B. A is the **determinant**, B is the **dependent** attribute.",
+          "**Full functional dependence** — B depends on the *entire* composite key A, not on any subset of it.",
+          "**Partial dependency** — an attribute depends on only *part* of a composite primary key. Only possible when the PK is composite — usually straightforward to spot.",
+          "**Transitive dependency** — a non-key attribute depends on *another non-key attribute*, rather than directly on the primary key. Trickier to spot, since it only happens between two non-key (nonprime) attributes.",
+          "**Repeating group** — multiple entries of the same type of data repeated for one key occurrence (e.g. COURSE_ID_1, COURSE_ID_2, COURSE_ID_3). The first thing removed on the way to 1NF."
+        ]},
+
+        { "type": "heading", "text": "The Normalization Procedure" },
+        { "type": "list", "ordered": true, "items": [
+          "**Convert to 1NF:** eliminate repeating groups → identify the primary key → identify all dependencies (a dependency diagram helps make sure none are overlooked).",
+          "**Convert to 2NF:** remove partial dependencies — move each partially-dependent attribute into its own new table, keyed on whatever determines it.",
+          "**Convert to 3NF:** remove transitive dependencies — move the chained attribute(s) into their own new table, keyed on the non-key attribute that determines them."
+        ]},
+
+        { "type": "heading", "text": "Worked Example: ASSIGNMENT table" },
+        { "type": "paragraph", "text": "1NF table: **ASSIGNMENT**(PROJ_NUM, EMP_NUM, PROJ_NAME, EMP_NAME, JOB_CLASS, CHG_HOUR, HOURS) — composite PK (PROJ_NUM, EMP_NUM)." },
+        { "type": "code", "text": "Dependency set:\nPROJ_NUM -> PROJ_NAME                          (partial)\nEMP_NUM  -> EMP_NAME, JOB_CLASS, CHG_HOUR      (partial)\n(PROJ_NUM, EMP_NUM) -> HOURS                   (full, on composite key)" },
+        { "type": "code", "text": "2NF decomposition (partial dependencies removed):\nPROJECT(PROJ_NUM, PROJ_NAME)\nEMPLOYEE(EMP_NUM, EMP_NAME, JOB_CLASS, CHG_HOUR)\nASSIGNMENT(PROJ_NUM, EMP_NUM, HOURS)" },
+        { "type": "paragraph", "text": "But inside EMPLOYEE, EMP_NUM determines JOB_CLASS, and JOB_CLASS determines CHG_HOUR — so EMP_NUM -> CHG_HOUR is a **transitive dependency**." },
+        { "type": "code", "text": "3NF decomposition (transitive dependency removed):\nEMPLOYEE(EMP_NUM, EMP_NAME, JOB_CLASS)\nJOB(JOB_CLASS, CHG_HOUR)\nPROJECT(PROJ_NUM, PROJ_NAME)\nASSIGNMENT(PROJ_NUM, EMP_NUM, HOURS)" },
+
+        { "type": "heading", "text": "Denormalization" },
+        { "type": "paragraph", "text": "Denormalization deliberately produces a **lower** normal form. It trades increased redundancy for fewer joins and faster reads." },
+        { "type": "list", "items": [
+          "**Redundant data** — e.g. storing both ZIP and CITY when ZIP determines CITY, to avoid an extra join.",
+          "**Derived / preaggregated data** — e.g. storing a precomputed STU_GPA instead of recalculating it from ENROLL/COURSE every time.",
+          "**Reporting requirements** — a temporary denormalized table built just to produce a tabular report."
+        ]},
+        { "type": "note", "label": "Remember:", "text": "More tables (from normalizing) generally means more join operations to reconstruct the full picture — that's the core tradeoff normalization makes." }
+      ]
+    }
+  ]
+}

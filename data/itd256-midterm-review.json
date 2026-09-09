@@ -1,6 +1,7 @@
 {
   "title": "ITD 256 Midterm Review",
   "description": "Matches the exam structure: theory & SQL, ERD completion, and normalization/dependency sets.",
+  "guideFile": "data/itd256-midterm-guide.json",
   "sections": [
     {
       "name": "Theory & SQL",

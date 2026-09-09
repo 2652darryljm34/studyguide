@@ -27,9 +27,20 @@ async function loadClasses(){
 }
 
 function renderClass(cls, index){
+  const guides = cls.guides || [];
   const quizzes = cls.quizzes || [];
   const count = quizzes.length;
   const countLabel = count === 1 ? '1 quiz' : `${count} quizzes`;
+
+  const guideRows = guides.map(g => `
+    <a class="quiz-row guide-row" href="review.html?file=${encodeURIComponent(g.file)}">
+      <div>
+        <div class="quiz-row-title"><span class="guide-badge">Study guide</span>${escapeHtml(g.title)}</div>
+        ${g.description ? `<div class="quiz-row-desc">${escapeHtml(g.description)}</div>` : ''}
+      </div>
+      <div class="quiz-row-go">Read &rarr;</div>
+    </a>
+  `).join('');
 
   const rows = quizzes.map(q => `
     <a class="quiz-row" href="quiz.html?file=${encodeURIComponent(q.file)}">
@@ -54,6 +65,7 @@ function renderClass(cls, index){
         </div>
       </summary>
       <div class="quiz-rows">
+        ${guideRows}
         ${rows || '<div class="quiz-row"><span class="quiz-row-desc">No quizzes yet.</span></div>'}
       </div>
     </details>

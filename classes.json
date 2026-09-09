@@ -4,6 +4,14 @@
       "id": "itd256",
       "name": "ITD 256",
       "fullName": "Advanced Database Design and Management",
+      "guides": [
+        {
+          "id": "midterm-guide",
+          "title": "Midterm Study Guide",
+          "description": "Comprehensive notes covering every topic the midterm quiz tests: theory & SQL, ERD notation, and normalization.",
+          "file": "data/itd256-midterm-guide.json"
+        }
+      ],
       "quizzes": [
         {
           "id": "midterm-review",
