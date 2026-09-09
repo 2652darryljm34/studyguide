@@ -1,3 +1,5 @@
+const chevronSvg = `<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>`;
+
 const params = new URLSearchParams(window.location.search);
 const file = params.get('file');
 
@@ -80,24 +82,32 @@ function renderBlock(block){
 }
 
 function render(data){
-  const tocSections = data.sections.map(section => {
+  const total = data.sections.length;
+
+  const sectionsHtml = data.sections.map((section, i) => {
     const headingBlocks = (section.blocks || []).filter(b => b.type === 'heading');
-    return `
-      <div class="toc-section">
-        <div class="toc-section-name">${escapeHtml(section.name)}</div>
-        <ul class="toc-list">
-          ${headingBlocks.map(b => `<li><a href="#${slugify(b.text)}">${escapeHtml(b.text)}</a></li>`).join('')}
-        </ul>
+    const jumpNav = headingBlocks.length ? `
+      <div class="guide-jumpnav">
+        ${headingBlocks.map(b => `<a href="#${slugify(b.text)}">${escapeHtml(b.text)}</a>`).join('')}
       </div>
+    ` : '';
+
+    return `
+      <details class="guide-section-card" open>
+        <summary>
+          <div class="guide-section-heading">
+            <span class="guide-eyebrow">Part ${i + 1} of ${total}</span>
+            <span class="guide-section-name">${escapeHtml(section.name)}</span>
+          </div>
+          ${chevronSvg}
+        </summary>
+        <div class="guide-section-body">
+          ${jumpNav}
+          ${(section.blocks || []).map(renderBlock).join('')}
+        </div>
+      </details>
     `;
   }).join('');
-
-  const sectionsHtml = data.sections.map(section => `
-    <section class="guide-section">
-      <h2 class="guide-h2">${escapeHtml(section.name)}</h2>
-      ${(section.blocks || []).map(renderBlock).join('')}
-    </section>
-  `).join('');
 
   appEl.innerHTML = `
     <div class="page-head" style="padding-top:20px;">
@@ -106,12 +116,7 @@ function render(data){
       ${data.quizFile ? `<div class="q-actions" style="justify-content:flex-start; margin-top:14px;"><a class="btn primary" href="quiz.html?file=${encodeURIComponent(data.quizFile)}">Take the quiz &rarr;</a></div>` : ''}
     </div>
 
-    <nav class="toc-card">
-      <div class="toc-title">On this page</div>
-      ${tocSections}
-    </nav>
-
-    <div class="guide-body">
+    <div class="guide-sections">
       ${sectionsHtml}
     </div>
   `;

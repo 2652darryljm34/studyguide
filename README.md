@@ -10,6 +10,32 @@ A tiny static site for sharing self-study quizzes with classmates via GitHub Pag
 - `data/*.json` — one file per quiz or guide
 - `assets/` — shared CSS/JS, not something you need to touch
 
+## Briefing an AI assistant to build a new quiz or guide
+
+If you start a **new chat** with an AI model to generate a quiz or study guide, that model has no memory of this project — it needs everything below to produce something that fits.
+
+**1. Point it at this repo's conventions.** Tell it to read this README for the JSON schema, and to look at one existing pair of files as a working example of the house style:
+- `data/itd256-midterm-review.json` (a quiz)
+- `data/itd256-midterm-guide.json` (a study guide)
+
+**2. Give it the actual source material** — don't make it guess at course content:
+- The syllabus or exam study guide (part breakdown, question types, point weights, closed/open book, time limit — anything that shapes what's actually tested)
+- The lecture slides/PowerPoint, and whether specific parts are **highlighted** — that's usually the professor's own signal of what's testable
+- Textbook excerpts, if the course uses one
+- Any real example questions or formats the professor has shared — these often reveal exact conventions worth copying (for instance, this class's own ERD exam questions use a specific lettered notation legend, which is why the ITD 256 guide/quiz reference it directly instead of inventing generic ERD questions)
+
+**3. Tell it what to produce:**
+- Which class this belongs to (existing, or brand new — see below), and the file names to use, e.g. `data/<class>-<topic>-review.json` / `data/<class>-<topic>-guide.json`
+- Quiz, guide, or both — and whether they should cross-link (`guideFile` on the quiz, `quizFile` on the guide)
+- Roughly how many questions / how much depth you want (there's no hard limit — for a study tool, more coverage is generally better than matching the exam's exact question count)
+
+**4. Conventions worth calling out explicitly**, since they're easy to get wrong without this context:
+- Every `short_answer` question needs a `rubric` array of 2-4 concrete grading criteria — that's what makes self-grading give partial credit instead of a vague binary guess.
+- `matching` pairs need unique `right`-side values; two identical-looking right answers make a pair ungradeable.
+- `fill_blank` answers are matched case-insensitively with `.,;:'"` stripped out before comparing — avoid answers where stripping punctuation breaks the meaning (e.g. `"1:1"` normalizes to `"11"`); use `mc` instead for anything like that.
+- Don't invent facts, terminology, or examples beyond what's in the material you gave it — a confidently wrong "fact" in a study tool is worse than a missing one.
+- Ask it to validate the JSON (`python3 -m json.tool data/yourfile.json`) and, ideally, actually load it locally (see [Local preview](#local-preview)) to confirm every question renders and grades correctly before calling it done.
+
 ## Adding a new quiz to an existing class
 
 1. Create a new file in `data/`, e.g. `data/itd256-final-review.json`. Quizzes are organized into **sections** (e.g. to mirror an exam's structure), and each question has a `type`. Supported types:
@@ -77,8 +103,8 @@ A study guide is long-form reference notes (definitions, tables, syntax, worked 
 
    | type | fields | notes |
    |---|---|---|
-   | `heading` | `text` | shown as a section heading, and listed in the page's table of contents |
-   | `subheading` | `text` | a smaller heading, not listed in the table of contents |
+   | `heading` | `text` | shown as a heading, and listed in that section's "jump to" nav |
+   | `subheading` | `text` | a smaller heading, not listed in the jump nav |
    | `paragraph` | `text` | plain text |
    | `list` | `items` (array), optional `ordered: true` | bullet list, or numbered if `ordered` is set |
    | `table` | `headers` (array), `rows` (array of arrays) | a reference table |
