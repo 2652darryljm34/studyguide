@@ -610,3 +610,331 @@ footer.site{
   font-size: 0.8rem;
   color: var(--ink-soft);
 }
+
+/* ===========================================================================
+   SQL: the playground page, the schema browser, result grids, and the
+   auto-graded `sql` question type inside a quiz.
+   =========================================================================== */
+
+.wrap.wide{ max-width: 1120px; }
+
+.sql-layout{
+  display: grid;
+  grid-template-columns: minmax(240px, 300px) 1fr;
+  gap: 22px;
+  align-items: start;
+}
+@media (max-width: 860px){
+  .sql-layout{ grid-template-columns: 1fr; }
+  .sql-side{ order: 2; }
+}
+
+.sql-side{
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px 16px 10px;
+  position: sticky;
+  top: 16px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+}
+.sql-side-head{
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin-bottom: 4px;
+}
+.sql-side-note{ font-size: 0.78rem; color: var(--ink-soft); margin-bottom: 12px; }
+
+.sql-main{ min-width: 0; }
+.sql-label{
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+
+/* ---------- Schema browser ---------- */
+.schema-body{ font-size: 0.84rem; }
+.schema-table{ margin-bottom: 14px; }
+.schema-table-name{
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding-bottom: 3px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 5px;
+}
+.schema-count{ float: right; font-weight: 400; font-size: 0.75rem; color: var(--ink-soft); }
+.schema-cols{ list-style: none; margin: 0; padding: 0; }
+.schema-cols li{
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  font-size: 0.78rem;
+  line-height: 1.7;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.key-tag{
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  padding: 1px 4px;
+  border-radius: 3px;
+  margin-right: 5px;
+  vertical-align: 1px;
+}
+.key-tag.pk{ background: var(--accent); color: #fff; }
+.key-tag.fk{ background: #dfe4ee; color: var(--ink-soft); }
+.col-type{ color: var(--ink-soft); font-size: 0.7rem; }
+.fk-ref{ color: var(--ink-soft); font-size: 0.72rem; }
+
+/* Collapsible schema shown next to a quiz question */
+.schema-panel{
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  margin: 14px 0;
+}
+.schema-panel summary{
+  cursor: pointer;
+  padding: 9px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  list-style: none;
+}
+.schema-panel summary::-webkit-details-marker{ display: none; }
+.schema-panel summary::before{ content: '\25B8 '; color: var(--accent); }
+.schema-panel[open] summary::before{ content: '\25BE '; }
+.schema-panel summary:focus-visible{ outline: 2px solid var(--accent); outline-offset: -2px; }
+.schema-panel .schema-body{
+  padding: 2px 14px 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 4px 18px;
+}
+
+/* ---------- Editor + toolbar ---------- */
+.sql-input{
+  width: 100%;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--ink);
+  resize: vertical;
+  tab-size: 2;
+}
+.sql-input:focus{ outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+
+.sql-toolbar{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 12px 0 16px;
+}
+.sql-status{ font-size: 0.8rem; color: var(--ink-soft); }
+.sql-hint{
+  background: #fbf6ee;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 6px 6px 0;
+  padding: 9px 14px;
+  font-size: 0.87rem;
+  margin-bottom: 12px;
+}
+.sql-hint strong{ margin-right: 5px; }
+.sql-note{ font-size: 0.8rem; color: var(--ink-soft); margin-top: 10px; }
+
+/* ---------- Result grid ---------- */
+.sql-rowcount{ font-size: 0.78rem; color: var(--ink-soft); margin-bottom: 5px; }
+.sql-table-wrap{
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card);
+  max-height: 460px;
+  overflow-y: auto;
+  margin-bottom: 14px;
+}
+.sql-table{
+  border-collapse: collapse;
+  width: 100%;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  font-size: 0.8rem;
+}
+.sql-table th, .sql-table td{
+  text-align: left;
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+.sql-table th{
+  position: sticky;
+  top: 0;
+  background: var(--paper);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  z-index: 1;
+}
+.sql-table tbody tr:last-child td{ border-bottom: none; }
+.sql-table tbody tr:nth-child(even){ background: #fafbfd; }
+.sql-null{ color: var(--ink-soft); font-style: italic; }
+
+.sql-empty, .sql-error{
+  font-size: 0.86rem;
+  padding: 11px 14px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+}
+.sql-empty{ background: var(--card); border: 1px solid var(--line); color: var(--ink-soft); }
+.sql-error{ background: var(--bad-bg); color: #7f2c24; font-family: 'SFMono-Regular', Consolas, monospace; }
+.sql-error strong{ display: block; font-family: 'Inter', sans-serif; margin-bottom: 3px; }
+
+/* ---------- Warm-ups ---------- */
+.sql-recipes{
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 4px 16px 14px;
+  margin-top: 8px;
+}
+.sql-recipes summary{
+  cursor: pointer;
+  padding: 10px 0;
+  font-weight: 600;
+  font-size: 0.92rem;
+  list-style: none;
+}
+.sql-recipes summary::-webkit-details-marker{ display: none; }
+.sql-recipes summary::before{ content: '\25B8 '; color: var(--accent); }
+.sql-recipes[open] summary::before{ content: '\25BE '; }
+.recipe-list{ display: flex; flex-wrap: wrap; gap: 7px; }
+.recipe{
+  appearance: none;
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+}
+.recipe:hover{ border-color: var(--accent); background: #fbf3ea; color: var(--accent); }
+.recipe:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ---------- SQL answers in the end-of-quiz review ---------- */
+.review-sub{
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  margin: 10px 0 4px;
+}
+.model-answer.your-sql{ background: #f6f7fa; border-left: 3px solid var(--line); }
+
+.tool-row{ background: #eef4f1; }
+.tool-row:hover{ background: #e2ede7; }
+.tool-badge{ background: #2f8f5b; }
+
+/* ===========================================================================
+   SQL syntax highlighting
+   =========================================================================== */
+
+:root{
+  --tok-keyword: #2d5aa8;
+  --tok-func:    #7a3ea8;
+  --tok-string:  #1f6f45;
+  --tok-number:  #a8442a;
+  --tok-comment: #6b7286;
+  --tok-op:      #565f78;
+  --tok-ident:   var(--ink);
+}
+
+.tok-keyword{ color: var(--tok-keyword); font-weight: 600; }
+.tok-func{ color: var(--tok-func); }
+.tok-string{ color: var(--tok-string); }
+.tok-number{ color: var(--tok-number); }
+.tok-comment{ color: var(--tok-comment); font-style: italic; }
+.tok-op{ color: var(--tok-op); }
+.tok-ident{ color: var(--tok-ident); }
+.tok-ident-quoted{ color: var(--tok-ident); }
+
+/* Read-only highlighted block */
+pre.sql-hl{ white-space: pre-wrap; }
+pre.sql-hl code{ font: inherit; background: none; padding: 0; }
+
+/* ---------- Live editor overlay ----------
+   The <pre> and the <textarea> stack in the same box and must agree on every
+   metric that affects where a glyph lands: font, size, line-height, padding,
+   border width, wrapping and tab size. Change one, change both. */
+
+.sql-editor{
+  position: relative;
+  width: 100%;
+}
+
+.sql-editor > .sql-input-live,
+.sql-editor > .sql-editor-hl{
+  margin: 0;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  letter-spacing: normal;
+  padding: 12px 14px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: normal;
+  tab-size: 2;
+}
+
+.sql-editor > .sql-editor-hl{
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--card);
+  border-color: var(--line);
+  color: var(--tok-ident);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* The textarea stays in flow, so it sets the height the overlay stretches to —
+   and its resize handle keeps working. Its own glyphs are invisible; only the
+   caret and the selection show through to the highlighted copy beneath. */
+.sql-editor > .sql-input-live{
+  position: relative;
+  display: block;
+  width: 100%;
+  z-index: 1;
+  background: transparent;
+  color: transparent;
+  caret-color: var(--ink);
+  resize: vertical;
+}
+.sql-editor > .sql-input-live::selection{ background: #cfe0f6; color: transparent; }
+.sql-editor > .sql-input-live:focus{
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: transparent;
+}
+.sql-editor:focus-within > .sql-editor-hl{ border-color: var(--accent); }
+
+/* Highlighted code blocks inside a study guide */
+.guide-code.sql-hl{ white-space: pre-wrap; }

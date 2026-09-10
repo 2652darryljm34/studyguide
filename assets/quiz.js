@@ -11,6 +11,7 @@ let quizData = null;
 let flat = [];        // flattened, ordered list of { sectionName, ...question }
 let current = 0;
 let answers = [];      // { item, correct, detail }
+let dbPromise = null;  // shared practice-database session for `sql` questions
 
 function escapeHtml(str){
   return String(str).replace(/[&<>"']/g, s => ({
@@ -55,6 +56,12 @@ async function init(){
     subtitleEl.textContent = quizData.title || '';
     loadingEl.hidden = true;
     quizData._sections = sections;
+
+    // Start downloading the SQL engine now if any question needs it, so it is
+    // usually ready by the time the learner reaches the first SQL question.
+    const needsDb = sections.some(s => (s.questions || []).some(q => q.type === 'sql'));
+    if(needsDb) ensureDb();
+
     startQuiz();
   }catch(err){
     loadingEl.textContent = "Couldn't load this quiz. " + err.message;
@@ -113,6 +120,8 @@ function render(){
     renderMatching(card, item, badge);
   } else if(item.type === 'short_answer'){
     renderShortAnswer(card, item, badge);
+  } else if(item.type === 'sql'){
+    renderSql(card, item, badge);
   } else {
     card.innerHTML = `<p>Unsupported question type: ${escapeHtml(item.type)}</p>`;
   }
@@ -135,6 +144,14 @@ function appendNextButton(card, isLast){
   actions.innerHTML = `<button class="btn primary" id="next-btn">${isLast ? 'See results' : 'Next question'}</button>`;
   card.appendChild(actions);
   document.getElementById('next-btn').addEventListener('click', () => { current += 1; render(); });
+}
+
+/* A model answer is rendered as highlighted SQL when the question says it is
+ * one: `sql` questions always, and any other question that sets answerLang. */
+function answerBlock(text, item, extraClass){
+  const isSql = item && (item.type === 'sql' || item.answerLang === 'sql');
+  if(isSql && typeof SqlHL !== 'undefined') return SqlHL.block(text, extraClass);
+  return `<pre class="model-answer${extraClass ? ' ' + extraClass : ''}">${nl2br(text)}</pre>`;
 }
 
 /* ---------- Multiple choice / True-False ---------- */
@@ -297,7 +314,7 @@ function renderShortAnswer(card, item, badge){
     feedbackEl.innerHTML = `
       <div class="feedback" style="background:#eef1f6; color:var(--ink);">
         <strong>Model answer</strong>
-        <pre class="model-answer">${nl2br(item.modelAnswer)}</pre>
+        ${answerBlock(item.modelAnswer, item)}
         ${item.explanation ? `<div style="margin-top:8px;">${escapeHtml(item.explanation)}</div>` : ''}
       </div>
       <div class="rubric-box">
@@ -343,12 +360,18 @@ function renderShortAnswer(card, item, badge){
   });
 }
 
-/* Fallback for any short_answer question written without a rubric */
+/* Fallback for any short_answer question written without a rubric, and for a
+ * SQL question whose engine never loaded -- so read whichever editor exists. */
+function typedAnswer(){
+  const el = document.getElementById('sa-input') || document.getElementById('sql-input');
+  return el ? el.value : '';
+}
+
 function renderBinarySelfGrade(card, feedbackEl, item){
   feedbackEl.innerHTML = `
     <div class="feedback" style="background:#eef1f6; color:var(--ink);">
       <strong>Model answer</strong>
-      <pre class="model-answer">${nl2br(item.modelAnswer)}</pre>
+      ${answerBlock(item.modelAnswer, item)}
       ${item.explanation ? `<div style="margin-top:8px;">${escapeHtml(item.explanation)}</div>` : ''}
     </div>
     <div class="q-actions" style="justify-content:flex-start; margin-top:14px; gap:10px;">
@@ -358,16 +381,172 @@ function renderBinarySelfGrade(card, feedbackEl, item){
   `;
 
   document.getElementById('sa-got-it').addEventListener('click', () => {
-    finishQuestion(1, { yourAnswer: document.getElementById('sa-input').value, correctAnswer: item.modelAnswer, selfGraded: true });
+    finishQuestion(1, { yourAnswer: typedAnswer(), correctAnswer: item.modelAnswer, selfGraded: true });
     document.getElementById('sa-got-it').disabled = true;
     document.getElementById('sa-missed').disabled = true;
     appendNextButton(card, current + 1 === flat.length);
   });
   document.getElementById('sa-missed').addEventListener('click', () => {
-    finishQuestion(0, { yourAnswer: document.getElementById('sa-input').value, correctAnswer: item.modelAnswer, selfGraded: true });
+    finishQuestion(0, { yourAnswer: typedAnswer(), correctAnswer: item.modelAnswer, selfGraded: true });
     document.getElementById('sa-got-it').disabled = true;
     document.getElementById('sa-missed').disabled = true;
     appendNextButton(card, current + 1 === flat.length);
+  });
+}
+
+/* ---------- Live SQL (auto-graded against the practice database) ----------
+ * The learner's query and the reference query both run against the same
+ * database, and the two result sets are compared -- so any correct way of
+ * writing it scores, and a wrong answer gets told *how* it differs.          */
+
+function ensureDb(){
+  if(!dbPromise){
+    dbPromise = HarborDB.create((quizData && quizData.dbFile) || 'data/harborview.sql');
+  }
+  return dbPromise;
+}
+
+function renderSql(card, item, badge){
+  card.innerHTML = `
+    ${badge}
+    <p class="q-prompt">${nl2br(item.question)}</p>
+    ${item.hint ? `<div class="sql-hint"><strong>Hint</strong> ${escapeHtml(item.hint)}</div>` : ''}
+    <details class="schema-panel">
+      <summary>Tables you'll need</summary>
+      <div class="schema-body" id="schema-body">Loading the schema&hellip;</div>
+    </details>
+    <textarea id="sql-input" class="sql-input" rows="6" spellcheck="false"
+      placeholder="SELECT ..." autocomplete="off" autocapitalize="off"></textarea>
+    <div class="sql-toolbar">
+      <button class="btn ghost" id="sql-run" disabled>Run</button>
+      <button class="btn primary" id="sql-check" disabled>Check answer</button>
+      <span class="sql-status" id="sql-status">Starting the database&hellip;</span>
+    </div>
+    <div id="sql-out"></div>
+    <div id="feedback"></div>
+  `;
+
+  const input = document.getElementById('sql-input');
+  if(typeof SqlHL !== 'undefined') SqlHL.attach(input);
+  const runBtn = document.getElementById('sql-run');
+  const checkBtn = document.getElementById('sql-check');
+  const statusEl = document.getElementById('sql-status');
+  const outEl = document.getElementById('sql-out');
+  const feedbackEl = document.getElementById('feedback');
+
+  let session = null;
+  let scored = false;
+
+  ensureDb().then(s => {
+    session = s;
+    runBtn.disabled = false;
+    checkBtn.disabled = false;
+    statusEl.textContent = 'Ctrl+Enter runs your query.';
+    document.getElementById('schema-body').innerHTML =
+      SqlView.schemaHtml(s, item.tables || []);
+  }).catch(err => {
+    statusEl.textContent = '';
+    outEl.innerHTML = `<div class="feedback bad"><strong>The SQL engine didn't load.</strong>${escapeHtml(err.message)}</div>`;
+    // Don't strand the learner on a question they can no longer answer.
+    appendSelfGradeFallback(card, item, feedbackEl);
+  });
+
+  function runOnly(){
+    if(!session) return;
+    const sql = input.value.trim();
+    if(!sql){ outEl.innerHTML = '<div class="sql-empty">Type a query first.</div>'; return; }
+    try{
+      const res = session.exec(sql);
+      outEl.innerHTML = SqlView.resultTable(res, { changes: session.changes() });
+      statusEl.textContent = '';
+    }catch(err){
+      outEl.innerHTML = `<div class="sql-error"><strong>SQL error</strong> ${escapeHtml(err.message)}</div>`;
+    }
+  }
+
+  runBtn.addEventListener('click', runOnly);
+  input.addEventListener('keydown', e => {
+    if(e.key === 'Enter' && (e.ctrlKey || e.metaKey)){ e.preventDefault(); runOnly(); }
+  });
+
+  checkBtn.addEventListener('click', () => {
+    if(!session) return;
+    const sql = input.value.trim();
+    if(!sql){ outEl.innerHTML = '<div class="sql-empty">Type a query first.</div>'; return; }
+
+    const opts = {
+      orderMatters: !!item.orderMatters,
+      requireColumns: item.requireColumns || []
+    };
+
+    // A question with `verify` is an INSERT/UPDATE/DELETE: it's graded on the
+    // state of the data afterwards, on throwaway copies of the database.
+    if(item.verify){
+      checkBtn.disabled = true;
+      statusEl.textContent = 'Checking…';
+      HarborDB.checkMutation(
+        (quizData && quizData.dbFile) || 'data/harborview.sql',
+        sql, item.solution, item.verify, opts
+      ).then(verdict => {
+        statusEl.textContent = '';
+        settle(verdict, true);
+      });
+      return;
+    }
+
+    settle(HarborDB.check(session, sql, item.solution, opts), false);
+  });
+
+  function settle(verdict, isMutation){
+    const sql = input.value.trim();
+    outEl.innerHTML = verdict.error ? '' :
+      (isMutation ? '<div class="sql-label">The data after your statement</div>' : '') +
+      SqlView.resultTable(verdict.actual);
+
+    if(!scored){
+      scored = true;
+      finishQuestion(verdict.ok ? 1 : 0, {
+        yourAnswer: sql,
+        correctAnswer: item.solution,
+        sqlGraded: true,
+        verdict: verdict.message
+      });
+      checkBtn.disabled = true;
+      checkBtn.textContent = 'Checked';
+    }
+
+    feedbackEl.innerHTML = `
+      <div class="feedback ${verdict.ok ? 'good' : 'bad'}">
+        <strong>${verdict.ok ? 'Correct.' : 'Not there yet.'}</strong>${escapeHtml(verdict.message)}
+      </div>
+      <div class="feedback" style="background:#eef1f6; color:var(--ink);">
+        <strong>One correct way to write it</strong>
+        ${answerBlock(item.solution, item)}
+        ${item.explanation ? `<div style="margin-top:8px;">${escapeHtml(item.explanation)}</div>` : ''}
+      </div>
+      <div class="sql-note">Your score for this question is recorded. Keep editing and hit
+        <em>Run</em> as much as you like &mdash; it won't change it.</div>
+    `;
+
+    if(!document.getElementById('next-btn')){
+      appendNextButton(card, current + 1 === flat.length);
+    }
+  }
+}
+
+/* If the engine can't be reached, the question still has to be answerable. */
+function appendSelfGradeFallback(card, item, feedbackEl){
+  const wrap = document.createElement('div');
+  wrap.className = 'q-actions';
+  wrap.style.justifyContent = 'flex-start';
+  wrap.innerHTML = '<button class="btn primary" id="sql-fallback">Show the answer instead</button>';
+  card.appendChild(wrap);
+  document.getElementById('sql-fallback').addEventListener('click', () => {
+    wrap.remove();
+    renderBinarySelfGrade(card, feedbackEl, {
+      modelAnswer: item.solution,
+      explanation: item.explanation
+    });
   });
 }
 
@@ -418,11 +597,19 @@ function renderResults(){
         </div>
       `).join('');
       bodyHtml = `
-        <pre class="model-answer">${nl2br(a.detail.correctAnswer)}</pre>
+        ${answerBlock(a.detail.correctAnswer, q)}
         <div class="rubric-review">${rows}</div>
       `;
+    } else if(a.detail && a.detail.sqlGraded){
+      bodyHtml = `
+        <div class="review-sub">What you wrote</div>
+        ${answerBlock(a.detail.yourAnswer || '(nothing)', q, 'your-sql')}
+        ${a.detail.verdict && !a.correct ? `<div class="review-answer">${escapeHtml(a.detail.verdict)}</div>` : ''}
+        <div class="review-sub">One correct way to write it</div>
+        ${answerBlock(a.detail.correctAnswer, q)}
+      `;
     } else if(a.detail && a.detail.selfGraded){
-      bodyHtml = `<pre class="model-answer">${nl2br(a.detail.correctAnswer)}</pre>`;
+      bodyHtml = answerBlock(a.detail.correctAnswer, q);
     } else if(a.detail){
       bodyHtml = `
         <div class="review-answer">Your answer: ${escapeHtml(a.detail.yourAnswer)}</div>

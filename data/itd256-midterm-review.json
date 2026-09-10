@@ -1,300 +1,455 @@
 {
   "title": "ITD 256 Midterm Review",
-  "description": "Matches the exam structure: theory & SQL, ERD completion, and normalization/dependency sets.",
+  "description": "Database concepts, the relational model and keys, SQL you actually run, ERD and Crow's Foot notation, and normalization.",
   "guideFile": "data/itd256-midterm-guide.json",
+  "dbFile": "data/harborview.sql",
   "sections": [
     {
-      "name": "Theory & SQL",
+      "name": "Database Concepts, File Systems & Data Models",
       "questions": [
         {
-          "type": "mc",
-          "category": "Multiple Choice",
-          "question": "In the file/database terminology hierarchy, what is a 'field' also known as?",
-          "options": [
-            "Attribute",
-            "Entity instance",
-            "Record",
-            "Relation"
-          ],
-          "correct": 0,
-          "explanation": "A field is a character or group of characters with specific meaning, also known as an attribute."
-        },
-        {
-          "type": "mc",
-          "category": "Multiple Choice",
-          "question": "A logically connected set of fields that describes a person, place, or thing is called a:",
-          "options": [
-            "File",
-            "Record",
-            "Schema",
-            "Domain"
-          ],
-          "correct": 1,
-          "explanation": "A record is a logically connected set of one or more fields describing a person, place, or thing (also called an entity instance)."
-        },
-        {
           "type": "matching",
-          "category": "Matching",
-          "question": "Match each file/database term to its definition.",
+          "category": "Terminology",
+          "question": "Match each basic file-system term to its definition.",
           "pairs": [
             {
               "left": "Data",
-              "right": "Raw facts with little meaning until organized"
+              "right": "Raw facts, with little meaning until organized"
             },
             {
               "left": "Field",
-              "right": "Character(s) with specific meaning; also called an attribute"
+              "right": "A character or group of characters with a specific meaning"
             },
             {
               "left": "Record",
-              "right": "Set of related fields describing a person, place, or thing"
+              "right": "A logically connected set of fields describing one person, place or thing"
             },
             {
-              "left": "Table (DBMS)",
-              "right": "Collection of related records; also called an entity"
+              "left": "File",
+              "right": "A collection of related records, in a non-DBMS system"
+            },
+            {
+              "left": "Table",
+              "right": "A collection of related records, inside a DBMS"
             }
           ],
-          "explanation": "This mirrors Table 1.2's basic file terminology: data, field, record, and table build on one another."
+          "explanation": "File and Table have the same definition — the name changes depending on whether you're in a file-based system or a DBMS."
         },
         {
-          "type": "mc",
-          "category": "Multiple Choice",
-          "question": "Which type of data exists in its original, raw state with no formatting applied?",
-          "options": [
-            "Structured data",
-            "Semistructured data",
-            "Unstructured data",
-            "Normalized data"
+          "type": "matching",
+          "category": "Terminology",
+          "question": "Each file-system term has a database equivalent. Match them.",
+          "pairs": [
+            {
+              "left": "Field",
+              "right": "Attribute"
+            },
+            {
+              "left": "Record",
+              "right": "Entity instance"
+            },
+            {
+              "left": "Table",
+              "right": "Entity"
+            }
           ],
-          "correct": 2,
-          "explanation": "Unstructured data exists in its original (raw) state, before any structure/formatting has been applied. Semistructured data (e.g. XML) is only partially processed."
-        },
-        {
-          "type": "mc",
-          "category": "Multiple Choice",
-          "question": "A database created and maintained via a cloud service, with defined performance measures, is classified (by location) as a:",
-          "options": [
-            "Centralized database",
-            "Cloud database",
-            "Distributed database",
-            "Data warehouse"
-          ],
-          "correct": 1,
-          "explanation": "Classification by location includes centralized, distributed, and cloud databases; a cloud database is created and maintained with cloud services."
-        },
-        {
-          "type": "mc",
-          "category": "Multiple Choice",
-          "question": "When a file's structure can be changed without requiring every program that accesses it to also be modified, this describes:",
-          "options": [
-            "Structural dependence",
-            "Structural independence",
-            "Data redundancy",
-            "Referential integrity"
-          ],
-          "correct": 1,
-          "explanation": "Structural independence means access to a file doesn't depend on its own structure; structural dependence means programs must be modified whenever the file structure changes."
-        },
-        {
-          "type": "fill_blank",
-          "category": "Fill in the Blank",
-          "question": "In discussions of data independence, the way data is represented to an application or user is the ______ format, while how it's actually stored on hardware is the physical format (and should be hidden from the user).",
-          "answers": [
-            "logical"
-          ],
-          "explanation": "Logical format is the representation to the application/user; physical format is the actual storage on hardware."
-        },
-        {
-          "type": "mc",
-          "category": "Multiple Choice",
-          "question": "A customer's address is stored separately in both a Billing table and a Shipping table. Updating it in only one place leaves the two out of sync. This scenario illustrates:",
-          "options": [
-            "Referential integrity",
-            "Data redundancy leading to an update anomaly",
-            "A transitive dependency",
-            "Structural independence"
-          ],
-          "correct": 1,
-          "explanation": "Unnecessarily storing the same data in different places is data redundancy; when required changes aren't made everywhere consistently, that's an update anomaly."
-        },
-        {
-          "type": "mc",
-          "category": "Multiple Choice",
-          "question": "Which DBMS function is responsible for storing definitions of data elements and their relationships?",
-          "options": [
-            "Data dictionary management",
-            "Data storage management",
-            "Security management",
-            "Backup and recovery management"
-          ],
-          "correct": 0,
-          "explanation": "Data dictionary management stores the definitions of data elements and their relationships in the data dictionary."
-        },
-        {
-          "type": "fill_blank",
-          "category": "Fill in the Blank",
-          "question": "A restriction placed on data to help ensure data integrity is called a ______ — one of the four basic data model building blocks, along with entity, attribute, and relationship.",
-          "answers": [
-            "constraint"
-          ],
-          "explanation": "Entity, attribute, relationship, and constraint are the four basic building blocks of a data model."
-        },
-        {
-          "type": "tf",
-          "category": "True / False",
-          "question": "When translating business rules into a data model, the relationships you identify between entities are always bidirectional.",
-          "correct": true,
-          "explanation": "Relationships are always bidirectional — you have to ask how many instances of B relate to one instance of A, and vice versa."
-        },
-        {
-          "type": "fill_blank",
-          "category": "Fill in the Blank",
-          "question": "The older ERD notation style that represents entities as rectangles and relationships as diamonds is called ______ notation (as opposed to the Crow's Foot notation used on this course's ERDs).",
-          "answers": [
-            "chen",
-            "chen notation"
-          ],
-          "explanation": "Chen notation uses diamond shapes for relationships; this course primarily uses Crow's Foot notation instead."
-        },
-        {
-          "type": "mc",
-          "category": "Multiple Choice",
-          "question": "In the relational model, a 'relation' is another name for a:",
-          "options": [
-            "Foreign key",
-            "Table (or entity)",
-            "Query",
-            "Schema"
-          ],
-          "correct": 1,
-          "explanation": "A relation is a matrix of intersecting rows and columns — in other words, a table or entity."
-        },
-        {
-          "type": "mc",
-          "category": "Multiple Choice",
-          "question": "What is the main purpose of a relational database management system (RDBMS)?",
-          "options": [
-            "It replaces SQL with a graphical query builder",
-            "It makes the relational model easier to understand and implement, hiding its complexities from the user",
-            "It only supports one table per database",
-            "It stores data exclusively in XML format"
-          ],
-          "correct": 1,
-          "explanation": "An RDBMS performs the functions of hierarchical/network DBMSs but makes the relational model easier to use by hiding its complexities."
-        },
-        {
-          "type": "mc",
-          "category": "Multiple Choice",
-          "question": "A natural key is best described as:",
-          "options": [
-            "An artificially made-up identifier such as an auto-number",
-            "A real-world identifier that already uniquely identifies real-world objects",
-            "A key composed of multiple attributes",
-            "A key used strictly for data retrieval"
-          ],
-          "correct": 1,
-          "explanation": "A natural key (or natural identifier) is a real-world identifier already familiar to end users that uniquely identifies real-world objects."
-        },
-        {
-          "type": "mc",
-          "category": "Multiple Choice",
-          "question": "A surrogate primary key is especially useful when:",
-          "options": [
-            "There's an obvious short natural key available",
-            "The primary key would otherwise be composite with multiple data types, or too long to be usable",
-            "The table has no foreign keys",
-            "The table only has one row"
-          ],
-          "correct": 1,
-          "explanation": "Surrogate keys are useful when no natural key is suitable, when the primary key would be composite with multiple data types, or when it would be too long to be usable."
-        },
-        {
-          "type": "mc",
-          "category": "Multiple Choice",
-          "question": "A candidate key is defined as:",
-          "options": [
-            "Any attribute in a table",
-            "A minimal superkey",
-            "A foreign key in another table",
-            "A key that allows nulls"
-          ],
-          "correct": 1,
-          "explanation": "A candidate key is a minimal superkey — a superkey with no unnecessary attributes."
-        },
-        {
-          "type": "fill_blank",
-          "category": "Fill in the Blank",
-          "question": "A key used strictly for data retrieval purposes, rather than to enforce uniqueness or link tables, is called a ______ key.",
-          "answers": [
-            "secondary"
-          ],
-          "explanation": "A secondary key is used strictly for data retrieval purposes (e.g. searching by last name), unlike a primary or foreign key."
-        },
-        {
-          "type": "mc",
-          "category": "Multiple Choice",
-          "question": "Entity integrity requires that:",
-          "options": [
-            "Every foreign key value must match an existing primary key value",
-            "All primary key values are unique, and no part of the primary key can be null",
-            "Every table must have at least one foreign key",
-            "All attributes must allow null values"
-          ],
-          "correct": 1,
-          "explanation": "Entity integrity: every row has a unique identity — all primary key entries are unique and no part of the primary key is null."
-        },
-        {
-          "type": "fill_blank",
-          "category": "Fill in the Blank",
-          "question": "______ integrity requires that every foreign key value be either null or match an existing primary key value in the related table.",
-          "answers": [
-            "referential"
-          ],
-          "explanation": "Referential integrity governs the validity of foreign key references between tables."
-        },
-        {
-          "type": "fill_blank",
-          "category": "Fill in the Blank",
-          "question": "The complete logical view of a database — a full description of every table, relationship, and constraint in it — is called the database ______.",
-          "answers": [
-            "schema"
-          ],
-          "explanation": "The database schema is the complete logical view of the database; a relational schema refers to this for an individual table."
-        },
-        {
-          "type": "tf",
-          "category": "True / False",
-          "question": "In a relational database, the order of rows and columns does not matter to the DBMS.",
-          "correct": true,
-          "explanation": "One of the defining characteristics of a relational table is that row/column order is irrelevant to the DBMS."
-        },
-        {
-          "type": "tf",
-          "category": "True / False",
-          "question": "A foreign key value must always match an existing primary key value in the related table and can never be null.",
-          "correct": false,
-          "explanation": "Referential integrity allows a foreign key to be either null or a value matching an existing primary key — it doesn't have to match."
+          "explanation": "Field = attribute, record = entity instance, table = entity. These pairs come up constantly once you start drawing ERDs."
         },
         {
           "type": "matching",
           "category": "Matching",
-          "question": "Match each SELECT clause to what it does.",
+          "question": "Databases can be classified by the degree of structure in their data. Match each level to its description.",
+          "pairs": [
+            {
+              "left": "Unstructured",
+              "right": "Data exists in its original, raw state"
+            },
+            {
+              "left": "Structured",
+              "right": "Data results from formatting, applied to suit a type of processing"
+            },
+            {
+              "left": "Semistructured",
+              "right": "Data that has been partially processed — XML, for instance"
+            }
+          ],
+          "explanation": "XML is the standard example of semistructured data: it represents data elements in a textual format without imposing a full relational structure."
+        },
+        {
+          "type": "mc",
+          "category": "Multiple Choice",
+          "question": "The practical significance of data dependence is the difference between the logical and physical format. Which describes the LOGICAL format?",
+          "options": [
+            "How the data is actually stored on the hardware",
+            "How the data is represented to the application or user",
+            "The order blocks are written to disk",
+            "The compression algorithm applied to the file"
+          ],
+          "correct": 1,
+          "explanation": "Logical = the representation to the application or user. Physical = actual storage on hardware, which should be hidden completely and of no concern to the user."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Fill in the Blank",
+          "question": "Unnecessarily storing the same data at different places is called data ______.",
+          "answers": [
+            "redundancy"
+          ],
+          "explanation": "Data redundancy. It creates \"islands of information\" and raises the odds of different versions of the same data existing at once."
+        },
+        {
+          "type": "matching",
+          "category": "Matching",
+          "question": "Match each anomaly to what goes wrong.",
+          "pairs": [
+            {
+              "left": "Update anomaly",
+              "right": "Changed data ends up inconsistent or incomplete"
+            },
+            {
+              "left": "Insertion anomaly",
+              "right": "New data cannot be recorded completely"
+            },
+            {
+              "left": "Deletion anomaly",
+              "right": "Removing one fact partially removes another"
+            }
+          ],
+          "explanation": "These three are the reason normalization exists — they all come from putting facts about different things in the same table."
+        },
+        {
+          "type": "mc",
+          "category": "Multiple Choice",
+          "question": "Which DBMS function stores the definitions of data elements and their relationships?",
+          "options": [
+            "Data storage management",
+            "Data dictionary management",
+            "Security management",
+            "Data transformation and presentation"
+          ],
+          "correct": 1,
+          "explanation": "Data dictionary management. The data dictionary stores definitions of data elements and their relationships."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Fill in the Blank",
+          "question": "SQL stands for ______ Query Language.",
+          "answers": [
+            "structured"
+          ],
+          "explanation": "Structured Query Language — the de facto query language and data access standard, supported by nearly all DBMS vendors with slight variations."
+        },
+        {
+          "type": "matching",
+          "category": "Matching",
+          "question": "Match each of the four basic building blocks of a data model to its definition.",
+          "pairs": [
+            {
+              "left": "Entity",
+              "right": "A person, place, thing or event about which data is collected"
+            },
+            {
+              "left": "Attribute",
+              "right": "A characteristic of an entity"
+            },
+            {
+              "left": "Relationship",
+              "right": "An association among entities"
+            },
+            {
+              "left": "Constraint",
+              "right": "A restriction placed on data to ensure integrity"
+            }
+          ],
+          "explanation": "Entity, attribute, relationship, constraint — memorize these four; every ERD question is built out of them."
+        },
+        {
+          "type": "mc",
+          "category": "Multiple Choice",
+          "question": "When translating business rules into data model components, nouns generally become ______ and verbs generally become ______.",
+          "options": [
+            "relationships; entities",
+            "entities; relationships",
+            "attributes; constraints",
+            "constraints; attributes"
+          ],
+          "correct": 1,
+          "explanation": "Nouns translate into entities, verbs translate into relationships among entities."
+        },
+        {
+          "type": "tf",
+          "category": "True / False",
+          "question": "Relationships are always bidirectional — you have to read them from both ends.",
+          "correct": true,
+          "explanation": "Because relationships run both ways, you ask two questions: how many B relate to one A, and how many A relate to one B."
+        },
+        {
+          "type": "mc",
+          "category": "Multiple Choice",
+          "question": "The relational model is based on the relation, which is another name for:",
+          "options": [
+            "A foreign key",
+            "A table (or entity)",
+            "A query result only",
+            "An index"
+          ],
+          "correct": 1,
+          "explanation": "A relation is a table or entity — a matrix of intersecting tuples (rows) and attributes (columns)."
+        },
+        {
+          "type": "mc",
+          "category": "Multiple Choice",
+          "question": "What does an RDBMS do that the raw relational model does not?",
+          "options": [
+            "It eliminates the need for primary keys",
+            "It hides the complexities of the relational model from the user and makes it easier to implement",
+            "It removes the need for any data model at all",
+            "It converts the database into a file system"
+          ],
+          "correct": 1,
+          "explanation": "An RDBMS performs the basic functions of earlier DBMS types while making the relational model easier to understand and implement, hiding its complexities."
+        },
+        {
+          "type": "mc",
+          "category": "Multiple Choice",
+          "question": "Which pair correctly separates the logical model from the physical model?",
+          "options": [
+            "Logical: what data is stored and how it relates. Physical: how it is actually implemented and stored",
+            "Logical: disk layout. Physical: business rules",
+            "Logical: only used after the database is built. Physical: only used in planning",
+            "They are two names for the same diagram"
+          ],
+          "correct": 0,
+          "explanation": "Logical describes the structure as the user sees it; physical describes the actual implementation. The same distinction as logical vs physical format under data independence."
+        }
+      ]
+    },
+    {
+      "name": "The Relational Model, Keys & Integrity",
+      "questions": [
+        {
+          "type": "fill_blank",
+          "category": "Fill in the Blank",
+          "question": "A key is one or more attributes that ______ other attributes.",
+          "answers": [
+            "determine"
+          ],
+          "explanation": "Keys determine other attributes. That single word is what connects keys to normalization."
+        },
+        {
+          "type": "matching",
+          "category": "Matching",
+          "question": "Match each kind of primary key to its description.",
+          "pairs": [
+            {
+              "left": "Natural key",
+              "right": "A real-world identifier already familiar to end users"
+            },
+            {
+              "left": "Surrogate key",
+              "right": "A made-up, artificial value such as an auto-number"
+            },
+            {
+              "left": "Composite primary key",
+              "right": "A primary key built from more than one attribute"
+            }
+          ],
+          "explanation": "A natural key is part of the day-to-day business vocabulary; a surrogate key exists only to be a key."
+        },
+        {
+          "type": "tf",
+          "category": "True / False",
+          "question": "Every table row must have a primary key.",
+          "correct": true,
+          "explanation": "Each table row must have a primary key. That is entity integrity."
+        },
+        {
+          "type": "matching",
+          "category": "Matching",
+          "question": "Match each integrity rule to its requirement.",
+          "pairs": [
+            {
+              "left": "Entity integrity",
+              "right": "All primary key entries are unique, and no part of a primary key may be null"
+            },
+            {
+              "left": "Referential integrity",
+              "right": "A foreign key is either null, or matches a primary key value in the related table"
+            }
+          ],
+          "explanation": "Entity integrity governs the primary key of a row; referential integrity governs the foreign key pointing at another row."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Fill in the Blank",
+          "question": "The absence of any data value in a column is called a ______.",
+          "answers": [
+            "null"
+          ],
+          "explanation": "A null. It can mean an unknown value, a known but missing value, or an inapplicable condition."
+        },
+        {
+          "type": "matching",
+          "category": "Matching",
+          "question": "Match each catalogue-style term to what it actually describes.",
+          "pairs": [
+            {
+              "left": "Data dictionary",
+              "right": "A description of all tables in the database, created by the user and designer"
+            },
+            {
+              "left": "System catalog",
+              "right": "A system data dictionary describing all objects in the database"
+            },
+            {
+              "left": "Database schema",
+              "right": "The complete logical view — the full description of the database"
+            },
+            {
+              "left": "Relational schema",
+              "right": "The description of one individual table"
+            }
+          ],
+          "explanation": "Note the distinction: the database schema covers everything; a relational schema is per-table."
+        },
+        {
+          "type": "mc",
+          "category": "Multiple Choice",
+          "question": "How is a many-to-many relationship implemented in a relational database?",
+          "options": [
+            "By putting a foreign key in whichever table is larger",
+            "By creating a new connecting entity in 1:M relationships with both original entities",
+            "By merging the two tables into one",
+            "By storing a comma-separated list of key values in one column"
+          ],
+          "correct": 1,
+          "explanation": "A new connecting entity — a bridge/composite/associative entity — sits between them in two 1:M relationships."
+        },
+        {
+          "type": "mc",
+          "category": "Multiple Choice",
+          "question": "What does a composite (bridge) entity contain?",
+          "options": [
+            "Only its own surrogate key",
+            "The primary keys of the tables being linked, held as foreign keys",
+            "Copies of every attribute from both linked tables",
+            "Nothing — it is a view, not a table"
+          ],
+          "correct": 1,
+          "explanation": "It includes the primary keys of the tables to be linked, as foreign keys — and together those usually form its composite primary key."
+        },
+        {
+          "type": "mc",
+          "category": "Multiple Choice",
+          "question": "A firm needs to record which EMPLOYEEs work on which PROJECTs. An employee may be assigned many projects, and a project may have many employees.\n\nSomeone tries to do it with only the two main tables, each carrying a foreign key to the other:\n\n• EMPLOYEE (emp_id, proj_id) — employee 1 works on projects 1, 2 and 3, so their proj_id has to read \"1,2,3\"\n• PROJECT (proj_id, emp_id) — project 2 has employees 1, 2 and 3, so its emp_id has to read \"1,2,3\"\n\nWhy does this design not work?",
+          "options": [
+            "Because foreign keys are not allowed in more than one table",
+            "Because a single foreign key field would have to hold several key values at once, violating the atomic attribute rule",
+            "Because the two tables would then have the same primary key",
+            "Because a table may not have more than two foreign keys"
+          ],
+          "correct": 1,
+          "explanation": "One column holds one value. Writing \"1,2,3\" into proj_id breaks atomicity, and the same problem appears from the other direction in PROJECT — which is why an M:N needs a third table instead."
+        },
+        {
+          "type": "mc",
+          "category": "Multiple Choice",
+          "question": "The M:N between EMPLOYEE and PROJECT is resolved with a bridge table, ASSIGNMENT, holding one row per pairing — (1,1), (1,2), (2,1), (3,3) and so on.\n\nIn ASSIGNMENT, the columns emp_id and proj_id are:",
+          "options": [
+            "Two independent primary keys",
+            "Foreign keys that together form a composite primary key",
+            "Secondary keys used only for retrieval",
+            "Surrogate keys generated by the DBMS"
+          ],
+          "correct": 1,
+          "explanation": "Each is a foreign key on its own; together they form the composite primary key of the bridge table."
+        },
+        {
+          "type": "mc",
+          "category": "Multiple Choice",
+          "question": "One DIVISION operates many DEPARTMENTs; each DEPARTMENT is operated by one DIVISION. The foreign key belongs:",
+          "options": [
+            "division_id in DEPARTMENT",
+            "department_id in DIVISION",
+            "In both tables, to keep them in sync",
+            "In neither — the join works without one"
+          ],
+          "correct": 0,
+          "explanation": "Many departments per division means the many side is DEPARTMENT, so division_id goes there. Putting department_id in DIVISION would only allow one department per division."
+        },
+        {
+          "type": "tf",
+          "category": "True / False",
+          "question": "In entity relationship modeling, an M:N relationship is valid at the conceptual level.",
+          "correct": true,
+          "explanation": "Valid conceptually — but for the logical model and the actual ERD you need a bridge table."
+        }
+      ]
+    },
+    {
+      "name": "SQL",
+      "questions": [
+        {
+          "type": "matching",
+          "category": "Matching",
+          "question": "Match each SQL data definition command to its effect.",
+          "pairs": [
+            {
+              "left": "CREATE TABLE",
+              "right": "Creates a new table in the user's database schema"
+            },
+            {
+              "left": "DROP TABLE",
+              "right": "Permanently deletes a table and its data"
+            },
+            {
+              "left": "ALTER TABLE",
+              "right": "Modifies a table definition — adds, modifies or deletes attributes or constraints"
+            },
+            {
+              "left": "CREATE VIEW",
+              "right": "Creates a dynamic subset of rows and columns from one or more tables"
+            },
+            {
+              "left": "CREATE INDEX",
+              "right": "Creates an index for a given table"
+            }
+          ],
+          "explanation": "All five are DDL. Note that DROP TABLE takes the data with it — it is not a way to empty a table."
+        },
+        {
+          "type": "mc",
+          "category": "Multiple Choice",
+          "question": "Which pair correctly contrasts DROP TABLE with DELETE FROM?",
+          "options": [
+            "DROP removes rows but keeps the table; DELETE removes the table",
+            "DROP removes the table and its data; DELETE removes rows and leaves the table in place",
+            "They are synonyms",
+            "DROP is DML; DELETE is DDL"
+          ],
+          "correct": 1,
+          "explanation": "DROP is DDL and takes the structure with it. DELETE is DML and only removes rows."
+        },
+        {
+          "type": "matching",
+          "category": "Matching",
+          "question": "Match each SELECT clause to the job it performs.",
           "pairs": [
             {
               "left": "SELECT",
-              "right": "Specifies the attributes/columns to be returned"
+              "right": "Specifies the attributes to be returned"
             },
             {
               "left": "FROM",
-              "right": "Specifies the table(s) data is retrieved from"
+              "right": "Specifies the table(s) the data is retrieved from"
             },
             {
               "left": "WHERE",
-              "right": "Filters individual rows based on given criteria"
+              "right": "Filters individual rows on the given criteria"
             },
             {
               "left": "GROUP BY",
-              "right": "Groups rows into collections sharing the same value(s)"
+              "right": "Collects rows into groups that share values in one or more attributes"
             },
             {
               "left": "HAVING",
@@ -302,146 +457,65 @@
             },
             {
               "left": "ORDER BY",
-              "right": "Sorts the final result rows ascending or descending"
+              "right": "Sorts the final result rows, ascending or descending"
             }
           ],
-          "explanation": "A full SELECT statement is built in this order: SELECT, FROM, WHERE, GROUP BY, HAVING, ORDER BY."
-        },
-        {
-          "type": "matching",
-          "category": "Matching",
-          "question": "Match each SQL command category to what it's used for.",
-          "pairs": [
-            {
-              "left": "DDL",
-              "right": "Defines database structure (CREATE, ALTER, DROP)"
-            },
-            {
-              "left": "DML",
-              "right": "Manipulates data (INSERT, UPDATE, DELETE, SELECT)"
-            },
-            {
-              "left": "TCL",
-              "right": "Controls transactions (COMMIT, ROLLBACK)"
-            },
-            {
-              "left": "DCL",
-              "right": "Controls data access permissions"
-            }
-          ],
-          "explanation": "SQL functions fall into four categories: DDL, DML, TCL, and DCL."
-        },
-        {
-          "type": "mc",
-          "category": "Multiple Choice",
-          "question": "Which SQL command permanently deletes an entire database, including all of its tables?",
-          "options": [
-            "DROP TABLE",
-            "DELETE DATABASE",
-            "DROP DATABASE",
-            "TRUNCATE DATABASE"
-          ],
-          "correct": 2,
-          "explanation": "DROP DATABASE permanently deletes the entire database, including all tables. DROP TABLE only removes a single table."
-        },
-        {
-          "type": "mc",
-          "category": "Multiple Choice",
-          "question": "Inside a CREATE TABLE statement, which keyword ensures a column can never contain duplicate values?",
-          "options": [
-            "NOT NULL",
-            "UNIQUE",
-            "CHECK",
-            "DEFAULT"
-          ],
-          "correct": 1,
-          "explanation": "UNIQUE ensures a column has no duplicate values. NOT NULL only prevents nulls; CHECK validates data against a condition; DEFAULT supplies a value when none is given."
-        },
-        {
-          "type": "mc",
-          "category": "Multiple Choice",
-          "question": "Two tables share no identically-named columns, so you need to join them on a condition like film.language_id = language.language_id. Which join syntax fits?",
-          "options": [
-            "NATURAL JOIN",
-            "JOIN ... USING (column)",
-            "JOIN ... ON (join-condition)",
-            "A join isn't possible without matching column names"
-          ],
-          "correct": 2,
-          "explanation": "JOIN ... ON lets you express a join condition explicitly, which is required when the tables have no common attribute name to rely on."
-        },
-        {
-          "type": "tf",
-          "category": "True / False",
-          "question": "SQL's NATURAL JOIN automatically matches columns with identical names and compatible data types, without needing an ON or USING clause.",
-          "correct": true,
-          "explanation": "NATURAL JOIN determines common attributes itself by finding identically-named, compatible-type columns."
-        },
-        {
-          "type": "mc",
-          "category": "Multiple Choice",
-          "question": "An EMPLOYEE table has a MANAGER_ID column that references another employee's own EMP_ID in that same table. Joining EMPLOYEE to itself to pair each employee with their manager is an example of a:",
-          "options": [
-            "Recursive (unary/self) join",
-            "Outer join",
-            "Cross join",
-            "Natural join"
-          ],
-          "correct": 0,
-          "explanation": "A recursive join is unary — it joins a table to itself. All other join types are binary (between two different tables)."
-        },
-        {
-          "type": "tf",
-          "category": "True / False",
-          "question": "The HAVING clause filters individual rows before they are grouped by GROUP BY.",
-          "correct": false,
-          "explanation": "WHERE filters individual rows before grouping; HAVING filters the groups that GROUP BY already formed."
+          "explanation": "The one that trips people up is WHERE vs HAVING: WHERE filters rows before grouping, HAVING filters groups after."
         },
         {
           "type": "fill_blank",
           "category": "Fill in the Blank",
-          "question": "The SQL clause used to filter groups after GROUP BY is called ______.",
+          "question": "SQL's ______ clause produces a list of only unique values, removing duplicates from the result.",
           "answers": [
-            "HAVING"
+            "distinct"
           ],
-          "explanation": "HAVING filters groups formed by GROUP BY, based on aggregate conditions."
+          "explanation": "DISTINCT. It goes immediately after SELECT: SELECT DISTINCT power_source FROM gadget;"
         },
         {
           "type": "matching",
           "category": "Matching",
-          "question": "Match each SQL special operator to what it does.",
+          "question": "Match each special operator to what it tests.",
           "pairs": [
             {
-              "left": "BETWEEN ... AND ...",
-              "right": "Tests whether a value falls within a range, inclusive of both endpoints"
+              "left": "BETWEEN … AND …",
+              "right": "Whether a value falls within an inclusive range"
             },
             {
               "left": "IN",
-              "right": "Tests whether a value matches any value in a given list"
+              "right": "Whether a value appears in a given list"
             },
             {
               "left": "LIKE",
-              "right": "Matches a value against a text pattern using wildcards"
+              "right": "Whether text matches a pattern"
             },
             {
               "left": "IS NULL",
-              "right": "Tests whether a value is missing/absent"
+              "right": "Whether a value is absent altogether"
             }
           ],
-          "explanation": "BETWEEN, IN, LIKE, and IS NULL/NOT NULL are the special comparison operators covered alongside AND/OR/NOT."
+          "explanation": "These four are the special operators. Note that a null is never found by = — it needs IS NULL."
         },
         {
           "type": "fill_blank",
           "category": "Fill in the Blank",
-          "question": "In a SQL LIKE pattern such as '%HOTEL%', the % symbol is a wildcard that matches ______ (how many characters?).",
+          "question": "The three logical operators SQL uses to combine multiple conditions in a query are AND, OR and ______.",
           "answers": [
-            "any number of characters",
-            "zero or more characters",
-            "any characters",
-            "zero or more",
-            "any sequence of characters"
+            "not"
           ],
-          "explanation": "% matches any sequence of zero or more characters; the underscore _ wildcard matches exactly one character."
+          "explanation": "AND, OR and NOT."
+        },
+        {
+          "type": "mc",
+          "category": "Multiple Choice",
+          "question": "A query reports that \"Sabrina (9) reports to Sarah (1)\", drawing both people from a single EMPLOYEE table. What makes this a recursive join?",
+          "options": [
+            "It joins three tables at once",
+            "It joins a table to itself, because both people live in the same table",
+            "It repeats until no rows remain",
+            "It uses a subquery"
+          ],
+          "correct": 1,
+          "explanation": "Both the worker and the manager are rows in the same table, so the table is joined to itself — with table aliases to tell the two copies apart."
         },
         {
           "type": "matching",
@@ -450,354 +524,350 @@
           "pairs": [
             {
               "left": "COUNT",
-              "right": "The number of rows (or non-null values) in a set"
-            },
-            {
-              "left": "MIN / MAX",
-              "right": "The smallest / largest value in a set"
+              "right": "How many rows there are"
             },
             {
               "left": "SUM",
-              "right": "The total of all values in a set"
+              "right": "The total of a numeric column"
             },
             {
               "left": "AVG",
-              "right": "The mean of all values in a set"
+              "right": "The arithmetic mean of a numeric column"
+            },
+            {
+              "left": "MIN",
+              "right": "The smallest value"
+            },
+            {
+              "left": "MAX",
+              "right": "The largest value"
             }
           ],
-          "explanation": "Aggregate functions take a collection of rows and reduce them to a single summary row."
-        },
-        {
-          "type": "fill_blank",
-          "category": "Fill in the Blank",
-          "question": "The acronym CRUD stands for Create, Read, ______, and Delete.",
-          "answers": [
-            "update"
-          ],
-          "explanation": "CRUD maps to INSERT (Create), SELECT (Read), UPDATE, and DELETE."
-        },
-        {
-          "type": "tf",
-          "category": "True / False",
-          "question": "It's safe to run an UPDATE or DELETE statement without a WHERE clause, since SQL will always ask for confirmation before applying it to every row.",
-          "correct": false,
-          "explanation": "SQL does not confirm before acting — an UPDATE or DELETE with no WHERE clause immediately applies to every row in the table. Always use WHERE to limit the damage."
-        },
-        {
-          "type": "short_answer",
-          "category": "SQL Writing",
-          "question": "Write a query to select all columns from the film table.",
-          "modelAnswer": "SELECT * FROM film;",
-          "rubric": [
-            "Used SELECT * to return every column",
-            "Named the correct table: film"
-          ],
-          "explanation": "SELECT * returns every column; no WHERE clause means every row too."
-        },
-        {
-          "type": "short_answer",
-          "category": "SQL Writing",
-          "question": "Write a query to select the title and rental_rate columns from film, but only for rows where rental_rate is greater than 4.",
-          "modelAnswer": "SELECT title, rental_rate\nFROM film\nWHERE rental_rate > 4;",
-          "rubric": [
-            "Selected exactly the title and rental_rate columns",
-            "Named the correct table: film",
-            "WHERE condition correctly filters rental_rate > 4"
-          ],
-          "explanation": "SELECT names the columns you want; WHERE restricts which rows qualify."
-        },
-        {
-          "type": "short_answer",
-          "category": "SQL Writing",
-          "question": "Complete this query to count how many customers are in the customer table:\n\nSELECT ____ FROM customer;",
-          "modelAnswer": "SELECT COUNT(*) FROM customer;",
-          "rubric": [
-            "Used COUNT(*) (or an equivalent aggregate) to count rows",
-            "Named the correct table: customer"
-          ],
-          "explanation": "COUNT(*) is an aggregate function that reduces all matching rows to a single count."
-        },
-        {
-          "type": "short_answer",
-          "category": "SQL Writing",
-          "question": "Write a query using DISTINCT to list the unique rating values from the film table.",
-          "modelAnswer": "SELECT DISTINCT rating\nFROM film;",
-          "rubric": [
-            "Used SELECT DISTINCT",
-            "Selected the correct column: rating",
-            "Named the correct table: film"
-          ],
-          "explanation": "DISTINCT removes duplicate values so each rating appears only once."
-        },
-        {
-          "type": "short_answer",
-          "category": "SQL Writing",
-          "question": "Write a query that joins film, film_category (using film_id), and category (using category_id) to list the titles of films where category.name = 'Comedy'.",
-          "modelAnswer": "SELECT title\nFROM film\nINNER JOIN film_category USING (film_id)\nINNER JOIN category USING (category_id)\nWHERE category.name = 'Comedy';",
-          "rubric": [
-            "Selected the title column",
-            "Joined film to film_category on film_id",
-            "Joined film_category to category on category_id",
-            "WHERE condition correctly filters category.name = 'Comedy'"
-          ],
-          "explanation": "Chaining two INNER JOIN ... USING clauses links all three tables through their shared key columns."
-        },
-        {
-          "type": "short_answer",
-          "category": "SQL Writing",
-          "question": "Write a query to select rental_id, rental_date, inventory_id, and customer_id from the rental table, where rental_date is between '2005-06-01' and '2005-06-15'. Use the BETWEEN ... AND ... keywords.",
-          "modelAnswer": "SELECT rental_id, rental_date, inventory_id, customer_id\nFROM rental\nWHERE rental_date BETWEEN '2005-06-01' AND '2005-06-15';",
-          "rubric": [
-            "Selected rental_id, rental_date, inventory_id, and customer_id",
-            "Named the correct table: rental",
-            "Used BETWEEN ... AND ... (not just > and <)",
-            "Dates written as 'YYYY-MM-DD' strings in the correct order (start, then end)"
-          ],
-          "explanation": "BETWEEN...AND... is inclusive of both endpoints and reads more clearly than chaining >= and <=."
-        },
-        {
-          "type": "mc",
-          "category": "Multiple Choice",
-          "question": "In data modeling, an 'entity' represents a:",
-          "options": [
-            "Characteristic of a person, place, thing, or event",
-            "Person, place, thing, or event itself",
-            "Restriction placed on data",
-            "Association among two or more entities"
-          ],
-          "correct": 1,
-          "explanation": "Entity = person, place, thing, or event. Attribute = a characteristic of an entity. Relationship = association among entities. Constraint = a restriction on data."
+          "explanation": "An aggregate takes a collection of rows and reduces it to a single row."
         },
         {
           "type": "matching",
           "category": "Matching",
-          "question": "Match each DBMS function to what it does.",
+          "question": "Match each letter of CRUD to the SQL command that performs it.",
           "pairs": [
             {
-              "left": "Security management",
-              "right": "Enforces user security and data privacy"
+              "left": "Create",
+              "right": "INSERT — adds new rows"
             },
             {
-              "left": "Multiuser access control",
-              "right": "Lets multiple users access the database concurrently without compromising integrity"
+              "left": "Read",
+              "right": "SELECT — reads and outputs rows"
             },
             {
-              "left": "Backup and recovery management",
-              "right": "Enables recovery of the database after a failure"
+              "left": "Update",
+              "right": "UPDATE — modifies existing rows"
             },
             {
-              "left": "Data integrity management",
-              "right": "Minimizes redundancy and maximizes consistency"
+              "left": "Delete",
+              "right": "DELETE — gets rid of rows"
             }
           ],
-          "explanation": "Along with data dictionary management, these are among the core functions a DBMS performs."
+          "explanation": "Worth memorizing: always use WHERE with UPDATE to specify which rows, and with DELETE to limit the damage."
         },
         {
           "type": "mc",
           "category": "Multiple Choice",
-          "question": "In the object-oriented data model, a 'class' is analogous to which relational-model concept?",
+          "question": "What happens if you run `UPDATE gadget SET daily_fee = 5;` with no WHERE clause?",
           "options": [
-            "A record",
-            "An entity or table",
-            "A foreign key",
-            "A dependency diagram"
-          ],
-          "correct": 1,
-          "explanation": "A class (a collection of similar objects with shared structure and behavior) is analogous to an entity/table in the relational model; an individual object is analogous to a record."
-        },
-        {
-          "type": "mc",
-          "category": "Multiple Choice",
-          "question": "In a database, a NULL value represents:",
-          "options": [
-            "The number zero",
-            "An empty text string",
-            "The absence of any data value — unknown, missing, or not applicable",
-            "A data-entry error that must be corrected"
+            "Nothing — SQL rejects an UPDATE without WHERE",
+            "Only the first row changes",
+            "Every row in the table is changed",
+            "A new row is added"
           ],
           "correct": 2,
-          "explanation": "NULL means the absence of a data value: it could be unknown, known but missing, or simply inapplicable — it is not the same as zero or an empty string."
+          "explanation": "Every row. This is exactly why you always use WHERE with UPDATE and DELETE."
         },
         {
-          "type": "tf",
-          "category": "True / False",
-          "question": "At the conceptual (entity-relationship) level, a many-to-many (M:N) relationship is invalid and must always be resolved into a bridge entity before the ERD can even be drawn.",
-          "correct": false,
-          "explanation": "M:N relationships are valid at the conceptual/ERD level. A bridge (composite) entity is only required when moving to the logical or physical implementation, since relational tables can't directly implement M:N relationships."
+          "type": "sql",
+          "category": "SQL Writing",
+          "question": "Write a SELECT statement that pulls all of the rows from a single field called surname in the table steward.",
+          "tables": [
+            "steward"
+          ],
+          "hint": "One column, no filter.",
+          "solution": "SELECT surname\nFROM steward;",
+          "expectedRows": 12,
+          "explanation": "Naming one column in the column list returns just that column, for every row."
+        },
+        {
+          "type": "sql",
+          "category": "SQL Writing",
+          "question": "Write a SELECT statement that pulls all of the rows from all of the fields in the table gadget.",
+          "tables": [
+            "gadget"
+          ],
+          "hint": "The wildcard stands in for every column.",
+          "solution": "SELECT *\nFROM gadget;",
+          "expectedRows": 45,
+          "explanation": "SELECT * returns every column of every row."
+        },
+        {
+          "type": "sql",
+          "category": "SQL Writing",
+          "question": "List the locality_name values from the locality table that do NOT end with a vowel (a, e, i, o, u). Your result cannot contain duplicates. Sort by locality_name.",
+          "tables": [
+            "locality"
+          ],
+          "hint": "Either test the last character with right(name, 1), or chain NOT LIKE '%a' … for each vowel. Careful: y is not a vowel here.",
+          "solution": "SELECT DISTINCT locality_name\nFROM locality\nWHERE right(locality_name, 1) NOT IN ('a', 'e', 'i', 'o', 'u')\nORDER BY locality_name;",
+          "orderMatters": true,
+          "expectedRows": 12,
+          "explanation": "Both approaches work. The trap is names ending in y — Alder Bay and Bellamy both belong in the result, because y is not on the vowel list."
+        },
+        {
+          "type": "sql",
+          "category": "SQL Writing",
+          "question": "For every patron, output surname and given_name, plus a derived column that joins given_name and surname with a single space between them. Use the concat(field1, field2, …) function and alias the derived column as full_name. Sort by surname, then by given_name.",
+          "tables": [
+            "patron"
+          ],
+          "hint": "concat() takes as many arguments as you give it, so the space can be one of them. Name the derived column with AS.",
+          "solution": "SELECT surname,\n       given_name,\n       concat(given_name, ' ', surname) AS full_name\nFROM patron\nORDER BY surname, given_name;",
+          "orderMatters": true,
+          "requireColumns": [
+            "full_name"
+          ],
+          "expectedRows": 60,
+          "explanation": "A derived column is computed rather than stored. The AS alias gives it a usable name in the result — without it the header is the whole expression."
+        },
+        {
+          "type": "sql",
+          "category": "SQL Writing",
+          "question": "Return hourly_rate, surname, branch_label and locality_name for every steward, sorted by hourly_rate from largest to smallest, with ties broken by surname. branch_label is in the branch table and locality_name is in the locality table; the common keys are branch_id and locality_id.",
+          "tables": [
+            "steward",
+            "branch",
+            "locality"
+          ],
+          "hint": "Two joins in a row. Because the key names match on both sides, JOIN … USING (key) works.",
+          "solution": "SELECT s.hourly_rate, s.surname, b.branch_label, l.locality_name\nFROM steward s\nINNER JOIN branch b USING (branch_id)\nINNER JOIN locality l USING (locality_id)\nORDER BY s.hourly_rate DESC, s.surname;",
+          "orderMatters": true,
+          "expectedRows": 12,
+          "explanation": "Joins chain: steward reaches branch by branch_id, and branch reaches locality by locality_id. A steward has no locality_id of its own — you have to hop through branch."
+        },
+        {
+          "type": "sql",
+          "category": "SQL Writing",
+          "question": "List the gadget_title of every gadget in the group whose group_label is 'Plumbing'. You must filter on the actual group label, not the id. This needs three tables — gadget, gadget_group_map and gadget_group — joined on gadget_id and group_id.",
+          "tables": [
+            "gadget",
+            "gadget_group_map",
+            "gadget_group"
+          ],
+          "hint": "gadget_group_map is the bridge table resolving the M:N between gadgets and groups. You have to pass through it.",
+          "solution": "SELECT gadget_title\nFROM gadget\nINNER JOIN gadget_group_map USING (gadget_id)\nINNER JOIN gadget_group USING (group_id)\nWHERE gadget_group.group_label = 'Plumbing';",
+          "expectedRows": 6,
+          "explanation": "This is the classic three-table pattern for an M:N relationship: the two entity tables plus the bridge between them. There is no direct link from gadget to gadget_group."
+        },
+        {
+          "type": "sql",
+          "category": "SQL Writing",
+          "question": "List the unique given_name and surname of every patron who took out a loan between '2024-06-01' and '2024-08-31'. Sort by surname, then given_name. Use the DISTINCT keyword to eliminate duplicates. The common key is patron_id.",
+          "tables": [
+            "patron",
+            "checkout"
+          ],
+          "hint": "A patron who borrowed four times would otherwise appear four times.",
+          "solution": "SELECT DISTINCT given_name, surname\nFROM checkout\nINNER JOIN patron USING (patron_id)\nWHERE checked_out_on BETWEEN '2024-06-01' AND '2024-08-31'\nORDER BY surname, given_name;",
+          "orderMatters": true,
+          "expectedRows": 30,
+          "explanation": "Joining to a table on the many side multiplies rows. DISTINCT collapses them back down to one per patron."
+        },
+        {
+          "type": "sql",
+          "category": "SQL Writing",
+          "question": "List the surname of every patron together with the score_pct of any safety course result above 75. Sort by the last three characters of the surname; where two rows tie on those three characters, sort by result_id.",
+          "tables": [
+            "patron",
+            "course_result"
+          ],
+          "hint": "right(text, 3) returns the last three characters. You can sort by an expression, not just a column.",
+          "solution": "SELECT p.surname, r.score_pct\nFROM course_result r\nINNER JOIN patron p USING (patron_id)\nWHERE r.score_pct > 75\nORDER BY right(p.surname, 3), r.result_id;",
+          "orderMatters": true,
+          "expectedRows": 62,
+          "explanation": "ORDER BY accepts any expression. The secondary sort on result_id is what makes the order fully determined when several surnames end the same way."
         }
       ]
     },
     {
-      "name": "ERD Completion",
+      "name": "ERD & Crow's Foot Notation",
       "questions": [
         {
           "type": "matching",
           "category": "ERD Notation",
-          "question": "This professor's exam ERDs use a 'Connector Options' legend of six symbols (a line ending in different combinations of a circle, a bar, or a crow's foot) to mark cardinality/participation on each end of a relationship. Match each connector to what it represents.\n\nA = line + crow's foot only (no bar, no circle)\nB = line + single bar + crow's foot\nC = line + circle + crow's foot\nD = line + single bar only (no crow's foot)\nE = line + double bar (no crow's foot)\nF = line + circle + single bar (no crow's foot)",
+          "question": "Crow's Foot notation marks each end of a relationship line with one of six connectors, built from a circle, a bar, and a crow's foot.\n\nA = crow's foot only\nB = bar + crow's foot\nC = circle + crow's foot\nD = single bar\nE = double bar\nF = circle + bar\n\nMatch each connector to what it means.",
           "pairs": [
             {
-              "left": "B",
-              "right": "One or many (mandatory many / \"at least one\")"
+              "left": "A — crow's foot only",
+              "right": "Many"
             },
             {
-              "left": "C",
-              "right": "Zero or many (optional many)"
+              "left": "B — bar + crow's foot",
+              "right": "One or many (mandatory, many)"
             },
             {
-              "left": "E",
-              "right": "One and only one (mandatory one)"
+              "left": "C — circle + crow's foot",
+              "right": "Zero or many (optional, many)"
             },
             {
-              "left": "F",
-              "right": "Zero or one (optional one)"
+              "left": "D — single bar",
+              "right": "One"
             },
             {
-              "left": "A",
-              "right": "Not a valid cardinality/participation symbol — a crow's foot alone doesn't specify mandatory or optional"
+              "left": "E — double bar",
+              "right": "One and only one (mandatory, exactly one)"
             },
             {
-              "left": "D",
-              "right": "Not a valid cardinality/participation symbol — a single bar alone doesn't specify one or many"
+              "left": "F — circle + bar",
+              "right": "Zero or one (optional, at most one)"
             }
           ],
-          "explanation": "Crow's Foot notation always pairs a cardinality mark (single line = one, crow's foot = many) with a participation mark (double bar = mandatory, circle = optional). A or D alone are incomplete/distractor symbols."
+          "explanation": "Read each connector as two symbols: the outer one is the minimum, the inner one is the maximum. A circle means zero (optional), a bar means one, and a crow's foot means many."
         },
         {
           "type": "mc",
           "category": "ERD Notation",
-          "question": "On this professor's completed ERDs, an attribute name shown in bold and underlined represents the entity's:",
+          "question": "In Crow's Foot notation, what does a circle on a relationship line always add?",
           "options": [
-            "Foreign key",
-            "Primary key",
-            "A descriptive (non-key) attribute",
-            "A secondary key"
+            "That the participation is optional — the minimum is zero",
+            "That the relationship is many",
+            "That the attribute is a primary key",
+            "That the relationship is recursive"
           ],
-          "correct": 1,
-          "explanation": "Primary key attributes are listed first and marked bold/underlined at the top of the entity box, above a dividing line."
+          "correct": 0,
+          "explanation": "Circle = zero = optional participation. A bar = one, and a crow's foot = many."
         },
         {
           "type": "fill_blank",
           "category": "ERD Notation",
-          "question": "On this professor's completed ERDs, an attribute name shown in italics (below the dividing line) typically represents a ______ key.",
-          "answers": [
-            "foreign"
-          ],
-          "explanation": "Foreign key attributes are conventionally italicized to distinguish them from the primary key and from plain descriptive attributes."
-        },
-        {
-          "type": "mc",
-          "category": "ERD",
-          "question": "Business rule: \"A CUSTOMER can place many ORDERS, but each ORDER is placed by exactly one CUSTOMER.\" What is the cardinality between CUSTOMER and ORDER?",
-          "options": [
-            "1:1",
-            "1:M",
-            "M:N",
-            "0:1"
-          ],
-          "correct": 1,
-          "explanation": "One customer relates to many orders, while each order relates to only one customer — a classic 1:M relationship."
-        },
-        {
-          "type": "fill_blank",
-          "category": "ERD",
-          "question": "In Crow's Foot notation, a relationship in which an entity does not have to participate (the minimum cardinality is zero) is called ______ participation.",
+          "question": "A relationship in which an entity does not have to participate — the minimum cardinality is zero — is called ______ participation.",
           "answers": [
             "optional"
           ],
-          "explanation": "Optional participation (shown with a circle) means an entity instance doesn't need a related row on the other side; mandatory participation requires one."
+          "explanation": "Optional participation, drawn with a circle. Mandatory participation requires at least one related row, and is drawn with a bar."
         },
         {
           "type": "mc",
-          "category": "ERD",
-          "question": "Using the Connector Options legend above, which letter represents \"one and only one\" (mandatory one)?",
+          "category": "ERD Notation",
+          "question": "On a completed ERD, an attribute name shown in bold and underlined at the top of the entity box represents the:",
           "options": [
-            "Connector D (single bar only)",
-            "Connector E (double bar)",
-            "Connector B (bar + crow's foot)",
-            "Connector C (circle + crow's foot)"
+            "Foreign key",
+            "Primary key",
+            "A descriptive non-key attribute",
+            "Secondary key"
           ],
           "correct": 1,
-          "explanation": "Two parallel lines (a double bar) mean mandatory one. A circle adds \"optional,\" and a crow's foot adds \"many.\""
+          "explanation": "Primary key attributes are listed first and marked bold and underlined, above the dividing line in the entity box."
+        },
+        {
+          "type": "fill_blank",
+          "category": "ERD Notation",
+          "question": "On a completed ERD, an attribute name shown in italics below the dividing line typically represents a ______ key.",
+          "answers": [
+            "foreign"
+          ],
+          "explanation": "Foreign key attributes are italicized, distinguishing them from the primary key and from plain descriptive attributes."
+        },
+        {
+          "type": "mc",
+          "category": "ERD Notation",
+          "question": "An ERD shows an entity box laid out like this:\n\n    row 1:  P1 | **P2**   (bold, underlined)\n    row 2:  P3 | *P4*     (italic)\n    row 3:  P5 (one or more fields)\n\nWhat belongs in slot P1?",
+          "options": [
+            "The entity's name",
+            "The marker PK, labelling the row beside it as the primary key",
+            "A descriptive attribute",
+            "The cardinality"
+          ],
+          "correct": 1,
+          "explanation": "The narrow left-hand cells hold the key markers: PK beside the primary key row, FK beside the foreign key row. The entity name sits in the header above the box."
+        },
+        {
+          "type": "mc",
+          "category": "ERD Notation",
+          "question": "An ERD shows an entity box laid out like this:\n\n    row 1:  P1 | **P2**   (bold, underlined)\n    row 2:  P3 | *P4*     (italic)\n    row 3:  P5 (one or more fields)\n\nWhat belongs in slot P3?",
+          "options": [
+            "The marker FK",
+            "Another primary key",
+            "The relationship connector",
+            "The table's row count"
+          ],
+          "correct": 0,
+          "explanation": "P3 is the marker cell for the italicized attribute beside it, so it holds FK."
         },
         {
           "type": "mc",
           "category": "ERD",
-          "question": "On an ERD, where does the foreign key go for a 1:M relationship between CUSTOMER (1) and ORDER (M)?",
+          "question": "Business rules: \"A DEPOT must store at least one CRATE, and can store many. Every CRATE must be stored at exactly one DEPOT.\"\n\nLegend: A = crow's foot; B = bar + crow's foot; C = circle + crow's foot; D = single bar; E = double bar; F = circle + bar.\n\nReading from CRATE toward DEPOT, which connector belongs on the DEPOT end of the line?",
           "options": [
-            "In the CUSTOMER table, referencing ORDER's primary key",
-            "In the ORDER table, referencing CUSTOMER's primary key",
+            "E — one and only one",
+            "C — zero or many",
+            "F — zero or one",
+            "B — one or many"
+          ],
+          "correct": 0,
+          "explanation": "Each crate must be at exactly one depot: mandatory, and no more than one. That's the double bar, E."
+        },
+        {
+          "type": "mc",
+          "category": "ERD",
+          "question": "Business rules: \"A DEPOT must store at least one CRATE, and can store many. Every CRATE must be stored at exactly one DEPOT.\"\n\nLegend: A = crow's foot; B = bar + crow's foot; C = circle + crow's foot; D = single bar; E = double bar; F = circle + bar.\n\nReading from DEPOT toward CRATE, which connector belongs on the CRATE end of the line?",
+          "options": [
+            "E — one and only one",
+            "F — zero or one",
+            "B — one or many",
+            "C — zero or many"
+          ],
+          "correct": 2,
+          "explanation": "\"Must store at least one\" makes it mandatory, and \"can store many\" makes the maximum many — bar plus crow's foot, connector B."
+        },
+        {
+          "type": "mc",
+          "category": "ERD",
+          "question": "Business rule: \"Some technicians, known as 'floaters', are not assigned to any WORKSHOP.\"\n\nLegend: A = crow's foot; B = bar + crow's foot; C = circle + crow's foot; D = single bar; E = double bar; F = circle + bar.\n\nEach technician who IS assigned belongs to just one workshop. Which connector belongs on the WORKSHOP end of the TECHNICIAN–WORKSHOP line?",
+          "options": [
+            "F — zero or one",
+            "E — one and only one",
+            "C — zero or many",
+            "B — one or many"
+          ],
+          "correct": 0,
+          "explanation": "A floater has no workshop, so the minimum is zero (circle); an assigned technician has just one, so the maximum is one (bar). Circle + bar is connector F."
+        },
+        {
+          "type": "mc",
+          "category": "ERD",
+          "question": "On an ERD, where does the foreign key go for a 1:M relationship between LEAGUE (1) and TEAM (M)?",
+          "options": [
+            "In LEAGUE, referencing TEAM's primary key",
+            "In TEAM, referencing LEAGUE's primary key",
             "In a separate bridge table",
             "Foreign keys aren't needed for 1:M relationships"
           ],
           "correct": 1,
-          "explanation": "The foreign key always goes on the \"many\" side of a 1:M relationship, referencing the primary key on the \"one\" side."
-        },
-        {
-          "type": "fill_blank",
-          "category": "ERD",
-          "question": "Business rule: \"One PROFESSOR teaches many CLASSes, but a CLASS is taught by only one PROFESSOR.\" The foreign key PROFESSOR_ID would be placed in the ______ table.",
-          "answers": [
-            "class",
-            "classes"
-          ],
-          "explanation": "CLASS is on the \"many\" side of this 1:M relationship, so it holds PROFESSOR_ID as a foreign key."
+          "explanation": "The foreign key always goes on the many side, referencing the primary key on the one side."
         },
         {
           "type": "mc",
           "category": "ERD",
-          "question": "Business rules: \"A DEPARTMENT must employ at least one EMPLOYEE, and can employ many. Every EMPLOYEE must work for exactly one DEPARTMENT.\" Looking from EMPLOYEE toward DEPARTMENT, which connector belongs on the DEPARTMENT end of the relationship line?",
+          "question": "Business rule: \"A VOLUNTEER can sign up for many SHIFTs, and each SHIFT can be covered by many VOLUNTEERs.\" How should this be modeled?",
           "options": [
-            "Connector E (double bar) — one and only one",
-            "Connector C (circle + crow's foot) — zero or many",
-            "Connector F (circle + bar) — zero or one",
-            "Connector B (bar + crow's foot) — one or many"
-          ],
-          "correct": 0,
-          "explanation": "Each EMPLOYEE works for exactly one DEPARTMENT — mandatory, and a maximum of one — so the DEPARTMENT end gets connector E (mandatory one)."
-        },
-        {
-          "type": "mc",
-          "category": "ERD",
-          "question": "Same business rules as above (\"A DEPARTMENT must employ at least one EMPLOYEE, and can employ many\"). Looking from DEPARTMENT toward EMPLOYEE, which connector belongs on the EMPLOYEE end?",
-          "options": [
-            "Connector E (double bar) — one and only one",
-            "Connector F (circle + bar) — zero or one",
-            "Connector B (bar + crow's foot) — one or many",
-            "Connector C (circle + crow's foot) — zero or many"
-          ],
-          "correct": 2,
-          "explanation": "A DEPARTMENT must have at least one EMPLOYEE (mandatory) and can have many, so the EMPLOYEE end gets connector B (mandatory many / one or many)."
-        },
-        {
-          "type": "mc",
-          "category": "ERD",
-          "question": "Business rules: \"A CUSTOMER may or may not have placed any ORDERS yet. A CUSTOMER can place many ORDERS. Every ORDER must be placed by exactly one CUSTOMER.\" Looking from CUSTOMER toward ORDER, which connector belongs on the ORDER end?",
-          "options": [
-            "Connector E (double bar) — one and only one",
-            "Connector B (bar + crow's foot) — one or many",
-            "Connector C (circle + crow's foot) — zero or many",
-            "Connector F (circle + bar) — zero or one"
-          ],
-          "correct": 2,
-          "explanation": "A CUSTOMER might have zero orders (optional) but could have many, so the ORDER end gets connector C (optional many). Compare this to the DEPARTMENT/EMPLOYEE example, where participation was mandatory instead."
-        },
-        {
-          "type": "mc",
-          "category": "ERD",
-          "question": "Business rule: STUDENTs can enroll in many CLASSes, and each CLASS can have many STUDENTs. How should this be modeled on the ERD?",
-          "options": [
-            "Put a foreign key in the STUDENT table",
-            "Put a foreign key in the CLASS table",
+            "Put a foreign key in VOLUNTEER",
+            "Put a foreign key in SHIFT",
             "Create a composite/bridge entity holding both primary keys as foreign keys",
-            "Merge STUDENT and CLASS into one table"
+            "Merge VOLUNTEER and SHIFT into one table"
           ],
           "correct": 2,
-          "explanation": "M:N relationships require a bridge (associative) entity containing both related primary keys as foreign keys."
+          "explanation": "M:N relationships need a bridge (associative) entity containing both related primary keys as foreign keys."
         },
         {
           "type": "fill_blank",
           "category": "ERD",
-          "question": "In the STUDENT/CLASS example above, the resulting bridge entity (e.g. ENROLLMENT) would most likely use a ______ primary key made up of STUDENT_ID and CLASS_ID together.",
+          "question": "Business rule: \"A VOLUNTEER can sign up for many SHIFTs, and each SHIFT can be covered by many VOLUNTEERs.\"\n\nThis M:N is resolved with a bridge entity, SIGNUP. It would most likely use a ______ primary key made up of volunteer_id and shift_id together.",
           "answers": [
             "composite"
           ],
@@ -806,176 +876,117 @@
         {
           "type": "mc",
           "category": "ERD",
-          "question": "On a completed ERD, an entity's primary key is typically shown:",
-          "options": [
-            "Below a horizontal line inside the entity box",
-            "At the top of the attribute list, often bold and underlined, above a dividing line",
-            "Outside the entity box entirely",
-            "It is never shown on an ERD"
-          ],
-          "correct": 1,
-          "explanation": "Primary key attributes are conventionally listed first (and marked, e.g. bold/underlined) at the top of the entity box."
-        },
-        {
-          "type": "fill_blank",
-          "category": "ERD",
-          "question": "An attribute in an entity box that is neither the primary key nor a foreign key (shown in plain text, not bold or italic) is simply called a ______ attribute.",
-          "answers": [
-            "descriptive",
-            "non-key",
-            "nonkey",
-            "regular"
-          ],
-          "explanation": "Descriptive (non-key) attributes describe the entity but don't participate in identifying rows or linking tables."
-        },
-        {
-          "type": "mc",
-          "category": "ERD",
-          "question": "Business rule: \"A BOOK may be written by one or more AUTHORs, and an AUTHOR may write one or more BOOKs.\" What is the cardinality between BOOK and AUTHOR?",
+          "question": "Business rules: \"One of the STEWARDs manages each BRANCH, and each BRANCH is managed by only one STEWARD.\" What kind of relationship is this?",
           "options": [
             "1:1",
             "1:M",
             "M:N",
-            "0:1"
+            "Recursive M:N"
           ],
-          "correct": 2,
-          "explanation": "Each side can relate to many of the other (a book can have several authors, an author can write several books) — that's a many-to-many relationship."
+          "correct": 0,
+          "explanation": "One manager per branch and one branch per manager makes it 1:1. Note this is separate from the 1:M relationship recording which branch each steward works at."
         },
         {
           "type": "mc",
           "category": "ERD",
-          "question": "Same BOOK/AUTHOR business rule (\"one or more\" on both sides). Looking from BOOK toward AUTHOR, which connector belongs on the AUTHOR end?",
+          "question": "How is a recursive 1:M relationship — each STEWARD is supervised by one other STEWARD — implemented in the table itself?",
           "options": [
-            "Connector E (double bar) — one and only one",
-            "Connector B (bar + crow's foot) — one or many",
-            "Connector C (circle + crow's foot) — zero or many",
-            "Connector F (circle + bar) — zero or one"
+            "With a second copy of the table",
+            "With a foreign key column in STEWARD that references STEWARD's own primary key",
+            "With a bridge table",
+            "It cannot be implemented"
           ],
           "correct": 1,
-          "explanation": "\"One or more\" means mandatory participation with a maximum of many — connector B (bar + crow's foot) on both ends of an M:N relationship like this one."
-        },
-        {
-          "type": "fill_blank",
-          "category": "ERD",
-          "question": "To implement the BOOK/AUTHOR M:N relationship above, you'd create a bridge entity (e.g. BOOK_AUTHOR) holding BOOK_ID and AUTHOR_ID as foreign keys. Together, those two foreign keys would form the bridge entity's ______ primary key.",
-          "answers": [
-            "composite"
-          ],
-          "explanation": "As with the STUDENT/CLASS bridge entity, an M:N bridge entity's primary key is a composite of the two foreign keys it holds."
+          "explanation": "supervisor_id sits in STEWARD and references steward_id in the same table. The top of the hierarchy has a null there."
         },
         {
           "type": "mc",
           "category": "ERD",
-          "question": "Business rules: \"Each CUSTOMER must be assigned to exactly one SALES_REP. A SALES_REP may currently have zero assigned CUSTOMERs, or may have many.\" Looking from CUSTOMER toward SALES_REP, which connector belongs on the SALES_REP end?",
+          "question": "Business rules: \"A TEAM may or may not have a PLAYER. A PLAYER must have a TEAM. A TEAM may have many PLAYERs. A PLAYER has only one TEAM.\"\n\nLegend: A = crow's foot; B = bar + crow's foot; C = circle + crow's foot; D = single bar; E = double bar; F = circle + bar.\n\nWhich connector belongs on the PLAYER end?",
           "options": [
-            "Connector E (double bar) — one and only one",
-            "Connector C (circle + crow's foot) — zero or many",
-            "Connector B (bar + crow's foot) — one or many",
-            "Connector F (circle + bar) — zero or one"
+            "C — zero or many",
+            "B — one or many",
+            "E — one and only one",
+            "F — zero or one"
           ],
           "correct": 0,
-          "explanation": "Each CUSTOMER must be assigned to exactly one SALES_REP — mandatory, maximum one — so the SALES_REP end gets connector E."
+          "explanation": "\"May or may not have a PLAYER\" makes the minimum zero, and \"may have many\" makes the maximum many — circle plus crow's foot, C."
         },
         {
           "type": "mc",
           "category": "ERD",
-          "question": "Same business rules as above. Looking from SALES_REP toward CUSTOMER, which connector belongs on the CUSTOMER end?",
+          "question": "Business rules: \"A TEAM may or may not have a PLAYER. A PLAYER must have a TEAM. A TEAM may have many PLAYERs. A PLAYER has only one TEAM.\"\n\nLegend: A = crow's foot; B = bar + crow's foot; C = circle + crow's foot; D = single bar; E = double bar; F = circle + bar.\n\nWhich connector belongs on the TEAM end?",
           "options": [
-            "Connector E (double bar) — one and only one",
-            "Connector F (circle + bar) — zero or one",
-            "Connector C (circle + crow's foot) — zero or many",
-            "Connector B (bar + crow's foot) — one or many"
-          ],
-          "correct": 2,
-          "explanation": "A SALES_REP might have zero customers (optional) but could have many, so the CUSTOMER end gets connector C (optional many)."
-        },
-        {
-          "type": "fill_blank",
-          "category": "ERD",
-          "question": "In the CUSTOMER/SALES_REP business rules above, the foreign key SALES_REP_ID would be placed in the ______ table.",
-          "answers": [
-            "customer",
-            "customers"
-          ],
-          "explanation": "CUSTOMER is on the \"many\" side of this 1:M relationship, so it holds SALES_REP_ID as a foreign key."
-        },
-        {
-          "type": "mc",
-          "category": "ERD Notation",
-          "question": "Using the Connector Options legend, which letter represents \"zero or one\" (optional one)?",
-          "options": [
-            "Connector F (circle + single bar)",
-            "Connector D (single bar only)",
-            "Connector C (circle + crow's foot)",
-            "Connector E (double bar)"
-          ],
-          "correct": 0,
-          "explanation": "A circle paired with a single bar means optional (zero) participation with a maximum of one — connector F."
-        },
-        {
-          "type": "mc",
-          "category": "ERD Notation",
-          "question": "Using the Connector Options legend, which letter represents \"one or many\" (mandatory many)?",
-          "options": [
-            "Connector A (crow's foot only)",
-            "Connector C (circle + crow's foot)",
-            "Connector B (bar + crow's foot)",
-            "Connector D (single bar only)"
-          ],
-          "correct": 2,
-          "explanation": "A single bar paired with a crow's foot means mandatory (at least one) participation with a maximum of many — connector B."
-        },
-        {
-          "type": "mc",
-          "category": "ERD Notation",
-          "question": "In Crow's Foot notation, cardinality (one vs. many) is shown by a single line vs. a crow's foot. What indicates participation (mandatory vs. optional)?",
-          "options": [
-            "A double bar (mandatory) vs. a circle (optional)",
-            "A single bar (mandatory) vs. a double bar (optional)",
-            "A crow's foot (mandatory) vs. a circle (optional)",
-            "Bold text (mandatory) vs. italic text (optional)"
-          ],
-          "correct": 0,
-          "explanation": "Participation is layered on top of the cardinality mark: a double bar means mandatory, a circle means optional."
-        },
-        {
-          "type": "mc",
-          "category": "ERD",
-          "question": "Echoing the professor's own example ERD: \"A PATIENT must be assigned to exactly one ROOM. A ROOM may currently be empty, or may have exactly one PATIENT assigned.\" What is the cardinality between PATIENT and ROOM?",
-          "options": [
-            "1:1",
-            "1:M",
-            "M:N",
-            "0:M"
-          ],
-          "correct": 0,
-          "explanation": "Each patient has exactly one room, and each room has at most one patient — a one-to-one relationship, just with different participation on each side."
-        },
-        {
-          "type": "mc",
-          "category": "ERD",
-          "question": "Same PATIENT/ROOM business rules. Looking from PATIENT toward ROOM, which connector belongs on the ROOM end (a room may be empty, or have exactly one patient)?",
-          "options": [
-            "Connector E (double bar) — one and only one",
-            "Connector F (circle + bar) — zero or one",
-            "Connector C (circle + crow's foot) — zero or many",
-            "Connector B (bar + crow's foot) — one or many"
+            "C — zero or many",
+            "E — one and only one",
+            "B — one or many",
+            "A — many"
           ],
           "correct": 1,
-          "explanation": "A ROOM's participation is optional (it may be empty) with a maximum of one patient — connector F (circle + single bar)."
+          "explanation": "\"A PLAYER must have a TEAM\" and \"has only one TEAM\": mandatory and exactly one, so the double bar, E."
         },
         {
           "type": "mc",
           "category": "ERD",
-          "question": "For the STUDENT/CLASS M:N relationship, once you introduce the ENROLLMENT bridge entity, the relationship from ENROLLMENT back to STUDENT (and back to CLASS) is best described as:",
+          "question": "Business rules: \"A PLAYER must have a PARENT. A PARENT must have a PLAYER. A PLAYER may have many PARENTs. A PARENT may have many PLAYERs.\" What does the ERD need?",
           "options": [
-            "Still M:N — bridge entities don't change the relationship type",
-            "A 1:1 relationship, since ENROLLMENT only ever links two rows",
-            "A mandatory 1:M relationship, with ENROLLMENT on the \"many\" side of each",
-            "No relationship exists between ENROLLMENT and its parent entities"
+            "A foreign key in PLAYER",
+            "A foreign key in PARENT",
+            "A bridge entity between PLAYER and PARENT",
+            "Nothing — it is already 1:M"
           ],
           "correct": 2,
-          "explanation": "A bridge entity converts one M:N relationship into two 1:M relationships: STUDENT-to-ENROLLMENT and CLASS-to-ENROLLMENT, with ENROLLMENT holding both foreign keys on the \"many\" side of each."
+          "explanation": "Many on both sides is M:N, so it needs a bridge entity holding player_id and parent_id."
+        },
+        {
+          "type": "matching",
+          "category": "ERD",
+          "question": "Match each business-rule phrase to the cardinality pair it establishes at that end of the line.",
+          "pairs": [
+            {
+              "left": "\"must have exactly one\"",
+              "right": "(1,1) — mandatory one"
+            },
+            {
+              "left": "\"must have at least one, and may have many\"",
+              "right": "(1,many) — mandatory many"
+            },
+            {
+              "left": "\"may or may not have one or more\"",
+              "right": "(0,many) — optional many"
+            },
+            {
+              "left": "\"may or may not have one\"",
+              "right": "(0,1) — optional one"
+            }
+          ],
+          "explanation": "Every connector is a (minimum, maximum) pair. Find the two numbers in the sentence and the symbol follows."
+        },
+        {
+          "type": "mc",
+          "category": "ERD",
+          "question": "An ERD models COURSE and CLASS, where one COURSE is offered as many CLASS sections and each CLASS belongs to one COURSE. Which is the correct key arrangement?",
+          "options": [
+            "class_id is the primary key of CLASS, and course_id appears in CLASS as a foreign key",
+            "course_id is the primary key of CLASS",
+            "class_id appears in COURSE as a foreign key",
+            "The two tables share a single primary key"
+          ],
+          "correct": 0,
+          "explanation": "CLASS is the many side, so it keeps its own primary key and carries course_id as a foreign key."
+        },
+        {
+          "type": "short_answer",
+          "category": "ERD",
+          "question": "Business rules for a delivery firm:\n • A DEPOT employs many DRIVERs, but each DRIVER is employed by one DEPOT.\n • Some drivers, known as \"relief\" drivers, are not assigned to any depot.\n • A DRIVER may be assigned many ROUTEs, and a ROUTE may have many DRIVERs assigned to it.\n • A ROUTE must have at least one DRIVER assigned.\n\nList the tables you would create and the key columns in each.",
+          "modelAnswer": "DEPOT — primary key depot_id.\n\nDRIVER — primary key driver_id, plus depot_id as a foreign key to DEPOT. It must allow nulls, because a relief driver has no depot.\n\nROUTE — primary key route_id.\n\nDRIVER_ROUTE (bridge entity) — driver_id and route_id, each a foreign key, together forming the composite primary key. This is what resolves the M:N between DRIVER and ROUTE.\n\nConnectors: on the DEPOT–DRIVER line, the DEPOT end is optional-one (circle + bar, F) because of the relief drivers, and the DRIVER end is optional-many (circle + crow's foot, C). On ROUTE–DRIVER_ROUTE the ROUTE end is mandatory-one (E) and the bridge end is mandatory-many (B), since a route must have at least one driver.",
+          "rubric": [
+            "Created four tables, including a bridge between DRIVER and ROUTE",
+            "Put depot_id in DRIVER (the many side), not driver_id in DEPOT",
+            "Noted that depot_id must allow nulls because of the relief drivers",
+            "Gave the bridge a composite primary key of the two foreign keys"
+          ],
+          "explanation": "Two habits carry most ERD questions: put the foreign key on the many side, and reach for a bridge table the moment you read \"many … many\"."
         }
       ]
     },
@@ -983,137 +994,13 @@
       "name": "Normalization & Dependency Sets",
       "questions": [
         {
-          "type": "mc",
-          "category": "Normalization",
-          "question": "A STUDENT table stores three separate columns — COURSE_ID_1, COURSE_ID_2, COURSE_ID_3 — to hold up to three courses a student is taking. This design contains a:",
-          "options": [
-            "Repeating group, which violates 1NF",
-            "Partial dependency, which violates 2NF",
-            "Transitive dependency, which violates 3NF",
-            "Referential integrity violation"
-          ],
-          "correct": 0,
-          "explanation": "Multiple entries of the same type (course IDs) repeated across columns for one key is a repeating group — the first thing eliminated when converting a table to 1NF."
-        },
-        {
           "type": "fill_blank",
-          "category": "Fill in the Blank",
-          "question": "The three-step procedure to convert a table to first normal form is: eliminate the repeating groups, identify the primary key, and identify all ______.",
+          "category": "Normalization",
+          "question": "______ is the process of evaluating and correcting table structures to minimize data redundancies.",
           "answers": [
-            "dependencies"
+            "normalization"
           ],
-          "explanation": "1NF conversion: eliminate repeating groups, identify the primary key, then identify all dependencies (often shown in a dependency diagram)."
-        },
-        {
-          "type": "mc",
-          "category": "Normalization",
-          "question": "A table is in 1NF, has no partial dependencies, but one non-key attribute (STU_HRS) determines another non-key attribute (STU_CLASS). What's the highest normal form this table currently satisfies?",
-          "options": [
-            "1NF",
-            "2NF",
-            "3NF",
-            "BCNF"
-          ],
-          "correct": 1,
-          "explanation": "No partial dependency means it clears 2NF, but a dependency between two non-key attributes is a transitive dependency, which violates 3NF."
-        },
-        {
-          "type": "short_answer",
-          "category": "Dependency Analysis",
-          "question": "An ASSIGNMENT table (1NF) has composite primary key (PROJ_NUM, EMP_NUM) and attributes PROJ_NAME, EMP_NAME, JOB_CLASS, CHG_HOUR, and HOURS, where:\n• PROJ_NUM determines PROJ_NAME\n• EMP_NUM determines EMP_NAME, JOB_CLASS, and CHG_HOUR\n• the full composite key determines HOURS\n\nWrite out the dependency set for this table, and label each dependency as partial or full.",
-          "modelAnswer": "PROJ_NUM -> PROJ_NAME  (partial dependency)\nEMP_NUM -> EMP_NAME, JOB_CLASS, CHG_HOUR  (partial dependency)\n(PROJ_NUM, EMP_NUM) -> HOURS  (full functional dependency on the composite key)",
-          "rubric": [
-            "Listed PROJ_NUM -> PROJ_NAME and correctly labeled it partial",
-            "Listed EMP_NUM -> EMP_NAME, JOB_CLASS, CHG_HOUR and correctly labeled it partial",
-            "Listed (PROJ_NUM, EMP_NUM) -> HOURS and correctly labeled it a full functional dependency"
-          ],
-          "explanation": "A dependency is 'partial' when the determinant is only part of the composite key; it's 'full' when the whole composite key is required to determine the attribute."
-        },
-        {
-          "type": "short_answer",
-          "category": "Dependency Analysis",
-          "question": "Using the dependency set above, decompose the ASSIGNMENT table into 2NF. List the resulting tables with their attributes, underlining each primary key.",
-          "modelAnswer": "PROJECT(PROJ_NUM, PROJ_NAME)\nEMPLOYEE(EMP_NUM, EMP_NAME, JOB_CLASS, CHG_HOUR)\nASSIGNMENT(PROJ_NUM, EMP_NUM, HOURS)",
-          "rubric": [
-            "Created a PROJECT table keyed on PROJ_NUM, holding PROJ_NAME",
-            "Created an EMPLOYEE table keyed on EMP_NUM, holding EMP_NAME, JOB_CLASS, CHG_HOUR",
-            "Kept a bridge ASSIGNMENT table with composite key (PROJ_NUM, EMP_NUM) and HOURS"
-          ],
-          "explanation": "2NF removes partial dependencies by moving each into its own table, keyed on its determinant, and keeping the composite-key fact (HOURS) in the original bridge table."
-        },
-        {
-          "type": "mc",
-          "category": "Normalization",
-          "question": "In the 2NF EMPLOYEE table above, EMP_NUM determines JOB_CLASS, and JOB_CLASS determines CHG_HOUR. What kind of dependency is EMP_NUM -> CHG_HOUR?",
-          "options": [
-            "Partial dependency",
-            "Transitive dependency",
-            "Full functional dependency only",
-            "No dependency exists"
-          ],
-          "correct": 1,
-          "explanation": "CHG_HOUR depends on EMP_NUM only indirectly, through JOB_CLASS — that's the definition of a transitive dependency."
-        },
-        {
-          "type": "short_answer",
-          "category": "Dependency Analysis",
-          "question": "Continue the decomposition to 3NF by removing the transitive dependency identified above. List all resulting tables.",
-          "modelAnswer": "EMPLOYEE(EMP_NUM, EMP_NAME, JOB_CLASS)\nJOB(JOB_CLASS, CHG_HOUR)\nPROJECT(PROJ_NUM, PROJ_NAME)\nASSIGNMENT(PROJ_NUM, EMP_NUM, HOURS)",
-          "rubric": [
-            "Split JOB_CLASS/CHG_HOUR out into a new JOB table keyed on JOB_CLASS",
-            "EMPLOYEE table no longer includes CHG_HOUR directly",
-            "PROJECT and ASSIGNMENT tables carried over unchanged from the 2NF decomposition"
-          ],
-          "explanation": "Splitting JOB_CLASS/CHG_HOUR into its own JOB table removes the transitive dependency, leaving every table in 3NF."
-        },
-        {
-          "type": "tf",
-          "category": "True / False",
-          "question": "Second normal form (2NF) requires eliminating transitive dependencies.",
-          "correct": false,
-          "explanation": "Eliminating transitive dependencies is the requirement for 3NF. 2NF requires eliminating partial dependencies."
-        },
-        {
-          "type": "fill_blank",
-          "category": "Fill in the Blank",
-          "question": "A dependency in which a non-key attribute depends on another non-key attribute (rather than directly on the primary key) is called a ______ dependency.",
-          "answers": [
-            "transitive"
-          ],
-          "explanation": "Transitive dependencies are what 3NF eliminates."
-        },
-        {
-          "type": "mc",
-          "category": "Normalization",
-          "question": "Which of these correctly summarizes the requirement for 3NF?",
-          "options": [
-            "In 1NF, with no partial dependencies",
-            "In 2NF, with no transitive dependencies",
-            "Every determinant is a candidate key",
-            "No repeating groups exist anywhere in the database"
-          ],
-          "correct": 1,
-          "explanation": "3NF builds on 2NF by additionally requiring the elimination of transitive dependencies."
-        },
-        {
-          "type": "tf",
-          "category": "True / False",
-          "question": "Denormalization is done to reduce data redundancy at the cost of processing speed.",
-          "correct": false,
-          "explanation": "It's the opposite: denormalization increases redundancy but can improve processing speed by reducing the number of joins needed."
-        },
-        {
-          "type": "mc",
-          "category": "Normalization",
-          "question": "More tables generally require more join operations to reconstruct a full picture of the data. This is the main tradeoff of:",
-          "options": [
-            "Normalization increasing the number of tables",
-            "Entity integrity",
-            "Using surrogate keys",
-            "Semistructured data"
-          ],
-          "correct": 0,
-          "explanation": "Normalization reduces redundancy but increases the number of tables, which means more I/O operations and processing logic to join them back together."
+          "explanation": "Normalization. Reducing redundancy is what reduces the update, insertion and deletion anomalies."
         },
         {
           "type": "matching",
@@ -1121,138 +1008,147 @@
           "question": "Match each normal form to its defining characteristic.",
           "pairs": [
             {
-              "left": "1NF",
-              "right": "Table format, no repeating groups, and the primary key identified"
+              "left": "First normal form (1NF)",
+              "right": "Table format, no repeating groups, and the primary key is identified"
             },
             {
-              "left": "2NF",
-              "right": "In 1NF, with no partial dependencies"
+              "left": "Second normal form (2NF)",
+              "right": "In 1NF and no partial dependencies"
             },
             {
-              "left": "3NF",
-              "right": "In 2NF, with no transitive dependencies"
+              "left": "Third normal form (3NF)",
+              "right": "In 2NF and no transitive dependencies"
+            },
+            {
+              "left": "Boyce-Codd normal form (BCNF)",
+              "right": "Every determinant is a candidate key"
+            },
+            {
+              "left": "Fourth normal form (4NF)",
+              "right": "In 3NF and no independent multivalued dependencies"
             }
           ],
-          "explanation": "Each normal form builds on the one before it: 1NF sets up a clean table structure, 2NF removes partial dependencies, and 3NF removes transitive dependencies."
-        },
-        {
-          "type": "fill_blank",
-          "category": "Fill in the Blank",
-          "question": "If each value of attribute A determines exactly one value of attribute B, we say B is functionally ______ on A (read: A determines B).",
-          "answers": [
-            "dependent"
-          ],
-          "explanation": "This is the formal definition of functional dependence: A is the determinant, B is the dependent attribute."
-        },
-        {
-          "type": "fill_blank",
-          "category": "Fill in the Blank",
-          "question": "If attribute B depends on composite key A as a whole, but not on any subset of A, then B is ______ functionally dependent on A.",
-          "answers": [
-            "fully"
-          ],
-          "explanation": "Full functional dependence means the entire composite key is required to determine the attribute — removing any part of the key would break the dependency."
+          "explanation": "Each form builds on the one before it. Memorizing \"1NF, then kill partial, then kill transitive\" gets you through most of a normalization problem."
         },
         {
           "type": "tf",
           "category": "True / False",
-          "question": "Partial dependencies are generally easier to identify than transitive dependencies, since a transitive dependency can only occur between two non-key (nonprime) attributes.",
+          "question": "All valid relational tables satisfy the 1NF requirements.",
           "correct": true,
-          "explanation": "Partial dependency detection is fairly mechanical (does part of the composite key alone determine an attribute?); transitive dependencies require noticing a chain between two non-key attributes, which is easier to overlook."
-        },
-        {
-          "type": "short_answer",
-          "category": "Dependency Analysis",
-          "question": "A STUDENT table (1NF) has primary key STU_ID and attributes STU_NAME, STU_HRS (accumulated credit hours), and STU_CLASS (classification, e.g. Freshman/Sophomore), where STU_HRS determines STU_CLASS. Write the dependency set for this table and identify the type of dependency between STU_HRS and STU_CLASS.",
-          "modelAnswer": "STU_ID -> STU_NAME, STU_HRS, STU_CLASS  (full functional dependency on the single-attribute PK)\nSTU_HRS -> STU_CLASS  (transitive dependency, since STU_HRS is a non-key attribute)",
-          "rubric": [
-            "Listed STU_ID -> STU_NAME, STU_HRS, STU_CLASS as the primary dependency on the PK",
-            "Identified STU_HRS -> STU_CLASS as a transitive dependency (a non-key attribute determining another non-key attribute)"
-          ],
-          "explanation": "Even though STU_ID determines everything (satisfying 1NF/2NF), STU_CLASS is really determined indirectly through STU_HRS — a textbook transitive dependency."
-        },
-        {
-          "type": "short_answer",
-          "category": "Dependency Analysis",
-          "question": "Decompose the STUDENT table above into 3NF by removing the transitive dependency you identified.",
-          "modelAnswer": "STUDENT(STU_ID, STU_NAME, STU_HRS)\nCLASSIFICATION(STU_HRS, STU_CLASS)",
-          "rubric": [
-            "Removed STU_CLASS from the STUDENT table",
-            "Created a new table keyed on STU_HRS holding STU_CLASS",
-            "STUDENT table retains STU_ID as its primary key, plus STU_NAME and STU_HRS"
-          ],
-          "explanation": "Splitting STU_HRS/STU_CLASS into their own table removes the transitive dependency, the same way JOB_CLASS/CHG_HOUR was split out of EMPLOYEE."
-        },
-        {
-          "type": "tf",
-          "category": "True / False",
-          "question": "If a table is already in 1NF and has a single-attribute (non-composite) primary key, it automatically satisfies 2NF as well.",
-          "correct": true,
-          "explanation": "Partial dependencies can only exist against part of a composite key. With a single-attribute primary key, there's no \"part\" of the key to be partially dependent on, so 2NF is automatic."
+          "explanation": "If a table isn't in 1NF, it isn't really a relational table."
         },
         {
           "type": "fill_blank",
           "category": "Fill in the Blank",
-          "question": "Denormalization is the process of producing a ______ normal form than the current one — done to increase processing speed, at the cost of increased data redundancy.",
+          "question": "Going from 1NF to 2NF removes ______ dependencies.",
           "answers": [
-            "lower"
+            "partial"
           ],
-          "explanation": "Denormalization deliberately moves a table to a lower (less normalized) form, trading redundancy for fewer joins and faster reads."
+          "explanation": "Partial dependencies — where a non-key attribute depends on only part of a composite primary key."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Fill in the Blank",
+          "question": "Going from 2NF to 3NF removes ______ dependencies.",
+          "answers": [
+            "transitive"
+          ],
+          "explanation": "Transitive dependencies — where a non-key attribute depends on another non-key attribute."
         },
         {
           "type": "mc",
           "category": "Normalization",
-          "question": "A STUDENT table stores a precomputed STU_GPA value, even though it could always be recalculated by joining the ENROLL and COURSE tables. Storing it anyway to avoid that join every time is an example of:",
+          "question": "\"Attribute B is fully functionally dependent on attribute A if each value of A determines one and only one value of B.\" This defines:",
           "options": [
-            "A repeating group",
-            "Preaggregated (derived) data — a form of denormalization",
-            "A referential integrity violation",
-            "A partial dependency"
+            "Referential integrity",
+            "Functional dependence",
+            "Entity integrity",
+            "A repeating group"
           ],
           "correct": 1,
-          "explanation": "Storing a value that could be derived from other tables, purely to avoid extra join operations, is a classic denormalization case — preaggregated/derived data."
-        },
-        {
-          "type": "mc",
-          "category": "Normalization",
-          "question": "Which of the following is a legitimate reason a designer might choose to denormalize part of a database?",
-          "options": [
-            "To eliminate the need for primary keys",
-            "To avoid extra join operations for data that's frequently needed together, at the cost of some redundancy",
-            "To make every table automatically satisfy 3NF",
-            "To remove all foreign keys from the schema"
-          ],
-          "correct": 1,
-          "explanation": "Denormalization is a deliberate tradeoff: accept some redundancy in exchange for fewer joins and faster reads for frequently-needed data."
+          "explanation": "Functional dependence. Written PROJ_NUM → PROJ_NAME and read \"PROJ_NUM functionally determines PROJ_NAME\"."
         },
         {
           "type": "tf",
           "category": "True / False",
-          "question": "A table can be in 3NF without also being in 2NF.",
+          "question": "A table whose primary key is a single attribute can still contain a partial dependency.",
           "correct": false,
-          "explanation": "3NF is defined as \"in 2NF, with no transitive dependencies\" — a table can't be in 3NF unless it's already in 2NF."
+          "explanation": "A partial dependency needs a determinant that is part of the key. With a one-column key there is no part to depend on, so any 1NF table with a simple key is automatically in 2NF."
         },
         {
-          "type": "mc",
-          "category": "Normalization",
-          "question": "A dependency diagram, drawn while working through a normalization problem, is used primarily to:",
-          "options": [
-            "Automatically generate the SQL CREATE TABLE statements",
-            "Depict all dependencies found within a table's structure, so an important one isn't overlooked",
-            "Replace the need for identifying a primary key",
-            "Draw the final ERD instead of an entity box"
-          ],
-          "correct": 1,
-          "explanation": "A dependency diagram gives an overview of every relationship among a table's attributes, making it far less likely you'll miss a partial or transitive dependency."
+          "type": "tf",
+          "category": "True / False",
+          "question": "More tables require more I/O operations and processing logic to join them.",
+          "correct": true,
+          "explanation": "Which is why it also says normalization is important, but only part of the design process."
         },
         {
-          "type": "fill_blank",
-          "category": "Fill in the Blank",
-          "question": "In a functional dependency written PROJ_NUM -> PROJ_NAME, PROJ_NUM is called the ______ attribute, and PROJ_NAME is called the dependent attribute.",
-          "answers": [
-            "determinant"
+          "type": "short_answer",
+          "category": "Dependency Analysis",
+          "question": "CATERING_ORDER is in 1NF with the following columns:\n\n  booking_ref, booking_date, client_no, client_name, client_city,\n  dish_code, dish_name, dish_style, dish_price, portions\n\nThe primary key is booking_ref + dish_code.\n\nWrite the complete dependency set for the table as it stands in 1NF — the full dependency on the whole key, every partial dependency, and every transitive dependency.",
+          "modelAnswer": "Full functional dependency on the whole primary key:\n  (booking_ref, dish_code) → portions\n\nPartial dependencies:\n  booking_ref → booking_date, client_no, client_name, client_city\n  dish_code   → dish_name, dish_style, dish_price\n\nTransitive dependency:\n  client_no → client_name, client_city\n\nRead it as: how many portions were ordered needs both halves of the key; everything about the booking follows from booking_ref alone; everything about the dish follows from dish_code alone; and the client's name and city follow from client_no, which is itself just an ordinary attribute of the booking.",
+          "rubric": [
+            "Identified (booking_ref, dish_code) → portions as the only full dependency on the whole key",
+            "Listed booking_ref → booking_date, client_no, client_name, client_city as a partial dependency",
+            "Listed dish_code → dish_name, dish_style, dish_price as a partial dependency",
+            "Identified client_no → client_name, client_city as the transitive dependency"
           ],
-          "explanation": "The attribute on the left of the arrow (the one that determines the other) is the determinant; the attribute on the right is the dependent attribute."
+          "explanation": "Work in this order every time: what needs the whole key, what needs only part of it, and what hangs off a non-key attribute. That ordering is the dependency set."
+        },
+        {
+          "type": "short_answer",
+          "category": "Dependency Analysis",
+          "question": "CATERING_ORDER is in 1NF with the following columns:\n\n  booking_ref, booking_date, client_no, client_name, client_city,\n  dish_code, dish_name, dish_style, dish_price, portions\n\nThe primary key is booking_ref + dish_code.\n\nWrite the 2NF relational schemas — the tables you get after removing the partial dependencies. Underline or otherwise mark the primary key of each.",
+          "modelAnswer": "BOOKING (booking_ref [PK], booking_date, client_no, client_name, client_city)\n\nDISH (dish_code [PK], dish_name, dish_style, dish_price)\n\nBOOKING_LINE (booking_ref [PK, FK], dish_code [PK, FK], portions)\n\nEach partial dependency became its own table, keyed on its determinant. What remains in BOOKING_LINE is the original composite key plus the one attribute that genuinely needed both halves of it — portions. The two key columns are now foreign keys back to BOOKING and DISH.\n\nThis is 2NF, not yet 3NF: BOOKING still carries the transitive dependency client_no → client_name, client_city.",
+          "rubric": [
+            "Produced three tables",
+            "Keyed BOOKING on booking_ref and DISH on dish_code",
+            "Kept portions in the linking table with the composite key (booking_ref, dish_code)",
+            "Marked the composite key columns as foreign keys as well as the primary key",
+            "Noted that this is still only 2NF because a transitive dependency remains"
+          ],
+          "explanation": "The mechanical rule: each partial dependency's determinant becomes a new table's primary key, and everything it determined goes with it."
+        },
+        {
+          "type": "short_answer",
+          "category": "Dependency Analysis",
+          "question": "CATERING_ORDER is in 1NF with the following columns:\n\n  booking_ref, booking_date, client_no, client_name, client_city,\n  dish_code, dish_name, dish_style, dish_price, portions\n\nThe primary key is booking_ref + dish_code.\n\nTake it all the way to 3NF. Write the 3NF relational schemas, marking the primary key and any foreign keys in each table.",
+          "modelAnswer": "CLIENT (client_no [PK], client_name, client_city)\n\nBOOKING (booking_ref [PK], booking_date, client_no [FK to CLIENT])\n\nDISH (dish_code [PK], dish_name, dish_style, dish_price)\n\nBOOKING_LINE (booking_ref [PK, FK to BOOKING], dish_code [PK, FK to DISH], portions)\n\nThe move from 2NF to 3NF was the first two tables: the transitive dependency client_no → client_name, client_city came out of BOOKING into its own CLIENT table, and client_no stayed behind in BOOKING as the foreign key linking them.\n\nNow every non-key attribute in every table depends on the key, the whole key, and nothing but the key.",
+          "rubric": [
+            "Produced four tables",
+            "Created CLIENT keyed on client_no, holding client_name and client_city",
+            "Left client_no in BOOKING as a foreign key",
+            "Left DISH and BOOKING_LINE unchanged from 2NF",
+            "Marked primary and foreign keys throughout"
+          ],
+          "explanation": "\"The key, the whole key, and nothing but the key\" is a compact test: nothing but the key catches transitive dependencies, and the whole key catches partial ones."
+        },
+        {
+          "type": "short_answer",
+          "category": "Dependency Analysis",
+          "question": "SEMINAR_ROSTER is in 1NF:\n\n  seminar_code, seminar_title, room_code, room_capacity,\n  attendee_id, attendee_name, attendee_email, grade\n\nThe primary key is seminar_code + attendee_id. Each seminar meets in exactly one room.\n\nWrite the complete dependency set for this table in 1NF.",
+          "modelAnswer": "Full functional dependency on the whole primary key:\n  (seminar_code, attendee_id) → grade\n\nPartial dependencies:\n  seminar_code → seminar_title, room_code, room_capacity\n  attendee_id  → attendee_name, attendee_email\n\nTransitive dependency:\n  room_code → room_capacity\n\nOnly the grade needs both halves of the key: it is one person's mark in one seminar. Room capacity is listed twice above deliberately — it follows from seminar_code by way of room_code, and the room_code → room_capacity link is what makes it transitive.",
+          "rubric": [
+            "Identified (seminar_code, attendee_id) → grade as the only full dependency",
+            "Listed seminar_code → seminar_title, room_code, room_capacity",
+            "Listed attendee_id → attendee_name, attendee_email",
+            "Identified room_code → room_capacity as the transitive dependency"
+          ],
+          "explanation": "Two partial dependencies, one from each half of the composite key, plus one transitive dependency hanging off a nonprime attribute — the same shape as the catering example."
+        },
+        {
+          "type": "short_answer",
+          "category": "Dependency Analysis",
+          "question": "Write the 3NF relational schemas for SEMINAR_ROSTER (seminar_code, seminar_title, room_code, room_capacity, attendee_id, attendee_name, attendee_email, grade), primary key seminar_code + attendee_id, where each seminar meets in exactly one room.",
+          "modelAnswer": "ROOM (room_code [PK], room_capacity)\n\nSEMINAR (seminar_code [PK], seminar_title, room_code [FK to ROOM])\n\nATTENDEE (attendee_id [PK], attendee_name, attendee_email)\n\nENROLLMENT (seminar_code [PK, FK to SEMINAR], attendee_id [PK, FK to ATTENDEE], grade)\n\nThe two partial dependencies became SEMINAR and ATTENDEE; the transitive dependency became ROOM, with room_code left behind in SEMINAR as the foreign key. ENROLLMENT keeps the composite key and the single attribute that needed all of it.\n\nENROLLMENT is a bridge table — the M:N between seminars and attendees, resolved.",
+          "rubric": [
+            "Produced four tables",
+            "Split ROOM out with room_code as its primary key",
+            "Left room_code in SEMINAR as a foreign key",
+            "Kept grade in a linking table keyed on (seminar_code, attendee_id)",
+            "Marked both linking columns as foreign keys"
+          ],
+          "explanation": "Worth noticing: normalizing an M:N-shaped table produces exactly the bridge entity you would have drawn on the ERD. The two techniques agree."
         }
       ]
     }

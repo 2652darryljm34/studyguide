@@ -8,16 +8,30 @@
         {
           "id": "midterm-guide",
           "title": "Midterm Study Guide",
-          "description": "Comprehensive notes covering every topic the midterm quiz tests: theory & SQL, ERD notation, and normalization.",
+          "description": "Reference notes on database concepts, the relational model and keys, SQL, ERD and Crow's Foot notation, and normalization.",
           "file": "data/itd256-midterm-guide.json"
+        }
+      ],
+      "tools": [
+        {
+          "id": "sql-playground",
+          "title": "SQL Playground",
+          "description": "A real database running in your browser. Write queries against the Harborview Tool Library, including INSERT, UPDATE and DELETE — Reset puts it back.",
+          "href": "sql.html"
         }
       ],
       "quizzes": [
         {
           "id": "midterm-review",
           "title": "Midterm Review",
-          "description": "Database fundamentals, data models, ER modeling, keys, normalization, and SQL.",
+          "description": "78 questions — the exam's own question count, doubled — weighted toward the terms highlighted in the lecture deck and the worked examples from the assignments.",
           "file": "data/itd256-midterm-review.json"
+        },
+        {
+          "id": "midterm-extra",
+          "title": "Extra Practice",
+          "description": "155 more questions on the same topics, for when you want more reps than the main review gives you.",
+          "file": "data/itd256-midterm-extra.json"
         }
       ]
     }

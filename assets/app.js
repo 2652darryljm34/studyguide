@@ -42,6 +42,17 @@ function renderClass(cls, index){
     </a>
   `).join('');
 
+  // Interactive extras (the SQL playground, say) -- anything with its own page.
+  const toolRows = (cls.tools || []).map(t => `
+    <a class="quiz-row tool-row" href="${escapeHtml(t.href)}">
+      <div>
+        <div class="quiz-row-title"><span class="guide-badge tool-badge">Interactive</span>${escapeHtml(t.title)}</div>
+        ${t.description ? `<div class="quiz-row-desc">${escapeHtml(t.description)}</div>` : ''}
+      </div>
+      <div class="quiz-row-go">Open &rarr;</div>
+    </a>
+  `).join('');
+
   const rows = quizzes.map(q => `
     <a class="quiz-row" href="quiz.html?file=${encodeURIComponent(q.file)}">
       <div>
@@ -66,6 +77,7 @@ function renderClass(cls, index){
       </summary>
       <div class="quiz-rows">
         ${guideRows}
+        ${toolRows}
         ${rows || '<div class="quiz-row"><span class="quiz-row-desc">No quizzes yet.</span></div>'}
       </div>
     </details>
