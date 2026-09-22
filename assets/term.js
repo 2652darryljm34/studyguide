@@ -29,7 +29,13 @@
   let draft = '';
   let awaiting = null;          // an interactive password prompt
   let heredoc = null;           // { end, lines, first }
+  let editor = null;            // nano, while it is open
   let sidePanel = 'files';
+
+  // The lab pages mount the same terminal without the machine panels or the
+  // warm-ups, so everything outside the shell itself is optional.
+  const shellEl = document.getElementById('term-shell');
+  const inputLineEl = document.getElementById('term-inputline');
 
   /* Warm-ups, in the order the course introduces them. Each is a starting
    * point to edit, not an answer to copy. */
@@ -242,7 +248,41 @@
     }
 
     awaiting = res.awaiting || null;
+
+    if (res.editor && typeof HarborNano !== 'undefined') {
+      openEditor(res.editor);
+      return;
+    }
+
     afterCommand();
+  }
+
+  /**
+   * nano takes over the terminal pane. The prompt goes away while it is open --
+   * on a real terminal the editor has the whole screen, and leaving a live
+   * prompt underneath would invite typing into a shell that is not listening.
+   */
+  function openEditor(state) {
+    inputLineEl.hidden = true;
+    shellEl.classList.add('has-nano');
+    setStatus('nano has the terminal. ^O writes the file out, ^X leaves.');
+
+    editor = HarborNano.open({
+      mount: shellEl,
+      shell: sh,
+      file: state,
+      onClose: function (summary) {
+        editor = null;
+        inputLineEl.hidden = false;
+        shellEl.classList.remove('has-nano');
+        write('<pre class="term-out term-note">' + ShellView.esc(
+          summary.saved
+            ? 'nano: wrote ' + (summary.path || 'the buffer') + '.'
+            : 'nano: left without saving.'
+        ) + '</pre>');
+        afterCommand();
+      }
+    });
   }
 
   /** A heredoc arrives as one string; feed it through as a here-string. */
@@ -277,12 +317,14 @@
     scrollEl.scrollTop = scrollEl.scrollHeight;
   }
 
-  function setStatus(msg) { statusEl.textContent = msg || ''; }
+  function setStatus(msg) { if (statusEl) statusEl.textContent = msg || ''; }
 
   /* ---------- the side panel ---------- */
 
   function refreshSide() {
     if (!sh) return;
+    if (factsEl) factsEl.innerHTML = ShellView.factsHtml(sh);
+    if (!sideBodyEl || !sideNoteEl) return;
     if (sidePanel === 'files') {
       sideNoteEl.innerHTML = 'Showing <code>' + ShellView.esc(sh.cwd) +
         '</code>. It follows you as you <code>cd</code>.';
@@ -299,7 +341,6 @@
         '<strong>enabled</strong> starts at boot.';
       sideBodyEl.innerHTML = ShellView.servicesHtml(sh);
     }
-    factsEl.innerHTML = ShellView.factsHtml(sh);
   }
 
   /* ---------- completion ---------- */
@@ -368,6 +409,7 @@
   /* ---------- warm-ups ---------- */
 
   function buildRecipes() {
+    if (!recipesEl) return;
     recipesEl.innerHTML = '';
     RECIPES.forEach(function (group) {
       const heading = document.createElement('div');
@@ -386,9 +428,7 @@
         b.addEventListener('click', function () {
           inputEl.value = r[1];
           inputEl.focus();
-          document.getElementById('term-shell').scrollIntoView({
-            behavior: 'smooth', block: 'start'
-          });
+          shellEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
         list.appendChild(b);
       });
@@ -400,7 +440,7 @@
 
   HarborBox.create(imageFile).then(function (b) {
     box = b;
-    sh = HarborShell.create(box, { interactive: true, user: 'student' });
+    sh = HarborShell.create(box, { interactive: true, user: 'student', editor: true });
 
     loadingEl.hidden = true;
     appEl.hidden = false;
@@ -412,6 +452,7 @@
     inputEl.focus();
 
     inputEl.addEventListener('keydown', function (e) {
+      if (editor) return;
       if (e.key === 'Enter') { e.preventDefault(); submit(); return; }
       if (e.key === 'Tab') { e.preventDefault(); complete(); return; }
       if (e.key === 'ArrowUp') {
@@ -442,13 +483,15 @@
       }
     });
 
-    document.getElementById('term-shell').addEventListener('click', function (e) {
+    shellEl.addEventListener('click', function (e) {
+      if (editor) return;          // nano owns the pane while it is open
       if (window.getSelection().toString() === '') inputEl.focus();
     });
 
     document.getElementById('reset').addEventListener('click', function () {
       box.reset();
-      sh = HarborShell.create(box, { interactive: true, user: 'student' });
+      if (editor) { editor.close(); editor = null; }
+      sh = HarborShell.create(box, { interactive: true, user: 'student', editor: true });
       history = [];
       historyAt = 0;
       awaiting = null;
@@ -466,7 +509,8 @@
       inputEl.focus();
     });
 
-    document.getElementById('side-tabs').addEventListener('click', function (e) {
+    const sideTabsEl = document.getElementById('side-tabs');
+    if (sideTabsEl) sideTabsEl.addEventListener('click', function (e) {
       const btn = e.target.closest('.side-tab');
       if (!btn) return;
       sidePanel = btn.dataset.panel;

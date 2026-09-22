@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lab</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">Quiz<span class="brand-mark">Hub</span></a>
+    <span class="topbar-sub" id="lab-subtitle">Lab</span>
+  </div>
+</div>
+
+<div class="wrap wide">
+  <div class="crumb"><a href="labs.html" id="all-labs">&larr; All labs</a></div>
+
+  <div id="loading" class="loading">Starting the machine&hellip;</div>
+
+  <div id="app" hidden>
+    <div id="lab-head" class="page-head"></div>
+
+    <div class="lab-layout">
+      <section class="lab-tasks" id="lab-tasks"></section>
+
+      <section class="lab-term">
+        <div class="lab-term-inner">
+          <div class="term-shell" id="term-shell">
+            <div class="term-scroll" id="term-scroll"></div>
+            <div class="term-inputline" id="term-inputline">
+              <span class="term-prompt" id="term-prompt"></span>
+              <input type="text" id="term-input" class="term-input" spellcheck="false"
+                autocomplete="off" autocapitalize="off" autocorrect="off"
+                aria-label="Command line">
+            </div>
+          </div>
+
+          <div class="sql-toolbar">
+            <button class="btn ghost" id="reset">Reset machine</button>
+            <button class="btn ghost" id="clear">Clear screen</button>
+            <span class="sql-status" id="status"></span>
+          </div>
+
+          <details class="lab-files">
+            <summary>The machine</summary>
+            <div id="facts"></div>
+            <div class="side-tabs" id="side-tabs">
+              <button class="side-tab is-on" data-panel="files">Files</button>
+              <button class="side-tab" data-panel="accounts">Accounts</button>
+              <button class="side-tab" data-panel="software">Software</button>
+              <button class="side-tab" data-panel="services">Services</button>
+            </div>
+            <div class="sql-side-note" id="side-note"></div>
+            <div id="side-body" class="schema-body"></div>
+          </details>
+        </div>
+      </section>
+    </div>
+
+    <nav class="lab-nav" id="lab-nav"></nav>
+  </div>
+</div>
+
+<footer class="site">Built for sharing study quizzes with classmates.</footer>
+
+<script src="assets/sqlhl.js"></script>
+<script src="assets/shellhl.js"></script>
+<script src="assets/blocks.js"></script>
+<script src="assets/box.js"></script>
+<script src="assets/shell.js"></script>
+<script src="assets/shtext.js"></script>
+<script src="assets/shadmin.js"></script>
+<script src="assets/shpkg.js"></script>
+<script src="assets/shsys.js"></script>
+<script src="assets/shellview.js"></script>
+<script src="assets/nano.js"></script>
+<script src="assets/lab.js"></script>
+<script src="assets/term.js"></script>
+</body>
+</html>

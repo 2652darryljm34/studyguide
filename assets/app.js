@@ -43,9 +43,10 @@ function renderClass(cls, index){
   `).join('');
 
   // Practice you do rather than read: lab sheets of tasks, with no answers.
-  // Same renderer as a guide, but its own category so it reads as work to do.
+  // `href` points at a page of its own (the lab index); `file` falls back to
+  // the guide renderer, for a class whose exercises are only a document.
   const exerciseRows = (cls.exercises || []).map(e => `
-    <a class="quiz-row exercise-row" href="review.html?file=${encodeURIComponent(e.file)}">
+    <a class="quiz-row exercise-row" href="${e.href ? escapeHtml(e.href) : 'review.html?file=' + encodeURIComponent(e.file)}">
       <div>
         <div class="quiz-row-title"><span class="guide-badge exercise-badge">Exercises</span>${escapeHtml(e.title)}</div>
         ${e.description ? `<div class="quiz-row-desc">${escapeHtml(e.description)}</div>` : ''}

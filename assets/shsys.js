@@ -557,11 +557,86 @@
     return 0;
   });
 
-  register('vim vi nano', function (ctx) {
-    ctx.errln(ctx.name + ': a full-screen editor cannot run in this practice terminal.');
-    ctx.errln("To create or change a file here, use 'echo text > file', " +
+  /*
+   * nano really opens. The shell hands the page an `editor` state -- the file's
+   * path and its current contents -- and the page draws the editor and calls
+   * sh.saveBuffer() when the learner writes it out. Permissions are the
+   * machine's, not the editor's, so a read-only file fails to save here the
+   * same way it would on a real system.
+   */
+  register('nano', function (ctx) {
+    if (!ctx.sh.editorEnabled) return noEditor(ctx);
+
+    const args = ctx.args.filter(function (a) { return a.charAt(0) !== '-'; });
+    if (args.length > 1) {
+      ctx.errln('nano: this practice terminal opens one file at a time.');
+      return 1;
+    }
+
+    const shown = args[0] || '';
+    if (!shown) {
+      ctx.editor = { name: 'nano', path: '', label: 'New Buffer', content: '', exists: false };
+      return 0;
+    }
+
+    let found = null;
+    try {
+      found = ctx.sh.resolve(shown);
+    } catch (err) {
+      if (!err.isFsError || err.code !== 'ENOENT') {
+        ctx.errln('nano: ' + shown + ': ' + err.message);
+        return 1;
+      }
+    }
+
+    if (found) {
+      if (found.node.type === 'dir') {
+        ctx.errln('nano: ' + shown + ': Is a directory');
+        return 1;
+      }
+      if (!ctx.m.canRead(found.node, ctx.sh.user)) {
+        ctx.errln('nano: ' + shown + ': Permission denied');
+        return 1;
+      }
+      ctx.editor = {
+        name: 'nano',
+        path: shown,
+        label: shown,
+        content: ctx.m.read(found.node),
+        exists: true,
+        writable: ctx.m.canWrite(found.node, ctx.sh.user)
+      };
+      return 0;
+    }
+
+    // A name that does not exist yet is nano's "New File" case -- but only if
+    // the directory it would go in is actually reachable.
+    try {
+      ctx.sh.m.resolveParent(shown, { cwd: ctx.sh.cwd, user: ctx.sh.user });
+    } catch (err) {
+      ctx.errln('nano: ' + shown + ': ' + err.message);
+      return 1;
+    }
+    ctx.editor = {
+      name: 'nano', path: shown, label: shown,
+      content: '', exists: false, writable: true
+    };
+    return 0;
+  });
+
+  function noEditor(ctx) {
+    ctx.errln(ctx.name + ': a full-screen editor cannot run here.');
+    ctx.errln("To create or change a file, use 'echo text > file', " +
       "'cat > file' with a heredoc,");
-    ctx.errln("'sed -i' or 'tee'. The study guide covers vim's modes and keystrokes.");
+    ctx.errln("'sed -i' or 'tee'. nano does open in the Practice Terminal and in the labs.");
+    return 1;
+  }
+
+  register('vim vi', function (ctx) {
+    ctx.errln(ctx.name + ': vim cannot run in this practice terminal.');
+    ctx.errln("Use 'nano' to edit a file here. The study guide covers vim's own " +
+      'modes and keystrokes,');
+    ctx.errln('which you will need on a real system where vim is the editor that is always present.');
     return 1;
   });
 

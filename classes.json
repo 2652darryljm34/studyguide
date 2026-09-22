@@ -16,15 +16,16 @@
         {
           "id": "labs",
           "title": "Hands-On Lab Exercises",
-          "description": "Ten short labs, one per topic, worked in the Practice Terminal. Every task states a goal rather than a command — choosing the right tool is the exercise. No answers given.",
-          "file": "data/itn170-labs.json"
+          "description": "Ten short labs, one per topic, each on its own page with a live terminal beside it — nano included. 104 tasks, every one stating a goal rather than a command. No answers given.",
+          "file": "data/itn170-labs.json",
+          "href": "labs.html?file=data%2Fitn170-labs.json"
         }
       ],
       "tools": [
         {
           "id": "terminal",
           "title": "Practice Terminal",
-          "description": "A Red Hat Enterprise Linux 9 machine running in your browser. Real commands, real permissions, real consequences — sudo, users, packages and services all work, and Reset puts the machine back.",
+          "description": "A Red Hat Enterprise Linux 9 machine running in your browser. Real commands, real permissions, real consequences — sudo, users, packages and services all work, nano opens, and Reset puts the machine back.",
           "href": "terminal.html"
         }
       ],

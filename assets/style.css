@@ -851,6 +851,232 @@ footer.site{
 .tool-row:hover{ background: #e2ede7; }
 .tool-badge{ background: #2f8f5b; }
 
+/* ===========================================================================
+   nano — the editor, drawn over the terminal pane
+   =========================================================================== */
+
+/* While nano is open the pane needs a screen's worth of height of its own --
+   the transcript underneath may only be two lines tall. */
+.term-shell.has-nano{ min-height: 440px; }
+
+.nano{
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: #12151b;
+  color: #d7dbe0;
+  font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  z-index: 3;
+}
+.nano-title{
+  display: flex;
+  gap: 18px;
+  align-items: baseline;
+  padding: 4px 10px;
+  background: #d7dbe0;
+  color: #12151b;
+  font-weight: 600;
+  flex: 0 0 auto;
+}
+.nano-ver{ opacity: .75; font-weight: 500; }
+.nano-file{ flex: 1 1 auto; text-align: center; }
+.nano-mod{ font-style: italic; }
+.nano-mod:not(:empty)::before{ content: '[ '; }
+.nano-mod:not(:empty)::after{ content: ' ]'; }
+
+.nano-body{ position: relative; flex: 1 1 auto; min-height: 0; }
+.nano-text{
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 6px 10px;
+  border: 0;
+  outline: none;
+  resize: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  tab-size: 8;
+  white-space: pre;
+  overflow: auto;
+}
+.nano-text::selection{ background: #d7dbe0; color: #12151b; }
+.nano-help{
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 10px 14px;
+  background: #12151b;
+  color: #d7dbe0;
+  overflow: auto;
+  white-space: pre-wrap;
+}
+
+.nano-status{
+  flex: 0 0 auto;
+  min-height: 1.5em;
+  padding: 2px 10px;
+  text-align: center;
+  color: #12151b;
+}
+.nano-status:not(:empty){ background: #d7dbe0; font-weight: 600; }
+
+.nano-ask{
+  flex: 0 0 auto;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding: 2px 10px;
+  background: #d7dbe0;
+  color: #12151b;
+}
+.nano-ask-label{ font-weight: 600; white-space: pre; }
+.nano-ask-input{
+  flex: 1 1 auto;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+
+.nano-keys{ flex: 0 0 auto; padding: 4px 6px 6px; }
+.nano-keyrow{ display: flex; flex-wrap: wrap; gap: 4px; }
+.nano-key{
+  flex: 1 1 0;
+  min-width: 118px;
+  text-align: left;
+  padding: 3px 6px;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: #d7dbe0;
+  font: inherit;
+  cursor: pointer;
+}
+.nano-key:hover{ background: #222833; }
+.nano-key-combo{
+  display: inline-block;
+  min-width: 2.2em;
+  padding: 0 3px;
+  background: #d7dbe0;
+  color: #12151b;
+  border-radius: 2px;
+  font-weight: 600;
+}
+
+@media (max-width: 720px){
+  .nano-key{ min-width: 0; flex-basis: 25%; }
+  .nano-key-combo{ min-width: 0; }
+}
+
+/* ===========================================================================
+   Labs — the selection grid, and one lab beside a terminal
+   =========================================================================== */
+
+.lab-grid{
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 12px;
+}
+.lab-card{
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 16px 18px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  text-decoration: none;
+  color: var(--ink);
+}
+.lab-card:hover{ border-color: #4a5891; }
+.lab-card-num{
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #4a5891;
+}
+.lab-card-title{
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  font-size: 1.02rem;
+  line-height: 1.3;
+}
+.lab-card-meta{ font-size: 0.82rem; color: var(--ink-soft); }
+
+.lab-total{
+  margin: 16px 0 0;
+  font-size: 0.86rem;
+  color: var(--ink-soft);
+}
+.lab-intro{
+  margin-top: 32px;
+  padding: 4px 24px 24px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.lab-intro .guide-h3:first-child{ margin-top: 22px; }
+
+.lab-layout{
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+.lab-tasks{
+  padding: 22px 24px 26px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.lab-tasks .guide-h3:first-child{ margin-top: 0; }
+.lab-tasks .guide-list li{ margin-bottom: 2px; }
+
+/* The terminal rides along as you read down a long task list. */
+.lab-term-inner{ position: sticky; top: 16px; }
+.lab-files{
+  margin-top: 14px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  font-size: 0.9rem;
+}
+.lab-files summary{ cursor: pointer; font-weight: 600; }
+.lab-files .schema-body{ margin-top: 10px; }
+
+.lab-stuck{ font-size: 0.88rem; }
+
+.lab-nav{
+  margin-top: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  font-size: 0.88rem;
+}
+.lab-nav-link, .lab-nav-all{
+  text-decoration: none;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--line);
+}
+.lab-nav-link:hover, .lab-nav-all:hover{ color: var(--accent); border-color: var(--accent); }
+.lab-nav-all{ font-weight: 600; }
+
+@media (max-width: 900px){
+  .lab-layout{ grid-template-columns: minmax(0, 1fr); }
+  .lab-term-inner{ position: static; }
+}
+
 /* Lab sheets: the guide renderer, but exercises rather than reference. */
 .exercise-row{ background: #eff1f7; }
 .exercise-row:hover{ background: #e4e7f1; }
@@ -957,6 +1183,7 @@ pre.sql-hl code{ font: inherit; background: none; padding: 0; }
 }
 
 .term-shell{
+  position: relative;            /* nano is drawn over this box */
   background: var(--term-bg);
   border: 1px solid var(--term-line);
   border-radius: 8px;
@@ -999,7 +1226,9 @@ pre.sql-hl code{ font: inherit; background: none; padding: 0; }
 }
 .term-err{ color: #f0968c; }
 .term-note{ color: var(--term-dim); font-style: italic; }
-.term-banner{ color: var(--term-dim); }
+/* The login banner is prose, so let it wrap rather than push a scrollbar
+   across a narrow terminal. Command output keeps its columns. */
+.term-banner{ color: var(--term-dim); white-space: pre-wrap; }
 
 .term-inputline{
   display: flex;

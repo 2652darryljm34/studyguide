@@ -11,6 +11,8 @@ A static site for sharing self-study quizzes with classmates via GitHub Pages. N
 | `review.html` | The study guide screen. Same pattern: `review.html?file=data/itd256-midterm-guide.json` |
 | `sql.html` | The SQL playground — a scratchpad over the practice database |
 | `terminal.html` | The Linux playground — a practice RHEL 9 machine with warm-ups and a filesystem browser |
+| `labs.html` | The lab index — the ten lab sheets as a grid |
+| `lab.html` | One lab, with a live terminal beside it: `lab.html?file=data/itn170-labs.json&lab=permissions-ownership` |
 | `classes.json` | The registry of classes, guides, exercises, tools and quizzes. **The one file you edit to reorganize content.** |
 | `data/*.json` | One file per quiz or guide. **Generated** for the ITD 256 and ITN 170 quizzes — edit `tools/questions/` or `tools/questions-itn170/` instead |
 | `data/harborview.sql` | The practice database (schema + seed). Generated — see `tools/build_db.py` |
@@ -26,7 +28,10 @@ A static site for sharing self-study quizzes with classmates via GitHub Pages. N
 | `style.css` | Everything visual |
 | `app.js` | Home page |
 | `quiz.js` | The quiz engine — one render function per question type |
-| `review.js` | The study guide renderer |
+| `blocks.js` | Renders one authored block — heading, table, code, note. Shared by the guide and both lab pages |
+| `review.js` | The study guide page |
+| `labs.js` | The lab index page |
+| `lab.js` | One lab page: the tasks, and the navigation between labs |
 | `db.js` | Loads SQLite (via [sql.js](https://sql.js.org/)) from a CDN, seeds it, and grades queries by comparing result sets |
 | `sqlview.js` | Renders result grids and the schema browser — shared by the quiz and the playground |
 | `sqlhl.js` | SQL syntax highlighting — read-only blocks, and a live overlay for the editors |
@@ -39,7 +44,8 @@ A static site for sharing self-study quizzes with classmates via GitHub Pages. N
 | `shsys.js` | Processes, `systemctl`, networking, storage and `man` |
 | `shellview.js` | The terminal transcript and the filesystem/permission browser |
 | `shellhl.js` | Shell syntax highlighting — the counterpart of `sqlhl.js` |
-| `term.js` | The terminal playground page |
+| `term.js` | The terminal itself. Drives `terminal.html` and the terminal on every lab page |
+| `nano.js` | The editor, drawn over the terminal pane when `nano` opens |
 
 ## The practice database
 
@@ -68,6 +74,7 @@ You are `student` on `servera.lab.example.com`, in the `wheel` group, with `sudo
 - **Accounts.** `/etc/passwd`, `/etc/shadow` and `/etc/group` are rendered live from the user database, so `useradd` and `usermod -aG` show up in them immediately, and `/etc/shadow` is unreadable to `student`.
 - **Software.** An RPM database of ~47 packages, DNF repositories with packages available to install, module streams, transaction history, and Flatpak.
 - **System.** A process table, systemd units that can be started, stopped, enabled and disabled, network interfaces and routes, block devices, mounts, and `man` pages.
+- **An editor.** `nano` opens for real — see below. `vim` does not, and says so.
 
 Regenerate the image after editing the generator:
 
@@ -79,6 +86,21 @@ Two details worth knowing when writing questions against it:
 
 - **`~/labs` is the working area** — `files/` for creation and globbing, `text/` for redirection and the text toolkit, `perms/` for permissions, `links/` for links, `survey/` for `find` and `du`. Prefer these over system paths: they are stable and their contents are documented in the generator.
 - **`sudo` does not prompt** when grading, so a question can use it freely. In the playground and inside a question's terminal it does prompt, and the page answers with the machine's documented password.
+
+### nano
+
+`nano` opens a real editor over the terminal pane — title bar, buffer, status line, and the two rows of shortcut hints. It works on `terminal.html` and on every lab page.
+
+The mechanism mirrors the password prompts: a command can put an `editor` state on its result, the same way `su` and `passwd` put an `awaiting` state there. `assets/shsys.js` fills it in with the path and the file's current contents; `assets/term.js` hands that to `assets/nano.js`, which draws the editor; writing out calls back into `Shell.saveBuffer()`.
+
+That last part is the point. **Saving goes through the machine's permissions**, so editing `readonly.conf` and pressing `^O` fails with `Permission denied`, exactly as it would on a real system. An editor that could write anywhere would quietly undo the lesson of the permissions chapter.
+
+Two things worth knowing:
+
+- **It is opt-in.** `HarborShell.create(box, { editor: true })` enables it. Without that flag `nano` prints the same refusal it always did — so a grading run, and a quiz question's terminal, are unaffected. Nothing in `tools/test_shell.js` changes behaviour.
+- **Ctrl+W belongs to the browser.** Chrome closes the tab on Ctrl+W and a page cannot prevent it, so the shortcut bar is made of real buttons. Everything else (`^O`, `^X`, `^K`, `^U`, `^G`, `^R`, `^A`, `^E`, `^C`) is bound to its keystroke as well as its button.
+
+`vim` does not open. It prints a message pointing at `nano` and at the study guide, because pretending to be vim badly would teach the wrong keystrokes.
 
 ## Question types
 
@@ -338,6 +360,22 @@ The file format is exactly a study guide's — same sections, same blocks, same 
 ```
 
 Rows render in the order **guides → exercises → tools → quizzes**, badged *Exercises* in indigo (`.exercise-badge` and `.exercise-row` in `style.css`). The array is optional; a class without one is unchanged.
+
+An entry takes either `href` (a page of its own — what the ITN 170 labs use) or `file` (rendered by `review.html`, for exercises that are only a document).
+
+### How the lab pages fit together
+
+One data file, three views:
+
+| Page | Shows |
+|---|---|
+| `labs.html?file=…` | Every lab as a card, with its task count, plus the introduction |
+| `lab.html?file=…&lab=<id>` | One lab's tasks, a live terminal beside them, and prev/next navigation |
+| `review.html?file=…` | The whole thing as one long document, if you want to read or print it |
+
+Each lab section in the file carries an `id` (used in the URL), a `lab` number, a `title` and a `tasks` count. `lab.html` also accepts the number — `&lab=6` works. The section with no `lab` number is the introduction, shown under the grid on the index and not given a page of its own. A top-level `guideFile` adds the "stuck?" link to the study guide on each lab page.
+
+**The `tasks` counts are not maintained by hand** — nothing recomputes them on load, so after adding or removing a task, update the count in the file (and the table in the introduction). They are only labels, but a wrong one is a wrong promise.
 
 How the ITN 170 labs are shaped, which is worth copying:
 

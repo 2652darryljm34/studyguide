@@ -640,6 +640,60 @@
           ]
         },
         {
+          "type": "subheading",
+          "text": "nano, which is the one that opens here"
+        },
+        {
+          "type": "paragraph",
+          "text": "nano shows its commands along the bottom of the screen, so there is nothing to memorise before you start. `^` means Ctrl. It is friendlier than vim and usually installed — but **usually** is the catch, which is why vim is still worth knowing."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Key",
+            "Does"
+          ],
+          "rows": [
+            [
+              "`^O`",
+              "Write Out — save; it asks for the filename, Enter confirms"
+            ],
+            [
+              "`^X`",
+              "Exit — if the buffer changed it asks whether to save first"
+            ],
+            [
+              "`^K` / `^U`",
+              "Cut the current line / paste it back"
+            ],
+            [
+              "`^W`",
+              "Where Is — search forward"
+            ],
+            [
+              "`^\\`",
+              "Replace"
+            ],
+            [
+              "`^R`",
+              "Read File — insert another file at the cursor"
+            ],
+            [
+              "`^C`",
+              "Cur Pos — which line, column and character you are on"
+            ],
+            [
+              "`^G`",
+              "Get Help"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "label": "In the practice terminal:",
+          "text": "`nano` really opens — in the Practice Terminal and on every lab page. Saving goes through the machine's permissions, so a file you may not write refuses to save, exactly as it would on a real system. `vim` does not run in the browser; the keystrokes above the streams section are what you need for it."
+        },
+        {
           "type": "heading",
           "text": "The Three Streams"
         },

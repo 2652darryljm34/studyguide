@@ -372,6 +372,10 @@ const HarborShell = (function () {
     this.box = box;
     this.m = box.machine;
     this.interactive = opts.interactive !== false;
+    // A full-screen editor needs a page that can draw one. Off by default, so
+    // a grading run or a question's terminal still gets nano's honest refusal
+    // rather than a state nothing on the page knows how to render.
+    this.editorEnabled = !!opts.editor;
     this.userStack = [];
     this.user = this.m.userByName(opts.user || 'student') || this.m.userByName('root');
     this.cwd = this.user.home;
@@ -1025,6 +1029,10 @@ const HarborShell = (function () {
         result.awaiting = piped.awaiting;
         break;
       }
+      if (piped.editor) {
+        result.editor = piped.editor;
+        break;
+      }
       if (piped.exited) { result.exited = true; break; }
     }
 
@@ -1056,6 +1064,7 @@ const HarborShell = (function () {
     let stderrAll = '';
     let status = 0;
     let awaiting = null;
+    let editor = null;
     let exited = false;
 
     for (let i = 0; i < pipeline.length; i++) {
@@ -1064,6 +1073,7 @@ const HarborShell = (function () {
 
       const res = this.runSimple(cmd, stdin, background && isLast);
       if (res.awaiting) { awaiting = res.awaiting; }
+      if (res.editor) { editor = res.editor; }
       if (res.exited) exited = true;
 
       stderrAll += res.stderr;
@@ -1084,6 +1094,7 @@ const HarborShell = (function () {
       display: display,
       status: status,
       awaiting: awaiting,
+      editor: editor,
       exited: exited
     };
   };
@@ -1224,7 +1235,7 @@ const HarborShell = (function () {
 
     return {
       stdout: stdout, stderr: stderr, status: ctx.status,
-      awaiting: ctx.awaiting, exited: ctx.exited
+      awaiting: ctx.awaiting, editor: ctx.editor, exited: ctx.exited
     };
   };
 
@@ -1321,6 +1332,23 @@ const HarborShell = (function () {
     } catch (err) {
       return 'bash: ' + path + ': ' + (err.isFsError ? err.message : String(err.message)) + '\n';
     }
+  };
+
+  /**
+   * Save an editor buffer back to the machine, as the current user.
+   *
+   * Returns `{ ok: true, lines }` or `{ ok: false, error }` with the message
+   * nano itself would show on its status line -- a read-only file and a
+   * directory you cannot write to both have to fail here, or the editor would
+   * quietly beat the permissions the lab is teaching.
+   */
+  Shell.prototype.saveBuffer = function (path, text) {
+    const body = text.length && text.charAt(text.length - 1) !== '\n' ? text + '\n' : text;
+    const problem = this.writeTo(path, body, false);
+    if (problem) {
+      return { ok: false, error: problem.replace(/^bash: /, '').replace(/\n$/, '') };
+    }
+    return { ok: true, lines: body === '' ? 0 : body.replace(/\n$/, '').split('\n').length };
   };
 
   /* ---------- heredocs ---------- */
