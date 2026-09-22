@@ -2,6 +2,7 @@
   "title": "ITN 170 Linux Commands Study Guide",
   "description": "A command-line reference for Red Hat Enterprise Linux 9: the shell, the filesystem, redirection and the text toolkit, users and groups, permissions, software, storage, processes and services, and networking and SSH.",
   "quizFile": "data/itn170-comprehensive-review.json",
+  "boxFile": "data/itn170-box.json",
   "sections": [
     {
       "name": "The Command Line & Getting Help",

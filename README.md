@@ -8,7 +8,7 @@ A static site for sharing self-study quizzes with classmates via GitHub Pages. N
 |---|---|
 | `index.html` | Home page — lists every class with its guides, exercises, tools and quizzes (reads `classes.json`) |
 | `quiz.html` | The quiz screen. Works for *any* quiz: `quiz.html?file=data/itd256-midterm-review.json` |
-| `review.html` | The study guide screen. Same pattern: `review.html?file=data/itd256-midterm-guide.json` |
+| `review.html` | The study guide screen. Same pattern: `review.html?file=data/itd256-midterm-guide.json`. A guide with a `boxFile` also gets a terminal |
 | `sql.html` | The SQL playground — a scratchpad over the practice database |
 | `terminal.html` | The Linux playground — a practice RHEL 9 machine with warm-ups and a filesystem browser |
 | `labs.html` | The lab index — the ten lab sheets as a grid |
@@ -29,7 +29,7 @@ A static site for sharing self-study quizzes with classmates via GitHub Pages. N
 | `app.js` | Home page |
 | `quiz.js` | The quiz engine — one render function per question type |
 | `blocks.js` | Renders one authored block — heading, table, code, note. Shared by the guide and both lab pages |
-| `review.js` | The study guide page |
+| `review.js` | The study guide page, including the optional terminal column |
 | `labs.js` | The lab index page |
 | `lab.js` | One lab page: the tasks, and the navigation between labs |
 | `db.js` | Loads SQLite (via [sql.js](https://sql.js.org/)) from a CDN, seeds it, and grades queries by comparing result sets |
@@ -342,6 +342,17 @@ Long-form reference notes rather than question-and-answer. Create `data/<class>-
 | `note` | `text`, optional `label` | callout box |
 
 Any `text` field supports `**bold**` and `` `code` `` — and **only** those two. There is no single-asterisk italic, so `*like this*` renders with the asterisks showing. Top-level fields: `title`, `description`, and optionally `quizFile` (adds a "Take the quiz" button). The quiz can point back with `guideFile`.
+
+### A guide with a machine attached
+
+Add `"boxFile": "data/itn170-box.json"` at the top level and the guide renders in two columns: the sections scroll on the left, a live terminal stays pinned on the right. Reading *"`-R` walks the whole tree"* and trying it in the same breath is the whole point.
+
+Two things make that safe to add to a shared page:
+
+- **It is opt-in and lazily loaded.** The machine is a few hundred kilobytes of JavaScript, and `review.js` injects those scripts only when a guide asks for a `boxFile` — after its markup exists, because `term.js` starts the moment it loads. The ITD 256 SQL guide declares no `boxFile`, so it renders exactly as it always did and downloads none of it.
+- **It is the same terminal.** Not a second implementation — `assets/term.js`, the one `terminal.html` and the lab pages use, mounted into markup with the element ids it looks for. `nano` works there too.
+
+One layout trap worth knowing if you build another two-column page: a `position: sticky` child only travels inside its own grid item, so the column holding it needs `align-self: stretch`. With `align-items: start` alone the column is sized to its contents and the sticky element scrolls away with everything else — which is exactly what happened here the first time.
 
 Then add it to that class's `guides` array in `classes.json`.
 

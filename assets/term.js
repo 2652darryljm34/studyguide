@@ -9,7 +9,9 @@
   'use strict';
 
   const params = new URLSearchParams(window.location.search);
-  const imageFile = params.get('box') || 'data/itn170-box.json';
+  // ?box= wins; a page that mounts the terminal itself (a lab, or a study
+  // guide with a machine attached) sets window.HARBOR_BOX instead.
+  const imageFile = params.get('box') || window.HARBOR_BOX || 'data/itn170-box.json';
 
   const loadingEl = document.getElementById('loading');
   const appEl = document.getElementById('app');
@@ -449,6 +451,7 @@
     setPrompt();
     refreshSide();
     buildRecipes();
+    setStatus('Enter runs. Tab completes. Up and Down replay history.');
     inputEl.focus();
 
     inputEl.addEventListener('keydown', function (e) {

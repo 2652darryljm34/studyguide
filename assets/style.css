@@ -1024,12 +1024,27 @@ footer.site{
 }
 .lab-intro .guide-h3:first-child{ margin-top: 22px; }
 
-.lab-layout{
+.lab-layout,
+.guide-layout{
   margin-top: 24px;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 20px;
   align-items: start;
+}
+
+/* A study guide is long-form reading, so it takes the larger share and the
+   machine rides along beside it. */
+.guide-layout{ grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); }
+.guide-layout .guide-sections{ margin-top: 0; }
+.guide-term-inner{ position: sticky; top: 16px; }
+.guide-term-head{
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 8px;
 }
 .lab-tasks{
   padding: 22px 24px 26px;
@@ -1041,7 +1056,12 @@ footer.site{
 .lab-tasks .guide-h3:first-child{ margin-top: 0; }
 .lab-tasks .guide-list li{ margin-bottom: 2px; }
 
-/* The terminal rides along as you read down a long task list. */
+/* The terminal rides along as you read down a long task list. A sticky child
+   only travels inside its own grid item, so the column has to span the whole
+   row -- `align-items: start` alone would size it to its contents and the
+   terminal would scroll away with everything else. */
+.lab-term,
+.guide-term{ align-self: stretch; }
 .lab-term-inner{ position: sticky; top: 16px; }
 .lab-files{
   margin-top: 14px;
@@ -1073,8 +1093,10 @@ footer.site{
 .lab-nav-all{ font-weight: 600; }
 
 @media (max-width: 900px){
-  .lab-layout{ grid-template-columns: minmax(0, 1fr); }
-  .lab-term-inner{ position: static; }
+  .lab-layout,
+  .guide-layout{ grid-template-columns: minmax(0, 1fr); }
+  .lab-term-inner,
+  .guide-term-inner{ position: static; }
 }
 
 /* Lab sheets: the guide renderer, but exercises rather than reference. */
