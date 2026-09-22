@@ -21,6 +21,16 @@
   function nvr(p) {
     return p.version + '-' + p.release;
   }
+  /*
+   * The repository catalogue is nearly six thousand packages, so anything
+   * derivable is derived rather than stored. Carrying a project URL, a source
+   * RPM name and a description on every entry cost about 160 bytes each --
+   * roughly a megabyte of the image to say nothing that is not already known
+   * from the name, version and summary.
+   */
+  function pkgUrl(p) {
+    return p.url || ('https://www.example.com/' + p.name);
+  }
 
   function humanBytes(n) {
     if (!n) return '0  ';
@@ -163,7 +173,7 @@
         ctx.outln('Build Host  : x86-vm-09.build.eng.bos.redhat.com');
         ctx.outln('Packager    : Red Hat, Inc. <http://bugzilla.redhat.com/bugzilla>');
         ctx.outln('Vendor      : ' + (p.vendor || 'Red Hat, Inc.'));
-        ctx.outln('URL         : ' + p.url);
+        ctx.outln('URL         : ' + pkgUrl(p));
         ctx.outln('Summary     : ' + p.summary);
         ctx.outln('Description :');
         ctx.outln(p.description || p.summary);
@@ -717,7 +727,7 @@
     ctx.outln('Source       : ' + p.name + '-' + p.version + '-' + p.release + '.src.rpm');
     ctx.outln('Repository   : ' + (repo === 'installed' ? '@System' : repo));
     ctx.outln('Summary      : ' + p.summary);
-    ctx.outln('URL          : ' + p.url);
+    ctx.outln('URL          : ' + pkgUrl(p));
     ctx.outln('License      : ' + p.license);
     ctx.outln('Description  : ' + (p.description || p.summary));
     ctx.outln('');

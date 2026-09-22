@@ -50,12 +50,24 @@ defaults keep the image readable -- only the interesting permissions are stated.
 import json
 import os
 import random
+import sys
 
 SEED = 170124
 rng = random.Random(SEED)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "..", "data", "itn170-box.json")
+
+# The harvested RHEL 9 surface, if it has been collected. Optional on purpose:
+# without it the build falls back to the hand-written lists further down, so a
+# machine with no Docker can still produce an image.
+sys.path.insert(0, os.path.join(HERE, "harvest"))
+try:
+    import load as harvest_load
+    if not harvest_load.available_on_disk():
+        harvest_load = None
+except ImportError:
+    harvest_load = None
 
 HOSTNAME = "servera.lab.example.com"
 NOW = "2025-09-15 14:32"
@@ -510,31 +522,104 @@ FLATPAK = {
 }
 
 
+def _dress(entry, installed_pkg):
+    """
+    Add the fields rpm prints that the harvest does not record.
+
+    Only installed packages get the full set. The catalogue runs to 5,818
+    entries, and `url`, `sourceRpm` and `description` are each derivable from
+    the name, version and summary -- assets/shpkg.js derives them when it
+    prints. Storing them anyway cost about 160 bytes an entry, close to a
+    megabyte of image, to repeat what was already there.
+    """
+    name, ver, rel = entry["name"], entry["version"], entry["release"]
+    summary = entry.get("summary") or ""
+    entry.setdefault("license", "GPLv2+")
+    if installed_pkg:
+        entry.setdefault("url", "https://www.example.com/%s" % name)
+        entry["sourceRpm"] = "%s-%s-%s.src.rpm" % (name, ver, rel)
+        entry["description"] = (summary + ".\n\nThis package is part of "
+                                "Red Hat Enterprise Linux 9.") if summary else \
+                               "This package is part of Red Hat Enterprise Linux 9."
+    if installed_pkg:
+        entry["installDate"] = ("Tue 12 Jul 2025 06:31:%02d AM EDT"
+                                % rng.randrange(60))
+        entry["signature"] = ("RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, "
+                              "Key ID 199e2f91fd431d51")
+        entry["vendor"] = "Red Hat, Inc."
+    return entry
+
+
 def build_packages():
-    installed = []
-    for (name, ver, rel, arch, repo, summary, lic, url, size, files, req) in INSTALLED:
-        installed.append({
+    """
+    The package database, from the harvest when there is one.
+
+    `tools/harvest.py` records a real RHEL 9 machine; `tools/harvest/load.py`
+    decides how much of it the image carries. Falling back to the hand-written
+    lists keeps the build working on a machine with no harvest -- but those
+    lists are guesses, and measurably wrong ones: of the 47 they describe, six
+    had the right version.
+    """
+    harvested_installed = harvest_load.installed() if harvest_load else None
+    harvested_catalogue = harvest_load.catalogue() if harvest_load else None
+
+    if harvested_installed:
+        installed = [_dress(p, True) for p in harvested_installed]
+        # A few packages the shell implements were never in the harvest
+        # container: flatpak went in after the package stage had already run,
+        # and subscription-manager is RHEL-only with no Rocky equivalent. Their
+        # hand-written entries carry the file lists that keep `rpm -qf` honest.
+        have = {p["name"] for p in installed}
+        for (name, ver, rel, arch, repo, summary, lic, url, size,
+             files, req) in INSTALLED:
+            if name in have:
+                continue
+            installed.append(_dress({
+                "name": name, "version": ver, "release": rel, "arch": arch,
+                "repo": repo, "summary": summary, "license": lic, "url": url,
+                "size": size, "files": files, "requires": req,
+            }, True))
+        installed.sort(key=lambda p: p["name"])
+    else:
+        installed = [_dress({
             "name": name, "version": ver, "release": rel, "arch": arch,
             "repo": repo, "summary": summary, "license": lic, "url": url,
             "size": size, "files": files, "requires": req,
-            "installDate": "Tue 12 Jul 2025 06:31:%02d AM EDT" % rng.randrange(60),
-            "sourceRpm": "%s-%s-%s.src.rpm" % (name, ver, rel),
-            "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
-            "vendor": "Red Hat, Inc.",
-            "description": summary + ".\n\nThis package is part of Red Hat Enterprise Linux 9.",
-        })
-    available = []
-    for (name, ver, rel, arch, repo, summary, size, req) in AVAILABLE:
-        available.append({
+        }, True) for (name, ver, rel, arch, repo, summary, lic, url, size,
+                      files, req) in INSTALLED]
+
+    if harvested_catalogue:
+        available = [_dress(p, False) for p in harvested_catalogue]
+        # The hand-written entries still earn their place. They carry summaries
+        # the harvest has no field for, the `files` that make `dnf provides`
+        # work for an install target, and the one package in a *disabled*
+        # repository -- which only exists to teach that a disabled repo cannot
+        # be installed from. Curated wins where both have an opinion.
+        by_name = {p["name"]: p for p in available}
+        for (name, ver, rel, arch, repo, summary, size, req) in AVAILABLE:
+            entry = by_name.get(name)
+            if entry is None:
+                entry = _dress({
+                    "name": name, "version": ver, "release": rel, "arch": arch,
+                    "repo": repo, "size": size, "requires": req,
+                }, False)
+                available.append(entry)
+            entry["summary"] = summary
+            entry["repo"] = repo
+            entry["files"] = ["/usr/bin/" + name] if name in (
+                "nmap", "wget", "tree", "git", "zsh", "tcpdump", "lsof", "rsync",
+                "tmux", "unzip", "zip", "bzip2", "iotop", "screen", "php") else []
+        available.sort(key=lambda p: p["name"])
+    else:
+        available = [_dress({
             "name": name, "version": ver, "release": rel, "arch": arch,
             "repo": repo, "summary": summary, "size": size, "requires": req,
             "license": "ASL 2.0" if name == "httpd" else "GPLv2+",
-            "url": "https://www.example.com/%s" % name,
             "files": ["/usr/bin/" + name] if name in (
                 "nmap", "wget", "tree", "git", "zsh", "tcpdump", "lsof", "rsync",
                 "tmux", "unzip", "zip", "bzip2", "iotop", "screen", "php") else [],
-            "description": summary + ".",
-        })
+        }, False) for (name, ver, rel, arch, repo, summary, size, req) in AVAILABLE]
+
     return {"repos": REPOS, "installed": installed, "available": available,
             "groups": DNF_GROUPS, "modules": DNF_MODULES, "history": DNF_HISTORY}
 
@@ -720,6 +805,36 @@ def synth(gen, mode=None):
 def bindir(names, mode="0755"):
     """A directory of executables -- one small stub file per command name."""
     return d({n: f("(ELF 64-bit executable)\n", mode=mode) for n in sorted(names)})
+
+
+def path_commands(which):
+    """
+    What lives in /usr/bin or /usr/sbin.
+
+    From the harvest, this is every binary a real RHEL 9 machine has -- about
+    1,130 of them, against the 144 the shell implements. Carrying all of them
+    is deliberate: `ls /usr/bin`, `which`, `rpm -qf` and `dnf provides` then
+    agree with a real system instead of describing a machine with 187 programs
+    on it. The shell tells the truth when an unimplemented one is *run*, which
+    is a better lie to not tell than pretending the file is absent.
+    """
+    if harvest_load:
+        usr_bin, usr_sbin = harvest_load.path_commands()
+        harvested = usr_bin if which == "bin" else usr_sbin
+        if harvested:
+            # The hand-written lists still carry names the container never had
+            # -- flatpak, subscription-manager. Add only those, and only when
+            # the real machine has them nowhere on the PATH: the hand-written
+            # lists guessed at placement, and were sometimes wrong (blkid lives
+            # in /usr/sbin, not /usr/bin).
+            everywhere = set(usr_bin) | set(usr_sbin)
+            extra = [n for n in (USR_BIN if which == "bin" else USR_SBIN)
+                     if n not in everywhere
+                     and n not in harvest_load.INSTALL_TARGETS]
+            # An install target must NOT be on the PATH -- being absent is what
+            # makes `dnf install tree` an exercise rather than a no-op.
+            return sorted((set(harvested) - harvest_load.INSTALL_TARGETS) | set(extra))
+    return USR_BIN if which == "bin" else USR_SBIN
 
 
 # Every command the shell implements has to exist on disk, or `which`, `ls
@@ -1306,8 +1421,8 @@ def build_fs():
         "tmp": d({"lab-scratch.txt": f("scratch space\n", user="student", group="student")},
                  mode="1777"),
         "usr": d({
-            "bin": bindir(USR_BIN),
-            "sbin": bindir(USR_SBIN),
+            "bin": bindir(path_commands("bin")),
+            "sbin": bindir(path_commands("sbin")),
             "lib": d({"systemd": d({"system": d({}), "systemd": f("(ELF)\n", mode="0755")})}),
             "lib64": d({"libc.so.6": f("(ELF shared object)\n", mode="0755")}),
             "local": d({"bin": d({}), "sbin": d({}), "share": d({}), "lib": d({}),

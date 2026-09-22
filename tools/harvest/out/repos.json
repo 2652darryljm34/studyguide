@@ -1,0 +1,182 @@
+[
+ {
+  "id": "appstream",
+  "name": "Rocky Linux 9 - AppStream",
+  "status": "enabled"
+ },
+ {
+  "id": "appstream-debug",
+  "name": "Rocky Linux 9 - AppStream - Debug",
+  "status": "disabled"
+ },
+ {
+  "id": "appstream-source",
+  "name": "Rocky Linux 9 - AppStream - Source",
+  "status": "disabled"
+ },
+ {
+  "id": "baseos",
+  "name": "Rocky Linux 9 - BaseOS",
+  "status": "enabled"
+ },
+ {
+  "id": "baseos-debug",
+  "name": "Rocky Linux 9 - BaseOS - Debug",
+  "status": "disabled"
+ },
+ {
+  "id": "baseos-source",
+  "name": "Rocky Linux 9 - BaseOS - Source",
+  "status": "disabled"
+ },
+ {
+  "id": "crb",
+  "name": "Rocky Linux 9 - CRB",
+  "status": "disabled"
+ },
+ {
+  "id": "crb-debug",
+  "name": "Rocky Linux 9 - CRB - Debug",
+  "status": "disabled"
+ },
+ {
+  "id": "crb-source",
+  "name": "Rocky Linux 9 - CRB - Source",
+  "status": "disabled"
+ },
+ {
+  "id": "devel",
+  "name": "Rocky Linux 9 - Devel WARNING! FOR BUILDROOT ON",
+  "status": "disabled"
+ },
+ {
+  "id": "devel-debug",
+  "name": "Rocky Linux 9 - Devel Debug WARNING! FOR BUILDR",
+  "status": "disabled"
+ },
+ {
+  "id": "devel-source",
+  "name": "Rocky Linux 9 - Devel Source WARNING! FOR BUILD",
+  "status": "disabled"
+ },
+ {
+  "id": "extras",
+  "name": "Rocky Linux 9 - Extras",
+  "status": "enabled"
+ },
+ {
+  "id": "extras-debug",
+  "name": "Rocky Linux 9 - Extras Debug",
+  "status": "disabled"
+ },
+ {
+  "id": "extras-source",
+  "name": "Rocky Linux 9 - Extras Source",
+  "status": "disabled"
+ },
+ {
+  "id": "highavailability",
+  "name": "Rocky Linux 9 - High Availability",
+  "status": "disabled"
+ },
+ {
+  "id": "highavailability-debug",
+  "name": "Rocky Linux 9 - High Availability - Debug",
+  "status": "disabled"
+ },
+ {
+  "id": "highavailability-source",
+  "name": "Rocky Linux 9 - High Availability - Source",
+  "status": "disabled"
+ },
+ {
+  "id": "nfv",
+  "name": "Rocky Linux 9 - NFV",
+  "status": "disabled"
+ },
+ {
+  "id": "nfv-debug",
+  "name": "Rocky Linux 9 - NFV Debug",
+  "status": "disabled"
+ },
+ {
+  "id": "nfv-source",
+  "name": "Rocky Linux 9 - NFV Source",
+  "status": "disabled"
+ },
+ {
+  "id": "plus",
+  "name": "Rocky Linux 9 - Plus",
+  "status": "disabled"
+ },
+ {
+  "id": "plus-debug",
+  "name": "Rocky Linux 9 - Plus - Debug",
+  "status": "disabled"
+ },
+ {
+  "id": "plus-source",
+  "name": "Rocky Linux 9 - Plus - Source",
+  "status": "disabled"
+ },
+ {
+  "id": "resilientstorage",
+  "name": "Rocky Linux 9 - Resilient Storage",
+  "status": "disabled"
+ },
+ {
+  "id": "resilientstorage-debug",
+  "name": "Rocky Linux 9 - Resilient Storage - Debug",
+  "status": "disabled"
+ },
+ {
+  "id": "resilientstorage-source",
+  "name": "Rocky Linux 9 - Resilient Storage - Source",
+  "status": "disabled"
+ },
+ {
+  "id": "rt",
+  "name": "Rocky Linux 9 - Realtime",
+  "status": "disabled"
+ },
+ {
+  "id": "rt-debug",
+  "name": "Rocky Linux 9 - Realtime Debug",
+  "status": "disabled"
+ },
+ {
+  "id": "rt-source",
+  "name": "Rocky Linux 9 - Realtime Source",
+  "status": "disabled"
+ },
+ {
+  "id": "sap",
+  "name": "Rocky Linux 9 - SAP",
+  "status": "disabled"
+ },
+ {
+  "id": "sap-debug",
+  "name": "Rocky Linux 9 - SAP Debug",
+  "status": "disabled"
+ },
+ {
+  "id": "sap-source",
+  "name": "Rocky Linux 9 - SAP Source",
+  "status": "disabled"
+ },
+ {
+  "id": "saphana",
+  "name": "Rocky Linux 9 - SAPHANA",
+  "status": "disabled"
+ },
+ {
+  "id": "saphana-debug",
+  "name": "Rocky Linux 9 - SAPHANA Debug",
+  "status": "disabled"
+ },
+ {
+  "id": "saphana-source",
+  "name": "Rocky Linux 9 - SAPHANA Source",
+  "status": "disabled"
+ }
+]

@@ -1,0 +1,4222 @@
+[
+ {
+  "name": "NetworkManager",
+  "version": "1.54.3",
+  "release": "5.el9_8",
+  "arch": "x86_64",
+  "size": "6856531",
+  "license": "GPL-2.0-or-later AND LGPL-2.1-or-later",
+  "url": "https://networkmanager.dev/",
+  "summary": "Network connection manager and user applications"
+ },
+ {
+  "name": "NetworkManager-libnm",
+  "version": "1.54.3",
+  "release": "5.el9_8",
+  "arch": "x86_64",
+  "size": "10605515",
+  "license": "LGPL-2.1-or-later",
+  "url": "https://networkmanager.dev/",
+  "summary": "Libraries for adding NetworkManager support to applications."
+ },
+ {
+  "name": "acl",
+  "version": "2.4.0",
+  "release": "1.el9_8",
+  "arch": "x86_64",
+  "size": "227585",
+  "license": "GPLv2+",
+  "url": "https://savannah.nongnu.org/projects/acl",
+  "summary": "Access control list utilities"
+ },
+ {
+  "name": "alternatives",
+  "version": "1.24",
+  "release": "1.el9",
+  "arch": "x86_64",
+  "size": "63270",
+  "license": "GPL-2.0-only",
+  "url": "https://github.com/fedora-sysv/chkconfig",
+  "summary": "A tool to maintain symbolic links determining default commands"
+ },
+ {
+  "name": "attr",
+  "version": "2.6.0",
+  "release": "1.el9_8",
+  "arch": "x86_64",
+  "size": "190177",
+  "license": "GPLv2+",
+  "url": "https://savannah.nongnu.org/projects/attr",
+  "summary": "Utilities for managing filesystem extended attributes"
+ },
+ {
+  "name": "audit",
+  "version": "3.1.5",
+  "release": "8.el9",
+  "arch": "x86_64",
+  "size": "683582",
+  "license": "GPLv2+",
+  "url": "http://people.redhat.com/sgrubb/audit/",
+  "summary": "User space tools for kernel auditing"
+ },
+ {
+  "name": "audit-libs",
+  "version": "3.1.5",
+  "release": "8.el9",
+  "arch": "x86_64",
+  "size": "338505",
+  "license": "LGPLv2+",
+  "url": "http://people.redhat.com/sgrubb/audit/",
+  "summary": "Dynamic library for libaudit"
+ },
+ {
+  "name": "avahi-libs",
+  "version": "0.8",
+  "release": "23.el9",
+  "arch": "x86_64",
+  "size": "177286",
+  "license": "LGPLv2+",
+  "url": "http://avahi.org",
+  "summary": "Libraries for avahi run-time use"
+ },
+ {
+  "name": "basesystem",
+  "version": "11",
+  "release": "13.el9",
+  "arch": "noarch",
+  "size": "0",
+  "license": "Public Domain",
+  "url": "(none)",
+  "summary": "The skeleton package which defines a simple Rocky Linux system"
+ },
+ {
+  "name": "bash",
+  "version": "5.1.8",
+  "release": "6.el9_1",
+  "arch": "x86_64",
+  "size": "7738634",
+  "license": "GPLv3+",
+  "url": "https://www.gnu.org/software/bash",
+  "summary": "The GNU Bourne Again shell"
+ },
+ {
+  "name": "bash-completion",
+  "version": "2.11",
+  "release": "5.el9",
+  "arch": "noarch",
+  "size": "1056389",
+  "license": "GPLv2+",
+  "url": "https://github.com/scop/bash-completion",
+  "summary": "Programmable completion for Bash"
+ },
+ {
+  "name": "bc",
+  "version": "1.07.1",
+  "release": "14.el9",
+  "arch": "x86_64",
+  "size": "231257",
+  "license": "GPLv2+",
+  "url": "http://www.gnu.org/software/bc/",
+  "summary": "GNU's bc (a numeric processing language) and dc (a calculator)"
+ },
+ {
+  "name": "bind-libs",
+  "version": "9.16.23",
+  "release": "40.el9_8.9",
+  "arch": "x86_64",
+  "size": "3671252",
+  "license": "MPLv2.0",
+  "url": "https://www.isc.org/downloads/bind/",
+  "summary": "Libraries used by the BIND DNS packages"
+ },
+ {
+  "name": "bind-license",
+  "version": "9.16.23",
+  "release": "40.el9_8.9",
+  "arch": "noarch",
+  "size": "18520",
+  "license": "MPLv2.0",
+  "url": "https://www.isc.org/downloads/bind/",
+  "summary": "License of the BIND DNS suite"
+ },
+ {
+  "name": "bind-utils",
+  "version": "9.16.23",
+  "release": "40.el9_8.9",
+  "arch": "x86_64",
+  "size": "656829",
+  "license": "MPLv2.0",
+  "url": "https://www.isc.org/downloads/bind/",
+  "summary": "Utilities for querying DNS name servers"
+ },
+ {
+  "name": "binutils",
+  "version": "2.35.2",
+  "release": "72.el9",
+  "arch": "x86_64",
+  "size": "25215155",
+  "license": "GPLv3+",
+  "url": "https://sourceware.org/binutils",
+  "summary": "A GNU collection of binary utilities"
+ },
+ {
+  "name": "binutils-gold",
+  "version": "2.35.2",
+  "release": "42.el9",
+  "arch": "x86_64",
+  "size": "2128683",
+  "license": "GPLv3+",
+  "url": "https://sourceware.org/binutils",
+  "summary": "The GOLD linker, a faster alternative to the BFD linker"
+ },
+ {
+  "name": "bzip2",
+  "version": "1.0.8",
+  "release": "11.el9",
+  "arch": "x86_64",
+  "size": "94736",
+  "license": "BSD",
+  "url": "http://www.bzip.org/",
+  "summary": "A file compression utility"
+ },
+ {
+  "name": "bzip2-libs",
+  "version": "1.0.8",
+  "release": "11.el9",
+  "arch": "x86_64",
+  "size": "78116",
+  "license": "BSD",
+  "url": "http://www.bzip.org/",
+  "summary": "Libraries for applications using bzip2"
+ },
+ {
+  "name": "ca-certificates",
+  "version": "2025.2.80_v9.0.305",
+  "release": "91.el9",
+  "arch": "noarch",
+  "size": "2791711",
+  "license": "MIT AND GPL-2.0-or-later",
+  "url": "https://fedoraproject.org/wiki/CA-Certificates",
+  "summary": "The Mozilla CA root certificate bundle"
+ },
+ {
+  "name": "chkconfig",
+  "version": "1.24",
+  "release": "2.el9",
+  "arch": "x86_64",
+  "size": "760683",
+  "license": "GPL-2.0-only",
+  "url": "https://github.com/fedora-sysv/chkconfig",
+  "summary": "A system tool for maintaining the /etc/rc*.d hierarchy"
+ },
+ {
+  "name": "chrony",
+  "version": "4.8",
+  "release": "1.el9",
+  "arch": "x86_64",
+  "size": "696215",
+  "license": "GPLv2",
+  "url": "https://chrony-project.org",
+  "summary": "An NTP client/server"
+ },
+ {
+  "name": "coreutils",
+  "version": "8.32",
+  "release": "41.el9_8.1",
+  "arch": "x86_64",
+  "size": "5900298",
+  "license": "GPLv3+",
+  "url": "https://www.gnu.org/software/coreutils/",
+  "summary": "A set of basic GNU tools commonly used in shell scripts"
+ },
+ {
+  "name": "coreutils-common",
+  "version": "8.32",
+  "release": "41.el9_8.1",
+  "arch": "x86_64",
+  "size": "10880361",
+  "license": "GPLv3+",
+  "url": "https://www.gnu.org/software/coreutils/",
+  "summary": "coreutils common optional components"
+ },
+ {
+  "name": "cpio",
+  "version": "2.13",
+  "release": "16.el9",
+  "arch": "x86_64",
+  "size": "1088176",
+  "license": "GPLv3+",
+  "url": "https://www.gnu.org/software/cpio/",
+  "summary": "A GNU archiving program"
+ },
+ {
+  "name": "cracklib",
+  "version": "2.9.6",
+  "release": "27.el9",
+  "arch": "x86_64",
+  "size": "251890",
+  "license": "LGPLv2+",
+  "url": "http://sourceforge.net/projects/cracklib/",
+  "summary": "A password-checking library"
+ },
+ {
+  "name": "cracklib-dicts",
+  "version": "2.9.6",
+  "release": "27.el9",
+  "arch": "x86_64",
+  "size": "9815154",
+  "license": "LGPLv2+",
+  "url": "http://sourceforge.net/projects/cracklib/",
+  "summary": "The standard CrackLib dictionaries"
+ },
+ {
+  "name": "cronie",
+  "version": "1.5.7",
+  "release": "16.el9",
+  "arch": "x86_64",
+  "size": "308473",
+  "license": "MIT and BSD and ISC and GPLv2+",
+  "url": "https://github.com/cronie-crond/cronie",
+  "summary": "Cron daemon for executing programs at set times"
+ },
+ {
+  "name": "cronie-anacron",
+  "version": "1.5.7",
+  "release": "16.el9",
+  "arch": "x86_64",
+  "size": "46435",
+  "license": "MIT and BSD and ISC and GPLv2+",
+  "url": "https://github.com/cronie-crond/cronie",
+  "summary": "Utility for running regular jobs"
+ },
+ {
+  "name": "crontabs",
+  "version": "1.11",
+  "release": "27.20190603git.el9",
+  "arch": "noarch",
+  "size": "21331",
+  "license": "Public Domain and GPLv2",
+  "url": "https://github.com/cronie-crond/crontabs",
+  "summary": "Root crontab files used to schedule the execution of programs"
+ },
+ {
+  "name": "crypto-policies",
+  "version": "20260224",
+  "release": "1.gitea0f072.el9",
+  "arch": "noarch",
+  "size": "101102",
+  "license": "LGPL-2.1-or-later",
+  "url": "https://gitlab.com/redhat-crypto/fedora-crypto-policies",
+  "summary": "System-wide crypto policies"
+ },
+ {
+  "name": "crypto-policies-scripts",
+  "version": "20260224",
+  "release": "1.gitea0f072.el9",
+  "arch": "noarch",
+  "size": "272783",
+  "license": "LGPL-2.1-or-later",
+  "url": "https://gitlab.com/redhat-crypto/fedora-crypto-policies",
+  "summary": "Tool to switch between crypto policies"
+ },
+ {
+  "name": "cryptsetup-libs",
+  "version": "2.8.1",
+  "release": "3.el9",
+  "arch": "x86_64",
+  "size": "2749871",
+  "license": "GPLv2+ and LGPLv2+",
+  "url": "https://gitlab.com/cryptsetup/cryptsetup",
+  "summary": "Cryptsetup shared library"
+ },
+ {
+  "name": "curl-minimal",
+  "version": "7.76.1",
+  "release": "26.el9_3.2.0.1",
+  "arch": "x86_64",
+  "size": "245105",
+  "license": "MIT",
+  "url": "https://curl.se/",
+  "summary": "Conservatively configured build of curl for minimal installations"
+ },
+ {
+  "name": "cyrus-sasl-lib",
+  "version": "2.1.27",
+  "release": "21.el9",
+  "arch": "x86_64",
+  "size": "2380296",
+  "license": "BSD with advertising",
+  "url": "https://www.cyrusimap.org/sasl/",
+  "summary": "Shared libraries needed by applications which use Cyrus SASL"
+ },
+ {
+  "name": "dbus",
+  "version": "1.12.20",
+  "release": "8.el9",
+  "arch": "x86_64",
+  "size": "0",
+  "license": "(GPLv2+ or AFL) and GPLv2+",
+  "url": "http://www.freedesktop.org/Software/dbus/",
+  "summary": "D-BUS message bus"
+ },
+ {
+  "name": "dbus-broker",
+  "version": "28",
+  "release": "9.el9_8",
+  "arch": "x86_64",
+  "size": "394069",
+  "license": "ASL 2.0",
+  "url": "https://github.com/bus1/dbus-broker",
+  "summary": "Linux D-Bus Message Broker"
+ },
+ {
+  "name": "dbus-common",
+  "version": "1.12.20",
+  "release": "8.el9",
+  "arch": "noarch",
+  "size": "11394",
+  "license": "(GPLv2+ or AFL) and GPLv2+",
+  "url": "http://www.freedesktop.org/Software/dbus/",
+  "summary": "D-BUS message bus configuration"
+ },
+ {
+  "name": "dbus-libs",
+  "version": "1.12.20",
+  "release": "8.el9",
+  "arch": "x86_64",
+  "size": "372998",
+  "license": "(GPLv2+ or AFL) and GPLv2+",
+  "url": "http://www.freedesktop.org/Software/dbus/",
+  "summary": "Libraries for accessing D-BUS"
+ },
+ {
+  "name": "device-mapper",
+  "version": "1.02.207",
+  "release": "4.el9.1",
+  "arch": "x86_64",
+  "size": "361864",
+  "license": "GPL-2.0-only",
+  "url": "http://sources.redhat.com/dm",
+  "summary": "Device mapper utility"
+ },
+ {
+  "name": "device-mapper-event",
+  "version": "1.02.207",
+  "release": "4.el9.1",
+  "arch": "x86_64",
+  "size": "55804",
+  "license": "GPL-2.0-only",
+  "url": "https://sourceware.org/lvm2",
+  "summary": "Device-mapper event daemon"
+ },
+ {
+  "name": "device-mapper-event-libs",
+  "version": "1.02.207",
+  "release": "4.el9.1",
+  "arch": "x86_64",
+  "size": "58652",
+  "license": "LGPL-2.1-only",
+  "url": "https://sourceware.org/lvm2",
+  "summary": "Device-mapper event daemon shared library"
+ },
+ {
+  "name": "device-mapper-libs",
+  "version": "1.02.207",
+  "release": "4.el9.1",
+  "arch": "x86_64",
+  "size": "432009",
+  "license": "LGPL-2.1-only",
+  "url": "https://sourceware.org/lvm2",
+  "summary": "Device-mapper shared library"
+ },
+ {
+  "name": "device-mapper-persistent-data",
+  "version": "1.1.0",
+  "release": "1.el9",
+  "arch": "x86_64",
+  "size": "3300314",
+  "license": "GPL-3.0-only AND (0BSD OR MIT OR Apache-2.0) AND Apache-2.0 AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND BSD-3-Clause AND MIT AND (MIT OR Apache-2.0) AND (MIT OR Zlib OR Apache-2.0) AND (Unlicense OR MIT) AND (Zlib OR Apache-2.0 OR MIT)",
+  "url": "https://github.com/jthornber/thin-provisioning-tools",
+  "summary": "Device-mapper Persistent Data Tools"
+ },
+ {
+  "name": "diffutils",
+  "version": "3.7",
+  "release": "12.el9",
+  "arch": "x86_64",
+  "size": "1467877",
+  "license": "GPLv3+",
+  "url": "https://www.gnu.org/software/diffutils/diffutils.html",
+  "summary": "GNU collection of diff utilities"
+ },
+ {
+  "name": "dmidecode",
+  "version": "3.6",
+  "release": "2.el9",
+  "arch": "x86_64",
+  "size": "276467",
+  "license": "GPLv2+",
+  "url": "https://www.nongnu.org/dmidecode/",
+  "summary": "Tool to analyse BIOS DMI data"
+ },
+ {
+  "name": "dnf",
+  "version": "4.14.0",
+  "release": "8.el9",
+  "arch": "noarch",
+  "size": "2425263",
+  "license": "GPLv2+",
+  "url": "https://github.com/rpm-software-management/dnf",
+  "summary": "Package manager"
+ },
+ {
+  "name": "dnf-data",
+  "version": "4.14.0",
+  "release": "8.el9",
+  "arch": "noarch",
+  "size": "39048",
+  "license": "GPLv2+",
+  "url": "https://github.com/rpm-software-management/dnf",
+  "summary": "Common data and configuration files for DNF"
+ },
+ {
+  "name": "dnf-plugins-core",
+  "version": "4.3.0",
+  "release": "26.el9",
+  "arch": "noarch",
+  "size": "22535",
+  "license": "GPLv2+",
+  "url": "https://github.com/rpm-software-management/dnf-plugins-core",
+  "summary": "Core Plugins for DNF"
+ },
+ {
+  "name": "dosfstools",
+  "version": "4.2",
+  "release": "3.el9",
+  "arch": "x86_64",
+  "size": "429871",
+  "license": "GPLv3+",
+  "url": "https://github.com/dosfstools/dosfstools",
+  "summary": "Utilities for making and checking MS-DOS FAT filesystems on Linux"
+ },
+ {
+  "name": "dracut",
+  "version": "057",
+  "release": "120.git20260728.el9_8",
+  "arch": "x86_64",
+  "size": "1353995",
+  "license": "GPLv2+ and LGPLv2+ and GPLv2",
+  "url": "https://dracut.wiki.kernel.org/",
+  "summary": "Initramfs generator using udev"
+ },
+ {
+  "name": "e2fsprogs",
+  "version": "1.46.5",
+  "release": "8.el9",
+  "arch": "x86_64",
+  "size": "4441293",
+  "license": "GPLv2",
+  "url": "http://e2fsprogs.sourceforge.net/",
+  "summary": "Utilities for managing ext2, ext3, and ext4 file systems"
+ },
+ {
+  "name": "e2fsprogs-libs",
+  "version": "1.46.5",
+  "release": "8.el9",
+  "arch": "x86_64",
+  "size": "547215",
+  "license": "GPLv2 and LGPLv2",
+  "url": "http://e2fsprogs.sourceforge.net/",
+  "summary": "Ext2/3/4 file system specific shared libraries"
+ },
+ {
+  "name": "ed",
+  "version": "1.14.2",
+  "release": "12.el9",
+  "arch": "x86_64",
+  "size": "129931",
+  "license": "GPLv3+ and GFDL",
+  "url": "http://www.gnu.org/software/ed/",
+  "summary": "The GNU line editor"
+ },
+ {
+  "name": "elfutils-debuginfod-client",
+  "version": "0.189",
+  "release": "3.el9",
+  "arch": "x86_64",
+  "size": "61411",
+  "license": "GPLv3+ and (GPLv2+ or LGPLv3+)",
+  "url": "http://elfutils.org/",
+  "summary": "Library and command line client for build-id HTTP ELF/DWARF server"
+ },
+ {
+  "name": "elfutils-default-yama-scope",
+  "version": "0.189",
+  "release": "3.el9",
+  "arch": "noarch",
+  "size": "1810",
+  "license": "GPLv2+ or LGPLv3+",
+  "url": "http://elfutils.org/",
+  "summary": "Default yama attach scope sysctl setting"
+ },
+ {
+  "name": "elfutils-libelf",
+  "version": "0.189",
+  "release": "3.el9",
+  "arch": "x86_64",
+  "size": "1026569",
+  "license": "GPLv2+ or LGPLv3+",
+  "url": "http://elfutils.org/",
+  "summary": "Library to read and write ELF files"
+ },
+ {
+  "name": "elfutils-libs",
+  "version": "0.189",
+  "release": "3.el9",
+  "arch": "x86_64",
+  "size": "693469",
+  "license": "GPLv2+ or LGPLv3+",
+  "url": "http://elfutils.org/",
+  "summary": "Libraries to handle compiled objects"
+ },
+ {
+  "name": "ethtool",
+  "version": "6.15",
+  "release": "2.el9",
+  "arch": "x86_64",
+  "size": "1118063",
+  "license": "GPLv2",
+  "url": "https://www.kernel.org/pub/software/network/ethtool/",
+  "summary": "Settings tool for Ethernet NICs"
+ },
+ {
+  "name": "expat",
+  "version": "2.5.0",
+  "release": "1.el9",
+  "arch": "x86_64",
+  "size": "309077",
+  "license": "MIT",
+  "url": "https://libexpat.github.io/",
+  "summary": "An XML parser library"
+ },
+ {
+  "name": "file",
+  "version": "5.39",
+  "release": "17.el9",
+  "arch": "x86_64",
+  "size": "102544",
+  "license": "BSD",
+  "url": "https://www.darwinsys.com/file/",
+  "summary": "Utility for determining file types"
+ },
+ {
+  "name": "file-libs",
+  "version": "5.39",
+  "release": "17.el9",
+  "arch": "x86_64",
+  "size": "8086628",
+  "license": "BSD",
+  "url": "https://www.darwinsys.com/file/",
+  "summary": "Libraries for applications using libmagic"
+ },
+ {
+  "name": "filesystem",
+  "version": "3.16",
+  "release": "2.el9",
+  "arch": "x86_64",
+  "size": "106",
+  "license": "Public Domain",
+  "url": "https://pagure.io/filesystem",
+  "summary": "The basic directory layout for a Linux system"
+ },
+ {
+  "name": "findutils",
+  "version": "4.8.0",
+  "release": "7.el9",
+  "arch": "x86_64",
+  "size": "1757014",
+  "license": "GPLv3+",
+  "url": "https://www.gnu.org/software/findutils/",
+  "summary": "The GNU versions of find utilities (find and xargs)"
+ },
+ {
+  "name": "firewalld",
+  "version": "1.3.4",
+  "release": "20.el9_8",
+  "arch": "noarch",
+  "size": "2152075",
+  "license": "GPLv2+",
+  "url": "http://www.firewalld.org",
+  "summary": "A firewall daemon with D-Bus interface providing a dynamic firewall"
+ },
+ {
+  "name": "firewalld-filesystem",
+  "version": "1.3.4",
+  "release": "20.el9_8",
+  "arch": "noarch",
+  "size": "239",
+  "license": "GPLv2+",
+  "url": "http://www.firewalld.org",
+  "summary": "Firewalld directory layout and rpm macros"
+ },
+ {
+  "name": "fstrm",
+  "version": "0.6.1",
+  "release": "3.el9",
+  "arch": "x86_64",
+  "size": "56180",
+  "license": "MIT",
+  "url": "https://github.com/farsightsec/fstrm",
+  "summary": "Frame Streams implementation in C"
+ },
+ {
+  "name": "fuse-libs",
+  "version": "2.9.9",
+  "release": "17.el9",
+  "arch": "x86_64",
+  "size": "311670",
+  "license": "LGPLv2+",
+  "url": "http://fuse.sf.net",
+  "summary": "File System in Userspace (FUSE) v2 libraries"
+ },
+ {
+  "name": "gawk",
+  "version": "5.1.0",
+  "release": "6.el9",
+  "arch": "x86_64",
+  "size": "1685670",
+  "license": "GPLv3+ and GPLv2+ and LGPLv2+ and BSD",
+  "url": "https://www.gnu.org/software/gawk/",
+  "summary": "The GNU version of the AWK text processing utility"
+ },
+ {
+  "name": "gdbm-libs",
+  "version": "1.19",
+  "release": "4.el9",
+  "arch": "x86_64",
+  "size": "116306",
+  "license": "GPLv3+",
+  "url": "http://www.gnu.org/software/gdbm/",
+  "summary": "Libraries files for gdbm"
+ },
+ {
+  "name": "gettext",
+  "version": "0.21",
+  "release": "8.el9",
+  "arch": "x86_64",
+  "size": "5278479",
+  "license": "GPLv3+ and LGPLv2+ and GFDL",
+  "url": "https://www.gnu.org/software/gettext/",
+  "summary": "GNU libraries and utilities for producing multi-lingual messages"
+ },
+ {
+  "name": "gettext-libs",
+  "version": "0.21",
+  "release": "8.el9",
+  "arch": "x86_64",
+  "size": "1023612",
+  "license": "LGPLv2+ and GPLv3+",
+  "url": "https://www.gnu.org/software/gettext/",
+  "summary": "Libraries for gettext"
+ },
+ {
+  "name": "git",
+  "version": "2.52.0",
+  "release": "1.el9",
+  "arch": "x86_64",
+  "size": "57736",
+  "license": "GPLv2",
+  "url": "https://git-scm.com/",
+  "summary": "Fast Version Control System"
+ },
+ {
+  "name": "git-core",
+  "version": "2.52.0",
+  "release": "1.el9",
+  "arch": "x86_64",
+  "size": "24617163",
+  "license": "GPLv2",
+  "url": "https://git-scm.com/",
+  "summary": "Core package of git with minimal functionality"
+ },
+ {
+  "name": "git-core-doc",
+  "version": "2.52.0",
+  "release": "1.el9",
+  "arch": "noarch",
+  "size": "19416975",
+  "license": "GPLv2",
+  "url": "https://git-scm.com/",
+  "summary": "Documentation files for git-core"
+ },
+ {
+  "name": "glib2",
+  "version": "2.68.4",
+  "release": "11.el9",
+  "arch": "x86_64",
+  "size": "13426815",
+  "license": "LGPLv2+",
+  "url": "http://www.gtk.org",
+  "summary": "A library of handy utility functions"
+ },
+ {
+  "name": "glibc",
+  "version": "2.34",
+  "release": "83.el9.7",
+  "arch": "x86_64",
+  "size": "6207891",
+  "license": "LGPLv2+ and LGPLv2+ with exceptions and GPLv2+ and GPLv2+ with exceptions and BSD and Inner-Net and ISC and Public Domain and GFDL",
+  "url": "http://www.gnu.org/software/glibc/",
+  "summary": "The GNU libc libraries"
+ },
+ {
+  "name": "glibc-common",
+  "version": "2.34",
+  "release": "83.el9.7",
+  "arch": "x86_64",
+  "size": "1081353",
+  "license": "LGPLv2+ and LGPLv2+ with exceptions and GPLv2+ and GPLv2+ with exceptions and BSD and Inner-Net and ISC and Public Domain and GFDL",
+  "url": "http://www.gnu.org/software/glibc/",
+  "summary": "Common binaries and locale data for glibc"
+ },
+ {
+  "name": "glibc-minimal-langpack",
+  "version": "2.34",
+  "release": "83.el9.7",
+  "arch": "x86_64",
+  "size": "0",
+  "license": "LGPLv2+ and LGPLv2+ with exceptions and GPLv2+ and GPLv2+ with exceptions and BSD and Inner-Net and ISC and Public Domain and GFDL",
+  "url": "http://www.gnu.org/software/glibc/",
+  "summary": "Minimal language packs for glibc."
+ },
+ {
+  "name": "gmp",
+  "version": "6.2.0",
+  "release": "13.el9",
+  "arch": "x86_64",
+  "size": "816844",
+  "license": "LGPLv3+ or GPLv2+",
+  "url": "http://gmplib.org/",
+  "summary": "A GNU arbitrary precision library"
+ },
+ {
+  "name": "gnupg2",
+  "version": "2.3.3",
+  "release": "4.el9",
+  "arch": "x86_64",
+  "size": "9227525",
+  "license": "GPLv3+",
+  "url": "https://www.gnupg.org/",
+  "summary": "Utility for secure communication and data storage"
+ },
+ {
+  "name": "gnutls",
+  "version": "3.8.10",
+  "release": "8.el9_8",
+  "arch": "x86_64",
+  "size": "4138839",
+  "license": "GPLv3+ and LGPLv2+",
+  "url": "http://www.gnutls.org/",
+  "summary": "A TLS protocol implementation"
+ },
+ {
+  "name": "gobject-introspection",
+  "version": "1.68.0",
+  "release": "11.el9",
+  "arch": "x86_64",
+  "size": "936649",
+  "license": "GPLv2+ and LGPLv2+ and MIT",
+  "url": "https://wiki.gnome.org/Projects/GObjectIntrospection",
+  "summary": "Introspection system for GObject-based libraries"
+ },
+ {
+  "name": "gpg-pubkey",
+  "version": "350d275d",
+  "release": "6279464b",
+  "arch": "(none)",
+  "size": "0",
+  "license": "pubkey",
+  "url": "(none)",
+  "summary": "Rocky Enterprise Software Foundation - Release key 2022 <releng@rockylinux.org> public key"
+ },
+ {
+  "name": "gpgme",
+  "version": "1.15.1",
+  "release": "6.el9",
+  "arch": "x86_64",
+  "size": "576065",
+  "license": "LGPLv2+ and GPLv3+",
+  "url": "https://gnupg.org/related_software/gpgme/",
+  "summary": "GnuPG Made Easy - high level crypto API"
+ },
+ {
+  "name": "gpm-libs",
+  "version": "1.20.7",
+  "release": "29.el9",
+  "arch": "x86_64",
+  "size": "28596",
+  "license": "GPLv2 and OFSFDL",
+  "url": "http://www.nico.schottelius.org/software/gpm/",
+  "summary": "Dynamic library for gpm"
+ },
+ {
+  "name": "grep",
+  "version": "3.6",
+  "release": "5.el9",
+  "arch": "x86_64",
+  "size": "857864",
+  "license": "GPLv3+",
+  "url": "https://www.gnu.org/software/grep/",
+  "summary": "Pattern matching utilities"
+ },
+ {
+  "name": "groff-base",
+  "version": "1.22.4",
+  "release": "10.el9.0.1",
+  "arch": "x86_64",
+  "size": "4025398",
+  "license": "GPLv3+ and GFDL and BSD and MIT",
+  "url": "http://www.gnu.org/software/groff/",
+  "summary": "Parts of the groff formatting system required to display manual pages"
+ },
+ {
+  "name": "grub2-common",
+  "version": "2.06",
+  "release": "126.el9_8.rocky.0.3",
+  "arch": "noarch",
+  "size": "5480647",
+  "license": "GPLv3+",
+  "url": "http://www.gnu.org/software/grub/",
+  "summary": "grub2 common layout"
+ },
+ {
+  "name": "grub2-tools",
+  "version": "2.06",
+  "release": "126.el9_8.rocky.0.3",
+  "arch": "x86_64",
+  "size": "9108635",
+  "license": "GPLv3+",
+  "url": "http://www.gnu.org/software/grub/",
+  "summary": "Support tools for GRUB."
+ },
+ {
+  "name": "grub2-tools-minimal",
+  "version": "2.06",
+  "release": "126.el9_8.rocky.0.3",
+  "arch": "x86_64",
+  "size": "3667712",
+  "license": "GPLv3+",
+  "url": "http://www.gnu.org/software/grub/",
+  "summary": "Support tools for GRUB."
+ },
+ {
+  "name": "grubby",
+  "version": "8.40",
+  "release": "69.el9",
+  "arch": "x86_64",
+  "size": "65867",
+  "license": "GPLv2+",
+  "url": "https://github.com/rhinstaller/grubby",
+  "summary": "Command line tool for updating bootloader configs"
+ },
+ {
+  "name": "gssproxy",
+  "version": "0.8.4",
+  "release": "7.el9",
+  "arch": "x86_64",
+  "size": "264627",
+  "license": "MIT",
+  "url": "https://github.com/gssapi/gssproxy",
+  "summary": "GSSAPI Proxy"
+ },
+ {
+  "name": "gzip",
+  "version": "1.12",
+  "release": "2.el9_8",
+  "arch": "x86_64",
+  "size": "376329",
+  "license": "GPLv3+ and GFDL",
+  "url": "http://www.gzip.org/",
+  "summary": "The GNU data compression program"
+ },
+ {
+  "name": "hdparm",
+  "version": "9.62",
+  "release": "2.el9",
+  "arch": "x86_64",
+  "size": "197569",
+  "license": "BSD",
+  "url": "https://sourceforge.net/projects/hdparm/",
+  "summary": "A utility for displaying and/or setting hard disk parameters"
+ },
+ {
+  "name": "hostname",
+  "version": "3.23",
+  "release": "6.el9",
+  "arch": "x86_64",
+  "size": "46824",
+  "license": "GPLv2+",
+  "url": "http://packages.qa.debian.org/h/hostname.html",
+  "summary": "Utility to set/show the host name or domain name"
+ },
+ {
+  "name": "hwdata",
+  "version": "0.348",
+  "release": "9.22.el9",
+  "arch": "noarch",
+  "size": "10296814",
+  "license": "GPLv2+",
+  "url": "https://github.com/vcrhonek/hwdata",
+  "summary": "Hardware identification and configuration data"
+ },
+ {
+  "name": "ima-evm-utils",
+  "version": "1.6.2",
+  "release": "2.el9.rocky.0.2",
+  "arch": "x86_64",
+  "size": "170187",
+  "license": "GPLv2",
+  "url": "http://linux-ima.sourceforge.net/",
+  "summary": "IMA/EVM support utilities"
+ },
+ {
+  "name": "info",
+  "version": "6.7",
+  "release": "15.el9",
+  "arch": "x86_64",
+  "size": "508027",
+  "license": "GPLv3+",
+  "url": "http://www.gnu.org/software/texinfo/",
+  "summary": "A stand-alone TTY-based reader for GNU texinfo documentation"
+ },
+ {
+  "name": "inih",
+  "version": "49",
+  "release": "6.el9",
+  "arch": "x86_64",
+  "size": "26131",
+  "license": "BSD",
+  "url": "https://github.com/benhoyt/inih",
+  "summary": "Simple INI file parser library"
+ },
+ {
+  "name": "initscripts",
+  "version": "10.11.8",
+  "release": "4.el9",
+  "arch": "x86_64",
+  "size": "1135105",
+  "license": "GPLv2",
+  "url": "https://github.com/fedora-sysv/initscripts",
+  "summary": "Basic support for legacy System V init scripts"
+ },
+ {
+  "name": "initscripts-rename-device",
+  "version": "10.11.8",
+  "release": "4.el9",
+  "arch": "x86_64",
+  "size": "15687",
+  "license": "GPLv2",
+  "url": "https://github.com/fedora-sysv/initscripts",
+  "summary": "Udev helper utility that provides network interface naming"
+ },
+ {
+  "name": "initscripts-service",
+  "version": "10.11.8",
+  "release": "4.el9",
+  "arch": "noarch",
+  "size": "5832",
+  "license": "GPLv2",
+  "url": "https://github.com/fedora-sysv/initscripts",
+  "summary": "Support for service command"
+ },
+ {
+  "name": "iproute",
+  "version": "6.17.0",
+  "release": "2.el9",
+  "arch": "x86_64",
+  "size": "2267971",
+  "license": "GPL-2.0-or-later AND NIST-PD",
+  "url": "https://kernel.org/pub/linux/utils/net/iproute2/",
+  "summary": "Advanced IP routing and network device configuration tools"
+ },
+ {
+  "name": "ipset",
+  "version": "7.11",
+  "release": "11.el9_5",
+  "arch": "x86_64",
+  "size": "74260",
+  "license": "GPLv2",
+  "url": "http://ipset.netfilter.org/",
+  "summary": "Manage Linux IP sets"
+ },
+ {
+  "name": "ipset-libs",
+  "version": "7.11",
+  "release": "11.el9_5",
+  "arch": "x86_64",
+  "size": "232212",
+  "license": "GPLv2",
+  "url": "http://ipset.netfilter.org/",
+  "summary": "Shared library providing the IP sets functionality"
+ },
+ {
+  "name": "iptables-libs",
+  "version": "1.8.10",
+  "release": "11.el9_5",
+  "arch": "x86_64",
+  "size": "1833626",
+  "license": "GPLv2 and Artistic 2.0 and ISC",
+  "url": "https://www.netfilter.org/projects/iptables",
+  "summary": "libxtables and iptables extensions userspace support"
+ },
+ {
+  "name": "iptables-nft",
+  "version": "1.8.10",
+  "release": "11.el9_5",
+  "arch": "x86_64",
+  "size": "551282",
+  "license": "GPLv2 and Artistic 2.0 and ISC",
+  "url": "https://www.netfilter.org/projects/iptables",
+  "summary": "nftables compatibility for iptables, arptables and ebtables"
+ },
+ {
+  "name": "iputils",
+  "version": "20210202",
+  "release": "15.el9",
+  "arch": "x86_64",
+  "size": "509690",
+  "license": "BSD and GPLv2+",
+  "url": "https://github.com/iputils/iputils",
+  "summary": "Network monitoring tools including ping"
+ },
+ {
+  "name": "jansson",
+  "version": "2.14",
+  "release": "1.el9.0.1",
+  "arch": "x86_64",
+  "size": "86789",
+  "license": "MIT",
+  "url": "http://www.digip.org/jansson/",
+  "summary": "C library for encoding, decoding and manipulating JSON data"
+ },
+ {
+  "name": "jq",
+  "version": "1.6",
+  "release": "19.el9_8.2",
+  "arch": "x86_64",
+  "size": "422085",
+  "license": "MIT and ASL 2.0 and CC-BY and GPLv3",
+  "url": "http://stedolan.github.io/jq/",
+  "summary": "Command-line JSON processor"
+ },
+ {
+  "name": "json-c",
+  "version": "0.14",
+  "release": "11.el9",
+  "arch": "x86_64",
+  "size": "79034",
+  "license": "MIT",
+  "url": "https://github.com/json-c/json-c",
+  "summary": "JSON implementation in C"
+ },
+ {
+  "name": "kbd",
+  "version": "2.4.0",
+  "release": "12.el9_8",
+  "arch": "x86_64",
+  "size": "1565495",
+  "license": "GPLv2+",
+  "url": "http://www.kbd-project.org/",
+  "summary": "Tools for configuring the console (keyboard, virtual terminals, etc.)"
+ },
+ {
+  "name": "kbd-legacy",
+  "version": "2.4.0",
+  "release": "12.el9_8",
+  "arch": "noarch",
+  "size": "557448",
+  "license": "GPLv2+",
+  "url": "http://www.kbd-project.org/",
+  "summary": "Legacy data for kbd package"
+ },
+ {
+  "name": "kbd-misc",
+  "version": "2.4.0",
+  "release": "12.el9_8",
+  "arch": "noarch",
+  "size": "2573480",
+  "license": "GPLv2+",
+  "url": "http://www.kbd-project.org/",
+  "summary": "Data for kbd package"
+ },
+ {
+  "name": "keyutils",
+  "version": "1.6.3",
+  "release": "1.el9",
+  "arch": "x86_64",
+  "size": "161868",
+  "license": "GPLv2+ and LGPLv2+",
+  "url": "https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/keyutils.git",
+  "summary": "Linux Key Management Utilities"
+ },
+ {
+  "name": "keyutils-libs",
+  "version": "1.6.3",
+  "release": "1.el9",
+  "arch": "x86_64",
+  "size": "55267",
+  "license": "GPLv2+ and LGPLv2+",
+  "url": "https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/keyutils.git",
+  "summary": "Key utilities library"
+ },
+ {
+  "name": "kmod",
+  "version": "28",
+  "release": "11.el9",
+  "arch": "x86_64",
+  "size": "253975",
+  "license": "GPLv2+",
+  "url": "https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git",
+  "summary": "Linux kernel module management utilities"
+ },
+ {
+  "name": "kmod-libs",
+  "version": "28",
+  "release": "11.el9",
+  "arch": "x86_64",
+  "size": "133910",
+  "license": "LGPLv2+",
+  "url": "https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git",
+  "summary": "Libraries to handle kernel module loading and unloading"
+ },
+ {
+  "name": "kpartx",
+  "version": "0.8.7",
+  "release": "45.el9",
+  "arch": "x86_64",
+  "size": "76787",
+  "license": "GPLv2",
+  "url": "http://christophe.varoqui.free.fr/",
+  "summary": "Partition device manager for device-mapper devices"
+ },
+ {
+  "name": "krb5-libs",
+  "version": "1.21.1",
+  "release": "1.el9",
+  "arch": "x86_64",
+  "size": "2498748",
+  "license": "MIT",
+  "url": "https://web.mit.edu/kerberos/www/",
+  "summary": "The non-admin shared libraries used by Kerberos 5"
+ },
+ {
+  "name": "less",
+  "version": "590",
+  "release": "6.el9",
+  "arch": "x86_64",
+  "size": "364648",
+  "license": "GPLv3+ or BSD",
+  "url": "https://www.greenwoodsoftware.com/less/",
+  "summary": "A text file browser similar to more, but better"
+ },
+ {
+  "name": "libacl",
+  "version": "2.4.0",
+  "release": "1.el9_8",
+  "arch": "x86_64",
+  "size": "44714",
+  "license": "LGPLv2+",
+  "url": "https://savannah.nongnu.org/projects/acl",
+  "summary": "Dynamic library for access control list support"
+ },
+ {
+  "name": "libaio",
+  "version": "0.3.111",
+  "release": "13.el9",
+  "arch": "x86_64",
+  "size": "59693",
+  "license": "LGPLv2+",
+  "url": "(none)",
+  "summary": "Linux-native asynchronous I/O access library"
+ },
+ {
+  "name": "libarchive",
+  "version": "3.5.3",
+  "release": "4.el9",
+  "arch": "x86_64",
+  "size": "906150",
+  "license": "BSD",
+  "url": "https://www.libarchive.org/",
+  "summary": "A library for handling streaming archive formats"
+ },
+ {
+  "name": "libassuan",
+  "version": "2.5.5",
+  "release": "3.el9",
+  "arch": "x86_64",
+  "size": "171165",
+  "license": "LGPLv2+ and GPLv3+",
+  "url": "https://www.gnupg.org/",
+  "summary": "GnuPG IPC library"
+ },
+ {
+  "name": "libattr",
+  "version": "2.6.0",
+  "release": "1.el9_8",
+  "arch": "x86_64",
+  "size": "28797",
+  "license": "LGPLv2+",
+  "url": "https://savannah.nongnu.org/projects/attr",
+  "summary": "Dynamic library for extended attribute support"
+ },
+ {
+  "name": "libbabeltrace",
+  "version": "1.5.8",
+  "release": "10.el9",
+  "arch": "x86_64",
+  "size": "529477",
+  "license": "MIT and GPLv2",
+  "url": "https://www.efficios.com/babeltrace",
+  "summary": "Common Trace Format Babel Tower"
+ },
+ {
+  "name": "libbasicobjects",
+  "version": "0.1.1",
+  "release": "53.el9",
+  "arch": "x86_64",
+  "size": "58780",
+  "license": "GPLv3+",
+  "url": "https://pagure.io/SSSD/ding-libs",
+  "summary": "Basic object types for C"
+ },
+ {
+  "name": "libblkid",
+  "version": "2.37.4",
+  "release": "25.el9",
+  "arch": "x86_64",
+  "size": "229721",
+  "license": "LGPLv2+",
+  "url": "http://en.wikipedia.org/wiki/Util-linux",
+  "summary": "Block device ID library"
+ },
+ {
+  "name": "libbpf",
+  "version": "1.5.0",
+  "release": "3.el9",
+  "arch": "x86_64",
+  "size": "436268",
+  "license": "LGPLv2 or BSD",
+  "url": "(none)",
+  "summary": "Libbpf library"
+ },
+ {
+  "name": "libcap",
+  "version": "2.48",
+  "release": "9.el9_2",
+  "arch": "x86_64",
+  "size": "177463",
+  "license": "BSD or GPLv2",
+  "url": "https://sites.google.com/site/fullycapable/",
+  "summary": "Library for getting and setting POSIX.1e capabilities"
+ },
+ {
+  "name": "libcap-ng",
+  "version": "0.8.2",
+  "release": "7.el9",
+  "arch": "x86_64",
+  "size": "75196",
+  "license": "LGPLv2+",
+  "url": "https://people.redhat.com/sgrubb/libcap-ng/",
+  "summary": "Alternate posix capabilities library"
+ },
+ {
+  "name": "libcap-ng-python3",
+  "version": "0.8.2",
+  "release": "7.el9",
+  "arch": "x86_64",
+  "size": "67309",
+  "license": "LGPLv2+",
+  "url": "https://people.redhat.com/sgrubb/libcap-ng/",
+  "summary": "Python3 bindings for libcap-ng library"
+ },
+ {
+  "name": "libcbor",
+  "version": "0.7.0",
+  "release": "5.el9",
+  "arch": "x86_64",
+  "size": "100001",
+  "license": "MIT",
+  "url": "http://libcbor.org",
+  "summary": "A CBOR parsing library"
+ },
+ {
+  "name": "libcollection",
+  "version": "0.7.0",
+  "release": "53.el9",
+  "arch": "x86_64",
+  "size": "101248",
+  "license": "LGPLv3+",
+  "url": "https://pagure.io/SSSD/ding-libs",
+  "summary": "Collection data-type for C"
+ },
+ {
+  "name": "libcom_err",
+  "version": "1.46.5",
+  "release": "8.el9",
+  "arch": "x86_64",
+  "size": "68401",
+  "license": "MIT",
+  "url": "http://e2fsprogs.sourceforge.net/",
+  "summary": "Common error description library"
+ },
+ {
+  "name": "libcomps",
+  "version": "0.1.18",
+  "release": "1.el9",
+  "arch": "x86_64",
+  "size": "215079",
+  "license": "GPLv2+",
+  "url": "https://github.com/rpm-software-management/libcomps",
+  "summary": "Comps XML file manipulation library"
+ },
+ {
+  "name": "libcurl-minimal",
+  "version": "7.76.1",
+  "release": "26.el9_3.2.0.1",
+  "arch": "x86_64",
+  "size": "518182",
+  "license": "MIT",
+  "url": "https://curl.se/",
+  "summary": "Conservatively configured build of libcurl for minimal installations"
+ },
+ {
+  "name": "libdb",
+  "version": "5.3.28",
+  "release": "53.el9",
+  "arch": "x86_64",
+  "size": "1898046",
+  "license": "BSD and LGPLv2 and Sleepycat",
+  "url": "http://www.oracle.com/database/berkeley-db/",
+  "summary": "The Berkeley DB database library for C"
+ },
+ {
+  "name": "libdnf",
+  "version": "0.69.0",
+  "release": "6.el9_3",
+  "arch": "x86_64",
+  "size": "2126365",
+  "license": "LGPLv2+",
+  "url": "https://github.com/rpm-software-management/libdnf",
+  "summary": "Library providing simplified C and Python API to libsolv"
+ },
+ {
+  "name": "libeconf",
+  "version": "0.4.1",
+  "release": "3.el9_2",
+  "arch": "x86_64",
+  "size": "45723",
+  "license": "MIT",
+  "url": "https://github.com/openSUSE/libeconf",
+  "summary": "Enhanced config file parser library"
+ },
+ {
+  "name": "libedit",
+  "version": "3.1",
+  "release": "39.20210216cvs.el9",
+  "arch": "x86_64",
+  "size": "251839",
+  "license": "BSD",
+  "url": "https://www.thrysoee.dk/editline/",
+  "summary": "The NetBSD Editline library"
+ },
+ {
+  "name": "libestr",
+  "version": "0.1.11",
+  "release": "4.el9",
+  "arch": "x86_64",
+  "size": "46231",
+  "license": "LGPLv2+",
+  "url": "http://libestr.adiscon.com/",
+  "summary": "String handling essentials library"
+ },
+ {
+  "name": "libev",
+  "version": "4.33",
+  "release": "6.el9",
+  "arch": "x86_64",
+  "size": "107386",
+  "license": "BSD or GPLv2+",
+  "url": "http://software.schmorp.de/pkg/libev.html",
+  "summary": "High-performance event loop/event model with lots of features"
+ },
+ {
+  "name": "libevent",
+  "version": "2.1.12",
+  "release": "6.el9",
+  "arch": "x86_64",
+  "size": "932234",
+  "license": "BSD and ISC",
+  "url": "http://libevent.org/",
+  "summary": "Abstract asynchronous event notification library"
+ },
+ {
+  "name": "libfastjson",
+  "version": "0.99.9",
+  "release": "5.el9",
+  "arch": "x86_64",
+  "size": "75010",
+  "license": "MIT",
+  "url": "https://github.com/rsyslog/libfastjson",
+  "summary": "A JSON implementation in C"
+ },
+ {
+  "name": "libfdisk",
+  "version": "2.37.4",
+  "release": "25.el9",
+  "arch": "x86_64",
+  "size": "367763",
+  "license": "LGPLv2+",
+  "url": "http://en.wikipedia.org/wiki/Util-linux",
+  "summary": "Partitioning library for fdisk-like programs."
+ },
+ {
+  "name": "libffi",
+  "version": "3.4.2",
+  "release": "8.el9",
+  "arch": "x86_64",
+  "size": "65761",
+  "license": "MIT",
+  "url": "http://sourceware.org/libffi",
+  "summary": "A portable foreign function interface library"
+ },
+ {
+  "name": "libfido2",
+  "version": "1.13.0",
+  "release": "2.el9",
+  "arch": "x86_64",
+  "size": "246846",
+  "license": "BSD",
+  "url": "https://github.com/Yubico/libfido2",
+  "summary": "FIDO2 library"
+ },
+ {
+  "name": "libgcc",
+  "version": "11.4.1",
+  "release": "2.1.el9",
+  "arch": "x86_64",
+  "size": "198756",
+  "license": "GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD",
+  "url": "http://gcc.gnu.org",
+  "summary": "GCC version 11 shared support library"
+ },
+ {
+  "name": "libgcrypt",
+  "version": "1.10.0",
+  "release": "10.el9_2",
+  "arch": "x86_64",
+  "size": "1382018",
+  "license": "LGPLv2+",
+  "url": "https://www.gnupg.org/",
+  "summary": "A general-purpose cryptography library"
+ },
+ {
+  "name": "libgomp",
+  "version": "11.4.1",
+  "release": "2.1.el9",
+  "arch": "x86_64",
+  "size": "421266",
+  "license": "GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD",
+  "url": "http://gcc.gnu.org",
+  "summary": "GCC OpenMP v4.5 shared support library"
+ },
+ {
+  "name": "libgpg-error",
+  "version": "1.42",
+  "release": "5.el9",
+  "arch": "x86_64",
+  "size": "837056",
+  "license": "LGPLv2+",
+  "url": "https://www.gnupg.org/related_software/libgpg-error/",
+  "summary": "Library for error values used by GnuPG components"
+ },
+ {
+  "name": "libibverbs",
+  "version": "61.0",
+  "release": "2.el9",
+  "arch": "x86_64",
+  "size": "1347434",
+  "license": "GPLv2 or BSD",
+  "url": "https://github.com/linux-rdma/rdma-core",
+  "summary": "A library and drivers for direct userspace use of RDMA (InfiniBand/iWARP/RoCE) hardware"
+ },
+ {
+  "name": "libidn2",
+  "version": "2.3.0",
+  "release": "7.el9",
+  "arch": "x86_64",
+  "size": "253476",
+  "license": "(GPLv2+ or LGPLv3+) and GPLv3+",
+  "url": "https://www.gnu.org/software/libidn/#libidn2",
+  "summary": "Library to support IDNA2008 internationalized domain names"
+ },
+ {
+  "name": "libini_config",
+  "version": "1.3.1",
+  "release": "53.el9",
+  "arch": "x86_64",
+  "size": "163488",
+  "license": "LGPLv3+",
+  "url": "https://pagure.io/SSSD/ding-libs",
+  "summary": "INI file parser for C"
+ },
+ {
+  "name": "libkcapi",
+  "version": "1.4.0",
+  "release": "3.el9_8",
+  "arch": "x86_64",
+  "size": "100804",
+  "license": "BSD-3-Clause OR GPL-2.0-only",
+  "url": "https://www.chronox.de/libkcapi.html",
+  "summary": "User space interface to the Linux Kernel Crypto API"
+ },
+ {
+  "name": "libkcapi-hmaccalc",
+  "version": "1.4.0",
+  "release": "3.el9_8",
+  "arch": "x86_64",
+  "size": "37061",
+  "license": "BSD-3-Clause OR GPL-2.0-only",
+  "url": "https://www.chronox.de/libkcapi.html",
+  "summary": "Drop-in replacements for hmaccalc provided by the libkcapi package"
+ },
+ {
+  "name": "libksba",
+  "version": "1.5.1",
+  "release": "6.el9_1",
+  "arch": "x86_64",
+  "size": "394486",
+  "license": "(LGPLv3+ or GPLv2+) and GPLv3+",
+  "url": "https://www.gnupg.org/",
+  "summary": "CMS and X.509 library"
+ },
+ {
+  "name": "libmaxminddb",
+  "version": "1.5.2",
+  "release": "4.el9",
+  "arch": "x86_64",
+  "size": "65004",
+  "license": "ASL 2.0 and BSD",
+  "url": "https://maxmind.github.io/libmaxminddb",
+  "summary": "C library for the MaxMind DB file format"
+ },
+ {
+  "name": "libmnl",
+  "version": "1.0.4",
+  "release": "16.el9_4",
+  "arch": "x86_64",
+  "size": "56075",
+  "license": "LGPLv2+",
+  "url": "http://netfilter.org/projects/libmnl",
+  "summary": "A minimalistic Netlink library"
+ },
+ {
+  "name": "libmodulemd",
+  "version": "2.13.0",
+  "release": "2.el9",
+  "arch": "x86_64",
+  "size": "733951",
+  "license": "MIT",
+  "url": "https://github.com/fedora-modularity/libmodulemd",
+  "summary": "Module metadata manipulation library"
+ },
+ {
+  "name": "libmount",
+  "version": "2.37.4",
+  "release": "25.el9",
+  "arch": "x86_64",
+  "size": "318333",
+  "license": "LGPLv2+",
+  "url": "http://en.wikipedia.org/wiki/Util-linux",
+  "summary": "Device mounting library"
+ },
+ {
+  "name": "libndp",
+  "version": "1.9",
+  "release": "1.el9",
+  "arch": "x86_64",
+  "size": "87681",
+  "license": "LGPL-2.1-or-later",
+  "url": "http://www.libndp.org/",
+  "summary": "Library for Neighbor Discovery Protocol"
+ },
+ {
+  "name": "libnetfilter_conntrack",
+  "version": "1.0.9",
+  "release": "1.el9",
+  "arch": "x86_64",
+  "size": "146610",
+  "license": "GPLv2+",
+  "url": "http://netfilter.org",
+  "summary": "Netfilter conntrack userspace library"
+ },
+ {
+  "name": "libnfnetlink",
+  "version": "1.0.1",
+  "release": "23.el9_5",
+  "arch": "x86_64",
+  "size": "55203",
+  "license": "GPLv2+",
+  "url": "http://netfilter.org",
+  "summary": "Netfilter netlink userspace library"
+ },
+ {
+  "name": "libnfsidmap",
+  "version": "2.5.4",
+  "release": "42.el9",
+  "arch": "x86_64",
+  "size": "186947",
+  "license": "BSD",
+  "url": "http://linux-nfs.org/",
+  "summary": "NFSv4 User and Group ID Mapping Library"
+ },
+ {
+  "name": "libnftnl",
+  "version": "1.2.6",
+  "release": "4.el9_4",
+  "arch": "x86_64",
+  "size": "242674",
+  "license": "GPLv2+",
+  "url": "https://netfilter.org/projects/libnftnl/",
+  "summary": "Library for low-level interaction with nftables Netlink's API over libmnl"
+ },
+ {
+  "name": "libnghttp2",
+  "version": "1.43.0",
+  "release": "5.el9_3.1",
+  "arch": "x86_64",
+  "size": "169772",
+  "license": "MIT",
+  "url": "https://nghttp2.org/",
+  "summary": "A library implementing the HTTP/2 protocol"
+ },
+ {
+  "name": "libnl3",
+  "version": "3.11.0",
+  "release": "1.el9",
+  "arch": "x86_64",
+  "size": "1124311",
+  "license": "LGPL-2.1-only",
+  "url": "http://www.infradead.org/~tgr/libnl/",
+  "summary": "Convenience library for kernel netlink sockets"
+ },
+ {
+  "name": "libnvme",
+  "version": "1.16.1",
+  "release": "3.el9",
+  "arch": "x86_64",
+  "size": "316694",
+  "license": "LGPL-2.1-or-later",
+  "url": "https://github.com/linux-nvme/libnvme",
+  "summary": "Linux-native nvme device management library"
+ },
+ {
+  "name": "libpath_utils",
+  "version": "0.2.1",
+  "release": "53.el9",
+  "arch": "x86_64",
+  "size": "63160",
+  "license": "LGPLv3+",
+  "url": "https://pagure.io/SSSD/ding-libs",
+  "summary": "Filesystem Path Utilities"
+ },
+ {
+  "name": "libpcap",
+  "version": "1.10.0",
+  "release": "4.el9",
+  "arch": "x86_64",
+  "size": "403468",
+  "license": "BSD with advertising",
+  "url": "https://www.tcpdump.org/",
+  "summary": "A system-independent interface for user-level packet capture"
+ },
+ {
+  "name": "libpipeline",
+  "version": "1.5.3",
+  "release": "4.el9",
+  "arch": "x86_64",
+  "size": "115261",
+  "license": "GPLv3+",
+  "url": "http://libpipeline.nongnu.org/",
+  "summary": "A pipeline manipulation library"
+ },
+ {
+  "name": "libpkgconf",
+  "version": "1.7.3",
+  "release": "10.el9",
+  "arch": "x86_64",
+  "size": "75425",
+  "license": "ISC",
+  "url": "http://pkgconf.org/",
+  "summary": "Backend library for pkgconf"
+ },
+ {
+  "name": "libpsl",
+  "version": "0.21.1",
+  "release": "5.el9",
+  "arch": "x86_64",
+  "size": "78616",
+  "license": "MIT",
+  "url": "https://rockdaboot.github.io/libpsl",
+  "summary": "C library for the Publix Suffix List"
+ },
+ {
+  "name": "libpwquality",
+  "version": "1.4.4",
+  "release": "8.el9",
+  "arch": "x86_64",
+  "size": "416416",
+  "license": "BSD or GPLv2+",
+  "url": "https://github.com/libpwquality/libpwquality/",
+  "summary": "A library for password generation and password quality checking"
+ },
+ {
+  "name": "libref_array",
+  "version": "0.1.5",
+  "release": "53.el9",
+  "arch": "x86_64",
+  "size": "58910",
+  "license": "LGPLv3+",
+  "url": "https://pagure.io/SSSD/ding-libs",
+  "summary": "A refcounted array for C"
+ },
+ {
+  "name": "librepo",
+  "version": "1.14.5",
+  "release": "1.el9",
+  "arch": "x86_64",
+  "size": "220388",
+  "license": "LGPLv2+",
+  "url": "https://github.com/rpm-software-management/librepo",
+  "summary": "Repodata downloading library"
+ },
+ {
+  "name": "libreport-filesystem",
+  "version": "2.15.2",
+  "release": "6.el9.rocky.0.2",
+  "arch": "noarch",
+  "size": "0",
+  "license": "GPLv2+",
+  "url": "https://abrt.readthedocs.org/",
+  "summary": "Filesystem layout for libreport"
+ },
+ {
+  "name": "libseccomp",
+  "version": "2.5.2",
+  "release": "2.el9",
+  "arch": "x86_64",
+  "size": "175261",
+  "license": "LGPLv2",
+  "url": "https://github.com/seccomp/libseccomp",
+  "summary": "Enhanced seccomp library"
+ },
+ {
+  "name": "libselinux",
+  "version": "3.6",
+  "release": "3.el9",
+  "arch": "x86_64",
+  "size": "176733",
+  "license": "Public Domain",
+  "url": "https://github.com/SELinuxProject/selinux/wiki",
+  "summary": "SELinux library and simple utilities"
+ },
+ {
+  "name": "libselinux-utils",
+  "version": "3.6",
+  "release": "3.el9",
+  "arch": "x86_64",
+  "size": "419443",
+  "license": "Public Domain",
+  "url": "https://github.com/SELinuxProject/selinux/wiki",
+  "summary": "SELinux libselinux utilities"
+ },
+ {
+  "name": "libsemanage",
+  "version": "3.5",
+  "release": "2.el9",
+  "arch": "x86_64",
+  "size": "307094",
+  "license": "LGPLv2+",
+  "url": "https://github.com/SELinuxProject/selinux/wiki",
+  "summary": "SELinux binary policy manipulation library"
+ },
+ {
+  "name": "libsepol",
+  "version": "3.6",
+  "release": "3.el9",
+  "arch": "x86_64",
+  "size": "829179",
+  "license": "LGPLv2+",
+  "url": "https://github.com/SELinuxProject/selinux/wiki",
+  "summary": "SELinux binary policy manipulation library"
+ },
+ {
+  "name": "libsigsegv",
+  "version": "2.13",
+  "release": "4.el9",
+  "arch": "x86_64",
+  "size": "50354",
+  "license": "GPLv2+",
+  "url": "https://www.gnu.org/software/libsigsegv/",
+  "summary": "Library for handling page faults in user mode"
+ },
+ {
+  "name": "libsmartcols",
+  "version": "2.37.4",
+  "release": "25.el9",
+  "arch": "x86_64",
+  "size": "134787",
+  "license": "LGPLv2+",
+  "url": "http://en.wikipedia.org/wiki/Util-linux",
+  "summary": "Formatting library for ls-like programs."
+ },
+ {
+  "name": "libsolv",
+  "version": "0.7.24",
+  "release": "2.el9",
+  "arch": "x86_64",
+  "size": "908666",
+  "license": "BSD",
+  "url": "https://github.com/openSUSE/libsolv",
+  "summary": "Package dependency solver"
+ },
+ {
+  "name": "libss",
+  "version": "1.46.5",
+  "release": "8.el9",
+  "arch": "x86_64",
+  "size": "80751",
+  "license": "MIT",
+  "url": "http://e2fsprogs.sourceforge.net/",
+  "summary": "Command line interface parsing library"
+ },
+ {
+  "name": "libstdc++",
+  "version": "11.4.1",
+  "release": "2.1.el9",
+  "arch": "x86_64",
+  "size": "2528627",
+  "license": "GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD",
+  "url": "http://gcc.gnu.org",
+  "summary": "GNU Standard C++ Library"
+ },
+ {
+  "name": "libtasn1",
+  "version": "4.16.0",
+  "release": "8.el9_1",
+  "arch": "x86_64",
+  "size": "183348",
+  "license": "GPLv3+ and LGPLv2+",
+  "url": "http://www.gnu.org/software/libtasn1/",
+  "summary": "The ASN.1 library used in GNUTLS"
+ },
+ {
+  "name": "libtirpc",
+  "version": "1.3.3",
+  "release": "9.el9",
+  "arch": "x86_64",
+  "size": "207306",
+  "license": "SISSL and BSD",
+  "url": "http://git.linux-nfs.org/?p=steved/libtirpc.git;a=summary",
+  "summary": "Transport Independent RPC Library"
+ },
+ {
+  "name": "libtool-ltdl",
+  "version": "2.4.6",
+  "release": "46.el9",
+  "arch": "x86_64",
+  "size": "71568",
+  "license": "LGPLv2+",
+  "url": "http://www.gnu.org/software/libtool/",
+  "summary": "Runtime libraries for GNU Libtool Dynamic Module Loader"
+ },
+ {
+  "name": "libtraceevent",
+  "version": "1.8.4",
+  "release": "2.el9",
+  "arch": "x86_64",
+  "size": "1521703",
+  "license": "LGPLv2+ and GPLv2+",
+  "url": "https://git.kernel.org/pub/scm/libs/libtrace/libtraceevent.git/",
+  "summary": "Library to parse raw trace event formats"
+ },
+ {
+  "name": "libunistring",
+  "version": "0.9.10",
+  "release": "15.el9",
+  "arch": "x86_64",
+  "size": "1643051",
+  "license": "GPLv2+ or LGPLv3+",
+  "url": "https://www.gnu.org/software/libunistring/",
+  "summary": "GNU Unicode string library"
+ },
+ {
+  "name": "libusbx",
+  "version": "1.0.26",
+  "release": "1.el9",
+  "arch": "x86_64",
+  "size": "169766",
+  "license": "LGPLv2+",
+  "url": "http://libusb.info",
+  "summary": "Library for accessing USB devices"
+ },
+ {
+  "name": "libuser",
+  "version": "0.63",
+  "release": "13.el9",
+  "arch": "x86_64",
+  "size": "1995355",
+  "license": "LGPLv2+",
+  "url": "https://pagure.io/libuser",
+  "summary": "A user and group account administration library"
+ },
+ {
+  "name": "libutempter",
+  "version": "1.2.1",
+  "release": "6.el9",
+  "arch": "x86_64",
+  "size": "59433",
+  "license": "LGPLv2+",
+  "url": "ftp://ftp.altlinux.org/pub/people/ldv/utempter",
+  "summary": "A privileged helper for utmp/wtmp updates"
+ },
+ {
+  "name": "libuuid",
+  "version": "2.37.4",
+  "release": "25.el9",
+  "arch": "x86_64",
+  "size": "37997",
+  "license": "BSD",
+  "url": "http://en.wikipedia.org/wiki/Util-linux",
+  "summary": "Universally unique ID library"
+ },
+ {
+  "name": "libuv",
+  "version": "1.42.0",
+  "release": "2.el9_4",
+  "arch": "x86_64",
+  "size": "405176",
+  "license": "MIT and BSD and ISC",
+  "url": "http://libuv.org/",
+  "summary": "Platform layer for node.js"
+ },
+ {
+  "name": "libverto",
+  "version": "0.3.2",
+  "release": "3.el9",
+  "arch": "x86_64",
+  "size": "30381",
+  "license": "MIT",
+  "url": "https://github.com/latchset/libverto",
+  "summary": "Main loop abstraction library"
+ },
+ {
+  "name": "libverto-libev",
+  "version": "0.3.2",
+  "release": "3.el9",
+  "arch": "x86_64",
+  "size": "16252",
+  "license": "MIT",
+  "url": "https://github.com/latchset/libverto",
+  "summary": "libev module for libverto"
+ },
+ {
+  "name": "libxcrypt",
+  "version": "4.4.18",
+  "release": "3.el9",
+  "arch": "x86_64",
+  "size": "270716",
+  "license": "LGPLv2+ and BSD and Public Domain",
+  "url": "https://github.com/besser82/libxcrypt",
+  "summary": "Extended crypt library for descrypt, md5crypt, bcrypt, and others"
+ },
+ {
+  "name": "libxml2",
+  "version": "2.9.13",
+  "release": "4.el9",
+  "arch": "x86_64",
+  "size": "1955252",
+  "license": "MIT",
+  "url": "http://xmlsoft.org/",
+  "summary": "Library providing XML and HTML support"
+ },
+ {
+  "name": "libyaml",
+  "version": "0.2.5",
+  "release": "7.el9",
+  "arch": "x86_64",
+  "size": "138307",
+  "license": "MIT",
+  "url": "https://github.com/yaml/libyaml",
+  "summary": "YAML 1.1 parser and emitter written in C"
+ },
+ {
+  "name": "libzstd",
+  "version": "1.5.1",
+  "release": "2.el9",
+  "arch": "x86_64",
+  "size": "902059",
+  "license": "BSD and GPLv2",
+  "url": "https://github.com/facebook/zstd",
+  "summary": "Zstd shared library"
+ },
+ {
+  "name": "lm_sensors-libs",
+  "version": "3.6.0",
+  "release": "10.el9",
+  "arch": "x86_64",
+  "size": "92246",
+  "license": "LGPLv2+",
+  "url": "http://github.com/lm-sensors/lm-sensors/",
+  "summary": "Lm_sensors core libraries"
+ },
+ {
+  "name": "lmdb-libs",
+  "version": "0.9.29",
+  "release": "3.el9",
+  "arch": "x86_64",
+  "size": "108544",
+  "license": "OpenLDAP",
+  "url": "http://symas.com/mdb",
+  "summary": "Shared libraries for lmdb"
+ },
+ {
+  "name": "logrotate",
+  "version": "3.18.0",
+  "release": "12.el9",
+  "arch": "x86_64",
+  "size": "152646",
+  "license": "GPLv2+",
+  "url": "https://github.com/logrotate/logrotate",
+  "summary": "Rotates, compresses, removes and mails system log files"
+ },
+ {
+  "name": "lsof",
+  "version": "4.94.0",
+  "release": "3.el9",
+  "arch": "x86_64",
+  "size": "638892",
+  "license": "zlib and Sendmail and LGPLv2+",
+  "url": "https://github.com/lsof-org/lsof",
+  "summary": "A utility which lists open files on a Linux/UNIX system"
+ },
+ {
+  "name": "lua-libs",
+  "version": "5.4.4",
+  "release": "4.el9",
+  "arch": "x86_64",
+  "size": "287323",
+  "license": "MIT",
+  "url": "http://www.lua.org/",
+  "summary": "Libraries for lua"
+ },
+ {
+  "name": "lvm2",
+  "version": "2.03.33",
+  "release": "4.el9.1",
+  "arch": "x86_64",
+  "size": "3920591",
+  "license": "GPL-2.0-only",
+  "url": "https://sourceware.org/lvm2",
+  "summary": "Userland logical volume management tools"
+ },
+ {
+  "name": "lvm2-libs",
+  "version": "2.03.33",
+  "release": "4.el9.1",
+  "arch": "x86_64",
+  "size": "2693761",
+  "license": "LGPL-2.1-only",
+  "url": "https://sourceware.org/lvm2",
+  "summary": "Shared libraries for lvm2"
+ },
+ {
+  "name": "lz4-libs",
+  "version": "1.9.3",
+  "release": "5.el9",
+  "arch": "x86_64",
+  "size": "145507",
+  "license": "GPLv2+ and BSD",
+  "url": "https://lz4.github.io/lz4/",
+  "summary": "Libaries for lz4"
+ },
+ {
+  "name": "man-db",
+  "version": "2.9.3",
+  "release": "9.el9",
+  "arch": "x86_64",
+  "size": "2563752",
+  "license": "GPLv2+ and GPLv3+",
+  "url": "http://www.nongnu.org/man-db/",
+  "summary": "Tools for searching and reading man pages"
+ },
+ {
+  "name": "man-pages",
+  "version": "6.04",
+  "release": "10.el9_8",
+  "arch": "noarch",
+  "size": "2883499",
+  "license": "BSD-2-Clause AND BSD-3-Clause AND BSD-4.3TAHOE AND BSD-4-Clause-UC AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND LicenseRef-Fedora-UltraPermissive AND Linux-man-pages-1-para AND Linux-man-pages-copyleft AND Linux-man-pages-copyleft-2-para AND Linux-man-pages-copyleft-var AND MIT AND Spencer-94",
+  "url": "http://www.kernel.org/doc/man-pages/",
+  "summary": "Linux kernel and C library user-space interface documentation"
+ },
+ {
+  "name": "man-pages-overrides",
+  "version": "9.0.0.0",
+  "release": "1.el9.0.1",
+  "arch": "noarch",
+  "size": "9029",
+  "license": "GPL+ and GPLv2+ and BSD and MIT and Copyright only and IEEE",
+  "url": "(none)",
+  "summary": "Complementary and updated manual pages"
+ },
+ {
+  "name": "mlocate",
+  "version": "0.26",
+  "release": "30.el9",
+  "arch": "x86_64",
+  "size": "385061",
+  "license": "GPLv2",
+  "url": "https://fedorahosted.org/mlocate/",
+  "summary": "An utility for finding files by name"
+ },
+ {
+  "name": "mpfr",
+  "version": "4.1.0",
+  "release": "7.el9",
+  "arch": "x86_64",
+  "size": "802587",
+  "license": "LGPLv3+",
+  "url": "https://www.mpfr.org/",
+  "summary": "C library for multiple-precision floating-point computations"
+ },
+ {
+  "name": "nano",
+  "version": "5.6.1",
+  "release": "7.el9",
+  "arch": "x86_64",
+  "size": "2833984",
+  "license": "GPLv3+",
+  "url": "https://www.nano-editor.org",
+  "summary": "A small text editor"
+ },
+ {
+  "name": "ncurses",
+  "version": "6.2",
+  "release": "12.20210508.el9",
+  "arch": "x86_64",
+  "size": "624684",
+  "license": "MIT",
+  "url": "https://invisible-island.net/ncurses/ncurses.html",
+  "summary": "Ncurses support utilities"
+ },
+ {
+  "name": "ncurses-base",
+  "version": "6.2",
+  "release": "12.20210508.el9",
+  "arch": "noarch",
+  "size": "307293",
+  "license": "MIT",
+  "url": "https://invisible-island.net/ncurses/ncurses.html",
+  "summary": "Descriptions of common terminals"
+ },
+ {
+  "name": "ncurses-libs",
+  "version": "6.2",
+  "release": "12.20210508.el9",
+  "arch": "x86_64",
+  "size": "994399",
+  "license": "MIT",
+  "url": "https://invisible-island.net/ncurses/ncurses.html",
+  "summary": "Ncurses libraries"
+ },
+ {
+  "name": "net-tools",
+  "version": "2.0",
+  "release": "0.64.20160912git.el9",
+  "arch": "x86_64",
+  "size": "927420",
+  "license": "GPLv2+",
+  "url": "http://sourceforge.net/projects/net-tools/",
+  "summary": "Basic networking tools"
+ },
+ {
+  "name": "nettle",
+  "version": "3.10.1",
+  "release": "1.el9",
+  "arch": "x86_64",
+  "size": "1169552",
+  "license": "LGPLv3+ or GPLv2+",
+  "url": "http://www.lysator.liu.se/~nisse/nettle/",
+  "summary": "A low-level cryptographic library"
+ },
+ {
+  "name": "nfs-utils",
+  "version": "2.5.4",
+  "release": "42.el9",
+  "arch": "x86_64",
+  "size": "1262161",
+  "license": "MIT and GPLv2 and GPLv2+ and BSD",
+  "url": "http://linux-nfs.org/",
+  "summary": "NFS utilities and supporting clients and daemons for the kernel NFS server"
+ },
+ {
+  "name": "nftables",
+  "version": "1.0.9",
+  "release": "9.el9_8",
+  "arch": "x86_64",
+  "size": "1163404",
+  "license": "GPLv2",
+  "url": "https://netfilter.org/projects/nftables/",
+  "summary": "Netfilter Tables userspace utillites"
+ },
+ {
+  "name": "npth",
+  "version": "1.6",
+  "release": "8.el9",
+  "arch": "x86_64",
+  "size": "50619",
+  "license": "LGPLv2+",
+  "url": "https://git.gnupg.org/cgi-bin/gitweb.cgi?p=npth.git",
+  "summary": "The New GNU Portable Threads library"
+ },
+ {
+  "name": "numactl-libs",
+  "version": "2.0.19",
+  "release": "3.el9",
+  "arch": "x86_64",
+  "size": "62118",
+  "license": "LGPL-2.1-only and GPL-2.0-only",
+  "url": "https://github.com/numactl/numactl",
+  "summary": "libnuma libraries"
+ },
+ {
+  "name": "oniguruma",
+  "version": "6.9.6",
+  "release": "1.el9.6",
+  "arch": "x86_64",
+  "size": "763442",
+  "license": "BSD",
+  "url": "https://github.com/kkos/oniguruma/",
+  "summary": "Regular expressions library"
+ },
+ {
+  "name": "openldap",
+  "version": "2.6.8",
+  "release": "4.el9.0.1",
+  "arch": "x86_64",
+  "size": "1085433",
+  "license": "OLDAP-2.8",
+  "url": "http://www.openldap.org/",
+  "summary": "LDAP support libraries"
+ },
+ {
+  "name": "openldap-clients",
+  "version": "2.6.8",
+  "release": "4.el9.0.1",
+  "arch": "x86_64",
+  "size": "671671",
+  "license": "OLDAP-2.8",
+  "url": "http://www.openldap.org/",
+  "summary": "LDAP client utilities"
+ },
+ {
+  "name": "openssh",
+  "version": "9.9p1",
+  "release": "9.el9_8.rocky.0.1",
+  "arch": "x86_64",
+  "size": "1816048",
+  "license": "BSD",
+  "url": "http://www.openssh.com/portable.html",
+  "summary": "An open source implementation of SSH protocol version 2"
+ },
+ {
+  "name": "openssh-clients",
+  "version": "9.9p1",
+  "release": "9.el9_8.rocky.0.1",
+  "arch": "x86_64",
+  "size": "2816082",
+  "license": "BSD",
+  "url": "http://www.openssh.com/portable.html",
+  "summary": "An open source SSH client applications"
+ },
+ {
+  "name": "openssh-server",
+  "version": "9.9p1",
+  "release": "9.el9_8.rocky.0.1",
+  "arch": "x86_64",
+  "size": "1527466",
+  "license": "BSD",
+  "url": "http://www.openssh.com/portable.html",
+  "summary": "An open source SSH server daemon"
+ },
+ {
+  "name": "openssl",
+  "version": "3.5.8",
+  "release": "1.el9_8",
+  "arch": "x86_64",
+  "size": "2283356",
+  "license": "Apache-2.0",
+  "url": "http://www.openssl.org/",
+  "summary": "Utilities from the general purpose cryptography library with TLS implementation"
+ },
+ {
+  "name": "openssl-fips-provider",
+  "version": "3.5.8",
+  "release": "1.el9_8",
+  "arch": "x86_64",
+  "size": "2595818",
+  "license": "Apache-2.0",
+  "url": "http://www.openssl.org/",
+  "summary": "The FIPS Provider module"
+ },
+ {
+  "name": "openssl-libs",
+  "version": "3.5.8",
+  "release": "1.el9_8",
+  "arch": "x86_64",
+  "size": "7490835",
+  "license": "Apache-2.0",
+  "url": "http://www.openssl.org/",
+  "summary": "A general purpose cryptography library with TLS implementation"
+ },
+ {
+  "name": "os-prober",
+  "version": "1.77",
+  "release": "12.el9_5",
+  "arch": "x86_64",
+  "size": "114427",
+  "license": "GPLv2+ and GPL+",
+  "url": "http://kitenet.net/~joey/code/os-prober/",
+  "summary": "Probes disks on the system for installed operating systems"
+ },
+ {
+  "name": "p11-kit",
+  "version": "0.24.1",
+  "release": "2.el9",
+  "arch": "x86_64",
+  "size": "1664534",
+  "license": "BSD",
+  "url": "http://p11-glue.freedesktop.org/p11-kit.html",
+  "summary": "Library for loading and sharing PKCS#11 modules"
+ },
+ {
+  "name": "p11-kit-trust",
+  "version": "0.24.1",
+  "release": "2.el9",
+  "arch": "x86_64",
+  "size": "450935",
+  "license": "BSD",
+  "url": "http://p11-glue.freedesktop.org/p11-kit.html",
+  "summary": "System trust module from p11-kit"
+ },
+ {
+  "name": "pam",
+  "version": "1.5.1",
+  "release": "15.el9",
+  "arch": "x86_64",
+  "size": "1894072",
+  "license": "BSD and GPLv2+",
+  "url": "http://www.linux-pam.org/",
+  "summary": "An extensible library which provides authentication for applications"
+ },
+ {
+  "name": "parted",
+  "version": "3.5",
+  "release": "3.el9",
+  "arch": "x86_64",
+  "size": "2528059",
+  "license": "GPLv3+",
+  "url": "http://www.gnu.org/software/parted",
+  "summary": "The GNU disk partition manipulation program"
+ },
+ {
+  "name": "passwd",
+  "version": "0.80",
+  "release": "12.el9",
+  "arch": "x86_64",
+  "size": "441727",
+  "license": "BSD or GPL+",
+  "url": "https://pagure.io/passwd",
+  "summary": "An utility for setting or changing passwords using PAM"
+ },
+ {
+  "name": "patch",
+  "version": "2.7.6",
+  "release": "16.el9",
+  "arch": "x86_64",
+  "size": "265546",
+  "license": "GPLv3+",
+  "url": "https://savannah.gnu.org/projects/patch/",
+  "summary": "Utility for modifying/upgrading files"
+ },
+ {
+  "name": "pciutils",
+  "version": "3.7.0",
+  "release": "7.el9",
+  "arch": "x86_64",
+  "size": "221215",
+  "license": "GPLv2+",
+  "url": "https://mj.ucw.cz/sw/pciutils/",
+  "summary": "PCI bus related utilities"
+ },
+ {
+  "name": "pciutils-libs",
+  "version": "3.7.0",
+  "release": "7.el9",
+  "arch": "x86_64",
+  "size": "80223",
+  "license": "GPLv2+",
+  "url": "https://mj.ucw.cz/sw/pciutils/",
+  "summary": "Linux PCI library"
+ },
+ {
+  "name": "pcp-conf",
+  "version": "6.3.7",
+  "release": "8.el9_8.4",
+  "arch": "x86_64",
+  "size": "80679",
+  "license": "LGPL-2.1-or-later",
+  "url": "https://pcp.io",
+  "summary": "Performance Co-Pilot run-time configuration"
+ },
+ {
+  "name": "pcp-libs",
+  "version": "6.3.7",
+  "release": "8.el9_8.4",
+  "arch": "x86_64",
+  "size": "1623726",
+  "license": "LGPL-2.1-or-later",
+  "url": "https://pcp.io",
+  "summary": "Performance Co-Pilot run-time libraries"
+ },
+ {
+  "name": "pcre",
+  "version": "8.44",
+  "release": "3.el9.3",
+  "arch": "x86_64",
+  "size": "539328",
+  "license": "BSD",
+  "url": "https://www.pcre.org/",
+  "summary": "Perl-compatible regular expression library"
+ },
+ {
+  "name": "pcre2",
+  "version": "10.40",
+  "release": "2.el9",
+  "arch": "x86_64",
+  "size": "653850",
+  "license": "BSD",
+  "url": "https://www.pcre.org/",
+  "summary": "Perl-compatible regular expression library"
+ },
+ {
+  "name": "pcre2-syntax",
+  "version": "10.40",
+  "release": "2.el9",
+  "arch": "noarch",
+  "size": "234324",
+  "license": "BSD",
+  "url": "https://www.pcre.org/",
+  "summary": "Documentation for PCRE2 regular expressions"
+ },
+ {
+  "name": "perl-AutoLoader",
+  "version": "5.74",
+  "release": "484.el9_8",
+  "arch": "noarch",
+  "size": "22037",
+  "license": "GPL+ or Artistic",
+  "url": "https://www.perl.org/",
+  "summary": "Load subroutines only on demand"
+ },
+ {
+  "name": "perl-B",
+  "version": "1.80",
+  "release": "484.el9_8",
+  "arch": "x86_64",
+  "size": "504455",
+  "license": "GPL+ or Artistic",
+  "url": "https://www.perl.org/",
+  "summary": "Perl compiler backend"
+ },
+ {
+  "name": "perl-Carp",
+  "version": "1.50",
+  "release": "460.el9.0.1",
+  "arch": "noarch",
+  "size": "47889",
+  "license": "GPL+ or Artistic",
+  "url": "https://metacpan.org/release/Carp",
+  "summary": "Alternative warn and die for modules"
+ },
+ {
+  "name": "perl-Class-Struct",
+  "version": "0.66",
+  "release": "484.el9_8",
+  "arch": "noarch",
+  "size": "26954",
+  "license": "GPL+ or Artistic",
+  "url": "https://www.perl.org/",
+  "summary": "Declare struct-like data types as Perl classes"
+ },
+ {
+  "name": "perl-Data-Dumper",
+  "version": "2.174",
+  "release": "462.el9",
+  "arch": "x86_64",
+  "size": "111885",
+  "license": "GPL+ or Artistic",
+  "url": "https://metacpan.org/release/Data-Dumper",
+  "summary": "Stringify perl data structures, suitable for printing and eval"
+ },
+ {
+  "name": "perl-Digest",
+  "version": "1.19",
+  "release": "4.el9.0.1",
+  "arch": "noarch",
+  "size": "36844",
+  "license": "GPL+ or Artistic",
+  "url": "https://metacpan.org/release/Digest",
+  "summary": "Modules that calculate message digests"
+ },
+ {
+  "name": "perl-Digest-MD5",
+  "version": "2.58",
+  "release": "4.el9",
+  "arch": "x86_64",
+  "size": "61530",
+  "license": "(GPL+ or Artistic) and RSA",
+  "url": "https://metacpan.org/release/Digest-MD5",
+  "summary": "Perl interface to the MD5 algorithm"
+ },
+ {
+  "name": "perl-DynaLoader",
+  "version": "1.47",
+  "release": "484.el9_8",
+  "arch": "x86_64",
+  "size": "33065",
+  "license": "GPL+ or Artistic",
+  "url": "https://www.perl.org/",
+  "summary": "Dynamically load C libraries into Perl code"
+ },
+ {
+  "name": "perl-Encode",
+  "version": "3.08",
+  "release": "462.el9",
+  "arch": "x86_64",
+  "size": "10240082",
+  "license": "(GPL+ or Artistic) and Artistic 2.0 and UCD",
+  "url": "https://metacpan.org/release/Encode",
+  "summary": "Character encodings in Perl"
+ },
+ {
+  "name": "perl-Errno",
+  "version": "1.30",
+  "release": "484.el9_8",
+  "arch": "x86_64",
+  "size": "9542",
+  "license": "GPL+ or Artistic",
+  "url": "https://www.perl.org/",
+  "summary": "System errno constants"
+ },
+ {
+  "name": "perl-Error",
+  "version": "0.17029",
+  "release": "7.el9.0.1",
+  "arch": "noarch",
+  "size": "79692",
+  "license": "(GPL+ or Artistic) and MIT",
+  "url": "https://metacpan.org/release/Error",
+  "summary": "Error/exception handling in an OO-ish way"
+ },
+ {
+  "name": "perl-Exporter",
+  "version": "5.74",
+  "release": "461.el9",
+  "arch": "noarch",
+  "size": "55359",
+  "license": "GPL+ or Artistic",
+  "url": "https://metacpan.org/release/Exporter",
+  "summary": "Implements default import method for modules"
+ },
+ {
+  "name": "perl-Fcntl",
+  "version": "1.13",
+  "release": "484.el9_8",
+  "arch": "x86_64",
+  "size": "30116",
+  "license": "GPL+ or Artistic",
+  "url": "https://www.perl.org/",
+  "summary": "File operation options"
+ },
+ {
+  "name": "perl-File-Basename",
+  "version": "2.85",
+  "release": "484.el9_8",
+  "arch": "noarch",
+  "size": "15340",
+  "license": "GPL+ or Artistic",
+  "url": "https://www.perl.org/",
+  "summary": "Parse file paths into directory, file name, and suffix"
+ },
+ {
+  "name": "perl-File-Path",
+  "version": "2.18",
+  "release": "4.el9",
+  "arch": "noarch",
+  "size": "65333",
+  "license": "GPL+ or Artistic",
+  "url": "https://metacpan.org/release/File-Path",
+  "summary": "Create or remove directory trees"
+ },
+ {
+  "name": "perl-File-Temp",
+  "version": "0.231.100",
+  "release": "4.el9",
+  "arch": "noarch",
+  "size": "166550",
+  "license": "GPL+ or Artistic",
+  "url": "https://metacpan.org/release/File-Temp",
+  "summary": "Return name and handle of a temporary file safely"
+ },
+ {
+  "name": "perl-File-stat",
+  "version": "1.09",
+  "release": "484.el9_8",
+  "arch": "noarch",
+  "size": "13950",
+  "license": "GPL+ or Artistic",
+  "url": "https://www.perl.org/",
+  "summary": "By-name interface to Perl built-in stat functions"
+ },
+ {
+  "name": "perl-FileHandle",
+  "version": "2.03",
+  "release": "484.el9_8",
+  "arch": "noarch",
+  "size": "10532",
+  "license": "GPL+ or Artistic",
+  "url": "https://www.perl.org/",
+  "summary": "Object methods for file handles"
+ },
+ {
+  "name": "perl-Getopt-Long",
+  "version": "2.52",
+  "release": "4.el9",
+  "arch": "noarch",
+  "size": "139937",
+  "license": "GPLv2+ or Artistic",
+  "url": "https://metacpan.org/release/Getopt-Long",
+  "summary": "Extended processing of command line options"
+ },
+ {
+  "name": "perl-Getopt-Std",
+  "version": "1.12",
+  "release": "484.el9_8",
+  "arch": "noarch",
+  "size": "12108",
+  "license": "GPL+ or Artistic",
+  "url": "https://www.perl.org/",
+  "summary": "Process single-character switches with switch clustering"
+ },
+ {
+  "name": "perl-Git",
+  "version": "2.52.0",
+  "release": "1.el9",
+  "arch": "noarch",
+  "size": "66985",
+  "license": "GPLv2",
+  "url": "https://git-scm.com/",
+  "summary": "Perl interface to Git"
+ },
+ {
+  "name": "perl-HTTP-Tiny",
+  "version": "0.076",
+  "release": "462.el9",
+  "arch": "noarch",
+  "size": "150675",
+  "license": "GPL+ or Artistic",
+  "url": "https://metacpan.org/release/HTTP-Tiny",
+  "summary": "Small, simple, correct HTTP/1.1 client"
+ },
+ {
+  "name": "perl-IO",
+  "version": "1.43",
+  "release": "484.el9_8",
+  "arch": "x86_64",
+  "size": "163135",
+  "license": "GPL+ or Artistic",
+  "url": "https://www.perl.org/",
+  "summary": "Perl input/output modules"
+ },
+ {
+  "name": "perl-IO-Socket-IP",
+  "version": "0.41",
+  "release": "5.el9",
+  "arch": "noarch",
+  "size": "100240",
+  "license": "GPL+ or Artistic",
+  "url": "https://metacpan.org/release/IO-Socket-IP",
+  "summary": "Drop-in replacement for IO::Socket::INET supporting both IPv4 and IPv6"
+ },
+ {
+  "name": "perl-IO-Socket-SSL",
+  "version": "2.073",
+  "release": "2.el9",
+  "arch": "noarch",
+  "size": "616300",
+  "license": "(GPL+ or Artistic) and MPLv2.0",
+  "url": "https://metacpan.org/release/IO-Socket-SSL",
+  "summary": "Perl library for transparent SSL"
+ },
+ {
+  "name": "perl-IPC-Open3",
+  "version": "1.21",
+  "release": "484.el9_8",
+  "arch": "noarch",
+  "size": "25045",
+  "license": "GPL+ or Artistic",
+  "url": "https://www.perl.org/",
+  "summary": "Open a process for reading, writing, and error handling"
+ },
+ {
+  "name": "perl-MIME-Base64",
+  "version": "3.16",
+  "release": "4.el9",
+  "arch": "x86_64",
+  "size": "48153",
+  "license": "(GPL+ or Artistic) and MIT",
+  "url": "https://metacpan.org/release/MIME-Base64",
+  "summary": "Encoding and decoding of Base64 and quoted-printable strings"
+ },
+ {
+  "name": "perl-Mozilla-CA",
+  "version": "20200520",
+  "release": "6.el9",
+  "arch": "noarch",
+  "size": "5866",
+  "license": "MPLv2.0",
+  "url": "https://metacpan.org/release/Mozilla-CA",
+  "summary": "Mozilla's CA certificate bundle in PEM format"
+ },
+ {
+  "name": "perl-NDBM_File",
+  "version": "1.15",
+  "release": "484.el9_8",
+  "arch": "x86_64",
+  "size": "29968",
+  "license": "GPL+ or Artistic",
+  "url": "https://www.perl.org/",
+  "summary": "Tied access to ndbm files"
+ },
+ {
+  "name": "perl-Net-SSLeay",
+  "version": "1.94",
+  "release": "3.el9",
+  "arch": "x86_64",
+  "size": "1520289",
+  "license": "Artistic-2.0",
+  "url": "https://metacpan.org/release/Net-SSLeay",
+  "summary": "Perl extension for using OpenSSL"
+ },
+ {
+  "name": "perl-POSIX",
+  "version": "1.94",
+  "release": "484.el9_8",
+  "arch": "x86_64",
+  "size": "240028",
+  "license": "GPL+ or Artistic",
+  "url": "https://www.perl.org/",
+  "summary": "Perl interface to IEEE Std 1003.1"
+ },
+ {
+  "name": "perl-PathTools",
+  "version": "3.78",
+  "release": "461.el9",
+  "arch": "x86_64",
+  "size": "182542",
+  "license": "(GPL+ or Artistic) and BSD",
+  "url": "https://metacpan.org/release/PathTools",
+  "summary": "PathTools Perl module (Cwd, File::Spec)"
+ },
+ {
+  "name": "perl-Pod-Escapes",
+  "version": "1.07",
+  "release": "460.el9.0.1",
+  "arch": "noarch",
+  "size": "25764",
+  "license": "GPL+ or Artistic",
+  "url": "https://metacpan.org/release/Pod-Escapes",
+  "summary": "Resolve POD escape sequences"
+ },
+ {
+  "name": "perl-Pod-Perldoc",
+  "version": "3.28.01",
+  "release": "461.el9",
+  "arch": "noarch",
+  "size": "170960",
+  "license": "GPL+ or Artistic",
+  "url": "https://metacpan.org/release/Pod-Perldoc",
+  "summary": "Look up Perl documentation in Pod format"
+ },
+ {
+  "name": "perl-Pod-Simple",
+  "version": "3.42",
+  "release": "4.el9",
+  "arch": "noarch",
+  "size": "577293",
+  "license": "GPL+ or Artistic",
+  "url": "https://metacpan.org/release/Pod-Simple",
+  "summary": "Framework for parsing POD documentation"
+ },
+ {
+  "name": "perl-Pod-Usage",
+  "version": "2.01",
+  "release": "4.el9",
+  "arch": "noarch",
+  "size": "87186",
+  "license": "GPL+ or Artistic",
+  "url": "https://metacpan.org/release/Pod-Usage",
+  "summary": "Print a usage message from embedded POD documentation"
+ },
+ {
+  "name": "perl-Scalar-List-Utils",
+  "version": "1.56",
+  "release": "462.el9",
+  "arch": "x86_64",
+  "size": "143128",
+  "license": "GPL+ or Artistic",
+  "url": "https://metacpan.org/release/Scalar-List-Utils",
+  "summary": "A selection of general-utility scalar and list subroutines"
+ },
+ {
+  "name": "perl-SelectSaver",
+  "version": "1.02",
+  "release": "484.el9_8",
+  "arch": "noarch",
+  "size": "3170",
+  "license": "GPL+ or Artistic",
+  "url": "https://www.perl.org/",
+  "summary": "Save and restore selected file handle"
+ },
+ {
+  "name": "perl-Socket",
+  "version": "2.031",
+  "release": "4.el9",
+  "arch": "x86_64",
+  "size": "124985",
+  "license": "GPL+ or Artistic",
+  "url": "https://metacpan.org/release/Socket",
+  "summary": "Networking constants and support functions"
+ },
+ {
+  "name": "perl-Storable",
+  "version": "3.21",
+  "release": "460.el9",
+  "arch": "x86_64",
+  "size": "228556",
+  "license": "GPL+ or Artistic",
+  "url": "https://metacpan.org/release/Storable",
+  "summary": "Persistence for Perl data structures"
+ },
+ {
+  "name": "perl-Symbol",
+  "version": "1.08",
+  "release": "484.el9_8",
+  "arch": "noarch",
+  "size": "7847",
+  "license": "GPL+ or Artistic",
+  "url": "https://www.perl.org/",
+  "summary": "Manipulate Perl symbols and their names"
+ },
+ {
+  "name": "perl-Term-ANSIColor",
+  "version": "5.01",
+  "release": "461.el9.0.1",
+  "arch": "noarch",
+  "size": "100303",
+  "license": "GPL+ or Artistic",
+  "url": "https://metacpan.org/release/Term-ANSIColor",
+  "summary": "Color screen output using ANSI escape sequences"
+ },
+ {
+  "name": "perl-Term-Cap",
+  "version": "1.17",
+  "release": "460.el9.0.1",
+  "arch": "noarch",
+  "size": "29851",
+  "license": "GPL+ or Artistic",
+  "url": "https://metacpan.org/release/Term-Cap",
+  "summary": "Perl termcap interface"
+ },
+ {
+  "name": "perl-TermReadKey",
+  "version": "2.38",
+  "release": "11.el9",
+  "arch": "x86_64",
+  "size": "66306",
+  "license": "(Copyright only) and (Artistic or GPL+)",
+  "url": "https://metacpan.org/release/TermReadKey",
+  "summary": "A perl module for simple terminal control"
+ },
+ {
+  "name": "perl-Text-ParseWords",
+  "version": "3.30",
+  "release": "460.el9",
+  "arch": "noarch",
+  "size": "13101",
+  "license": "GPL+ or Artistic",
+  "url": "https://metacpan.org/release/Text-ParseWords",
+  "summary": "Parse text into an array of tokens or array of arrays"
+ },
+ {
+  "name": "perl-Text-Tabs+Wrap",
+  "version": "2013.0523",
+  "release": "460.el9.0.1",
+  "arch": "noarch",
+  "size": "24828",
+  "license": "TTWL",
+  "url": "https://metacpan.org/release/Text-Tabs%2BWrap",
+  "summary": "Expand tabs and do simple line wrapping"
+ },
+ {
+  "name": "perl-Time-Local",
+  "version": "1.300",
+  "release": "7.el9",
+  "arch": "noarch",
+  "size": "67344",
+  "license": "GPL+ or Artistic",
+  "url": "https://metacpan.org/release/Time-Local",
+  "summary": "Efficiently compute time from local and GMT time"
+ },
+ {
+  "name": "perl-URI",
+  "version": "5.09",
+  "release": "3.el9.0.1",
+  "arch": "noarch",
+  "size": "216915",
+  "license": "GPL+ or Artistic",
+  "url": "https://metacpan.org/release/URI",
+  "summary": "A Perl module implementing URI parsing and manipulation"
+ },
+ {
+  "name": "perl-base",
+  "version": "2.27",
+  "release": "484.el9_8",
+  "arch": "noarch",
+  "size": "13819",
+  "license": "GPL+ or Artistic",
+  "url": "https://www.perl.org/",
+  "summary": "Establish an ISA relationship with base classes at compile time"
+ },
+ {
+  "name": "perl-constant",
+  "version": "1.33",
+  "release": "461.el9.0.1",
+  "arch": "noarch",
+  "size": "27104",
+  "license": "GPL+ or Artistic",
+  "url": "https://metacpan.org/release/constant",
+  "summary": "Perl pragma to declare constants"
+ },
+ {
+  "name": "perl-if",
+  "version": "0.60.800",
+  "release": "484.el9_8",
+  "arch": "noarch",
+  "size": "6874",
+  "license": "GPL+ or Artistic",
+  "url": "https://www.perl.org/",
+  "summary": "Use a Perl module if a condition holds"
+ },
+ {
+  "name": "perl-interpreter",
+  "version": "5.32.1",
+  "release": "484.el9_8",
+  "arch": "x86_64",
+  "size": "120078",
+  "license": "GPL+ or Artistic",
+  "url": "https://www.perl.org/",
+  "summary": "Standalone executable Perl interpreter"
+ },
+ {
+  "name": "perl-lib",
+  "version": "0.65",
+  "release": "484.el9_8",
+  "arch": "x86_64",
+  "size": "9672",
+  "license": "GPL+ or Artistic",
+  "url": "https://www.perl.org/",
+  "summary": "Manipulate @INC at compile time"
+ },
+ {
+  "name": "perl-libnet",
+  "version": "3.13",
+  "release": "4.el9",
+  "arch": "noarch",
+  "size": "299357",
+  "license": "GPL+ or Artistic",
+  "url": "https://metacpan.org/release/libnet",
+  "summary": "Perl clients for various network protocols"
+ },
+ {
+  "name": "perl-libs",
+  "version": "5.32.1",
+  "release": "484.el9_8",
+  "arch": "x86_64",
+  "size": "8958093",
+  "license": "(GPL+ or Artistic) and BSD and HSRL and MIT and UCD and Public domain",
+  "url": "https://www.perl.org/",
+  "summary": "The libraries for the perl run-time"
+ },
+ {
+  "name": "perl-mro",
+  "version": "1.23",
+  "release": "484.el9_8",
+  "arch": "x86_64",
+  "size": "43475",
+  "license": "GPL+ or Artistic",
+  "url": "https://www.perl.org/",
+  "summary": "Method resolution order"
+ },
+ {
+  "name": "perl-overload",
+  "version": "1.31",
+  "release": "484.el9_8",
+  "arch": "noarch",
+  "size": "72823",
+  "license": "GPL+ or Artistic",
+  "url": "https://www.perl.org/",
+  "summary": "Overloading Perl operations"
+ },
+ {
+  "name": "perl-overloading",
+  "version": "0.02",
+  "release": "484.el9_8",
+  "arch": "noarch",
+  "size": "5894",
+  "license": "GPL+ or Artistic",
+  "url": "https://www.perl.org/",
+  "summary": "Perl pragma to lexically control overloading"
+ },
+ {
+  "name": "perl-parent",
+  "version": "0.238",
+  "release": "460.el9",
+  "arch": "noarch",
+  "size": "9535",
+  "license": "GPL+ or Artistic",
+  "url": "https://metacpan.org/release/parent",
+  "summary": "Establish an ISA relationship with base classes at compile time"
+ },
+ {
+  "name": "perl-podlators",
+  "version": "4.14",
+  "release": "460.el9.0.1",
+  "arch": "noarch",
+  "size": "288742",
+  "license": "(GPL+ or Artistic) and FSFAP",
+  "url": "https://metacpan.org/release/podlators",
+  "summary": "Format POD source into various output formats"
+ },
+ {
+  "name": "perl-subs",
+  "version": "1.03",
+  "release": "484.el9_8",
+  "arch": "noarch",
+  "size": "3061",
+  "license": "GPL+ or Artistic",
+  "url": "https://www.perl.org/",
+  "summary": "Perl pragma to predeclare subroutine names"
+ },
+ {
+  "name": "perl-vars",
+  "version": "1.05",
+  "release": "484.el9_8",
+  "arch": "noarch",
+  "size": "4927",
+  "license": "GPL+ or Artistic",
+  "url": "https://www.perl.org/",
+  "summary": "Perl pragma to predeclare global variable names"
+ },
+ {
+  "name": "pigz",
+  "version": "2.8",
+  "release": "1.el9",
+  "arch": "x86_64",
+  "size": "165774",
+  "license": "zlib",
+  "url": "https://www.zlib.net/pigz/",
+  "summary": "Parallel implementation of gzip"
+ },
+ {
+  "name": "pkgconf",
+  "version": "1.7.3",
+  "release": "10.el9",
+  "arch": "x86_64",
+  "size": "77890",
+  "license": "ISC",
+  "url": "http://pkgconf.org/",
+  "summary": "Package compiler and linker metadata toolkit"
+ },
+ {
+  "name": "pkgconf-m4",
+  "version": "1.7.3",
+  "release": "10.el9",
+  "arch": "noarch",
+  "size": "14187",
+  "license": "GPLv2+ with exceptions",
+  "url": "http://pkgconf.org/",
+  "summary": "m4 macros for pkgconf"
+ },
+ {
+  "name": "pkgconf-pkg-config",
+  "version": "1.7.3",
+  "release": "10.el9",
+  "arch": "x86_64",
+  "size": "1203",
+  "license": "ISC",
+  "url": "http://pkgconf.org/",
+  "summary": "pkgconf shim to provide /usr/bin/pkg-config"
+ },
+ {
+  "name": "policycoreutils",
+  "version": "3.6",
+  "release": "5.el9",
+  "arch": "x86_64",
+  "size": "722184",
+  "license": "GPL-2.0-or-later",
+  "url": "https://github.com/SELinuxProject/selinux",
+  "summary": "SELinux policy core utilities"
+ },
+ {
+  "name": "polkit",
+  "version": "0.117",
+  "release": "14.el9",
+  "arch": "x86_64",
+  "size": "441281",
+  "license": "LGPLv2+",
+  "url": "http://www.freedesktop.org/wiki/Software/polkit",
+  "summary": "An authorization framework"
+ },
+ {
+  "name": "polkit-libs",
+  "version": "0.117",
+  "release": "14.el9",
+  "arch": "x86_64",
+  "size": "29450857",
+  "license": "MIT and (MPLv1.1 or GPLv2+ or LGPLv2+) and MPLv2.0 and MPLv1.1 and BSD and GPLv2+ and GPLv3+ and LGPLv2+ and AFL and ASL 2.0",
+  "url": "http://www.freedesktop.org/wiki/Software/polkit",
+  "summary": "Libraries for polkit"
+ },
+ {
+  "name": "polkit-pkla-compat",
+  "version": "0.1",
+  "release": "21.el9",
+  "arch": "x86_64",
+  "size": "96341",
+  "license": "LGPLv2+",
+  "url": "https://pagure.io/polkit-pkla-compat",
+  "summary": "Rules for polkit to add compatibility with pklocalauthority"
+ },
+ {
+  "name": "popt",
+  "version": "1.18",
+  "release": "8.el9",
+  "arch": "x86_64",
+  "size": "130376",
+  "license": "MIT",
+  "url": "https://github.com/rpm-software-management/popt/",
+  "summary": "C library for parsing command line parameters"
+ },
+ {
+  "name": "procps-ng",
+  "version": "3.3.17",
+  "release": "14.el9",
+  "arch": "x86_64",
+  "size": "1001451",
+  "license": "GPL+ and GPLv2 and GPLv2+ and GPLv3+ and LGPLv2+",
+  "url": "https://sourceforge.net/projects/procps-ng/",
+  "summary": "System and process monitoring utilities"
+ },
+ {
+  "name": "protobuf-c",
+  "version": "1.3.3",
+  "release": "13.el9",
+  "arch": "x86_64",
+  "size": "63188",
+  "license": "BSD",
+  "url": "https://github.com/protobuf-c/protobuf-c",
+  "summary": "C bindings for Google's Protocol Buffers"
+ },
+ {
+  "name": "psmisc",
+  "version": "23.4",
+  "release": "3.el9",
+  "arch": "x86_64",
+  "size": "719474",
+  "license": "GPLv2+",
+  "url": "https://gitlab.com/psmisc/psmisc",
+  "summary": "Utilities for managing processes on your system"
+ },
+ {
+  "name": "publicsuffix-list-dafsa",
+  "version": "20210518",
+  "release": "3.el9",
+  "arch": "noarch",
+  "size": "68815",
+  "license": "MPLv2.0",
+  "url": "https://publicsuffix.org/",
+  "summary": "Cross-vendor public domain suffix database in DAFSA form"
+ },
+ {
+  "name": "python3",
+  "version": "3.9.18",
+  "release": "1.el9_3",
+  "arch": "x86_64",
+  "size": "32837",
+  "license": "Python",
+  "url": "https://www.python.org/",
+  "summary": "Python 3.9 interpreter"
+ },
+ {
+  "name": "python3-chardet",
+  "version": "4.0.0",
+  "release": "5.el9",
+  "arch": "noarch",
+  "size": "1480094",
+  "license": "LGPLv2",
+  "url": "https://github.com/chardet/chardet",
+  "summary": "Character encoding auto-detection in Python"
+ },
+ {
+  "name": "python3-dateutil",
+  "version": "2.9.0.post0",
+  "release": "1.el9_7",
+  "arch": "noarch",
+  "size": "744073",
+  "license": "(Apache-2.0 AND BSD-3-Clause) OR BSD-3-Clause",
+  "url": "https://github.com/dateutil/dateutil",
+  "summary": "Powerful extensions to the standard datetime module"
+ },
+ {
+  "name": "python3-dbus",
+  "version": "1.2.18",
+  "release": "2.el9.0.1",
+  "arch": "x86_64",
+  "size": "501924",
+  "license": "MIT",
+  "url": "http://www.freedesktop.org/wiki/Software/DBusBindings/",
+  "summary": "D-Bus bindings for python3"
+ },
+ {
+  "name": "python3-dnf",
+  "version": "4.14.0",
+  "release": "8.el9",
+  "arch": "noarch",
+  "size": "1924491",
+  "license": "GPLv2+",
+  "url": "https://github.com/rpm-software-management/dnf",
+  "summary": "Python 3 interface to DNF"
+ },
+ {
+  "name": "python3-dnf-plugins-core",
+  "version": "4.3.0",
+  "release": "26.el9",
+  "arch": "noarch",
+  "size": "1040942",
+  "license": "GPLv2+",
+  "url": "https://github.com/rpm-software-management/dnf-plugins-core",
+  "summary": "Core Plugins for DNF"
+ },
+ {
+  "name": "python3-file-magic",
+  "version": "5.39",
+  "release": "17.el9",
+  "arch": "noarch",
+  "size": "22412",
+  "license": "BSD",
+  "url": "https://www.darwinsys.com/file/",
+  "summary": "Python 3 bindings for the libmagic API"
+ },
+ {
+  "name": "python3-firewall",
+  "version": "1.3.4",
+  "release": "20.el9_8",
+  "arch": "noarch",
+  "size": "2188225",
+  "license": "GPLv2+",
+  "url": "http://www.firewalld.org",
+  "summary": "Python3 bindings for firewalld"
+ },
+ {
+  "name": "python3-gobject-base",
+  "version": "3.40.1",
+  "release": "6.el9",
+  "arch": "x86_64",
+  "size": "546171",
+  "license": "LGPLv2+ and MIT",
+  "url": "https://wiki.gnome.org/Projects/PyGObject",
+  "summary": "Python 3 bindings for GObject Introspection base package"
+ },
+ {
+  "name": "python3-gobject-base-noarch",
+  "version": "3.40.1",
+  "release": "6.el9",
+  "arch": "noarch",
+  "size": "706541",
+  "license": "LGPLv2+ and MIT",
+  "url": "https://wiki.gnome.org/Projects/PyGObject",
+  "summary": "Python 3 bindings for GObject Introspection base (not architecture dependent)"
+ },
+ {
+  "name": "python3-gpg",
+  "version": "1.15.1",
+  "release": "6.el9",
+  "arch": "x86_64",
+  "size": "1404173",
+  "license": "LGPLv2+ and GPLv3+",
+  "url": "https://gnupg.org/related_software/gpgme/",
+  "summary": "gpgme bindings for Python 3"
+ },
+ {
+  "name": "python3-hawkey",
+  "version": "0.69.0",
+  "release": "6.el9_3",
+  "arch": "x86_64",
+  "size": "308099",
+  "license": "LGPLv2+",
+  "url": "https://github.com/rpm-software-management/libdnf",
+  "summary": "Python 3 bindings for the hawkey library"
+ },
+ {
+  "name": "python3-idna",
+  "version": "2.10",
+  "release": "8.el9_8",
+  "arch": "noarch",
+  "size": "527086",
+  "license": "BSD and Python and Unicode",
+  "url": "https://github.com/kjd/idna",
+  "summary": "Internationalized Domain Names in Applications (IDNA)"
+ },
+ {
+  "name": "python3-inotify",
+  "version": "0.9.6",
+  "release": "25.el9.0.1",
+  "arch": "noarch",
+  "size": "249473",
+  "license": "MIT",
+  "url": "https://github.com/seb-m/pyinotify",
+  "summary": "Monitor filesystem events with Python under Linux"
+ },
+ {
+  "name": "python3-libcomps",
+  "version": "0.1.18",
+  "release": "1.el9",
+  "arch": "x86_64",
+  "size": "147098",
+  "license": "GPLv2+",
+  "url": "https://github.com/rpm-software-management/libcomps",
+  "summary": "Python 3 bindings for libcomps library"
+ },
+ {
+  "name": "python3-libdnf",
+  "version": "0.69.0",
+  "release": "6.el9_3",
+  "arch": "x86_64",
+  "size": "3788847",
+  "license": "LGPLv2+",
+  "url": "https://github.com/rpm-software-management/libdnf",
+  "summary": "Python 3 bindings for the libdnf library."
+ },
+ {
+  "name": "python3-libs",
+  "version": "3.9.18",
+  "release": "1.el9_3",
+  "arch": "x86_64",
+  "size": "32495140",
+  "license": "Python",
+  "url": "https://www.python.org/",
+  "summary": "Python runtime libraries"
+ },
+ {
+  "name": "python3-linux-procfs",
+  "version": "0.7.4",
+  "release": "2.el9",
+  "arch": "noarch",
+  "size": "78829",
+  "license": "GPLv2",
+  "url": "https://git.kernel.org/pub/scm/libs/python/python-linux-procfs/python-linux-procfs.git",
+  "summary": "Linux /proc abstraction classes"
+ },
+ {
+  "name": "python3-nftables",
+  "version": "1.0.9",
+  "release": "9.el9_8",
+  "arch": "x86_64",
+  "size": "39126",
+  "license": "GPLv2",
+  "url": "https://netfilter.org/projects/nftables/",
+  "summary": "Python module providing an interface to libnftables"
+ },
+ {
+  "name": "python3-perf",
+  "version": "5.14.0",
+  "release": "687.49.1.el9_8",
+  "arch": "x86_64",
+  "size": "10169657",
+  "license": "((GPL-2.0-only WITH Linux-syscall-note) OR BSD-2-Clause) AND ((GPL-2.0-only WITH Linux-syscall-note) OR BSD-3-Clause) AND ((GPL-2.0-only WITH Linux-syscall-note) OR CDDL-1.0) AND ((GPL-2.0-only WITH Linux-syscall-note) OR Linux-OpenIB) AND ((GPL-2.0-only WITH Linux-syscall-note) OR MIT) AND ((GPL-2.0-or-later WITH Linux-syscall-note) OR BSD-3-Clause) AND ((GPL-2.0-or-later WITH Linux-syscall-note) OR MIT) AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSD-3-Clause-Clear AND GFDL-1.1-no-invariants-or-later AND GPL-1.0-or-later AND (GPL-1.0-or-later OR BSD-3-Clause) AND (GPL-1.0-or-later WITH Linux-syscall-note) AND GPL-2.0-only AND (GPL-2.0-only OR Apache-2.0) AND (GPL-2.0-only OR BSD-2-Clause) AND (GPL-2.0-only OR BSD-3-Clause) AND (GPL-2.0-only OR CDDL-1.0) AND (GPL-2.0-only OR GFDL-1.1-no-invariants-or-later) AND (GPL-2.0-only OR GFDL-1.2-no-invariants-only) AND (GPL-2.0-only WITH Linux-syscall-note) AND GPL-2.0-or-later AND (GPL-2.0-or-later OR BSD-2-Clause) AND (GPL-2.0-or-later OR BSD-3-Clause) AND (GPL-2.0-or-later OR CC-BY-4.0) AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (GPL-2.0-or-later WITH Linux-syscall-note) AND ISC AND LGPL-2.0-or-later AND (LGPL-2.0-or-later OR BSD-2-Clause) AND (LGPL-2.0-or-later WITH Linux-syscall-note) AND LGPL-2.1-only AND (LGPL-2.1-only OR BSD-2-Clause) AND (LGPL-2.1-only WITH Linux-syscall-note) AND LGPL-2.1-or-later AND (LGPL-2.1-or-later WITH Linux-syscall-note) AND (Linux-OpenIB OR GPL-2.0-only) AND (Linux-OpenIB OR GPL-2.0-only OR BSD-2-Clause) AND Linux-man-pages-copyleft AND MIT AND (MIT OR GPL-2.0-only) AND (MIT OR GPL-2.0-or-later) AND (MIT OR LGPL-2.1-only) AND (MPL-1.1 OR GPL-2.0-only) AND (X11 OR GPL-2.0-only) AND (X11 OR GPL-2.0-or-later) AND Zlib AND (copyleft-next-0.3.1 OR GPL-2.0-or-later)",
+  "url": "https://www.kernel.org/",
+  "summary": "Python bindings for apps which will manipulate perf events"
+ },
+ {
+  "name": "python3-pexpect",
+  "version": "4.8.0",
+  "release": "7.el9",
+  "arch": "noarch",
+  "size": "545448",
+  "license": "ISC",
+  "url": "https://github.com/pexpect/pexpect",
+  "summary": "Unicode-aware Pure Python Expect-like module"
+ },
+ {
+  "name": "python3-pip-wheel",
+  "version": "21.2.3",
+  "release": "7.el9",
+  "arch": "noarch",
+  "size": "1220855",
+  "license": "MIT and Python and ASL 2.0 and BSD and ISC and LGPLv2 and MPLv2.0 and (ASL 2.0 or BSD)",
+  "url": "https://pip.pypa.io/",
+  "summary": "The pip wheel"
+ },
+ {
+  "name": "python3-ptyprocess",
+  "version": "0.6.0",
+  "release": "12.el9.0.1",
+  "arch": "noarch",
+  "size": "65312",
+  "license": "ISC",
+  "url": "https://github.com/pexpect/ptyprocess",
+  "summary": "Run a subprocess in a pseudo terminal"
+ },
+ {
+  "name": "python3-pysocks",
+  "version": "1.7.1",
+  "release": "12.el9.0.1",
+  "arch": "noarch",
+  "size": "90512",
+  "license": "BSD",
+  "url": "https://github.com/Anorov/PySocks",
+  "summary": "A Python SOCKS client module"
+ },
+ {
+  "name": "python3-pyudev",
+  "version": "0.22.0",
+  "release": "6.el9.0.1",
+  "arch": "noarch",
+  "size": "323513",
+  "license": "LGPLv2+",
+  "url": "http://pypi.python.org/pypi/pyudev",
+  "summary": "A libudev binding"
+ },
+ {
+  "name": "python3-pyyaml",
+  "version": "5.4.1",
+  "release": "6.el9",
+  "arch": "x86_64",
+  "size": "689115",
+  "license": "MIT",
+  "url": "https://github.com/yaml/pyyaml",
+  "summary": "YAML parser and emitter for Python"
+ },
+ {
+  "name": "python3-requests",
+  "version": "2.25.1",
+  "release": "10.el9_6",
+  "arch": "noarch",
+  "size": "414889",
+  "license": "ASL 2.0",
+  "url": "https://pypi.io/project/requests",
+  "summary": "HTTP library, written in Python, for human beings"
+ },
+ {
+  "name": "python3-rpm",
+  "version": "4.16.1.3",
+  "release": "40.el9",
+  "arch": "x86_64",
+  "size": "197630",
+  "license": "GPLv2+",
+  "url": "http://www.rpm.org/",
+  "summary": "Python 3 bindings for apps which will manipulate RPM packages"
+ },
+ {
+  "name": "python3-setuptools",
+  "version": "53.0.0",
+  "release": "15.el9",
+  "arch": "noarch",
+  "size": "4329444",
+  "license": "MIT and (BSD or ASL 2.0)",
+  "url": "https://pypi.python.org/pypi/setuptools",
+  "summary": "Easily build and distribute Python 3 packages"
+ },
+ {
+  "name": "python3-setuptools-wheel",
+  "version": "53.0.0",
+  "release": "12.el9",
+  "arch": "noarch",
+  "size": "562584",
+  "license": "MIT and (BSD or ASL 2.0)",
+  "url": "https://pypi.python.org/pypi/setuptools",
+  "summary": "The setuptools wheel"
+ },
+ {
+  "name": "python3-six",
+  "version": "1.15.0",
+  "release": "9.el9",
+  "arch": "noarch",
+  "size": "106854",
+  "license": "MIT",
+  "url": "https://pypi.python.org/pypi/six",
+  "summary": "Python 2 and 3 compatibility utilities"
+ },
+ {
+  "name": "python3-systemd",
+  "version": "234",
+  "release": "19.el9",
+  "arch": "x86_64",
+  "size": "284628",
+  "license": "LGPLv2+",
+  "url": "https://github.com/systemd/python-systemd",
+  "summary": "Python module wrapping systemd functionality"
+ },
+ {
+  "name": "python3-urllib3",
+  "version": "1.26.5",
+  "release": "8.el9_8",
+  "arch": "noarch",
+  "size": "764635",
+  "license": "MIT",
+  "url": "https://github.com/urllib3/urllib3",
+  "summary": "Python3 HTTP library with thread-safe connection pooling and file post"
+ },
+ {
+  "name": "quota",
+  "version": "4.09",
+  "release": "4.el9",
+  "arch": "x86_64",
+  "size": "730461",
+  "license": "GPLv2 and GPLv2+",
+  "url": "http://sourceforge.net/projects/linuxquota/",
+  "summary": "System administration tools for monitoring users' disk usage"
+ },
+ {
+  "name": "quota-nls",
+  "version": "4.09",
+  "release": "4.el9",
+  "arch": "noarch",
+  "size": "280116",
+  "license": "LGPLv2+ and GPLv2 and GPLv2+",
+  "url": "http://sourceforge.net/projects/linuxquota/",
+  "summary": "Gettext catalogs for disk quota tools"
+ },
+ {
+  "name": "readline",
+  "version": "8.1",
+  "release": "4.el9",
+  "arch": "x86_64",
+  "size": "492900",
+  "license": "GPLv3+",
+  "url": "https://tiswww.case.edu/php/chet/readline/rltop.html",
+  "summary": "A library for editing typed command lines"
+ },
+ {
+  "name": "rocky-gpg-keys",
+  "version": "9.3",
+  "release": "1.1.el9",
+  "arch": "noarch",
+  "size": "4909",
+  "license": "BSD-3-Clause",
+  "url": "https://rockylinux.org",
+  "summary": "Rocky RPM GPG Keys"
+ },
+ {
+  "name": "rocky-release",
+  "version": "9.3",
+  "release": "1.1.el9",
+  "arch": "noarch",
+  "size": "21579",
+  "license": "BSD-3-Clause",
+  "url": "https://rockylinux.org",
+  "summary": "Rocky Linux release files"
+ },
+ {
+  "name": "rocky-repos",
+  "version": "9.3",
+  "release": "1.1.el9",
+  "arch": "noarch",
+  "size": "15763",
+  "license": "BSD-3-Clause",
+  "url": "https://rockylinux.org",
+  "summary": "Rocky Linux Package Repositories"
+ },
+ {
+  "name": "rootfiles",
+  "version": "8.1",
+  "release": "31.el9",
+  "arch": "noarch",
+  "size": "817",
+  "license": "Public Domain",
+  "url": "(none)",
+  "summary": "The basic required files for the root user's directory"
+ },
+ {
+  "name": "rpcbind",
+  "version": "1.2.6",
+  "release": "7.el9",
+  "arch": "x86_64",
+  "size": "113816",
+  "license": "BSD",
+  "url": "https://sourceforge.net/projects/rpcbind/",
+  "summary": "Universal Addresses to RPC Program Number Mapper"
+ },
+ {
+  "name": "rpm",
+  "version": "4.16.1.3",
+  "release": "40.el9",
+  "arch": "x86_64",
+  "size": "2750478",
+  "license": "GPLv2+",
+  "url": "http://www.rpm.org/",
+  "summary": "The RPM package management system"
+ },
+ {
+  "name": "rpm-build-libs",
+  "version": "4.16.1.3",
+  "release": "40.el9",
+  "arch": "x86_64",
+  "size": "198446",
+  "license": "GPLv2+ and LGPLv2+ with exceptions",
+  "url": "http://www.rpm.org/",
+  "summary": "Libraries for building RPM packages"
+ },
+ {
+  "name": "rpm-libs",
+  "version": "4.16.1.3",
+  "release": "40.el9",
+  "arch": "x86_64",
+  "size": "773076",
+  "license": "GPLv2+ and LGPLv2+ with exceptions",
+  "url": "http://www.rpm.org/",
+  "summary": "Libraries for manipulating RPM packages"
+ },
+ {
+  "name": "rpm-plugin-selinux",
+  "version": "4.16.1.3",
+  "release": "40.el9",
+  "arch": "x86_64",
+  "size": "15876",
+  "license": "GPLv2+",
+  "url": "http://www.rpm.org/",
+  "summary": "Rpm plugin for SELinux functionality"
+ },
+ {
+  "name": "rpm-sign-libs",
+  "version": "4.16.1.3",
+  "release": "40.el9",
+  "arch": "x86_64",
+  "size": "27636",
+  "license": "GPLv2+ and LGPLv2+ with exceptions",
+  "url": "http://www.rpm.org/",
+  "summary": "Libraries for signing RPM packages"
+ },
+ {
+  "name": "rsync",
+  "version": "3.2.7",
+  "release": "1.el9_8",
+  "arch": "x86_64",
+  "size": "900122",
+  "license": "GPLv3+",
+  "url": "https://rsync.samba.org/",
+  "summary": "A program for synchronizing files over a network"
+ },
+ {
+  "name": "rsyslog",
+  "version": "8.2510.0",
+  "release": "2.el9_8.1",
+  "arch": "x86_64",
+  "size": "2875291",
+  "license": "GPL-3.0-or-later AND Apache-2.0",
+  "url": "http://www.rsyslog.com/",
+  "summary": "Enhanced system logging and kernel message trapping daemon"
+ },
+ {
+  "name": "rsyslog-logrotate",
+  "version": "8.2510.0",
+  "release": "2.el9_8.1",
+  "arch": "x86_64",
+  "size": "226",
+  "license": "GPL-3.0-or-later AND Apache-2.0",
+  "url": "http://www.rsyslog.com/",
+  "summary": "Log rotation for rsyslog"
+ },
+ {
+  "name": "sed",
+  "version": "4.8",
+  "release": "10.el9_8",
+  "arch": "x86_64",
+  "size": "812415",
+  "license": "GPLv3+",
+  "url": "http://sed.sourceforge.net/",
+  "summary": "A GNU stream text editor"
+ },
+ {
+  "name": "selinux-policy",
+  "version": "38.1.75",
+  "release": "2.el9_8",
+  "arch": "noarch",
+  "size": "25931",
+  "license": "GPLv2+",
+  "url": "https://github.com/fedora-selinux/selinux-policy",
+  "summary": "SELinux policy configuration"
+ },
+ {
+  "name": "selinux-policy-targeted",
+  "version": "38.1.75",
+  "release": "2.el9_8",
+  "arch": "noarch",
+  "size": "19102914",
+  "license": "GPLv2+",
+  "url": "https://github.com/fedora-selinux/selinux-policy",
+  "summary": "SELinux targeted policy"
+ },
+ {
+  "name": "setup",
+  "version": "2.13.7",
+  "release": "10.el9",
+  "arch": "noarch",
+  "size": "725932",
+  "license": "Public Domain",
+  "url": "https://pagure.io/setup/",
+  "summary": "A set of system configuration and setup files"
+ },
+ {
+  "name": "shadow-utils",
+  "version": "4.9",
+  "release": "16.el9",
+  "arch": "x86_64",
+  "size": "3812493",
+  "license": "BSD and GPLv2+",
+  "url": "https://github.com/shadow-maint/shadow",
+  "summary": "Utilities for managing accounts and shadow password files"
+ },
+ {
+  "name": "slang",
+  "version": "2.3.2",
+  "release": "11.el9",
+  "arch": "x86_64",
+  "size": "1326178",
+  "license": "GPLv2+",
+  "url": "https://www.jedsoft.org/slang/",
+  "summary": "Shared library for the S-Lang extension language"
+ },
+ {
+  "name": "sos",
+  "version": "4.11.2",
+  "release": "4.el9_8",
+  "arch": "noarch",
+  "size": "3753842",
+  "license": "GPL-2.0-or-later",
+  "url": "https://github.com/sosreport/sos",
+  "summary": "A set of tools to gather troubleshooting information from a system"
+ },
+ {
+  "name": "sqlite-libs",
+  "version": "3.34.1",
+  "release": "6.el9_1",
+  "arch": "x86_64",
+  "size": "1310968",
+  "license": "Public Domain",
+  "url": "http://www.sqlite.org/",
+  "summary": "Shared library for the sqlite3 embeddable SQL database engine."
+ },
+ {
+  "name": "strace",
+  "version": "6.12",
+  "release": "1.el9",
+  "arch": "x86_64",
+  "size": "3239155",
+  "license": "LGPL-2.1-or-later AND GPL-2.0-or-later AND GPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND (GPL-1.0-or-later WITH Linux-syscall-note) AND (GPL-2.0-or-later WITH Linux-syscall-note) AND (GPL-2.0-only WITH Linux-syscall-note) AND (LGPL-2.0-or-later WITH Linux-syscall-note) AND (LGPL-2.1-or-later WITH Linux-syscall-note) AND ((GPL-2.0-only WITH Linux-syscall-note) OR Linux-OpenIB) AND ((GPL-2.0-only WITH Linux-syscall-note) OR MIT) AND ((GPL-2.0-or-later WITH Linux-syscall-note) OR BSD-3-Clause) AND ISC AND X11 AND FSFAP AND FSFUL AND FSFULLR AND FSFULLRWD",
+  "url": "https://strace.io",
+  "summary": "Tracks and displays system calls associated with a running process"
+ },
+ {
+  "name": "sudo",
+  "version": "1.9.17p2",
+  "release": "3.el9_8",
+  "arch": "x86_64",
+  "size": "5464602",
+  "license": "ISC",
+  "url": "https://www.sudo.ws",
+  "summary": "Allows restricted root access for specified users"
+ },
+ {
+  "name": "sysstat",
+  "version": "12.5.4",
+  "release": "11.el9",
+  "arch": "x86_64",
+  "size": "1635986",
+  "license": "GPLv2+",
+  "url": "http://sebastien.godard.pagesperso-orange.fr/",
+  "summary": "Collection of performance monitoring tools for Linux"
+ },
+ {
+  "name": "systemd",
+  "version": "252",
+  "release": "67.el9_8.6.rocky.0.1",
+  "arch": "x86_64",
+  "size": "12875266",
+  "license": "LGPLv2+ and MIT and GPLv2+",
+  "url": "https://systemd.io",
+  "summary": "System and Service Manager"
+ },
+ {
+  "name": "systemd-libs",
+  "version": "252",
+  "release": "67.el9_8.6.rocky.0.1",
+  "arch": "x86_64",
+  "size": "1814792",
+  "license": "LGPLv2+ and MIT",
+  "url": "https://systemd.io",
+  "summary": "systemd libraries"
+ },
+ {
+  "name": "systemd-pam",
+  "version": "252",
+  "release": "67.el9_8.6.rocky.0.1",
+  "arch": "x86_64",
+  "size": "522734",
+  "license": "LGPLv2+ and MIT and GPLv2+",
+  "url": "https://systemd.io",
+  "summary": "systemd PAM module"
+ },
+ {
+  "name": "systemd-rpm-macros",
+  "version": "252",
+  "release": "67.el9_8.6.rocky.0.1",
+  "arch": "noarch",
+  "size": "10405",
+  "license": "LGPLv2+ and MIT and GPLv2+",
+  "url": "https://systemd.io",
+  "summary": "Macros that define paths and scriptlets related to systemd"
+ },
+ {
+  "name": "systemd-udev",
+  "version": "252",
+  "release": "67.el9_8.6.rocky.0.1",
+  "arch": "x86_64",
+  "size": "11579562",
+  "license": "LGPLv2+",
+  "url": "https://systemd.io",
+  "summary": "Rule-based device node and kernel event manager"
+ },
+ {
+  "name": "tar",
+  "version": "1.34",
+  "release": "13.el9_8",
+  "arch": "x86_64",
+  "size": "3164766",
+  "license": "GPLv3+",
+  "url": "https://www.gnu.org/software/tar/",
+  "summary": "GNU file archiving program"
+ },
+ {
+  "name": "tcpdump",
+  "version": "4.99.0",
+  "release": "9.el9",
+  "arch": "x86_64",
+  "size": "1489619",
+  "license": "BSD with advertising",
+  "url": "http://www.tcpdump.org",
+  "summary": "A network traffic monitoring tool"
+ },
+ {
+  "name": "telnet",
+  "version": "0.17",
+  "release": "85.el9",
+  "arch": "x86_64",
+  "size": "123930",
+  "license": "BSD",
+  "url": "http://web.archive.org/web/20070819111735/www.hcs.harvard.edu/~dholland/computers/old-netkit.html",
+  "summary": "The client program for the Telnet remote login protocol"
+ },
+ {
+  "name": "time",
+  "version": "1.9",
+  "release": "18.el9",
+  "arch": "x86_64",
+  "size": "88843",
+  "license": "GPLv3+ and GFDL",
+  "url": "https://www.gnu.org/software/time/",
+  "summary": "A GNU utility for monitoring a program's use of system resources"
+ },
+ {
+  "name": "tpm2-tss",
+  "version": "3.2.2",
+  "release": "2.el9",
+  "arch": "x86_64",
+  "size": "2225208",
+  "license": "BSD",
+  "url": "https://github.com/tpm2-software/tpm2-tss",
+  "summary": "TPM2.0 Software Stack"
+ },
+ {
+  "name": "traceroute",
+  "version": "2.1.1",
+  "release": "1.el9",
+  "arch": "x86_64",
+  "size": "109648",
+  "license": "GPLv2+",
+  "url": "http://traceroute.sourceforge.net",
+  "summary": "Traces the route taken by packets over an IPv4/IPv6 network"
+ },
+ {
+  "name": "tree",
+  "version": "1.8.0",
+  "release": "10.el9",
+  "arch": "x86_64",
+  "size": "115876",
+  "license": "GPLv2+ and LGPLv2+",
+  "url": "http://mama.indstate.edu/users/ice/tree/",
+  "summary": "File system tree viewer"
+ },
+ {
+  "name": "tuned",
+  "version": "2.27.0",
+  "release": "2.el9_8",
+  "arch": "noarch",
+  "size": "1309932",
+  "license": "GPLv2+",
+  "url": "http://www.tuned-project.org/",
+  "summary": "A dynamic adaptive system tuning daemon"
+ },
+ {
+  "name": "tzdata",
+  "version": "2023c",
+  "release": "1.el9",
+  "arch": "noarch",
+  "size": "1712614",
+  "license": "Public Domain",
+  "url": "https://www.iana.org/time-zones",
+  "summary": "Timezone data"
+ },
+ {
+  "name": "unzip",
+  "version": "6.0",
+  "release": "60.el9_8",
+  "arch": "x86_64",
+  "size": "398523",
+  "license": "BSD",
+  "url": "http://www.info-zip.org/UnZip.html",
+  "summary": "A utility for unpacking zip files"
+ },
+ {
+  "name": "usbutils",
+  "version": "018",
+  "release": "1.el9",
+  "arch": "x86_64",
+  "size": "376180",
+  "license": "GPLv2+",
+  "url": "http://www.linux-usb.org/",
+  "summary": "Linux USB utilities"
+ },
+ {
+  "name": "usermode",
+  "version": "1.114",
+  "release": "4.el9",
+  "arch": "x86_64",
+  "size": "855857",
+  "license": "GPLv2+",
+  "url": "https://pagure.io/usermode/",
+  "summary": "Tools for certain user account management tasks"
+ },
+ {
+  "name": "userspace-rcu",
+  "version": "0.12.1",
+  "release": "6.el9",
+  "arch": "x86_64",
+  "size": "418138",
+  "license": "LGPLv2+",
+  "url": "http://liburcu.org",
+  "summary": "RCU (read-copy-update) implementation in user-space"
+ },
+ {
+  "name": "util-linux",
+  "version": "2.37.4",
+  "release": "25.el9",
+  "arch": "x86_64",
+  "size": "11147007",
+  "license": "GPLv2 and GPLv2+ and LGPLv2+ and BSD with advertising and Public Domain",
+  "url": "http://en.wikipedia.org/wiki/Util-linux",
+  "summary": "A collection of basic system utilities"
+ },
+ {
+  "name": "util-linux-core",
+  "version": "2.37.4",
+  "release": "25.el9",
+  "arch": "x86_64",
+  "size": "1262839",
+  "license": "GPLv2 and GPLv2+ and LGPLv2+ and BSD with advertising and Public Domain",
+  "url": "http://en.wikipedia.org/wiki/Util-linux",
+  "summary": "The most essential utilities from the util-linux suite."
+ },
+ {
+  "name": "vim-common",
+  "version": "8.2.2637",
+  "release": "26.el9_8.21",
+  "arch": "x86_64",
+  "size": "31866237",
+  "license": "Vim and MIT",
+  "url": "http://www.vim.org/",
+  "summary": "The common files needed by any version of the VIM editor"
+ },
+ {
+  "name": "vim-enhanced",
+  "version": "8.2.2637",
+  "release": "26.el9_8.21",
+  "arch": "x86_64",
+  "size": "4030571",
+  "license": "Vim and MIT",
+  "url": "http://www.vim.org/",
+  "summary": "A version of the VIM editor which includes recent enhancements"
+ },
+ {
+  "name": "vim-filesystem",
+  "version": "8.2.2637",
+  "release": "26.el9_8.21",
+  "arch": "noarch",
+  "size": "40",
+  "license": "Vim and MIT",
+  "url": "http://www.vim.org/",
+  "summary": "VIM filesystem layout"
+ },
+ {
+  "name": "vim-minimal",
+  "version": "8.2.2637",
+  "release": "26.el9_8.21",
+  "arch": "x86_64",
+  "size": "1459274",
+  "license": "Vim and MIT",
+  "url": "http://www.vim.org/",
+  "summary": "A minimal version of the VIM editor"
+ },
+ {
+  "name": "virt-what",
+  "version": "1.27",
+  "release": "2.el9",
+  "arch": "x86_64",
+  "size": "79323",
+  "license": "GPL-2.0-or-later",
+  "url": "http://people.redhat.com/~rjones/virt-what/",
+  "summary": "Detect if we are running in a virtual machine"
+ },
+ {
+  "name": "wget",
+  "version": "1.21.1",
+  "release": "11.el9_8",
+  "arch": "x86_64",
+  "size": "3215346",
+  "license": "GPLv3+",
+  "url": "http://www.gnu.org/software/wget/",
+  "summary": "A utility for retrieving files using the HTTP or FTP protocols"
+ },
+ {
+  "name": "which",
+  "version": "2.21",
+  "release": "30.el9_6",
+  "arch": "x86_64",
+  "size": "81900",
+  "license": "GPLv3",
+  "url": "https://savannah.gnu.org/projects/which/",
+  "summary": "Displays where a particular program in your path is located"
+ },
+ {
+  "name": "xfsprogs",
+  "version": "6.4.0",
+  "release": "7.el9",
+  "arch": "x86_64",
+  "size": "3587929",
+  "license": "GPL+ and LGPLv2+",
+  "url": "https://xfs.wiki.kernel.org",
+  "summary": "Utilities for managing the XFS filesystem"
+ },
+ {
+  "name": "xz",
+  "version": "5.2.5",
+  "release": "8.el9_0",
+  "arch": "x86_64",
+  "size": "685931",
+  "license": "GPLv2+ and Public Domain",
+  "url": "https://tukaani.org/xz/",
+  "summary": "LZMA compression utilities"
+ },
+ {
+  "name": "xz-libs",
+  "version": "5.2.5",
+  "release": "8.el9_0",
+  "arch": "x86_64",
+  "size": "181573",
+  "license": "Public Domain",
+  "url": "https://tukaani.org/xz/",
+  "summary": "Libraries for decoding LZMA compression"
+ },
+ {
+  "name": "yum",
+  "version": "4.14.0",
+  "release": "8.el9",
+  "arch": "noarch",
+  "size": "78878",
+  "license": "GPLv2+",
+  "url": "https://github.com/rpm-software-management/dnf",
+  "summary": "Package manager"
+ },
+ {
+  "name": "zip",
+  "version": "3.0",
+  "release": "35.el9",
+  "arch": "x86_64",
+  "size": "741151",
+  "license": "BSD",
+  "url": "http://www.info-zip.org/Zip.html",
+  "summary": "A file compression and packaging utility compatible with PKZIP"
+ },
+ {
+  "name": "zlib",
+  "version": "1.2.11",
+  "release": "40.el9",
+  "arch": "x86_64",
+  "size": "202921",
+  "license": "zlib and Boost",
+  "url": "https://www.zlib.net/",
+  "summary": "Compression and decompression library"
+ },
+ {
+  "name": "zsh",
+  "version": "5.8",
+  "release": "9.el9",
+  "arch": "x86_64",
+  "size": "8018363",
+  "license": "MIT",
+  "url": "http://zsh.sourceforge.net/",
+  "summary": "Powerful interactive shell"
+ }
+]

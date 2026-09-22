@@ -1,0 +1,32 @@
+Loaded plugins: builddep, changelog, config-manager, copr, debug, debuginfo-install, download, generate_completion_cache, groups-manager, needs-restarting, playground, repoclosure, repodiff, repograph, repomanage, reposync, system-upgrade
+DNF version: 4.14.0
+cachedir: /var/cache/dnf
+User-Agent: constructed: 'libdnf (Rocky Linux 9.3; generic; Linux.x86_64)'
+repo: using cache for: baseos
+baseos: using metadata from Mon Sep 21 05:44:12 2026.
+repo: using cache for: appstream
+appstream: using metadata from Tue Sep 22 12:10:35 2026.
+repo: using cache for: extras
+extras: using metadata from Tue Sep  1 05:55:47 2026.
+Last metadata expiration check: 0:02:04 ago on Tue Sep 22 15:47:03 2026.
+Available Environment Groups:
+   Server with GUI (graphical-server-environment)
+   Server (server-product-environment)
+   Minimal Install (minimal-environment)
+   Workstation (workstation-product-environment)
+   Custom Operating System (custom-environment)
+   Virtualization Host (virtualization-host-environment)
+Available Groups:
+   Legacy UNIX Compatibility (legacy-unix)
+   Console Internet Tools (console-internet)
+   Container Management (container-management)
+   Development Tools (development)
+   .NET Development (dotnet)
+   Graphical Administration Tools (graphical-admin-tools)
+   Headless Management (headless-management)
+   Network Servers (network-server)
+   RPM Development Tools (rpm-development-tools)
+   Scientific Support (scientific)
+   Security Tools (security-tools)
+   Smart Card Support (smart-card)
+   System Tools (system-tools)

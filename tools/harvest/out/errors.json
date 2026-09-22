@@ -1,0 +1,1478 @@
+{
+ "basename": {
+  "bad-option": {
+   "stderr": "basename: unrecognized option '--zzz-not-an-option'\nTry 'basename --help' for more information.\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "basename: missing operand\nTry 'basename --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "blkid": {
+  "bad-option": {
+   "stderr": "blkid: unrecognized option '--zzz-not-an-option'\nTry 'blkid --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "",
+   "status": 2
+  },
+  "no-args": {
+   "stderr": "",
+   "status": 2
+  }
+ },
+ "cat": {
+  "bad-option": {
+   "stderr": "cat: unrecognized option '--zzz-not-an-option'\nTry 'cat --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "cat: /nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "chage": {
+  "bad-option": {
+   "stderr": "chage: unrecognized option '--zzz-not-an-option'\nUsage: chage [options] LOGIN\n\nOptions:\n  -d, --lastday LAST_DAY        set date of last password change to LAST_DAY\n  -E, --expiredate EXPIRE_DATE  set account expiration date to EXPIRE_DATE\n  -h, --help                    display this help message and exit\n  -i, --iso8601                 use YYYY-MM-DD when printing dates\n  -I, --inactive INACTIVE       set password inactive after expiration\n                                to INACTIVE\n  -l, --list                    show account aging information\n  -m, --mindays MIN_DAYS        set minimum number of days before password\n                                change to MIN_DAYS\n  -M, --maxdays MAX_DAYS        set maximum number of days before password\n                                change to MAX_DAYS\n  -R, --root CHROOT_DIR         directory to chroot into\n  -W, --warndays WARN_DAYS      set expiration warning days to WARN_DAYS\n\n",
+   "status": 2
+  },
+  "missing-file": {
+   "stderr": "chage: user '/nonexistent/zzz-no-such-path' does not exist in /etc/passwd\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "Usage: chage [options] LOGIN\n\nOptions:\n  -d, --lastday LAST_DAY        set date of last password change to LAST_DAY\n  -E, --expiredate EXPIRE_DATE  set account expiration date to EXPIRE_DATE\n  -h, --help                    display this help message and exit\n  -i, --iso8601                 use YYYY-MM-DD when printing dates\n  -I, --inactive INACTIVE       set password inactive after expiration\n                                to INACTIVE\n  -l, --list                    show account aging information\n  -m, --mindays MIN_DAYS        set minimum number of days before password\n                                change to MIN_DAYS\n  -M, --maxdays MAX_DAYS        set maximum number of days before password\n                                change to MAX_DAYS\n  -R, --root CHROOT_DIR         directory to chroot into\n  -W, --warndays WARN_DAYS      set expiration warning days to WARN_DAYS\n\n",
+   "status": 2
+  }
+ },
+ "chgrp": {
+  "bad-option": {
+   "stderr": "chgrp: unrecognized option '--zzz-not-an-option'\nTry 'chgrp --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "chgrp: missing operand after ‘/nonexistent/zzz-no-such-path’\nTry 'chgrp --help' for more information.\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "chgrp: missing operand\nTry 'chgrp --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "chmod": {
+  "bad-option": {
+   "stderr": "chmod: unrecognized option '--zzz-not-an-option'\nTry 'chmod --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "chmod: missing operand after ‘/nonexistent/zzz-no-such-path’\nTry 'chmod --help' for more information.\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "chmod: missing operand\nTry 'chmod --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "chown": {
+  "bad-option": {
+   "stderr": "chown: unrecognized option '--zzz-not-an-option'\nTry 'chown --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "chown: missing operand after ‘/nonexistent/zzz-no-such-path’\nTry 'chown --help' for more information.\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "chown: missing operand\nTry 'chown --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "chronyc": {
+  "bad-option": {
+   "stderr": "chronyc: invalid option -- '-'\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "Unrecognized command\n",
+   "status": 1
+  }
+ },
+ "cmp": {
+  "bad-option": {
+   "stderr": "cmp: unrecognized option '--zzz-not-an-option'\ncmp: Try 'cmp --help' for more information.\n",
+   "status": 2
+  },
+  "missing-file": {
+   "stderr": "cmp: /nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 2
+  },
+  "no-args": {
+   "stderr": "cmp: missing operand after 'cmp'\ncmp: Try 'cmp --help' for more information.\n",
+   "status": 2
+  }
+ },
+ "column": {
+  "bad-option": {
+   "stderr": "column: unrecognized option '--zzz-not-an-option'\nTry 'column --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "column: /nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "comm": {
+  "bad-option": {
+   "stderr": "comm: unrecognized option '--zzz-not-an-option'\nTry 'comm --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "comm: missing operand after ‘/nonexistent/zzz-no-such-path’\nTry 'comm --help' for more information.\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "comm: missing operand\nTry 'comm --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "cp": {
+  "bad-option": {
+   "stderr": "cp: unrecognized option '--zzz-not-an-option'\nTry 'cp --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "cp: missing destination file operand after '/nonexistent/zzz-no-such-path'\nTry 'cp --help' for more information.\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "cp: missing file operand\nTry 'cp --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "cut": {
+  "bad-option": {
+   "stderr": "cut: unrecognized option '--zzz-not-an-option'\nTry 'cut --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "cut: you must specify a list of bytes, characters, or fields\nTry 'cut --help' for more information.\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "cut: you must specify a list of bytes, characters, or fields\nTry 'cut --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "date": {
+  "bad-option": {
+   "stderr": "date: unrecognized option '--zzz-not-an-option'\nTry 'date --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "date: invalid date ‘/nonexistent/zzz-no-such-path’\n",
+   "status": 1
+  }
+ },
+ "df": {
+  "bad-option": {
+   "stderr": "df: unrecognized option '--zzz-not-an-option'\nTry 'df --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "df: /nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "diff": {
+  "bad-option": {
+   "stderr": "diff: unrecognized option '--zzz-not-an-option'\ndiff: Try 'diff --help' for more information.\n",
+   "status": 2
+  },
+  "missing-file": {
+   "stderr": "diff: missing operand after '/nonexistent/zzz-no-such-path'\ndiff: Try 'diff --help' for more information.\n",
+   "status": 2
+  },
+  "no-args": {
+   "stderr": "diff: missing operand after 'diff'\ndiff: Try 'diff --help' for more information.\n",
+   "status": 2
+  }
+ },
+ "dig": {
+  "bad-option": {
+   "stderr": "Invalid option: --zzz-not-an-option\nUsage:  dig [@global-server] [domain] [q-type] [q-class] {q-opt}\n            {global-d-opt} host [@local-server] {local-d-opt}\n            [ host [@local-server] {local-d-opt} [...]]\n\nUse \"dig -h\" (or \"dig -h | more\") for complete list of options\n",
+   "status": 1
+  }
+ },
+ "dirname": {
+  "bad-option": {
+   "stderr": "dirname: unrecognized option '--zzz-not-an-option'\nTry 'dirname --help' for more information.\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "dirname: missing operand\nTry 'dirname --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "du": {
+  "bad-option": {
+   "stderr": "du: unrecognized option '--zzz-not-an-option'\nTry 'du --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "du: cannot access '/nonexistent/zzz-no-such-path': No such file or directory\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "du: cannot access './proc/38121/task/38121/fd/3': No such file or directory\ndu: cannot access './proc/38121/task/38121/fdinfo/3': No such file or directory\ndu: cannot access './proc/38121/fd/4': No such file or directory\ndu: cannot access './proc/38121/fdinfo/4': No such file or directory\n",
+   "status": 1
+  }
+ },
+ "env": {
+  "bad-option": {
+   "stderr": "env: unrecognized option '--zzz-not-an-option'\nTry 'env --help' for more information.\n",
+   "status": 125
+  },
+  "missing-file": {
+   "stderr": "env: ‘/nonexistent/zzz-no-such-path’: No such file or directory\n",
+   "status": 127
+  }
+ },
+ "expand": {
+  "bad-option": {
+   "stderr": "expand: unrecognized option '--zzz-not-an-option'\nTry 'expand --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "expand: /nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "expr": {
+  "no-args": {
+   "stderr": "expr: missing operand\nTry 'expr --help' for more information.\n",
+   "status": 2
+  }
+ },
+ "factor": {
+  "bad-option": {
+   "stderr": "factor: unrecognized option '--zzz-not-an-option'\nTry 'factor --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "factor: ‘/nonexistent/zzz-no-such-path’ is not a valid positive integer\n",
+   "status": 1
+  }
+ },
+ "file": {
+  "bad-option": {
+   "stderr": "file: unrecognized option '--zzz-not-an-option'\nUsage: file [-bcCdEhikLlNnprsSvzZ0] [--apple] [--extension] [--mime-encoding]\n            [--mime-type] [-e <testname>] [-F <separator>]  [-f <namefile>]\n            [-m <magicfiles>] [-P <parameter=value>] [--exclude-quiet]\n            <file> ...\n       file -C [-m <magicfiles>]\n       file [--help]\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "Usage: file [-bcCdEhikLlNnprsSvzZ0] [--apple] [--extension] [--mime-encoding]\n            [--mime-type] [-e <testname>] [-F <separator>]  [-f <namefile>]\n            [-m <magicfiles>] [-P <parameter=value>] [--exclude-quiet]\n            <file> ...\n       file -C [-m <magicfiles>]\n       file [--help]\n",
+   "status": 1
+  }
+ },
+ "find": {
+  "bad-option": {
+   "stderr": "find: unknown predicate `--zzz-not-an-option'\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "find: ‘/nonexistent/zzz-no-such-path’: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "findmnt": {
+  "bad-option": {
+   "stderr": "findmnt: unrecognized option '--zzz-not-an-option'\nTry 'findmnt --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "",
+   "status": 1
+  }
+ },
+ "fmt": {
+  "bad-option": {
+   "stderr": "fmt: unrecognized option '--zzz-not-an-option'\nTry 'fmt --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "fmt: cannot open '/nonexistent/zzz-no-such-path' for reading: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "fold": {
+  "bad-option": {
+   "stderr": "fold: unrecognized option '--zzz-not-an-option'\nTry 'fold --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "fold: /nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "free": {
+  "bad-option": {
+   "stderr": "free: unrecognized option '--zzz-not-an-option'\n\nUsage:\n free [options]\n\nOptions:\n -b, --bytes         show output in bytes\n     --kilo          show output in kilobytes\n     --mega          show output in megabytes\n     --giga          show output in gigabytes\n     --tera          show output in terabytes\n     --peta          show output in petabytes\n -k, --kibi          show output in kibibytes\n -m, --mebi          show output in mebibytes\n -g, --gibi          show output in gibibytes\n     --tebi          show output in tebibytes\n     --pebi          show output in pebibytes\n -h, --human         show human-readable output\n     --si            use powers of 1000 not 1024\n -l, --lohi          show detailed low and high memory statistics\n -t, --total         show total for RAM + swap\n -s N, --seconds N   repeat printing every N seconds\n -c N, --count N     repeat printing N times, then exit\n -w, --wide          wide output\n\n     --help     display this help and exit\n -V, --version  output version information and exit\n\nFor more details see free(1).\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "\nUsage:\n free [options]\n\nOptions:\n -b, --bytes         show output in bytes\n     --kilo          show output in kilobytes\n     --mega          show output in megabytes\n     --giga          show output in gigabytes\n     --tera          show output in terabytes\n     --peta          show output in petabytes\n -k, --kibi          show output in kibibytes\n -m, --mebi          show output in mebibytes\n -g, --gibi          show output in gibibytes\n     --tebi          show output in tebibytes\n     --pebi          show output in pebibytes\n -h, --human         show human-readable output\n     --si            use powers of 1000 not 1024\n -l, --lohi          show detailed low and high memory statistics\n -t, --total         show total for RAM + swap\n -s N, --seconds N   repeat printing every N seconds\n -c N, --count N     repeat printing N times, then exit\n -w, --wide          wide output\n\n     --help     display this help and exit\n -V, --version  output version information and exit\n\nFor more details see free(1).\n",
+   "status": 1
+  }
+ },
+ "getent": {
+  "bad-option": {
+   "stderr": "getent: unrecognized option '--zzz-not-an-option'\nTry `getent --help' or `getent --usage' for more information.\n",
+   "status": 64
+  },
+  "missing-file": {
+   "stderr": "Unknown database: /nonexistent/zzz-no-such-path\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "getent: wrong number of arguments\n",
+   "status": 1
+  }
+ },
+ "gpasswd": {
+  "bad-option": {
+   "stderr": "gpasswd: unrecognized option '--zzz-not-an-option'\nUsage: gpasswd [option] GROUP\n\nOptions:\n  -a, --add USER                add USER to GROUP\n  -d, --delete USER             remove USER from GROUP\n  -h, --help                    display this help message and exit\n  -Q, --root CHROOT_DIR         directory to chroot into\n  -r, --delete-password         remove the GROUP's password\n  -R, --restrict                restrict access to GROUP to its members\n  -M, --members USER,...        set the list of members of GROUP\n  -A, --administrators ADMIN,...\n                                set the list of administrators for GROUP\nExcept for the -A and -M options, the options cannot be combined.\n",
+   "status": 2
+  },
+  "missing-file": {
+   "stderr": "gpasswd: group '/nonexistent/zzz-no-such-path' does not exist in /etc/group\n",
+   "status": 3
+  },
+  "no-args": {
+   "stderr": "Usage: gpasswd [option] GROUP\n\nOptions:\n  -a, --add USER                add USER to GROUP\n  -d, --delete USER             remove USER from GROUP\n  -h, --help                    display this help message and exit\n  -Q, --root CHROOT_DIR         directory to chroot into\n  -r, --delete-password         remove the GROUP's password\n  -R, --restrict                restrict access to GROUP to its members\n  -M, --members USER,...        set the list of members of GROUP\n  -A, --administrators ADMIN,...\n                                set the list of administrators for GROUP\nExcept for the -A and -M options, the options cannot be combined.\n",
+   "status": 2
+  }
+ },
+ "grep": {
+  "bad-option": {
+   "stderr": "grep: unrecognized option '--zzz-not-an-option'\nUsage: grep [OPTION]... PATTERNS [FILE]...\nTry 'grep --help' for more information.\n",
+   "status": 2
+  },
+  "missing-file": {
+   "stderr": "",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "Usage: grep [OPTION]... PATTERNS [FILE]...\nTry 'grep --help' for more information.\n",
+   "status": 2
+  }
+ },
+ "groupadd": {
+  "bad-option": {
+   "stderr": "groupadd: unrecognized option '--zzz-not-an-option'\nUsage: groupadd [options] GROUP\n\nOptions:\n  -f, --force                   exit successfully if the group already exists,\n                                and cancel -g if the GID is already used\n  -g, --gid GID                 use GID for the new group\n  -h, --help                    display this help message and exit\n  -K, --key KEY=VALUE           override /etc/login.defs defaults\n  -o, --non-unique              allow to create groups with duplicate\n                                (non-unique) GID\n  -p, --password PASSWORD       use this encrypted password for the new group\n  -r, --system                  create a system account\n  -R, --root CHROOT_DIR         directory to chroot into\n  -P, --prefix PREFIX_DI        directory prefix\n  -U, --users USERS             list of user members of this group\n\n",
+   "status": 2
+  },
+  "missing-file": {
+   "stderr": "groupadd: '/nonexistent/zzz-no-such-path' is not a valid group name\n",
+   "status": 3
+  },
+  "no-args": {
+   "stderr": "Usage: groupadd [options] GROUP\n\nOptions:\n  -f, --force                   exit successfully if the group already exists,\n                                and cancel -g if the GID is already used\n  -g, --gid GID                 use GID for the new group\n  -h, --help                    display this help message and exit\n  -K, --key KEY=VALUE           override /etc/login.defs defaults\n  -o, --non-unique              allow to create groups with duplicate\n                                (non-unique) GID\n  -p, --password PASSWORD       use this encrypted password for the new group\n  -r, --system                  create a system account\n  -R, --root CHROOT_DIR         directory to chroot into\n  -P, --prefix PREFIX_DI        directory prefix\n  -U, --users USERS             list of user members of this group\n\n",
+   "status": 2
+  }
+ },
+ "groupdel": {
+  "bad-option": {
+   "stderr": "groupdel: unrecognized option '--zzz-not-an-option'\nUsage: groupdel [options] GROUP\n\nOptions:\n  -h, --help                    display this help message and exit\n  -R, --root CHROOT_DIR         directory to chroot into\n  -P, --prefix PREFIX_DIR       prefix directory where are located the /etc/* files\n  -f, --force                   delete group even if it is the primary group of a user\n\n",
+   "status": 2
+  },
+  "missing-file": {
+   "stderr": "groupdel: group '/nonexistent/zzz-no-such-path' does not exist\n",
+   "status": 6
+  },
+  "no-args": {
+   "stderr": "Usage: groupdel [options] GROUP\n\nOptions:\n  -h, --help                    display this help message and exit\n  -R, --root CHROOT_DIR         directory to chroot into\n  -P, --prefix PREFIX_DIR       prefix directory where are located the /etc/* files\n  -f, --force                   delete group even if it is the primary group of a user\n\n",
+   "status": 2
+  }
+ },
+ "groupmod": {
+  "bad-option": {
+   "stderr": "groupmod: unrecognized option '--zzz-not-an-option'\nUsage: groupmod [options] GROUP\n\nOptions:\n  -a, --append                  append the users mentioned by -U option to the group \n                                without removing existing user members\n  -g, --gid GID                 change the group ID to GID\n  -h, --help                    display this help message and exit\n  -n, --new-name NEW_GROUP      change the name to NEW_GROUP\n  -o, --non-unique              allow to use a duplicate (non-unique) GID\n  -p, --password PASSWORD       change the password to this (encrypted)\n                                PASSWORD\n  -R, --root CHROOT_DIR         directory to chroot into\n  -P, --prefix PREFIX_DIR       prefix directory where are located the /etc/* files\n  -U, --users USERS             comma-separated list of users to add as\n                                members of this group\n\n",
+   "status": 2
+  },
+  "missing-file": {
+   "stderr": "groupmod: group '/nonexistent/zzz-no-such-path' does not exist\n",
+   "status": 6
+  },
+  "no-args": {
+   "stderr": "Usage: groupmod [options] GROUP\n\nOptions:\n  -a, --append                  append the users mentioned by -U option to the group \n                                without removing existing user members\n  -g, --gid GID                 change the group ID to GID\n  -h, --help                    display this help message and exit\n  -n, --new-name NEW_GROUP      change the name to NEW_GROUP\n  -o, --non-unique              allow to use a duplicate (non-unique) GID\n  -p, --password PASSWORD       change the password to this (encrypted)\n                                PASSWORD\n  -R, --root CHROOT_DIR         directory to chroot into\n  -P, --prefix PREFIX_DIR       prefix directory where are located the /etc/* files\n  -U, --users USERS             comma-separated list of users to add as\n                                members of this group\n\n",
+   "status": 2
+  }
+ },
+ "groups": {
+  "bad-option": {
+   "stderr": "groups: unrecognized option '--zzz-not-an-option'\nTry 'groups --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "groups: ‘/nonexistent/zzz-no-such-path’: no such user\n",
+   "status": 1
+  }
+ },
+ "gunzip": {
+  "bad-option": {
+   "stderr": "gzip: unrecognized option '--zzz-not-an-option'\nTry `gzip --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "gzip: /nonexistent/zzz-no-such-path.gz: No such file or directory\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "\ngzip: stdin: unexpected end of file\n",
+   "status": 1
+  }
+ },
+ "gzip": {
+  "bad-option": {
+   "stderr": "gzip: unrecognized option '--zzz-not-an-option'\nTry `gzip --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "gzip: /nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "head": {
+  "bad-option": {
+   "stderr": "head: unrecognized option '--zzz-not-an-option'\nTry 'head --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "head: cannot open '/nonexistent/zzz-no-such-path' for reading: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "hostname": {
+  "bad-option": {
+   "stderr": "hostname: unrecognized option '--zzz-not-an-option'\n",
+   "status": 255
+  },
+  "missing-file": {
+   "stderr": "hostname: the specified hostname is invalid\n",
+   "status": 1
+  }
+ },
+ "hostnamectl": {
+  "bad-option": {
+   "stderr": "hostnamectl: unrecognized option '--zzz-not-an-option'\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "System has not been booted with systemd as init system (PID 1). Can't operate.\nFailed to connect to bus: Host is down\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "System has not been booted with systemd as init system (PID 1). Can't operate.\nFailed to connect to bus: Host is down\n",
+   "status": 1
+  }
+ },
+ "id": {
+  "bad-option": {
+   "stderr": "id: unrecognized option '--zzz-not-an-option'\nTry 'id --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "id: ‘/nonexistent/zzz-no-such-path’: no such user\n",
+   "status": 1
+  }
+ },
+ "install": {
+  "bad-option": {
+   "stderr": "install: unrecognized option '--zzz-not-an-option'\nTry 'install --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "install: missing destination file operand after '/nonexistent/zzz-no-such-path'\nTry 'install --help' for more information.\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "install: missing file operand\nTry 'install --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "ip": {
+  "bad-option": {
+   "stderr": "Option \"-zzz-not-an-option\" is unknown, try \"ip -help\".\n",
+   "status": 255
+  },
+  "missing-file": {
+   "stderr": "Object \"/nonexistent/zzz-no-such-path\" is unknown, try \"ip help\".\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "Usage: ip [ OPTIONS ] OBJECT { COMMAND | help }\n       ip [ -force ] -batch filename\nwhere  OBJECT := { address | addrlabel | fou | help | ila | ioam | l2tp | link |\n                   macsec | maddress | monitor | mptcp | mroute | mrule |\n                   neighbor | neighbour | netconf | netns | nexthop | ntable |\n                   ntbl | route | rule | sr | stats | tap | tcpmetrics |\n                   token | tunnel | tuntap | vrf | xfrm }\n       OPTIONS := { -V[ersion] | -s[tatistics] | -d[etails] | -r[esolve] |\n                    -h[uman-readable] | -iec | -j[son] | -p[retty] |\n                    -f[amily] { inet | inet6 | mpls | bridge | link } |\n                    -4 | -6 | -M | -B | -0 |\n                    -l[oops] { maximum-addr-flush-attempts } | -echo | -br[ief] |\n                    -o[neline] | -t[imestamp] | -ts[hort] | -b[atch] [filename] |\n                    -rc[vbuf] [size] | -n[etns] name | -N[umeric] | -a[ll] |\n                    -c[olor]}\n",
+   "status": 255
+  }
+ },
+ "join": {
+  "bad-option": {
+   "stderr": "join: unrecognized option '--zzz-not-an-option'\nTry 'join --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "join: missing operand after ‘/nonexistent/zzz-no-such-path’\nTry 'join --help' for more information.\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "join: missing operand\nTry 'join --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "last": {
+  "bad-option": {
+   "stderr": "last: unrecognized option '--zzz-not-an-option'\nTry 'last --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "lastlog": {
+  "bad-option": {
+   "stderr": "lastlog: unrecognized option '--zzz-not-an-option'\nUsage: lastlog [options]\n\nOptions:\n  -b, --before DAYS             print only lastlog records older than DAYS\n  -C, --clear                   clear lastlog record of an user (usable only with -u)\n  -h, --help                    display this help message and exit\n  -R, --root CHROOT_DIR         directory to chroot into\n  -S, --set                     set lastlog record to current time (usable only with -u)\n  -t, --time DAYS               print only lastlog records more recent than DAYS\n  -u, --user LOGIN              print lastlog record of the specified LOGIN\n\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "lastlog: unexpected argument: /nonexistent/zzz-no-such-path\nUsage: lastlog [options]\n\nOptions:\n  -b, --before DAYS             print only lastlog records older than DAYS\n  -C, --clear                   clear lastlog record of an user (usable only with -u)\n  -h, --help                    display this help message and exit\n  -R, --root CHROOT_DIR         directory to chroot into\n  -S, --set                     set lastlog record to current time (usable only with -u)\n  -t, --time DAYS               print only lastlog records more recent than DAYS\n  -u, --user LOGIN              print lastlog record of the specified LOGIN\n\n",
+   "status": 1
+  }
+ },
+ "less": {
+  "bad-option": {
+   "stderr": "There is no zzz-not-an-option option (\"less --help\" for help)\n",
+   "status": 0
+  }
+ },
+ "ln": {
+  "bad-option": {
+   "stderr": "ln: unrecognized option '--zzz-not-an-option'\nTry 'ln --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "ln: failed to access '/nonexistent/zzz-no-such-path': No such file or directory\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "ln: missing file operand\nTry 'ln --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "locate": {
+  "bad-option": {
+   "stderr": "locate: unrecognized option '--zzz-not-an-option'\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "locate: can not stat () `/var/lib/mlocate/mlocate.db': No such file or directory\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "locate: no pattern to search for specified\n",
+   "status": 1
+  }
+ },
+ "logname": {
+  "bad-option": {
+   "stderr": "logname: unrecognized option '--zzz-not-an-option'\nTry 'logname --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "logname: extra operand ‘/nonexistent/zzz-no-such-path’\nTry 'logname --help' for more information.\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "logname: no login name\n",
+   "status": 1
+  }
+ },
+ "ls": {
+  "bad-option": {
+   "stderr": "ls: unrecognized option '--zzz-not-an-option'\nTry 'ls --help' for more information.\n",
+   "status": 2
+  },
+  "missing-file": {
+   "stderr": "ls: cannot access '/nonexistent/zzz-no-such-path': No such file or directory\n",
+   "status": 2
+  }
+ },
+ "lsblk": {
+  "bad-option": {
+   "stderr": "lsblk: unrecognized option '--zzz-not-an-option'\nTry 'lsblk --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "lsblk: /nonexistent/zzz-no-such-path: not a block device\n",
+   "status": 32
+  }
+ },
+ "lscpu": {
+  "bad-option": {
+   "stderr": "lscpu: unrecognized option '--zzz-not-an-option'\nTry 'lscpu --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "lscpu: bad usage\nTry 'lscpu --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "lsof": {
+  "bad-option": {
+   "stderr": "lsof: illegal option character: -\nlsof: illegal option character: z\nlsof: illegal option character: z\nlsof: illegal option character: z\nlsof: illegal option character: -\nlsof: illegal option character: -\nlsof: illegal option character: -\nlsof: illegal process ID: tion\nlsof 4.94.0\n latest revision: https://github.com/lsof-org/lsof\n latest FAQ: https://github.com/lsof-org/lsof/blob/master/00FAQ\n latest (non-formatted) man page: https://github.com/lsof-org/lsof/blob/master/Lsof.8\n usage: [-?abhKlnNoOPRtUvVX] [+|-c c] [+|-d s] [+D D] [+|-E] [+|-e s] [+|-f[gG]]\n [-F [f]] [-g [s]] [-i [i]] [+|-L [l]] [+m [m]] [+|-M] [-o [o]] [-p s]\n [+|-r [t]] [-s [p:s]] [-S [t]] [-T [t]] [-u s] [+|-w] [-x [fl]] [--] [names]\nUse the ``-h'' option to get more help information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "lsof: status error on /nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "mkdir": {
+  "bad-option": {
+   "stderr": "mkdir: unrecognized option '--zzz-not-an-option'\nTry 'mkdir --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "mkdir: cannot create directory ‘/nonexistent/zzz-no-such-path’: No such file or directory\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "mkdir: missing operand\nTry 'mkdir --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "mktemp": {
+  "bad-option": {
+   "stderr": "mktemp: unrecognized option '--zzz-not-an-option'\nTry 'mktemp --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "mktemp: too few X's in template ‘/nonexistent/zzz-no-such-path’\n",
+   "status": 1
+  }
+ },
+ "more": {
+  "bad-option": {
+   "stderr": "more: unrecognized option '--zzz-not-an-option'\nTry 'more --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "more: cannot open /nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 0
+  }
+ },
+ "mount": {
+  "bad-option": {
+   "stderr": "mount: unrecognized option '--zzz-not-an-option'\nTry 'mount --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "mount: /nonexistent/zzz-no-such-path: can't find in /etc/fstab.\n",
+   "status": 1
+  }
+ },
+ "mv": {
+  "bad-option": {
+   "stderr": "mv: unrecognized option '--zzz-not-an-option'\nTry 'mv --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "mv: missing destination file operand after '/nonexistent/zzz-no-such-path'\nTry 'mv --help' for more information.\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "mv: missing file operand\nTry 'mv --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "nano": {
+  "bad-option": {
+   "stderr": "nano: unrecognized option '--zzz-not-an-option'\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "Error opening terminal: unknown.\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "Error opening terminal: unknown.\n",
+   "status": 1
+  }
+ },
+ "nice": {
+  "bad-option": {
+   "stderr": "nice: unrecognized option '--zzz-not-an-option'\nTry 'nice --help' for more information.\n",
+   "status": 125
+  },
+  "missing-file": {
+   "stderr": "nice: ‘/nonexistent/zzz-no-such-path’: No such file or directory\n",
+   "status": 127
+  }
+ },
+ "nl": {
+  "bad-option": {
+   "stderr": "nl: unrecognized option '--zzz-not-an-option'\nTry 'nl --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "nl: /nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "nproc": {
+  "bad-option": {
+   "stderr": "nproc: unrecognized option '--zzz-not-an-option'\nTry 'nproc --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "nproc: extra operand ‘/nonexistent/zzz-no-such-path’\nTry 'nproc --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "numfmt": {
+  "bad-option": {
+   "stderr": "numfmt: unrecognized option '--zzz-not-an-option'\nTry 'numfmt --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "numfmt: invalid number: ‘/nonexistent/zzz-no-such-path’\n",
+   "status": 2
+  }
+ },
+ "od": {
+  "bad-option": {
+   "stderr": "od: unrecognized option '--zzz-not-an-option'\nTry 'od --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "od: /nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "passwd": {
+  "bad-option": {
+   "stderr": "passwd: bad argument --zzz-not-an-option: unknown option\n",
+   "status": 253
+  },
+  "missing-file": {
+   "stderr": "passwd: Unknown user name '/nonexistent/zzz-no-such-path'.\n",
+   "status": 252
+  },
+  "no-args": {
+   "stderr": "New password: Password change has been aborted.\npasswd: Authentication token manipulation error\n",
+   "status": 1
+  }
+ },
+ "paste": {
+  "bad-option": {
+   "stderr": "paste: unrecognized option '--zzz-not-an-option'\nTry 'paste --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "paste: /nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "pgrep": {
+  "bad-option": {
+   "stderr": "pgrep: unrecognized option '--zzz-not-an-option'\n\nUsage:\n pgrep [options] <pattern>\n\nOptions:\n -d, --delimiter <string>  specify output delimiter\n -l, --list-name           list PID and process name\n -a, --list-full           list PID and full command line\n -v, --inverse             negates the matching\n -w, --lightweight         list all TID\n -c, --count               count of matching processes\n -f, --full                use full process name to match\n -g, --pgroup <PGID,...>   match listed process group IDs\n -G, --group <GID,...>     match real group IDs\n -i, --ignore-case         match case insensitively\n -n, --newest              select most recently started\n -o, --oldest              select least recently started\n -O, --older <seconds>     select where older than seconds\n -P, --parent <PPID,...>   match only child processes of the given parent\n -s, --session <SID,...>   match session IDs\n -t, --terminal <tty,...>  match by controlling terminal\n -u, --euid <ID,...>       match by effective IDs\n -U, --uid <ID,...>        match by real IDs\n -x, --exact               match exactly with the command name\n -F, --pidfile <file>      read PIDs from file\n -L, --logpidfile          fail if PID file is not locked\n -r, --runstates <state>   match runstates [D,S,Z,...]\n --ns <PID>                match the processes that belong to the same\n                           namespace as <pid>\n --nslist <ns,...>         list which namespaces will be considered for\n                           the --ns option.\n                           Available namespaces: ipc, mnt, net, pid, user, uts\n\n -h, --help     display this help and exit\n -V, --version  output version information and exit\n\nFor more details see pgrep(1).\n",
+   "status": 2
+  },
+  "missing-file": {
+   "stderr": "",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "pgrep: no matching criteria specified\nTry `pgrep --help' for more information.\n",
+   "status": 2
+  }
+ },
+ "ping": {
+  "bad-option": {
+   "stderr": "ping: invalid option -- '-'\n\nUsage\n  ping [options] <destination>\n\nOptions:\n  <destination>      dns name or ip address\n  -a                 use audible ping\n  -A                 use adaptive ping\n  -B                 sticky source address\n  -c <count>         stop after <count> replies\n  -D                 print timestamps\n  -d                 use SO_DEBUG socket option\n  -f                 flood ping\n  -h                 print help and exit\n  -I <interface>     either interface name or address\n  -i <interval>      seconds between sending each packet\n  -L                 suppress loopback of multicast packets\n  -l <preload>       send <preload> number of packages while waiting replies\n  -m <mark>          tag the packets going out\n  -M <pmtud opt>     define mtu discovery, can be one of <do|dont|want>\n  -n                 no dns name resolution\n  -O                 report outstanding replies\n  -p <pattern>       contents of padding byte\n  -q                 quiet output\n  -Q <tclass>        use quality of service <tclass> bits\n  -s <size>          use <size> as number of data bytes to be sent\n  -S <size>          use <size> as SO_SNDBUF socket option value\n  -t <ttl>           define time to live\n  -U                 print user-to-user latency\n  -v                 verbose output\n  -V                 print version and exit\n  -w <deadline>      reply wait <deadline> in seconds\n  -W <timeout>       time to wait for response\n\nIPv4 options:\n  -4                 use IPv4\n  -b                 allow pinging broadcast\n  -R                 record route\n  -T <timestamp>     define timestamp, can be one of <tsonly|tsandaddr|tsprespec>\n\nIPv6 options:\n  -6                 use IPv6\n  -F <flowlabel>     define flow label, default is random\n  -N <nodeinfo opt>  use icmp6 node info query, try <help> as argument\n\nFor more details see ping(8).\n",
+   "status": 2
+  },
+  "missing-file": {
+   "stderr": "ping: /nonexistent/zzz-no-such-path: Name or service not known\n",
+   "status": 2
+  },
+  "no-args": {
+   "stderr": "ping: usage error: Destination address required\n",
+   "status": 1
+  }
+ },
+ "pr": {
+  "bad-option": {
+   "stderr": "pr: unrecognized option '--zzz-not-an-option'\nTry 'pr --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "pr: /nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "printenv": {
+  "bad-option": {
+   "stderr": "printenv: unrecognized option '--zzz-not-an-option'\nTry 'printenv --help' for more information.\n",
+   "status": 2
+  },
+  "missing-file": {
+   "stderr": "",
+   "status": 1
+  }
+ },
+ "printf": {
+  "no-args": {
+   "stderr": "printf: missing operand\nTry 'printf --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "ps": {
+  "bad-option": {
+   "stderr": "error: unknown gnu long option\n\nUsage:\n ps [options]\n\n Try 'ps --help <simple|list|output|threads|misc|all>'\n  or 'ps --help <s|l|o|t|m|a>'\n for additional help text.\n\nFor more details see ps(1).\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "error: garbage option\n\nUsage:\n ps [options]\n\n Try 'ps --help <simple|list|output|threads|misc|all>'\n  or 'ps --help <s|l|o|t|m|a>'\n for additional help text.\n\nFor more details see ps(1).\n",
+   "status": 1
+  }
+ },
+ "pstree": {
+  "bad-option": {
+   "stderr": "pstree: unrecognized option '--zzz-not-an-option'\nUsage: pstree [-acglpsStTuZ] [ -h | -H PID ] [ -n | -N type ]\n              [ -A | -G | -U ] [ PID | USER ]\n   or: pstree -V\n\nDisplay a tree of processes.\n\n  -a, --arguments     show command line arguments\n  -A, --ascii         use ASCII line drawing characters\n  -c, --compact-not   don't compact identical subtrees\n  -C, --color=TYPE    color process by attribute\n                      (age)\n  -g, --show-pgids    show process group ids; implies -c\n  -G, --vt100         use VT100 line drawing characters\n  -h, --highlight-all highlight current process and its ancestors\n  -H PID, --highlight-pid=PID\n                      highlight this process and its ancestors\n  -l, --long          don't truncate long lines\n  -n, --numeric-sort  sort output by PID\n  -N TYPE, --ns-sort=TYPE\n                      sort output by this namespace type\n                              (cgroup, ipc, mnt, net, pid, time, user, uts)\n  -p, --show-pids     show PIDs; implies -c\n  -s, --show-parents  show parents of the selected process\n  -S, --ns-changes    show namespace transitions\n  -t, --thread-names  show full thread names\n  -T, --hide-threads  hide threads, show only processes\n  -u, --uid-changes   show uid transitions\n  -U, --unicode       use UTF-8 (Unicode) line drawing characters\n  -V, --version       display version information\n  -Z, --security-context\n                      show security attributes\n\n  PID    start at this PID; default is 1 (init)\n  USER   show only trees rooted at processes of this user\n\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "No such user name: /nonexistent/zzz-no-such-path\n",
+   "status": 1
+  }
+ },
+ "ptx": {
+  "bad-option": {
+   "stderr": "ptx: unrecognized option '--zzz-not-an-option'\nTry 'ptx --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "ptx: /nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "pwd": {
+  "bad-option": {
+   "stderr": "pwd: unrecognized option '--zzz-not-an-option'\nTry 'pwd --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "pwd: ignoring non-option arguments\n",
+   "status": 0
+  }
+ },
+ "readlink": {
+  "bad-option": {
+   "stderr": "readlink: unrecognized option '--zzz-not-an-option'\nTry 'readlink --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "readlink: missing operand\nTry 'readlink --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "realpath": {
+  "bad-option": {
+   "stderr": "realpath: unrecognized option '--zzz-not-an-option'\nTry 'realpath --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "realpath: /nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "realpath: missing operand\nTry 'realpath --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "rev": {
+  "bad-option": {
+   "stderr": "rev: unrecognized option '--zzz-not-an-option'\nTry 'rev --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "rev: cannot open /nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "rm": {
+  "bad-option": {
+   "stderr": "rm: unrecognized option '--zzz-not-an-option'\nTry 'rm --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "rm: cannot remove '/nonexistent/zzz-no-such-path': No such file or directory\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "rm: missing operand\nTry 'rm --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "rmdir": {
+  "bad-option": {
+   "stderr": "rmdir: unrecognized option '--zzz-not-an-option'\nTry 'rmdir --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "rmdir: failed to remove '/nonexistent/zzz-no-such-path': No such file or directory\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "rmdir: missing operand\nTry 'rmdir --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "rpm": {
+  "bad-option": {
+   "stderr": "rpm: --zzz-not-an-option: unknown option\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "RPM version 4.16.1.3\nCopyright (C) 1998-2002 - Red Hat, Inc.\nThis program may be freely redistributed under the terms of the GNU GPL\n\nUsage: rpm [-afgplsiv?] [-a|--all] [-f|--file] [--path] [-g|--group]\n        [-p|--package] [--pkgid] [--hdrid] [--triggeredby]\n        [--whatconflicts] [--whatrequires] [--whatobsoletes]\n        [--whatprovides] [--whatrecommends] [--whatsuggests]\n        [--whatsupplements] [--whatenhances] [--nomanifest]\n        [-c|--configfiles] [-d|--docfiles] [-L|--licensefiles]\n        [-A|--artifactfiles] [--noghost] [--noconfig] [--noartifact]\n        [--dump] [-l|--list] [--queryformat=QUERYFORMAT] [-s|--state]\n        [--nofiledigest] [--nofiles] [--nodeps] [--noscript] [--allfiles]\n        [--allmatches] [--badreloc] [-e|--erase=<package>+] [--excludedocs]\n        [--excludepath=<path>] [--force] [-F|--freshen=<packagefile>+]\n        [-h|--hash] [--ignorearch] [--ignoreos] [--ignoresize] [--noverify]\n        [-i|--install] [--justdb] [--nodeps] [--nofiledigest]\n        [--nocontexts] [--nocaps] [--noorder] [--noscripts] [--notriggers]\n        [--oldpackage] [--percent] [--prefix=<dir>] [--relocate=<old>=<new>]\n        [--replacefiles] [--replacepkgs] [--test]\n        [-U|--upgrade=<packagefile>+] [--reinstall=<packagefile>+]\n        [-D|--define='MACRO EXPR'] [--undefine=MACRO] [-E|--eval='EXPR']\n        [--target=CPU-VENDOR-OS] [--macros=<FILE:...>] [--load=<FILE>]\n        [--noplugins] [--nodigest] [--nosignature] [--rcfile=<FILE:...>]\n        [-r|--root=ROOT] [--dbpath=DIRECTORY] [--querytags] [--showrc]\n        [--quiet] [-v|--verbose] [--version] [-?|--help] [--usage]\n        [--scripts] [--setperms] [--setugids] [--setcaps] [--restore]\n        [--conflicts] [--obsoletes] [--provides] [--requires]\n        [--recommends] [--suggests] [--supplements] [--enhances] [--info]\n        [--changelog] [--changes] [--xml] [--triggers] [--filetriggers]\n        [--last] [--dupes] [--filesbypkg] [--fileclass] [--filecolor]\n        [--fileprovide] [--filerequire] [--filecaps]\n",
+   "status": 2
+  },
+  "no-args": {
+   "stderr": "RPM version 4.16.1.3\nCopyright (C) 1998-2002 - Red Hat, Inc.\nThis program may be freely redistributed under the terms of the GNU GPL\n\nUsage: rpm [-afgplsiv?] [-a|--all] [-f|--file] [--path] [-g|--group]\n        [-p|--package] [--pkgid] [--hdrid] [--triggeredby]\n        [--whatconflicts] [--whatrequires] [--whatobsoletes]\n        [--whatprovides] [--whatrecommends] [--whatsuggests]\n        [--whatsupplements] [--whatenhances] [--nomanifest]\n        [-c|--configfiles] [-d|--docfiles] [-L|--licensefiles]\n        [-A|--artifactfiles] [--noghost] [--noconfig] [--noartifact]\n        [--dump] [-l|--list] [--queryformat=QUERYFORMAT] [-s|--state]\n        [--nofiledigest] [--nofiles] [--nodeps] [--noscript] [--allfiles]\n        [--allmatches] [--badreloc] [-e|--erase=<package>+] [--excludedocs]\n        [--excludepath=<path>] [--force] [-F|--freshen=<packagefile>+]\n        [-h|--hash] [--ignorearch] [--ignoreos] [--ignoresize] [--noverify]\n        [-i|--install] [--justdb] [--nodeps] [--nofiledigest]\n        [--nocontexts] [--nocaps] [--noorder] [--noscripts] [--notriggers]\n        [--oldpackage] [--percent] [--prefix=<dir>] [--relocate=<old>=<new>]\n        [--replacefiles] [--replacepkgs] [--test]\n        [-U|--upgrade=<packagefile>+] [--reinstall=<packagefile>+]\n        [-D|--define='MACRO EXPR'] [--undefine=MACRO] [-E|--eval='EXPR']\n        [--target=CPU-VENDOR-OS] [--macros=<FILE:...>] [--load=<FILE>]\n        [--noplugins] [--nodigest] [--nosignature] [--rcfile=<FILE:...>]\n        [-r|--root=ROOT] [--dbpath=DIRECTORY] [--querytags] [--showrc]\n        [--quiet] [-v|--verbose] [--version] [-?|--help] [--usage]\n        [--scripts] [--setperms] [--setugids] [--setcaps] [--restore]\n        [--conflicts] [--obsoletes] [--provides] [--requires]\n        [--recommends] [--suggests] [--supplements] [--enhances] [--info]\n        [--changelog] [--changes] [--xml] [--triggers] [--filetriggers]\n        [--last] [--dupes] [--filesbypkg] [--fileclass] [--filecolor]\n        [--fileprovide] [--filerequire] [--filecaps]\n",
+   "status": 1
+  }
+ },
+ "rsync": {
+  "bad-option": {
+   "stderr": "rsync: --zzz-not-an-option: unknown option\nrsync error: syntax or usage error (code 1) at main.c(1881) [client=3.2.7]\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "rsync: [sender] change_dir \"/nonexistent\" failed: No such file or directory (2)\nrsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1391) [sender=3.2.7]\n",
+   "status": 23
+  },
+  "no-args": {
+   "stderr": "rsync  version 3.2.7  protocol version 31\nCopyright (C) 1996-2022 by Andrew Tridgell, Wayne Davison, and others.\nWeb site: https://rsync.samba.org/\nCapabilities:\n    64-bit files, 64-bit inums, 64-bit timestamps, 64-bit long ints,\n    socketpairs, symlinks, symtimes, hardlinks, hardlink-specials,\n    hardlink-symlinks, IPv6, atimes, batchfiles, inplace, append, ACLs,\n    ACL-at, ACL-libacl-at, xattrs, optional secluded-args, iconv, prealloc,\n    stop-at, no crtimes\nOptimizations:\n    SIMD-roll, no asm-roll, openssl-crypto, no asm-MD5\nChecksum list:\n    md5 md4 sha1 none\nCompress list:\n    zstd lz4 zlibx zlib none\nDaemon auth list:\n    sha512 sha256 sha1 md5 md4\n\nrsync comes with ABSOLUTELY NO WARRANTY.  This is free software, and you\nare welcome to redistribute it under certain conditions.  See the GNU\nGeneral Public Licence for details.\n\nrsync is a file transfer program capable of efficient remote update\nvia a fast differencing algorithm.\n\nUsage: rsync [OPTION]... SRC [SRC]... DEST\n  or   rsync [OPTION]... SRC [SRC]... [USER@]HOST:DEST\n  or   rsync [OPTION]... SRC [SRC]... [USER@]HOST::DEST\n  or   rsync [OPTION]... SRC [SRC]... rsync://[USER@]HOST[:PORT]/DEST\n  or   rsync [OPTION]... [USER@]HOST:SRC [DEST]\n  or   rsync [OPTION]... [USER@]HOST::SRC [DEST]\n  or   rsync [OPTION]... rsync://[USER@]HOST[:PORT]/SRC [DEST]\nThe ':' usages connect via remote shell, while '::' & 'rsync://' usages connect\nto an rsync daemon, and require SRC or DEST to start with a module name.\n\nOptions\n--verbose, -v            increase verbosity\n--info=FLAGS             fine-grained informational verbosity\n--debug=FLAGS            fine-grained debug verbosity\n--stderr=e|a|c           change stderr output mode (default: errors)\n--quiet, -q              suppress non-error messages\n--no-motd                suppress daemon-mode MOTD\n--checksum, -c           skip based on checksum, not mod-time & size\n--archive, -a            archive mode is -rlptgoD (no -A,-X,-U,-N,-H)\n--no-OPTION              turn off an implied OPTION (e.g. --no-D)\n--recursive, -r          recurse into directories\n--relative, -R           use relative path names\n--no-implied-dirs        don't send implied dirs with --relative\n--backup, -b             make backups (see --suffix & --backup-dir)\n--backup-dir=DIR         make backups into hierarchy based in DIR\n--suffix=SUFFIX          backup suffix (default ~ w/o --backup-dir)\n--update, -u             skip files that are newer on the receiver\n--inplace                update destination files in-place\n--append                 append data onto shorter files\n--append-verify          --append w/old data in file checksum\n--dirs, -d               transfer directories without recursing\n--old-dirs, --old-d      works like --dirs when talking to old rsync\n--mkpath                 create destination's missing path components\n--links, -l              copy symlinks as symlinks\n--copy-links, -L         transform symlink into referent file/dir\n--copy-unsafe-links      only \"unsafe\" symlinks are transformed\n--safe-links             ignore symlinks that point outside the tree\n--insecure-links         follow attacker-owned symlinks in operator paths\n--confine-root=DIR       refuse operator paths resolving outside DIR\n--munge-links            munge symlinks to make them safe & unusable\n--copy-dirlinks, -k      transform symlink to dir into referent dir\n--keep-dirlinks, -K      treat symlinked dir on receiver as dir\n--hard-links, -H         preserve hard links\n--perms, -p              preserve permissions\n--executability, -E      preserve executability\n--chmod=CHMOD            affect file and/or directory permissions\n--acls, -A               preserve ACLs (implies --perms)\n--xattrs, -X             preserve extended attributes\n--owner, -o              preserve owner (super-user only)\n--group, -g              preserve group\n--devices                preserve device files (super-user only)\n--copy-devices           copy device contents as a regular file\n--write-devices          write to devices as files (implies --inplace)\n--specials               preserve special files\n--drop-D                 receiver refuses to create devices/specials\n-D                       same as --devices --specials\n--times, -t              preserve modification times\n--atimes, -U             preserve access (use) times\n--open-noatime           avoid changing the atime on opened files\n--crtimes, -N            preserve create times (newness)\n--omit-dir-times, -O     omit directories from --times\n--omit-link-times, -J    omit symlinks from --times\n--super                  receiver attempts super-user activities\n--fake-super             store/recover privileged attrs using xattrs\n--sparse, -S             turn sequences of nulls into sparse blocks\n--preallocate            allocate dest files before writing them\n--dry-run, -n            perform a trial run with no changes made\n--whole-file, -W         copy files whole (w/o delta-xfer algorithm)\n--checksum-choice=STR    choose the checksum algorithm (aka --cc)\n--one-file-system, -x    don't cross filesystem boundaries\n--block-size=SIZE, -B    force a fixed checksum block-size\n--rsh=COMMAND, -e        specify the remote shell to use\n--rsync-path=PROGRAM     specify the rsync to run on remote machine\n--existing               skip creating new files on receiver\n--ignore-existing        skip updating files that exist on receiver\n--remove-source-files    sender removes synchronized files (non-dir)\n--del                    an alias for --delete-during\n--delete                 delete extraneous files from dest dirs\n--delete-before          receiver deletes before xfer, not during\n--delete-during          receiver deletes during the transfer\n--delete-delay           find deletions during, delete after\n--delete-after           receiver deletes after transfer, not during\n--delete-excluded        also delete excluded files from dest dirs\n--ignore-missing-args    ignore missing source args without error\n--delete-missing-args    delete missing source args from destination\n--ignore-errors          delete even if there are I/O errors\n--force                  force deletion of dirs even if not empty\n--max-delete=NUM         don't delete more than NUM files\n--max-size=SIZE          don't transfer any file larger than SIZE\n--min-size=SIZE          don't transfer any file smaller than SIZE\n--max-alloc=SIZE         change a limit relating to memory alloc\n--partial                keep partially transferred files\n--partial-dir=DIR        put a partially transferred file into DIR\n--delay-updates          put all updated files into place at end\n--prune-empty-dirs, -m   prune empty directory chains from file-list\n--numeric-ids            don't map uid/gid values by user/group name\n--usermap=STRING         custom username mapping\n--groupmap=STRING        custom groupname mapping\n--chown=USER:GROUP       simple username/groupname mapping\n--timeout=SECONDS        set I/O timeout in seconds\n--contimeout=SECONDS     set daemon connection timeout in seconds\n--ignore-times, -I       don't skip files that match size and time\n--size-only              skip files that match in size\n--modify-window=NUM, -@  set the accuracy for mod-time comparisons\n--temp-dir=DIR, -T       create temporary files in directory DIR\n--fuzzy, -y              find similar file for basis if no dest file\n--compare-dest=DIR       also compare destination files relative to DIR\n--copy-dest=DIR          ... and include copies of unchanged files\n--link-dest=DIR          hardlink to files in DIR when unchanged\n--compress, -z           compress file data during the transfer\n--compress-choice=STR    choose the compression algorithm (aka --zc)\n--compress-level=NUM     explicitly set compression level (aka --zl)\n--skip-compress=LIST     skip compressing files with suffix in LIST\n--cvs-exclude, -C        auto-ignore files in the same way CVS does\n--filter=RULE, -f        add a file-filtering RULE\n-F                       same as --filter='dir-merge /.rsync-filter'\n                         repeated: --filter='- .rsync-filter'\n--exclude=PATTERN        exclude files matching PATTERN\n--exclude-from=FILE      read exclude patterns from FILE\n--include=PATTERN        don't exclude files matching PATTERN\n--include-from=FILE      read include patterns from FILE\n--files-from=FILE        read list of source-file names from FILE\n--from0, -0              all *-from/filter files are delimited by 0s\n--old-args               disable the modern arg-protection idiom\n--secluded-args, -s      use the protocol to safely send the args\n--trust-sender           trust the remote sender's file list\n--copy-as=USER[:GROUP]   specify user & optional group for the copy\n--address=ADDRESS        bind address for outgoing socket to daemon\n--port=PORT              specify double-colon alternate port number\n--sockopts=OPTIONS       specify custom TCP options\n--blocking-io            use blocking I/O for the remote shell\n--outbuf=N|L|B           set out buffering to None, Line, or Block\n--stats                  give some file-transfer stats\n--8-bit-output, -8       leave high-bit chars unescaped in output\n--human-readable, -h     output numbers in a human-readable format\n--progress               show progress during transfer\n-P                       same as --partial --progress\n--itemize-changes, -i    output a change-summary for all updates\n--remote-option=OPT, -M  send OPTION to the remote side only\n--out-format=FORMAT      output updates using the specified FORMAT\n--log-file=FILE          log what we're doing to the specified FILE\n--log-file-format=FMT    log updates using the specified FMT\n--password-file=FILE     read daemon-access password from FILE\n--early-input=FILE       use FILE for daemon's early exec input\n--list-only              list the files instead of copying them\n--bwlimit=RATE           limit socket I/O bandwidth\n--stop-after=MINS        Stop rsync after MINS minutes have elapsed\n--stop-at=y-m-dTh:m      Stop rsync at the specified point in time\n--fsync                  fsync every written file\n--write-batch=FILE       write a batched update to FILE\n--only-write-batch=FILE  like --write-batch but w/o updating dest\n--read-batch=FILE        read a batched update from FILE\n--protocol=NUM           force an older protocol version to be used\n--iconv=CONVERT_SPEC     request charset conversion of filenames\n--checksum-seed=NUM      set block/file checksum seed (advanced)\n--ipv4, -4               prefer IPv4\n--ipv6, -6               prefer IPv6\n--version, -V            print the version + other info and exit\n--help, -h (*)           show this help (* -h is help only on its own)\n\nUse \"rsync --daemon --help\" to see the daemon-mode command-line options.\nPlease see the rsync(1) and rsyncd.conf(5) manpages for full documentation.\nSee https://rsync.samba.org/ for updates, bug reports, and answers\nrsync error: syntax or usage error (code 1) at main.c(1866) [client=3.2.7]\n",
+   "status": 1
+  }
+ },
+ "scp": {
+  "bad-option": {
+   "stderr": "scp: unknown option -- -\nusage: scp [-346ABCOpqRrsTv] [-c cipher] [-D sftp_server_path] [-F ssh_config]\n           [-i identity_file] [-J destination] [-l limit] [-o ssh_option]\n           [-P port] [-S program] [-X sftp_option] source ... target\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "usage: scp [-346ABCOpqRrsTv] [-c cipher] [-D sftp_server_path] [-F ssh_config]\n           [-i identity_file] [-J destination] [-l limit] [-o ssh_option]\n           [-P port] [-S program] [-X sftp_option] source ... target\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "usage: scp [-346ABCOpqRrsTv] [-c cipher] [-D sftp_server_path] [-F ssh_config]\n           [-i identity_file] [-J destination] [-l limit] [-o ssh_option]\n           [-P port] [-S program] [-X sftp_option] source ... target\n",
+   "status": 1
+  }
+ },
+ "sed": {
+  "bad-option": {
+   "stderr": "sed: unrecognized option '--zzz-not-an-option'\nUsage: sed [OPTION]... {script-only-if-no-other-script} [input-file]...\n\n  -n, --quiet, --silent\n                 suppress automatic printing of pattern space\n      --debug\n                 annotate program execution\n  -e script, --expression=script\n                 add the script to the commands to be executed\n  -f script-file, --file=script-file\n                 add the contents of script-file to the commands to be executed\n  --follow-symlinks\n                 follow symlinks when processing in place\n  -i[SUFFIX], --in-place[=SUFFIX]\n                 edit files in place (makes backup if SUFFIX supplied)\n  -c, --copy\n                 use copy instead of rename when shuffling files in -i mode\n  -b, --binary\n                 does nothing; for compatibility with WIN32/CYGWIN/MSDOS/EMX \n                 (open files in binary mode; CR+LF are not processed specially)\n  -l N, --line-length=N\n                 specify the desired line-wrap length for the `l' command\n  --posix\n                 disable all GNU extensions.\n  -E, -r, --regexp-extended\n                 use extended regular expressions in the script\n                 (for portability use POSIX -E).\n  -s, --separate\n                 consider files as separate rather than as a single,\n                 continuous long stream.\n      --sandbox\n                 operate in sandbox mode (disable e/r/w commands).\n  -u, --unbuffered\n                 load minimal amounts of data from the input files and flush\n                 the output buffers more often\n  -z, --null-data\n                 separate lines by NUL characters\n      --help     display this help and exit\n      --version  output version information and exit\n\nIf no -e, --expression, -f, or --file option is given, then the first\nnon-option argument is taken as the sed script to interpret.  All\nremaining arguments are names of input files; if no input files are\nspecified, then the standard input is read.\n\nGNU sed home page: <https://www.gnu.org/software/sed/>.\nGeneral help using GNU software: <https://www.gnu.org/gethelp/>.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "sed: -e expression #1, char 15: extra characters after command\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "Usage: sed [OPTION]... {script-only-if-no-other-script} [input-file]...\n\n  -n, --quiet, --silent\n                 suppress automatic printing of pattern space\n      --debug\n                 annotate program execution\n  -e script, --expression=script\n                 add the script to the commands to be executed\n  -f script-file, --file=script-file\n                 add the contents of script-file to the commands to be executed\n  --follow-symlinks\n                 follow symlinks when processing in place\n  -i[SUFFIX], --in-place[=SUFFIX]\n                 edit files in place (makes backup if SUFFIX supplied)\n  -c, --copy\n                 use copy instead of rename when shuffling files in -i mode\n  -b, --binary\n                 does nothing; for compatibility with WIN32/CYGWIN/MSDOS/EMX \n                 (open files in binary mode; CR+LF are not processed specially)\n  -l N, --line-length=N\n                 specify the desired line-wrap length for the `l' command\n  --posix\n                 disable all GNU extensions.\n  -E, -r, --regexp-extended\n                 use extended regular expressions in the script\n                 (for portability use POSIX -E).\n  -s, --separate\n                 consider files as separate rather than as a single,\n                 continuous long stream.\n      --sandbox\n                 operate in sandbox mode (disable e/r/w commands).\n  -u, --unbuffered\n                 load minimal amounts of data from the input files and flush\n                 the output buffers more often\n  -z, --null-data\n                 separate lines by NUL characters\n      --help     display this help and exit\n      --version  output version information and exit\n\nIf no -e, --expression, -f, or --file option is given, then the first\nnon-option argument is taken as the sed script to interpret.  All\nremaining arguments are names of input files; if no input files are\nspecified, then the standard input is read.\n\nGNU sed home page: <https://www.gnu.org/software/sed/>.\nGeneral help using GNU software: <https://www.gnu.org/gethelp/>.\n",
+   "status": 1
+  }
+ },
+ "seq": {
+  "bad-option": {
+   "stderr": "seq: unrecognized option '--zzz-not-an-option'\nTry 'seq --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "seq: invalid floating point argument: ‘/nonexistent/zzz-no-such-path’\nTry 'seq --help' for more information.\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "seq: missing operand\nTry 'seq --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "sha256sum": {
+  "bad-option": {
+   "stderr": "sha256sum: unrecognized option '--zzz-not-an-option'\nTry 'sha256sum --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "sha256sum: /nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "shuf": {
+  "bad-option": {
+   "stderr": "shuf: unrecognized option '--zzz-not-an-option'\nTry 'shuf --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "shuf: /nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "sleep": {
+  "bad-option": {
+   "stderr": "sleep: unrecognized option '--zzz-not-an-option'\nTry 'sleep --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "sleep: invalid time interval ‘/nonexistent/zzz-no-such-path’\nTry 'sleep --help' for more information.\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "sleep: missing operand\nTry 'sleep --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "sort": {
+  "bad-option": {
+   "stderr": "sort: unrecognized option '--zzz-not-an-option'\nTry 'sort --help' for more information.\n",
+   "status": 2
+  },
+  "missing-file": {
+   "stderr": "sort: cannot read: /nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 2
+  }
+ },
+ "split": {
+  "bad-option": {
+   "stderr": "split: unrecognized option '--zzz-not-an-option'\nTry 'split --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "split: cannot open '/nonexistent/zzz-no-such-path' for reading: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "ss": {
+  "bad-option": {
+   "stderr": "ss: unrecognized option '--zzz-not-an-option'\nUsage: ss [ OPTIONS ]\n       ss [ OPTIONS ] [ FILTER ]\n   -h, --help          this message\n   -V, --version       output version information\n   -n, --numeric       don't resolve service names\n   -r, --resolve       resolve host names\n   -a, --all           display all sockets\n   -l, --listening     display listening sockets\n   -B, --bound-inactive display TCP bound but inactive sockets\n   -o, --options       show timer information\n   -e, --extended      show detailed socket information\n   -m, --memory        show socket memory usage\n   -p, --processes     show process using socket\n   -T, --threads       show thread using socket\n   -i, --info          show internal TCP information\n       --tipcinfo      show internal tipc socket information\n   -s, --summary       show socket usage summary\n       --tos           show tos and priority information\n       --cgroup        show cgroup information\n   -b, --bpf           show bpf filter socket information\n       --bpf-maps      show all BPF socket-local storage maps\n       --bpf-map-id=MAP-ID    show a BPF socket-local storage map\n   -E, --events        continually display sockets as they are destroyed\n   -Z, --context       display task SELinux security contexts\n   -z, --contexts      display task and socket SELinux security contexts\n   -N, --net           switch to the specified network namespace name\n\n   -4, --ipv4          display only IP version 4 sockets\n   -6, --ipv6          display only IP version 6 sockets\n   -0, --packet        display PACKET sockets\n   -t, --tcp           display only TCP sockets\n   -M, --mptcp         display only MPTCP sockets\n   -S, --sctp          display only SCTP sockets\n   -u, --udp           display only UDP sockets\n   -d, --dccp          display only DCCP sockets\n   -w, --raw           display only RAW sockets\n   -x, --unix          display only Unix domain sockets\n       --tipc          display only TIPC sockets\n       --vsock         display only vsock sockets\n       --xdp           display only XDP sockets\n   -f, --family=FAMILY display sockets of type FAMILY\n       FAMILY := {inet|inet6|link|unix|netlink|vsock|tipc|xdp|help}\n\n   -K, --kill          forcibly close sockets, display what was closed\n   -H, --no-header     Suppress header line\n   -Q, --no-queues     Suppress sending and receiving queue columns\n   -O, --oneline       socket's data printed on a single line\n       --inet-sockopt  show various inet socket options\n\n   -A, --query=QUERY, --socket=QUERY\n       QUERY := {all|inet|tcp|mptcp|udp|raw|unix|unix_dgram|unix_stream|unix_seqpacket|packet|packet_raw|packet_dgram|netlink|dccp|sctp|vsock_stream|vsock_dgram|tipc|xdp}[,QUERY]\n\n   -D, --diag=FILE     Dump raw information about TCP sockets to FILE\n   -F, --filter=FILE   read filter information from FILE\n       FILTER := [ state STATE-FILTER ] [ EXPRESSION ]\n       STATE-FILTER := {all|connected|synchronized|bucket|big|TCP-STATES}\n         TCP-STATES := {established|syn-sent|syn-recv|fin-wait-{1,2}|time-wait|closed|close-wait|last-ack|listening|closing}\n          connected := {established|syn-sent|syn-recv|fin-wait-{1,2}|time-wait|close-wait|last-ack|closing}\n       synchronized := {established|syn-recv|fin-wait-{1,2}|time-wait|close-wait|last-ack|closing}\n             bucket := {syn-recv|time-wait}\n                big := {established|syn-sent|fin-wait-{1,2}|closed|close-wait|last-ack|listening|closing}\n",
+   "status": 255
+  },
+  "missing-file": {
+   "stderr": "Error: an inet prefix is expected rather than \"/nonexistent/zzz-no-such-path\".\nCannot parse dst/src address.\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "RTNETLINK answers: Invalid argument\n",
+   "status": 0
+  }
+ },
+ "stat": {
+  "bad-option": {
+   "stderr": "stat: unrecognized option '--zzz-not-an-option'\nTry 'stat --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "stat: cannot statx '/nonexistent/zzz-no-such-path': No such file or directory\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "stat: missing operand\nTry 'stat --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "stdbuf": {
+  "bad-option": {
+   "stderr": "stdbuf: unrecognized option '--zzz-not-an-option'\nTry 'stdbuf --help' for more information.\n",
+   "status": 125
+  },
+  "missing-file": {
+   "stderr": "stdbuf: you must specify a buffering mode option\nTry 'stdbuf --help' for more information.\n",
+   "status": 125
+  },
+  "no-args": {
+   "stderr": "stdbuf: missing operand\nTry 'stdbuf --help' for more information.\n",
+   "status": 125
+  }
+ },
+ "su": {
+  "bad-option": {
+   "stderr": "su: unrecognized option '--zzz-not-an-option'\nTry 'su --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "su: user /nonexistent/zzz-no-such-path does not exist or the user entry does not contain all the required fields\n",
+   "status": 1
+  }
+ },
+ "sudo": {
+  "bad-option": {
+   "stderr": "sudo: unrecognized option '--zzz-not-an-option'\nusage: sudo -h | -K | -k | -V\nusage: sudo -v [-ABkNnS] [-g group] [-h host] [-p prompt] [-u user]\nusage: sudo -l [-ABkNnS] [-g group] [-h host] [-p prompt] [-U user]\n            [-u user] [command [arg ...]]\nusage: sudo [-ABbEHkNnPS] [-r role] [-t type] [-C num] [-D directory]\n            [-g group] [-h host] [-p prompt] [-R directory] [-T timeout]\n            [-u user] [VAR=value] [-i | -s] [command [arg ...]]\nusage: sudo -e [-ABkNnS] [-r role] [-t type] [-C num] [-D directory]\n            [-g group] [-h host] [-p prompt] [-R directory] [-T timeout]\n            [-u user] file ...\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "sudo: /nonexistent/zzz-no-such-path: command not found\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "usage: sudo -h | -K | -k | -V\nusage: sudo -v [-ABkNnS] [-g group] [-h host] [-p prompt] [-u user]\nusage: sudo -l [-ABkNnS] [-g group] [-h host] [-p prompt] [-U user]\n            [-u user] [command [arg ...]]\nusage: sudo [-ABbEHkNnPS] [-r role] [-t type] [-C num] [-D directory]\n            [-g group] [-h host] [-p prompt] [-R directory] [-T timeout]\n            [-u user] [VAR=value] [-i | -s] [command [arg ...]]\nusage: sudo -e [-ABkNnS] [-r role] [-t type] [-C num] [-D directory]\n            [-g group] [-h host] [-p prompt] [-R directory] [-T timeout]\n            [-u user] file ...\n",
+   "status": 1
+  }
+ },
+ "sum": {
+  "bad-option": {
+   "stderr": "sum: unrecognized option '--zzz-not-an-option'\nTry 'sum --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "sum: /nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "systemctl": {
+  "bad-option": {
+   "stderr": "systemctl: unrecognized option '--zzz-not-an-option'\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "Unknown command verb /nonexistent/zzz-no-such-path.\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "System has not been booted with systemd as init system (PID 1). Can't operate.\nFailed to connect to bus: Host is down\n",
+   "status": 1
+  }
+ },
+ "tac": {
+  "bad-option": {
+   "stderr": "tac: unrecognized option '--zzz-not-an-option'\nTry 'tac --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "tac: failed to open '/nonexistent/zzz-no-such-path' for reading: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "tail": {
+  "bad-option": {
+   "stderr": "tail: unrecognized option '--zzz-not-an-option'\nTry 'tail --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "tail: cannot open '/nonexistent/zzz-no-such-path' for reading: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "tar": {
+  "bad-option": {
+   "stderr": "tar: unrecognized option '--zzz-not-an-option'\nTry 'tar --help' or 'tar --usage' for more information.\n",
+   "status": 64
+  },
+  "missing-file": {
+   "stderr": "tar: invalid option -- '/'\nTry 'tar --help' or 'tar --usage' for more information.\n",
+   "status": 64
+  },
+  "no-args": {
+   "stderr": "tar: You must specify one of the '-Acdtrux', '--delete' or '--test-label' options\nTry 'tar --help' or 'tar --usage' for more information.\n",
+   "status": 2
+  }
+ },
+ "tee": {
+  "bad-option": {
+   "stderr": "tee: unrecognized option '--zzz-not-an-option'\nTry 'tee --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "tee: /nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "test": {
+  "no-args": {
+   "stderr": "",
+   "status": 1
+  }
+ },
+ "timeout": {
+  "bad-option": {
+   "stderr": "timeout: unrecognized option '--zzz-not-an-option'\nTry 'timeout --help' for more information.\n",
+   "status": 125
+  },
+  "missing-file": {
+   "stderr": "Try 'timeout --help' for more information.\n",
+   "status": 125
+  },
+  "no-args": {
+   "stderr": "Try 'timeout --help' for more information.\n",
+   "status": 125
+  }
+ },
+ "touch": {
+  "bad-option": {
+   "stderr": "touch: unrecognized option '--zzz-not-an-option'\nTry 'touch --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "touch: cannot touch '/nonexistent/zzz-no-such-path': No such file or directory\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "touch: missing file operand\nTry 'touch --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "tr": {
+  "bad-option": {
+   "stderr": "tr: unrecognized option '--zzz-not-an-option'\nTry 'tr --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "tr: missing operand after ‘/nonexistent/zzz-no-such-path’\nTwo strings must be given when translating.\nTry 'tr --help' for more information.\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "tr: missing operand\nTry 'tr --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "tree": {
+  "bad-option": {
+   "stderr": "tree: Invalid argument `--zzz-not-an-option'.\nusage: tree [-acdfghilnpqrstuvxACDFJQNSUX] [-H baseHREF] [-T title ]\n\t[-L level [-R]] [-P pattern] [-I pattern] [-o filename] [--version]\n\t[--help] [--inodes] [--device] [--noreport] [--nolinks] [--dirsfirst]\n\t[--charset charset] [--filelimit[=]#] [--si] [--timefmt[=]<f>]\n\t[--sort[=]<name>] [--matchdirs] [--ignore-case] [--fromfile] [--]\n\t[<directory list>]\n",
+   "status": 1
+  }
+ },
+ "truncate": {
+  "bad-option": {
+   "stderr": "truncate: unrecognized option '--zzz-not-an-option'\nTry 'truncate --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "truncate: you must specify either ‘--size’ or ‘--reference’\nTry 'truncate --help' for more information.\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "truncate: you must specify either ‘--size’ or ‘--reference’\nTry 'truncate --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "tsort": {
+  "bad-option": {
+   "stderr": "tsort: unrecognized option '--zzz-not-an-option'\nTry 'tsort --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "tsort: /nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "tty": {
+  "bad-option": {
+   "stderr": "tty: unrecognized option '--zzz-not-an-option'\nTry 'tty --help' for more information.\n",
+   "status": 2
+  },
+  "missing-file": {
+   "stderr": "tty: extra operand ‘/nonexistent/zzz-no-such-path’\nTry 'tty --help' for more information.\n",
+   "status": 2
+  },
+  "no-args": {
+   "stderr": "",
+   "status": 1
+  }
+ },
+ "umask": {
+  "bad-option": {
+   "stderr": "/usr/bin/umask: line 2: umask: --: invalid option\numask: usage: umask [-p] [-S] [mode]\n",
+   "status": 2
+  },
+  "missing-file": {
+   "stderr": "/usr/bin/umask: line 2: umask: `/': invalid symbolic mode operator\n",
+   "status": 1
+  }
+ },
+ "uname": {
+  "bad-option": {
+   "stderr": "uname: unrecognized option '--zzz-not-an-option'\nTry 'uname --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "uname: extra operand ‘/nonexistent/zzz-no-such-path’\nTry 'uname --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "unexpand": {
+  "bad-option": {
+   "stderr": "unexpand: unrecognized option '--zzz-not-an-option'\nTry 'unexpand --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "unexpand: /nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "uniq": {
+  "bad-option": {
+   "stderr": "uniq: unrecognized option '--zzz-not-an-option'\nTry 'uniq --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "uniq: /nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "uptime": {
+  "bad-option": {
+   "stderr": "uptime: unrecognized option '--zzz-not-an-option'\n\nUsage:\n uptime [options]\n\nOptions:\n -p, --pretty   show uptime in pretty format\n -h, --help     display this help and exit\n -s, --since    system up since\n -V, --version  output version information and exit\n\nFor more details see uptime(1).\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "\nUsage:\n uptime [options]\n\nOptions:\n -p, --pretty   show uptime in pretty format\n -h, --help     display this help and exit\n -s, --since    system up since\n -V, --version  output version information and exit\n\nFor more details see uptime(1).\n",
+   "status": 1
+  }
+ },
+ "useradd": {
+  "bad-option": {
+   "stderr": "useradd: unrecognized option '--zzz-not-an-option'\nUsage: useradd [options] LOGIN\n       useradd -D\n       useradd -D [options]\n\nOptions:\n      --badname                 do not check for bad names\n  -b, --base-dir BASE_DIR       base directory for the home directory of the\n                                new account\n      --btrfs-subvolume-home    use BTRFS subvolume for home directory\n  -c, --comment COMMENT         GECOS field of the new account\n  -d, --home-dir HOME_DIR       home directory of the new account\n  -D, --defaults                print or change default useradd configuration\n  -e, --expiredate EXPIRE_DATE  expiration date of the new account\n  -f, --inactive INACTIVE       password inactivity period of the new account\n  -g, --gid GROUP               name or ID of the primary group of the new\n                                account\n  -G, --groups GROUPS           list of supplementary groups of the new\n                                account\n  -h, --help                    display this help message and exit\n  -k, --skel SKEL_DIR           use this alternative skeleton directory\n  -K, --key KEY=VALUE           override /etc/login.defs defaults\n  -l, --no-log-init             do not add the user to the lastlog and\n                                faillog databases\n  -m, --create-home             create the user's home directory\n  -M, --no-create-home          do not create the user's home directory\n  -N, --no-user-group           do not create a group with the same name as\n                                the user\n  -o, --non-unique              allow to create users with duplicate\n                                (non-unique) UID\n  -p, --password PASSWORD       encrypted password of the new account\n  -r, --system                  create a system account\n  -R, --root CHROOT_DIR         directory to chroot into\n  -P, --prefix PREFIX_DIR       prefix directory where are located the /etc/* files\n  -s, --shell SHELL             login shell of the new account\n  -u, --uid UID                 user ID of the new account\n  -U, --user-group              create a group with the same name as the user\n  -Z, --selinux-user SEUSER     use a specific SEUSER for the SELinux user mapping\n\n",
+   "status": 2
+  },
+  "missing-file": {
+   "stderr": "useradd: invalid user name '/nonexistent/zzz-no-such-path': use --badname to ignore\n",
+   "status": 3
+  },
+  "no-args": {
+   "stderr": "Usage: useradd [options] LOGIN\n       useradd -D\n       useradd -D [options]\n\nOptions:\n      --badname                 do not check for bad names\n  -b, --base-dir BASE_DIR       base directory for the home directory of the\n                                new account\n      --btrfs-subvolume-home    use BTRFS subvolume for home directory\n  -c, --comment COMMENT         GECOS field of the new account\n  -d, --home-dir HOME_DIR       home directory of the new account\n  -D, --defaults                print or change default useradd configuration\n  -e, --expiredate EXPIRE_DATE  expiration date of the new account\n  -f, --inactive INACTIVE       password inactivity period of the new account\n  -g, --gid GROUP               name or ID of the primary group of the new\n                                account\n  -G, --groups GROUPS           list of supplementary groups of the new\n                                account\n  -h, --help                    display this help message and exit\n  -k, --skel SKEL_DIR           use this alternative skeleton directory\n  -K, --key KEY=VALUE           override /etc/login.defs defaults\n  -l, --no-log-init             do not add the user to the lastlog and\n                                faillog databases\n  -m, --create-home             create the user's home directory\n  -M, --no-create-home          do not create the user's home directory\n  -N, --no-user-group           do not create a group with the same name as\n                                the user\n  -o, --non-unique              allow to create users with duplicate\n                                (non-unique) UID\n  -p, --password PASSWORD       encrypted password of the new account\n  -r, --system                  create a system account\n  -R, --root CHROOT_DIR         directory to chroot into\n  -P, --prefix PREFIX_DIR       prefix directory where are located the /etc/* files\n  -s, --shell SHELL             login shell of the new account\n  -u, --uid UID                 user ID of the new account\n  -U, --user-group              create a group with the same name as the user\n  -Z, --selinux-user SEUSER     use a specific SEUSER for the SELinux user mapping\n\n",
+   "status": 2
+  }
+ },
+ "userdel": {
+  "bad-option": {
+   "stderr": "userdel: unrecognized option '--zzz-not-an-option'\nUsage: userdel [options] LOGIN\n\nOptions:\n  -f, --force                   force some actions that would fail otherwise\n                                e.g. removal of user still logged in\n                                or files, even if not owned by the user\n  -h, --help                    display this help message and exit\n  -r, --remove                  remove home directory and mail spool\n  -R, --root CHROOT_DIR         directory to chroot into\n  -P, --prefix PREFIX_DIR       prefix directory where are located the /etc/* files\n  -Z, --selinux-user            remove any SELinux user mapping for the user\n\n",
+   "status": 2
+  },
+  "missing-file": {
+   "stderr": "userdel: user '/nonexistent/zzz-no-such-path' does not exist\n",
+   "status": 6
+  },
+  "no-args": {
+   "stderr": "Usage: userdel [options] LOGIN\n\nOptions:\n  -f, --force                   force some actions that would fail otherwise\n                                e.g. removal of user still logged in\n                                or files, even if not owned by the user\n  -h, --help                    display this help message and exit\n  -r, --remove                  remove home directory and mail spool\n  -R, --root CHROOT_DIR         directory to chroot into\n  -P, --prefix PREFIX_DIR       prefix directory where are located the /etc/* files\n  -Z, --selinux-user            remove any SELinux user mapping for the user\n\n",
+   "status": 2
+  }
+ },
+ "usermod": {
+  "bad-option": {
+   "stderr": "usermod: unrecognized option '--zzz-not-an-option'\nUsage: usermod [options] LOGIN\n\nOptions:\n  -b, --badname                 allow bad names\n  -c, --comment COMMENT         new value of the GECOS field\n  -d, --home HOME_DIR           new home directory for the user account\n  -e, --expiredate EXPIRE_DATE  set account expiration date to EXPIRE_DATE\n  -f, --inactive INACTIVE       set password inactive after expiration\n                                to INACTIVE\n  -g, --gid GROUP               force use GROUP as new primary group\n  -G, --groups GROUPS           new list of supplementary GROUPS\n  -a, --append                  append the user to the supplemental GROUPS\n                                mentioned by the -G option without removing\n                                the user from other groups\n  -h, --help                    display this help message and exit\n  -l, --login NEW_LOGIN         new value of the login name\n  -L, --lock                    lock the user account\n  -m, --move-home               move contents of the home directory to the\n                                new location (use only with -d)\n  -o, --non-unique              allow using duplicate (non-unique) UID\n  -p, --password PASSWORD       use encrypted password for the new password\n  -R, --root CHROOT_DIR         directory to chroot into\n  -P, --prefix PREFIX_DIR       prefix directory where are located the /etc/* files\n  -s, --shell SHELL             new login shell for the user account\n  -u, --uid UID                 new UID for the user account\n  -U, --unlock                  unlock the user account\n  -v, --add-subuids FIRST-LAST  add range of subordinate uids\n  -V, --del-subuids FIRST-LAST  remove range of subordinate uids\n  -w, --add-subgids FIRST-LAST  add range of subordinate gids\n  -W, --del-subgids FIRST-LAST  remove range of subordinate gids\n  -Z, --selinux-user SEUSER     new SELinux user mapping for the user account\n\n",
+   "status": 2
+  },
+  "missing-file": {
+   "stderr": "usermod: user '/nonexistent/zzz-no-such-path' does not exist\n",
+   "status": 6
+  },
+  "no-args": {
+   "stderr": "Usage: usermod [options] LOGIN\n\nOptions:\n  -b, --badname                 allow bad names\n  -c, --comment COMMENT         new value of the GECOS field\n  -d, --home HOME_DIR           new home directory for the user account\n  -e, --expiredate EXPIRE_DATE  set account expiration date to EXPIRE_DATE\n  -f, --inactive INACTIVE       set password inactive after expiration\n                                to INACTIVE\n  -g, --gid GROUP               force use GROUP as new primary group\n  -G, --groups GROUPS           new list of supplementary GROUPS\n  -a, --append                  append the user to the supplemental GROUPS\n                                mentioned by the -G option without removing\n                                the user from other groups\n  -h, --help                    display this help message and exit\n  -l, --login NEW_LOGIN         new value of the login name\n  -L, --lock                    lock the user account\n  -m, --move-home               move contents of the home directory to the\n                                new location (use only with -d)\n  -o, --non-unique              allow using duplicate (non-unique) UID\n  -p, --password PASSWORD       use encrypted password for the new password\n  -R, --root CHROOT_DIR         directory to chroot into\n  -P, --prefix PREFIX_DIR       prefix directory where are located the /etc/* files\n  -s, --shell SHELL             new login shell for the user account\n  -u, --uid UID                 new UID for the user account\n  -U, --unlock                  unlock the user account\n  -v, --add-subuids FIRST-LAST  add range of subordinate uids\n  -V, --del-subuids FIRST-LAST  remove range of subordinate uids\n  -w, --add-subgids FIRST-LAST  add range of subordinate gids\n  -W, --del-subgids FIRST-LAST  remove range of subordinate gids\n  -Z, --selinux-user SEUSER     new SELinux user mapping for the user account\n\n",
+   "status": 2
+  }
+ },
+ "users": {
+  "bad-option": {
+   "stderr": "users: unrecognized option '--zzz-not-an-option'\nTry 'users --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "vdir": {
+  "bad-option": {
+   "stderr": "vdir: unrecognized option '--zzz-not-an-option'\nTry 'vdir --help' for more information.\n",
+   "status": 2
+  },
+  "missing-file": {
+   "stderr": "vdir: cannot access '/nonexistent/zzz-no-such-path': No such file or directory\n",
+   "status": 2
+  }
+ },
+ "vim": {
+  "bad-option": {
+   "stderr": "VIM - Vi IMproved 8.2 (2019 Dec 12, compiled Sep 03 2026 00:00:00)\nUnknown option argument: \"--zzz-not-an-option\"\nMore info with: \"vim -h\"\n",
+   "status": 1
+  }
+ },
+ "w": {
+  "bad-option": {
+   "stderr": "w: unrecognized option '--zzz-not-an-option'\n\nUsage:\n w [options]\n\nOptions:\n -h, --no-header     do not print header\n -u, --no-current    ignore current process username\n -s, --short         short format\n -f, --from          show remote hostname field\n -o, --old-style     old style output\n -i, --ip-addr       display IP address instead of hostname (if possible)\n\n     --help     display this help and exit\n -V, --version  output version information and exit\n\nFor more details see w(1).\n",
+   "status": 1
+  }
+ },
+ "wc": {
+  "bad-option": {
+   "stderr": "wc: unrecognized option '--zzz-not-an-option'\nTry 'wc --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "wc: /nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "whereis": {
+  "bad-option": {
+   "stderr": "whereis: bad usage\nTry 'whereis --help' for more information.\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "whereis: not enough arguments\nTry 'whereis --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "which": {
+  "bad-option": {
+   "stderr": "which: unrecognized option '--zzz-not-an-option'\nUsage: which [options] [--] COMMAND [...]\nWrite the full path of COMMAND(s) to standard output.\n\n  --version, -[vV] Print version and exit successfully.\n  --help,          Print this help and exit successfully.\n  --skip-dot       Skip directories in PATH that start with a dot.\n  --skip-tilde     Skip directories in PATH that start with a tilde.\n  --show-dot       Don't expand a dot to current directory in output.\n  --show-tilde     Output a tilde for HOME directory for non-root.\n  --tty-only       Stop processing options on the right if not on tty.\n  --all, -a        Print all matches in PATH, not just the first\n  --read-alias, -i Read list of aliases from stdin.\n  --skip-alias     Ignore option --read-alias; don't read stdin.\n  --read-functions Read shell functions from stdin.\n  --skip-functions Ignore option --read-functions; don't read stdin.\n\nRecommended use is to write the output of (alias; declare -f) to standard\ninput, so that which can show aliases and shell functions. See which(1) for\nexamples.\n\nIf the options --read-alias and/or --read-functions are specified then the\noutput can be a full alias or function definition, optionally followed by\nthe full path of each command used inside of those.\n\nReport bugs to <which-bugs@gnu.org>.\n",
+   "status": 255
+  },
+  "missing-file": {
+   "stderr": "which: no zzz-no-such-path in (/nonexistent)\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "Usage: which [options] [--] COMMAND [...]\nWrite the full path of COMMAND(s) to standard output.\n\n  --version, -[vV] Print version and exit successfully.\n  --help,          Print this help and exit successfully.\n  --skip-dot       Skip directories in PATH that start with a dot.\n  --skip-tilde     Skip directories in PATH that start with a tilde.\n  --show-dot       Don't expand a dot to current directory in output.\n  --show-tilde     Output a tilde for HOME directory for non-root.\n  --tty-only       Stop processing options on the right if not on tty.\n  --all, -a        Print all matches in PATH, not just the first\n  --read-alias, -i Read list of aliases from stdin.\n  --skip-alias     Ignore option --read-alias; don't read stdin.\n  --read-functions Read shell functions from stdin.\n  --skip-functions Ignore option --read-functions; don't read stdin.\n\nRecommended use is to write the output of (alias; declare -f) to standard\ninput, so that which can show aliases and shell functions. See which(1) for\nexamples.\n\nIf the options --read-alias and/or --read-functions are specified then the\noutput can be a full alias or function definition, optionally followed by\nthe full path of each command used inside of those.\n\nReport bugs to <which-bugs@gnu.org>.\n",
+   "status": 255
+  }
+ },
+ "who": {
+  "bad-option": {
+   "stderr": "who: unrecognized option '--zzz-not-an-option'\nTry 'who --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "whoami": {
+  "bad-option": {
+   "stderr": "whoami: unrecognized option '--zzz-not-an-option'\nTry 'whoami --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "whoami: extra operand ‘/nonexistent/zzz-no-such-path’\nTry 'whoami --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "xargs": {
+  "bad-option": {
+   "stderr": "xargs: unrecognized option '--zzz-not-an-option'\nTry 'xargs --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "xargs: /nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 127
+  }
+ },
+ "yes": {
+  "bad-option": {
+   "stderr": "yes: unrecognized option '--zzz-not-an-option'\nTry 'yes --help' for more information.\n",
+   "status": 1
+  }
+ }
+}
