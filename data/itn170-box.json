@@ -1,0 +1,5380 @@
+{
+ "hostname": "servera.lab.example.com",
+ "shortHostname": "servera",
+ "now": "2025-09-15 14:32",
+ "umask": "0022",
+ "bootTime": "2025-09-14 08:12",
+ "rootPassword": "redhat",
+ "users": [
+  {
+   "name": "root",
+   "uid": 0,
+   "gid": 0,
+   "gecos": "root",
+   "home": "/root",
+   "shell": "/bin/bash",
+   "password": "redhat",
+   "locked": false,
+   "aging": {
+    "lastChange": 19800,
+    "min": 0,
+    "max": 99999,
+    "warn": 7,
+    "inactive": "",
+    "expire": ""
+   }
+  },
+  {
+   "name": "bin",
+   "uid": 1,
+   "gid": 1,
+   "gecos": "bin",
+   "home": "/bin",
+   "shell": "/sbin/nologin",
+   "password": "!!",
+   "locked": true,
+   "aging": {
+    "lastChange": 19800,
+    "min": 0,
+    "max": 99999,
+    "warn": 7,
+    "inactive": "",
+    "expire": ""
+   }
+  },
+  {
+   "name": "daemon",
+   "uid": 2,
+   "gid": 2,
+   "gecos": "daemon",
+   "home": "/sbin",
+   "shell": "/sbin/nologin",
+   "password": "!!",
+   "locked": true,
+   "aging": {
+    "lastChange": 19800,
+    "min": 0,
+    "max": 99999,
+    "warn": 7,
+    "inactive": "",
+    "expire": ""
+   }
+  },
+  {
+   "name": "adm",
+   "uid": 3,
+   "gid": 4,
+   "gecos": "adm",
+   "home": "/var/adm",
+   "shell": "/sbin/nologin",
+   "password": "!!",
+   "locked": true,
+   "aging": {
+    "lastChange": 19800,
+    "min": 0,
+    "max": 99999,
+    "warn": 7,
+    "inactive": "",
+    "expire": ""
+   }
+  },
+  {
+   "name": "lp",
+   "uid": 4,
+   "gid": 7,
+   "gecos": "lp",
+   "home": "/var/spool/lpd",
+   "shell": "/sbin/nologin",
+   "password": "!!",
+   "locked": true,
+   "aging": {
+    "lastChange": 19800,
+    "min": 0,
+    "max": 99999,
+    "warn": 7,
+    "inactive": "",
+    "expire": ""
+   }
+  },
+  {
+   "name": "sync",
+   "uid": 5,
+   "gid": 0,
+   "gecos": "sync",
+   "home": "/sbin",
+   "shell": "/bin/sync",
+   "password": "!!",
+   "locked": true,
+   "aging": {
+    "lastChange": 19800,
+    "min": 0,
+    "max": 99999,
+    "warn": 7,
+    "inactive": "",
+    "expire": ""
+   }
+  },
+  {
+   "name": "shutdown",
+   "uid": 6,
+   "gid": 0,
+   "gecos": "shutdown",
+   "home": "/sbin",
+   "shell": "/sbin/shutdown",
+   "password": "!!",
+   "locked": true,
+   "aging": {
+    "lastChange": 19800,
+    "min": 0,
+    "max": 99999,
+    "warn": 7,
+    "inactive": "",
+    "expire": ""
+   }
+  },
+  {
+   "name": "halt",
+   "uid": 7,
+   "gid": 0,
+   "gecos": "halt",
+   "home": "/sbin",
+   "shell": "/sbin/halt",
+   "password": "!!",
+   "locked": true,
+   "aging": {
+    "lastChange": 19800,
+    "min": 0,
+    "max": 99999,
+    "warn": 7,
+    "inactive": "",
+    "expire": ""
+   }
+  },
+  {
+   "name": "mail",
+   "uid": 8,
+   "gid": 12,
+   "gecos": "mail",
+   "home": "/var/spool/mail",
+   "shell": "/sbin/nologin",
+   "password": "!!",
+   "locked": true,
+   "aging": {
+    "lastChange": 19800,
+    "min": 0,
+    "max": 99999,
+    "warn": 7,
+    "inactive": "",
+    "expire": ""
+   }
+  },
+  {
+   "name": "operator",
+   "uid": 11,
+   "gid": 0,
+   "gecos": "operator",
+   "home": "/root",
+   "shell": "/sbin/nologin",
+   "password": "!!",
+   "locked": true,
+   "aging": {
+    "lastChange": 19800,
+    "min": 0,
+    "max": 99999,
+    "warn": 7,
+    "inactive": "",
+    "expire": ""
+   }
+  },
+  {
+   "name": "games",
+   "uid": 12,
+   "gid": 100,
+   "gecos": "games",
+   "home": "/usr/games",
+   "shell": "/sbin/nologin",
+   "password": "!!",
+   "locked": true,
+   "aging": {
+    "lastChange": 19800,
+    "min": 0,
+    "max": 99999,
+    "warn": 7,
+    "inactive": "",
+    "expire": ""
+   }
+  },
+  {
+   "name": "ftp",
+   "uid": 14,
+   "gid": 50,
+   "gecos": "FTP User",
+   "home": "/var/ftp",
+   "shell": "/sbin/nologin",
+   "password": "!!",
+   "locked": true,
+   "aging": {
+    "lastChange": 19800,
+    "min": 0,
+    "max": 99999,
+    "warn": 7,
+    "inactive": "",
+    "expire": ""
+   }
+  },
+  {
+   "name": "nobody",
+   "uid": 65534,
+   "gid": 65534,
+   "gecos": "Kernel Overflow User",
+   "home": "/",
+   "shell": "/sbin/nologin",
+   "password": "!!",
+   "locked": true,
+   "aging": {
+    "lastChange": 19800,
+    "min": 0,
+    "max": 99999,
+    "warn": 7,
+    "inactive": "",
+    "expire": ""
+   }
+  },
+  {
+   "name": "dbus",
+   "uid": 81,
+   "gid": 81,
+   "gecos": "System message bus",
+   "home": "/",
+   "shell": "/sbin/nologin",
+   "password": "!!",
+   "locked": true,
+   "aging": {
+    "lastChange": 19800,
+    "min": 0,
+    "max": 99999,
+    "warn": 7,
+    "inactive": "",
+    "expire": ""
+   }
+  },
+  {
+   "name": "systemd-coredump",
+   "uid": 999,
+   "gid": 997,
+   "gecos": "systemd Core Dumper",
+   "home": "/",
+   "shell": "/sbin/nologin",
+   "password": "!!",
+   "locked": true,
+   "aging": {
+    "lastChange": 19800,
+    "min": 0,
+    "max": 99999,
+    "warn": 7,
+    "inactive": "",
+    "expire": ""
+   }
+  },
+  {
+   "name": "polkitd",
+   "uid": 998,
+   "gid": 996,
+   "gecos": "User for polkitd",
+   "home": "/",
+   "shell": "/sbin/nologin",
+   "password": "!!",
+   "locked": true,
+   "aging": {
+    "lastChange": 19800,
+    "min": 0,
+    "max": 99999,
+    "warn": 7,
+    "inactive": "",
+    "expire": ""
+   }
+  },
+  {
+   "name": "chrony",
+   "uid": 995,
+   "gid": 993,
+   "gecos": "",
+   "home": "/var/lib/chrony",
+   "shell": "/sbin/nologin",
+   "password": "!!",
+   "locked": true,
+   "aging": {
+    "lastChange": 19800,
+    "min": 0,
+    "max": 99999,
+    "warn": 7,
+    "inactive": "",
+    "expire": ""
+   }
+  },
+  {
+   "name": "sshd",
+   "uid": 74,
+   "gid": 74,
+   "gecos": "Privilege-separated SSH",
+   "home": "/usr/share/empty.sshd",
+   "shell": "/sbin/nologin",
+   "password": "!!",
+   "locked": true,
+   "aging": {
+    "lastChange": 19800,
+    "min": 0,
+    "max": 99999,
+    "warn": 7,
+    "inactive": "",
+    "expire": ""
+   }
+  },
+  {
+   "name": "tss",
+   "uid": 59,
+   "gid": 59,
+   "gecos": "Account used for TPM access",
+   "home": "/dev/null",
+   "shell": "/sbin/nologin",
+   "password": "!!",
+   "locked": true,
+   "aging": {
+    "lastChange": 19800,
+    "min": 0,
+    "max": 99999,
+    "warn": 7,
+    "inactive": "",
+    "expire": ""
+   }
+  },
+  {
+   "name": "student",
+   "uid": 1000,
+   "gid": 1000,
+   "gecos": "Student User",
+   "home": "/home/student",
+   "shell": "/bin/bash",
+   "password": "student",
+   "locked": false,
+   "aging": {
+    "lastChange": 20100,
+    "min": 0,
+    "max": 99999,
+    "warn": 7,
+    "inactive": "",
+    "expire": ""
+   }
+  },
+  {
+   "name": "operator1",
+   "uid": 1001,
+   "gid": 1001,
+   "gecos": "Site Operator One",
+   "home": "/home/operator1",
+   "shell": "/bin/bash",
+   "password": "redhat",
+   "locked": false,
+   "aging": {
+    "lastChange": 20050,
+    "min": 0,
+    "max": 60,
+    "warn": 7,
+    "inactive": "",
+    "expire": ""
+   }
+  },
+  {
+   "name": "operator2",
+   "uid": 1002,
+   "gid": 1002,
+   "gecos": "Site Operator Two",
+   "home": "/home/operator2",
+   "shell": "/bin/bash",
+   "password": "redhat",
+   "locked": false,
+   "aging": {
+    "lastChange": 20050,
+    "min": 1,
+    "max": 90,
+    "warn": 7,
+    "inactive": 14,
+    "expire": ""
+   }
+  },
+  {
+   "name": "operator3",
+   "uid": 1003,
+   "gid": 1003,
+   "gecos": "Site Operator Three",
+   "home": "/home/operator3",
+   "shell": "/bin/bash",
+   "password": "redhat",
+   "locked": true,
+   "aging": {
+    "lastChange": 19980,
+    "min": 0,
+    "max": 99999,
+    "warn": 7,
+    "inactive": "",
+    "expire": ""
+   }
+  },
+  {
+   "name": "dbadmin",
+   "uid": 1004,
+   "gid": 1004,
+   "gecos": "Database Admin",
+   "home": "/home/dbadmin",
+   "shell": "/bin/bash",
+   "password": "redhat",
+   "locked": false,
+   "aging": {
+    "lastChange": 20120,
+    "min": 0,
+    "max": 99999,
+    "warn": 7,
+    "inactive": "",
+    "expire": ""
+   }
+  }
+ ],
+ "groups": [
+  {
+   "name": "root",
+   "gid": 0,
+   "members": []
+  },
+  {
+   "name": "bin",
+   "gid": 1,
+   "members": []
+  },
+  {
+   "name": "daemon",
+   "gid": 2,
+   "members": []
+  },
+  {
+   "name": "sys",
+   "gid": 3,
+   "members": []
+  },
+  {
+   "name": "adm",
+   "gid": 4,
+   "members": []
+  },
+  {
+   "name": "tty",
+   "gid": 5,
+   "members": []
+  },
+  {
+   "name": "disk",
+   "gid": 6,
+   "members": []
+  },
+  {
+   "name": "lp",
+   "gid": 7,
+   "members": []
+  },
+  {
+   "name": "mem",
+   "gid": 8,
+   "members": []
+  },
+  {
+   "name": "kmem",
+   "gid": 9,
+   "members": []
+  },
+  {
+   "name": "wheel",
+   "gid": 10,
+   "members": [
+    "student"
+   ]
+  },
+  {
+   "name": "cdrom",
+   "gid": 11,
+   "members": []
+  },
+  {
+   "name": "mail",
+   "gid": 12,
+   "members": []
+  },
+  {
+   "name": "man",
+   "gid": 15,
+   "members": []
+  },
+  {
+   "name": "dialout",
+   "gid": 18,
+   "members": []
+  },
+  {
+   "name": "floppy",
+   "gid": 19,
+   "members": []
+  },
+  {
+   "name": "games",
+   "gid": 20,
+   "members": []
+  },
+  {
+   "name": "utmp",
+   "gid": 22,
+   "members": []
+  },
+  {
+   "name": "tape",
+   "gid": 33,
+   "members": []
+  },
+  {
+   "name": "utempter",
+   "gid": 35,
+   "members": []
+  },
+  {
+   "name": "video",
+   "gid": 39,
+   "members": []
+  },
+  {
+   "name": "ftp",
+   "gid": 50,
+   "members": []
+  },
+  {
+   "name": "lock",
+   "gid": 54,
+   "members": []
+  },
+  {
+   "name": "audio",
+   "gid": 63,
+   "members": []
+  },
+  {
+   "name": "users",
+   "gid": 100,
+   "members": []
+  },
+  {
+   "name": "sshd",
+   "gid": 74,
+   "members": []
+  },
+  {
+   "name": "dbus",
+   "gid": 81,
+   "members": []
+  },
+  {
+   "name": "input",
+   "gid": 104,
+   "members": []
+  },
+  {
+   "name": "kvm",
+   "gid": 36,
+   "members": []
+  },
+  {
+   "name": "render",
+   "gid": 105,
+   "members": []
+  },
+  {
+   "name": "systemd-journal",
+   "gid": 190,
+   "members": []
+  },
+  {
+   "name": "chrony",
+   "gid": 993,
+   "members": []
+  },
+  {
+   "name": "polkitd",
+   "gid": 996,
+   "members": []
+  },
+  {
+   "name": "systemd-coredump",
+   "gid": 997,
+   "members": []
+  },
+  {
+   "name": "nobody",
+   "gid": 65534,
+   "members": []
+  },
+  {
+   "name": "tss",
+   "gid": 59,
+   "members": []
+  },
+  {
+   "name": "student",
+   "gid": 1000,
+   "members": []
+  },
+  {
+   "name": "operator1",
+   "gid": 1001,
+   "members": []
+  },
+  {
+   "name": "operator2",
+   "gid": 1002,
+   "members": []
+  },
+  {
+   "name": "operator3",
+   "gid": 1003,
+   "members": []
+  },
+  {
+   "name": "dbadmin",
+   "gid": 1004,
+   "members": []
+  },
+  {
+   "name": "operators",
+   "gid": 10001,
+   "members": [
+    "operator1",
+    "operator2"
+   ]
+  },
+  {
+   "name": "consultants",
+   "gid": 10002,
+   "members": [
+    "operator3"
+   ]
+  },
+  {
+   "name": "techdocs",
+   "gid": 10003,
+   "members": [
+    "student",
+    "operator1"
+   ]
+  }
+ ],
+ "sudoers": [
+  "student"
+ ],
+ "packages": {
+  "repos": [
+   {
+    "id": "rhel-9-for-x86_64-baseos-rpms",
+    "name": "Red Hat Enterprise Linux 9 for x86_64 - BaseOS (RPMs)",
+    "enabled": true,
+    "packages": 4382
+   },
+   {
+    "id": "rhel-9-for-x86_64-appstream-rpms",
+    "name": "Red Hat Enterprise Linux 9 for x86_64 - AppStream (RPMs)",
+    "enabled": true,
+    "packages": 7431
+   },
+   {
+    "id": "lab-extras",
+    "name": "Classroom Extra Packages",
+    "enabled": false,
+    "packages": 128,
+    "baseurl": "http://content.example.com/rhel9.0/x86_64/lab-extras"
+   }
+  ],
+  "installed": [
+   {
+    "name": "bash",
+    "version": "5.1.8",
+    "release": "6.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "The GNU Bourne Again shell",
+    "license": "GPLv3+",
+    "url": "https://www.gnu.org/software/bash",
+    "size": 7856432,
+    "files": [
+     "/usr/bin/bash",
+     "/usr/bin/sh",
+     "/etc/bashrc",
+     "/etc/profile.d/bash_completion.sh",
+     "/usr/share/man/man1/bash.1.gz"
+    ],
+    "requires": [
+     "glibc",
+     "ncurses-libs"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:18 AM EDT",
+    "sourceRpm": "bash-5.1.8-6.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "The GNU Bourne Again shell.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "coreutils",
+    "version": "8.32",
+    "release": "34.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "A set of basic GNU tools commonly used in shell scripts",
+    "license": "GPLv3+",
+    "url": "https://www.gnu.org/software/coreutils",
+    "size": 6104928,
+    "files": [
+     "/usr/bin/cat",
+     "/usr/bin/chgrp",
+     "/usr/bin/chmod",
+     "/usr/bin/chown",
+     "/usr/bin/cp",
+     "/usr/bin/cut",
+     "/usr/bin/date",
+     "/usr/bin/df",
+     "/usr/bin/dirname",
+     "/usr/bin/du",
+     "/usr/bin/echo",
+     "/usr/bin/head",
+     "/usr/bin/basename",
+     "/usr/bin/ln",
+     "/usr/bin/ls",
+     "/usr/bin/mkdir",
+     "/usr/bin/mv",
+     "/usr/bin/nl",
+     "/usr/bin/printf",
+     "/usr/bin/pwd",
+     "/usr/bin/readlink",
+     "/usr/bin/realpath",
+     "/usr/bin/rm",
+     "/usr/bin/rmdir",
+     "/usr/bin/sleep",
+     "/usr/bin/sort",
+     "/usr/bin/split",
+     "/usr/bin/stat",
+     "/usr/bin/sum",
+     "/usr/bin/tac",
+     "/usr/bin/tail",
+     "/usr/bin/tee",
+     "/usr/bin/touch",
+     "/usr/bin/tr",
+     "/usr/bin/true",
+     "/usr/bin/false",
+     "/usr/bin/uname",
+     "/usr/bin/uniq",
+     "/usr/bin/wc",
+     "/usr/bin/whoami",
+     "/usr/bin/users",
+     "/usr/bin/md5sum",
+     "/usr/bin/sha256sum",
+     "/usr/bin/nohup",
+     "/usr/bin/nice",
+     "/usr/bin/seq",
+     "/usr/bin/yes",
+     "/usr/bin/env",
+     "/usr/bin/who",
+     "/usr/bin/logname",
+     "/usr/bin/paste",
+     "/usr/bin/comm",
+     "/usr/share/man/man1/ls.1.gz",
+     "/usr/share/man/man1/cp.1.gz"
+    ],
+    "requires": [
+     "glibc"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:32 AM EDT",
+    "sourceRpm": "coreutils-8.32-34.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "A set of basic GNU tools commonly used in shell scripts.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "grep",
+    "version": "3.6",
+    "release": "5.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "Pattern matching utilities",
+    "license": "GPLv3+",
+    "url": "https://www.gnu.org/software/grep",
+    "size": 831204,
+    "files": [
+     "/usr/bin/grep",
+     "/usr/bin/egrep",
+     "/usr/bin/fgrep",
+     "/usr/share/man/man1/grep.1.gz"
+    ],
+    "requires": [
+     "glibc",
+     "pcre2"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:54 AM EDT",
+    "sourceRpm": "grep-3.6-5.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "Pattern matching utilities.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "sed",
+    "version": "4.8",
+    "release": "9.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "A GNU stream text editor",
+    "license": "GPLv3+",
+    "url": "https://www.gnu.org/software/sed",
+    "size": 754112,
+    "files": [
+     "/usr/bin/sed",
+     "/usr/share/man/man1/sed.1.gz"
+    ],
+    "requires": [
+     "glibc"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:19 AM EDT",
+    "sourceRpm": "sed-4.8-9.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "A GNU stream text editor.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "gawk",
+    "version": "5.1.0",
+    "release": "6.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "The GNU version of the AWK text processing utility",
+    "license": "GPLv3+",
+    "url": "https://www.gnu.org/software/gawk",
+    "size": 2851328,
+    "files": [
+     "/usr/bin/awk",
+     "/usr/bin/gawk",
+     "/usr/share/man/man1/awk.1.gz"
+    ],
+    "requires": [
+     "glibc"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:55 AM EDT",
+    "sourceRpm": "gawk-5.1.0-6.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "The GNU version of the AWK text processing utility.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "findutils",
+    "version": "4.8.0",
+    "release": "5.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "The GNU versions of find utilities (find and xargs)",
+    "license": "GPLv3+",
+    "url": "https://www.gnu.org/software/findutils",
+    "size": 1912736,
+    "files": [
+     "/usr/bin/find",
+     "/usr/bin/xargs",
+     "/usr/share/man/man1/find.1.gz"
+    ],
+    "requires": [
+     "glibc"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:22 AM EDT",
+    "sourceRpm": "findutils-4.8.0-5.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "The GNU versions of find utilities (find and xargs).\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "util-linux",
+    "version": "2.37.4",
+    "release": "10.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "Collection of basic system utilities",
+    "license": "GPLv2+",
+    "url": "https://www.kernel.org/pub/linux/utils/util-linux",
+    "size": 12583040,
+    "files": [
+     "/usr/bin/kill",
+     "/usr/bin/lsblk",
+     "/usr/bin/more",
+     "/usr/bin/mount",
+     "/usr/bin/umount",
+     "/usr/bin/findmnt",
+     "/usr/bin/su",
+     "/usr/bin/blkid",
+     "/usr/bin/lscpu",
+     "/usr/bin/renice",
+     "/usr/bin/rev",
+     "/usr/bin/whereis",
+     "/usr/bin/hexdump",
+     "/usr/bin/flock",
+     "/usr/bin/logger",
+     "/usr/bin/last",
+     "/usr/bin/lastlog",
+     "/usr/bin/mountpoint"
+    ],
+    "requires": [
+     "glibc",
+     "pam"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:21 AM EDT",
+    "sourceRpm": "util-linux-2.37.4-10.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "Collection of basic system utilities.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "procps-ng",
+    "version": "3.3.17",
+    "release": "9.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "System and process monitoring utilities",
+    "license": "GPLv2+",
+    "url": "https://sourceforge.net/projects/procps-ng",
+    "size": 1048576,
+    "files": [
+     "/usr/bin/ps",
+     "/usr/bin/top",
+     "/usr/bin/free",
+     "/usr/bin/uptime",
+     "/usr/bin/pgrep",
+     "/usr/bin/pkill",
+     "/usr/bin/pmap",
+     "/usr/bin/w",
+     "/usr/bin/watch",
+     "/usr/bin/vmstat"
+    ],
+    "requires": [
+     "glibc",
+     "ncurses-libs"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:15 AM EDT",
+    "sourceRpm": "procps-ng-3.3.17-9.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "System and process monitoring utilities.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "psmisc",
+    "version": "23.4",
+    "release": "3.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "Utilities for managing processes on your system",
+    "license": "GPLv2+",
+    "url": "https://gitlab.com/psmisc/psmisc",
+    "size": 622592,
+    "files": [
+     "/usr/bin/killall",
+     "/usr/bin/pstree",
+     "/usr/bin/fuser"
+    ],
+    "requires": [
+     "glibc"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:28 AM EDT",
+    "sourceRpm": "psmisc-23.4-3.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "Utilities for managing processes on your system.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "systemd",
+    "version": "250",
+    "release": "12.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "System and Service Manager",
+    "license": "LGPLv2+",
+    "url": "https://systemd.io",
+    "size": 15728640,
+    "files": [
+     "/usr/bin/systemctl",
+     "/usr/bin/journalctl",
+     "/usr/bin/hostnamectl",
+     "/usr/bin/timedatectl",
+     "/usr/bin/loginctl",
+     "/usr/lib/systemd/systemd",
+     "/etc/systemd/system.conf"
+    ],
+    "requires": [
+     "glibc",
+     "dbus"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:32 AM EDT",
+    "sourceRpm": "systemd-250-12.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "System and Service Manager.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "shadow-utils",
+    "version": "4.9",
+    "release": "6.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "Utilities for managing accounts and shadow password files",
+    "license": "BSD and GPLv2+",
+    "url": "https://github.com/shadow-maint/shadow",
+    "size": 4194304,
+    "files": [
+     "/usr/sbin/useradd",
+     "/usr/sbin/usermod",
+     "/usr/sbin/userdel",
+     "/usr/sbin/groupadd",
+     "/usr/sbin/groupmod",
+     "/usr/sbin/groupdel",
+     "/usr/bin/chage",
+     "/usr/bin/passwd",
+     "/usr/bin/gpasswd",
+     "/usr/bin/newgrp",
+     "/usr/bin/id",
+     "/usr/bin/groups",
+     "/etc/login.defs",
+     "/etc/default/useradd"
+    ],
+    "requires": [
+     "glibc",
+     "libselinux",
+     "pam"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:57 AM EDT",
+    "sourceRpm": "shadow-utils-4.9-6.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "Utilities for managing accounts and shadow password files.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "rpm",
+    "version": "4.16.1.3",
+    "release": "22.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "The RPM package management system",
+    "license": "GPLv2+",
+    "url": "https://rpm.org",
+    "size": 3145728,
+    "files": [
+     "/usr/bin/rpm",
+     "/usr/bin/rpm2cpio",
+     "/usr/bin/rpmkeys",
+     "/var/lib/rpm"
+    ],
+    "requires": [
+     "glibc",
+     "rpm-libs"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:01 AM EDT",
+    "sourceRpm": "rpm-4.16.1.3-22.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "The RPM package management system.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "dnf",
+    "version": "4.14.0",
+    "release": "5.el9",
+    "arch": "noarch",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "Package manager",
+    "license": "GPLv2+",
+    "url": "https://github.com/rpm-software-management/dnf",
+    "size": 2097152,
+    "files": [
+     "/usr/bin/dnf",
+     "/usr/bin/dnf-3",
+     "/usr/bin/yum",
+     "/etc/dnf/dnf.conf",
+     "/etc/yum.repos.d"
+    ],
+    "requires": [
+     "python3",
+     "rpm",
+     "python3-dnf"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:04 AM EDT",
+    "sourceRpm": "dnf-4.14.0-5.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "Package manager.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "openssh-clients",
+    "version": "8.7p1",
+    "release": "24.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "An open source SSH client applications",
+    "license": "BSD",
+    "url": "https://www.openssh.com",
+    "size": 3670016,
+    "files": [
+     "/usr/bin/ssh",
+     "/usr/bin/scp",
+     "/usr/bin/sftp",
+     "/usr/bin/ssh-keygen",
+     "/usr/bin/ssh-copy-id",
+     "/usr/bin/ssh-agent",
+     "/usr/bin/ssh-add",
+     "/etc/ssh/ssh_config"
+    ],
+    "requires": [
+     "glibc",
+     "openssl-libs"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:48 AM EDT",
+    "sourceRpm": "openssh-clients-8.7p1-24.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "An open source SSH client applications.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "openssh-server",
+    "version": "8.7p1",
+    "release": "24.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "An open source SSH server daemon",
+    "license": "BSD",
+    "url": "https://www.openssh.com",
+    "size": 1835008,
+    "files": [
+     "/usr/sbin/sshd",
+     "/etc/ssh/sshd_config",
+     "/usr/lib/systemd/system/sshd.service"
+    ],
+    "requires": [
+     "openssh",
+     "pam"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:47 AM EDT",
+    "sourceRpm": "openssh-server-8.7p1-24.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "An open source SSH server daemon.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "vim-enhanced",
+    "version": "8.2.2637",
+    "release": "20.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-appstream-rpms",
+    "summary": "A version of the VIM editor which includes recent enhancements",
+    "license": "Vim",
+    "url": "https://www.vim.org",
+    "size": 3512320,
+    "files": [
+     "/usr/bin/vim",
+     "/usr/bin/vimdiff",
+     "/usr/share/man/man1/vim.1.gz"
+    ],
+    "requires": [
+     "vim-common",
+     "vim-filesystem",
+     "gpm-libs"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:30 AM EDT",
+    "sourceRpm": "vim-enhanced-8.2.2637-20.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "A version of the VIM editor which includes recent enhancements.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "vim-minimal",
+    "version": "8.2.2637",
+    "release": "20.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "A minimal version of the VIM editor",
+    "license": "Vim",
+    "url": "https://www.vim.org",
+    "size": 1048576,
+    "files": [
+     "/usr/bin/vi"
+    ],
+    "requires": [
+     "glibc"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:32 AM EDT",
+    "sourceRpm": "vim-minimal-8.2.2637-20.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "A minimal version of the VIM editor.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "nano",
+    "version": "5.6.1",
+    "release": "5.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "A small text editor",
+    "license": "GPLv3+",
+    "url": "https://www.nano-editor.org",
+    "size": 2621440,
+    "files": [
+     "/usr/bin/nano",
+     "/etc/nanorc"
+    ],
+    "requires": [
+     "glibc",
+     "ncurses-libs"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:55 AM EDT",
+    "sourceRpm": "nano-5.6.1-5.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "A small text editor.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "less",
+    "version": "590",
+    "release": "1.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "A text file browser similar to more, but better",
+    "license": "GPLv3+",
+    "url": "https://www.greenwoodsoftware.com/less",
+    "size": 398336,
+    "files": [
+     "/usr/bin/less",
+     "/usr/bin/lesspipe.sh"
+    ],
+    "requires": [
+     "glibc",
+     "ncurses-libs"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:26 AM EDT",
+    "sourceRpm": "less-590-1.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "A text file browser similar to more, but better.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "man-db",
+    "version": "2.9.3",
+    "release": "7.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "Tools for searching and reading man pages",
+    "license": "GPLv2+ and GPLv3+",
+    "url": "https://gitlab.com/man-db/man-db",
+    "size": 2883584,
+    "files": [
+     "/usr/bin/man",
+     "/usr/bin/apropos",
+     "/usr/bin/whatis",
+     "/usr/bin/mandb",
+     "/etc/man_db.conf"
+    ],
+    "requires": [
+     "glibc",
+     "groff-base"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:38 AM EDT",
+    "sourceRpm": "man-db-2.9.3-7.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "Tools for searching and reading man pages.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "tar",
+    "version": "1.34",
+    "release": "6.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "A GNU file archiving program",
+    "license": "GPLv3+",
+    "url": "https://www.gnu.org/software/tar",
+    "size": 3014656,
+    "files": [
+     "/usr/bin/tar",
+     "/usr/bin/gtar"
+    ],
+    "requires": [
+     "glibc"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:13 AM EDT",
+    "sourceRpm": "tar-1.34-6.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "A GNU file archiving program.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "gzip",
+    "version": "1.12",
+    "release": "1.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "The GNU data compression program",
+    "license": "GPLv3+",
+    "url": "https://www.gnu.org/software/gzip",
+    "size": 385024,
+    "files": [
+     "/usr/bin/gzip",
+     "/usr/bin/gunzip",
+     "/usr/bin/zcat"
+    ],
+    "requires": [
+     "glibc"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:51 AM EDT",
+    "sourceRpm": "gzip-1.12-1.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "The GNU data compression program.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "which",
+    "version": "2.21",
+    "release": "29.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "Displays where a particular program in your path is located",
+    "license": "GPLv3",
+    "url": "https://carlowood.github.io/which",
+    "size": 81920,
+    "files": [
+     "/usr/bin/which"
+    ],
+    "requires": [
+     "glibc"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:22 AM EDT",
+    "sourceRpm": "which-2.21-29.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "Displays where a particular program in your path is located.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "diffutils",
+    "version": "3.7",
+    "release": "12.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "A GNU collection of diff utilities",
+    "license": "GPLv3+",
+    "url": "https://www.gnu.org/software/diffutils",
+    "size": 1572864,
+    "files": [
+     "/usr/bin/diff",
+     "/usr/bin/cmp",
+     "/usr/bin/sdiff"
+    ],
+    "requires": [
+     "glibc"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:25 AM EDT",
+    "sourceRpm": "diffutils-3.7-12.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "A GNU collection of diff utilities.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "iproute",
+    "version": "5.18.0",
+    "release": "1.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "Advanced IP routing and network device configuration tools",
+    "license": "GPLv2+",
+    "url": "https://kernel.org/pub/linux/utils/net/iproute2",
+    "size": 2359296,
+    "files": [
+     "/usr/sbin/ip",
+     "/usr/sbin/ss",
+     "/etc/iproute2/rt_tables"
+    ],
+    "requires": [
+     "glibc",
+     "libbpf"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:11 AM EDT",
+    "sourceRpm": "iproute-5.18.0-1.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "Advanced IP routing and network device configuration tools.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "iputils",
+    "version": "20210202",
+    "release": "8.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "Network monitoring tools including ping",
+    "license": "BSD and GPLv2+",
+    "url": "https://github.com/iputils/iputils",
+    "size": 655360,
+    "files": [
+     "/usr/bin/ping",
+     "/usr/bin/tracepath",
+     "/usr/sbin/arping"
+    ],
+    "requires": [
+     "glibc"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:38 AM EDT",
+    "sourceRpm": "iputils-20210202-8.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "Network monitoring tools including ping.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "NetworkManager",
+    "version": "1.40.0",
+    "release": "1.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "Network connection manager and user applications",
+    "license": "GPLv2+",
+    "url": "https://networkmanager.dev",
+    "size": 19922944,
+    "files": [
+     "/usr/bin/nmcli",
+     "/usr/sbin/NetworkManager",
+     "/etc/NetworkManager/NetworkManager.conf",
+     "/usr/lib/systemd/system/NetworkManager.service"
+    ],
+    "requires": [
+     "glibc",
+     "systemd"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:43 AM EDT",
+    "sourceRpm": "NetworkManager-1.40.0-1.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "Network connection manager and user applications.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "hostname",
+    "version": "3.23",
+    "release": "6.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "Utility to set/show the host name or domain name",
+    "license": "GPLv2+",
+    "url": "https://sourceforge.net/projects/net-tools",
+    "size": 61440,
+    "files": [
+     "/usr/bin/hostname",
+     "/usr/bin/domainname"
+    ],
+    "requires": [
+     "glibc"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:28 AM EDT",
+    "sourceRpm": "hostname-3.23-6.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "Utility to set/show the host name or domain name.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "chrony",
+    "version": "4.2",
+    "release": "1.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "An NTP client/server",
+    "license": "GPLv2",
+    "url": "https://chrony.tuxfamily.org",
+    "size": 1310720,
+    "files": [
+     "/usr/sbin/chronyd",
+     "/usr/bin/chronyc",
+     "/etc/chrony.conf",
+     "/usr/lib/systemd/system/chronyd.service"
+    ],
+    "requires": [
+     "glibc",
+     "libseccomp"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:13 AM EDT",
+    "sourceRpm": "chrony-4.2-1.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "An NTP client/server.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "firewalld",
+    "version": "1.1.1",
+    "release": "3.el9",
+    "arch": "noarch",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "A firewall daemon with D-Bus interface providing a dynamic firewall",
+    "license": "GPLv2+",
+    "url": "https://firewalld.org",
+    "size": 2621440,
+    "files": [
+     "/usr/bin/firewall-cmd",
+     "/usr/sbin/firewalld",
+     "/etc/firewalld/firewalld.conf",
+     "/usr/lib/systemd/system/firewalld.service"
+    ],
+    "requires": [
+     "python3",
+     "nftables"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:13 AM EDT",
+    "sourceRpm": "firewalld-1.1.1-3.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "A firewall daemon with D-Bus interface providing a dynamic firewall.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "cronie",
+    "version": "1.5.7",
+    "release": "8.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "Cron daemon for executing programs at set times",
+    "license": "MIT and BSD and ISC and GPLv2+",
+    "url": "https://github.com/cronie-crond/cronie",
+    "size": 262144,
+    "files": [
+     "/usr/bin/crontab",
+     "/usr/sbin/crond",
+     "/etc/crontab",
+     "/usr/lib/systemd/system/crond.service"
+    ],
+    "requires": [
+     "glibc",
+     "pam"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:02 AM EDT",
+    "sourceRpm": "cronie-1.5.7-8.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "Cron daemon for executing programs at set times.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "rsyslog",
+    "version": "8.2102.0",
+    "release": "111.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "Enhanced system logging and kernel message trapping daemon",
+    "license": "GPLv3+",
+    "url": "https://www.rsyslog.com",
+    "size": 3670016,
+    "files": [
+     "/usr/sbin/rsyslogd",
+     "/etc/rsyslog.conf",
+     "/usr/lib/systemd/system/rsyslog.service"
+    ],
+    "requires": [
+     "glibc",
+     "systemd"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:00 AM EDT",
+    "sourceRpm": "rsyslog-8.2102.0-111.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "Enhanced system logging and kernel message trapping daemon.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "audit",
+    "version": "3.0.7",
+    "release": "103.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "User space tools for kernel auditing",
+    "license": "GPLv2+",
+    "url": "https://people.redhat.com/sgrubb/audit",
+    "size": 1048576,
+    "files": [
+     "/usr/sbin/auditd",
+     "/usr/sbin/ausearch",
+     "/etc/audit/auditd.conf",
+     "/usr/lib/systemd/system/auditd.service"
+    ],
+    "requires": [
+     "glibc"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:29 AM EDT",
+    "sourceRpm": "audit-3.0.7-103.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "User space tools for kernel auditing.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "python3",
+    "version": "3.9.14",
+    "release": "1.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "Interpreter of the Python programming language",
+    "license": "Python-2.0",
+    "url": "https://www.python.org",
+    "size": 33554432,
+    "files": [
+     "/usr/bin/python3",
+     "/usr/bin/python3.9"
+    ],
+    "requires": [
+     "glibc",
+     "python3-libs"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:03 AM EDT",
+    "sourceRpm": "python3-3.9.14-1.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "Interpreter of the Python programming language.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "kernel",
+    "version": "5.14.0",
+    "release": "70.13.1.el9_0",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "The Linux kernel",
+    "license": "GPLv2 and Redistributable, no modification permitted",
+    "url": "https://www.kernel.org",
+    "size": 0,
+    "files": [
+     "/boot/vmlinuz-5.14.0-70.13.1.el9_0.x86_64"
+    ],
+    "requires": [],
+    "installDate": "Tue 12 Jul 2025 06:31:45 AM EDT",
+    "sourceRpm": "kernel-5.14.0-70.13.1.el9_0.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "The Linux kernel.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "kernel",
+    "version": "5.14.0",
+    "release": "70.22.1.el9_0",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "The Linux kernel",
+    "license": "GPLv2 and Redistributable, no modification permitted",
+    "url": "https://www.kernel.org",
+    "size": 0,
+    "files": [
+     "/boot/vmlinuz-5.14.0-70.22.1.el9_0.x86_64"
+    ],
+    "requires": [],
+    "installDate": "Tue 12 Jul 2025 06:31:28 AM EDT",
+    "sourceRpm": "kernel-5.14.0-70.22.1.el9_0.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "The Linux kernel.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "redhat-release",
+    "version": "9.0",
+    "release": "2.5.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "Red Hat Enterprise Linux release file",
+    "license": "MIT",
+    "url": "https://www.redhat.com",
+    "size": 4096,
+    "files": [
+     "/etc/redhat-release",
+     "/etc/os-release",
+     "/etc/system-release"
+    ],
+    "requires": [],
+    "installDate": "Tue 12 Jul 2025 06:31:11 AM EDT",
+    "sourceRpm": "redhat-release-9.0-2.5.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "Red Hat Enterprise Linux release file.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "glibc",
+    "version": "2.34",
+    "release": "40.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "The GNU libc libraries",
+    "license": "LGPLv2+",
+    "url": "https://www.gnu.org/software/glibc",
+    "size": 6291456,
+    "files": [
+     "/usr/bin/ldd",
+     "/usr/bin/getent",
+     "/usr/bin/locale",
+     "/usr/lib64/libc.so.6"
+    ],
+    "requires": [],
+    "installDate": "Tue 12 Jul 2025 06:31:03 AM EDT",
+    "sourceRpm": "glibc-2.34-40.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "The GNU libc libraries.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "sudo",
+    "version": "1.9.5p2",
+    "release": "7.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "Allows restricted root access for specified users",
+    "license": "ISC",
+    "url": "https://www.sudo.ws",
+    "size": 6815744,
+    "files": [
+     "/usr/bin/sudo",
+     "/usr/sbin/visudo",
+     "/etc/sudoers",
+     "/etc/sudoers.d"
+    ],
+    "requires": [
+     "glibc",
+     "pam"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:42 AM EDT",
+    "sourceRpm": "sudo-1.9.5p2-7.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "Allows restricted root access for specified users.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "flatpak",
+    "version": "1.12.7",
+    "release": "1.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-appstream-rpms",
+    "summary": "Application deployment framework for desktop apps",
+    "license": "LGPLv2+",
+    "url": "https://flatpak.org",
+    "size": 7340032,
+    "files": [
+     "/usr/bin/flatpak",
+     "/etc/flatpak/remotes.d"
+    ],
+    "requires": [
+     "glibc",
+     "bubblewrap"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:43 AM EDT",
+    "sourceRpm": "flatpak-1.12.7-1.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "Application deployment framework for desktop apps.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "mlocate",
+    "version": "0.26",
+    "release": "31.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-appstream-rpms",
+    "summary": "An utility for finding files by name",
+    "license": "GPLv2",
+    "url": "https://pagure.io/mlocate",
+    "size": 393216,
+    "files": [
+     "/usr/bin/locate",
+     "/usr/bin/updatedb",
+     "/etc/updatedb.conf",
+     "/var/lib/mlocate/mlocate.db"
+    ],
+    "requires": [
+     "glibc"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:42 AM EDT",
+    "sourceRpm": "mlocate-0.26-31.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "An utility for finding files by name.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "file",
+    "version": "5.39",
+    "release": "12.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "A utility for determining file types",
+    "license": "BSD",
+    "url": "https://www.darwinsys.com/file",
+    "size": 262144,
+    "files": [
+     "/usr/bin/file",
+     "/usr/share/man/man1/file.1.gz"
+    ],
+    "requires": [
+     "glibc",
+     "file-libs"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:28 AM EDT",
+    "sourceRpm": "file-5.39-12.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "A utility for determining file types.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "ncurses",
+    "version": "6.2",
+    "release": "8.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "Ncurses support utilities",
+    "license": "MIT",
+    "url": "https://invisible-island.net/ncurses",
+    "size": 991232,
+    "files": [
+     "/usr/bin/clear",
+     "/usr/bin/tput",
+     "/usr/bin/reset",
+     "/usr/bin/infocmp"
+    ],
+    "requires": [
+     "glibc",
+     "ncurses-libs"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:46 AM EDT",
+    "sourceRpm": "ncurses-6.2-8.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "Ncurses support utilities.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "lsof",
+    "version": "4.94.0",
+    "release": "3.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "A utility which lists open files on a Linux/UNIX system",
+    "license": "zlib and Sendmail",
+    "url": "https://github.com/lsof-org/lsof",
+    "size": 950272,
+    "files": [
+     "/usr/bin/lsof"
+    ],
+    "requires": [
+     "glibc",
+     "libtirpc"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:09 AM EDT",
+    "sourceRpm": "lsof-4.94.0-3.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "A utility which lists open files on a Linux/UNIX system.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "bzip2",
+    "version": "1.0.8",
+    "release": "8.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "A file compression utility",
+    "license": "BSD",
+    "url": "https://sourceware.org/bzip2",
+    "size": 102400,
+    "files": [
+     "/usr/bin/bzip2",
+     "/usr/bin/bunzip2",
+     "/usr/bin/bzcat"
+    ],
+    "requires": [
+     "glibc",
+     "bzip2-libs"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:02 AM EDT",
+    "sourceRpm": "bzip2-1.0.8-8.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "A file compression utility.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "subscription-manager",
+    "version": "1.29.26",
+    "release": "3.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "Tools and libraries for subscription and repository management",
+    "license": "GPLv2",
+    "url": "https://github.com/candlepin/subscription-manager",
+    "size": 4194304,
+    "files": [
+     "/usr/sbin/subscription-manager",
+     "/etc/rhsm/rhsm.conf"
+    ],
+    "requires": [
+     "python3",
+     "dnf"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:15 AM EDT",
+    "sourceRpm": "subscription-manager-1.29.26-3.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "Tools and libraries for subscription and repository management.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   },
+   {
+    "name": "bind-utils",
+    "version": "9.16.23",
+    "release": "1.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-appstream-rpms",
+    "summary": "Utilities for querying DNS name servers",
+    "license": "MPLv2.0",
+    "url": "https://www.isc.org/downloads/bind",
+    "size": 1310720,
+    "files": [
+     "/usr/bin/dig",
+     "/usr/bin/host",
+     "/usr/bin/nslookup"
+    ],
+    "requires": [
+     "glibc",
+     "bind-libs"
+    ],
+    "installDate": "Tue 12 Jul 2025 06:31:43 AM EDT",
+    "sourceRpm": "bind-utils-9.16.23-1.el9.src.rpm",
+    "signature": "RSA/SHA256, Wed 22 Jun 2025 10:02:11 AM EDT, Key ID 199e2f91fd431d51",
+    "vendor": "Red Hat, Inc.",
+    "description": "Utilities for querying DNS name servers.\n\nThis package is part of Red Hat Enterprise Linux 9."
+   }
+  ],
+  "available": [
+   {
+    "name": "httpd",
+    "version": "2.4.53",
+    "release": "7.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-appstream-rpms",
+    "summary": "Apache HTTP Server",
+    "size": 4874240,
+    "requires": [
+     "apr",
+     "apr-util",
+     "httpd-core",
+     "httpd-filesystem",
+     "mod_http2"
+    ],
+    "license": "ASL 2.0",
+    "url": "https://www.example.com/httpd",
+    "files": [],
+    "description": "Apache HTTP Server."
+   },
+   {
+    "name": "mariadb-server",
+    "version": "10.5.16",
+    "release": "2.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-appstream-rpms",
+    "summary": "The MariaDB server and related files",
+    "size": 27262976,
+    "requires": [
+     "mariadb",
+     "mariadb-common",
+     "perl-DBI"
+    ],
+    "license": "GPLv2+",
+    "url": "https://www.example.com/mariadb-server",
+    "files": [],
+    "description": "The MariaDB server and related files."
+   },
+   {
+    "name": "php",
+    "version": "8.0.20",
+    "release": "1.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-appstream-rpms",
+    "summary": "PHP scripting language for creating dynamic web sites",
+    "size": 4194304,
+    "requires": [
+     "php-common",
+     "php-cli"
+    ],
+    "license": "GPLv2+",
+    "url": "https://www.example.com/php",
+    "files": [
+     "/usr/bin/php"
+    ],
+    "description": "PHP scripting language for creating dynamic web sites."
+   },
+   {
+    "name": "nmap",
+    "version": "7.92",
+    "release": "1.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-appstream-rpms",
+    "summary": "Network exploration tool and security scanner",
+    "size": 25165824,
+    "requires": [
+     "nmap-ncat",
+     "libpcap"
+    ],
+    "license": "GPLv2+",
+    "url": "https://www.example.com/nmap",
+    "files": [
+     "/usr/bin/nmap"
+    ],
+    "description": "Network exploration tool and security scanner."
+   },
+   {
+    "name": "wget",
+    "version": "1.21.1",
+    "release": "7.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-appstream-rpms",
+    "summary": "A utility for retrieving files using the HTTP or FTP protocols",
+    "size": 2883584,
+    "requires": [
+     "glibc",
+     "openssl-libs"
+    ],
+    "license": "GPLv2+",
+    "url": "https://www.example.com/wget",
+    "files": [
+     "/usr/bin/wget"
+    ],
+    "description": "A utility for retrieving files using the HTTP or FTP protocols."
+   },
+   {
+    "name": "tree",
+    "version": "1.8.0",
+    "release": "10.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "File system tree viewer",
+    "size": 106496,
+    "requires": [
+     "glibc"
+    ],
+    "license": "GPLv2+",
+    "url": "https://www.example.com/tree",
+    "files": [
+     "/usr/bin/tree"
+    ],
+    "description": "File system tree viewer."
+   },
+   {
+    "name": "git",
+    "version": "2.31.1",
+    "release": "3.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-appstream-rpms",
+    "summary": "Fast Version Control System",
+    "size": 5242880,
+    "requires": [
+     "git-core",
+     "perl-Git"
+    ],
+    "license": "GPLv2+",
+    "url": "https://www.example.com/git",
+    "files": [
+     "/usr/bin/git"
+    ],
+    "description": "Fast Version Control System."
+   },
+   {
+    "name": "zsh",
+    "version": "5.8",
+    "release": "9.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "Powerful interactive shell",
+    "size": 7340032,
+    "requires": [
+     "glibc",
+     "ncurses-libs"
+    ],
+    "license": "GPLv2+",
+    "url": "https://www.example.com/zsh",
+    "files": [
+     "/usr/bin/zsh"
+    ],
+    "description": "Powerful interactive shell."
+   },
+   {
+    "name": "tcpdump",
+    "version": "4.99.0",
+    "release": "6.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-appstream-rpms",
+    "summary": "A network traffic monitoring tool",
+    "size": 1310720,
+    "requires": [
+     "libpcap"
+    ],
+    "license": "GPLv2+",
+    "url": "https://www.example.com/tcpdump",
+    "files": [
+     "/usr/bin/tcpdump"
+    ],
+    "description": "A network traffic monitoring tool."
+   },
+   {
+    "name": "rsync",
+    "version": "3.2.3",
+    "release": "9.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "A program for synchronizing files over a network",
+    "size": 1048576,
+    "requires": [
+     "glibc",
+     "zstd"
+    ],
+    "license": "GPLv2+",
+    "url": "https://www.example.com/rsync",
+    "files": [
+     "/usr/bin/rsync"
+    ],
+    "description": "A program for synchronizing files over a network."
+   },
+   {
+    "name": "tmux",
+    "version": "3.2a",
+    "release": "4.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "A terminal multiplexer",
+    "size": 983040,
+    "requires": [
+     "glibc",
+     "ncurses-libs"
+    ],
+    "license": "GPLv2+",
+    "url": "https://www.example.com/tmux",
+    "files": [
+     "/usr/bin/tmux"
+    ],
+    "description": "A terminal multiplexer."
+   },
+   {
+    "name": "unzip",
+    "version": "6.0",
+    "release": "56.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "A utility for unpacking zip files",
+    "size": 401408,
+    "requires": [
+     "glibc"
+    ],
+    "license": "GPLv2+",
+    "url": "https://www.example.com/unzip",
+    "files": [
+     "/usr/bin/unzip"
+    ],
+    "description": "A utility for unpacking zip files."
+   },
+   {
+    "name": "zip",
+    "version": "3.0",
+    "release": "33.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-baseos-rpms",
+    "summary": "A file compression and packaging utility compatible with PKZIP",
+    "size": 704512,
+    "requires": [
+     "glibc"
+    ],
+    "license": "GPLv2+",
+    "url": "https://www.example.com/zip",
+    "files": [
+     "/usr/bin/zip"
+    ],
+    "description": "A file compression and packaging utility compatible with PKZIP."
+   },
+   {
+    "name": "iotop",
+    "version": "0.6",
+    "release": "27.el9",
+    "arch": "noarch",
+    "repo": "rhel-9-for-x86_64-appstream-rpms",
+    "summary": "Top like utility for I/O",
+    "size": 131072,
+    "requires": [
+     "python3"
+    ],
+    "license": "GPLv2+",
+    "url": "https://www.example.com/iotop",
+    "files": [
+     "/usr/bin/iotop"
+    ],
+    "description": "Top like utility for I/O."
+   },
+   {
+    "name": "screen",
+    "version": "4.8.0",
+    "release": "6.el9",
+    "arch": "x86_64",
+    "repo": "rhel-9-for-x86_64-appstream-rpms",
+    "summary": "A screen manager that supports multiple logins on one terminal",
+    "size": 1048576,
+    "requires": [
+     "glibc",
+     "ncurses-libs"
+    ],
+    "license": "GPLv2+",
+    "url": "https://www.example.com/screen",
+    "files": [
+     "/usr/bin/screen"
+    ],
+    "description": "A screen manager that supports multiple logins on one terminal."
+   },
+   {
+    "name": "xsane",
+    "version": "0.999",
+    "release": "45.el9",
+    "arch": "x86_64",
+    "repo": "lab-extras",
+    "summary": "An X Window System front-end for the SANE scanner interface",
+    "size": 5242880,
+    "requires": [
+     "sane-backends"
+    ],
+    "license": "GPLv2+",
+    "url": "https://www.example.com/xsane",
+    "files": [],
+    "description": "An X Window System front-end for the SANE scanner interface."
+   },
+   {
+    "name": "lab-toolkit",
+    "version": "1.4",
+    "release": "2.el9",
+    "arch": "noarch",
+    "repo": "lab-extras",
+    "summary": "Classroom convenience scripts",
+    "size": 65536,
+    "requires": [
+     "bash"
+    ],
+    "license": "GPLv2+",
+    "url": "https://www.example.com/lab-toolkit",
+    "files": [],
+    "description": "Classroom convenience scripts."
+   }
+  ],
+  "groups": [
+   {
+    "id": "development",
+    "name": "Development Tools",
+    "installed": false,
+    "packages": [
+     "autoconf",
+     "automake",
+     "binutils",
+     "gcc",
+     "gdb",
+     "git",
+     "make",
+     "patch"
+    ]
+   },
+   {
+    "id": "container-management",
+    "name": "Container Management",
+    "installed": false,
+    "packages": [
+     "buildah",
+     "containernetworking-plugins",
+     "podman",
+     "skopeo"
+    ]
+   },
+   {
+    "id": "system-tools",
+    "name": "System Tools",
+    "installed": true,
+    "packages": [
+     "lsof",
+     "rsync",
+     "screen",
+     "tmux"
+    ]
+   },
+   {
+    "id": "headless-management",
+    "name": "Headless Management",
+    "installed": false,
+    "packages": [
+     "cockpit",
+     "realmd"
+    ]
+   }
+  ],
+  "modules": [
+   {
+    "name": "php",
+    "stream": "8.0",
+    "default": true,
+    "enabled": false,
+    "profiles": [
+     "common",
+     "devel",
+     "minimal"
+    ],
+    "summary": "PHP scripting language"
+   },
+   {
+    "name": "nodejs",
+    "stream": "16",
+    "default": true,
+    "enabled": false,
+    "profiles": [
+     "common",
+     "development",
+     "minimal",
+     "s2i"
+    ],
+    "summary": "Javascript runtime"
+   },
+   {
+    "name": "postgresql",
+    "stream": "13",
+    "default": true,
+    "enabled": false,
+    "profiles": [
+     "client",
+     "server"
+    ],
+    "summary": "PostgreSQL server and client module"
+   }
+  ],
+  "history": [
+   {
+    "id": 4,
+    "command": "install vim-enhanced",
+    "date": "2025-08-28 09:14",
+    "action": "Install",
+    "altered": 4
+   },
+   {
+    "id": 3,
+    "command": "update",
+    "date": "2025-08-14 22:02",
+    "action": "Upgrade",
+    "altered": 37
+   },
+   {
+    "id": 2,
+    "command": "install mlocate",
+    "date": "2025-07-30 11:47",
+    "action": "Install",
+    "altered": 1
+   },
+   {
+    "id": 1,
+    "command": "install",
+    "date": "2025-07-12 06:31",
+    "action": "Install",
+    "altered": 412
+   }
+  ]
+ },
+ "flatpak": {
+  "remotes": [
+   {
+    "name": "flathub",
+    "title": "Flathub",
+    "url": "https://dl.flathub.org/repo/",
+    "system": true
+   }
+  ],
+  "installed": [
+   {
+    "id": "org.gnome.Calculator",
+    "name": "Calculator",
+    "version": "42.2",
+    "branch": "stable",
+    "origin": "flathub",
+    "size": "18.4 MB",
+    "summary": "Perform arithmetic, scientific or financial calculations"
+   }
+  ],
+  "available": [
+   {
+    "id": "org.gimp.GIMP",
+    "name": "GNU Image Manipulation Program",
+    "version": "2.10.32",
+    "branch": "stable",
+    "origin": "flathub",
+    "size": "1.1 GB",
+    "summary": "Create images and edit photographs"
+   },
+   {
+    "id": "org.videolan.VLC",
+    "name": "VLC",
+    "version": "3.0.17",
+    "branch": "stable",
+    "origin": "flathub",
+    "size": "216.0 MB",
+    "summary": "Play movies and songs"
+   },
+   {
+    "id": "org.inkscape.Inkscape",
+    "name": "Inkscape",
+    "version": "1.2",
+    "branch": "stable",
+    "origin": "flathub",
+    "size": "504.0 MB",
+    "summary": "Vector graphics editor"
+   },
+   {
+    "id": "com.gitlab.newsflash",
+    "name": "NewsFlash",
+    "version": "1.5.0",
+    "branch": "stable",
+    "origin": "flathub",
+    "size": "24.8 MB",
+    "summary": "Follow your favorite blogs and news sites"
+   }
+  ]
+ },
+ "services": [
+  {
+   "name": "sshd",
+   "description": "OpenSSH server daemon",
+   "state": "running",
+   "enabled": true,
+   "pid": 1184
+  },
+  {
+   "name": "chronyd",
+   "description": "NTP client/server",
+   "state": "running",
+   "enabled": true,
+   "pid": 921
+  },
+  {
+   "name": "NetworkManager",
+   "description": "Network Manager",
+   "state": "running",
+   "enabled": true,
+   "pid": 873
+  },
+  {
+   "name": "firewalld",
+   "description": "firewalld - dynamic firewall daemon",
+   "state": "running",
+   "enabled": true,
+   "pid": 902
+  },
+  {
+   "name": "crond",
+   "description": "Command Scheduler",
+   "state": "running",
+   "enabled": true,
+   "pid": 1141
+  },
+  {
+   "name": "rsyslog",
+   "description": "System Logging Service",
+   "state": "running",
+   "enabled": true,
+   "pid": 1139
+  },
+  {
+   "name": "auditd",
+   "description": "Security Auditing Service",
+   "state": "running",
+   "enabled": true,
+   "pid": 812
+  },
+  {
+   "name": "atd",
+   "description": "Deferred execution scheduler",
+   "state": "stopped",
+   "enabled": false,
+   "pid": null
+  },
+  {
+   "name": "dbus-broker",
+   "description": "D-Bus System Message Bus",
+   "state": "running",
+   "enabled": true,
+   "pid": 860
+  },
+  {
+   "name": "systemd-journald",
+   "description": "Journal Service",
+   "state": "running",
+   "enabled": true,
+   "pid": 720
+  },
+  {
+   "name": "getty@tty1",
+   "description": "Getty on tty1",
+   "state": "running",
+   "enabled": true,
+   "pid": 1190
+  },
+  {
+   "name": "kdump",
+   "description": "Crash recovery kernel arming",
+   "state": "stopped",
+   "enabled": true,
+   "pid": null
+  }
+ ],
+ "processes": [
+  {
+   "pid": 1,
+   "ppid": 0,
+   "user": "root",
+   "tty": "?",
+   "cmd": "/usr/lib/systemd/systemd --switched-root --system --deserialize 31",
+   "state": "Ss",
+   "cpu": 0.1,
+   "mem": 0.8,
+   "rss": 11284,
+   "start": "08:12",
+   "time": "00:00:04"
+  },
+  {
+   "pid": 2,
+   "ppid": 0,
+   "user": "root",
+   "tty": "?",
+   "cmd": "[kthreadd]",
+   "state": "S",
+   "cpu": 0.0,
+   "mem": 0.0,
+   "rss": 0,
+   "start": "08:12",
+   "time": "00:00:00"
+  },
+  {
+   "pid": 10,
+   "ppid": 2,
+   "user": "root",
+   "tty": "?",
+   "cmd": "[rcu_sched]",
+   "state": "I",
+   "cpu": 0.0,
+   "mem": 0.0,
+   "rss": 0,
+   "start": "08:12",
+   "time": "00:00:01"
+  },
+  {
+   "pid": 720,
+   "ppid": 1,
+   "user": "root",
+   "tty": "?",
+   "cmd": "/usr/lib/systemd/systemd-journald",
+   "state": "Ss",
+   "cpu": 0.0,
+   "mem": 1.1,
+   "rss": 18452,
+   "start": "08:12",
+   "time": "00:00:02"
+  },
+  {
+   "pid": 812,
+   "ppid": 1,
+   "user": "root",
+   "tty": "?",
+   "cmd": "/sbin/auditd",
+   "state": "S<sl",
+   "cpu": 0.0,
+   "mem": 0.3,
+   "rss": 5124,
+   "start": "08:12",
+   "time": "00:00:00"
+  },
+  {
+   "pid": 860,
+   "ppid": 81,
+   "user": "dbus",
+   "tty": "?",
+   "cmd": "/usr/bin/dbus-broker-launch --scope system",
+   "state": "Ss",
+   "cpu": 0.0,
+   "mem": 0.2,
+   "rss": 4012,
+   "start": "08:12",
+   "time": "00:00:00"
+  },
+  {
+   "pid": 873,
+   "ppid": 1,
+   "user": "root",
+   "tty": "?",
+   "cmd": "/usr/sbin/NetworkManager --no-daemon",
+   "state": "Ssl",
+   "cpu": 0.0,
+   "mem": 1.4,
+   "rss": 22008,
+   "start": "08:12",
+   "time": "00:00:03"
+  },
+  {
+   "pid": 902,
+   "ppid": 1,
+   "user": "root",
+   "tty": "?",
+   "cmd": "/usr/libexec/platform-python -s /usr/sbin/firewalld --nofork --nopid",
+   "state": "Ss",
+   "cpu": 0.0,
+   "mem": 2.2,
+   "rss": 34120,
+   "start": "08:12",
+   "time": "00:00:02"
+  },
+  {
+   "pid": 921,
+   "ppid": 995,
+   "user": "chrony",
+   "tty": "?",
+   "cmd": "/usr/sbin/chronyd -F 2",
+   "state": "S",
+   "cpu": 0.0,
+   "mem": 0.1,
+   "rss": 3204,
+   "start": "08:12",
+   "time": "00:00:00"
+  },
+  {
+   "pid": 1139,
+   "ppid": 1,
+   "user": "root",
+   "tty": "?",
+   "cmd": "/usr/sbin/rsyslogd -n",
+   "state": "Ssl",
+   "cpu": 0.0,
+   "mem": 0.5,
+   "rss": 8104,
+   "start": "08:12",
+   "time": "00:00:01"
+  },
+  {
+   "pid": 1141,
+   "ppid": 1,
+   "user": "root",
+   "tty": "?",
+   "cmd": "/usr/sbin/crond -n",
+   "state": "Ss",
+   "cpu": 0.0,
+   "mem": 0.2,
+   "rss": 3712,
+   "start": "08:12",
+   "time": "00:00:00"
+  },
+  {
+   "pid": 1184,
+   "ppid": 1,
+   "user": "root",
+   "tty": "?",
+   "cmd": "sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups",
+   "state": "Ss",
+   "cpu": 0.0,
+   "mem": 0.4,
+   "rss": 6320,
+   "start": "08:12",
+   "time": "00:00:00"
+  },
+  {
+   "pid": 1190,
+   "ppid": 1,
+   "user": "root",
+   "tty": "tty1",
+   "cmd": "/sbin/agetty -o -p -- \\u --noclear - linux",
+   "state": "Ss+",
+   "cpu": 0.0,
+   "mem": 0.1,
+   "rss": 2216,
+   "start": "08:12",
+   "time": "00:00:00"
+  },
+  {
+   "pid": 2418,
+   "ppid": 1184,
+   "user": "root",
+   "tty": "?",
+   "cmd": "sshd: student [priv]",
+   "state": "Ss",
+   "cpu": 0.0,
+   "mem": 0.5,
+   "rss": 9840,
+   "start": "14:28",
+   "time": "00:00:00"
+  },
+  {
+   "pid": 2422,
+   "ppid": 2418,
+   "user": "student",
+   "tty": "?",
+   "cmd": "sshd: student@pts/0",
+   "state": "S",
+   "cpu": 0.0,
+   "mem": 0.3,
+   "rss": 6604,
+   "start": "14:28",
+   "time": "00:00:00"
+  },
+  {
+   "pid": 2423,
+   "ppid": 2422,
+   "user": "student",
+   "tty": "pts/0",
+   "cmd": "-bash",
+   "state": "Ss",
+   "cpu": 0.0,
+   "mem": 0.2,
+   "rss": 4488,
+   "start": "14:28",
+   "time": "00:00:00"
+  },
+  {
+   "pid": 2510,
+   "ppid": 1,
+   "user": "root",
+   "tty": "?",
+   "cmd": "/usr/sbin/httpd -DFOREGROUND",
+   "state": "Ss",
+   "cpu": 0.0,
+   "mem": 1.0,
+   "rss": 15200,
+   "start": "14:30",
+   "time": "00:00:00"
+  }
+ ],
+ "network": {
+  "interfaces": [
+   {
+    "name": "lo",
+    "state": "UNKNOWN",
+    "mac": "00:00:00:00:00:00",
+    "mtu": 65536,
+    "addrs": [
+     {
+      "family": "inet",
+      "address": "127.0.0.1",
+      "prefix": 8,
+      "scope": "host"
+     },
+     {
+      "family": "inet6",
+      "address": "::1",
+      "prefix": 128,
+      "scope": "host"
+     }
+    ],
+    "flags": "LOOPBACK,UP,LOWER_UP"
+   },
+   {
+    "name": "ens3",
+    "state": "UP",
+    "mac": "52:54:00:00:fa:0a",
+    "mtu": 1500,
+    "addrs": [
+     {
+      "family": "inet",
+      "address": "172.25.250.10",
+      "prefix": 24,
+      "scope": "global",
+      "broadcast": "172.25.250.255",
+      "label": "ens3"
+     },
+     {
+      "family": "inet6",
+      "address": "fe80::5054:ff:fe00:fa0a",
+      "prefix": 64,
+      "scope": "link"
+     }
+    ],
+    "flags": "BROADCAST,MULTICAST,UP,LOWER_UP",
+    "rx": {
+     "bytes": 148238,
+     "packets": 1204,
+     "errors": 0,
+     "dropped": 0
+    },
+    "tx": {
+     "bytes": 96412,
+     "packets": 842,
+     "errors": 0,
+     "dropped": 0
+    }
+   }
+  ],
+  "routes": [
+   {
+    "dest": "default",
+    "via": "172.25.250.254",
+    "dev": "ens3",
+    "proto": "static",
+    "metric": 100
+   },
+   {
+    "dest": "172.25.250.0/24",
+    "dev": "ens3",
+    "proto": "kernel",
+    "scope": "link",
+    "src": "172.25.250.10",
+    "metric": 100
+   }
+  ],
+  "dns": [
+   "172.25.250.254"
+  ],
+  "search": [
+   "lab.example.com",
+   "example.com"
+  ],
+  "connections": [
+   {
+    "name": "ens3",
+    "uuid": "e6d2f1ac-4b3f-4d2a-9d54-1f8ba9c35b71",
+    "type": "ethernet",
+    "device": "ens3",
+    "autoconnect": true,
+    "active": true,
+    "method": "manual",
+    "address": "172.25.250.10/24",
+    "gateway": "172.25.250.254",
+    "dns": [
+     "172.25.250.254"
+    ]
+   }
+  ],
+  "listening": [
+   {
+    "proto": "tcp",
+    "local": "0.0.0.0:22",
+    "peer": "0.0.0.0:*",
+    "process": "users:((\"sshd\",pid=1184,fd=3))"
+   },
+   {
+    "proto": "tcp",
+    "local": "[::]:22",
+    "peer": "[::]:*",
+    "process": "users:((\"sshd\",pid=1184,fd=4))"
+   },
+   {
+    "proto": "udp",
+    "local": "127.0.0.1:323",
+    "peer": "0.0.0.0:*",
+    "process": "users:((\"chronyd\",pid=921,fd=5))"
+   }
+  ],
+  "hosts": [
+   {
+    "ip": "127.0.0.1",
+    "names": [
+     "localhost",
+     "localhost.localdomain"
+    ]
+   },
+   {
+    "ip": "::1",
+    "names": [
+     "localhost",
+     "localhost.localdomain"
+    ]
+   },
+   {
+    "ip": "172.25.250.10",
+    "names": [
+     "servera.lab.example.com",
+     "servera"
+    ]
+   },
+   {
+    "ip": "172.25.250.11",
+    "names": [
+     "serverb.lab.example.com",
+     "serverb"
+    ]
+   },
+   {
+    "ip": "172.25.250.254",
+    "names": [
+     "classroom.example.com",
+     "classroom"
+    ]
+   }
+  ],
+  "reachable": [
+   "172.25.250.10",
+   "172.25.250.11",
+   "172.25.250.254",
+   "servera",
+   "servera.lab.example.com",
+   "serverb",
+   "serverb.lab.example.com",
+   "classroom.example.com",
+   "localhost"
+  ]
+ },
+ "blockDevices": [
+  {
+   "name": "sda",
+   "size": "20G",
+   "type": "disk",
+   "rm": false,
+   "ro": false,
+   "children": [
+    {
+     "name": "sda1",
+     "size": "1G",
+     "type": "part",
+     "fstype": "xfs",
+     "label": "boot",
+     "uuid": "b1f4f9e3-5b2a-4a8c-9f7d-2c1e8a6d4b30",
+     "mountpoint": "/boot"
+    },
+    {
+     "name": "sda2",
+     "size": "19G",
+     "type": "part",
+     "fstype": "xfs",
+     "label": "root",
+     "uuid": "0c3f7a91-8e6b-4c25-b3a7-9d51e2f84c6a",
+     "mountpoint": "/"
+    }
+   ]
+  },
+  {
+   "name": "sdb",
+   "size": "2G",
+   "type": "disk",
+   "rm": true,
+   "ro": false,
+   "children": [
+    {
+     "name": "sdb1",
+     "size": "2G",
+     "type": "part",
+     "fstype": "vfat",
+     "label": "FIELDDATA",
+     "uuid": "A1B2-C3D4",
+     "mountpoint": null
+    }
+   ]
+  },
+  {
+   "name": "sr0",
+   "size": "1024M",
+   "type": "rom",
+   "rm": true,
+   "ro": true,
+   "fstype": null,
+   "label": null,
+   "uuid": null,
+   "mountpoint": null
+  }
+ ],
+ "mounts": [
+  {
+   "source": "/dev/sda2",
+   "fstype": "xfs",
+   "size": 19923452,
+   "used": 4128816,
+   "avail": 15794636,
+   "target": "/"
+  },
+  {
+   "source": "/dev/sda1",
+   "fstype": "xfs",
+   "size": 1038336,
+   "used": 231424,
+   "avail": 806912,
+   "target": "/boot"
+  },
+  {
+   "source": "devtmpfs",
+   "fstype": "devtmpfs",
+   "size": 4096,
+   "used": 0,
+   "avail": 4096,
+   "target": "/dev"
+  },
+  {
+   "source": "tmpfs",
+   "fstype": "tmpfs",
+   "size": 1918292,
+   "used": 0,
+   "avail": 1918292,
+   "target": "/dev/shm"
+  },
+  {
+   "source": "tmpfs",
+   "fstype": "tmpfs",
+   "size": 767320,
+   "used": 9204,
+   "avail": 758116,
+   "target": "/run"
+  },
+  {
+   "source": "tmpfs",
+   "fstype": "tmpfs",
+   "size": 383656,
+   "used": 0,
+   "avail": 383656,
+   "target": "/run/user/1000"
+  }
+ ],
+ "removable": {
+  "device": "/dev/sdb1",
+  "label": "FIELDDATA",
+  "fstype": "vfat",
+  "content": {
+   "readings.csv": "station,date,depth_m,temp_c\nNR-01,2025-07-02,1.5,18.4\nNR-01,2025-07-02,6.0,14.1\nNR-02,2025-07-03,1.5,19.2\nNR-02,2025-07-03,6.0,13.8\nNR-03,2025-07-05,1.5,17.9\n",
+   "notes.txt": "Field notes, Northreach survey\nSonde recalibrated 2025-07-03.\nStation NR-03 buoy adrift; position approximate.\n",
+   "photos": {
+    "site-01.jpg": "(binary image data)\n",
+    "site-02.jpg": "(binary image data)\n"
+   }
+  }
+ },
+ "journal": [
+  {
+   "time": "Sep 14 08:12:01",
+   "unit": "systemd",
+   "pid": 1,
+   "priority": 6,
+   "message": "Starting OpenSSH server daemon..."
+  },
+  {
+   "time": "Sep 14 08:12:01",
+   "unit": "sshd",
+   "pid": 1184,
+   "priority": 6,
+   "message": "Server listening on 0.0.0.0 port 22."
+  },
+  {
+   "time": "Sep 14 08:12:01",
+   "unit": "systemd",
+   "pid": 1,
+   "priority": 6,
+   "message": "Started OpenSSH server daemon."
+  },
+  {
+   "time": "Sep 14 08:12:02",
+   "unit": "chronyd",
+   "pid": 921,
+   "priority": 6,
+   "message": "Selected source 172.25.250.254"
+  },
+  {
+   "time": "Sep 14 08:12:03",
+   "unit": "firewalld",
+   "pid": 902,
+   "priority": 6,
+   "message": "Started firewalld - dynamic firewall daemon."
+  },
+  {
+   "time": "Sep 14 08:14:22",
+   "unit": "kernel",
+   "pid": null,
+   "priority": 4,
+   "message": "usb 1-1: new high-speed USB device number 2 using ehci-pci"
+  },
+  {
+   "time": "Sep 14 08:14:22",
+   "unit": "kernel",
+   "pid": null,
+   "priority": 6,
+   "message": "sd 3:0:0:0: [sdb] Attached SCSI removable disk"
+  },
+  {
+   "time": "Sep 14 09:02:10",
+   "unit": "sshd",
+   "pid": 2418,
+   "priority": 6,
+   "message": "Accepted password for student from 172.25.250.9 port 50122 ssh2"
+  },
+  {
+   "time": "Sep 14 09:41:55",
+   "unit": "sshd",
+   "pid": 2501,
+   "priority": 4,
+   "message": "Failed password for invalid user admin from 192.168.4.72 port 51904 ssh2"
+  },
+  {
+   "time": "Sep 14 10:15:07",
+   "unit": "crond",
+   "pid": 1141,
+   "priority": 6,
+   "message": "(root) CMD (run-parts /etc/cron.hourly)"
+  },
+  {
+   "time": "Sep 14 11:30:44",
+   "unit": "auditd",
+   "pid": 812,
+   "priority": 3,
+   "message": "Audit daemon rotating log files"
+  }
+ ],
+ "fs": {
+  "type": "dir",
+  "entries": {
+   "bin": {
+    "type": "symlink",
+    "target": "usr/bin"
+   },
+   "sbin": {
+    "type": "symlink",
+    "target": "usr/sbin"
+   },
+   "lib": {
+    "type": "symlink",
+    "target": "usr/lib"
+   },
+   "lib64": {
+    "type": "symlink",
+    "target": "usr/lib64"
+   },
+   "boot": {
+    "type": "dir",
+    "entries": {
+     "vmlinuz-5.14.0-70.13.1.el9_0.x86_64": {
+      "type": "file",
+      "text": "(kernel image)\n",
+      "mode": "0600"
+     },
+     "vmlinuz-5.14.0-70.22.1.el9_0.x86_64": {
+      "type": "file",
+      "text": "(kernel image)\n",
+      "mode": "0600"
+     },
+     "initramfs-5.14.0-70.22.1.el9_0.x86_64.img": {
+      "type": "file",
+      "text": "(initramfs)\n",
+      "mode": "0600"
+     },
+     "grub2": {
+      "type": "dir",
+      "entries": {
+       "grub.cfg": {
+        "type": "file",
+        "text": "# grub config\n",
+        "mode": "0600"
+       }
+      }
+     }
+    }
+   },
+   "dev": {
+    "type": "dir",
+    "entries": {
+     "null": {
+      "type": "file",
+      "text": "",
+      "mode": "0666"
+     },
+     "zero": {
+      "type": "file",
+      "text": "",
+      "mode": "0666"
+     },
+     "random": {
+      "type": "file",
+      "text": "",
+      "mode": "0666"
+     },
+     "urandom": {
+      "type": "file",
+      "text": "",
+      "mode": "0666"
+     },
+     "tty": {
+      "type": "file",
+      "text": "",
+      "mode": "0666",
+      "group": "tty"
+     },
+     "sda": {
+      "type": "file",
+      "text": "",
+      "mode": "0660",
+      "group": "disk"
+     },
+     "sda1": {
+      "type": "file",
+      "text": "",
+      "mode": "0660",
+      "group": "disk"
+     },
+     "sda2": {
+      "type": "file",
+      "text": "",
+      "mode": "0660",
+      "group": "disk"
+     },
+     "sdb": {
+      "type": "file",
+      "text": "",
+      "mode": "0660",
+      "group": "disk"
+     },
+     "sdb1": {
+      "type": "file",
+      "text": "",
+      "mode": "0660",
+      "group": "disk"
+     },
+     "sr0": {
+      "type": "file",
+      "text": "",
+      "mode": "0660",
+      "group": "cdrom"
+     },
+     "shm": {
+      "type": "dir",
+      "entries": {},
+      "mode": "1777"
+     },
+     "pts": {
+      "type": "dir",
+      "entries": {}
+     }
+    }
+   },
+   "etc": {
+    "type": "dir",
+    "entries": {
+     "passwd": {
+      "type": "synth",
+      "gen": "passwd"
+     },
+     "shadow": {
+      "type": "synth",
+      "gen": "shadow",
+      "mode": "0000"
+     },
+     "group": {
+      "type": "synth",
+      "gen": "group"
+     },
+     "gshadow": {
+      "type": "synth",
+      "gen": "gshadow",
+      "mode": "0000"
+     },
+     "hostname": {
+      "type": "file",
+      "text": "servera.lab.example.com\n"
+     },
+     "hosts": {
+      "type": "synth",
+      "gen": "hosts"
+     },
+     "resolv.conf": {
+      "type": "synth",
+      "gen": "resolv"
+     },
+     "os-release": {
+      "type": "file",
+      "text": "NAME=\"Red Hat Enterprise Linux\"\nVERSION=\"9.0 (Plow)\"\nID=\"rhel\"\nID_LIKE=\"fedora\"\nVERSION_ID=\"9.0\"\nPLATFORM_ID=\"platform:el9\"\nPRETTY_NAME=\"Red Hat Enterprise Linux 9.0 (Plow)\"\nANSI_COLOR=\"0;31\"\nLOGO=\"fedora-logo-icon\"\nCPE_NAME=\"cpe:/o:redhat:enterprise_linux:9::baseos\"\nHOME_URL=\"https://www.redhat.com/\"\nDOCUMENTATION_URL=\"https://access.redhat.com/documentation/red_hat_enterprise_linux/9/\"\nBUG_REPORT_URL=\"https://bugzilla.redhat.com/\"\n\nREDHAT_BUGZILLA_PRODUCT=\"Red Hat Enterprise Linux 9\"\nREDHAT_BUGZILLA_PRODUCT_VERSION=9.0\nREDHAT_SUPPORT_PRODUCT=\"Red Hat Enterprise Linux\"\nREDHAT_SUPPORT_PRODUCT_VERSION=\"9.0\"\n"
+     },
+     "redhat-release": {
+      "type": "file",
+      "text": "Red Hat Enterprise Linux release 9.0 (Plow)\n"
+     },
+     "system-release": {
+      "type": "symlink",
+      "target": "redhat-release"
+     },
+     "fstab": {
+      "type": "file",
+      "text": "\n#\n# /etc/fstab\n# Created by anaconda on Tue Jul 12 06:22:41 2025\n#\n# Accessible filesystems, by reference, are maintained under '/dev/disk/'.\n# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info.\n#\nUUID=0c3f7a91-8e6b-4c25-b3a7-9d51e2f84c6a /                       xfs     defaults        0 0\nUUID=b1f4f9e3-5b2a-4a8c-9f7d-2c1e8a6d4b30 /boot                   xfs     defaults        0 0\n"
+     },
+     "crontab": {
+      "type": "file",
+      "text": "SHELL=/bin/bash\nPATH=/sbin:/bin:/usr/sbin:/usr/bin\nMAILTO=root\n"
+     },
+     "login.defs": {
+      "type": "file",
+      "text": "MAIL_DIR\t/var/spool/mail\n\nUMASK\t\t022\nHOME_MODE\t0700\n\nPASS_MAX_DAYS\t99999\nPASS_MIN_DAYS\t0\nPASS_MIN_LEN\t5\nPASS_WARN_AGE\t7\n\nUID_MIN                  1000\nUID_MAX                 60000\nSYS_UID_MIN               201\nSYS_UID_MAX               999\n\nGID_MIN                  1000\nGID_MAX                 60000\nSYS_GID_MIN               201\nSYS_GID_MAX               999\n\nCREATE_HOME\tyes\nUSERGROUPS_ENAB yes\nENCRYPT_METHOD SHA512\n"
+     },
+     "shells": {
+      "type": "file",
+      "text": "/bin/sh\n/bin/bash\n/usr/bin/sh\n/usr/bin/bash\n/bin/tcsh\n/bin/csh\n"
+     },
+     "sudoers": {
+      "type": "file",
+      "text": "## Allow root to run any commands anywhere\nroot\tALL=(ALL) \tALL\n\n## Allows people in group wheel to run all commands\n%wheel\tALL=(ALL)\tALL\n\n## Read drop-in files from /etc/sudoers.d\n#includedir /etc/sudoers.d\n",
+      "mode": "0440"
+     },
+     "sudoers.d": {
+      "type": "dir",
+      "entries": {
+       "student": {
+        "type": "file",
+        "text": "student ALL=(ALL) ALL\n",
+        "mode": "0440"
+       }
+      },
+      "mode": "0750"
+     },
+     "bashrc": {
+      "type": "file",
+      "text": "# /etc/bashrc\n\numask 022\n"
+     },
+     "profile": {
+      "type": "file",
+      "text": "# /etc/profile\n\nexport PATH\nexport HISTSIZE=1000\n"
+     },
+     "profile.d": {
+      "type": "dir",
+      "entries": {
+       "bash_completion.sh": {
+        "type": "file",
+        "text": "# bash completion\n"
+       },
+       "lang.sh": {
+        "type": "file",
+        "text": "export LANG=en_US.UTF-8\n"
+       }
+      }
+     },
+     "motd": {
+      "type": "file",
+      "text": ""
+     },
+     "issue": {
+      "type": "file",
+      "text": "\\S\nKernel \\r on an \\m\n\n"
+     },
+     "skel": {
+      "type": "dir",
+      "entries": {
+       ".bash_profile": {
+        "type": "file",
+        "text": "# .bash_profile\n\nif [ -f ~/.bashrc ]; then\n\t. ~/.bashrc\nfi\n"
+       },
+       ".bashrc": {
+        "type": "file",
+        "text": "# .bashrc\n\nif [ -f /etc/bashrc ]; then\n\t. /etc/bashrc\nfi\n"
+       },
+       ".bash_logout": {
+        "type": "file",
+        "text": "# ~/.bash_logout\n"
+       }
+      }
+     },
+     "default": {
+      "type": "dir",
+      "entries": {
+       "useradd": {
+        "type": "file",
+        "text": "GROUP=100\nHOME=/home\nINACTIVE=-1\nEXPIRE=\nSHELL=/bin/bash\nSKEL=/etc/skel\nCREATE_MAIL_SPOOL=yes\n"
+       }
+      }
+     },
+     "ssh": {
+      "type": "dir",
+      "entries": {
+       "sshd_config": {
+        "type": "file",
+        "text": "#\t$OpenBSD: sshd_config,v 1.104 2021/07/02 05:11:21 dtucker Exp $\n\nPort 22\n#AddressFamily any\n#ListenAddress 0.0.0.0\n\nHostKey /etc/ssh/ssh_host_rsa_key\nHostKey /etc/ssh/ssh_host_ecdsa_key\nHostKey /etc/ssh/ssh_host_ed25519_key\n\nPermitRootLogin yes\n#StrictModes yes\n#MaxAuthTries 6\n\nPubkeyAuthentication yes\nAuthorizedKeysFile\t.ssh/authorized_keys\n\nPasswordAuthentication yes\nPermitEmptyPasswords no\n\nX11Forwarding yes\n#PrintMotd yes\n\nSubsystem\tsftp\t/usr/libexec/openssh/sftp-server\n",
+        "mode": "0600"
+       },
+       "ssh_config": {
+        "type": "file",
+        "text": "Host *\n\tGSSAPIAuthentication yes\n\tForwardX11Trusted yes\n"
+       },
+       "ssh_host_rsa_key": {
+        "type": "file",
+        "text": "-----BEGIN OPENSSH PRIVATE KEY-----\n(redacted)\n-----END OPENSSH PRIVATE KEY-----\n",
+        "mode": "0640",
+        "group": "ssh_keys"
+       },
+       "ssh_host_rsa_key.pub": {
+        "type": "file",
+        "text": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC9r1 root@servera\n"
+       },
+       "ssh_host_ed25519_key": {
+        "type": "file",
+        "text": "-----BEGIN OPENSSH PRIVATE KEY-----\n(redacted)\n-----END OPENSSH PRIVATE KEY-----\n",
+        "mode": "0640",
+        "group": "ssh_keys"
+       },
+       "ssh_host_ed25519_key.pub": {
+        "type": "file",
+        "text": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL7qQ1 root@servera\n"
+       },
+       "ssh_host_ecdsa_key.pub": {
+        "type": "file",
+        "text": "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAy root@servera\n"
+       }
+      }
+     },
+     "yum.repos.d": {
+      "type": "dir",
+      "entries": {
+       "redhat.repo": {
+        "type": "file",
+        "text": "# Managed by subscription-manager. Do not edit by hand.\n"
+       },
+       "lab-extras.repo": {
+        "type": "file",
+        "text": "[lab-extras]\nname=Classroom Extra Packages\nbaseurl=http://content.example.com/rhel9.0/x86_64/lab-extras\nenabled=0\ngpgcheck=1\ngpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-classroom\n"
+       }
+      }
+     },
+     "dnf": {
+      "type": "dir",
+      "entries": {
+       "dnf.conf": {
+        "type": "file",
+        "text": "[main]\ngpgcheck=1\ninstallonly_limit=3\nclean_requirements_on_remove=True\nbest=True\nskip_if_unavailable=False\n"
+       }
+      }
+     },
+     "systemd": {
+      "type": "dir",
+      "entries": {
+       "system": {
+        "type": "dir",
+        "entries": {}
+       },
+       "system.conf": {
+        "type": "file",
+        "text": "# systemd system.conf\n"
+       }
+      }
+     },
+     "selinux": {
+      "type": "dir",
+      "entries": {
+       "config": {
+        "type": "file",
+        "text": "SELINUX=enforcing\nSELINUXTYPE=targeted\n"
+       }
+      }
+     },
+     "chrony.conf": {
+      "type": "file",
+      "text": "pool 2.rhel.pool.ntp.org iburst\ndriftfile /var/lib/chrony/drift\nmakestep 1.0 3\nrtcsync\nlogdir /var/log/chrony\n"
+     },
+     "rsyslog.conf": {
+      "type": "file",
+      "text": "# rsyslog configuration file\n\n*.info;mail.none;authpriv.none;cron.none                /var/log/messages\nauthpriv.*                                              /var/log/secure\n"
+     },
+     "nanorc": {
+      "type": "file",
+      "text": "# /etc/nanorc\nset autoindent\n"
+     },
+     "man_db.conf": {
+      "type": "file",
+      "text": "# /etc/man_db.conf\nMANPATH_MAP /usr/bin /usr/share/man\n"
+     },
+     "updatedb.conf": {
+      "type": "file",
+      "text": "PRUNE_BIND_MOUNTS = \"yes\"\nPRUNEFS = \"9p afs autofs\"\n"
+     },
+     "NetworkManager": {
+      "type": "dir",
+      "entries": {
+       "NetworkManager.conf": {
+        "type": "file",
+        "text": "[main]\nplugins=ifcfg-rh\n"
+       },
+       "system-connections": {
+        "type": "dir",
+        "entries": {},
+        "mode": "0700"
+       }
+      }
+     },
+     "firewalld": {
+      "type": "dir",
+      "entries": {
+       "firewalld.conf": {
+        "type": "file",
+        "text": "DefaultZone=public\n"
+       }
+      }
+     },
+     "audit": {
+      "type": "dir",
+      "entries": {
+       "auditd.conf": {
+        "type": "file",
+        "text": "log_file = /var/log/audit/audit.log\n"
+       }
+      },
+      "mode": "0750"
+     },
+     "iproute2": {
+      "type": "dir",
+      "entries": {
+       "rt_tables": {
+        "type": "file",
+        "text": "255\tlocal\n254\tmain\n253\tdefault\n"
+       }
+      }
+     },
+     "flatpak": {
+      "type": "dir",
+      "entries": {
+       "remotes.d": {
+        "type": "dir",
+        "entries": {}
+       }
+      }
+     },
+     "pki": {
+      "type": "dir",
+      "entries": {
+       "rpm-gpg": {
+        "type": "dir",
+        "entries": {
+         "RPM-GPG-KEY-redhat-release": {
+          "type": "file",
+          "text": "(gpg public key)\n"
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "home": {
+    "type": "dir",
+    "entries": {
+     "student": {
+      "type": "dir",
+      "entries": {
+       ".bash_profile": {
+        "type": "file",
+        "text": "# .bash_profile\n\nif [ -f ~/.bashrc ]; then\n\t. ~/.bashrc\nfi\n"
+       },
+       ".bashrc": {
+        "type": "file",
+        "text": "# .bashrc\n\n# Source global definitions\nif [ -f /etc/bashrc ]; then\n\t. /etc/bashrc\nfi\n\n# User specific environment\nif ! [[ \"$PATH\" =~ \"$HOME/.local/bin:$HOME/bin:\" ]]; then\n\tPATH=\"$HOME/.local/bin:$HOME/bin:$PATH\"\nfi\nexport PATH\n\n# User specific aliases and functions\nalias ll='ls -l'\nalias la='ls -A'\nalias l.='ls -d .*'\n"
+       },
+       ".bash_logout": {
+        "type": "file",
+        "text": "# ~/.bash_logout\n"
+       },
+       ".bash_history": {
+        "type": "file",
+        "text": "ls -l\ncd /etc\ncat os-release\nexit\n",
+        "mode": "0600"
+       },
+       ".ssh": {
+        "type": "dir",
+        "entries": {
+         "known_hosts": {
+          "type": "file",
+          "text": "servera.lab.example.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL7qQ1xX8h0K3q2n9mQ4bV1tZ\n",
+          "mode": "0644"
+         }
+        },
+        "mode": "0700"
+       },
+       "Documents": {
+        "type": "dir",
+        "entries": {
+         "todo.txt": {
+          "type": "file",
+          "text": "- finish chapter 11 lab\n- read man chmod\n- practice awk\n"
+         },
+         "meeting-notes.txt": {
+          "type": "file",
+          "text": "Standup 2025-09-12\nAction: rotate the survey logs.\n"
+         }
+        }
+       },
+       "Downloads": {
+        "type": "dir",
+        "entries": {}
+       },
+       "bin": {
+        "type": "dir",
+        "entries": {}
+       },
+       "labs": {
+        "type": "dir",
+        "entries": {
+         "README": {
+          "type": "file",
+          "text": "Practice files for ITN 170\n==========================\n\n  files/   creating, copying, moving and removing -- and shell expansions\n  text/    redirection, pipes, grep, sed, awk, sort, cut\n  perms/   permissions, ownership and umask\n  links/   hard links and symbolic links\n  survey/  a small directory tree for find and du\n\nNothing here matters. Break it, then hit Reset.\n"
+         },
+         "files": {
+          "type": "dir",
+          "entries": {
+           "report1.txt": {
+            "type": "file",
+            "text": "Quarterly report, part 1.\n"
+           },
+           "report2.txt": {
+            "type": "file",
+            "text": "Quarterly report, part 2.\n"
+           },
+           "report3.txt": {
+            "type": "file",
+            "text": "Quarterly report, part 3.\n"
+           },
+           "report4.txt": {
+            "type": "file",
+            "text": "Quarterly report, part 4.\n"
+           },
+           "report5.txt": {
+            "type": "file",
+            "text": "Quarterly report, part 5.\n"
+           },
+           "index.php": {
+            "type": "file",
+            "text": "<?php\n// index.php\necho \"placeholder\";\n?>\n"
+           },
+           "about.php": {
+            "type": "file",
+            "text": "<?php\n// about.php\necho \"placeholder\";\n?>\n"
+           },
+           "contact.php": {
+            "type": "file",
+            "text": "<?php\n// contact.php\necho \"placeholder\";\n?>\n"
+           },
+           "notes.md": {
+            "type": "file",
+            "text": "Working notes.\n"
+           },
+           "notes.txt": {
+            "type": "file",
+            "text": "Working notes.\n"
+           },
+           "notes.bak": {
+            "type": "file",
+            "text": "Working notes.\n"
+           },
+           "log-2025-jan.txt": {
+            "type": "file",
+            "text": "entries for jan\n"
+           },
+           "log-2025-feb.txt": {
+            "type": "file",
+            "text": "entries for feb\n"
+           },
+           "log-2025-mar.txt": {
+            "type": "file",
+            "text": "entries for mar\n"
+           },
+           "archive.tar": {
+            "type": "file",
+            "text": "(tar archive)\n"
+           },
+           "draft.odt": {
+            "type": "file",
+            "text": "(document)\n"
+           },
+           "image01.png": {
+            "type": "file",
+            "text": "(binary image data)\n"
+           },
+           "image02.png": {
+            "type": "file",
+            "text": "(binary image data)\n"
+           },
+           "script.sh": {
+            "type": "file",
+            "text": "#!/bin/bash\necho \"hello from script.sh\"\n",
+            "mode": "0755"
+           },
+           "data.csv": {
+            "type": "file",
+            "text": "a,b,c\n1,2,3\n4,5,6\n"
+           },
+           ".hidden.txt": {
+            "type": "file",
+            "text": "You found the hidden file.\n"
+           },
+           "spaced name.txt": {
+            "type": "file",
+            "text": "Quoting matters.\n"
+           },
+           "old": {
+            "type": "dir",
+            "entries": {
+             "retired-2019.txt": {
+              "type": "file",
+              "text": "archived\n"
+             },
+             "retired-2020.txt": {
+              "type": "file",
+              "text": "archived\n"
+             }
+            }
+           }
+          }
+         },
+         "text": {
+          "type": "dir",
+          "entries": {
+           "employees.csv": {
+            "type": "file",
+            "text": "id,name,department,title,hire_date,salary\n1001,Marisol Vance,Operations,Site Lead,2016-03-14,78500\n1002,Dev Okonjo,Operations,Technician,2017-01-09,61250\n1003,Priya Raghavan,Engineering,Engineer II,2018-07-02,84300\n1004,Tomas Kerrigan,Support,Analyst,2019-04-22,52750\n1005,Nadia Belmonte,Engineering,Engineer I,2019-11-19,71900\n1006,Owen Strand,Support,Analyst,2020-06-15,53400\n1007,Hazel Quintero,Operations,Technician,2021-05-08,60100\n1008,Rafael Ibarra,Engineering,Engineer II,2021-09-27,86250\n1009,June Whitlock,Support,Lead Analyst,2023-01-23,67800\n1010,Camden Fowler,Operations,Technician,2023-08-14,59750\n1011,Simone Adeyemi,Engineering,Engineer III,2024-02-05,98200\n1012,Bruno Castellanos,Support,Analyst,2024-10-21,51300\n"
+           },
+           "inventory.txt": {
+            "type": "file",
+            "text": "PART      DESCRIPTION            QTY   UNIT    LOCATION\nHX-1180   Hex bolt 10mm          420   each    A1\nHX-1181   Hex bolt 12mm          315   each    A1\nWS-2040   Washer set             180   pack    A2\nNT-3310   Lock nut 10mm          610   each    A3\nNT-3311   Lock nut 12mm          275   each    A3\nPL-4102   Poly liner 2m          45    roll    B1\nPL-4103   Poly liner 4m          22    roll    B1\nSB-5501   Steel bracket L        96    each    B2\nSB-5502   Steel bracket T        58    each    B2\nGK-6600   Gasket kit             140   kit     C1\nGK-6601   Gasket kit heavy       35    kit     C1\nCB-7720   Cable tie 200mm        1250  bag     C2\n"
+           },
+           "access.log": {
+            "type": "file",
+            "text": "10.0.2.15 - - [14/Sep/2025:08:02:41 -0400] \"GET /about.html HTTP/1.1\" 200 39833\n10.0.2.15 - - [14/Sep/2025:08:06:36 -0400] \"GET /about.html HTTP/1.1\" 200 40378\n172.25.250.11 - - [14/Sep/2025:08:11:54 -0400] \"GET /admin/login HTTP/1.1\" 404 14981\n172.25.250.11 - - [14/Sep/2025:08:15:12 -0400] \"GET /favicon.ico HTTP/1.1\" 200 30354\n192.168.4.72 - - [14/Sep/2025:08:19:45 -0400] \"GET /api/status HTTP/1.1\" 200 12804\n10.0.2.15 - - [14/Sep/2025:08:24:59 -0400] \"GET /search.php HTTP/1.1\" 200 16084\n172.25.250.23 - - [14/Sep/2025:08:27:06 -0400] \"GET /search.php HTTP/1.1\" 200 7945\n172.25.250.11 - - [14/Sep/2025:08:31:31 -0400] \"GET /docs/setup.pdf HTTP/1.1\" 200 32243\n172.25.250.44 - - [14/Sep/2025:08:33:21 -0400] \"GET /api/status HTTP/1.1\" 500 25336\n10.0.2.15 - - [14/Sep/2025:08:38:10 -0400] \"GET /index.html HTTP/1.1\" 200 35848\n172.25.250.11 - - [14/Sep/2025:08:41:35 -0400] \"GET /docs/setup.pdf HTTP/1.1\" 200 45315\n172.25.250.11 - - [14/Sep/2025:08:44:32 -0400] \"GET /favicon.ico HTTP/1.1\" 200 17627\n172.25.250.11 - - [14/Sep/2025:08:49:21 -0400] \"GET /api/status HTTP/1.1\" 200 47911\n172.25.250.11 - - [14/Sep/2025:08:53:29 -0400] \"GET /api/status HTTP/1.1\" 200 40847\n172.25.250.11 - - [14/Sep/2025:08:57:23 -0400] \"GET /api/report HTTP/1.1\" 304 24954\n172.25.250.11 - - [14/Sep/2025:08:59:05 -0400] \"GET /contact.php HTTP/1.1\" 404 32252\n172.25.250.44 - - [14/Sep/2025:09:01:48 -0400] \"GET /api/status HTTP/1.1\" 200 47220\n172.25.250.14 - - [14/Sep/2025:09:06:39 -0400] \"GET /images/logo.png HTTP/1.1\" 200 17873\n172.25.250.11 - - [14/Sep/2025:09:11:34 -0400] \"GET /docs/setup.pdf HTTP/1.1\" 404 28808\n172.25.250.23 - - [14/Sep/2025:09:15:19 -0400] \"GET /api/status HTTP/1.1\" 301 5624\n172.25.250.44 - - [14/Sep/2025:09:18:50 -0400] \"GET /contact.php HTTP/1.1\" 200 23598\n172.25.250.23 - - [14/Sep/2025:09:22:11 -0400] \"GET /search.php HTTP/1.1\" 200 13743\n192.168.4.72 - - [14/Sep/2025:09:26:23 -0400] \"GET /about.html HTTP/1.1\" 404 40306\n10.0.2.15 - - [14/Sep/2025:09:28:01 -0400] \"GET /index.html HTTP/1.1\" 200 24209\n172.25.250.23 - - [14/Sep/2025:09:30:15 -0400] \"GET /about.html HTTP/1.1\" 404 42894\n172.25.250.44 - - [14/Sep/2025:09:35:53 -0400] \"GET /api/report HTTP/1.1\" 200 5164\n10.0.2.15 - - [14/Sep/2025:09:40:10 -0400] \"GET /api/status HTTP/1.1\" 200 43920\n172.25.250.11 - - [14/Sep/2025:09:44:04 -0400] \"GET /index.html HTTP/1.1\" 200 40349\n172.25.250.14 - - [14/Sep/2025:09:48:28 -0400] \"GET /api/status HTTP/1.1\" 304 37707\n172.25.250.14 - - [14/Sep/2025:09:52:33 -0400] \"GET /api/status HTTP/1.1\" 200 34128\n172.25.250.44 - - [14/Sep/2025:09:57:34 -0400] \"GET /images/logo.png HTTP/1.1\" 200 14932\n192.168.4.72 - - [14/Sep/2025:10:01:16 -0400] \"GET /api/status HTTP/1.1\" 200 31041\n172.25.250.44 - - [14/Sep/2025:10:04:15 -0400] \"GET /search.php HTTP/1.1\" 404 34414\n172.25.250.14 - - [14/Sep/2025:10:08:38 -0400] \"GET /search.php HTTP/1.1\" 304 32825\n172.25.250.23 - - [14/Sep/2025:10:13:15 -0400] \"GET /favicon.ico HTTP/1.1\" 404 17480\n172.25.250.11 - - [14/Sep/2025:10:16:11 -0400] \"GET /docs/setup.pdf HTTP/1.1\" 301 39906\n172.25.250.11 - - [14/Sep/2025:10:21:50 -0400] \"GET /about.html HTTP/1.1\" 404 29950\n172.25.250.11 - - [14/Sep/2025:10:23:11 -0400] \"GET /api/status HTTP/1.1\" 304 31025\n10.0.2.15 - - [14/Sep/2025:10:26:30 -0400] \"GET /search.php HTTP/1.1\" 500 4190\n172.25.250.11 - - [14/Sep/2025:10:28:28 -0400] \"GET /favicon.ico HTTP/1.1\" 200 12376\n172.25.250.44 - - [14/Sep/2025:10:30:14 -0400] \"GET /about.html HTTP/1.1\" 200 6728\n172.25.250.44 - - [14/Sep/2025:10:32:47 -0400] \"GET /api/status HTTP/1.1\" 200 39246\n172.25.250.11 - - [14/Sep/2025:10:36:02 -0400] \"GET /contact.php HTTP/1.1\" 500 44970\n172.25.250.44 - - [14/Sep/2025:10:38:45 -0400] \"GET /admin/login HTTP/1.1\" 500 11082\n172.25.250.11 - - [14/Sep/2025:10:43:07 -0400] \"GET /favicon.ico HTTP/1.1\" 200 20065\n172.25.250.23 - - [14/Sep/2025:10:48:55 -0400] \"GET /about.html HTTP/1.1\" 304 27051\n10.0.2.15 - - [14/Sep/2025:10:50:14 -0400] \"GET /api/status HTTP/1.1\" 200 43222\n192.168.4.72 - - [14/Sep/2025:10:54:33 -0400] \"GET /docs/setup.pdf HTTP/1.1\" 304 29703\n172.25.250.11 - - [14/Sep/2025:10:59:42 -0400] \"GET /images/logo.png HTTP/1.1\" 200 15597\n192.168.4.72 - - [14/Sep/2025:11:01:38 -0400] \"GET /favicon.ico HTTP/1.1\" 301 41929\n172.25.250.44 - - [14/Sep/2025:11:03:34 -0400] \"GET /favicon.ico HTTP/1.1\" 200 31316\n172.25.250.14 - - [14/Sep/2025:11:06:53 -0400] \"GET /api/status HTTP/1.1\" 200 22522\n192.168.4.72 - - [14/Sep/2025:11:07:50 -0400] \"GET /docs/setup.pdf HTTP/1.1\" 404 35078\n172.25.250.23 - - [14/Sep/2025:11:09:08 -0400] \"GET /about.html HTTP/1.1\" 500 30902\n172.25.250.11 - - [14/Sep/2025:11:12:26 -0400] \"GET /api/status HTTP/1.1\" 404 20062\n192.168.4.72 - - [14/Sep/2025:11:16:12 -0400] \"GET /contact.php HTTP/1.1\" 500 15369\n10.0.2.15 - - [14/Sep/2025:11:20:15 -0400] \"GET /contact.php HTTP/1.1\" 304 11574\n172.25.250.11 - - [14/Sep/2025:11:23:48 -0400] \"GET /contact.php HTTP/1.1\" 200 44190\n172.25.250.11 - - [14/Sep/2025:11:28:19 -0400] \"GET /about.html HTTP/1.1\" 404 47592\n192.168.4.72 - - [14/Sep/2025:11:30:31 -0400] \"GET /about.html HTTP/1.1\" 200 23782\n"
+           },
+           "poem.txt": {
+            "type": "file",
+            "text": "the road was there before the map\nand will be there when the map is gone\nthe map is a rumor the road repeats\nthe road is a rumor the walking confirms\n\ncount the steps if you like\nthe road does not count them\nthe road keeps no ledger\nthe walking is the ledger\n"
+           },
+           "fruit.txt": {
+            "type": "file",
+            "text": "apple\napple\nbanana\ncherry\ncherry\ncherry\ndate\nelderberry\nfig\nfig\ngrape\n"
+           },
+           "numbers.txt": {
+            "type": "file",
+            "text": "42\n7\n115\n3\n88\n23\n9\n460\n56\n7\n1024\n12\n"
+           },
+           "hosts.txt": {
+            "type": "file",
+            "text": "servera.lab.example.com   172.25.250.10   web\nserverb.lab.example.com   172.25.250.11   db\nserverc.lab.example.com   172.25.250.12   web\nserverd.lab.example.com   172.25.250.13   cache\nworkstation.lab.example.com 172.25.250.9  desktop\nclassroom.example.com     172.25.250.254  gateway\n"
+           },
+           "services.txt": {
+            "type": "file",
+            "text": "# service  port   protocol  owner\nssh        22     tcp       networking\nhttp       80     tcp       webteam\nhttps      443    tcp       webteam\nmysql      3306   tcp       dbteam\npostgres   5432   tcp       dbteam\nntp        123    udp       networking\ndns        53     udp       networking\nsmtp       25     tcp       mailteam\n"
+           },
+           "empty.txt": {
+            "type": "file",
+            "text": ""
+           }
+          }
+         },
+         "perms": {
+          "type": "dir",
+          "entries": {
+           "public.txt": {
+            "type": "file",
+            "text": "Anyone may read this.\n",
+            "mode": "0644"
+           },
+           "team.txt": {
+            "type": "file",
+            "text": "Group members may write this.\n",
+            "mode": "0664",
+            "group": "techdocs"
+           },
+           "private.txt": {
+            "type": "file",
+            "text": "Only the owner may read this.\n",
+            "mode": "0600"
+           },
+           "secret.txt": {
+            "type": "file",
+            "text": "Owned by root, readable by root only.\n",
+            "mode": "0600",
+            "user": "root",
+            "group": "root"
+           },
+           "runme.sh": {
+            "type": "file",
+            "text": "#!/bin/bash\necho \"it ran\"\n",
+            "mode": "0700"
+           },
+           "noexec.sh": {
+            "type": "file",
+            "text": "#!/bin/bash\necho \"this one is not executable yet\"\n",
+            "mode": "0644"
+           },
+           "readonly.conf": {
+            "type": "file",
+            "text": "mode = 0444\n",
+            "mode": "0444"
+           },
+           "shared": {
+            "type": "dir",
+            "entries": {
+             "team-notes.txt": {
+              "type": "file",
+              "text": "Shared working notes.\n",
+              "group": "techdocs"
+             }
+            },
+            "mode": "2775",
+            "group": "techdocs"
+           },
+           "dropbox": {
+            "type": "dir",
+            "entries": {},
+            "mode": "1777",
+            "user": "root",
+            "group": "root"
+           },
+           "locked": {
+            "type": "dir",
+            "entries": {
+             "inside.txt": {
+              "type": "file",
+              "text": "You need +x on the directory to reach this.\n"
+             }
+            },
+            "mode": "0600"
+           }
+          }
+         },
+         "links": {
+          "type": "dir",
+          "entries": {
+           "original.txt": {
+            "type": "file",
+            "text": "The one real file. Hard links share this content.\n"
+           },
+           "hardlink.txt": {
+            "type": "hardlink",
+            "to": "/home/student/labs/links/original.txt"
+           },
+           "softlink.txt": {
+            "type": "symlink",
+            "target": "original.txt"
+           },
+           "broken.txt": {
+            "type": "symlink",
+            "target": "gone.txt"
+           },
+           "etc-shortcut": {
+            "type": "symlink",
+            "target": "/etc"
+           }
+          }
+         },
+         "survey": {
+          "type": "dir",
+          "entries": {
+           "site-01": {
+            "type": "dir",
+            "entries": {
+             "day-01": {
+              "type": "dir",
+              "entries": {
+               "sonde.csv": {
+                "type": "file",
+                "text": "station,depth_m,temp_c\nNR-01,1.5,18.9\nNR-01,6.0,13.2\n"
+               },
+               "notes.txt": {
+                "type": "file",
+                "text": "Depth sounding, Northreach basin. Sonde s/n 44-1182.\n"
+               }
+              }
+             },
+             "day-02": {
+              "type": "dir",
+              "entries": {
+               "sonde.csv": {
+                "type": "file",
+                "text": "station,depth_m,temp_c\nNR-01,1.5,18.6\nNR-01,6.0,14.9\n"
+               },
+               "notes.txt": {
+                "type": "file",
+                "text": "Depth sounding, Northreach basin. Sonde s/n 44-1182.\n"
+               },
+               "photo.jpg": {
+                "type": "file",
+                "text": "(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n"
+               }
+              }
+             },
+             "day-03": {
+              "type": "dir",
+              "entries": {
+               "sonde.csv": {
+                "type": "file",
+                "text": "station,depth_m,temp_c\nNR-01,1.5,20.0\nNR-01,6.0,13.1\n"
+               },
+               "notes.txt": {
+                "type": "file",
+                "text": "Depth sounding, Northreach basin. Sonde s/n 44-1182.\n"
+               }
+              }
+             }
+            }
+           },
+           "site-02": {
+            "type": "dir",
+            "entries": {
+             "day-01": {
+              "type": "dir",
+              "entries": {
+               "sonde.csv": {
+                "type": "file",
+                "text": "station,depth_m,temp_c\nNR-02,1.5,20.0\nNR-02,6.0,13.8\n"
+               },
+               "notes.txt": {
+                "type": "file",
+                "text": "Depth sounding, Northreach basin. Sonde s/n 44-1182.\n"
+               }
+              }
+             },
+             "day-02": {
+              "type": "dir",
+              "entries": {
+               "sonde.csv": {
+                "type": "file",
+                "text": "station,depth_m,temp_c\nNR-02,1.5,21.0\nNR-02,6.0,12.1\n"
+               },
+               "notes.txt": {
+                "type": "file",
+                "text": "Depth sounding, Northreach basin. Sonde s/n 44-1182.\n"
+               },
+               "photo.jpg": {
+                "type": "file",
+                "text": "(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n"
+               }
+              }
+             },
+             "day-03": {
+              "type": "dir",
+              "entries": {
+               "sonde.csv": {
+                "type": "file",
+                "text": "station,depth_m,temp_c\nNR-02,1.5,20.5\nNR-02,6.0,14.0\n"
+               },
+               "notes.txt": {
+                "type": "file",
+                "text": "Depth sounding, Northreach basin. Sonde s/n 44-1182.\n"
+               }
+              }
+             }
+            }
+           },
+           "site-03": {
+            "type": "dir",
+            "entries": {
+             "day-01": {
+              "type": "dir",
+              "entries": {
+               "sonde.csv": {
+                "type": "file",
+                "text": "station,depth_m,temp_c\nNR-03,1.5,18.7\nNR-03,6.0,15.0\n"
+               },
+               "notes.txt": {
+                "type": "file",
+                "text": "Depth sounding, Northreach basin. Sonde s/n 44-1182.\n"
+               }
+              }
+             },
+             "day-02": {
+              "type": "dir",
+              "entries": {
+               "sonde.csv": {
+                "type": "file",
+                "text": "station,depth_m,temp_c\nNR-03,1.5,18.4\nNR-03,6.0,12.2\n"
+               },
+               "notes.txt": {
+                "type": "file",
+                "text": "Depth sounding, Northreach basin. Sonde s/n 44-1182.\n"
+               },
+               "photo.jpg": {
+                "type": "file",
+                "text": "(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n"
+               }
+              }
+             },
+             "day-03": {
+              "type": "dir",
+              "entries": {
+               "sonde.csv": {
+                "type": "file",
+                "text": "station,depth_m,temp_c\nNR-03,1.5,18.6\nNR-03,6.0,14.8\n"
+               },
+               "notes.txt": {
+                "type": "file",
+                "text": "Depth sounding, Northreach basin. Sonde s/n 44-1182.\n"
+               },
+               "anomaly.log": {
+                "type": "file",
+                "text": "WARN buoy adrift\nWARN position approximate\nERROR sonde timeout after 4 retries\n"
+               }
+              }
+             }
+            }
+           },
+           "site-04": {
+            "type": "dir",
+            "entries": {
+             "day-01": {
+              "type": "dir",
+              "entries": {
+               "sonde.csv": {
+                "type": "file",
+                "text": "station,depth_m,temp_c\nNR-04,1.5,19.4\nNR-04,6.0,13.1\n"
+               },
+               "notes.txt": {
+                "type": "file",
+                "text": "Depth sounding, Northreach basin. Sonde s/n 44-1182.\n"
+               }
+              }
+             },
+             "day-02": {
+              "type": "dir",
+              "entries": {
+               "sonde.csv": {
+                "type": "file",
+                "text": "station,depth_m,temp_c\nNR-04,1.5,18.8\nNR-04,6.0,14.7\n"
+               },
+               "notes.txt": {
+                "type": "file",
+                "text": "Depth sounding, Northreach basin. Sonde s/n 44-1182.\n"
+               },
+               "photo.jpg": {
+                "type": "file",
+                "text": "(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n(binary image data)\n"
+               }
+              }
+             },
+             "day-03": {
+              "type": "dir",
+              "entries": {
+               "sonde.csv": {
+                "type": "file",
+                "text": "station,depth_m,temp_c\nNR-04,1.5,19.4\nNR-04,6.0,12.3\n"
+               },
+               "notes.txt": {
+                "type": "file",
+                "text": "Depth sounding, Northreach basin. Sonde s/n 44-1182.\n"
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      },
+      "mode": "0700"
+     }
+    }
+   },
+   "media": {
+    "type": "dir",
+    "entries": {}
+   },
+   "mnt": {
+    "type": "dir",
+    "entries": {}
+   },
+   "opt": {
+    "type": "dir",
+    "entries": {}
+   },
+   "proc": {
+    "type": "dir",
+    "entries": {
+     "cpuinfo": {
+      "type": "file",
+      "text": "processor\t: 0\nvendor_id\t: GenuineIntel\nmodel name\t: Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz\ncpu MHz\t\t: 2394.374\ncache size\t: 35840 KB\n"
+     },
+     "meminfo": {
+      "type": "file",
+      "text": "MemTotal:        3836584 kB\nMemFree:         2418112 kB\nMemAvailable:    2903648 kB\nSwapTotal:       2097148 kB\nSwapFree:        2097148 kB\n"
+     },
+     "uptime": {
+      "type": "file",
+      "text": "23184.42 91203.18\n"
+     },
+     "version": {
+      "type": "file",
+      "text": "Linux version 5.14.0-70.22.1.el9_0.x86_64 (mockbuild@x86-vm-09.build.eng.bos.redhat.com)\n"
+     },
+     "mounts": {
+      "type": "synth",
+      "gen": "mounts"
+     }
+    }
+   },
+   "root": {
+    "type": "dir",
+    "entries": {
+     ".bashrc": {
+      "type": "file",
+      "text": "# .bashrc\nalias rm='rm -i'\nalias cp='cp -i'\nalias mv='mv -i'\n"
+     },
+     ".bash_profile": {
+      "type": "file",
+      "text": "# .bash_profile\n"
+     },
+     "anaconda-ks.cfg": {
+      "type": "file",
+      "text": "# Generated by Anaconda\nlang en_US.UTF-8\n",
+      "mode": "0600"
+     }
+    },
+    "mode": "0550",
+    "user": "root",
+    "group": "root"
+   },
+   "run": {
+    "type": "dir",
+    "entries": {
+     "log": {
+      "type": "dir",
+      "entries": {}
+     },
+     "user": {
+      "type": "dir",
+      "entries": {
+       "1000": {
+        "type": "dir",
+        "entries": {},
+        "mode": "0700",
+        "user": "student",
+        "group": "student"
+       }
+      }
+     }
+    }
+   },
+   "srv": {
+    "type": "dir",
+    "entries": {}
+   },
+   "sys": {
+    "type": "dir",
+    "entries": {
+     "class": {
+      "type": "dir",
+      "entries": {
+       "net": {
+        "type": "dir",
+        "entries": {}
+       }
+      }
+     }
+    }
+   },
+   "tmp": {
+    "type": "dir",
+    "entries": {
+     "lab-scratch.txt": {
+      "type": "file",
+      "text": "scratch space\n",
+      "user": "student",
+      "group": "student"
+     }
+    },
+    "mode": "1777"
+   },
+   "usr": {
+    "type": "dir",
+    "entries": {
+     "bin": {
+      "type": "dir",
+      "entries": {
+       "apropos": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "awk": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "basename": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "bash": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "blkid": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "bunzip2": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "bzcat": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "bzip2": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "cat": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "chage": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "chgrp": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "chmod": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "chown": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "chronyc": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "clear": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "cmp": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "comm": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "cp": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "crontab": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "cut": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "date": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "df": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "diff": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "dig": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "dirname": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "dnf": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "dnf-3": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "domainname": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "du": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "echo": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "egrep": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "env": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "false": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "fgrep": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "file": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "find": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "findmnt": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "firewall-cmd": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "flatpak": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "flock": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "free": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "fuser": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "gawk": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "getent": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "gpasswd": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "grep": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "groups": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "gtar": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "gunzip": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "gzip": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "head": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "hexdump": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "host": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "hostname": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "hostnamectl": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "id": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "infocmp": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "journalctl": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "kill": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "killall": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "last": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "lastlog": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "ldd": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "less": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "lesspipe.sh": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "ln": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "locale": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "locate": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "logger": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "loginctl": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "logname": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "ls": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "lsblk": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "lscpu": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "lsof": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "man": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "mandb": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "md5sum": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "mkdir": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "more": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "mount": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "mv": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "nano": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "newgrp": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "nice": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "nl": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "nmcli": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "nohup": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "nslookup": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "passwd": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "paste": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "pgrep": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "ping": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "pkill": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "pmap": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "printf": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "ps": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "pstree": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "pwd": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "python3": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "python3.9": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "readlink": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "realpath": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "renice": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "reset": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "rev": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "rm": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "rmdir": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "rpm": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "rpm2cpio": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "rpmkeys": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "rsync": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "scp": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "sed": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "seq": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "sftp": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "sh": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "sha256sum": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "sleep": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "sort": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "split": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "ssh": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "ssh-add": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "ssh-agent": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "ssh-copy-id": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "ssh-keygen": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "stat": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "su": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "sudo": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "sum": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "systemctl": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "tac": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "tail": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "tar": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "tee": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "timedatectl": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "top": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "touch": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "tput": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "tr": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "tracepath": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "true": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "umount": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "uname": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "uniq": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "updatedb": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "uptime": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "users": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "vi": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "vim": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "vimdiff": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "vmstat": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "w": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "watch": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "wc": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "whatis": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "whereis": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "which": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "who": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "whoami": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "xargs": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "yes": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "yum": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "zcat": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       }
+      }
+     },
+     "sbin": {
+      "type": "dir",
+      "entries": {
+       "NetworkManager": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "arping": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "auditd": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "ausearch": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "chronyd": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "crond": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "firewalld": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "groupadd": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "groupdel": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "groupmod": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "ip": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "rsyslogd": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "shutdown": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "ss": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "sshd": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "subscription-manager": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "useradd": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "userdel": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "usermod": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       },
+       "visudo": {
+        "type": "file",
+        "text": "(ELF 64-bit executable)\n",
+        "mode": "0755"
+       }
+      }
+     },
+     "lib": {
+      "type": "dir",
+      "entries": {
+       "systemd": {
+        "type": "dir",
+        "entries": {
+         "system": {
+          "type": "dir",
+          "entries": {}
+         },
+         "systemd": {
+          "type": "file",
+          "text": "(ELF)\n",
+          "mode": "0755"
+         }
+        }
+       }
+      }
+     },
+     "lib64": {
+      "type": "dir",
+      "entries": {
+       "libc.so.6": {
+        "type": "file",
+        "text": "(ELF shared object)\n",
+        "mode": "0755"
+       }
+      }
+     },
+     "local": {
+      "type": "dir",
+      "entries": {
+       "bin": {
+        "type": "dir",
+        "entries": {}
+       },
+       "sbin": {
+        "type": "dir",
+        "entries": {}
+       },
+       "share": {
+        "type": "dir",
+        "entries": {}
+       },
+       "lib": {
+        "type": "dir",
+        "entries": {}
+       },
+       "etc": {
+        "type": "dir",
+        "entries": {}
+       },
+       "src": {
+        "type": "dir",
+        "entries": {}
+       }
+      }
+     },
+     "share": {
+      "type": "dir",
+      "entries": {
+       "doc": {
+        "type": "dir",
+        "entries": {}
+       },
+       "man": {
+        "type": "dir",
+        "entries": {
+         "man1": {
+          "type": "dir",
+          "entries": {}
+         },
+         "man5": {
+          "type": "dir",
+          "entries": {}
+         },
+         "man8": {
+          "type": "dir",
+          "entries": {}
+         }
+        }
+       },
+       "info": {
+        "type": "dir",
+        "entries": {}
+       },
+       "empty.sshd": {
+        "type": "dir",
+        "entries": {},
+        "mode": "0711"
+       }
+      }
+     },
+     "games": {
+      "type": "dir",
+      "entries": {}
+     },
+     "libexec": {
+      "type": "dir",
+      "entries": {
+       "openssh": {
+        "type": "dir",
+        "entries": {
+         "sftp-server": {
+          "type": "file",
+          "text": "(ELF)\n",
+          "mode": "0755"
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "var": {
+    "type": "dir",
+    "entries": {
+     "log": {
+      "type": "dir",
+      "entries": {
+       "messages": {
+        "type": "file",
+        "text": "Sep 14 08:04:33 servera dnf[2216]: Metadata cache created.\nSep 14 08:15:10 servera systemd[2598]: Reached target Multi-User System.\nSep 14 08:27:01 servera NetworkManager[2345]: <info>  [16] device (ens3): state change: activated\nSep 14 08:37:45 servera systemd[2275]: Starting dnf makecache...\nSep 14 08:40:10 servera systemd[1164]: Starting dnf makecache...\nSep 14 08:53:12 servera kernel[2524]: SELinux:  Permission audit_read in class capability2 not defined\nSep 14 09:06:53 servera systemd[1992]: Started Session 20 of user student.\nSep 14 09:18:10 servera crond[2057]: (CRON) INFO (running with inotify support)\nSep 14 09:21:44 servera dnf[1331]: Metadata cache created.\nSep 14 09:31:04 servera kernel[1676]: SELinux:  Permission audit_read in class capability2 not defined\nSep 14 09:37:16 servera systemd[763]: Started Session 25 of user student.\nSep 14 09:44:45 servera kernel[1042]: SELinux:  Permission audit_read in class capability2 not defined\nSep 14 09:56:09 servera dnf[565]: Metadata cache created.\nSep 14 10:06:01 servera kernel[1433]: SELinux:  Permission audit_read in class capability2 not defined\nSep 14 10:10:05 servera systemd[864]: Started Session 34 of user student.\nSep 14 10:15:19 servera dnf[2542]: Metadata cache created.\nSep 14 10:20:01 servera dnf[938]: Metadata cache created.\nSep 14 10:31:07 servera NetworkManager[456]: <info>  [16] device (ens3): state change: activated\nSep 14 10:35:28 servera crond[2177]: (CRON) INFO (running with inotify support)\nSep 14 10:48:19 servera systemd[1540]: Started Session 35 of user student.\nSep 14 10:59:50 servera systemd[1373]: Starting dnf makecache...\nSep 14 11:10:08 servera dnf[1583]: Metadata cache created.\nSep 14 11:13:51 servera crond[1431]: (CRON) INFO (running with inotify support)\nSep 14 11:25:51 servera systemd[867]: Started Session 33 of user student.\nSep 14 11:28:42 servera NetworkManager[557]: <info>  [16] device (ens3): state change: activated\nSep 14 11:40:10 servera chronyd[2465]: Selected source 172.25.250.254\nSep 14 11:44:51 servera systemd[1126]: Starting dnf makecache...\nSep 14 11:55:23 servera systemd[2294]: Reached target Multi-User System.\nSep 14 12:01:31 servera NetworkManager[2292]: <info>  [16] device (ens3): state change: activated\nSep 14 12:11:24 servera dnf[1777]: Metadata cache created.\nSep 14 12:23:35 servera systemd[1736]: Started Session 26 of user student.\nSep 14 12:27:54 servera dnf[561]: Metadata cache created.\nSep 14 12:34:07 servera chronyd[2004]: Selected source 172.25.250.254\nSep 14 12:46:40 servera dnf[754]: Metadata cache created.\nSep 14 12:54:07 servera dnf[2042]: Metadata cache created.\nSep 14 12:56:57 servera systemd[1046]: Started Session 18 of user student.\nSep 14 13:06:37 servera dnf[643]: Metadata cache created.\nSep 14 13:12:54 servera dnf[1039]: Metadata cache created.\nSep 14 13:20:32 servera kernel[1225]: SELinux:  Permission audit_read in class capability2 not defined\nSep 14 13:23:53 servera systemd[1149]: Started Session 26 of user student.\nSep 14 13:27:18 servera NetworkManager[1643]: <info>  [16] device (ens3): state change: activated\nSep 14 13:29:17 servera kernel[766]: SELinux:  Permission audit_read in class capability2 not defined\nSep 14 13:41:40 servera chronyd[1414]: Selected source 172.25.250.254\nSep 14 13:43:30 servera chronyd[1951]: Selected source 172.25.250.254\nSep 14 13:47:38 servera systemd[517]: Started Session 24 of user student.\n",
+        "mode": "0600",
+        "user": "root"
+       },
+       "secure": {
+        "type": "file",
+        "text": "Sep 14 08:03:36 servera sshd[2330]: Failed password for operator2 from 10.0.2.15 port 53856 ssh2\nSep 14 08:04:23 servera sshd[2790]: Failed password for student from 172.25.250.11 port 43506 ssh2\nSep 14 08:11:34 servera sshd[2920]: Accepted password for operator1 from 172.25.250.11 port 43623 ssh2\nSep 14 08:16:05 servera sshd[2842]: Failed password for student from 172.25.250.14 port 44354 ssh2\nSep 14 08:23:59 servera sshd[2699]: Failed password for operator1 from 172.25.250.11 port 53597 ssh2\nSep 14 08:30:20 servera sudo[2294]: test : TTY=pts/0 ; PWD=/home/test ; USER=root ; COMMAND=/usr/bin/useradd operator4\nSep 14 08:34:22 servera sshd[2037]: Accepted password for student from 172.25.250.44 port 51035 ssh2\nSep 14 08:36:45 servera sshd[2678]: Accepted password for operator2 from 172.25.250.11 port 46134 ssh2\nSep 14 08:40:42 servera sshd[2014]: Failed password for operator2 from 172.25.250.44 port 53336 ssh2\nSep 14 08:48:52 servera sshd[2042]: Invalid user test from 172.25.250.14 port 47469\nSep 14 08:49:04 servera sudo[2886]: oracle : TTY=pts/0 ; PWD=/home/oracle ; USER=root ; COMMAND=/usr/bin/systemctl status sshd\nSep 14 08:56:20 servera sudo[2978]: root : TTY=pts/0 ; PWD=/home/root ; USER=root ; COMMAND=/usr/bin/cat /var/log/messages\nSep 14 09:02:53 servera sshd[2050]: Failed password for invalid user test from 172.25.250.11 port 42477 ssh2\nSep 14 09:07:29 servera sudo[2598]: operator1 : TTY=pts/0 ; PWD=/home/operator1 ; USER=root ; COMMAND=/usr/bin/dnf install tree\nSep 14 09:11:04 servera sshd[2866]: Failed password for invalid user admin from 172.25.250.44 port 47170 ssh2\nSep 14 09:15:50 servera sshd[2908]: Invalid user admin from 172.25.250.11 port 54697\nSep 14 09:20:08 servera sshd[2065]: Invalid user operator1 from 172.25.250.23 port 41468\nSep 14 09:27:17 servera sshd[2526]: Invalid user test from 192.168.4.72 port 49586\nSep 14 09:33:23 servera sshd[2757]: Accepted password for student from 10.0.2.15 port 56143 ssh2\nSep 14 09:40:19 servera sshd[2729]: Failed password for invalid user admin from 172.25.250.11 port 43938 ssh2\nSep 14 09:45:02 servera sshd[2373]: Accepted password for operator2 from 172.25.250.14 port 52218 ssh2\nSep 14 09:49:47 servera sshd[2547]: Failed password for invalid user oracle from 172.25.250.11 port 40124 ssh2\nSep 14 09:53:08 servera sshd[2610]: Failed password for student from 172.25.250.44 port 58394 ssh2\nSep 14 10:01:49 servera sshd[2292]: Failed password for student from 10.0.2.15 port 47126 ssh2\nSep 14 10:09:37 servera sudo[2528]: operator2 : TTY=pts/0 ; PWD=/home/operator2 ; USER=root ; COMMAND=/usr/bin/useradd operator4\nSep 14 10:13:54 servera sshd[2330]: Accepted password for operator2 from 172.25.250.23 port 43834 ssh2\nSep 14 10:20:37 servera sudo[2805]: admin : TTY=pts/0 ; PWD=/home/admin ; USER=root ; COMMAND=/usr/bin/systemctl status sshd\nSep 14 10:23:26 servera sudo[2364]: oracle : TTY=pts/0 ; PWD=/home/oracle ; USER=root ; COMMAND=/usr/bin/systemctl status sshd\nSep 14 10:25:06 servera sshd[2073]: Failed password for invalid user oracle from 172.25.250.44 port 54347 ssh2\nSep 14 10:33:15 servera sudo[2603]: test : TTY=pts/0 ; PWD=/home/test ; USER=root ; COMMAND=/usr/bin/useradd operator4\nSep 14 10:38:53 servera sshd[2235]: Accepted password for oracle from 192.168.4.72 port 54895 ssh2\nSep 14 10:41:32 servera sudo[2011]: root : TTY=pts/0 ; PWD=/home/root ; USER=root ; COMMAND=/usr/bin/systemctl status sshd\nSep 14 10:47:15 servera sshd[2962]: Accepted password for operator1 from 172.25.250.44 port 40788 ssh2\nSep 14 10:55:07 servera sshd[2874]: Failed password for root from 172.25.250.44 port 48554 ssh2\nSep 14 10:56:50 servera sshd[2616]: Failed password for student from 172.25.250.23 port 48414 ssh2\nSep 14 10:58:15 servera sudo[2846]: root : TTY=pts/0 ; PWD=/home/root ; USER=root ; COMMAND=/usr/bin/dnf install tree\nSep 14 11:00:40 servera sudo[2337]: root : TTY=pts/0 ; PWD=/home/root ; USER=root ; COMMAND=/usr/bin/useradd operator4\nSep 14 11:05:47 servera sudo[2186]: operator2 : TTY=pts/0 ; PWD=/home/operator2 ; USER=root ; COMMAND=/usr/bin/useradd operator4\nSep 14 11:10:39 servera sshd[2925]: Accepted password for oracle from 172.25.250.11 port 56390 ssh2\nSep 14 11:16:03 servera sshd[2891]: Failed password for student from 172.25.250.11 port 47638 ssh2\n",
+        "mode": "0600",
+        "user": "root"
+       },
+       "boot.log": {
+        "type": "file",
+        "text": "[  OK  ] Started OpenSSH server daemon.\n[  OK  ] Reached target Multi-User System.\n",
+        "mode": "0600"
+       },
+       "dnf.log": {
+        "type": "file",
+        "text": "2025-08-28T09:14:02-0400 INFO --- logging initialized ---\n2025-08-28T09:14:05-0400 INFO Installed: vim-enhanced-8.2.2637-20.el9.x86_64\n"
+       },
+       "cron": {
+        "type": "file",
+        "text": "Sep 14 08:01:01 servera CROND[2201]: (root) CMD (run-parts /etc/cron.hourly)\n",
+        "mode": "0600"
+       },
+       "lastlog": {
+        "type": "file",
+        "text": "(binary accounting data)\n",
+        "mode": "0644"
+       },
+       "wtmp": {
+        "type": "file",
+        "text": "(binary accounting data)\n",
+        "mode": "0664",
+        "group": "utmp"
+       },
+       "audit": {
+        "type": "dir",
+        "entries": {
+         "audit.log": {
+          "type": "file",
+          "text": "type=DAEMON_START msg=audit(1757851932.104:2262)\n",
+          "mode": "0600"
+         }
+        },
+        "mode": "0700"
+       },
+       "chrony": {
+        "type": "dir",
+        "entries": {},
+        "user": "chrony",
+        "group": "chrony"
+       }
+      }
+     },
+     "tmp": {
+      "type": "dir",
+      "entries": {},
+      "mode": "1777"
+     },
+     "spool": {
+      "type": "dir",
+      "entries": {
+       "mail": {
+        "type": "dir",
+        "entries": {
+         "student": {
+          "type": "file",
+          "text": "",
+          "mode": "0660",
+          "user": "student",
+          "group": "mail"
+         }
+        },
+        "mode": "0775",
+        "group": "mail"
+       },
+       "cron": {
+        "type": "dir",
+        "entries": {},
+        "mode": "0700"
+       },
+       "at": {
+        "type": "dir",
+        "entries": {},
+        "mode": "0700"
+       }
+      }
+     },
+     "lib": {
+      "type": "dir",
+      "entries": {
+       "rpm": {
+        "type": "dir",
+        "entries": {
+         "rpmdb.sqlite": {
+          "type": "file",
+          "text": "(rpm database)\n"
+         }
+        }
+       },
+       "mlocate": {
+        "type": "dir",
+        "entries": {
+         "mlocate.db": {
+          "type": "file",
+          "text": "(locate database)\n",
+          "mode": "0640",
+          "group": "slocate"
+         }
+        }
+       },
+       "chrony": {
+        "type": "dir",
+        "entries": {
+         "drift": {
+          "type": "file",
+          "text": "0.0 0.0\n"
+         }
+        },
+        "user": "chrony",
+        "group": "chrony"
+       },
+       "dnf": {
+        "type": "dir",
+        "entries": {}
+       }
+      }
+     },
+     "www": {
+      "type": "dir",
+      "entries": {
+       "html": {
+        "type": "dir",
+        "entries": {
+         "index.html": {
+          "type": "file",
+          "text": "<html><body><h1>servera</h1></body></html>\n"
+         }
+        }
+       }
+      }
+     },
+     "cache": {
+      "type": "dir",
+      "entries": {
+       "dnf": {
+        "type": "dir",
+        "entries": {}
+       }
+      }
+     },
+     "adm": {
+      "type": "dir",
+      "entries": {}
+     },
+     "empty": {
+      "type": "dir",
+      "entries": {},
+      "mode": "0555"
+     }
+    }
+   }
+  }
+ }
+}

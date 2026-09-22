@@ -9,20 +9,17 @@ together in filename order. Edit the section files, then:
     python3 tools/build_quiz.py
 
 It also validates as it goes, which catches the mistakes that are invisible
-until a learner hits the question:
-
-  * an `mc` whose `correct` index is out of range
-  * a `matching` with duplicate right-hand values (ungradeable)
-  * a `fill_blank` whose answer normalizes to something unmatchable
-  * a `short_answer` with no rubric, or a `sql` with no solution
-  * a question that refers to "above" or "the previous question" -- questions
-    are shuffled within a section, so nothing may depend on its neighbours
+until a learner hits the question. Those checks live in tools/qcheck.py, shared
+with the other classes' build scripts.
 """
 
 import json
 import os
-import re
 import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from qcheck import check
 
 # Windows consoles default to cp1252, which cannot print the em dashes and
 # arrows that appear in the question text. Never let that crash a report.
@@ -55,126 +52,7 @@ EXTRA = {
 }
 OUT_EXTRA = os.path.join(ROOT, "data", "itd256-midterm-extra.json")
 
-# Questions are shuffled inside a section, so a question that leans on its
-# neighbour will make no sense when it comes up first.
-# Deliberately narrow: "above 75" and "below the dividing line" are fine, while
-# "the example above" and "same rules as above" are not.
-DANGLING = re.compile(
-    r"(?:\b(?:the|shown|listed|given|described|as|see)\s+(?:above|below)\b"
-    r"|\b(?:above|below)\s*[:,.]"
-    r"|\bprevious question\b"
-    r"|\bpreceding\b"
-    r"|\bas noted earlier\b"
-    r"|\bsame (?:business )?rules as\b"
-    r"|\bin the (?:example|scenario|question) above\b"
-    # Wording that reads as a continuation of the question before it.
-    r"|\bthat same\b"
-    r"|\bcontinuing (?:with|from)\b"
-    r"|\bfinish the job\b"
-    r"|\bin the [A-Za-z_/]+ example\b"
-    r"|\bearlier (?:example|question|table)\b)",
-    re.I,
-)
-
 problems = []
-
-
-def fault(where, msg):
-    problems.append("%s: %s" % (where, msg))
-
-
-def normalize(s):
-    """Mirror of normalizeAnswer() in assets/quiz.js."""
-    s = str(s).lower().strip()
-    s = re.sub(r"[.,;:'\"]", "", s)
-    return re.sub(r"\s+", " ", s)
-
-
-def check(q, where):
-    kind = q.get("type")
-    prompt = q.get("question", "")
-
-    if not prompt:
-        fault(where, "no question text")
-
-    # "above" is fine when the question carries its own legend inline.
-    hit = DANGLING.search(prompt)
-    if hit and "legend" not in prompt.lower() and "layout" not in prompt.lower():
-        fault(where, "refers to %r, but questions are shuffled" % hit.group(0))
-
-    if kind == "mc":
-        opts = q.get("options") or []
-        if len(opts) < 2:
-            fault(where, "fewer than two options")
-        if not isinstance(q.get("correct"), int) or not (0 <= q["correct"] < len(opts)):
-            fault(where, "correct index %r is out of range" % q.get("correct"))
-        if len(set(opts)) != len(opts):
-            fault(where, "duplicate options")
-
-    elif kind == "tf":
-        if not isinstance(q.get("correct"), bool):
-            fault(where, "tf needs a boolean `correct`")
-
-    elif kind == "fill_blank":
-        answers = q.get("answers") or []
-        if not answers:
-            fault(where, "no accepted answers")
-        for a in answers:
-            if not normalize(a):
-                fault(where, "answer %r normalizes to nothing" % a)
-            if re.fullmatch(r"[\d:.]+", str(a)):
-                fault(where, "answer %r loses meaning once punctuation is stripped; "
-                             "use mc instead" % a)
-
-    elif kind == "matching":
-        pairs = q.get("pairs") or []
-        if len(pairs) < 2:
-            fault(where, "fewer than two pairs")
-        rights = [p["right"] for p in pairs]
-        if len(set(rights)) != len(rights):
-            fault(where, "duplicate right-hand values make a pair ungradeable")
-        lefts = [p["left"] for p in pairs]
-        if len(set(lefts)) != len(lefts):
-            fault(where, "duplicate left-hand values")
-
-    elif kind == "short_answer":
-        if not q.get("modelAnswer"):
-            fault(where, "no model answer")
-        # answerLang only makes sense when the whole model answer is SQL --
-        # tagging a mixed prose-and-SQL answer highlights the prose too.
-        if q.get("answerLang") == "sql":
-            first = (q.get("modelAnswer") or "").strip().split(None, 1)[:1]
-            starters = {"select", "insert", "update", "delete", "create", "drop",
-                        "alter", "with", "--"}
-            if first and first[0].lower() not in starters:
-                fault(where, "answerLang is 'sql' but the model answer starts with "
-                             "%r, so it looks like prose" % first[0])
-        elif q.get("answerLang"):
-            fault(where, "unknown answerLang %r" % q["answerLang"])
-        if not q.get("rubric"):
-            fault(where, "no rubric, so it can only be self-graded pass/fail")
-        elif len(q["rubric"]) < 2:
-            fault(where, "a rubric needs at least two criteria to give partial credit")
-
-    elif kind == "sql":
-        if not q.get("solution"):
-            fault(where, "no reference solution")
-        if not q.get("tables"):
-            fault(where, "no `tables` list, so the schema panel shows everything")
-        sol = q.get("solution", "")
-        is_dml = re.match(r"\s*(insert|update|delete)\b", sol, re.I)
-        if is_dml and not q.get("verify"):
-            fault(where, "an INSERT/UPDATE/DELETE needs a `verify` SELECT to be gradeable")
-        if not is_dml and q.get("verify"):
-            fault(where, "`verify` is only for INSERT/UPDATE/DELETE")
-        if q.get("orderMatters") and not re.search(r"order\s+by", sol, re.I):
-            fault(where, "orderMatters is set but the solution has no ORDER BY")
-        if not q.get("orderMatters") and re.search(r"order\s+by", sol, re.I) and not is_dml:
-            fault(where, "solution has ORDER BY but orderMatters is not set "
-                         "(harmless, but the prompt probably asked for a sort)")
-
-    else:
-        fault(where, "unknown type %r" % kind)
 
 
 def main():
@@ -197,7 +75,7 @@ def main():
 
         qs = doc.get("questions", [])
         for i, q in enumerate(qs):
-            check(q, "%s[%d]" % (name, i))
+            check(q, "%s[%d]" % (name, i), problems)
             by_type[q.get("type")] = by_type.get(q.get("type"), 0) + 1
         total += len(qs)
         sections.append({"name": doc["name"], "questions": qs})

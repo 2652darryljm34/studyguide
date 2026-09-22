@@ -1,0 +1,430 @@
+{
+  "title": "Controlling Access to Files",
+  "description": "Chapter 11: reading a long listing, the three sets of rwx bits, changing them in symbolic and octal form, changing ownership, what the bits mean on a directory, the umask, and the special permissions setuid, setgid and the sticky bit.",
+  "guideFile": "data/itn170-commands-guide.json",
+  "boxFile": "data/itn170-box.json",
+  "sections": [
+    {
+      "name": "File Permissions & Ownership",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Reading Permissions",
+          "question": "In the listing `-rw-r--r-- 1 student student 22 Jun 4 18:15 public.txt`, which part describes what members of the file's group may do?",
+          "options": [
+            "Characters 5 to 7, the second group of three: r--",
+            "Characters 2 to 4, the first group of three: rw-",
+            "The last three characters: r--",
+            "The very first character: -"
+          ],
+          "correct": 0,
+          "explanation": "The ten characters are: file type, then owner, then group, then other. Here the owner may read and write, and everyone else may only read."
+        },
+        {
+          "type": "matching",
+          "category": "Reading Permissions",
+          "question": "Match the first character of a long listing to the kind of thing it describes.",
+          "pairs": [
+            {
+              "left": "-",
+              "right": "An ordinary file"
+            },
+            {
+              "left": "d",
+              "right": "A directory"
+            },
+            {
+              "left": "l",
+              "right": "A symbolic link"
+            },
+            {
+              "left": "b",
+              "right": "A block device, such as a disk"
+            },
+            {
+              "left": "c",
+              "right": "A character device, such as a terminal"
+            }
+          ],
+          "explanation": "The type is fixed when the thing is created; no chmod can turn a file into a directory."
+        },
+        {
+          "type": "shell",
+          "category": "Reading Permissions",
+          "question": "Show the permissions, owner and group of every entry in ~/labs/perms.",
+          "places": [
+            "~/labs/perms"
+          ],
+          "cwd": "~/labs/perms",
+          "solution": "ls -l",
+          "explanation": "`ls -l` on a directory lists what is inside it. `ls -ld` shows the directory itself instead, which is what you need when it is the directory's own permissions you are checking."
+        },
+        {
+          "type": "shell",
+          "category": "Reading Permissions",
+          "question": "Show the permissions, owner, group and inode details of the file ~/labs/perms/public.txt, including its mode in both symbolic and octal form.",
+          "places": [
+            "~/labs/perms/public.txt"
+          ],
+          "solution": "stat ~/labs/perms/public.txt",
+          "explanation": "`stat` is the command that prints the octal mode next to the rwx string, which makes it the quickest way to check your arithmetic."
+        },
+        {
+          "type": "matching",
+          "category": "The Permission Bits",
+          "question": "Match each permission to what it allows on an ordinary file.",
+          "pairs": [
+            {
+              "left": "r on a file",
+              "right": "Read the contents"
+            },
+            {
+              "left": "w on a file",
+              "right": "Change the contents"
+            },
+            {
+              "left": "x on a file",
+              "right": "Run it as a program"
+            },
+            {
+              "left": "r on a directory",
+              "right": "List the names inside it"
+            },
+            {
+              "left": "w on a directory",
+              "right": "Create, rename and delete entries inside it"
+            },
+            {
+              "left": "x on a directory",
+              "right": "Enter it and reach things by name"
+            }
+          ],
+          "explanation": "The directory meanings are the ones that catch people out. Deleting a file needs write permission on the directory holding it, not on the file itself."
+        },
+        {
+          "type": "mc",
+          "category": "The Permission Bits",
+          "question": "In octal notation, which single digit means read and write but not execute?",
+          "options": [
+            "6",
+            "3",
+            "5",
+            "7"
+          ],
+          "correct": 0,
+          "explanation": "Read is 4, write is 2, execute is 1, and the digit is their sum. So 6 is rw-, 5 is r-x and 7 is rwx."
+        },
+        {
+          "type": "mc",
+          "category": "The Permission Bits",
+          "question": "Which octal mode is the same as `rw-r-----`?",
+          "options": [
+            "640",
+            "644",
+            "620",
+            "460"
+          ],
+          "correct": 0,
+          "explanation": "Owner 4+2 = 6, group 4, other 0. It is the usual mode for a file that only the owner writes and only their team reads."
+        },
+        {
+          "type": "mc",
+          "category": "The Permission Bits",
+          "question": "What does mode 755 mean on a directory?",
+          "options": [
+            "The owner may create and delete entries; everyone else may list and enter it but not change it",
+            "Nobody but the owner may enter it",
+            "Everyone may create and delete entries",
+            "The directory cannot be listed at all"
+          ],
+          "correct": 0,
+          "explanation": "755 is the standard mode for /usr/bin and for a home directory on a shared system that is meant to be traversable."
+        },
+        {
+          "type": "shell",
+          "category": "Changing Permissions",
+          "question": "Change ~/labs/perms/public.txt so the owner may read and write it, the group may only read it, and everyone else has no access at all. Use the octal form.",
+          "places": [
+            "~/labs/perms/public.txt"
+          ],
+          "cwd": "~/labs/perms",
+          "hint": "Read 4, write 2, execute 1, added up per column.",
+          "solution": "chmod 640 public.txt",
+          "verify": "ls -l public.txt",
+          "explanation": "Octal always sets all three columns at once, which is why it is the safer choice when you want a file to end in an exactly known state."
+        },
+        {
+          "type": "shell",
+          "category": "Changing Permissions",
+          "question": "Make ~/labs/perms/noexec.sh executable for its owner, without changing any other permission on the file. Use the symbolic form.",
+          "places": [
+            "~/labs/perms/noexec.sh"
+          ],
+          "cwd": "~/labs/perms",
+          "hint": "u is the user who owns it, and + adds a permission.",
+          "solution": "chmod u+x noexec.sh",
+          "verify": "ls -l noexec.sh",
+          "explanation": "Symbolic mode changes only what you name, so it is the right choice when you do not want to disturb the rest. The letters are u, g, o and a, with +, - and =."
+        },
+        {
+          "type": "shell",
+          "category": "Changing Permissions",
+          "question": "Take write permission away from group and other on ~/labs/perms/team.txt, leaving whatever they have otherwise untouched.",
+          "places": [
+            "~/labs/perms/team.txt"
+          ],
+          "cwd": "~/labs/perms",
+          "solution": "chmod go-w team.txt",
+          "verify": "ls -l team.txt",
+          "explanation": "Several targets can be listed together: `go-w` is 'group and other, remove write'. `a-w` would take it from the owner too."
+        },
+        {
+          "type": "shell",
+          "category": "Changing Permissions",
+          "question": "Set ~/labs/perms/readonly.conf so that the group has no permissions at all, whatever it had before, without touching the owner or other columns.",
+          "places": [
+            "~/labs/perms/readonly.conf"
+          ],
+          "cwd": "~/labs/perms",
+          "hint": "The = form sets a column outright rather than adding to it, and it can be given nothing to set.",
+          "solution": "chmod g= readonly.conf",
+          "verify": "ls -l readonly.conf",
+          "explanation": "`=` is the symbolic way to be absolute about one column: `g=r` makes the group exactly read, and `g=` with nothing after it clears the column. `g-rwx` gets to the same place."
+        },
+        {
+          "type": "shell",
+          "category": "Changing Permissions",
+          "question": "Apply mode 700 to the directory ~/labs/perms/locked and to everything inside it, in a single command.",
+          "places": [
+            "~/labs/perms/locked"
+          ],
+          "cwd": "~/labs/perms",
+          "hint": "chmod has the same recursion flag that cp and rm use.",
+          "solution": "chmod -R 700 locked",
+          "verify": "ls -ld locked; ls -l locked",
+          "explanation": "`-R` is convenient and dangerous in equal measure: `chmod -R 777` on a directory tree is a classic way to make a system insecure in one keystroke."
+        },
+        {
+          "type": "tf",
+          "category": "Changing Permissions",
+          "question": "You can always change the permissions of a file you are able to read.",
+          "correct": false,
+          "explanation": "Only the file's owner and root may run chmod on it. Being able to read a file says nothing about being able to change its mode."
+        },
+        {
+          "type": "shell",
+          "category": "Ownership",
+          "question": "Change the owner of ~/labs/perms/team.txt to operator1, leaving the group as it is.",
+          "places": [
+            "~/labs/perms/team.txt"
+          ],
+          "cwd": "~/labs/perms",
+          "hint": "Giving a file away needs superuser rights.",
+          "solution": "sudo chown operator1 team.txt",
+          "verify": "ls -l team.txt",
+          "explanation": "Only root may hand a file to another user. If ordinary users could do it, anyone could dodge a disk quota by giving their files away."
+        },
+        {
+          "type": "shell",
+          "category": "Ownership",
+          "question": "Change both the owner and the group of ~/labs/perms/team.txt to operator1 and operators in one command.",
+          "places": [
+            "~/labs/perms/team.txt"
+          ],
+          "cwd": "~/labs/perms",
+          "hint": "The two names are separated by a colon.",
+          "solution": "sudo chown operator1:operators team.txt",
+          "verify": "ls -l team.txt",
+          "explanation": "`chown :operators file` changes only the group, which is the same thing `chgrp operators file` does."
+        },
+        {
+          "type": "shell",
+          "category": "Ownership",
+          "question": "Change only the group of ~/labs/perms/public.txt to techdocs, using the command whose whole purpose is changing the group.",
+          "places": [
+            "~/labs/perms/public.txt"
+          ],
+          "cwd": "~/labs/perms",
+          "solution": "chgrp techdocs public.txt",
+          "verify": "ls -l public.txt",
+          "explanation": "No sudo is needed here: you own the file and you are a member of techdocs, and those are the two conditions for giving a file to a group."
+        },
+        {
+          "type": "mc",
+          "category": "Ownership",
+          "question": "Why does `chown` normally require root, while `chgrp` sometimes does not?",
+          "options": [
+            "Because you may only give a file to a group you yourself belong to, whereas giving it to another user would let you escape quotas and shed responsibility",
+            "Because chgrp is an older command with fewer checks",
+            "Because groups have no permissions of their own",
+            "Because chown also changes the file's mode"
+          ],
+          "correct": 0,
+          "explanation": "The rule is that you can never create a file owned by someone else, but you may share one with a group you are already in."
+        },
+        {
+          "type": "shell",
+          "category": "The umask",
+          "question": "Show the current umask value for your shell.",
+          "places": [
+            "~"
+          ],
+          "solution": "umask",
+          "explanation": "Printed as four octal digits, the first of which is for the special permissions. A regular user on RHEL usually sees 0002 or 0022."
+        },
+        {
+          "type": "mc",
+          "category": "The umask",
+          "question": "With a umask of 022, what permissions does a newly created ordinary file get?",
+          "options": [
+            "644, or rw-r--r--",
+            "755, or rwxr-xr-x",
+            "666, or rw-rw-rw-",
+            "600, or rw-------"
+          ],
+          "correct": 0,
+          "explanation": "New files start from 666 and new directories from 777; the umask bits are removed. 666 minus 022 is 644, and 777 minus 022 is 755."
+        },
+        {
+          "type": "mc",
+          "category": "The umask",
+          "question": "Which umask would make new files readable and writable only by their owner and their group, and invisible to everyone else?",
+          "options": [
+            "007",
+            "077",
+            "022",
+            "700"
+          ],
+          "correct": 0,
+          "explanation": "007 removes all three bits from the other column: 666 minus 007 gives 660. 077 would also shut the group out, giving 600."
+        },
+        {
+          "type": "tf",
+          "category": "The umask",
+          "question": "Because new files start from 666 rather than 777, a file you create is never executable no matter what the umask is.",
+          "correct": true,
+          "explanation": "The system refuses to hand out the execute bit on a new file, which is why you always have to run chmod +x on a script you just wrote."
+        },
+        {
+          "type": "matching",
+          "category": "Special Permissions",
+          "question": "Match each special permission to what it does.",
+          "pairs": [
+            {
+              "left": "setuid on a file",
+              "right": "The program runs as the user who owns the file, not as whoever started it"
+            },
+            {
+              "left": "setgid on a file",
+              "right": "The program runs with the group of the file"
+            },
+            {
+              "left": "setgid on a directory",
+              "right": "New entries inherit the directory's group instead of the creator's"
+            },
+            {
+              "left": "sticky bit on a directory",
+              "right": "Only an entry's owner may delete it, even where everyone can write"
+            }
+          ],
+          "explanation": "/tmp is the everyday example of the sticky bit, and a shared team directory is the everyday example of setgid."
+        },
+        {
+          "type": "mc",
+          "category": "Special Permissions",
+          "question": "A directory listing shows `drwxrwsr-x`. Which special permission is set, and where?",
+          "options": [
+            "setgid, shown by the s in the group execute position",
+            "setuid, shown by the s in the owner execute position",
+            "The sticky bit, shown by the s at the end",
+            "None; s simply means shared"
+          ],
+          "correct": 0,
+          "explanation": "The s replaces the x in the column it applies to. A capital S would mean the special bit is set but the execute bit underneath it is not, which is nearly always a mistake."
+        },
+        {
+          "type": "shell",
+          "category": "Special Permissions",
+          "question": "Set the setgid bit on the directory ~/labs/perms/dropbox so that files created inside it take the directory's group.",
+          "places": [
+            "~/labs/perms/dropbox"
+          ],
+          "cwd": "~/labs/perms",
+          "hint": "Symbolically it is g+s; in octal it is a leading 2.",
+          "solution": "sudo chmod g+s dropbox",
+          "verify": "ls -ld dropbox",
+          "explanation": "This is what makes a shared project directory work: everyone's files end up with the team's group, so the group permission bits actually apply to them."
+        },
+        {
+          "type": "shell",
+          "category": "Special Permissions",
+          "question": "Show the permissions of the directory ~/labs/perms/dropbox itself, rather than listing its contents, so you can see the t at the end of its mode.",
+          "places": [
+            "~/labs/perms/dropbox"
+          ],
+          "cwd": "~/labs/perms",
+          "solution": "ls -ld dropbox",
+          "explanation": "The trailing t is the sticky bit. Without it, anyone with write permission on a world-writable directory could delete anyone else's files from it."
+        },
+        {
+          "type": "mc",
+          "category": "Special Permissions",
+          "question": "Which octal mode sets the sticky bit on a directory that is otherwise rwxrwxrwx?",
+          "options": [
+            "1777",
+            "2777",
+            "4777",
+            "0777"
+          ],
+          "correct": 0,
+          "explanation": "The leading digit carries the special bits: 4 is setuid, 2 is setgid, 1 is sticky. /tmp is mode 1777."
+        },
+        {
+          "type": "shell",
+          "category": "Diagnosing Access",
+          "question": "There is a file in ~/labs/perms that you own but cannot read, because its mode says so. Show the long listing for ~/labs/perms/secret.txt to see who owns it and what its permissions are.",
+          "places": [
+            "~/labs/perms/secret.txt"
+          ],
+          "cwd": "~/labs/perms",
+          "solution": "ls -l secret.txt",
+          "explanation": "The listing is the first thing to check on a Permission denied: it tells you both the mode and the owner, and those two facts explain almost every case."
+        },
+        {
+          "type": "tf",
+          "category": "Diagnosing Access",
+          "question": "If a directory has r but not x, you can list the names inside it but cannot read any of those files.",
+          "correct": true,
+          "explanation": "Without x you cannot traverse into the directory to reach an inode, so `ls` shows the names and `ls -l` cannot fill in the details."
+        },
+        {
+          "type": "short_answer",
+          "category": "Diagnosing Access",
+          "question": "A user reports that they can see a file listed with `ls` but get Permission denied when they try to read it. Describe the checks you would run, in order, and what each one would tell you.",
+          "answerLang": null,
+          "modelAnswer": "First, `ls -l thefile` to see the mode, the owner and the group. That answers which of the three columns applies to this user and what it allows: if they are neither the owner nor in the group, only the last three characters matter to them.\n\nSecond, `id theuser` to list their UID, primary group and supplementary groups. Comparing that with the group on the file is what decides whether the group column applies. A user who was added to a group but has not logged out and back in will not have the new membership in their current session, which is a frequent cause of this exact report.\n\nThird, check the directories on the way to the file with `ls -ld` on each one, or `namei -l /path/to/file`. Reading a file requires execute permission on every directory in its path; a missing x anywhere above it produces the same Permission denied even though the file's own mode looks fine.\n\nIf all of that looks right, the remaining candidates are SELinux context and an access control list, which `ls -l` hints at with a trailing . or + on the mode.",
+          "rubric": [
+            "Starts with ls -l on the file to read the mode, owner and group",
+            "Checks the user's own identity and group memberships with id",
+            "Checks execute permission on the parent directories along the path",
+            "Mentions that a new group membership does not apply to an existing session, or names SELinux/ACLs as the next step"
+          ],
+          "explanation": "The path check is the one most people skip, and it is the one that explains the confusing cases."
+        },
+        {
+          "type": "short_answer",
+          "category": "Special Permissions",
+          "question": "A team of three needs a shared directory where everyone can create files and everyone can read and edit each other's work, but nobody can delete a file they did not create. Explain which permissions and special bits you would set, and why each one is needed.",
+          "answerLang": null,
+          "modelAnswer": "Create a group for the team and put all three accounts in it, then make the directory owned by that group:\n\n    sudo groupadd projteam\n    sudo usermod -aG projteam alice\n    sudo chgrp projteam /srv/project\n\nSet the directory to 2770, and take that apart one piece at a time. The 770 gives the owner and the group full rwx -- read to list it, write to create files, execute to enter it -- and gives other nothing, so the work stays inside the team. The leading 2 is setgid, which makes every file created inside the directory inherit the projteam group rather than the creator's private group. Without it, a file Alice creates belongs to group alice, and Bob's group permission does not apply to it, so shared editing quietly fails.\n\nThe last requirement is the sticky bit, so the mode becomes 3770: with write permission on the directory, any member could otherwise delete any file in it. The sticky bit restricts deletion and renaming to the file's owner, which is exactly the rule asked for -- the same rule that protects /tmp.",
+          "rubric": [
+            "Creates a group and gives the directory that group, with rwx for owner and group and nothing for other",
+            "Uses setgid on the directory and explains that new files inherit the group, without which group permissions do not apply",
+            "Uses the sticky bit and explains that it limits deletion to the file's owner"
+          ],
+          "explanation": "2770 alone is the standard collaborative directory; adding the sticky bit is what turns 'we all share' into 'we all share but nobody can wipe out someone else's work'."
+        }
+      ]
+    }
+  ]
+}

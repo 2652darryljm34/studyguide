@@ -1,0 +1,438 @@
+{
+  "id": "processes",
+  "name": "Processes & Services",
+  "title": "Processes, Jobs & Services",
+  "description": "Chapters 15-16: listing and understanding processes, signals and kill, foreground and background jobs, watching load with top and uptime, and controlling systemd units with systemctl.",
+  "questions": [
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Listing Processes",
+      "question": "List every process running on the system, for every user, in the BSD style that includes the owner, the CPU and memory columns and the full command.",
+      "places": [
+        "/usr/bin/ps"
+      ],
+      "hint": "Three letters, no dash.",
+      "solution": "ps aux",
+      "explanation": "a means every user's processes, u adds the owner and resource columns, and x includes processes with no controlling terminal -- which is most daemons."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Listing Processes",
+      "question": "List every process in the UNIX style, which shows the parent process ID of each one.",
+      "places": [
+        "/usr/bin/ps"
+      ],
+      "hint": "Two options with a dash: e for every, f for full format.",
+      "solution": "ps -ef",
+      "explanation": "The PPID column is what `ps aux` does not give you, and it is the column that tells you which process started which."
+    },
+    {
+      "type": "shell",
+      "category": "Listing Processes",
+      "question": "Show only the processes started from your own terminal session, with no options at all.",
+      "places": [
+        "/usr/bin/ps"
+      ],
+      "solution": "ps",
+      "explanation": "Bare `ps` is deliberately narrow: your terminal, your processes. It is the quickest way to find the PID of something you started yourself."
+    },
+    {
+      "type": "shell",
+      "category": "Listing Processes",
+      "question": "Find the process IDs of every running sshd process, listing the name beside each one.",
+      "places": [
+        "/usr/bin/pgrep"
+      ],
+      "hint": "-l adds the name.",
+      "solution": "pgrep -l sshd",
+      "explanation": "`pgrep` is a cleaner answer than `ps aux | grep sshd`, which always matches the grep command itself and leaves you wondering which line is real."
+    },
+    {
+      "type": "matching",
+      "core": true,
+      "category": "Listing Processes",
+      "question": "Match each column of `ps aux` to what it reports.",
+      "pairs": [
+        {
+          "left": "USER",
+          "right": "The account the process runs as"
+        },
+        {
+          "left": "PID",
+          "right": "The process's own numeric identifier"
+        },
+        {
+          "left": "%CPU",
+          "right": "The share of processor time it has been using"
+        },
+        {
+          "left": "RSS",
+          "right": "The physical memory it currently occupies"
+        },
+        {
+          "left": "STAT",
+          "right": "Its state: running, sleeping, stopped or zombie"
+        },
+        {
+          "left": "TTY",
+          "right": "The terminal it is attached to, or ? for none"
+        }
+      ],
+      "explanation": "A ? in TTY is the mark of a daemon: nothing is attached to it, so there is nowhere for it to print."
+    },
+    {
+      "type": "mc",
+      "core": true,
+      "category": "Process States",
+      "question": "What is a zombie process?",
+      "options": [
+        "One that has finished but whose exit status has not yet been collected by its parent",
+        "One that is using all the CPU and cannot be killed",
+        "One that has lost its parent and been adopted by systemd",
+        "One that has been stopped with Ctrl+Z"
+      ],
+      "correct": 0,
+      "explanation": "A zombie occupies no memory and no CPU -- just a slot in the process table. You cannot kill it, because it is already dead; you fix the parent, or the parent exits and systemd cleans up."
+    },
+    {
+      "type": "mc",
+      "category": "Process States",
+      "question": "A process's parent exits before it does. What happens to the child?",
+      "options": [
+        "It is reparented to PID 1, systemd, which will collect its exit status",
+        "It is killed immediately",
+        "It becomes a zombie forever",
+        "It keeps the old parent's PID and nothing changes"
+      ],
+      "correct": 0,
+      "explanation": "PID 1 adopts orphans. That is one reason every process tree on a Linux system eventually leads back to systemd."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Jobs",
+      "question": "Start `sleep 300` so that it runs in the background and gives you your prompt straight back.",
+      "places": [
+        "/usr/bin/sleep"
+      ],
+      "hint": "One character at the end of the line.",
+      "solution": "sleep 300 &",
+      "verify": "jobs",
+      "explanation": "The shell answers with the job number in brackets and the PID. The job belongs to this shell: close the terminal and, unless it was disowned or started with nohup, it goes with it."
+    },
+    {
+      "type": "shell",
+      "category": "Jobs",
+      "question": "List the jobs belonging to this shell, after starting `sleep 200` in the background.",
+      "places": [
+        "/usr/bin/sleep"
+      ],
+      "setup": "sleep 200 &",
+      "solution": "jobs",
+      "explanation": "The + in the listing marks the current job, the one `fg` and `bg` act on when you give them no argument."
+    },
+    {
+      "type": "matching",
+      "core": true,
+      "category": "Jobs",
+      "question": "Match each job-control action to what it does.",
+      "pairs": [
+        {
+          "left": "command &",
+          "right": "Start it in the background from the outset"
+        },
+        {
+          "left": "Ctrl+Z",
+          "right": "Suspend the foreground job and return the prompt"
+        },
+        {
+          "left": "bg",
+          "right": "Let a suspended job carry on, in the background"
+        },
+        {
+          "left": "fg",
+          "right": "Bring a background or suspended job to the foreground"
+        },
+        {
+          "left": "jobs",
+          "right": "List this shell's jobs and their numbers"
+        },
+        {
+          "left": "Ctrl+C",
+          "right": "Send the interrupt signal to the foreground job"
+        }
+      ],
+      "explanation": "Jobs are numbered per shell and referred to as %1, %2 and so on, which is different from a PID: `kill %1` and `kill 3000` may mean the same process."
+    },
+    {
+      "type": "mc",
+      "core": true,
+      "category": "Signals",
+      "question": "What is the difference between signal 15 (TERM) and signal 9 (KILL)?",
+      "options": [
+        "TERM asks the process to shut down cleanly and can be handled; KILL is delivered by the kernel and cannot be caught or ignored",
+        "TERM works only on your own processes, KILL works on anyone's",
+        "KILL is the default and TERM has to be asked for",
+        "They are identical; the numbers are aliases"
+      ],
+      "correct": 0,
+      "explanation": "Always try TERM first. KILL gives the process no chance to flush its buffers or remove its lock files, which is how databases end up corrupt."
+    },
+    {
+      "type": "matching",
+      "category": "Signals",
+      "question": "Match each signal to what it asks of a process.",
+      "pairs": [
+        {
+          "left": "SIGTERM (15)",
+          "right": "Please shut down cleanly"
+        },
+        {
+          "left": "SIGKILL (9)",
+          "right": "Stop immediately; this cannot be refused"
+        },
+        {
+          "left": "SIGINT (2)",
+          "right": "The interrupt from Ctrl+C"
+        },
+        {
+          "left": "SIGHUP (1)",
+          "right": "The terminal has gone away; many daemons reread their config instead"
+        },
+        {
+          "left": "SIGSTOP (19)",
+          "right": "Suspend, to be resumed later"
+        }
+      ],
+      "explanation": "SIGHUP being repurposed as 'reload your configuration' is a historical accident that stuck, and it is still how you reload many services without restarting them."
+    },
+    {
+      "type": "mc",
+      "core": true,
+      "category": "Signals",
+      "question": "Which command sends the default TERM signal to the process with PID 1234?",
+      "options": [
+        "kill 1234",
+        "kill -9 1234",
+        "killall 1234",
+        "pkill 1234"
+      ],
+      "correct": 0,
+      "explanation": "`kill` with no signal sends 15. `kill -9` forces it, `killall` takes a name rather than a PID, and `pkill` matches a pattern."
+    },
+    {
+      "type": "mc",
+      "category": "Signals",
+      "question": "Which command sends a signal to every process running a program of a given name?",
+      "options": [
+        "killall sshd",
+        "kill sshd",
+        "kill -name sshd",
+        "ps -k sshd"
+      ],
+      "correct": 0,
+      "explanation": "`pkill` does the same with pattern matching. Both are worth double-checking before you press enter: `pkill ssh` also matches sshd, and on a remote machine that ends your session."
+    },
+    {
+      "type": "shell",
+      "category": "Monitoring",
+      "question": "Show how long the system has been up, how many users are logged in, and the load averages.",
+      "places": [
+        "/usr/bin/uptime"
+      ],
+      "solution": "uptime",
+      "explanation": "The three load figures are the one, five and fifteen minute averages. Compare them with the number of CPU cores: a load of 4 is comfortable on eight cores and a problem on one."
+    },
+    {
+      "type": "shell",
+      "category": "Monitoring",
+      "question": "Show how much memory and swap the system has, and how much is in use, in human-readable units.",
+      "places": [
+        "/usr/bin/free"
+      ],
+      "solution": "free -h",
+      "explanation": "Read the available column, not free. Memory used for cache is counted as used but will be handed back the moment a program needs it."
+    },
+    {
+      "type": "mc",
+      "core": true,
+      "category": "Monitoring",
+      "question": "What does `top` give you that `ps` does not?",
+      "options": [
+        "A live view that refreshes, so you can watch which process is consuming resources over time",
+        "The ability to see other users' processes",
+        "The parent process ID",
+        "A record of processes that have already exited"
+      ],
+      "correct": 0,
+      "explanation": "Inside top, k kills a process, r renices one, and 1 breaks the CPU line out per core. `top -bn1` produces one plain snapshot, which is what you use in a script."
+    },
+    {
+      "type": "mc",
+      "core": true,
+      "category": "systemd",
+      "question": "What is systemd?",
+      "options": [
+        "The first process started at boot, which starts and supervises everything else on the system",
+        "The kernel module that manages memory",
+        "A package manager for services",
+        "The login shell used by system accounts"
+      ],
+      "correct": 0,
+      "explanation": "It runs as PID 1. Everything it manages is described by a unit -- a service, a socket, a timer, a mount or a target."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "systemd",
+      "question": "Show the current status of the crond service, including whether it is running and enabled.",
+      "places": [
+        "/usr/bin/systemctl"
+      ],
+      "solution": "systemctl status crond",
+      "explanation": "The two lines to read are Loaded, which says whether it starts at boot, and Active, which says whether it is running now. The last few log lines come free."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "systemd",
+      "question": "List the service units that systemd currently has loaded.",
+      "places": [
+        "/usr/bin/systemctl"
+      ],
+      "solution": "systemctl list-units --type=service",
+      "explanation": "`--all` adds the ones that are loaded but inactive, and `list-unit-files` shows every unit installed on the system, whether loaded or not."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "systemd",
+      "question": "Stop the crond service, which is currently running.",
+      "places": [
+        "/usr/bin/systemctl"
+      ],
+      "hint": "Changing a service needs superuser rights.",
+      "solution": "sudo systemctl stop crond",
+      "verify": "systemctl is-active crond",
+      "explanation": "Stopping affects only the running system. After a reboot the service comes back, because stop and disable are two different questions."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "systemd",
+      "question": "Arrange for the atd service to start automatically at every boot, without starting it right now.",
+      "places": [
+        "/usr/bin/systemctl"
+      ],
+      "solution": "sudo systemctl enable atd",
+      "verify": "systemctl is-enabled atd",
+      "explanation": "enable creates a symlink from the target's wants directory to the unit file. `systemctl enable --now` both enables and starts it in one go."
+    },
+    {
+      "type": "mc",
+      "core": true,
+      "category": "systemd",
+      "question": "What is the difference between `systemctl start` and `systemctl enable`?",
+      "options": [
+        "start runs the service now; enable makes it start at boot. Neither implies the other",
+        "start is temporary and enable is permanent, but both start the service immediately",
+        "enable runs the service now, start schedules it for the next boot",
+        "They are two names for the same action"
+      ],
+      "correct": 0,
+      "explanation": "This is the single most common systemd mistake: a service configured, started and working, that quietly does not come back after a reboot because it was never enabled."
+    },
+    {
+      "type": "matching",
+      "core": true,
+      "category": "systemd",
+      "question": "Match each systemctl subcommand to what it does.",
+      "pairs": [
+        {
+          "left": "start",
+          "right": "Run the unit now"
+        },
+        {
+          "left": "stop",
+          "right": "Shut the unit down now"
+        },
+        {
+          "left": "restart",
+          "right": "Stop it and start it again"
+        },
+        {
+          "left": "reload",
+          "right": "Ask it to reread its configuration without dropping connections"
+        },
+        {
+          "left": "enable",
+          "right": "Arrange for it to start at boot"
+        },
+        {
+          "left": "disable",
+          "right": "Stop it from starting at boot"
+        }
+      ],
+      "explanation": "`reload-or-restart` is the safe middle ground: it reloads if the unit supports reloading and restarts if it does not."
+    },
+    {
+      "type": "shell",
+      "category": "systemd",
+      "question": "Ask whether the sshd service is currently running, getting back a single word rather than a full status report.",
+      "places": [
+        "/usr/bin/systemctl"
+      ],
+      "solution": "systemctl is-active sshd",
+      "explanation": "`is-active`, `is-enabled` and `is-failed` all answer in one word and set a useful exit status, which is what makes them the right choice inside a script."
+    },
+    {
+      "type": "tf",
+      "core": true,
+      "category": "systemd",
+      "question": "`systemctl restart` and `systemctl reload` do the same thing.",
+      "correct": false,
+      "explanation": "restart stops the process and starts a new one, dropping everything in progress. reload asks the running process to reread its configuration, which keeps existing connections alive -- but not every service supports it."
+    },
+    {
+      "type": "fill_blank",
+      "category": "systemd",
+      "question": "Which command shows the systemd journal, the log that collects the output of every unit?",
+      "answers": [
+        "journalctl",
+        "the journalctl command",
+        "journalctl -u"
+      ],
+      "explanation": "`journalctl -u sshd` narrows it to one unit, `-f` follows it live, and `-b` limits it to the current boot."
+    },
+    {
+      "type": "short_answer",
+      "core": true,
+      "category": "Signals",
+      "question": "A web server process has stopped responding and needs to be shut down. Describe the order in which you would try to stop it, and explain why starting with `kill -9` is a bad habit.",
+      "answerLang": null,
+      "modelAnswer": "First find the process: `ps -ef | grep httpd` or `pgrep -l httpd` gives the PID, and on a service-managed daemon the better first move is `systemctl status httpd`, which shows the main PID and whatever the unit has logged.\n\nIf it is a managed service, `sudo systemctl stop httpd` is the right stop, because it shuts down the whole control group rather than one process.\n\nOtherwise send the default signal: `kill <PID>`, which is SIGTERM. That asks the process to shut down cleanly, giving it the chance to finish the request it is handling, flush its logs, close its database connections and remove its PID file. Wait a few seconds and check with `ps` whether it went.\n\nOnly if it ignores TERM do you escalate to `kill -9`, which is SIGKILL. The kernel delivers that one directly and the process gets no chance to run any cleanup at all. That is why starting there is a bad habit: you can be left with a stale lock file or PID file that stops the service restarting, a half-written file, or in the worst case a corrupt database. SIGKILL is the last resort, not the first move.",
+      "rubric": [
+        "Identifies the process first, with ps, pgrep or systemctl status",
+        "Sends SIGTERM (plain kill, or systemctl stop) first and waits to see whether it worked",
+        "Explains that SIGKILL cannot be caught so no cleanup runs, risking stale locks or corrupt data"
+      ],
+      "explanation": "The rule of thumb: ask nicely, wait, then insist. Reaching for -9 first is the process-management equivalent of pulling the power cable."
+    },
+    {
+      "type": "short_answer",
+      "category": "systemd",
+      "question": "You have installed and configured a service, started it, and confirmed it works. After the next reboot it is not running. Explain what was almost certainly missed, how to confirm it, and how to fix it.",
+      "answerLang": null,
+      "modelAnswer": "The service was started but never enabled. `systemctl start` affects only the running system; it creates nothing that survives a reboot. `systemctl enable` is the separate step that links the unit into the boot target so systemd brings it up on its own.\n\nTo confirm it, run `systemctl is-enabled <service>`. A reply of disabled -- while `systemctl status` on a running system says active -- is exactly the symptom described. `systemctl status` shows the same thing on its Loaded line, where it reports enabled or disabled in the parentheses after the unit path.\n\nThe fix is `sudo systemctl enable <service>`, or `sudo systemctl enable --now <service>` if it also needs starting at the same time. It is worth confirming afterwards with `systemctl is-enabled`, and the honest test is a reboot.\n\nOne other possibility to rule out: the service may be enabled but failing at boot, for instance because it depends on a filesystem or a network address that is not ready yet. `systemctl status` and `journalctl -u <service> -b` would show the failure, which looks quite different from never having been started.",
+      "rubric": [
+        "Identifies that the service was started but not enabled",
+        "Confirms with systemctl is-enabled, or the Loaded line of systemctl status",
+        "Fixes it with systemctl enable, mentioning --now or a reboot test",
+        "Mentions checking the journal in case it is enabled but failing at boot"
+      ],
+      "explanation": "start and enable answer different questions -- 'now?' and 'at boot?' -- and forgetting the second is the classic way a service disappears overnight."
+    }
+  ]
+}

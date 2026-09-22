@@ -1,0 +1,322 @@
+{
+  "id": "software",
+  "name": "Installing & Updating Software",
+  "title": "Software: RPM, DNF & Flatpak",
+  "description": "Chapters 12-13: what an RPM package is, querying the installed database with rpm, searching and installing from repositories with dnf, modules and groups, transaction history, and where Flatpak fits.",
+  "questions": [
+    {
+      "type": "mc",
+      "core": true,
+      "category": "Packages",
+      "question": "What does an RPM package contain besides the files to be installed?",
+      "options": [
+        "Metadata: the name and version, a summary, the list of files, dependencies, and scripts to run around the install",
+        "Only the files; everything else is stored in the repository",
+        "The source code the binaries were built from",
+        "A copy of the whole operating system's file list"
+      ],
+      "correct": 0,
+      "explanation": "That metadata is why `rpm -qf` can name the package a file came from, and why removing a package knows exactly what to take away."
+    },
+    {
+      "type": "matching",
+      "core": true,
+      "category": "Packages",
+      "question": "An RPM filename is `tree-1.8.0-10.el9.x86_64.rpm`. Match each piece to what it means.",
+      "pairs": [
+        { "left": "tree", "right": "The package name" },
+        { "left": "1.8.0", "right": "The upstream version of the software" },
+        { "left": "10", "right": "The release: which build of that version this is" },
+        { "left": "el9", "right": "The distribution it was built for" },
+        { "left": "x86_64", "right": "The architecture it runs on" }
+      ],
+      "explanation": "noarch in the architecture position means the package has no compiled binaries, so it works anywhere -- documentation and pure Python packages are usually noarch."
+    },
+    {
+      "type": "mc",
+      "core": true,
+      "category": "rpm vs dnf",
+      "question": "What is the main difference between `rpm` and `dnf`?",
+      "options": [
+        "dnf works with repositories and resolves dependencies; rpm works on packages and the local database, and does not fetch anything",
+        "rpm is for RHEL and dnf is for other distributions",
+        "dnf can only install, rpm can only query",
+        "They are the same command under different names"
+      ],
+      "correct": 0,
+      "explanation": "Both end up writing to the same RPM database. Install with dnf so dependencies are handled; use rpm when you want to ask questions about what is already there."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Querying",
+      "question": "List every package installed on the system, using the low-level RPM tool.",
+      "places": ["/usr/bin/rpm"],
+      "solution": "rpm -qa",
+      "explanation": "`-q` is query and `-a` is all. On a real machine this prints hundreds of lines, so it is nearly always piped into grep or wc."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Querying",
+      "question": "Check whether the package named vim-enhanced is installed, asking about that one package by name.",
+      "places": ["/usr/bin/rpm"],
+      "solution": "rpm -q vim-enhanced",
+      "explanation": "It prints the full name and version if the package is there, and 'package vim-enhanced is not installed' if it is not. The exit status differs too, which is what makes it useful in a script."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Querying",
+      "question": "Find out which installed package owns the file /usr/bin/awk.",
+      "places": ["/usr/bin/awk"],
+      "hint": "-f asks about a file.",
+      "solution": "rpm -qf /usr/bin/awk",
+      "explanation": "This is the question to ask when a command behaves unexpectedly: knowing the package tells you what to reinstall, what to read the changelog of, and what documentation to look for."
+    },
+    {
+      "type": "shell",
+      "category": "Querying",
+      "question": "List all the files the installed package `which` put on the system.",
+      "places": ["/usr/bin/which"],
+      "solution": "rpm -ql which",
+      "explanation": "`-l` lists the files. `rpm -qd` narrows it to the documentation and `rpm -qc` to the configuration files, which is the quick way to find a package's config."
+    },
+    {
+      "type": "shell",
+      "category": "Querying",
+      "question": "Show the detailed information about the installed package named sudo -- its version, license, size and description.",
+      "places": ["/usr/bin/sudo"],
+      "solution": "rpm -qi sudo",
+      "explanation": "`-i` is information. Adding `-p` to any of these queries makes them read an .rpm file on disk instead of the installed database."
+    },
+    {
+      "type": "matching",
+      "core": true,
+      "category": "Querying",
+      "question": "Match each rpm query option to the question it answers.",
+      "pairs": [
+        { "left": "-qa", "right": "What is installed on this system?" },
+        { "left": "-q NAME", "right": "Is this one package installed?" },
+        { "left": "-qf PATH", "right": "Which package does this file belong to?" },
+        { "left": "-ql NAME", "right": "What files did this package install?" },
+        { "left": "-qi NAME", "right": "What is this package, in detail?" },
+        { "left": "-qc NAME", "right": "Which of its files are configuration?" }
+      ],
+      "explanation": "Every one of them starts with -q. If you remember nothing else, remember that rpm without -q is about changing the system and rpm with -q is about asking it questions."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Searching",
+      "question": "Search the enabled repositories for a package named tree.",
+      "places": ["/usr/bin/dnf"],
+      "solution": "dnf search tree",
+      "explanation": "`dnf search` looks at names and summaries. Unlike rpm, it can find things that are not installed yet, because it reads the repository metadata."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Searching",
+      "question": "Find out which package would provide the file /usr/bin/awk, asking the repositories rather than the installed database.",
+      "places": ["/usr/bin/dnf"],
+      "hint": "dnf has a subcommand for exactly this question.",
+      "solution": "dnf provides /usr/bin/awk",
+      "explanation": "This is the fix for 'command not found': it names the package to install. `dnf whatprovides` is the same subcommand under a longer name."
+    },
+    {
+      "type": "shell",
+      "category": "Searching",
+      "question": "Show the details of the httpd package held in the repositories, without installing anything.",
+      "places": ["/usr/bin/dnf"],
+      "solution": "dnf info httpd",
+      "explanation": "`dnf info` works for both installed and available packages and says which it is. It is the polite way to check a version before committing to an install."
+    },
+    {
+      "type": "shell",
+      "category": "Searching",
+      "question": "List the repositories that are currently enabled on this system.",
+      "places": ["/usr/bin/dnf"],
+      "solution": "dnf repolist",
+      "explanation": "`dnf repolist all` includes the disabled ones. On RHEL, which repositories you have depends on the subscription attached to the machine."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Installing",
+      "question": "Install the package named tree from the repositories, answering yes to the confirmation automatically.",
+      "places": ["/usr/bin/dnf"],
+      "hint": "Installing software needs superuser rights, and -y answers the prompt.",
+      "solution": "sudo dnf install -y tree",
+      "verify": "rpm -q tree",
+      "explanation": "dnf works out the dependencies, downloads everything and installs it in one transaction. `-y` is fine for a known package and risky in a script that might pull in something unexpected."
+    },
+    {
+      "type": "shell",
+      "category": "Installing",
+      "question": "Remove the package named nano from the system, answering yes automatically.",
+      "places": ["/usr/bin/dnf"],
+      "solution": "sudo dnf remove -y nano",
+      "verify": "rpm -q nano",
+      "explanation": "dnf also removes anything that was installed only as a dependency of it. Removing a package other things depend on will take those with it, which is why you read the transaction summary before agreeing."
+    },
+    {
+      "type": "mc",
+      "category": "Installing",
+      "question": "Which command brings every installed package up to the latest version the repositories offer, without prompting?",
+      "options": [
+        "sudo dnf update -y",
+        "sudo dnf install --all",
+        "sudo rpm -U *",
+        "sudo dnf clean all"
+      ],
+      "correct": 0,
+      "explanation": "`dnf update` and `dnf upgrade` are the same command. It will not remove packages to satisfy an update; `dnf distro-sync` is the one that will. `dnf check-update` lists what would change without doing it."
+    },
+    {
+      "type": "tf",
+      "core": true,
+      "category": "Installing",
+      "question": "Installing a package with `rpm -i package.rpm` handles its dependencies the same way dnf does.",
+      "correct": false,
+      "explanation": "rpm checks dependencies and refuses if they are missing, but it will not go and find them. That is exactly what dnf was built to do on top of it."
+    },
+    {
+      "type": "shell",
+      "category": "History",
+      "question": "Show the record of past dnf transactions on this system.",
+      "places": ["/usr/bin/dnf"],
+      "solution": "dnf history",
+      "explanation": "Each transaction has an ID. `dnf history info 3` shows what that one did, and `dnf history undo 3` reverses it -- the closest thing to an undo button software management has."
+    },
+    {
+      "type": "mc",
+      "category": "History",
+      "question": "An update has just broken a service. Which command reverses the most recent dnf transaction?",
+      "options": [
+        "sudo dnf history undo last",
+        "sudo dnf remove --all",
+        "sudo rpm -e --rollback",
+        "sudo dnf clean all"
+      ],
+      "correct": 0,
+      "explanation": "`dnf history undo` takes a transaction ID or the word last. `dnf clean all` only empties the metadata and package cache -- it changes nothing about what is installed."
+    },
+    {
+      "type": "shell",
+      "category": "Groups & Modules",
+      "question": "List the package groups dnf knows about, both installed and available.",
+      "places": ["/usr/bin/dnf"],
+      "solution": "dnf group list",
+      "explanation": "A group is a named bundle, like Development Tools. `sudo dnf group install \"Development Tools\"` installs the whole set in one transaction."
+    },
+    {
+      "type": "shell",
+      "category": "Groups & Modules",
+      "question": "List the AppStream modules available on this system, with their streams and profiles.",
+      "places": ["/usr/bin/dnf"],
+      "solution": "dnf module list",
+      "explanation": "Modules are how RHEL 9 offers several versions of the same application -- for example PHP 8.0 alongside another stream -- without them colliding. Only one stream of a module can be enabled at a time."
+    },
+    {
+      "type": "mc",
+      "core": true,
+      "category": "Groups & Modules",
+      "question": "What problem do AppStream modules solve on RHEL 9?",
+      "options": [
+        "They let the distribution ship several versions of the same application, so you can pick the stream your software needs",
+        "They compress packages so downloads are smaller",
+        "They replace the need for dependency resolution",
+        "They allow packages to be installed without root"
+      ],
+      "correct": 0,
+      "explanation": "In the [d] column of `dnf module list`, d marks the default stream, e an enabled one and i an installed profile."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Flatpak",
+      "question": "List the Flatpak applications installed on this system.",
+      "places": ["/usr/bin/flatpak"],
+      "solution": "flatpak list",
+      "explanation": "Flatpak keeps its own inventory, entirely separate from the RPM database -- `rpm -qa` will never show a Flatpak application."
+    },
+    {
+      "type": "shell",
+      "category": "Flatpak",
+      "question": "Show the remote repositories Flatpak is configured to install from.",
+      "places": ["/usr/bin/flatpak"],
+      "solution": "flatpak remotes",
+      "explanation": "Flathub is the usual one. Remotes are added with `flatpak remote-add`, and an installation can be system-wide or per-user."
+    },
+    {
+      "type": "mc",
+      "core": true,
+      "category": "Flatpak",
+      "question": "How does a Flatpak application differ from an RPM package?",
+      "options": [
+        "It bundles its own dependencies and runs sandboxed, separately from the system's RPM database",
+        "It is simply an RPM with a different file extension",
+        "It can only be installed by root",
+        "It is installed into /usr/bin like everything else"
+      ],
+      "correct": 0,
+      "explanation": "That bundling is the trade: a Flatpak application can use a newer library than the system ships, at the cost of disk space and of not being covered by the system's own updates."
+    },
+    {
+      "type": "tf",
+      "category": "Repositories",
+      "question": "On a registered RHEL 9 system, which repositories are available depends on the subscription attached to the machine.",
+      "correct": true,
+      "explanation": "`subscription-manager` attaches the entitlement, and that is what makes the BaseOS and AppStream repositories appear. On an unregistered system, `dnf install` finds nothing to install."
+    },
+    {
+      "type": "mc",
+      "category": "Repositories",
+      "question": "Where do the definitions of dnf repositories live on a RHEL 9 system?",
+      "options": [
+        "Files ending in .repo under /etc/yum.repos.d/",
+        "A single file at /etc/dnf.conf",
+        "/var/lib/rpm/repos",
+        "They are compiled into dnf and cannot be changed"
+      ],
+      "correct": 0,
+      "explanation": "The directory is still called yum.repos.d for compatibility. Each file holds one or more sections with an id, a name, a baseurl or mirrorlist, and enabled and gpgcheck settings."
+    },
+    {
+      "type": "fill_blank",
+      "core": true,
+      "category": "Installing",
+      "question": "Which single dnf subcommand both finds and installs a package together with everything it depends on?",
+      "answers": ["install", "dnf install", "install subcommand"],
+      "explanation": "Everything else -- search, provides, info, list -- only reads. install is the one that changes the system, which is why it needs sudo."
+    },
+    {
+      "type": "short_answer",
+      "core": true,
+      "category": "Searching",
+      "question": "You type a command and the shell replies 'command not found', but you are sure the command exists on RHEL. Describe how you would work out which package provides it and get it installed, naming the commands you would use at each step.",
+      "answerLang": null,
+      "modelAnswer": "First confirm that it really is missing rather than just not on your PATH: `which thecommand` and `ls /usr/bin/thecommand` will both come up empty if it is genuinely not installed.\n\nThen ask the repositories which package would provide it. `dnf provides thecommand` searches by name, and `dnf provides /usr/bin/thecommand` searches by the full path, which is more precise when several packages ship a similarly named binary. The answer names the package, its version and the repository it would come from.\n\nInstall it with `sudo dnf install <package>`, reading the transaction summary before agreeing so you can see what else is being pulled in as a dependency.\n\nFinally, confirm the result: `rpm -q <package>` says it is installed, and `rpm -ql <package> | grep bin` shows where the command actually landed.",
+      "rubric": [
+        "Uses dnf provides (or whatprovides), ideally with the full path, to identify the package",
+        "Installs with sudo dnf install and mentions reviewing the transaction or dependencies",
+        "Verifies afterwards with rpm -q, rpm -ql or by running the command"
+      ],
+      "explanation": "dnf provides is the step people miss; they guess at a package name instead of asking the repository which package owns the file."
+    },
+    {
+      "type": "short_answer",
+      "category": "rpm vs dnf",
+      "question": "Explain when you would reach for rpm rather than dnf, and give two specific questions rpm can answer that dnf is not the natural tool for.",
+      "answerLang": null,
+      "modelAnswer": "dnf is the tool for changing what is installed, because it talks to the repositories and resolves dependencies. rpm is the tool for interrogating what is already on the machine, because it reads the local database directly and does not need a network or a subscription.\n\nTwo questions rpm answers naturally:\n\n1. Which package does this file belong to? `rpm -qf /etc/ssh/sshd_config` names the package that put a file on the system. This matters when you find an unfamiliar file and want to know where it came from, or when you need to know what to reinstall to restore it.\n\n2. What exactly did this package install, and which of those files are configuration? `rpm -ql sshd` lists every file, and `rpm -qc openssh-server` narrows it to the config files, which is the quickest way to find where a service keeps its settings.\n\nrpm is also what you use to inspect a downloaded .rpm file before installing it, with `rpm -qip file.rpm` and `rpm -qlp file.rpm`.",
+      "rubric": [
+        "Frames dnf as the repository and dependency tool and rpm as the local database and query tool",
+        "Gives rpm -qf, ownership of a file, as one example",
+        "Gives rpm -ql or -qc, the file or config list, as another example"
+      ],
+      "explanation": "They are not competitors: dnf calls rpm to do the actual work. The split is 'fetch and resolve' versus 'ask and inspect'."
+    }
+  ]
+}

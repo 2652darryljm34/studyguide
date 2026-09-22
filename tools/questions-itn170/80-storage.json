@@ -1,0 +1,435 @@
+{
+  "id": "storage",
+  "name": "Finding Files, Storage & Archives",
+  "title": "Finding Files, Storage & Archives",
+  "description": "Chapter 14: searching a filesystem with find and locate, measuring space with du and df, reading the block devices with lsblk and blkid, mounting and unmounting, /etc/fstab, and packing things up with tar and gzip.",
+  "questions": [
+    {
+      "type": "mc",
+      "core": true,
+      "category": "find vs locate",
+      "question": "What is the practical difference between `find` and `locate`?",
+      "options": [
+        "find walks the filesystem live and is always current; locate reads a prebuilt index and is much faster but can be out of date",
+        "find only searches your home directory, locate searches everywhere",
+        "locate walks the filesystem live, find reads an index",
+        "They are the same command; locate is an alias for find"
+      ],
+      "correct": 0,
+      "explanation": "The locate index is refreshed by `updatedb`, usually from a nightly job. A file created five minutes ago will not be in it yet."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Finding Files",
+      "question": "Search the whole of ~/labs for files whose name ends in .csv, and show their paths.",
+      "places": [
+        "~/labs"
+      ],
+      "hint": "Quote the pattern so the shell does not try to expand it first.",
+      "solution": "find ~/labs -name '*.csv'",
+      "explanation": "Quoting matters: unquoted, the shell would expand *.csv against your current directory and hand find whatever it found there."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Finding Files",
+      "question": "Count how many directories under ~/labs/survey have a name starting with day-.",
+      "places": [
+        "~/labs/survey"
+      ],
+      "hint": "-type d restricts the search to directories.",
+      "solution": "find ~/labs/survey -type d -name 'day-*' | wc -l",
+      "explanation": "The common -type values are f for a regular file, d for a directory and l for a symbolic link."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Finding Files",
+      "question": "Under ~/labs, list only the regular files whose name ends in .txt -- not directories, not links.",
+      "places": [
+        "~/labs"
+      ],
+      "solution": "find ~/labs -type f -name '*.txt'",
+      "explanation": "Tests can be combined freely; find applies them all and prints what satisfies every one."
+    },
+    {
+      "type": "shell",
+      "category": "Finding Files",
+      "question": "Find everything under ~/labs/perms that belongs to the user root.",
+      "places": [
+        "~/labs/perms"
+      ],
+      "hint": "-user takes a name.",
+      "solution": "find ~/labs/perms -user root",
+      "explanation": "`-group` does the same for group ownership, and `-nouser` finds files whose owner no longer exists -- the wreckage left after a userdel."
+    },
+    {
+      "type": "shell",
+      "category": "Finding Files",
+      "question": "Find the regular files under ~/labs/files that are larger than 35 bytes.",
+      "places": [
+        "~/labs/files"
+      ],
+      "hint": "-size takes a number and a unit: c for bytes, k for kibibytes, M for mebibytes.",
+      "solution": "find ~/labs/files -type f -size +35c",
+      "explanation": "The sign is the important part: +35c means larger than, -35c means smaller than, and a bare 35c means exactly. Without a unit the number means 512-byte blocks."
+    },
+    {
+      "type": "matching",
+      "core": true,
+      "category": "Finding Files",
+      "question": "Match each find test to what it selects.",
+      "pairs": [
+        {
+          "left": "-name",
+          "right": "Files whose name matches a pattern"
+        },
+        {
+          "left": "-iname",
+          "right": "The same, ignoring upper and lower case"
+        },
+        {
+          "left": "-type",
+          "right": "Only files of one kind, such as f or d"
+        },
+        {
+          "left": "-size",
+          "right": "Files above, below or at a given size"
+        },
+        {
+          "left": "-user",
+          "right": "Files belonging to one account"
+        },
+        {
+          "left": "-mtime",
+          "right": "Files changed a given number of days ago"
+        }
+      ],
+      "explanation": "`-perm` is the other one worth knowing: `find / -perm -4000` lists every setuid program on the system, which is a standard security check."
+    },
+    {
+      "type": "shell",
+      "category": "Finding Files",
+      "question": "Under ~/labs/text, find the regular files and run `wc -l` on each one, using find's own ability to run a command on what it finds.",
+      "places": [
+        "~/labs/text"
+      ],
+      "hint": "-exec ends with a semicolon, which has to be escaped or quoted.",
+      "solution": "find ~/labs/text -type f -exec wc -l {} \\;",
+      "explanation": "The {} is replaced by each path in turn. Ending with `+` instead of `\\;` passes as many paths as will fit to a single command, which is far faster on a big result."
+    },
+    {
+      "type": "shell",
+      "category": "Finding Files",
+      "question": "Using the index rather than walking the filesystem, find every path on this machine whose name contains sonde.",
+      "places": [
+        "~/labs/survey"
+      ],
+      "hint": "The fast one reads a prebuilt index.",
+      "solution": "locate sonde",
+      "explanation": "locate answers from an index built by `updatedb`, which is why it returns instantly across a whole filesystem -- and why a file created since the last run is missing from it. `sudo updatedb` rebuilds the index by hand."
+    },
+    {
+      "type": "tf",
+      "core": true,
+      "category": "Finding Files",
+      "question": "`find / -name passwd` may print paths you cannot read, along with Permission denied messages for directories you cannot enter.",
+      "correct": true,
+      "explanation": "find reports what it can reach and complains about what it cannot. `2> /dev/null` is the usual way to keep the complaints out of the way."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Measuring Space",
+      "question": "Show how much space each mounted filesystem has, in units a person can read at a glance.",
+      "places": [
+        "/"
+      ],
+      "solution": "df -h",
+      "explanation": "`-h` turns bytes into K, M and G. `df -i` shows inode usage instead, which is what to check when a filesystem claims to be full but `df -h` says otherwise."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Measuring Space",
+      "question": "Show the total size of the directory ~/labs/survey and everything under it, as a single human-readable figure.",
+      "places": [
+        "~/labs/survey"
+      ],
+      "hint": "-s summarises instead of listing every subdirectory.",
+      "solution": "du -sh ~/labs/survey",
+      "explanation": "Without -s, du prints a line for every directory it walks. `du -sh *` in a directory is the quick way to find which subdirectory is eating the disk."
+    },
+    {
+      "type": "mc",
+      "core": true,
+      "category": "Measuring Space",
+      "question": "What is the difference between what `df` reports and what `du` reports?",
+      "options": [
+        "df asks the filesystem how much space it has used; du adds up the sizes of the files it walks",
+        "df is for local disks, du is for network mounts",
+        "df measures inodes, du measures bytes",
+        "They report the same thing in different units"
+      ],
+      "correct": 0,
+      "explanation": "They can disagree. A deleted file still held open by a running process is gone as far as du is concerned but still counted by df -- which is why restarting the process suddenly frees the space."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Block Devices",
+      "question": "Show the disks and partitions attached to this machine as a tree, with their sizes and mount points.",
+      "places": [
+        "/dev"
+      ],
+      "solution": "lsblk",
+      "explanation": "The tree shows which partitions belong to which disk. A partition with no mount point listed is present but not currently mounted."
+    },
+    {
+      "type": "shell",
+      "category": "Block Devices",
+      "question": "Show the filesystem type, label and UUID of every block device on this machine.",
+      "places": [
+        "/dev"
+      ],
+      "solution": "sudo blkid",
+      "explanation": "The UUID is what /etc/fstab should refer to. Device names like /dev/sdb can change between boots depending on what is plugged in; a UUID cannot."
+    },
+    {
+      "type": "matching",
+      "category": "Block Devices",
+      "question": "Match each device name or path to what it refers to.",
+      "pairs": [
+        {
+          "left": "/dev/sda",
+          "right": "The first whole SATA or SCSI disk"
+        },
+        {
+          "left": "/dev/sda1",
+          "right": "The first partition on that disk"
+        },
+        {
+          "left": "/dev/sr0",
+          "right": "An optical drive"
+        },
+        {
+          "left": "/dev/null",
+          "right": "A device that discards everything written to it"
+        },
+        {
+          "left": "/mnt",
+          "right": "The conventional place to mount a filesystem temporarily"
+        }
+      ],
+      "explanation": "/media is the other conventional mount point; removable media mounted automatically by the desktop lands there."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Mounting",
+      "question": "Attach the filesystem on /dev/sdb1 to the directory /mnt so its contents become reachable.",
+      "places": [
+        "/mnt"
+      ],
+      "hint": "Mounting needs superuser rights.",
+      "solution": "sudo mount /dev/sdb1 /mnt",
+      "verify": "df -h | grep sdb1",
+      "explanation": "Mounting hides whatever was already in the mount point directory until you unmount again -- the old contents are not lost, just covered over."
+    },
+    {
+      "type": "shell",
+      "category": "Mounting",
+      "question": "Show every filesystem currently mounted, with its device, mount point and type.",
+      "places": [
+        "/"
+      ],
+      "solution": "mount",
+      "explanation": "`findmnt` presents the same information as a tree and is easier to read. Both answer the question 'what is actually mounted right now', which /etc/fstab does not."
+    },
+    {
+      "type": "mc",
+      "core": true,
+      "category": "Mounting",
+      "question": "You try to unmount a filesystem and get 'target is busy'. What is the usual cause?",
+      "options": [
+        "Some process has a file open on it, or a shell's working directory is inside it",
+        "The filesystem is corrupt and must be repaired first",
+        "You forgot to run mount before umount",
+        "The device has been physically removed"
+      ],
+      "correct": 0,
+      "explanation": "`lsof /mnt` or `fuser -m /mnt` names the culprits. Very often the culprit is your own shell, sitting in the directory you are trying to unmount."
+    },
+    {
+      "type": "mc",
+      "core": true,
+      "category": "fstab",
+      "question": "What is /etc/fstab for?",
+      "options": [
+        "It lists the filesystems to mount at boot, and gives names to mounts you can then request by mount point alone",
+        "It records which filesystems are mounted right now",
+        "It stores the partition table",
+        "It configures which users may run mount"
+      ],
+      "correct": 0,
+      "explanation": "Once a filesystem is in fstab, `mount /mnt` is enough -- mount looks the rest up. A mistake in fstab can stop the machine booting, which is why you test with `mount -a` before rebooting."
+    },
+    {
+      "type": "shell",
+      "category": "fstab",
+      "question": "Show the contents of the file that lists the filesystems to be mounted at boot.",
+      "places": [
+        "/etc/fstab"
+      ],
+      "solution": "cat /etc/fstab",
+      "explanation": "Six fields per line: what to mount, where, the type, the options, a dump flag, and the fsck pass order. Comments start with #."
+    },
+    {
+      "type": "fill_blank",
+      "core": true,
+      "category": "fstab",
+      "question": "Which identifier should an /etc/fstab entry use instead of a device name like /dev/sdb1, because it does not change when hardware is added or moved?",
+      "answers": [
+        "UUID",
+        "the UUID",
+        "uuid",
+        "universally unique identifier"
+      ],
+      "explanation": "A filesystem label works too and is more readable, but labels can collide between two disks; a UUID cannot."
+    },
+    {
+      "type": "mc",
+      "category": "Filesystems",
+      "question": "Which filesystem type does RHEL 9 use by default for / and /boot?",
+      "options": [
+        "xfs",
+        "ext4",
+        "btrfs",
+        "vfat"
+      ],
+      "correct": 0,
+      "explanation": "ext4 is still fully supported and common elsewhere. vfat turns up on USB sticks and EFI system partitions because other operating systems can read it."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Archives",
+      "question": "From ~/labs, pack the whole text directory into an archive file called text.tar.",
+      "places": [
+        "~/labs/text"
+      ],
+      "cwd": "~/labs",
+      "hint": "c creates, f names the file.",
+      "solution": "tar -cf text.tar text",
+      "verify": "tar -tf text.tar",
+      "explanation": "The order of the letters does not matter but f must come last, because the filename follows it. tar on its own does not compress anything."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Archives",
+      "question": "From ~/labs, create a gzip-compressed archive of the text directory called text.tar.gz in one command.",
+      "places": [
+        "~/labs/text"
+      ],
+      "cwd": "~/labs",
+      "hint": "One extra letter adds the compression.",
+      "solution": "tar -czf text.tar.gz text",
+      "verify": "tar -tzf text.tar.gz",
+      "explanation": "z is gzip, j is bzip2 and J is xz. The convention is to name the file after the letters you used, so a reader knows how to open it."
+    },
+    {
+      "type": "shell",
+      "category": "Archives",
+      "question": "From ~/labs, list what is inside the archive text.tar without extracting any of it.",
+      "places": [
+        "~/labs/text"
+      ],
+      "cwd": "~/labs",
+      "solution": "tar -tf text.tar",
+      "explanation": "t is for table of contents. Always list before extracting: an archive that unpacks into the current directory rather than into a folder of its own makes a mess that is tedious to clean up.",
+      "setup": "tar -cf text.tar text"
+    },
+    {
+      "type": "matching",
+      "core": true,
+      "category": "Archives",
+      "question": "Match each tar option to what it does.",
+      "pairs": [
+        {
+          "left": "-c",
+          "right": "Create a new archive"
+        },
+        {
+          "left": "-x",
+          "right": "Extract from an archive"
+        },
+        {
+          "left": "-t",
+          "right": "List the contents without extracting"
+        },
+        {
+          "left": "-f",
+          "right": "Name the archive file, which must follow immediately"
+        },
+        {
+          "left": "-v",
+          "right": "Report each file as it is handled"
+        },
+        {
+          "left": "-z",
+          "right": "Compress or decompress with gzip along the way"
+        }
+      ],
+      "explanation": "c, x and t are mutually exclusive: every tar command picks exactly one of them."
+    },
+    {
+      "type": "shell",
+      "category": "Archives",
+      "question": "From your home directory, compress the file ~/labs/README with gzip, keeping the original file as well as the compressed copy.",
+      "places": [
+        "~/labs/README"
+      ],
+      "cwd": "~",
+      "hint": "gzip normally replaces the file; one flag tells it to keep the original.",
+      "solution": "gzip -k labs/README",
+      "verify": "ls labs",
+      "explanation": "Without -k, gzip removes README and leaves only README.gz. `gunzip` reverses it, and `zcat` reads a compressed file without unpacking it first."
+    },
+    {
+      "type": "tf",
+      "category": "Archives",
+      "question": "gzip can compress a whole directory in one step, the same way tar packs one.",
+      "correct": false,
+      "explanation": "gzip compresses one file at a time. That is exactly why the two are used together: tar makes the directory into a single file, and gzip compresses that."
+    },
+    {
+      "type": "short_answer",
+      "core": true,
+      "category": "Measuring Space",
+      "question": "A colleague reports that / is full. Describe how you would find out what is using the space, and name at least one situation where the obvious answer would be misleading.",
+      "answerLang": null,
+      "modelAnswer": "Start with `df -h` to confirm which filesystem is actually full -- it is often /var or /home rather than / itself, and the fix is different for each.\n\nThen work down the tree. `sudo du -sh /*` gives a total for each top-level directory; whichever is largest, repeat `du -sh *` inside it. A few rounds of that narrows the problem to a specific directory, usually a log directory, a package cache or someone's home.\n\nTwo situations where this misleads:\n\nFirst, a deleted file that a process still holds open. The space is not returned until the process closes it, so du no longer sees the file but df still counts the space. `lsof +L1` lists these, and restarting the process frees the space.\n\nSecond, inode exhaustion. A filesystem with millions of tiny files can refuse to create anything new while `df -h` still shows free space; `df -i` is what reveals it.\n\nA mount point with files hidden underneath it is a third: something was written to the directory before the filesystem was mounted over it, and that data is invisible until you unmount.",
+      "rubric": [
+        "Uses df -h first to identify which filesystem is full",
+        "Uses du, narrowing down directory by directory, to find what is using the space",
+        "Names a misleading case: a deleted-but-open file, inode exhaustion, or data hidden under a mount point"
+      ],
+      "explanation": "The deleted-but-open file is the classic: du and df disagree, and nothing you delete seems to help."
+    },
+    {
+      "type": "short_answer",
+      "category": "Finding Files",
+      "question": "Explain when you would use `find` and when you would use `locate`, and describe one task that needs find because locate simply cannot do it.",
+      "answerLang": null,
+      "modelAnswer": "Use locate when you only half remember a filename and want an answer instantly. It queries an index rather than the disk, so it returns results immediately even across a whole filesystem. The trade is that the index is built periodically by updatedb, so anything created since the last run is missing and anything deleted since may still be listed.\n\nUse find when the answer has to be current, when you are searching a directory you can scope tightly, or when the search is about anything other than the name.\n\nThe task locate cannot do is any search on a file's properties. locate matches on path text and nothing else, so a request like 'every regular file under /var larger than 100 MB that was modified in the last week' is only expressible with find:\n\n    find /var -type f -size +100M -mtime -7\n\nfind can also act on what it finds, with -exec or -delete, which locate has no equivalent of at all.",
+      "rubric": [
+        "Describes locate as fast because it reads an index, and possibly stale",
+        "Describes find as walking the filesystem live and therefore current",
+        "Gives a property-based search (size, time, ownership, permissions) or -exec as something only find can do"
+      ],
+      "explanation": "The short version: locate answers 'where is a file called roughly this', find answers 'which files match these conditions'."
+    }
+  ]
+}

@@ -851,6 +851,11 @@ footer.site{
 .tool-row:hover{ background: #e2ede7; }
 .tool-badge{ background: #2f8f5b; }
 
+/* Lab sheets: the guide renderer, but exercises rather than reference. */
+.exercise-row{ background: #eff1f7; }
+.exercise-row:hover{ background: #e4e7f1; }
+.exercise-badge{ background: #4a5891; }
+
 /* ===========================================================================
    SQL syntax highlighting
    =========================================================================== */
@@ -938,3 +943,183 @@ pre.sql-hl code{ font: inherit; background: none; padding: 0; }
 
 /* Highlighted code blocks inside a study guide */
 .guide-code.sql-hl{ white-space: pre-wrap; }
+
+/* ===========================================================================
+   The practice terminal
+   =========================================================================== */
+
+:root{
+  --term-bg:     #1b2030;
+  --term-bg-alt: #232838;
+  --term-ink:    #d7dcea;
+  --term-dim:    #7d869e;
+  --term-line:   #333a4e;
+}
+
+.term-shell{
+  background: var(--term-bg);
+  border: 1px solid var(--term-line);
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--term-ink);
+}
+
+.term-scroll{
+  max-height: 420px;
+  min-height: 150px;
+  overflow-y: auto;
+  overflow-x: auto;
+  padding: 12px 14px 4px;
+}
+.term-compact .term-scroll{ max-height: 260px; min-height: 96px; }
+
+.term-entry{ margin-bottom: 2px; }
+.term-line{ white-space: pre-wrap; word-break: break-word; }
+
+.term-prompt{
+  color: #7fd1a0;
+  font-weight: 600;
+  white-space: pre;
+  user-select: none;
+}
+.term-cmd{ color: var(--term-ink); }
+
+.term-out{
+  margin: 0 0 6px;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--term-ink);
+  font: inherit;
+  white-space: pre;
+  overflow-x: auto;
+}
+.term-err{ color: #f0968c; }
+.term-note{ color: var(--term-dim); font-style: italic; }
+.term-banner{ color: var(--term-dim); }
+
+.term-inputline{
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+  padding: 6px 14px 10px;
+  border-top: 1px solid var(--term-line);
+  background: var(--term-bg-alt);
+}
+.term-input{
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--term-ink);
+  font: inherit;
+  padding: 0;
+  caret-color: #7fd1a0;
+}
+.term-input:disabled{ color: var(--term-dim); }
+
+/* ---------- shell syntax highlighting ---------- */
+
+/* On the light page: model answers, the study guide. */
+.tok-command{ color: #2d5aa8; font-weight: 600; }
+.tok-builtin{ color: #7a3ea8; font-weight: 600; }
+.tok-option { color: #a8442a; }
+.tok-var    { color: #7a3ea8; }
+.tok-subst  { color: #7a3ea8; }
+.tok-pipe   { color: #565f78; font-weight: 700; }
+.tok-redir  { color: #565f78; font-weight: 700; }
+.tok-glob   { color: #c94a3f; font-weight: 600; }
+.tok-path   { color: #2f6f8f; }
+
+/* On the dark terminal the same classes need their own palette. */
+.term-shell .tok-command{ color: #8fd6a8; font-weight: 600; }
+.term-shell .tok-builtin{ color: #9ad0f5; font-weight: 600; }
+.term-shell .tok-option { color: #e0a76a; }
+.term-shell .tok-var    { color: #d6a4e8; }
+.term-shell .tok-subst  { color: #c8b3e8; }
+.term-shell .tok-string { color: #e3c07b; }
+.term-shell .tok-pipe,
+.term-shell .tok-redir  { color: #99a2ba; font-weight: 700; }
+.term-shell .tok-glob   { color: #f0968c; font-weight: 600; }
+.term-shell .tok-path   { color: #8fb8e8; }
+.term-shell .tok-number { color: #e5a07a; }
+.term-shell .tok-comment{ color: var(--term-dim); font-style: italic; }
+.term-shell .tok-keyword{ color: #c792ea; font-weight: 600; }
+
+pre.shell-hl{ white-space: pre-wrap; }
+pre.shell-hl code{ font: inherit; background: none; padding: 0; }
+.guide-code.shell-hl{ white-space: pre-wrap; }
+
+/* ---------- the machine panel ---------- */
+
+.mode-tag{
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  font-size: 0.68rem;
+  letter-spacing: -0.01em;
+  color: var(--ink-soft);
+  margin-right: 6px;
+}
+.mode-tag.dir{ color: #2d5aa8; }
+.mode-tag.link{ color: #7a3ea8; }
+.fs-owner{ color: var(--ink-soft); font-size: 0.7rem; margin-right: 5px; }
+.fs-name{ font-weight: 600; }
+.fs-name.dir{ color: #2d5aa8; }
+.fs-name.link{ color: #7a3ea8; font-style: italic; }
+
+.box-facts{
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2px 10px;
+  margin: 0 0 14px;
+  font-size: 0.78rem;
+}
+.box-facts dt{ color: var(--ink-soft); white-space: nowrap; }
+.box-facts dd{
+  margin: 0;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  font-size: 0.74rem;
+  overflow-wrap: anywhere;
+}
+
+.side-tabs{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 8px;
+}
+.side-tab{
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+.side-tab:hover{ border-color: var(--accent); color: var(--accent); }
+.side-tab.is-on{ background: var(--accent); border-color: var(--accent); color: #fff; }
+.side-tab:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.recipe-group{
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  margin: 14px 0 6px;
+}
+.recipe-group:first-child{ margin-top: 0; }
+
+@media (max-width: 560px){
+  .term-shell{ font-size: 0.78rem; }
+  .term-scroll{ max-height: 300px; padding: 10px 10px 4px; }
+  .term-inputline{ padding: 6px 10px 9px; }
+}

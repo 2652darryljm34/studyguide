@@ -12,6 +12,7 @@ let flat = [];        // flattened, ordered list of { sectionName, ...question }
 let current = 0;
 let answers = [];      // { item, correct, detail }
 let dbPromise = null;  // shared practice-database session for `sql` questions
+let boxPromise = null; // shared practice-machine image for `shell` questions
 
 function escapeHtml(str){
   return String(str).replace(/[&<>"']/g, s => ({
@@ -61,6 +62,9 @@ async function init(){
     // usually ready by the time the learner reaches the first SQL question.
     const needsDb = sections.some(s => (s.questions || []).some(q => q.type === 'sql'));
     if(needsDb) ensureDb();
+
+    const needsBox = sections.some(s => (s.questions || []).some(q => q.type === 'shell'));
+    if(needsBox) ensureBox();
 
     startQuiz();
   }catch(err){
@@ -122,6 +126,8 @@ function render(){
     renderShortAnswer(card, item, badge);
   } else if(item.type === 'sql'){
     renderSql(card, item, badge);
+  } else if(item.type === 'shell'){
+    renderShell(card, item, badge);
   } else {
     card.innerHTML = `<p>Unsupported question type: ${escapeHtml(item.type)}</p>`;
   }
@@ -150,7 +156,9 @@ function appendNextButton(card, isLast){
  * one: `sql` questions always, and any other question that sets answerLang. */
 function answerBlock(text, item, extraClass){
   const isSql = item && (item.type === 'sql' || item.answerLang === 'sql');
+  const isShell = item && (item.type === 'shell' || item.answerLang === 'shell');
   if(isSql && typeof SqlHL !== 'undefined') return SqlHL.block(text, extraClass);
+  if(isShell && typeof ShellHL !== 'undefined') return ShellHL.block(text, extraClass);
   return `<pre class="model-answer${extraClass ? ' ' + extraClass : ''}">${nl2br(text)}</pre>`;
 }
 
@@ -534,6 +542,191 @@ function renderSql(card, item, badge){
   }
 }
 
+/* ---------- Live shell (auto-graded on the practice machine) ----------
+ * The learner gets a terminal with a Run button (free, unlimited) and a Check
+ * answer button (grades once). Their command line and the reference command
+ * line each run on their own copy of the machine, and either the two outputs
+ * are compared or -- when the question changes the system rather than printing
+ * something -- a `verify` command reads both copies back and those readings
+ * are compared. So any correct way of getting there scores.                  */
+
+function ensureBox(){
+  if(!boxPromise){
+    boxPromise = HarborBox.create((quizData && quizData.boxFile) || 'data/itn170-box.json');
+  }
+  return boxPromise;
+}
+
+function gradingOpts(item){
+  return {
+    orderMatters: !!item.orderMatters,
+    mustContain: item.mustContain || null,
+    exact: !!item.exact,
+    collapseSpace: item.collapseSpace !== false,
+    cwd: item.cwd || null,
+    setup: item.setup || null,
+    user: item.user || 'student'
+  };
+}
+
+function renderShell(card, item, badge){
+  card.innerHTML = `
+    ${badge}
+    <p class="q-prompt">${nl2br(item.question)}</p>
+    ${item.hint ? `<div class="sql-hint"><strong>Hint</strong> ${escapeHtml(item.hint)}</div>` : ''}
+    <details class="schema-panel">
+      <summary>What's on the machine</summary>
+      <div class="schema-body" id="places-body">Starting the machine&hellip;</div>
+    </details>
+    <div class="term-shell term-compact" id="q-term">
+      <div class="term-scroll" id="q-term-scroll"></div>
+      <div class="term-inputline">
+        <span class="term-prompt" id="q-term-prompt">&nbsp;</span>
+        <input type="text" id="shell-input" class="term-input" spellcheck="false"
+          autocomplete="off" autocapitalize="off" autocorrect="off" disabled
+          aria-label="Command line">
+      </div>
+    </div>
+    <div class="sql-toolbar">
+      <button class="btn ghost" id="shell-run" disabled>Run</button>
+      <button class="btn primary" id="shell-check" disabled>Check answer</button>
+      <span class="sql-status" id="shell-status">Starting the machine&hellip;</span>
+    </div>
+    <div id="feedback"></div>
+  `;
+
+  const input = document.getElementById('shell-input');
+  const runBtn = document.getElementById('shell-run');
+  const checkBtn = document.getElementById('shell-check');
+  const statusEl = document.getElementById('shell-status');
+  const scrollEl = document.getElementById('q-term-scroll');
+  const promptEl = document.getElementById('q-term-prompt');
+  const feedbackEl = document.getElementById('feedback');
+
+  let scratch = null;     // the learner's own machine, to experiment on
+  let scored = false;
+  let lastTyped = '';
+
+  function write(html){
+    const holder = document.createElement('div');
+    holder.innerHTML = html;
+    while(holder.firstChild) scrollEl.appendChild(holder.firstChild);
+    scrollEl.scrollTop = scrollEl.scrollHeight;
+  }
+
+  function refreshPlaces(){
+    document.getElementById('places-body').innerHTML =
+      ShellView.placesHtml(scratch, item.places || [scratch.cwd]);
+  }
+
+  ensureBox().then(box => {
+    // A scratch machine per question: experimenting here cannot reach the
+    // grading runs, and cannot leak into the next question either.
+    scratch = HarborShell.create(box.fork(), {
+      interactive: true, user: item.user || 'student'
+    });
+    if(item.cwd) scratch.setCwd(item.cwd);
+    [].concat(item.setup || []).forEach(line => scratch.run(line));
+
+    input.disabled = false;
+    runBtn.disabled = false;
+    checkBtn.disabled = false;
+    promptEl.textContent = scratch.prompt();
+    statusEl.textContent = 'Enter runs your command. Run as often as you like — only Check answer is graded.';
+    refreshPlaces();
+    input.focus();
+  }).catch(err => {
+    statusEl.textContent = '';
+    write(`<pre class="term-out term-err">The practice machine didn't load. ${escapeHtml(err.message)}</pre>`);
+    appendSelfGradeFallback(card, { solution: item.solution, explanation: item.explanation }, feedbackEl);
+  });
+
+  function runOnly(){
+    if(!scratch) return;
+    const line = input.value;
+    if(!line.trim()) return;
+    lastTyped = line;
+    input.value = '';
+    write(ShellView.entry(scratch.prompt(), line, null));
+    const res = scratch.run(line);
+    if(res.display) write(`<pre class="term-out">${ShellView.esc(res.display)}</pre>`);
+    if(res.awaiting){
+      // su and passwd ask for a password; this terminal answers with the
+      // machine's documented one rather than stalling the question.
+      write(`<pre class="term-out term-note">${ShellView.esc(res.awaiting.prompt)}••••••</pre>`);
+      const follow = scratch.provide(scratch.user.uid === 0 ? 'student' : 'redhat');
+      if(follow.display) write(`<pre class="term-out">${ShellView.esc(follow.display)}</pre>`);
+    }
+    promptEl.textContent = scratch.prompt();
+    refreshPlaces();
+  }
+
+  runBtn.addEventListener('click', runOnly);
+  input.addEventListener('keydown', e => {
+    if(e.key === 'Enter'){ e.preventDefault(); runOnly(); }
+  });
+  document.getElementById('q-term').addEventListener('click', () => {
+    if(window.getSelection().toString() === '') input.focus();
+  });
+
+  checkBtn.addEventListener('click', () => {
+    if(!scratch) return;
+    const line = input.value.trim() || lastTyped.trim();
+    if(!line){
+      write('<pre class="term-out term-note">Type a command first, then check it.</pre>');
+      return;
+    }
+    statusEl.textContent = 'Checking…';
+    ensureBox().then(box => {
+      const opts = gradingOpts(item);
+      const verdict = item.verify
+        ? HarborShell.checkEffect(box, line, item.solution, item.verify, opts)
+        : HarborShell.check(box, line, item.solution, opts);
+      statusEl.textContent = '';
+      settle(line, verdict);
+    });
+  });
+
+  function settle(line, verdict){
+    if(!scored){
+      scored = true;
+      finishQuestion(verdict.ok ? 1 : 0, {
+        yourAnswer: line,
+        correctAnswer: item.solution,
+        shellGraded: true,
+        verdict: verdict.message
+      });
+      checkBtn.disabled = true;
+      checkBtn.textContent = 'Checked';
+      input.value = '';
+    }
+
+    const expected = verdict.expected && verdict.expected.trim();
+    feedbackEl.innerHTML = `
+      <div class="feedback ${verdict.ok ? 'good' : 'bad'}">
+        <strong>${verdict.ok ? 'Correct.' : 'Not there yet.'}</strong>${escapeHtml(verdict.message)}
+      </div>
+      ${!verdict.ok && expected ? `
+        <div class="feedback" style="background:#eef1f6; color:var(--ink);">
+          <strong>${item.verify ? 'How the machine should look afterwards' : 'The expected output'}</strong>
+          <pre class="model-answer">${escapeHtml(verdict.expected)}</pre>
+        </div>` : ''}
+      <div class="feedback" style="background:#eef1f6; color:var(--ink);">
+        <strong>One correct way to write it</strong>
+        ${answerBlock(item.solution, item)}
+        ${item.verify ? `<div class="review-sub">Checked by reading the machine back with</div>${answerBlock(item.verify, item)}` : ''}
+        ${item.explanation ? `<div style="margin-top:8px;">${escapeHtml(item.explanation)}</div>` : ''}
+      </div>
+      <div class="sql-note">Your score for this question is recorded. Keep typing and hit
+        <em>Run</em> as much as you like &mdash; it won't change it.</div>
+    `;
+
+    if(!document.getElementById('next-btn')){
+      appendNextButton(card, current + 1 === flat.length);
+    }
+  }
+}
+
 /* If the engine can't be reached, the question still has to be answerable. */
 function appendSelfGradeFallback(card, item, feedbackEl){
   const wrap = document.createElement('div');
@@ -600,7 +793,7 @@ function renderResults(){
         ${answerBlock(a.detail.correctAnswer, q)}
         <div class="rubric-review">${rows}</div>
       `;
-    } else if(a.detail && a.detail.sqlGraded){
+    } else if(a.detail && (a.detail.sqlGraded || a.detail.shellGraded)){
       bodyHtml = `
         <div class="review-sub">What you wrote</div>
         ${answerBlock(a.detail.yourAnswer || '(nothing)', q, 'your-sql')}

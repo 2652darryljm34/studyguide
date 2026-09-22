@@ -42,6 +42,18 @@ function renderClass(cls, index){
     </a>
   `).join('');
 
+  // Practice you do rather than read: lab sheets of tasks, with no answers.
+  // Same renderer as a guide, but its own category so it reads as work to do.
+  const exerciseRows = (cls.exercises || []).map(e => `
+    <a class="quiz-row exercise-row" href="review.html?file=${encodeURIComponent(e.file)}">
+      <div>
+        <div class="quiz-row-title"><span class="guide-badge exercise-badge">Exercises</span>${escapeHtml(e.title)}</div>
+        ${e.description ? `<div class="quiz-row-desc">${escapeHtml(e.description)}</div>` : ''}
+      </div>
+      <div class="quiz-row-go">Start &rarr;</div>
+    </a>
+  `).join('');
+
   // Interactive extras (the SQL playground, say) -- anything with its own page.
   const toolRows = (cls.tools || []).map(t => `
     <a class="quiz-row tool-row" href="${escapeHtml(t.href)}">
@@ -77,6 +89,7 @@ function renderClass(cls, index){
       </summary>
       <div class="quiz-rows">
         ${guideRows}
+        ${exerciseRows}
         ${toolRows}
         ${rows || '<div class="quiz-row"><span class="quiz-row-desc">No quizzes yet.</span></div>'}
       </div>

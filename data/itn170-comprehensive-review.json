@@ -1,0 +1,2737 @@
+{
+  "title": "ITN 170 Comprehensive Review",
+  "description": "One pass over everything: the command line, the filesystem, redirection and pipes, users and groups, permissions, software, storage, processes and services, networking and SSH.",
+  "guideFile": "data/itn170-commands-guide.json",
+  "boxFile": "data/itn170-box.json",
+  "sections": [
+    {
+      "name": "The Command Line & Getting Help",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Getting Started",
+          "question": "What is a Linux distribution?",
+          "options": [
+            "The kernel packaged together with the libraries, utilities and installer that make a usable operating system",
+            "The Linux kernel on its own",
+            "A graphical desktop environment written for Linux",
+            "The licence that Linux source code is released under"
+          ],
+          "correct": 0,
+          "explanation": "The kernel is one component. A distribution bundles it with everything else a working system needs — and takes responsibility for testing and supporting that combination."
+        },
+        {
+          "type": "mc",
+          "category": "Getting Started",
+          "question": "Which statement best describes the relationship between Fedora, CentOS Stream and Red Hat Enterprise Linux?",
+          "options": [
+            "Fedora is the upstream community project, CentOS Stream is the continuously delivered preview of the next RHEL minor release, and RHEL is the supported enterprise product",
+            "They are three unrelated distributions that happen to use the same kernel",
+            "CentOS Stream is a rebuild of RHEL that appears after each RHEL release",
+            "RHEL is upstream of Fedora, which is upstream of CentOS Stream"
+          ],
+          "correct": 0,
+          "explanation": "Work flows Fedora → CentOS Stream → RHEL. CentOS Stream sits just ahead of the next RHEL minor release rather than behind it."
+        },
+        {
+          "type": "shell",
+          "category": "Getting Started",
+          "question": "Print the contents of the file that identifies which operating system and version this machine is running. Use the file under /etc that every modern distribution provides for this.",
+          "places": [
+            "/etc"
+          ],
+          "hint": "Every systemd-based distribution ships the same file name for this.",
+          "solution": "cat /etc/os-release",
+          "explanation": "/etc/os-release is the portable way to identify a system. /etc/redhat-release is the Red Hat-specific one and holds a single line."
+        },
+        {
+          "type": "mc",
+          "category": "The Shell",
+          "question": "In the prompt `[student@servera ~]$`, what does the `~` stand for?",
+          "options": [
+            "The current working directory, which is the user's home directory",
+            "That the shell is waiting for more input",
+            "That the user has superuser privileges",
+            "The name of the shell in use"
+          ],
+          "correct": 0,
+          "explanation": "The prompt is user@host, then the working directory. A tilde there means you are in your own home directory."
+        },
+        {
+          "type": "mc",
+          "category": "The Shell",
+          "question": "A prompt ends with `#` rather than `$`. What does that tell you?",
+          "options": [
+            "You are working as the root user, so commands run with full privileges",
+            "The previous command failed",
+            "The shell is running a script rather than an interactive session",
+            "You are in a directory you do not own"
+          ],
+          "correct": 0,
+          "explanation": "Bash shows # for uid 0 and $ for everyone else. It is the quickest check before running something destructive."
+        },
+        {
+          "type": "matching",
+          "category": "The Shell",
+          "question": "Match each part of the command line `ls -l /etc/hosts` to what it is called.",
+          "pairs": [
+            {
+              "left": "ls",
+              "right": "The command"
+            },
+            {
+              "left": "-l",
+              "right": "An option, which changes how the command behaves"
+            },
+            {
+              "left": "/etc/hosts",
+              "right": "An argument, naming what the command acts on"
+            }
+          ],
+          "explanation": "Options usually start with - or --; arguments usually do not. The order is command, then options, then arguments."
+        },
+        {
+          "type": "shell",
+          "category": "The Shell",
+          "question": "Show the user name you are currently working as.",
+          "places": [
+            "~"
+          ],
+          "solution": "whoami",
+          "explanation": "`whoami` prints the effective user name. `id` gives the same name plus the UID and every group."
+        },
+        {
+          "type": "shell",
+          "category": "The Shell",
+          "question": "Show this machine's fully qualified host name.",
+          "places": [
+            "/etc"
+          ],
+          "solution": "hostname",
+          "explanation": "`hostname` prints it; `hostnamectl` shows it along with the kernel, architecture and machine ID, and is what you use to change it."
+        },
+        {
+          "type": "fill_blank",
+          "category": "The Shell",
+          "question": "Which key completes a command or file name you have partly typed, saving both keystrokes and spelling mistakes?",
+          "answers": [
+            "Tab",
+            "the Tab key",
+            "Tab key"
+          ],
+          "explanation": "Pressing Tab once completes an unambiguous name; pressing it twice lists the candidates when more than one matches."
+        },
+        {
+          "type": "matching",
+          "category": "The Shell",
+          "question": "Match each Bash command-line editing shortcut to what it does.",
+          "pairs": [
+            {
+              "left": "Ctrl+A",
+              "right": "Move the cursor to the beginning of the line"
+            },
+            {
+              "left": "Ctrl+E",
+              "right": "Move the cursor to the end of the line"
+            },
+            {
+              "left": "Ctrl+U",
+              "right": "Delete from the cursor back to the beginning of the line"
+            },
+            {
+              "left": "Ctrl+K",
+              "right": "Delete from the cursor to the end of the line"
+            },
+            {
+              "left": "Ctrl+L",
+              "right": "Clear the screen, keeping what you have typed"
+            },
+            {
+              "left": "Ctrl+C",
+              "right": "Abandon the command that is running"
+            }
+          ],
+          "explanation": "These work in any readline program, not just Bash, so they carry over to many interactive tools."
+        },
+        {
+          "type": "mc",
+          "category": "The Shell",
+          "question": "You just ran a long command and need to run it again as root. What is the quickest correct way?",
+          "options": [
+            "`sudo !!`",
+            "`!sudo`",
+            "`sudo -r`",
+            "`repeat sudo`"
+          ],
+          "correct": 0,
+          "explanation": "`!!` expands to the whole previous command line, so `sudo !!` reruns it with privileges. `!string` reruns the most recent command starting with that string."
+        },
+        {
+          "type": "shell",
+          "category": "The Shell",
+          "question": "Find out which file on the PATH would run if you typed `grep`.",
+          "places": [
+            "/usr/bin"
+          ],
+          "hint": "There is a command whose whole job is answering this.",
+          "solution": "which grep",
+          "explanation": "`which` searches the PATH and prints the first match. `type` does the same but also recognizes built-ins, aliases and functions."
+        },
+        {
+          "type": "mc",
+          "category": "Local Documentation",
+          "question": "Manual pages are grouped into numbered sections. Which section holds ordinary user commands, and which holds file formats and configuration files?",
+          "options": [
+            "Section 1 holds user commands; section 5 holds file formats",
+            "Section 5 holds user commands; section 1 holds file formats",
+            "Section 1 holds user commands; section 8 holds file formats",
+            "Section 2 holds user commands; section 4 holds file formats"
+          ],
+          "correct": 0,
+          "explanation": "Section 1 is user commands, 5 is file formats and configuration files, and 8 is system administration commands. `passwd` exists in both 1 and 5 — the command and the file."
+        },
+        {
+          "type": "shell",
+          "category": "Local Documentation",
+          "question": "Some names have a manual page in more than one section. Display the page that documents the /etc/passwd file format, rather than the page for the passwd command.",
+          "places": [
+            "/etc"
+          ],
+          "hint": "Give the section number before the name.",
+          "solution": "man 5 passwd",
+          "explanation": "Without a section number, `man` shows the lowest-numbered match — section 1, the command. `man 5 passwd` asks for the file format page instead."
+        },
+        {
+          "type": "shell",
+          "category": "Local Documentation",
+          "question": "You cannot remember the name of the command that changes a file's permission bits, but you know it has something to do with permissions. Search the manual page descriptions for the word `permission`.",
+          "places": [
+            "/usr/share/man"
+          ],
+          "hint": "There is an option to `man` for exactly this, and a separate command that does the same thing.",
+          "solution": "man -k permission",
+          "explanation": "`man -k` and `apropos` both search the short descriptions. Its counterpart `man -f` (or `whatis`) prints the one-line description of a name you already know."
+        },
+        {
+          "type": "matching",
+          "category": "Local Documentation",
+          "question": "Match each key you can press while reading a manual page to what it does.",
+          "pairs": [
+            {
+              "left": "q",
+              "right": "Quit and return to the shell prompt"
+            },
+            {
+              "left": "/word",
+              "right": "Search forward for the next occurrence of word"
+            },
+            {
+              "left": "Space",
+              "right": "Move forward one screen"
+            },
+            {
+              "left": "b",
+              "right": "Move back one screen"
+            }
+          ],
+          "explanation": "Manual pages are displayed through the `less` pager, so every `less` key works while reading one."
+        },
+        {
+          "type": "short_answer",
+          "category": "Local Documentation",
+          "question": "You have been handed an unfamiliar command name and need to find out what it does and which options it takes, without internet access. Describe the order you would try the local documentation in, and why.",
+          "answerLang": null,
+          "modelAnswer": "Start with `whatis name` (or `man -f name`) for the one-line description, to confirm it is the command you think it is and see which section it lives in.\n\nThen `man name` for the full page: read NAME and SYNOPSIS first to see the argument order, then DESCRIPTION and OPTIONS for the flags. Use /word inside the pager to jump to a specific option.\n\nIf the manual page is too terse, look in /usr/share/doc/<package> for READMEs and sample configuration files. `rpm -qd name` lists exactly which documentation files the owning package installed.\n\nIf you do not know the name at all, search descriptions with `man -k keyword` or `apropos keyword` first.",
+          "rubric": [
+            "Mentions whatis or man -f for the short description",
+            "Mentions man, and reading SYNOPSIS or OPTIONS to learn the usage",
+            "Mentions /usr/share/doc for the longer documentation",
+            "Mentions man -k or apropos for searching when the name is unknown"
+          ],
+          "explanation": "The point is that the machine documents itself: nothing here needs a browser."
+        },
+        {
+          "type": "mc",
+          "category": "Subscriptions",
+          "question": "What does registering a Red Hat Enterprise Linux system with `subscription-manager register` achieve?",
+          "options": [
+            "It attaches the system to a subscription, which gives it access to Red Hat's software repositories and support",
+            "It creates a local user account for Red Hat support staff",
+            "It installs every available software package",
+            "It enables the graphical desktop environment"
+          ],
+          "correct": 0,
+          "explanation": "Without a subscription, dnf has no repositories to install from — which is why a fresh unregistered system cannot install anything."
+        }
+      ]
+    },
+    {
+      "name": "Navigating the Filesystem",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Filesystem Hierarchy",
+          "question": "What makes the Linux filesystem different from the way Windows presents storage?",
+          "options": [
+            "Everything hangs off a single root directory, /, and other devices are mounted into that one tree",
+            "Each device gets its own drive letter, exactly as on Windows",
+            "Linux can only use one storage device at a time",
+            "Linux stores directories inside files rather than files inside directories"
+          ],
+          "correct": 0,
+          "explanation": "There is one tree. A second disk does not become D: — it is attached at a directory such as /mnt/field, and its contents appear there."
+        },
+        {
+          "type": "matching",
+          "category": "Filesystem Hierarchy",
+          "question": "Match each standard directory to what it holds.",
+          "pairs": [
+            {
+              "left": "/etc",
+              "right": "System-wide configuration files"
+            },
+            {
+              "left": "/var",
+              "right": "Variable data: logs, spools, caches, databases"
+            },
+            {
+              "left": "/usr",
+              "right": "Installed software: binaries, libraries and documentation"
+            },
+            {
+              "left": "/home",
+              "right": "Ordinary users' home directories"
+            },
+            {
+              "left": "/tmp",
+              "right": "Temporary files, cleared periodically"
+            },
+            {
+              "left": "/boot",
+              "right": "The kernel and what is needed to start the system"
+            }
+          ],
+          "explanation": "These names are set by the Filesystem Hierarchy Standard, so they mean the same thing on any distribution."
+        },
+        {
+          "type": "mc",
+          "category": "Filesystem Hierarchy",
+          "question": "On Red Hat Enterprise Linux 9, what is /bin?",
+          "options": [
+            "A symbolic link to /usr/bin, kept for compatibility with older paths",
+            "A separate directory holding a different set of commands from /usr/bin",
+            "The directory where users install their own programs",
+            "A directory that only exists while the system is booting"
+          ],
+          "correct": 0,
+          "explanation": "RHEL 7 merged /bin, /sbin, /lib and /lib64 into /usr and left symbolic links behind, so a script written for either path still works."
+        },
+        {
+          "type": "mc",
+          "category": "Paths",
+          "question": "What is the difference between an absolute and a relative path?",
+          "options": [
+            "An absolute path starts at / and means the same thing from anywhere; a relative path starts from the current working directory",
+            "An absolute path can only name directories; a relative path can only name files",
+            "An absolute path is shorter; a relative path is longer",
+            "An absolute path works only for root; a relative path works for everyone"
+          ],
+          "correct": 0,
+          "explanation": "The leading slash is the whole distinction. /etc/hosts always names the same file; etc/hosts names one inside wherever you happen to be."
+        },
+        {
+          "type": "matching",
+          "category": "Paths",
+          "question": "Match each path shortcut to what it refers to.",
+          "pairs": [
+            {
+              "left": ".",
+              "right": "The current directory"
+            },
+            {
+              "left": "..",
+              "right": "The parent of the current directory"
+            },
+            {
+              "left": "~",
+              "right": "Your own home directory"
+            },
+            {
+              "left": "~operator1",
+              "right": "The home directory of the user operator1"
+            },
+            {
+              "left": "/",
+              "right": "The root of the whole filesystem"
+            },
+            {
+              "left": "-",
+              "right": "The directory you were in before this one (with cd)"
+            }
+          ],
+          "explanation": "`cd -` is the one people forget, and it is the fastest way to bounce between two directories."
+        },
+        {
+          "type": "shell",
+          "category": "Paths",
+          "question": "Print the absolute path of the directory you are currently working in.",
+          "places": [
+            "~"
+          ],
+          "solution": "pwd",
+          "explanation": "`pwd` stands for print working directory. The shell also keeps it in the $PWD variable."
+        },
+        {
+          "type": "shell",
+          "category": "Paths",
+          "question": "Starting from your home directory, change into /var/log using an absolute path, then print where you ended up.",
+          "places": [
+            "/var/log"
+          ],
+          "cwd": "~",
+          "solution": "cd /var/log && pwd",
+          "explanation": "An absolute path begins with /, so it does not matter where you started from."
+        },
+        {
+          "type": "shell",
+          "category": "Paths",
+          "question": "You are in /var/log. Using a relative path only — no leading slash — move up two levels and print where you are.",
+          "places": [
+            "/var/log"
+          ],
+          "cwd": "/var/log",
+          "hint": ".. means the parent directory, and it can be repeated.",
+          "solution": "cd ../.. && pwd",
+          "explanation": "/var/log → /var → /. Each .. climbs one level, and they can be chained in a single path."
+        },
+        {
+          "type": "mc",
+          "category": "Paths",
+          "question": "Why must you type `./script.sh` rather than just `script.sh` to run an executable file in your current directory?",
+          "options": [
+            "The current directory is deliberately not on the PATH, so the shell will not find the file unless you say where it is",
+            "Scripts always require a path prefix, wherever they are",
+            "The shell cannot read files in the current directory",
+            "It is a convention with no technical effect"
+          ],
+          "correct": 0,
+          "explanation": "Leaving . off the PATH is a security decision: otherwise dropping a file named `ls` into a shared directory would hijack anyone who ran `ls` there."
+        },
+        {
+          "type": "shell",
+          "category": "Listing",
+          "question": "List the contents of the /etc/ssh directory in long format, so the permissions, owner, group, size and date are shown.",
+          "places": [
+            "/etc/ssh"
+          ],
+          "solution": "ls -l /etc/ssh",
+          "explanation": "The long format is the one that answers 'who owns this and who may touch it', which is why it turns up in nearly every exercise."
+        },
+        {
+          "type": "shell",
+          "category": "Listing",
+          "question": "List everything in your home directory including the hidden entries whose names begin with a dot.",
+          "places": [
+            "~"
+          ],
+          "cwd": "~",
+          "solution": "ls -a",
+          "explanation": "A leading dot is the only thing that makes a file hidden — there is no hidden attribute. `ls -A` does the same but leaves out . and .."
+        },
+        {
+          "type": "shell",
+          "category": "Listing",
+          "question": "List the files in ~/labs/files in long format, sorted so the most recently modified file appears first.",
+          "places": [
+            "~/labs/files"
+          ],
+          "cwd": "~/labs/files",
+          "orderMatters": true,
+          "solution": "ls -lt",
+          "explanation": "-t sorts by modification time, newest first. Add -r to reverse it and put the oldest first."
+        },
+        {
+          "type": "shell",
+          "category": "Listing",
+          "question": "Count how many entries are in the /etc directory, not counting hidden ones. Print only the number.",
+          "places": [
+            "/etc"
+          ],
+          "hint": "ls prints one name per line when its output is piped.",
+          "solution": "ls /etc | wc -l",
+          "explanation": "When ls writes to a pipe rather than a terminal it switches to one name per line, which is exactly what wc -l needs."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Listing",
+          "question": "Which single-letter option to `ls` shows the entries whose names start with a dot? Give just the option, including its dash.",
+          "answers": [
+            "-a",
+            "a"
+          ],
+          "explanation": "`ls -a` shows everything; `ls -A` shows everything except the . and .. entries."
+        },
+        {
+          "type": "short_answer",
+          "category": "Paths",
+          "question": "You are logged in as student, working in /home/student/labs/text, and you want to look at /etc/hosts. Give two different commands that would display it, one using an absolute path and one using a relative path, and say which you would actually use and why.",
+          "answerLang": null,
+          "modelAnswer": "Absolute:\n    cat /etc/hosts\n\nRelative, from /home/student/labs/text:\n    cat ../../../../etc/hosts\n\nI would use the absolute path. It is shorter here, it says plainly which file is meant, and it keeps working if I change directory or paste the command into a script. Relative paths earn their place when the target is close by — ../text/notes.txt from a sibling directory — not when it is on the other side of the tree.",
+          "rubric": [
+            "Gives a correct absolute path command (/etc/hosts)",
+            "Gives a relative path that actually climbs to / from /home/student/labs/text (four levels of ..)",
+            "States a preference and gives a reason, such as clarity or working from anywhere"
+          ],
+          "explanation": "Counting the .. levels is the part worth practising: text → labs → student → home → /, so four."
+        },
+        {
+          "type": "mc",
+          "category": "Filesystem Hierarchy",
+          "question": "Where would you look for the log files that record what services on this system have been doing?",
+          "options": [
+            "/var/log",
+            "/etc/log",
+            "/usr/log",
+            "/tmp/log"
+          ],
+          "correct": 0,
+          "explanation": "/var holds data that changes as the system runs. Logs, mail spools, databases and caches all live there."
+        }
+      ]
+    },
+    {
+      "name": "Managing Files & Shell Expansions",
+      "questions": [
+        {
+          "type": "shell",
+          "category": "Creating",
+          "question": "In ~/labs/files, create three empty files in one command: draft1.txt, draft2.txt and draft3.txt. Use brace expansion rather than typing each name.",
+          "places": [
+            "~/labs/files"
+          ],
+          "cwd": "~/labs/files",
+          "hint": "The braces hold a comma-separated list, with no spaces.",
+          "solution": "touch draft{1,2,3}.txt",
+          "verify": "ls draft*.txt",
+          "explanation": "Brace expansion happens in the shell before touch runs: touch actually receives three separate arguments. `touch draft{1..3}.txt` does the same with a range."
+        },
+        {
+          "type": "shell",
+          "category": "Creating",
+          "question": "In ~/labs/files, create the five files page01.php through page05.php in one command, keeping the two-digit numbering.",
+          "places": [
+            "~/labs/files"
+          ],
+          "cwd": "~/labs/files",
+          "hint": "A numeric range keeps its leading zeros if you write them in the range.",
+          "solution": "touch page{01..05}.php",
+          "verify": "ls page*.php",
+          "explanation": "Writing {01..05} rather than {1..5} makes the shell pad every number to the same width, so the names sort correctly."
+        },
+        {
+          "type": "shell",
+          "category": "Creating",
+          "question": "In ~/labs/files, create the nested directory path project/src/lib in a single command, even though project and src do not exist yet.",
+          "places": [
+            "~/labs/files"
+          ],
+          "cwd": "~/labs/files",
+          "solution": "mkdir -p project/src/lib",
+          "verify": "ls -R project",
+          "explanation": "Without -p, mkdir refuses because the parent does not exist. With it, every missing level is created and an existing one is not an error."
+        },
+        {
+          "type": "mc",
+          "category": "Creating",
+          "question": "What does `touch existing.txt` do to a file that already exists?",
+          "options": [
+            "It updates the file's access and modification timestamps, leaving the contents untouched",
+            "It empties the file",
+            "It reports an error, because the file exists",
+            "It creates a second copy of the file"
+          ],
+          "correct": 0,
+          "explanation": "touch exists to set timestamps; creating an empty file is what it does when there is nothing there to touch."
+        },
+        {
+          "type": "shell",
+          "category": "Copying and moving",
+          "question": "In ~/labs/files, make a copy of notes.txt called notes-backup.txt.",
+          "places": [
+            "~/labs/files"
+          ],
+          "cwd": "~/labs/files",
+          "solution": "cp notes.txt notes-backup.txt",
+          "verify": "ls notes*; cat notes-backup.txt",
+          "explanation": "With two file names, cp copies the first onto the second. With more than two arguments, the last one has to be a directory."
+        },
+        {
+          "type": "shell",
+          "category": "Copying and moving",
+          "question": "In ~/labs/files, copy the whole `old` directory and everything inside it to a new directory called archive.",
+          "places": [
+            "~/labs/files"
+          ],
+          "cwd": "~/labs/files",
+          "hint": "cp will not copy a directory unless you tell it to.",
+          "solution": "cp -r old archive",
+          "verify": "ls -R archive",
+          "explanation": "Without -r (or -R), cp refuses and says it is omitting the directory. -a goes further and preserves ownership, permissions and timestamps too."
+        },
+        {
+          "type": "shell",
+          "category": "Copying and moving",
+          "question": "In ~/labs/files, rename data.csv to readings.csv.",
+          "places": [
+            "~/labs/files"
+          ],
+          "cwd": "~/labs/files",
+          "solution": "mv data.csv readings.csv",
+          "verify": "ls *.csv",
+          "explanation": "There is no separate rename command: moving a file to a new name in the same directory is a rename."
+        },
+        {
+          "type": "mc",
+          "category": "Copying and moving",
+          "question": "What is the difference between `cp file dir/` and `mv file dir/`?",
+          "options": [
+            "cp leaves the original in place and makes a second copy; mv leaves only one file, in the new location",
+            "cp works on directories and mv works only on files",
+            "mv is faster because it copies less data, but both leave two files",
+            "There is no difference; mv is an alias for cp"
+          ],
+          "correct": 0,
+          "explanation": "Within one filesystem, mv only rewrites the directory entry, so it is near-instant regardless of the file's size."
+        },
+        {
+          "type": "shell",
+          "category": "Removing",
+          "question": "In ~/labs/files, delete the file notes.bak.",
+          "places": [
+            "~/labs/files"
+          ],
+          "cwd": "~/labs/files",
+          "solution": "rm notes.bak",
+          "verify": "ls notes*",
+          "explanation": "There is no recycle bin. rm removes the name, and when the last name for a file is gone the content goes with it."
+        },
+        {
+          "type": "shell",
+          "category": "Removing",
+          "question": "In ~/labs/files, delete the `old` directory and everything inside it.",
+          "places": [
+            "~/labs/files"
+          ],
+          "cwd": "~/labs/files",
+          "solution": "rm -r old",
+          "verify": "ls",
+          "explanation": "rm refuses a directory without -r. `rmdir` is the safer alternative when you expect the directory to be empty — it fails if it is not."
+        },
+        {
+          "type": "mc",
+          "category": "Removing",
+          "question": "Why is `rm -rf` worth pausing over before you press Enter?",
+          "options": [
+            "-r descends into every subdirectory and -f suppresses every prompt and error, so a mistyped path is removed silently and cannot be undone",
+            "It only works as root, so it always fails for ordinary users",
+            "It moves files to a recoverable location rather than deleting them",
+            "It is slower than rm, so it wastes time"
+          ],
+          "correct": 0,
+          "explanation": "The combination removes both safeguards at once: the confirmation and the error message that would have told you the path was wrong."
+        },
+        {
+          "type": "mc",
+          "category": "Links",
+          "question": "What is a hard link?",
+          "options": [
+            "A second directory entry pointing at the same inode, so both names are equally real and the data survives until the last one is removed",
+            "A copy of the file that is kept synchronized automatically",
+            "A shortcut file containing the path of another file",
+            "A compressed reference to a file stored elsewhere"
+          ],
+          "correct": 0,
+          "explanation": "Neither name is the 'original'. `ls -l` shows the link count, and the content is freed only when it reaches zero."
+        },
+        {
+          "type": "mc",
+          "category": "Links",
+          "question": "Which statement about symbolic links is correct?",
+          "options": [
+            "A symbolic link holds a path, so it can point across filesystems and at directories, but it breaks if the target is removed",
+            "A symbolic link holds a copy of the target's data",
+            "A symbolic link can only point at a file in the same directory",
+            "Removing a symbolic link also removes its target"
+          ],
+          "correct": 0,
+          "explanation": "A hard link cannot cross a filesystem boundary or point at a directory; a symbolic link can do both, at the cost of being able to dangle."
+        },
+        {
+          "type": "shell",
+          "category": "Links",
+          "question": "In ~/labs/links, create a symbolic link called shortcut.txt that points to original.txt.",
+          "places": [
+            "~/labs/links"
+          ],
+          "cwd": "~/labs/links",
+          "solution": "ln -s original.txt shortcut.txt",
+          "verify": "ls -l shortcut.txt; cat shortcut.txt",
+          "explanation": "The order is target first, then the name of the link — the same order as cp and mv: from, then to."
+        },
+        {
+          "type": "shell",
+          "category": "Links",
+          "question": "In ~/labs/links, create a hard link called copy.txt pointing at the same data as original.txt, then show the link count.",
+          "places": [
+            "~/labs/links"
+          ],
+          "cwd": "~/labs/links",
+          "hint": "A hard link is the default, so no option is needed for it.",
+          "solution": "ln original.txt copy.txt",
+          "verify": "ls -li original.txt copy.txt",
+          "explanation": "After this, `ls -l` shows a link count of 3 on both names — the shipped file already had a hard link of its own."
+        },
+        {
+          "type": "tf",
+          "category": "Links",
+          "question": "If you delete the file a hard link points at, the other hard link still gives you the data.",
+          "correct": true,
+          "explanation": "There is no 'the file it points at' — both names point at one inode, and the data goes only when the last name does."
+        },
+        {
+          "type": "mc",
+          "category": "Shell Expansions",
+          "question": "Which pattern matches abc.txt, ab.txt and a.txt but not b.txt?",
+          "options": [
+            "a*.txt",
+            "?.txt",
+            "[abc].txt",
+            "a?.txt"
+          ],
+          "correct": 0,
+          "explanation": "* matches any string including an empty one, so a*.txt covers all three. a?.txt would need exactly one character after the a."
+        },
+        {
+          "type": "matching",
+          "category": "Shell Expansions",
+          "question": "Match each shell pattern to what it matches.",
+          "pairs": [
+            {
+              "left": "*",
+              "right": "Any string of characters, including none at all"
+            },
+            {
+              "left": "?",
+              "right": "Exactly one character, whatever it is"
+            },
+            {
+              "left": "[abc]",
+              "right": "Exactly one character, from that set"
+            },
+            {
+              "left": "[!abc]",
+              "right": "Exactly one character, not from that set"
+            },
+            {
+              "left": "[0-9]",
+              "right": "Exactly one character, from that range"
+            },
+            {
+              "left": "{a,b}",
+              "right": "Generates one word for each item, whether or not any file matches"
+            }
+          ],
+          "explanation": "The first five only produce names that exist. Brace expansion is different: it generates text, which is why it works with touch."
+        },
+        {
+          "type": "shell",
+          "category": "Shell Expansions",
+          "question": "In ~/labs/files, list only the files whose names end in .php.",
+          "places": [
+            "~/labs/files"
+          ],
+          "cwd": "~/labs/files",
+          "solution": "ls *.php",
+          "explanation": "The shell expands the pattern into the matching names, so ls never sees the asterisk at all."
+        },
+        {
+          "type": "shell",
+          "category": "Shell Expansions",
+          "question": "In ~/labs/files, list the report files whose name is 'report' followed by exactly one character and then .txt.",
+          "places": [
+            "~/labs/files"
+          ],
+          "cwd": "~/labs/files",
+          "solution": "ls report?.txt",
+          "explanation": "? matches one character and only one, which is what distinguishes report1.txt from a hypothetical report10.txt."
+        },
+        {
+          "type": "shell",
+          "category": "Shell Expansions",
+          "question": "In ~/labs/files, list only report1.txt, report3.txt and report5.txt by using a character set in the pattern.",
+          "places": [
+            "~/labs/files"
+          ],
+          "cwd": "~/labs/files",
+          "hint": "Square brackets hold the set of characters allowed in that one position.",
+          "solution": "ls report[135].txt",
+          "explanation": "A set can also be a range, so report[1-3].txt would pick the first three."
+        },
+        {
+          "type": "mc",
+          "category": "Shell Expansions",
+          "question": "What is the difference between 'single quotes' and \"double quotes\" in Bash?",
+          "options": [
+            "Single quotes protect everything literally; double quotes still allow variable and command substitution",
+            "Double quotes protect everything literally; single quotes still allow substitution",
+            "They are interchangeable",
+            "Single quotes work only for file names, double quotes only for text"
+          ],
+          "correct": 0,
+          "explanation": "`echo '$HOME'` prints $HOME, while `echo \"$HOME\"` prints /home/student. Both stop globbing and word splitting."
+        },
+        {
+          "type": "shell",
+          "category": "Shell Expansions",
+          "question": "Print a single line that reads `My home is /home/student`, getting the path from the variable that holds it rather than typing it out.",
+          "places": [
+            "~"
+          ],
+          "solution": "echo \"My home is $HOME\"",
+          "explanation": "Double quotes keep the sentence as one argument while still expanding $HOME. Single quotes would print the words $HOME instead."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Shell Expansions",
+          "question": "Which character, placed before a single special character, tells the shell to treat just that one character literally?",
+          "answers": [
+            "backslash",
+            "\\",
+            "a backslash",
+            "the backslash"
+          ],
+          "explanation": "`touch my\\ file.txt` creates one file with a space in the name. It is the escape for a single character, where quotes cover a whole run."
+        },
+        {
+          "type": "short_answer",
+          "category": "Shell Expansions",
+          "question": "A classmate runs `rm *.txt ` in what they think is their project directory and loses the wrong files. Describe two habits that would have caught the mistake before anything was deleted, and say what each one actually shows you.",
+          "answerLang": null,
+          "modelAnswer": "Run the pattern through a harmless command first. `ls *.txt` expands exactly the same way rm would, and prints the list of names that are about to be passed in. If that list is not what you expected, the pattern or the directory is wrong.\n\nConfirm where you are before acting. `pwd` prints the working directory, so you find out you are in ~/labs rather than ~/project before the pattern matters.\n\nA third habit worth having: `rm -i` prompts for each file, and on Red Hat systems root already gets that through an alias.",
+          "rubric": [
+            "Suggests previewing the pattern with ls (or echo) and explains that it expands identically",
+            "Suggests confirming the working directory with pwd, or naming an explicit path",
+            "Explains what the check reveals, rather than only naming the command"
+          ],
+          "explanation": "The key idea is that the shell expands the pattern before rm ever runs, so any command can be used to preview the same expansion."
+        }
+      ]
+    },
+    {
+      "name": "Editing, Redirection & Pipes",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Editing Files",
+          "question": "In vim, which key returns you from insert mode to command mode?",
+          "options": [
+            "Esc",
+            "Ctrl+C",
+            "Enter",
+            ":q"
+          ],
+          "correct": 0,
+          "explanation": "vim starts in command mode, `i` (and a/o/I/A/O) enters insert mode, and Esc always takes you back. If you are unsure which mode you are in, pressing Esc is harmless."
+        },
+        {
+          "type": "matching",
+          "category": "Editing Files",
+          "question": "Match each vim command-mode keystroke to what it does.",
+          "pairs": [
+            {
+              "left": "i",
+              "right": "Start inserting before the cursor"
+            },
+            {
+              "left": "o",
+              "right": "Open a new line below and start inserting"
+            },
+            {
+              "left": "dd",
+              "right": "Delete the current line"
+            },
+            {
+              "left": "yy",
+              "right": "Copy the current line"
+            },
+            {
+              "left": ":w",
+              "right": "Write the file without leaving"
+            },
+            {
+              "left": ":q!",
+              "right": "Leave without saving the changes"
+            }
+          ],
+          "explanation": "`:wq` (or `ZZ`) is the save-and-exit pair. `:q!` is the escape hatch when you have made a mess of a config file."
+        },
+        {
+          "type": "tf",
+          "category": "Standard Streams",
+          "question": "By default, error messages and normal output both arrive on the same stream, so `>` catches both.",
+          "correct": false,
+          "explanation": "They arrive at the same place -- your terminal -- but on different streams. Normal output is stdout (1), errors are stderr (2), and `>` only redirects stdout."
+        },
+        {
+          "type": "matching",
+          "category": "Standard Streams",
+          "question": "Match each stream or redirection to its meaning.",
+          "pairs": [
+            {
+              "left": "0",
+              "right": "Standard input -- where a command reads from"
+            },
+            {
+              "left": "1",
+              "right": "Standard output -- where normal results go"
+            },
+            {
+              "left": "2",
+              "right": "Standard error -- where messages about problems go"
+            },
+            {
+              "left": "2>&1",
+              "right": "Send errors to wherever output is currently going"
+            },
+            {
+              "left": "/dev/null",
+              "right": "A destination that discards everything written to it"
+            }
+          ],
+          "explanation": "The order matters in `> file 2>&1`: stdout is pointed at the file first, then stderr is pointed at the same place. Reversed, stderr would still go to the terminal."
+        },
+        {
+          "type": "mc",
+          "category": "Redirection",
+          "question": "What is the difference between `>` and `>>`?",
+          "options": [
+            "`>` replaces the file's contents, `>>` adds to the end of it",
+            "`>` writes to a file, `>>` writes to two files",
+            "`>` is for text, `>>` is for binary data",
+            "There is no difference; `>>` is just the older spelling"
+          ],
+          "correct": 0,
+          "explanation": "`>` truncates the file to nothing before writing, which is how a one-character typo destroys a log file. `>>` appends."
+        },
+        {
+          "type": "shell",
+          "category": "Redirection",
+          "question": "In ~/labs/text, write just the fruit names with no repeats into a new file called unique-fruit.txt.",
+          "places": [
+            "~/labs/text"
+          ],
+          "cwd": "~/labs/text",
+          "hint": "sort has a flag that collapses repeated lines.",
+          "solution": "sort -u fruit.txt > unique-fruit.txt",
+          "verify": "cat unique-fruit.txt",
+          "explanation": "`sort -u` is `sort | uniq` in one step. Without the redirect the list would print to the screen; `>` sends it to the file instead."
+        },
+        {
+          "type": "shell",
+          "category": "Redirection",
+          "question": "In ~/labs/text, add the single line `kiwi` to the end of fruit.txt without disturbing the lines already in it.",
+          "places": [
+            "~/labs/text/fruit.txt"
+          ],
+          "cwd": "~/labs/text",
+          "solution": "echo kiwi >> fruit.txt",
+          "verify": "tail -2 fruit.txt",
+          "explanation": "`>>` appends. Using `>` here would have thrown away all eleven existing lines and left a one-line file."
+        },
+        {
+          "type": "shell",
+          "category": "Redirection",
+          "question": "In ~/labs/text, capture both the normal output and any error messages of `cat poem.txt missing.txt` into a file named both.txt.",
+          "places": [
+            "~/labs/text/poem.txt"
+          ],
+          "cwd": "~/labs/text",
+          "hint": "Point stdout at the file, then point stderr at the same place.",
+          "solution": "cat poem.txt missing.txt > both.txt 2>&1",
+          "verify": "tail -1 both.txt",
+          "explanation": "`&>` is the bash shorthand for the same thing. Writing `2>&1 > both.txt` instead would not work: stderr would be copied to the terminal before stdout was moved.",
+          "exitsNonZero": true
+        },
+        {
+          "type": "fill_blank",
+          "category": "Redirection",
+          "question": "What is the full path of the special file that silently discards anything written to it?",
+          "answers": [
+            "/dev/null",
+            "dev/null"
+          ],
+          "explanation": "It is often called the bit bucket. Reading from it gives you nothing at all, which is why `< /dev/null` is used to give a command empty input."
+        },
+        {
+          "type": "shell",
+          "category": "Redirection",
+          "question": "In ~/labs/text, count the lines in poem.txt and save that count to lines.txt, using input redirection so that wc reads from its standard input rather than being handed a filename.",
+          "places": [
+            "~/labs/text/poem.txt"
+          ],
+          "cwd": "~/labs/text",
+          "hint": "`<` connects a file to a command's standard input.",
+          "solution": "wc -l < poem.txt > lines.txt",
+          "verify": "cat lines.txt",
+          "explanation": "`wc -l poem.txt` would print `9 poem.txt`; reading from stdin it prints just `9`, because wc has no filename to report."
+        },
+        {
+          "type": "mc",
+          "category": "Pipes",
+          "question": "What does the pipe in `command1 | command2` connect?",
+          "options": [
+            "The standard output of command1 to the standard input of command2",
+            "The standard output of command1 to a file named command2",
+            "The standard error of command1 to the standard input of command2",
+            "Both commands to the same terminal, running them side by side"
+          ],
+          "correct": 0,
+          "explanation": "Errors are not piped -- they go straight to the terminal unless you add `2>&1`. That is why a failing command in a pipeline still shouts at you."
+        },
+        {
+          "type": "shell",
+          "category": "Pipes",
+          "question": "From your home directory, show how many entries `ls -a` reports in ~/labs/files, as a single number.",
+          "places": [
+            "~/labs/files"
+          ],
+          "cwd": "~",
+          "hint": "One entry per line is what `ls` gives a pipe, so counting lines counts entries.",
+          "solution": "ls -a labs/files | wc -l",
+          "explanation": "`ls` prints in columns for a terminal but one name per line when its output is a pipe, which is exactly what makes `ls | wc -l` work."
+        },
+        {
+          "type": "shell",
+          "category": "Pipes",
+          "question": "In ~/labs/text, show the last three lines of access.log that contain the status code 404.",
+          "places": [
+            "~/labs/text/access.log"
+          ],
+          "cwd": "~/labs/text",
+          "solution": "grep 404 access.log | tail -3",
+          "explanation": "Filter first, then trim. Doing it the other way -- `tail -3 access.log | grep 404` -- looks at only the last three lines of the whole file, which is a different question."
+        },
+        {
+          "type": "shell",
+          "category": "grep",
+          "question": "In ~/labs/text, show every line of hosts.txt that mentions a web server.",
+          "places": [
+            "~/labs/text/hosts.txt"
+          ],
+          "cwd": "~/labs/text",
+          "solution": "grep web hosts.txt",
+          "explanation": "grep prints whole lines that match, so you get the hostname and address alongside the role you searched for."
+        },
+        {
+          "type": "shell",
+          "category": "grep",
+          "question": "In ~/labs/text, count how many lines of access.log came from the address 10.0.2.15.",
+          "places": [
+            "~/labs/text/access.log"
+          ],
+          "cwd": "~/labs/text",
+          "hint": "grep can do the counting itself.",
+          "solution": "grep -c 10.0.2.15 access.log",
+          "explanation": "`grep -c` counts matching lines, not matches -- a line with the address twice still counts once. `grep ... | wc -l` gives the same number here."
+        },
+        {
+          "type": "shell",
+          "category": "grep",
+          "question": "In ~/labs/text, show the lines of services.txt that are not comments, ignoring any line that begins with #.",
+          "places": [
+            "~/labs/text/services.txt"
+          ],
+          "cwd": "~/labs/text",
+          "hint": "`-v` inverts the match, and `^` anchors a pattern to the start of the line.",
+          "solution": "grep -v '^#' services.txt",
+          "explanation": "This pairing is how you read a config file without the documentation. `grep -v '^#' file | grep -v '^$'` also drops the blank lines."
+        },
+        {
+          "type": "matching",
+          "category": "grep",
+          "question": "Match each grep option to what it does.",
+          "pairs": [
+            {
+              "left": "-i",
+              "right": "Ignore the difference between upper and lower case"
+            },
+            {
+              "left": "-v",
+              "right": "Print the lines that do not match"
+            },
+            {
+              "left": "-c",
+              "right": "Print how many lines matched instead of the lines"
+            },
+            {
+              "left": "-n",
+              "right": "Prefix each result with its line number"
+            },
+            {
+              "left": "-r",
+              "right": "Search every file under a directory"
+            },
+            {
+              "left": "-w",
+              "right": "Match only where the pattern is a whole word"
+            }
+          ],
+          "explanation": "`-w` is the fix for the classic annoyance of searching for `ssh` and matching `sshd` too."
+        },
+        {
+          "type": "mc",
+          "category": "grep",
+          "question": "Why should a grep pattern containing a `*` or `?` be put in single quotes?",
+          "options": [
+            "Otherwise the shell expands it against the filenames in the current directory before grep ever sees it",
+            "Otherwise grep treats the pattern as a filename",
+            "Because grep cannot read patterns shorter than three characters",
+            "Because unquoted patterns are always case-sensitive"
+          ],
+          "correct": 0,
+          "explanation": "The shell expands first, and grep receives whatever came out. Single quotes stop the expansion so the pattern reaches grep intact."
+        },
+        {
+          "type": "shell",
+          "category": "Cut & Columns",
+          "question": "In ~/labs/text, show only the department column of employees.csv, which is the third comma-separated field.",
+          "places": [
+            "~/labs/text/employees.csv"
+          ],
+          "cwd": "~/labs/text",
+          "hint": "cut needs to be told the delimiter with -d and the field with -f.",
+          "solution": "cut -d, -f3 employees.csv",
+          "explanation": "cut defaults to a tab delimiter, so a CSV always needs `-d,`. It cannot handle quoted fields containing commas -- awk is the tool for that."
+        },
+        {
+          "type": "shell",
+          "category": "Sorting & Counting",
+          "question": "In ~/labs/text, show how many times each fruit appears in fruit.txt, with the count beside each name.",
+          "places": [
+            "~/labs/text/fruit.txt"
+          ],
+          "cwd": "~/labs/text",
+          "hint": "uniq only collapses lines that are next to each other.",
+          "solution": "sort fruit.txt | uniq -c",
+          "explanation": "`uniq` compares each line only with the one before it, so the sort is not optional -- it is what puts the duplicates together."
+        },
+        {
+          "type": "shell",
+          "category": "Sorting & Counting",
+          "question": "In ~/labs/text, show the largest value in numbers.txt.",
+          "places": [
+            "~/labs/text/numbers.txt"
+          ],
+          "cwd": "~/labs/text",
+          "hint": "Plain sort compares text, where 9 comes after 115.",
+          "solution": "sort -n numbers.txt | tail -1",
+          "explanation": "`-n` sorts numerically. Without it, sort would compare character by character and call 9 the biggest value in the file."
+        },
+        {
+          "type": "shell",
+          "category": "sed",
+          "question": "In ~/labs/text, print poem.txt to the screen with every occurrence of the word road replaced by path, leaving the file itself unchanged.",
+          "places": [
+            "~/labs/text/poem.txt"
+          ],
+          "cwd": "~/labs/text",
+          "hint": "The trailing g makes the substitution apply to every match on a line, not just the first.",
+          "solution": "sed 's/road/path/g' poem.txt",
+          "explanation": "sed streams the edited text to stdout; the file on disk is untouched unless you add `-i`. Previewing without `-i` first is a good habit."
+        },
+        {
+          "type": "shell",
+          "category": "awk",
+          "question": "In ~/labs/text, print just the part number and the quantity from inventory.txt -- the first and third whitespace-separated columns.",
+          "places": [
+            "~/labs/text/inventory.txt"
+          ],
+          "cwd": "~/labs/text",
+          "hint": "awk splits on whitespace by default and numbers the fields $1, $2, $3.",
+          "solution": "awk '{print $1, $3}' inventory.txt",
+          "explanation": "The comma between the fields tells awk to separate them with a space. Without it, `print $1 $3` would run them together."
+        },
+        {
+          "type": "shell",
+          "category": "awk",
+          "question": "In ~/labs/text, print the names of everyone in the Support department from employees.csv -- the second field, where the third field is Support.",
+          "places": [
+            "~/labs/text/employees.csv"
+          ],
+          "cwd": "~/labs/text",
+          "hint": "`-F,` sets the field separator, and a condition before the braces decides which lines run.",
+          "solution": "awk -F, '$3==\"Support\" {print $2}' employees.csv",
+          "explanation": "The pattern before the braces is the filter and the braces are the action. This is where awk goes beyond cut: cut cannot test a field's value."
+        },
+        {
+          "type": "shell",
+          "category": "Text Toolkit",
+          "question": "In ~/labs/text, show the first three lines of employees.csv.",
+          "places": [
+            "~/labs/text/employees.csv"
+          ],
+          "cwd": "~/labs/text",
+          "solution": "head -3 employees.csv",
+          "explanation": "head and tail both default to ten lines. `tail -f` follows a file as it grows, which is how you watch a log during a service restart."
+        },
+        {
+          "type": "short_answer",
+          "category": "Pipes",
+          "question": "Explain in your own words why `sort file.txt | uniq -c` gives the right counts but `uniq -c file.txt` on its own usually does not, and give one case where uniq alone is still correct.",
+          "answerLang": null,
+          "modelAnswer": "uniq only compares each line with the line immediately before it. It collapses a run of identical lines into one, and with -c it reports how long the run was. It has no memory beyond the previous line, so if the same value appears in three separate places in the file it is counted as three separate runs rather than one group of three.\n\nSorting first puts every identical line next to its twins, which turns each group into a single run, and that is what makes the counts come out right.\n\nuniq alone is correct when the input is already grouped -- for instance a log file where entries arrive in timestamp order and repeats are consecutive retries, or the output of a command that already sorted its results.",
+          "rubric": [
+            "Says uniq compares only adjacent lines, or only collapses consecutive runs",
+            "Explains that sorting is what brings identical lines together",
+            "Names a case where the input is already grouped, so the sort is unnecessary"
+          ],
+          "explanation": "This is the most common pipeline in day-to-day administration: `... | sort | uniq -c | sort -rn` turns any list into a ranked frequency table."
+        }
+      ]
+    },
+    {
+      "name": "Users & Groups",
+      "questions": [
+        {
+          "type": "shell",
+          "category": "Identity",
+          "question": "Show your own user ID, primary group and every supplementary group you belong to, in one command.",
+          "places": [
+            "/etc/passwd"
+          ],
+          "solution": "id",
+          "explanation": "`id` reads the account database, not your login session, so `id someoneelse` answers the same question about anyone on the system."
+        },
+        {
+          "type": "shell",
+          "category": "Identity",
+          "question": "Show the user ID, primary group and supplementary groups of the account named operator1.",
+          "places": [
+            "/etc/passwd"
+          ],
+          "solution": "id operator1",
+          "explanation": "You do not need to be root to look this up -- /etc/passwd and /etc/group are world-readable by design, because ordinary commands like `ls -l` have to translate numbers into names."
+        },
+        {
+          "type": "mc",
+          "category": "The Account Files",
+          "question": "Which file holds the encrypted passwords and the aging settings for local accounts?",
+          "options": [
+            "/etc/shadow",
+            "/etc/passwd",
+            "/etc/group",
+            "/etc/gshadow"
+          ],
+          "correct": 0,
+          "explanation": "/etc/passwd used to hold the hashes, which is where its name comes from. They were moved to /etc/shadow, readable only by root, because everything else on the system still needs to read /etc/passwd."
+        },
+        {
+          "type": "matching",
+          "category": "The Account Files",
+          "question": "A line in /etc/passwd is seven colon-separated fields. Match each position to what it holds.",
+          "pairs": [
+            {
+              "left": "Field 1",
+              "right": "The login name"
+            },
+            {
+              "left": "Field 3",
+              "right": "The numeric user ID (UID)"
+            },
+            {
+              "left": "Field 4",
+              "right": "The numeric ID of the primary group"
+            },
+            {
+              "left": "Field 5",
+              "right": "The comment or real name (GECOS)"
+            },
+            {
+              "left": "Field 6",
+              "right": "The home directory"
+            },
+            {
+              "left": "Field 7",
+              "right": "The login shell"
+            }
+          ],
+          "explanation": "Field 2 is the leftover password field; on a modern system it holds only an `x`, meaning 'look in /etc/shadow'."
+        },
+        {
+          "type": "shell",
+          "category": "The Account Files",
+          "question": "Show the /etc/passwd line for the account named dbadmin.",
+          "places": [
+            "/etc/passwd"
+          ],
+          "solution": "grep dbadmin /etc/passwd",
+          "explanation": "`getent passwd dbadmin` answers the same question and also works when accounts come from LDAP or another network directory rather than the local file."
+        },
+        {
+          "type": "mc",
+          "category": "The Account Files",
+          "question": "On RHEL 9, which UID range is reserved for regular user accounts created by an administrator?",
+          "options": [
+            "1000 and above",
+            "0 to 99",
+            "100 to 999",
+            "Any number, there is no convention"
+          ],
+          "correct": 0,
+          "explanation": "UID 0 is root, 1-999 are system and service accounts, and useradd starts handing out 1000 and up. The same split applies to group IDs."
+        },
+        {
+          "type": "tf",
+          "category": "The Account Files",
+          "question": "An account whose login shell is /sbin/nologin cannot be used for an interactive login, even though it is a valid account.",
+          "correct": true,
+          "explanation": "That is how service accounts like sshd and chrony are locked down: they own files and run processes, but nobody can log in as them."
+        },
+        {
+          "type": "shell",
+          "category": "Creating Accounts",
+          "question": "Create a local account named analyst with the comment Data Analyst, taking every other setting from the defaults.",
+          "places": [
+            "/etc/passwd"
+          ],
+          "hint": "Creating an account needs superuser rights, and -c sets the comment field.",
+          "solution": "sudo useradd -c 'Data Analyst' analyst",
+          "verify": "grep '^analyst:' /etc/passwd",
+          "explanation": "useradd also creates the home directory, a private group of the same name, and the /etc/shadow entry. The account has no usable password until you set one."
+        },
+        {
+          "type": "matching",
+          "category": "Creating Accounts",
+          "question": "Match each useradd option to what it sets.",
+          "pairs": [
+            {
+              "left": "-c",
+              "right": "The comment field, usually the person's real name"
+            },
+            {
+              "left": "-u",
+              "right": "The numeric user ID"
+            },
+            {
+              "left": "-g",
+              "right": "The primary group"
+            },
+            {
+              "left": "-G",
+              "right": "Supplementary group memberships"
+            },
+            {
+              "left": "-s",
+              "right": "The login shell"
+            },
+            {
+              "left": "-d",
+              "right": "The home directory path"
+            }
+          ],
+          "explanation": "usermod takes the same letters, which is what makes the pair easy to remember: useradd creates with them, usermod changes them."
+        },
+        {
+          "type": "shell",
+          "category": "Groups",
+          "question": "Create a group named webadmin.",
+          "places": [
+            "/etc/group"
+          ],
+          "solution": "sudo groupadd webadmin",
+          "verify": "getent group webadmin",
+          "explanation": "Groups exist so a permission can be granted once and applied to everyone who belongs. `getent group` is the reliable way to read one back."
+        },
+        {
+          "type": "shell",
+          "category": "Groups",
+          "question": "Add the user dbadmin to the supplementary group operators without disturbing any group dbadmin already belongs to.",
+          "places": [
+            "/etc/group"
+          ],
+          "hint": "Leaving out one letter here is the classic way to remove someone from every other group by accident.",
+          "solution": "sudo usermod -aG operators dbadmin",
+          "verify": "id dbadmin",
+          "explanation": "`-G` replaces the whole supplementary list; `-aG` appends to it. Forgetting the `-a` is one of the most common and most damaging mistakes in the course."
+        },
+        {
+          "type": "mc",
+          "category": "Groups",
+          "question": "What is the difference between a user's primary group and a supplementary group?",
+          "options": [
+            "The primary group is the one given to files the user creates; supplementary groups only grant access",
+            "The primary group is the first one listed alphabetically",
+            "Supplementary groups apply only to root",
+            "There is no difference; the words are interchangeable"
+          ],
+          "correct": 0,
+          "explanation": "A user has exactly one primary group, recorded in /etc/passwd, and any number of supplementary groups, recorded in /etc/group."
+        },
+        {
+          "type": "shell",
+          "category": "Passwords",
+          "question": "Lock the password of the account operator2 so it cannot be used to authenticate.",
+          "places": [
+            "/etc/passwd"
+          ],
+          "hint": "passwd has a flag for locking.",
+          "solution": "sudo passwd -l operator2",
+          "verify": "sudo passwd -S operator2",
+          "explanation": "Locking puts a `!` in front of the hash in /etc/shadow, which no password can ever match. `passwd -u` unlocks it again. Locking the password does not stop an SSH key from working."
+        },
+        {
+          "type": "shell",
+          "category": "Passwords",
+          "question": "Show the password aging settings for the account operator1 -- when the password was last changed, when it expires, and the minimum and maximum days.",
+          "places": [
+            "/etc/passwd"
+          ],
+          "solution": "sudo chage -l operator1",
+          "explanation": "`chage -l` is the readable view of the /etc/shadow fields. It needs root because /etc/shadow does."
+        },
+        {
+          "type": "mc",
+          "category": "Superuser Access",
+          "question": "What is the difference between `su student` and `su - student`?",
+          "options": [
+            "The dash starts a login shell: it runs the user's startup files and moves to their home directory",
+            "The dash asks for the password, without it no password is needed",
+            "The dash runs the command as root rather than as student",
+            "There is no difference"
+          ],
+          "correct": 0,
+          "explanation": "Without the dash you keep your own environment and working directory, which is a common source of 'it works for me but not in the script' confusion."
+        },
+        {
+          "type": "shell",
+          "category": "Superuser Access",
+          "question": "Read the first line of /etc/shadow, a file only root may open.",
+          "places": [
+            "/etc/shadow"
+          ],
+          "hint": "sudo runs one command with superuser rights.",
+          "solution": "sudo head -1 /etc/shadow",
+          "explanation": "Running the same command without sudo gets Permission denied. sudo is preferred over `su -` because it runs one command, logs it, and does not require handing out the root password."
+        },
+        {
+          "type": "mc",
+          "category": "Superuser Access",
+          "question": "On RHEL 9, membership of which group gives an account full sudo access out of the box?",
+          "options": [
+            "wheel",
+            "sudo",
+            "admin",
+            "root"
+          ],
+          "correct": 0,
+          "explanation": "The line `%wheel ALL=(ALL) ALL` in /etc/sudoers is what grants it. Debian and Ubuntu use a group called sudo instead, which is a common point of confusion."
+        },
+        {
+          "type": "tf",
+          "category": "Superuser Access",
+          "question": "When sudo asks for a password, it is asking for the root password.",
+          "correct": false,
+          "explanation": "It asks for your own password, to confirm that the person at the keyboard is still you. That is the point: nobody has to know the root password."
+        },
+        {
+          "type": "short_answer",
+          "category": "Groups",
+          "question": "An administrator runs `usermod -G operators dbadmin` intending to add dbadmin to the operators group. Explain what actually happened, why it is a problem, and what they should have typed instead.",
+          "answerLang": null,
+          "modelAnswer": "`-G` sets the complete list of supplementary groups, it does not add to it. So dbadmin is now a member of operators and of nothing else: every other supplementary group the account belonged to has been silently removed.\n\nThat is a problem because group membership is usually what grants access to shared directories and to sudo. If dbadmin was in wheel, they have just lost sudo; if they were in a group owning a shared project directory, they can no longer write there. Nothing warns you, and the next failure looks like a permissions bug somewhere else.\n\nThe correct command adds the -a flag, which means append:\n\n    sudo usermod -aG operators dbadmin\n\nBefore making the change, `id dbadmin` shows the existing memberships, which is both the check and the record you need to put them back.",
+          "rubric": [
+            "Says -G replaces the whole supplementary group list rather than adding to it",
+            "Explains the consequence: the user loses access, possibly including sudo via wheel",
+            "Gives usermod -aG as the correct form, or otherwise names the -a flag"
+          ],
+          "explanation": "This single missing letter is the most common way a working account is broken during the users and groups chapter."
+        }
+      ]
+    },
+    {
+      "name": "File Permissions & Ownership",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Reading Permissions",
+          "question": "In the listing `-rw-r--r-- 1 student student 22 Jun 4 18:15 public.txt`, which part describes what members of the file's group may do?",
+          "options": [
+            "Characters 5 to 7, the second group of three: r--",
+            "Characters 2 to 4, the first group of three: rw-",
+            "The last three characters: r--",
+            "The very first character: -"
+          ],
+          "correct": 0,
+          "explanation": "The ten characters are: file type, then owner, then group, then other. Here the owner may read and write, and everyone else may only read."
+        },
+        {
+          "type": "matching",
+          "category": "Reading Permissions",
+          "question": "Match the first character of a long listing to the kind of thing it describes.",
+          "pairs": [
+            {
+              "left": "-",
+              "right": "An ordinary file"
+            },
+            {
+              "left": "d",
+              "right": "A directory"
+            },
+            {
+              "left": "l",
+              "right": "A symbolic link"
+            },
+            {
+              "left": "b",
+              "right": "A block device, such as a disk"
+            },
+            {
+              "left": "c",
+              "right": "A character device, such as a terminal"
+            }
+          ],
+          "explanation": "The type is fixed when the thing is created; no chmod can turn a file into a directory."
+        },
+        {
+          "type": "shell",
+          "category": "Reading Permissions",
+          "question": "Show the permissions, owner and group of every entry in ~/labs/perms.",
+          "places": [
+            "~/labs/perms"
+          ],
+          "cwd": "~/labs/perms",
+          "solution": "ls -l",
+          "explanation": "`ls -l` on a directory lists what is inside it. `ls -ld` shows the directory itself instead, which is what you need when it is the directory's own permissions you are checking."
+        },
+        {
+          "type": "shell",
+          "category": "Reading Permissions",
+          "question": "Show the permissions, owner, group and inode details of the file ~/labs/perms/public.txt, including its mode in both symbolic and octal form.",
+          "places": [
+            "~/labs/perms/public.txt"
+          ],
+          "solution": "stat ~/labs/perms/public.txt",
+          "explanation": "`stat` is the command that prints the octal mode next to the rwx string, which makes it the quickest way to check your arithmetic."
+        },
+        {
+          "type": "matching",
+          "category": "The Permission Bits",
+          "question": "Match each permission to what it allows on an ordinary file.",
+          "pairs": [
+            {
+              "left": "r on a file",
+              "right": "Read the contents"
+            },
+            {
+              "left": "w on a file",
+              "right": "Change the contents"
+            },
+            {
+              "left": "x on a file",
+              "right": "Run it as a program"
+            },
+            {
+              "left": "r on a directory",
+              "right": "List the names inside it"
+            },
+            {
+              "left": "w on a directory",
+              "right": "Create, rename and delete entries inside it"
+            },
+            {
+              "left": "x on a directory",
+              "right": "Enter it and reach things by name"
+            }
+          ],
+          "explanation": "The directory meanings are the ones that catch people out. Deleting a file needs write permission on the directory holding it, not on the file itself."
+        },
+        {
+          "type": "mc",
+          "category": "The Permission Bits",
+          "question": "In octal notation, which single digit means read and write but not execute?",
+          "options": [
+            "6",
+            "3",
+            "5",
+            "7"
+          ],
+          "correct": 0,
+          "explanation": "Read is 4, write is 2, execute is 1, and the digit is their sum. So 6 is rw-, 5 is r-x and 7 is rwx."
+        },
+        {
+          "type": "mc",
+          "category": "The Permission Bits",
+          "question": "Which octal mode is the same as `rw-r-----`?",
+          "options": [
+            "640",
+            "644",
+            "620",
+            "460"
+          ],
+          "correct": 0,
+          "explanation": "Owner 4+2 = 6, group 4, other 0. It is the usual mode for a file that only the owner writes and only their team reads."
+        },
+        {
+          "type": "shell",
+          "category": "Changing Permissions",
+          "question": "Change ~/labs/perms/public.txt so the owner may read and write it, the group may only read it, and everyone else has no access at all. Use the octal form.",
+          "places": [
+            "~/labs/perms/public.txt"
+          ],
+          "cwd": "~/labs/perms",
+          "hint": "Read 4, write 2, execute 1, added up per column.",
+          "solution": "chmod 640 public.txt",
+          "verify": "ls -l public.txt",
+          "explanation": "Octal always sets all three columns at once, which is why it is the safer choice when you want a file to end in an exactly known state."
+        },
+        {
+          "type": "shell",
+          "category": "Changing Permissions",
+          "question": "Make ~/labs/perms/noexec.sh executable for its owner, without changing any other permission on the file. Use the symbolic form.",
+          "places": [
+            "~/labs/perms/noexec.sh"
+          ],
+          "cwd": "~/labs/perms",
+          "hint": "u is the user who owns it, and + adds a permission.",
+          "solution": "chmod u+x noexec.sh",
+          "verify": "ls -l noexec.sh",
+          "explanation": "Symbolic mode changes only what you name, so it is the right choice when you do not want to disturb the rest. The letters are u, g, o and a, with +, - and =."
+        },
+        {
+          "type": "shell",
+          "category": "Changing Permissions",
+          "question": "Apply mode 700 to the directory ~/labs/perms/locked and to everything inside it, in a single command.",
+          "places": [
+            "~/labs/perms/locked"
+          ],
+          "cwd": "~/labs/perms",
+          "hint": "chmod has the same recursion flag that cp and rm use.",
+          "solution": "chmod -R 700 locked",
+          "verify": "ls -ld locked; ls -l locked",
+          "explanation": "`-R` is convenient and dangerous in equal measure: `chmod -R 777` on a directory tree is a classic way to make a system insecure in one keystroke."
+        },
+        {
+          "type": "tf",
+          "category": "Changing Permissions",
+          "question": "You can always change the permissions of a file you are able to read.",
+          "correct": false,
+          "explanation": "Only the file's owner and root may run chmod on it. Being able to read a file says nothing about being able to change its mode."
+        },
+        {
+          "type": "shell",
+          "category": "Ownership",
+          "question": "Change the owner of ~/labs/perms/team.txt to operator1, leaving the group as it is.",
+          "places": [
+            "~/labs/perms/team.txt"
+          ],
+          "cwd": "~/labs/perms",
+          "hint": "Giving a file away needs superuser rights.",
+          "solution": "sudo chown operator1 team.txt",
+          "verify": "ls -l team.txt",
+          "explanation": "Only root may hand a file to another user. If ordinary users could do it, anyone could dodge a disk quota by giving their files away."
+        },
+        {
+          "type": "shell",
+          "category": "Ownership",
+          "question": "Change both the owner and the group of ~/labs/perms/team.txt to operator1 and operators in one command.",
+          "places": [
+            "~/labs/perms/team.txt"
+          ],
+          "cwd": "~/labs/perms",
+          "hint": "The two names are separated by a colon.",
+          "solution": "sudo chown operator1:operators team.txt",
+          "verify": "ls -l team.txt",
+          "explanation": "`chown :operators file` changes only the group, which is the same thing `chgrp operators file` does."
+        },
+        {
+          "type": "mc",
+          "category": "Ownership",
+          "question": "Why does `chown` normally require root, while `chgrp` sometimes does not?",
+          "options": [
+            "Because you may only give a file to a group you yourself belong to, whereas giving it to another user would let you escape quotas and shed responsibility",
+            "Because chgrp is an older command with fewer checks",
+            "Because groups have no permissions of their own",
+            "Because chown also changes the file's mode"
+          ],
+          "correct": 0,
+          "explanation": "The rule is that you can never create a file owned by someone else, but you may share one with a group you are already in."
+        },
+        {
+          "type": "shell",
+          "category": "The umask",
+          "question": "Show the current umask value for your shell.",
+          "places": [
+            "~"
+          ],
+          "solution": "umask",
+          "explanation": "Printed as four octal digits, the first of which is for the special permissions. A regular user on RHEL usually sees 0002 or 0022."
+        },
+        {
+          "type": "mc",
+          "category": "The umask",
+          "question": "With a umask of 022, what permissions does a newly created ordinary file get?",
+          "options": [
+            "644, or rw-r--r--",
+            "755, or rwxr-xr-x",
+            "666, or rw-rw-rw-",
+            "600, or rw-------"
+          ],
+          "correct": 0,
+          "explanation": "New files start from 666 and new directories from 777; the umask bits are removed. 666 minus 022 is 644, and 777 minus 022 is 755."
+        },
+        {
+          "type": "matching",
+          "category": "Special Permissions",
+          "question": "Match each special permission to what it does.",
+          "pairs": [
+            {
+              "left": "setuid on a file",
+              "right": "The program runs as the user who owns the file, not as whoever started it"
+            },
+            {
+              "left": "setgid on a file",
+              "right": "The program runs with the group of the file"
+            },
+            {
+              "left": "setgid on a directory",
+              "right": "New entries inherit the directory's group instead of the creator's"
+            },
+            {
+              "left": "sticky bit on a directory",
+              "right": "Only an entry's owner may delete it, even where everyone can write"
+            }
+          ],
+          "explanation": "/tmp is the everyday example of the sticky bit, and a shared team directory is the everyday example of setgid."
+        },
+        {
+          "type": "mc",
+          "category": "Special Permissions",
+          "question": "A directory listing shows `drwxrwsr-x`. Which special permission is set, and where?",
+          "options": [
+            "setgid, shown by the s in the group execute position",
+            "setuid, shown by the s in the owner execute position",
+            "The sticky bit, shown by the s at the end",
+            "None; s simply means shared"
+          ],
+          "correct": 0,
+          "explanation": "The s replaces the x in the column it applies to. A capital S would mean the special bit is set but the execute bit underneath it is not, which is nearly always a mistake."
+        },
+        {
+          "type": "shell",
+          "category": "Diagnosing Access",
+          "question": "There is a file in ~/labs/perms that you own but cannot read, because its mode says so. Show the long listing for ~/labs/perms/secret.txt to see who owns it and what its permissions are.",
+          "places": [
+            "~/labs/perms/secret.txt"
+          ],
+          "cwd": "~/labs/perms",
+          "solution": "ls -l secret.txt",
+          "explanation": "The listing is the first thing to check on a Permission denied: it tells you both the mode and the owner, and those two facts explain almost every case."
+        },
+        {
+          "type": "tf",
+          "category": "Diagnosing Access",
+          "question": "If a directory has r but not x, you can list the names inside it but cannot read any of those files.",
+          "correct": true,
+          "explanation": "Without x you cannot traverse into the directory to reach an inode, so `ls` shows the names and `ls -l` cannot fill in the details."
+        },
+        {
+          "type": "short_answer",
+          "category": "Diagnosing Access",
+          "question": "A user reports that they can see a file listed with `ls` but get Permission denied when they try to read it. Describe the checks you would run, in order, and what each one would tell you.",
+          "answerLang": null,
+          "modelAnswer": "First, `ls -l thefile` to see the mode, the owner and the group. That answers which of the three columns applies to this user and what it allows: if they are neither the owner nor in the group, only the last three characters matter to them.\n\nSecond, `id theuser` to list their UID, primary group and supplementary groups. Comparing that with the group on the file is what decides whether the group column applies. A user who was added to a group but has not logged out and back in will not have the new membership in their current session, which is a frequent cause of this exact report.\n\nThird, check the directories on the way to the file with `ls -ld` on each one, or `namei -l /path/to/file`. Reading a file requires execute permission on every directory in its path; a missing x anywhere above it produces the same Permission denied even though the file's own mode looks fine.\n\nIf all of that looks right, the remaining candidates are SELinux context and an access control list, which `ls -l` hints at with a trailing . or + on the mode.",
+          "rubric": [
+            "Starts with ls -l on the file to read the mode, owner and group",
+            "Checks the user's own identity and group memberships with id",
+            "Checks execute permission on the parent directories along the path",
+            "Mentions that a new group membership does not apply to an existing session, or names SELinux/ACLs as the next step"
+          ],
+          "explanation": "The path check is the one most people skip, and it is the one that explains the confusing cases."
+        }
+      ]
+    },
+    {
+      "name": "Installing & Updating Software",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Packages",
+          "question": "What does an RPM package contain besides the files to be installed?",
+          "options": [
+            "Metadata: the name and version, a summary, the list of files, dependencies, and scripts to run around the install",
+            "Only the files; everything else is stored in the repository",
+            "The source code the binaries were built from",
+            "A copy of the whole operating system's file list"
+          ],
+          "correct": 0,
+          "explanation": "That metadata is why `rpm -qf` can name the package a file came from, and why removing a package knows exactly what to take away."
+        },
+        {
+          "type": "matching",
+          "category": "Packages",
+          "question": "An RPM filename is `tree-1.8.0-10.el9.x86_64.rpm`. Match each piece to what it means.",
+          "pairs": [
+            {
+              "left": "tree",
+              "right": "The package name"
+            },
+            {
+              "left": "1.8.0",
+              "right": "The upstream version of the software"
+            },
+            {
+              "left": "10",
+              "right": "The release: which build of that version this is"
+            },
+            {
+              "left": "el9",
+              "right": "The distribution it was built for"
+            },
+            {
+              "left": "x86_64",
+              "right": "The architecture it runs on"
+            }
+          ],
+          "explanation": "noarch in the architecture position means the package has no compiled binaries, so it works anywhere -- documentation and pure Python packages are usually noarch."
+        },
+        {
+          "type": "mc",
+          "category": "rpm vs dnf",
+          "question": "What is the main difference between `rpm` and `dnf`?",
+          "options": [
+            "dnf works with repositories and resolves dependencies; rpm works on packages and the local database, and does not fetch anything",
+            "rpm is for RHEL and dnf is for other distributions",
+            "dnf can only install, rpm can only query",
+            "They are the same command under different names"
+          ],
+          "correct": 0,
+          "explanation": "Both end up writing to the same RPM database. Install with dnf so dependencies are handled; use rpm when you want to ask questions about what is already there."
+        },
+        {
+          "type": "shell",
+          "category": "Querying",
+          "question": "List every package installed on the system, using the low-level RPM tool.",
+          "places": [
+            "/usr/bin/rpm"
+          ],
+          "solution": "rpm -qa",
+          "explanation": "`-q` is query and `-a` is all. On a real machine this prints hundreds of lines, so it is nearly always piped into grep or wc."
+        },
+        {
+          "type": "shell",
+          "category": "Querying",
+          "question": "Check whether the package named vim-enhanced is installed, asking about that one package by name.",
+          "places": [
+            "/usr/bin/rpm"
+          ],
+          "solution": "rpm -q vim-enhanced",
+          "explanation": "It prints the full name and version if the package is there, and 'package vim-enhanced is not installed' if it is not. The exit status differs too, which is what makes it useful in a script."
+        },
+        {
+          "type": "shell",
+          "category": "Querying",
+          "question": "Find out which installed package owns the file /usr/bin/awk.",
+          "places": [
+            "/usr/bin/awk"
+          ],
+          "hint": "-f asks about a file.",
+          "solution": "rpm -qf /usr/bin/awk",
+          "explanation": "This is the question to ask when a command behaves unexpectedly: knowing the package tells you what to reinstall, what to read the changelog of, and what documentation to look for."
+        },
+        {
+          "type": "matching",
+          "category": "Querying",
+          "question": "Match each rpm query option to the question it answers.",
+          "pairs": [
+            {
+              "left": "-qa",
+              "right": "What is installed on this system?"
+            },
+            {
+              "left": "-q NAME",
+              "right": "Is this one package installed?"
+            },
+            {
+              "left": "-qf PATH",
+              "right": "Which package does this file belong to?"
+            },
+            {
+              "left": "-ql NAME",
+              "right": "What files did this package install?"
+            },
+            {
+              "left": "-qi NAME",
+              "right": "What is this package, in detail?"
+            },
+            {
+              "left": "-qc NAME",
+              "right": "Which of its files are configuration?"
+            }
+          ],
+          "explanation": "Every one of them starts with -q. If you remember nothing else, remember that rpm without -q is about changing the system and rpm with -q is about asking it questions."
+        },
+        {
+          "type": "shell",
+          "category": "Searching",
+          "question": "Search the enabled repositories for a package named tree.",
+          "places": [
+            "/usr/bin/dnf"
+          ],
+          "solution": "dnf search tree",
+          "explanation": "`dnf search` looks at names and summaries. Unlike rpm, it can find things that are not installed yet, because it reads the repository metadata."
+        },
+        {
+          "type": "shell",
+          "category": "Searching",
+          "question": "Find out which package would provide the file /usr/bin/awk, asking the repositories rather than the installed database.",
+          "places": [
+            "/usr/bin/dnf"
+          ],
+          "hint": "dnf has a subcommand for exactly this question.",
+          "solution": "dnf provides /usr/bin/awk",
+          "explanation": "This is the fix for 'command not found': it names the package to install. `dnf whatprovides` is the same subcommand under a longer name."
+        },
+        {
+          "type": "shell",
+          "category": "Installing",
+          "question": "Install the package named tree from the repositories, answering yes to the confirmation automatically.",
+          "places": [
+            "/usr/bin/dnf"
+          ],
+          "hint": "Installing software needs superuser rights, and -y answers the prompt.",
+          "solution": "sudo dnf install -y tree",
+          "verify": "rpm -q tree",
+          "explanation": "dnf works out the dependencies, downloads everything and installs it in one transaction. `-y` is fine for a known package and risky in a script that might pull in something unexpected."
+        },
+        {
+          "type": "tf",
+          "category": "Installing",
+          "question": "Installing a package with `rpm -i package.rpm` handles its dependencies the same way dnf does.",
+          "correct": false,
+          "explanation": "rpm checks dependencies and refuses if they are missing, but it will not go and find them. That is exactly what dnf was built to do on top of it."
+        },
+        {
+          "type": "mc",
+          "category": "Groups & Modules",
+          "question": "What problem do AppStream modules solve on RHEL 9?",
+          "options": [
+            "They let the distribution ship several versions of the same application, so you can pick the stream your software needs",
+            "They compress packages so downloads are smaller",
+            "They replace the need for dependency resolution",
+            "They allow packages to be installed without root"
+          ],
+          "correct": 0,
+          "explanation": "In the [d] column of `dnf module list`, d marks the default stream, e an enabled one and i an installed profile."
+        },
+        {
+          "type": "shell",
+          "category": "Flatpak",
+          "question": "List the Flatpak applications installed on this system.",
+          "places": [
+            "/usr/bin/flatpak"
+          ],
+          "solution": "flatpak list",
+          "explanation": "Flatpak keeps its own inventory, entirely separate from the RPM database -- `rpm -qa` will never show a Flatpak application."
+        },
+        {
+          "type": "mc",
+          "category": "Flatpak",
+          "question": "How does a Flatpak application differ from an RPM package?",
+          "options": [
+            "It bundles its own dependencies and runs sandboxed, separately from the system's RPM database",
+            "It is simply an RPM with a different file extension",
+            "It can only be installed by root",
+            "It is installed into /usr/bin like everything else"
+          ],
+          "correct": 0,
+          "explanation": "That bundling is the trade: a Flatpak application can use a newer library than the system ships, at the cost of disk space and of not being covered by the system's own updates."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Installing",
+          "question": "Which single dnf subcommand both finds and installs a package together with everything it depends on?",
+          "answers": [
+            "install",
+            "dnf install",
+            "install subcommand"
+          ],
+          "explanation": "Everything else -- search, provides, info, list -- only reads. install is the one that changes the system, which is why it needs sudo."
+        },
+        {
+          "type": "short_answer",
+          "category": "Searching",
+          "question": "You type a command and the shell replies 'command not found', but you are sure the command exists on RHEL. Describe how you would work out which package provides it and get it installed, naming the commands you would use at each step.",
+          "answerLang": null,
+          "modelAnswer": "First confirm that it really is missing rather than just not on your PATH: `which thecommand` and `ls /usr/bin/thecommand` will both come up empty if it is genuinely not installed.\n\nThen ask the repositories which package would provide it. `dnf provides thecommand` searches by name, and `dnf provides /usr/bin/thecommand` searches by the full path, which is more precise when several packages ship a similarly named binary. The answer names the package, its version and the repository it would come from.\n\nInstall it with `sudo dnf install <package>`, reading the transaction summary before agreeing so you can see what else is being pulled in as a dependency.\n\nFinally, confirm the result: `rpm -q <package>` says it is installed, and `rpm -ql <package> | grep bin` shows where the command actually landed.",
+          "rubric": [
+            "Uses dnf provides (or whatprovides), ideally with the full path, to identify the package",
+            "Installs with sudo dnf install and mentions reviewing the transaction or dependencies",
+            "Verifies afterwards with rpm -q, rpm -ql or by running the command"
+          ],
+          "explanation": "dnf provides is the step people miss; they guess at a package name instead of asking the repository which package owns the file."
+        }
+      ]
+    },
+    {
+      "name": "Finding Files, Storage & Archives",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "find vs locate",
+          "question": "What is the practical difference between `find` and `locate`?",
+          "options": [
+            "find walks the filesystem live and is always current; locate reads a prebuilt index and is much faster but can be out of date",
+            "find only searches your home directory, locate searches everywhere",
+            "locate walks the filesystem live, find reads an index",
+            "They are the same command; locate is an alias for find"
+          ],
+          "correct": 0,
+          "explanation": "The locate index is refreshed by `updatedb`, usually from a nightly job. A file created five minutes ago will not be in it yet."
+        },
+        {
+          "type": "shell",
+          "category": "Finding Files",
+          "question": "Search the whole of ~/labs for files whose name ends in .csv, and show their paths.",
+          "places": [
+            "~/labs"
+          ],
+          "hint": "Quote the pattern so the shell does not try to expand it first.",
+          "solution": "find ~/labs -name '*.csv'",
+          "explanation": "Quoting matters: unquoted, the shell would expand *.csv against your current directory and hand find whatever it found there."
+        },
+        {
+          "type": "shell",
+          "category": "Finding Files",
+          "question": "Count how many directories under ~/labs/survey have a name starting with day-.",
+          "places": [
+            "~/labs/survey"
+          ],
+          "hint": "-type d restricts the search to directories.",
+          "solution": "find ~/labs/survey -type d -name 'day-*' | wc -l",
+          "explanation": "The common -type values are f for a regular file, d for a directory and l for a symbolic link."
+        },
+        {
+          "type": "shell",
+          "category": "Finding Files",
+          "question": "Under ~/labs, list only the regular files whose name ends in .txt -- not directories, not links.",
+          "places": [
+            "~/labs"
+          ],
+          "solution": "find ~/labs -type f -name '*.txt'",
+          "explanation": "Tests can be combined freely; find applies them all and prints what satisfies every one."
+        },
+        {
+          "type": "matching",
+          "category": "Finding Files",
+          "question": "Match each find test to what it selects.",
+          "pairs": [
+            {
+              "left": "-name",
+              "right": "Files whose name matches a pattern"
+            },
+            {
+              "left": "-iname",
+              "right": "The same, ignoring upper and lower case"
+            },
+            {
+              "left": "-type",
+              "right": "Only files of one kind, such as f or d"
+            },
+            {
+              "left": "-size",
+              "right": "Files above, below or at a given size"
+            },
+            {
+              "left": "-user",
+              "right": "Files belonging to one account"
+            },
+            {
+              "left": "-mtime",
+              "right": "Files changed a given number of days ago"
+            }
+          ],
+          "explanation": "`-perm` is the other one worth knowing: `find / -perm -4000` lists every setuid program on the system, which is a standard security check."
+        },
+        {
+          "type": "tf",
+          "category": "Finding Files",
+          "question": "`find / -name passwd` may print paths you cannot read, along with Permission denied messages for directories you cannot enter.",
+          "correct": true,
+          "explanation": "find reports what it can reach and complains about what it cannot. `2> /dev/null` is the usual way to keep the complaints out of the way."
+        },
+        {
+          "type": "shell",
+          "category": "Measuring Space",
+          "question": "Show how much space each mounted filesystem has, in units a person can read at a glance.",
+          "places": [
+            "/"
+          ],
+          "solution": "df -h",
+          "explanation": "`-h` turns bytes into K, M and G. `df -i` shows inode usage instead, which is what to check when a filesystem claims to be full but `df -h` says otherwise."
+        },
+        {
+          "type": "shell",
+          "category": "Measuring Space",
+          "question": "Show the total size of the directory ~/labs/survey and everything under it, as a single human-readable figure.",
+          "places": [
+            "~/labs/survey"
+          ],
+          "hint": "-s summarises instead of listing every subdirectory.",
+          "solution": "du -sh ~/labs/survey",
+          "explanation": "Without -s, du prints a line for every directory it walks. `du -sh *` in a directory is the quick way to find which subdirectory is eating the disk."
+        },
+        {
+          "type": "mc",
+          "category": "Measuring Space",
+          "question": "What is the difference between what `df` reports and what `du` reports?",
+          "options": [
+            "df asks the filesystem how much space it has used; du adds up the sizes of the files it walks",
+            "df is for local disks, du is for network mounts",
+            "df measures inodes, du measures bytes",
+            "They report the same thing in different units"
+          ],
+          "correct": 0,
+          "explanation": "They can disagree. A deleted file still held open by a running process is gone as far as du is concerned but still counted by df -- which is why restarting the process suddenly frees the space."
+        },
+        {
+          "type": "shell",
+          "category": "Block Devices",
+          "question": "Show the disks and partitions attached to this machine as a tree, with their sizes and mount points.",
+          "places": [
+            "/dev"
+          ],
+          "solution": "lsblk",
+          "explanation": "The tree shows which partitions belong to which disk. A partition with no mount point listed is present but not currently mounted."
+        },
+        {
+          "type": "shell",
+          "category": "Mounting",
+          "question": "Attach the filesystem on /dev/sdb1 to the directory /mnt so its contents become reachable.",
+          "places": [
+            "/mnt"
+          ],
+          "hint": "Mounting needs superuser rights.",
+          "solution": "sudo mount /dev/sdb1 /mnt",
+          "verify": "df -h | grep sdb1",
+          "explanation": "Mounting hides whatever was already in the mount point directory until you unmount again -- the old contents are not lost, just covered over."
+        },
+        {
+          "type": "mc",
+          "category": "Mounting",
+          "question": "You try to unmount a filesystem and get 'target is busy'. What is the usual cause?",
+          "options": [
+            "Some process has a file open on it, or a shell's working directory is inside it",
+            "The filesystem is corrupt and must be repaired first",
+            "You forgot to run mount before umount",
+            "The device has been physically removed"
+          ],
+          "correct": 0,
+          "explanation": "`lsof /mnt` or `fuser -m /mnt` names the culprits. Very often the culprit is your own shell, sitting in the directory you are trying to unmount."
+        },
+        {
+          "type": "mc",
+          "category": "fstab",
+          "question": "What is /etc/fstab for?",
+          "options": [
+            "It lists the filesystems to mount at boot, and gives names to mounts you can then request by mount point alone",
+            "It records which filesystems are mounted right now",
+            "It stores the partition table",
+            "It configures which users may run mount"
+          ],
+          "correct": 0,
+          "explanation": "Once a filesystem is in fstab, `mount /mnt` is enough -- mount looks the rest up. A mistake in fstab can stop the machine booting, which is why you test with `mount -a` before rebooting."
+        },
+        {
+          "type": "fill_blank",
+          "category": "fstab",
+          "question": "Which identifier should an /etc/fstab entry use instead of a device name like /dev/sdb1, because it does not change when hardware is added or moved?",
+          "answers": [
+            "UUID",
+            "the UUID",
+            "uuid",
+            "universally unique identifier"
+          ],
+          "explanation": "A filesystem label works too and is more readable, but labels can collide between two disks; a UUID cannot."
+        },
+        {
+          "type": "shell",
+          "category": "Archives",
+          "question": "From ~/labs, pack the whole text directory into an archive file called text.tar.",
+          "places": [
+            "~/labs/text"
+          ],
+          "cwd": "~/labs",
+          "hint": "c creates, f names the file.",
+          "solution": "tar -cf text.tar text",
+          "verify": "tar -tf text.tar",
+          "explanation": "The order of the letters does not matter but f must come last, because the filename follows it. tar on its own does not compress anything."
+        },
+        {
+          "type": "shell",
+          "category": "Archives",
+          "question": "From ~/labs, create a gzip-compressed archive of the text directory called text.tar.gz in one command.",
+          "places": [
+            "~/labs/text"
+          ],
+          "cwd": "~/labs",
+          "hint": "One extra letter adds the compression.",
+          "solution": "tar -czf text.tar.gz text",
+          "verify": "tar -tzf text.tar.gz",
+          "explanation": "z is gzip, j is bzip2 and J is xz. The convention is to name the file after the letters you used, so a reader knows how to open it."
+        },
+        {
+          "type": "matching",
+          "category": "Archives",
+          "question": "Match each tar option to what it does.",
+          "pairs": [
+            {
+              "left": "-c",
+              "right": "Create a new archive"
+            },
+            {
+              "left": "-x",
+              "right": "Extract from an archive"
+            },
+            {
+              "left": "-t",
+              "right": "List the contents without extracting"
+            },
+            {
+              "left": "-f",
+              "right": "Name the archive file, which must follow immediately"
+            },
+            {
+              "left": "-v",
+              "right": "Report each file as it is handled"
+            },
+            {
+              "left": "-z",
+              "right": "Compress or decompress with gzip along the way"
+            }
+          ],
+          "explanation": "c, x and t are mutually exclusive: every tar command picks exactly one of them."
+        },
+        {
+          "type": "short_answer",
+          "category": "Measuring Space",
+          "question": "A colleague reports that / is full. Describe how you would find out what is using the space, and name at least one situation where the obvious answer would be misleading.",
+          "answerLang": null,
+          "modelAnswer": "Start with `df -h` to confirm which filesystem is actually full -- it is often /var or /home rather than / itself, and the fix is different for each.\n\nThen work down the tree. `sudo du -sh /*` gives a total for each top-level directory; whichever is largest, repeat `du -sh *` inside it. A few rounds of that narrows the problem to a specific directory, usually a log directory, a package cache or someone's home.\n\nTwo situations where this misleads:\n\nFirst, a deleted file that a process still holds open. The space is not returned until the process closes it, so du no longer sees the file but df still counts the space. `lsof +L1` lists these, and restarting the process frees the space.\n\nSecond, inode exhaustion. A filesystem with millions of tiny files can refuse to create anything new while `df -h` still shows free space; `df -i` is what reveals it.\n\nA mount point with files hidden underneath it is a third: something was written to the directory before the filesystem was mounted over it, and that data is invisible until you unmount.",
+          "rubric": [
+            "Uses df -h first to identify which filesystem is full",
+            "Uses du, narrowing down directory by directory, to find what is using the space",
+            "Names a misleading case: a deleted-but-open file, inode exhaustion, or data hidden under a mount point"
+          ],
+          "explanation": "The deleted-but-open file is the classic: du and df disagree, and nothing you delete seems to help."
+        }
+      ]
+    },
+    {
+      "name": "Processes & Services",
+      "questions": [
+        {
+          "type": "shell",
+          "category": "Listing Processes",
+          "question": "List every process running on the system, for every user, in the BSD style that includes the owner, the CPU and memory columns and the full command.",
+          "places": [
+            "/usr/bin/ps"
+          ],
+          "hint": "Three letters, no dash.",
+          "solution": "ps aux",
+          "explanation": "a means every user's processes, u adds the owner and resource columns, and x includes processes with no controlling terminal -- which is most daemons."
+        },
+        {
+          "type": "shell",
+          "category": "Listing Processes",
+          "question": "List every process in the UNIX style, which shows the parent process ID of each one.",
+          "places": [
+            "/usr/bin/ps"
+          ],
+          "hint": "Two options with a dash: e for every, f for full format.",
+          "solution": "ps -ef",
+          "explanation": "The PPID column is what `ps aux` does not give you, and it is the column that tells you which process started which."
+        },
+        {
+          "type": "matching",
+          "category": "Listing Processes",
+          "question": "Match each column of `ps aux` to what it reports.",
+          "pairs": [
+            {
+              "left": "USER",
+              "right": "The account the process runs as"
+            },
+            {
+              "left": "PID",
+              "right": "The process's own numeric identifier"
+            },
+            {
+              "left": "%CPU",
+              "right": "The share of processor time it has been using"
+            },
+            {
+              "left": "RSS",
+              "right": "The physical memory it currently occupies"
+            },
+            {
+              "left": "STAT",
+              "right": "Its state: running, sleeping, stopped or zombie"
+            },
+            {
+              "left": "TTY",
+              "right": "The terminal it is attached to, or ? for none"
+            }
+          ],
+          "explanation": "A ? in TTY is the mark of a daemon: nothing is attached to it, so there is nowhere for it to print."
+        },
+        {
+          "type": "mc",
+          "category": "Process States",
+          "question": "What is a zombie process?",
+          "options": [
+            "One that has finished but whose exit status has not yet been collected by its parent",
+            "One that is using all the CPU and cannot be killed",
+            "One that has lost its parent and been adopted by systemd",
+            "One that has been stopped with Ctrl+Z"
+          ],
+          "correct": 0,
+          "explanation": "A zombie occupies no memory and no CPU -- just a slot in the process table. You cannot kill it, because it is already dead; you fix the parent, or the parent exits and systemd cleans up."
+        },
+        {
+          "type": "shell",
+          "category": "Jobs",
+          "question": "Start `sleep 300` so that it runs in the background and gives you your prompt straight back.",
+          "places": [
+            "/usr/bin/sleep"
+          ],
+          "hint": "One character at the end of the line.",
+          "solution": "sleep 300 &",
+          "verify": "jobs",
+          "explanation": "The shell answers with the job number in brackets and the PID. The job belongs to this shell: close the terminal and, unless it was disowned or started with nohup, it goes with it."
+        },
+        {
+          "type": "matching",
+          "category": "Jobs",
+          "question": "Match each job-control action to what it does.",
+          "pairs": [
+            {
+              "left": "command &",
+              "right": "Start it in the background from the outset"
+            },
+            {
+              "left": "Ctrl+Z",
+              "right": "Suspend the foreground job and return the prompt"
+            },
+            {
+              "left": "bg",
+              "right": "Let a suspended job carry on, in the background"
+            },
+            {
+              "left": "fg",
+              "right": "Bring a background or suspended job to the foreground"
+            },
+            {
+              "left": "jobs",
+              "right": "List this shell's jobs and their numbers"
+            },
+            {
+              "left": "Ctrl+C",
+              "right": "Send the interrupt signal to the foreground job"
+            }
+          ],
+          "explanation": "Jobs are numbered per shell and referred to as %1, %2 and so on, which is different from a PID: `kill %1` and `kill 3000` may mean the same process."
+        },
+        {
+          "type": "mc",
+          "category": "Signals",
+          "question": "What is the difference between signal 15 (TERM) and signal 9 (KILL)?",
+          "options": [
+            "TERM asks the process to shut down cleanly and can be handled; KILL is delivered by the kernel and cannot be caught or ignored",
+            "TERM works only on your own processes, KILL works on anyone's",
+            "KILL is the default and TERM has to be asked for",
+            "They are identical; the numbers are aliases"
+          ],
+          "correct": 0,
+          "explanation": "Always try TERM first. KILL gives the process no chance to flush its buffers or remove its lock files, which is how databases end up corrupt."
+        },
+        {
+          "type": "mc",
+          "category": "Signals",
+          "question": "Which command sends the default TERM signal to the process with PID 1234?",
+          "options": [
+            "kill 1234",
+            "kill -9 1234",
+            "killall 1234",
+            "pkill 1234"
+          ],
+          "correct": 0,
+          "explanation": "`kill` with no signal sends 15. `kill -9` forces it, `killall` takes a name rather than a PID, and `pkill` matches a pattern."
+        },
+        {
+          "type": "mc",
+          "category": "Monitoring",
+          "question": "What does `top` give you that `ps` does not?",
+          "options": [
+            "A live view that refreshes, so you can watch which process is consuming resources over time",
+            "The ability to see other users' processes",
+            "The parent process ID",
+            "A record of processes that have already exited"
+          ],
+          "correct": 0,
+          "explanation": "Inside top, k kills a process, r renices one, and 1 breaks the CPU line out per core. `top -bn1` produces one plain snapshot, which is what you use in a script."
+        },
+        {
+          "type": "mc",
+          "category": "systemd",
+          "question": "What is systemd?",
+          "options": [
+            "The first process started at boot, which starts and supervises everything else on the system",
+            "The kernel module that manages memory",
+            "A package manager for services",
+            "The login shell used by system accounts"
+          ],
+          "correct": 0,
+          "explanation": "It runs as PID 1. Everything it manages is described by a unit -- a service, a socket, a timer, a mount or a target."
+        },
+        {
+          "type": "shell",
+          "category": "systemd",
+          "question": "Show the current status of the crond service, including whether it is running and enabled.",
+          "places": [
+            "/usr/bin/systemctl"
+          ],
+          "solution": "systemctl status crond",
+          "explanation": "The two lines to read are Loaded, which says whether it starts at boot, and Active, which says whether it is running now. The last few log lines come free."
+        },
+        {
+          "type": "shell",
+          "category": "systemd",
+          "question": "List the service units that systemd currently has loaded.",
+          "places": [
+            "/usr/bin/systemctl"
+          ],
+          "solution": "systemctl list-units --type=service",
+          "explanation": "`--all` adds the ones that are loaded but inactive, and `list-unit-files` shows every unit installed on the system, whether loaded or not."
+        },
+        {
+          "type": "shell",
+          "category": "systemd",
+          "question": "Stop the crond service, which is currently running.",
+          "places": [
+            "/usr/bin/systemctl"
+          ],
+          "hint": "Changing a service needs superuser rights.",
+          "solution": "sudo systemctl stop crond",
+          "verify": "systemctl is-active crond",
+          "explanation": "Stopping affects only the running system. After a reboot the service comes back, because stop and disable are two different questions."
+        },
+        {
+          "type": "shell",
+          "category": "systemd",
+          "question": "Arrange for the atd service to start automatically at every boot, without starting it right now.",
+          "places": [
+            "/usr/bin/systemctl"
+          ],
+          "solution": "sudo systemctl enable atd",
+          "verify": "systemctl is-enabled atd",
+          "explanation": "enable creates a symlink from the target's wants directory to the unit file. `systemctl enable --now` both enables and starts it in one go."
+        },
+        {
+          "type": "mc",
+          "category": "systemd",
+          "question": "What is the difference between `systemctl start` and `systemctl enable`?",
+          "options": [
+            "start runs the service now; enable makes it start at boot. Neither implies the other",
+            "start is temporary and enable is permanent, but both start the service immediately",
+            "enable runs the service now, start schedules it for the next boot",
+            "They are two names for the same action"
+          ],
+          "correct": 0,
+          "explanation": "This is the single most common systemd mistake: a service configured, started and working, that quietly does not come back after a reboot because it was never enabled."
+        },
+        {
+          "type": "matching",
+          "category": "systemd",
+          "question": "Match each systemctl subcommand to what it does.",
+          "pairs": [
+            {
+              "left": "start",
+              "right": "Run the unit now"
+            },
+            {
+              "left": "stop",
+              "right": "Shut the unit down now"
+            },
+            {
+              "left": "restart",
+              "right": "Stop it and start it again"
+            },
+            {
+              "left": "reload",
+              "right": "Ask it to reread its configuration without dropping connections"
+            },
+            {
+              "left": "enable",
+              "right": "Arrange for it to start at boot"
+            },
+            {
+              "left": "disable",
+              "right": "Stop it from starting at boot"
+            }
+          ],
+          "explanation": "`reload-or-restart` is the safe middle ground: it reloads if the unit supports reloading and restarts if it does not."
+        },
+        {
+          "type": "tf",
+          "category": "systemd",
+          "question": "`systemctl restart` and `systemctl reload` do the same thing.",
+          "correct": false,
+          "explanation": "restart stops the process and starts a new one, dropping everything in progress. reload asks the running process to reread its configuration, which keeps existing connections alive -- but not every service supports it."
+        },
+        {
+          "type": "short_answer",
+          "category": "Signals",
+          "question": "A web server process has stopped responding and needs to be shut down. Describe the order in which you would try to stop it, and explain why starting with `kill -9` is a bad habit.",
+          "answerLang": null,
+          "modelAnswer": "First find the process: `ps -ef | grep httpd` or `pgrep -l httpd` gives the PID, and on a service-managed daemon the better first move is `systemctl status httpd`, which shows the main PID and whatever the unit has logged.\n\nIf it is a managed service, `sudo systemctl stop httpd` is the right stop, because it shuts down the whole control group rather than one process.\n\nOtherwise send the default signal: `kill <PID>`, which is SIGTERM. That asks the process to shut down cleanly, giving it the chance to finish the request it is handling, flush its logs, close its database connections and remove its PID file. Wait a few seconds and check with `ps` whether it went.\n\nOnly if it ignores TERM do you escalate to `kill -9`, which is SIGKILL. The kernel delivers that one directly and the process gets no chance to run any cleanup at all. That is why starting there is a bad habit: you can be left with a stale lock file or PID file that stops the service restarting, a half-written file, or in the worst case a corrupt database. SIGKILL is the last resort, not the first move.",
+          "rubric": [
+            "Identifies the process first, with ps, pgrep or systemctl status",
+            "Sends SIGTERM (plain kill, or systemctl stop) first and waits to see whether it worked",
+            "Explains that SIGKILL cannot be caught so no cleanup runs, risking stale locks or corrupt data"
+          ],
+          "explanation": "The rule of thumb: ask nicely, wait, then insist. Reaching for -9 first is the process-management equivalent of pulling the power cable."
+        }
+      ]
+    },
+    {
+      "name": "Networking & SSH",
+      "questions": [
+        {
+          "type": "shell",
+          "category": "Addresses",
+          "question": "Show the IP addresses configured on every network interface on this machine.",
+          "places": [
+            "/usr/sbin/ip"
+          ],
+          "hint": "The modern command is two letters, and `a` is short for address.",
+          "solution": "ip addr show",
+          "explanation": "`ip a` is the usual shorthand. It replaces ifconfig, which is not installed on a minimal RHEL 9 system at all."
+        },
+        {
+          "type": "shell",
+          "category": "Addresses",
+          "question": "Show this machine's routing table, including which gateway traffic to other networks goes through.",
+          "places": [
+            "/usr/sbin/ip"
+          ],
+          "solution": "ip route",
+          "explanation": "The line beginning `default via` names the gateway. Without a default route a machine can reach its own subnet and nothing else, which is a very common misconfiguration."
+        },
+        {
+          "type": "matching",
+          "category": "Addresses",
+          "question": "Match each piece of network configuration to what it decides.",
+          "pairs": [
+            {
+              "left": "IP address",
+              "right": "How this machine is identified on the network"
+            },
+            {
+              "left": "Netmask or prefix",
+              "right": "Which addresses count as being on the same local network"
+            },
+            {
+              "left": "Default gateway",
+              "right": "Where to send traffic destined for any other network"
+            },
+            {
+              "left": "DNS server",
+              "right": "What turns a name into an address"
+            },
+            {
+              "left": "Hostname",
+              "right": "The name this machine calls itself"
+            }
+          ],
+          "explanation": "When something cannot be reached, work down that list in order: address, then netmask, then gateway, then DNS. Most faults are one of the four."
+        },
+        {
+          "type": "mc",
+          "category": "Addresses",
+          "question": "In the address 172.25.250.10/24, what does the /24 mean?",
+          "options": [
+            "The first 24 bits are the network part, leaving the last 8 bits for hosts",
+            "There are 24 usable addresses on this network",
+            "The address was leased for 24 hours",
+            "It is the 24th interface on the machine"
+          ],
+          "correct": 0,
+          "explanation": "/24 is the same as the netmask 255.255.255.0. Anything from 172.25.250.1 to 172.25.250.254 is on the same local network and is reached directly rather than through the gateway."
+        },
+        {
+          "type": "shell",
+          "category": "Names",
+          "question": "Show the name this machine calls itself.",
+          "places": [
+            "/etc/hosts"
+          ],
+          "solution": "hostname",
+          "explanation": "`hostnamectl` gives the fuller picture -- the static hostname plus the operating system, kernel and virtualization -- and `hostnamectl set-hostname` is how you change it permanently."
+        },
+        {
+          "type": "shell",
+          "category": "Names",
+          "question": "Show the file that maps names to addresses locally, before DNS is consulted.",
+          "places": [
+            "/etc/hosts"
+          ],
+          "solution": "cat /etc/hosts",
+          "explanation": "/etc/hosts is checked first on a default RHEL system, which is decided by the hosts line in /etc/nsswitch.conf. It is how a lab machine resolves names with no DNS server at all."
+        },
+        {
+          "type": "shell",
+          "category": "Connectivity",
+          "question": "Show which TCP ports this machine is listening on, with numeric addresses and the process holding each one.",
+          "places": [
+            "/usr/sbin/ss"
+          ],
+          "hint": "Four flags: t for TCP, l for listening, n for numeric, p for process.",
+          "solution": "ss -tlnp",
+          "explanation": "This is the answer to 'is the service actually up and accepting connections'. ss replaces netstat, which is no longer installed by default."
+        },
+        {
+          "type": "shell",
+          "category": "NetworkManager",
+          "question": "List the NetworkManager connection profiles configured on this machine.",
+          "places": [
+            "/usr/bin/nmcli"
+          ],
+          "solution": "nmcli connection show",
+          "explanation": "NetworkManager is what actually owns the configuration on RHEL 9. Changing an address with `ip addr add` works until NetworkManager or a reboot undoes it."
+        },
+        {
+          "type": "mc",
+          "category": "NetworkManager",
+          "question": "Why is `ip addr add` not the right way to give a machine a permanent address on RHEL 9?",
+          "options": [
+            "It changes only the running kernel's configuration, so NetworkManager or a reboot discards it",
+            "It requires a reboot to take effect",
+            "It only works on wireless interfaces",
+            "It is deprecated and no longer functions"
+          ],
+          "correct": 0,
+          "explanation": "`ip` is the right tool for looking and for a temporary change while testing. `nmcli connection modify` is what writes the change to a profile that survives."
+        },
+        {
+          "type": "mc",
+          "category": "SSH",
+          "question": "What does SSH provide that telnet does not?",
+          "options": [
+            "An encrypted connection, so the password and the session cannot be read off the wire",
+            "The ability to run commands on a remote machine",
+            "A login prompt",
+            "Support for file transfer"
+          ],
+          "correct": 0,
+          "explanation": "telnet sends everything, passwords included, in plain text. That is why it is absent from a modern RHEL install and why SSH replaced it entirely."
+        },
+        {
+          "type": "mc",
+          "category": "SSH",
+          "question": "Which command logs in to the machine serverb as the user operator1?",
+          "options": [
+            "ssh operator1@serverb",
+            "ssh serverb operator1",
+            "ssh -u operator1 serverb",
+            "ssh --login=operator1 serverb"
+          ],
+          "correct": 0,
+          "explanation": "Without the user part, ssh uses your local username. `ssh operator1@serverb hostname` runs a single command on the far end and returns, without giving you an interactive shell."
+        },
+        {
+          "type": "shell",
+          "category": "SSH",
+          "question": "Generate an RSA SSH key pair for your account at the default location ~/.ssh/id_rsa, with no passphrase.",
+          "places": [
+            "~/.ssh"
+          ],
+          "hint": "-t chooses the type, -f the file, and -N takes the passphrase, which can be empty.",
+          "solution": "ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa",
+          "verify": "ls ~/.ssh",
+          "explanation": "Two files appear: id_rsa, the private key that never leaves this machine, and id_rsa.pub, the public half you are meant to hand out. A real key should have a passphrase."
+        },
+        {
+          "type": "matching",
+          "category": "SSH",
+          "question": "Match each SSH file to its role.",
+          "pairs": [
+            {
+              "left": "~/.ssh/id_rsa",
+              "right": "Your private key; it stays on your machine and must be mode 600"
+            },
+            {
+              "left": "~/.ssh/id_rsa.pub",
+              "right": "Your public key, the half you give to other machines"
+            },
+            {
+              "left": "~/.ssh/authorized_keys",
+              "right": "On the server: the public keys allowed to log in as this user"
+            },
+            {
+              "left": "~/.ssh/known_hosts",
+              "right": "The host keys of servers you have connected to before"
+            },
+            {
+              "left": "/etc/ssh/sshd_config",
+              "right": "The SSH server's own configuration"
+            }
+          ],
+          "explanation": "sshd refuses to use keys whose permissions are too open, which is the usual reason key authentication silently falls back to asking for a password."
+        },
+        {
+          "type": "mc",
+          "category": "SSH",
+          "question": "Which command copies your public key to a remote machine so you can log in without a password?",
+          "options": [
+            "ssh-copy-id operator1@serverb",
+            "ssh-keygen -c operator1@serverb",
+            "scp ~/.ssh/id_rsa operator1@serverb:",
+            "ssh --install-key operator1@serverb"
+          ],
+          "correct": 0,
+          "explanation": "ssh-copy-id appends the public key to the remote authorized_keys and fixes the permissions for you. Never copy id_rsa, the private key, anywhere -- that is the one thing that must not travel."
+        },
+        {
+          "type": "tf",
+          "category": "SSH",
+          "question": "A warning that the remote host identification has changed always means someone is intercepting the connection.",
+          "correct": false,
+          "explanation": "It means the host key does not match the one in known_hosts. That happens for innocent reasons -- the server was rebuilt, or an address was reused -- but it is also exactly what an interception looks like, so verify before removing the old entry."
+        },
+        {
+          "type": "short_answer",
+          "category": "Connectivity",
+          "question": "A user says 'the server is down' because a web page will not load. Describe a step-by-step check you would run from the server itself to find out where the problem actually is, and say what each step rules in or out.",
+          "answerLang": null,
+          "modelAnswer": "Start at the machine and work outward, so each step rules out a whole layer.\n\nFirst, does the server have the address it should? `ip addr show` tells you. If the interface has no address or the wrong one, nothing above this matters and the fix is in NetworkManager.\n\nSecond, can it reach anything beyond its own subnet? `ip route` should show a default route, and pinging the gateway confirms it answers. No default route means the machine is isolated even though its own address looks fine.\n\nThird, is the service running? `systemctl status httpd` says whether it is active, and `journalctl -u httpd` says why if it is not. A service that failed to start looks exactly like a network fault from the outside.\n\nFourth, is it actually listening? `ss -tlnp` should show something bound to port 80. A service that is active but listening only on 127.0.0.1 will serve the machine itself and nobody else.\n\nFifth, is the firewall letting it through? `firewall-cmd --list-all` shows whether http is among the allowed services. This is the step that explains 'it works with curl on the server but not from my desk'.\n\nSixth, is it a name problem rather than a reachability problem? If the address works in a browser but the name does not, the fault is DNS or a stale /etc/hosts entry, not the server.",
+          "rubric": [
+            "Checks the machine's own address and route before anything else",
+            "Checks that the service is running, with systemctl or the journal",
+            "Checks that it is listening on the expected port, with ss",
+            "Checks the firewall, and separates a name-resolution fault from a reachability fault"
+          ],
+          "explanation": "Each layer rules out everything below it, which is why working outward from the machine is faster than guessing in the middle."
+        }
+      ]
+    }
+  ]
+}

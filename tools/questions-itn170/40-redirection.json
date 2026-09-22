@@ -1,0 +1,578 @@
+{
+  "id": "redirection",
+  "name": "Editing, Redirection & Pipes",
+  "title": "Editing, Redirection & Pipes",
+  "description": "Chapters 8-9: creating and editing text files, the three standard streams, sending output to files and to /dev/null, joining commands with pipes, and the text toolkit -- grep, sed, awk, sort, uniq, cut, tr, wc, head and tail.",
+  "questions": [
+    {
+      "type": "mc",
+      "core": true,
+      "category": "Editing Files",
+      "question": "In vim, which key returns you from insert mode to command mode?",
+      "options": [
+        "Esc",
+        "Ctrl+C",
+        "Enter",
+        ":q"
+      ],
+      "correct": 0,
+      "explanation": "vim starts in command mode, `i` (and a/o/I/A/O) enters insert mode, and Esc always takes you back. If you are unsure which mode you are in, pressing Esc is harmless."
+    },
+    {
+      "type": "matching",
+      "core": true,
+      "category": "Editing Files",
+      "question": "Match each vim command-mode keystroke to what it does.",
+      "pairs": [
+        {
+          "left": "i",
+          "right": "Start inserting before the cursor"
+        },
+        {
+          "left": "o",
+          "right": "Open a new line below and start inserting"
+        },
+        {
+          "left": "dd",
+          "right": "Delete the current line"
+        },
+        {
+          "left": "yy",
+          "right": "Copy the current line"
+        },
+        {
+          "left": ":w",
+          "right": "Write the file without leaving"
+        },
+        {
+          "left": ":q!",
+          "right": "Leave without saving the changes"
+        }
+      ],
+      "explanation": "`:wq` (or `ZZ`) is the save-and-exit pair. `:q!` is the escape hatch when you have made a mess of a config file."
+    },
+    {
+      "type": "mc",
+      "category": "Editing Files",
+      "question": "Which editor ships in the minimal RHEL 9 install and is guaranteed to be there on any system you log into?",
+      "options": [
+        "vi, from the vim-minimal package",
+        "nano, from the nano package",
+        "gedit, from the GNOME desktop",
+        "emacs, from the emacs package"
+      ],
+      "correct": 0,
+      "explanation": "nano is friendlier and is usually installed, but vim-minimal (which provides `vi`) is the one you can count on. That is why RH124 teaches vim."
+    },
+    {
+      "type": "tf",
+      "core": true,
+      "category": "Standard Streams",
+      "question": "By default, error messages and normal output both arrive on the same stream, so `>` catches both.",
+      "correct": false,
+      "explanation": "They arrive at the same place -- your terminal -- but on different streams. Normal output is stdout (1), errors are stderr (2), and `>` only redirects stdout."
+    },
+    {
+      "type": "matching",
+      "core": true,
+      "category": "Standard Streams",
+      "question": "Match each stream or redirection to its meaning.",
+      "pairs": [
+        {
+          "left": "0",
+          "right": "Standard input -- where a command reads from"
+        },
+        {
+          "left": "1",
+          "right": "Standard output -- where normal results go"
+        },
+        {
+          "left": "2",
+          "right": "Standard error -- where messages about problems go"
+        },
+        {
+          "left": "2>&1",
+          "right": "Send errors to wherever output is currently going"
+        },
+        {
+          "left": "/dev/null",
+          "right": "A destination that discards everything written to it"
+        }
+      ],
+      "explanation": "The order matters in `> file 2>&1`: stdout is pointed at the file first, then stderr is pointed at the same place. Reversed, stderr would still go to the terminal."
+    },
+    {
+      "type": "mc",
+      "core": true,
+      "category": "Redirection",
+      "question": "What is the difference between `>` and `>>`?",
+      "options": [
+        "`>` replaces the file's contents, `>>` adds to the end of it",
+        "`>` writes to a file, `>>` writes to two files",
+        "`>` is for text, `>>` is for binary data",
+        "There is no difference; `>>` is just the older spelling"
+      ],
+      "correct": 0,
+      "explanation": "`>` truncates the file to nothing before writing, which is how a one-character typo destroys a log file. `>>` appends."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Redirection",
+      "question": "In ~/labs/text, write just the fruit names with no repeats into a new file called unique-fruit.txt.",
+      "places": [
+        "~/labs/text"
+      ],
+      "cwd": "~/labs/text",
+      "hint": "sort has a flag that collapses repeated lines.",
+      "solution": "sort -u fruit.txt > unique-fruit.txt",
+      "verify": "cat unique-fruit.txt",
+      "explanation": "`sort -u` is `sort | uniq` in one step. Without the redirect the list would print to the screen; `>` sends it to the file instead."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Redirection",
+      "question": "In ~/labs/text, add the single line `kiwi` to the end of fruit.txt without disturbing the lines already in it.",
+      "places": [
+        "~/labs/text/fruit.txt"
+      ],
+      "cwd": "~/labs/text",
+      "solution": "echo kiwi >> fruit.txt",
+      "verify": "tail -2 fruit.txt",
+      "explanation": "`>>` appends. Using `>` here would have thrown away all eleven existing lines and left a one-line file."
+    },
+    {
+      "type": "shell",
+      "category": "Redirection",
+      "question": "From ~/labs, list the contents of text/ together with a directory named nosuch/ that does not exist, so the listing still appears but the error message about nosuch/ is discarded.",
+      "places": [
+        "~/labs/text"
+      ],
+      "cwd": "~/labs",
+      "hint": "The error is on stream 2, and /dev/null discards whatever is written to it.",
+      "solution": "ls text nosuch 2> /dev/null",
+      "explanation": "`2>` redirects only stderr, so the listing on stdout is untouched. This is the standard way to silence the 'Permission denied' noise from a `find` that walks directories you cannot read. The command still reports failure in $?.",
+      "exitsNonZero": true
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Redirection",
+      "question": "In ~/labs/text, capture both the normal output and any error messages of `cat poem.txt missing.txt` into a file named both.txt.",
+      "places": [
+        "~/labs/text/poem.txt"
+      ],
+      "cwd": "~/labs/text",
+      "hint": "Point stdout at the file, then point stderr at the same place.",
+      "solution": "cat poem.txt missing.txt > both.txt 2>&1",
+      "verify": "tail -1 both.txt",
+      "explanation": "`&>` is the bash shorthand for the same thing. Writing `2>&1 > both.txt` instead would not work: stderr would be copied to the terminal before stdout was moved.",
+      "exitsNonZero": true
+    },
+    {
+      "type": "fill_blank",
+      "core": true,
+      "category": "Redirection",
+      "question": "What is the full path of the special file that silently discards anything written to it?",
+      "answers": [
+        "/dev/null",
+        "dev/null"
+      ],
+      "explanation": "It is often called the bit bucket. Reading from it gives you nothing at all, which is why `< /dev/null` is used to give a command empty input."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Redirection",
+      "question": "In ~/labs/text, count the lines in poem.txt and save that count to lines.txt, using input redirection so that wc reads from its standard input rather than being handed a filename.",
+      "places": [
+        "~/labs/text/poem.txt"
+      ],
+      "cwd": "~/labs/text",
+      "hint": "`<` connects a file to a command's standard input.",
+      "solution": "wc -l < poem.txt > lines.txt",
+      "verify": "cat lines.txt",
+      "explanation": "`wc -l poem.txt` would print `9 poem.txt`; reading from stdin it prints just `9`, because wc has no filename to report."
+    },
+    {
+      "type": "mc",
+      "core": true,
+      "category": "Pipes",
+      "question": "What does the pipe in `command1 | command2` connect?",
+      "options": [
+        "The standard output of command1 to the standard input of command2",
+        "The standard output of command1 to a file named command2",
+        "The standard error of command1 to the standard input of command2",
+        "Both commands to the same terminal, running them side by side"
+      ],
+      "correct": 0,
+      "explanation": "Errors are not piped -- they go straight to the terminal unless you add `2>&1`. That is why a failing command in a pipeline still shouts at you."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Pipes",
+      "question": "From your home directory, show how many entries `ls -a` reports in ~/labs/files, as a single number.",
+      "places": [
+        "~/labs/files"
+      ],
+      "cwd": "~",
+      "hint": "One entry per line is what `ls` gives a pipe, so counting lines counts entries.",
+      "solution": "ls -a labs/files | wc -l",
+      "explanation": "`ls` prints in columns for a terminal but one name per line when its output is a pipe, which is exactly what makes `ls | wc -l` work."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Pipes",
+      "question": "In ~/labs/text, show the last three lines of access.log that contain the status code 404.",
+      "places": [
+        "~/labs/text/access.log"
+      ],
+      "cwd": "~/labs/text",
+      "solution": "grep 404 access.log | tail -3",
+      "explanation": "Filter first, then trim. Doing it the other way -- `tail -3 access.log | grep 404` -- looks at only the last three lines of the whole file, which is a different question."
+    },
+    {
+      "type": "shell",
+      "category": "Pipes",
+      "question": "In ~/labs/text, pass fruit.txt through sort, saving the result into sorted.txt and printing it to the screen at the same time, in one command.",
+      "places": [
+        "~/labs/text/fruit.txt"
+      ],
+      "cwd": "~/labs/text",
+      "orderMatters": true,
+      "hint": "One command exists specifically to write to a file and pass the data along.",
+      "solution": "sort fruit.txt | tee sorted.txt",
+      "explanation": "`tee` is named for a T-fitting in plumbing. `tee -a` appends instead of overwriting, and `tee` can be given several filenames at once."
+    },
+    {
+      "type": "tf",
+      "category": "Pipes",
+      "question": "`ls | wc -l > count.txt` sends the output of wc to count.txt, not the output of ls.",
+      "correct": true,
+      "explanation": "The redirection belongs to the command it sits next to -- the last one in the pipeline. ls still feeds wc through the pipe."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "grep",
+      "question": "In ~/labs/text, show every line of hosts.txt that mentions a web server.",
+      "places": [
+        "~/labs/text/hosts.txt"
+      ],
+      "cwd": "~/labs/text",
+      "solution": "grep web hosts.txt",
+      "explanation": "grep prints whole lines that match, so you get the hostname and address alongside the role you searched for."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "grep",
+      "question": "In ~/labs/text, count how many lines of access.log came from the address 10.0.2.15.",
+      "places": [
+        "~/labs/text/access.log"
+      ],
+      "cwd": "~/labs/text",
+      "hint": "grep can do the counting itself.",
+      "solution": "grep -c 10.0.2.15 access.log",
+      "explanation": "`grep -c` counts matching lines, not matches -- a line with the address twice still counts once. `grep ... | wc -l` gives the same number here."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "grep",
+      "question": "In ~/labs/text, show the lines of services.txt that are not comments, ignoring any line that begins with #.",
+      "places": [
+        "~/labs/text/services.txt"
+      ],
+      "cwd": "~/labs/text",
+      "hint": "`-v` inverts the match, and `^` anchors a pattern to the start of the line.",
+      "solution": "grep -v '^#' services.txt",
+      "explanation": "This pairing is how you read a config file without the documentation. `grep -v '^#' file | grep -v '^$'` also drops the blank lines."
+    },
+    {
+      "type": "shell",
+      "category": "grep",
+      "question": "In ~/labs/text, find every line in poem.txt containing the word map, regardless of capitalization, and show the line number of each.",
+      "places": [
+        "~/labs/text/poem.txt"
+      ],
+      "cwd": "~/labs/text",
+      "solution": "grep -in map poem.txt",
+      "explanation": "`-i` ignores case and `-n` prefixes each result with its line number. Combined flags can be written together after one dash."
+    },
+    {
+      "type": "shell",
+      "category": "grep",
+      "question": "From ~/labs, search every file under text/ for the string mysql and report which file it is in.",
+      "places": [
+        "~/labs/text"
+      ],
+      "cwd": "~/labs",
+      "hint": "`-r` walks a directory tree.",
+      "solution": "grep -r mysql text/",
+      "explanation": "When grep searches more than one file it prefixes each match with the filename. `grep -rl` prints only the filenames, which is handier when the matches are long."
+    },
+    {
+      "type": "matching",
+      "core": true,
+      "category": "grep",
+      "question": "Match each grep option to what it does.",
+      "pairs": [
+        {
+          "left": "-i",
+          "right": "Ignore the difference between upper and lower case"
+        },
+        {
+          "left": "-v",
+          "right": "Print the lines that do not match"
+        },
+        {
+          "left": "-c",
+          "right": "Print how many lines matched instead of the lines"
+        },
+        {
+          "left": "-n",
+          "right": "Prefix each result with its line number"
+        },
+        {
+          "left": "-r",
+          "right": "Search every file under a directory"
+        },
+        {
+          "left": "-w",
+          "right": "Match only where the pattern is a whole word"
+        }
+      ],
+      "explanation": "`-w` is the fix for the classic annoyance of searching for `ssh` and matching `sshd` too."
+    },
+    {
+      "type": "mc",
+      "core": true,
+      "category": "grep",
+      "question": "Why should a grep pattern containing a `*` or `?` be put in single quotes?",
+      "options": [
+        "Otherwise the shell expands it against the filenames in the current directory before grep ever sees it",
+        "Otherwise grep treats the pattern as a filename",
+        "Because grep cannot read patterns shorter than three characters",
+        "Because unquoted patterns are always case-sensitive"
+      ],
+      "correct": 0,
+      "explanation": "The shell expands first, and grep receives whatever came out. Single quotes stop the expansion so the pattern reaches grep intact."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Cut & Columns",
+      "question": "In ~/labs/text, show only the department column of employees.csv, which is the third comma-separated field.",
+      "places": [
+        "~/labs/text/employees.csv"
+      ],
+      "cwd": "~/labs/text",
+      "hint": "cut needs to be told the delimiter with -d and the field with -f.",
+      "solution": "cut -d, -f3 employees.csv",
+      "explanation": "cut defaults to a tab delimiter, so a CSV always needs `-d,`. It cannot handle quoted fields containing commas -- awk is the tool for that."
+    },
+    {
+      "type": "shell",
+      "category": "Cut & Columns",
+      "question": "In ~/labs/text, show the name and salary columns of employees.csv together -- the second and sixth fields.",
+      "places": [
+        "~/labs/text/employees.csv"
+      ],
+      "cwd": "~/labs/text",
+      "solution": "cut -d, -f2,6 employees.csv",
+      "explanation": "`-f2,6` picks a list and `-f2-6` picks a range. cut always emits the fields in file order, no matter how you list them."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Sorting & Counting",
+      "question": "In ~/labs/text, show how many times each fruit appears in fruit.txt, with the count beside each name.",
+      "places": [
+        "~/labs/text/fruit.txt"
+      ],
+      "cwd": "~/labs/text",
+      "hint": "uniq only collapses lines that are next to each other.",
+      "solution": "sort fruit.txt | uniq -c",
+      "explanation": "`uniq` compares each line only with the one before it, so the sort is not optional -- it is what puts the duplicates together."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Sorting & Counting",
+      "question": "In ~/labs/text, show the largest value in numbers.txt.",
+      "places": [
+        "~/labs/text/numbers.txt"
+      ],
+      "cwd": "~/labs/text",
+      "hint": "Plain sort compares text, where 9 comes after 115.",
+      "solution": "sort -n numbers.txt | tail -1",
+      "explanation": "`-n` sorts numerically. Without it, sort would compare character by character and call 9 the biggest value in the file."
+    },
+    {
+      "type": "shell",
+      "category": "Sorting & Counting",
+      "question": "In ~/labs/text, show how many lines, words and characters poem.txt contains.",
+      "places": [
+        "~/labs/text/poem.txt"
+      ],
+      "cwd": "~/labs/text",
+      "solution": "wc poem.txt",
+      "explanation": "Bare `wc` prints all three counts and the filename. `-l`, `-w` and `-c` each narrow it to one."
+    },
+    {
+      "type": "mc",
+      "category": "Sorting & Counting",
+      "question": "Which sort option reverses the result, so the largest values come out first?",
+      "options": [
+        "-r",
+        "-R",
+        "-b",
+        "-u"
+      ],
+      "correct": 0,
+      "explanation": "`sort -rn` -- reverse plus numeric -- is the usual pairing when you want the biggest offenders at the top. `-R` shuffles the lines at random, and `-u` drops duplicates."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "sed",
+      "question": "In ~/labs/text, print poem.txt to the screen with every occurrence of the word road replaced by path, leaving the file itself unchanged.",
+      "places": [
+        "~/labs/text/poem.txt"
+      ],
+      "cwd": "~/labs/text",
+      "hint": "The trailing g makes the substitution apply to every match on a line, not just the first.",
+      "solution": "sed 's/road/path/g' poem.txt",
+      "explanation": "sed streams the edited text to stdout; the file on disk is untouched unless you add `-i`. Previewing without `-i` first is a good habit."
+    },
+    {
+      "type": "shell",
+      "category": "sed",
+      "question": "In ~/labs/text, permanently change every occurrence of webteam to webops inside services.txt.",
+      "places": [
+        "~/labs/text/services.txt"
+      ],
+      "cwd": "~/labs/text",
+      "hint": "There is a flag that edits the file in place.",
+      "solution": "sed -i 's/webteam/webops/g' services.txt",
+      "verify": "grep webops services.txt",
+      "explanation": "`-i` rewrites the file. `sed -i.bak` keeps the original as services.txt.bak, which is worth doing on anything under /etc."
+    },
+    {
+      "type": "shell",
+      "category": "sed",
+      "question": "In ~/labs/text, print only the fourth line of poem.txt using sed.",
+      "places": [
+        "~/labs/text/poem.txt"
+      ],
+      "cwd": "~/labs/text",
+      "hint": "`-n` turns off the automatic printing, so only what you ask for comes out.",
+      "solution": "sed -n '4p' poem.txt",
+      "explanation": "Without `-n`, sed prints every line and then prints line 4 a second time. The address can be a range too: `sed -n '2,5p'`."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "awk",
+      "question": "In ~/labs/text, print just the part number and the quantity from inventory.txt -- the first and third whitespace-separated columns.",
+      "places": [
+        "~/labs/text/inventory.txt"
+      ],
+      "cwd": "~/labs/text",
+      "hint": "awk splits on whitespace by default and numbers the fields $1, $2, $3.",
+      "solution": "awk '{print $1, $3}' inventory.txt",
+      "explanation": "The comma between the fields tells awk to separate them with a space. Without it, `print $1 $3` would run them together."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "awk",
+      "question": "In ~/labs/text, print the names of everyone in the Support department from employees.csv -- the second field, where the third field is Support.",
+      "places": [
+        "~/labs/text/employees.csv"
+      ],
+      "cwd": "~/labs/text",
+      "hint": "`-F,` sets the field separator, and a condition before the braces decides which lines run.",
+      "solution": "awk -F, '$3==\"Support\" {print $2}' employees.csv",
+      "explanation": "The pattern before the braces is the filter and the braces are the action. This is where awk goes beyond cut: cut cannot test a field's value."
+    },
+    {
+      "type": "shell",
+      "category": "awk",
+      "question": "In ~/labs/text, print the last whitespace-separated field of every line in hosts.txt.",
+      "places": [
+        "~/labs/text/hosts.txt"
+      ],
+      "cwd": "~/labs/text",
+      "hint": "awk keeps the field count in a built-in variable.",
+      "solution": "awk '{print $NF}' hosts.txt",
+      "explanation": "NF is the number of fields, so $NF is the last one -- useful when lines have different numbers of columns. $(NF-1) gets the one before it."
+    },
+    {
+      "type": "shell",
+      "category": "awk",
+      "question": "In ~/labs/text, add up the QTY column of inventory.txt -- the third field -- skipping the header line, and print the total.",
+      "places": [
+        "~/labs/text/inventory.txt"
+      ],
+      "cwd": "~/labs/text",
+      "hint": "NR is the current line number, and END runs once after the last line has been read.",
+      "solution": "awk 'NR != 1 {total += $3} END {print total}' inventory.txt",
+      "explanation": "awk variables start at zero and need no declaration. Testing NR skips the header line, which would otherwise contribute the word QTY to a numeric total."
+    },
+    {
+      "type": "shell",
+      "category": "Text Toolkit",
+      "question": "In ~/labs/text, show fruit.txt with every letter in upper case, without changing the file.",
+      "places": [
+        "~/labs/text/fruit.txt"
+      ],
+      "cwd": "~/labs/text",
+      "solution": "tr 'a-z' 'A-Z' < fruit.txt",
+      "explanation": "tr only reads standard input -- it takes no filename -- so it is nearly always used after a `<` or a pipe. `tr -d` deletes characters instead of translating them."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Text Toolkit",
+      "question": "In ~/labs/text, show the first three lines of employees.csv.",
+      "places": [
+        "~/labs/text/employees.csv"
+      ],
+      "cwd": "~/labs/text",
+      "solution": "head -3 employees.csv",
+      "explanation": "head and tail both default to ten lines. `tail -f` follows a file as it grows, which is how you watch a log during a service restart."
+    },
+    {
+      "type": "short_answer",
+      "core": true,
+      "category": "Pipes",
+      "question": "Explain in your own words why `sort file.txt | uniq -c` gives the right counts but `uniq -c file.txt` on its own usually does not, and give one case where uniq alone is still correct.",
+      "answerLang": null,
+      "modelAnswer": "uniq only compares each line with the line immediately before it. It collapses a run of identical lines into one, and with -c it reports how long the run was. It has no memory beyond the previous line, so if the same value appears in three separate places in the file it is counted as three separate runs rather than one group of three.\n\nSorting first puts every identical line next to its twins, which turns each group into a single run, and that is what makes the counts come out right.\n\nuniq alone is correct when the input is already grouped -- for instance a log file where entries arrive in timestamp order and repeats are consecutive retries, or the output of a command that already sorted its results.",
+      "rubric": [
+        "Says uniq compares only adjacent lines, or only collapses consecutive runs",
+        "Explains that sorting is what brings identical lines together",
+        "Names a case where the input is already grouped, so the sort is unnecessary"
+      ],
+      "explanation": "This is the most common pipeline in day-to-day administration: `... | sort | uniq -c | sort -rn` turns any list into a ranked frequency table."
+    },
+    {
+      "type": "short_answer",
+      "category": "Redirection",
+      "question": "A cron job writes a nightly report and its author wants the report kept in a file, any error messages kept in a separate file, and nothing at all on the screen. Explain how the three standard streams make that possible and what the command line would look like.",
+      "answerLang": null,
+      "modelAnswer": "A process is handed three open streams: standard input (0), standard output (1) and standard error (2). Normal results are written to stdout and anything describing a problem is written to stderr. Because they are separate streams, each can be pointed somewhere different.\n\nSo the report goes to one file with `> report.txt`, which redirects stdout only, and the errors go to another with `2> errors.txt`, which redirects stderr only. Nothing is left pointing at the terminal, so the screen stays quiet:\n\n    generate-report > report.txt 2> errors.txt\n\nIf the errors did not matter, `2> /dev/null` would discard them instead, and `&> all.txt` would put both in one file.",
+      "rubric": [
+        "Names stdout and stderr as separate streams, ideally by their numbers 1 and 2",
+        "Shows > for the report and 2> for the errors, sent to different files",
+        "Mentions /dev/null or &> as the variation for discarding or combining"
+      ],
+      "explanation": "Keeping the two streams apart is the whole reason a failed cron job can mail you the errors without mailing you the report."
+    }
+  ]
+}

@@ -1,0 +1,371 @@
+{
+  "title": "Networking, SSH & the Firewall",
+  "description": "Chapters 17-19: reading a machine's addresses and routes, name resolution, NetworkManager and nmcli, listening sockets, the firewall, and connecting to other machines with SSH and key-based authentication.",
+  "guideFile": "data/itn170-commands-guide.json",
+  "boxFile": "data/itn170-box.json",
+  "sections": [
+    {
+      "name": "Networking & SSH",
+      "questions": [
+        {
+          "type": "shell",
+          "category": "Addresses",
+          "question": "Show the IP addresses configured on every network interface on this machine.",
+          "places": [
+            "/usr/sbin/ip"
+          ],
+          "hint": "The modern command is two letters, and `a` is short for address.",
+          "solution": "ip addr show",
+          "explanation": "`ip a` is the usual shorthand. It replaces ifconfig, which is not installed on a minimal RHEL 9 system at all."
+        },
+        {
+          "type": "shell",
+          "category": "Addresses",
+          "question": "Show the addresses of just the interface named ens3, rather than every interface.",
+          "places": [
+            "/usr/sbin/ip"
+          ],
+          "solution": "ip addr show ens3",
+          "explanation": "Interface names on RHEL are predictable rather than sequential: ens3 describes where the card sits on the bus, so it does not change when another card is added."
+        },
+        {
+          "type": "shell",
+          "category": "Addresses",
+          "question": "Show this machine's routing table, including which gateway traffic to other networks goes through.",
+          "places": [
+            "/usr/sbin/ip"
+          ],
+          "solution": "ip route",
+          "explanation": "The line beginning `default via` names the gateway. Without a default route a machine can reach its own subnet and nothing else, which is a very common misconfiguration."
+        },
+        {
+          "type": "matching",
+          "category": "Addresses",
+          "question": "Match each piece of network configuration to what it decides.",
+          "pairs": [
+            {
+              "left": "IP address",
+              "right": "How this machine is identified on the network"
+            },
+            {
+              "left": "Netmask or prefix",
+              "right": "Which addresses count as being on the same local network"
+            },
+            {
+              "left": "Default gateway",
+              "right": "Where to send traffic destined for any other network"
+            },
+            {
+              "left": "DNS server",
+              "right": "What turns a name into an address"
+            },
+            {
+              "left": "Hostname",
+              "right": "The name this machine calls itself"
+            }
+          ],
+          "explanation": "When something cannot be reached, work down that list in order: address, then netmask, then gateway, then DNS. Most faults are one of the four."
+        },
+        {
+          "type": "mc",
+          "category": "Addresses",
+          "question": "In the address 172.25.250.10/24, what does the /24 mean?",
+          "options": [
+            "The first 24 bits are the network part, leaving the last 8 bits for hosts",
+            "There are 24 usable addresses on this network",
+            "The address was leased for 24 hours",
+            "It is the 24th interface on the machine"
+          ],
+          "correct": 0,
+          "explanation": "/24 is the same as the netmask 255.255.255.0. Anything from 172.25.250.1 to 172.25.250.254 is on the same local network and is reached directly rather than through the gateway."
+        },
+        {
+          "type": "shell",
+          "category": "Names",
+          "question": "Show the name this machine calls itself.",
+          "places": [
+            "/etc/hosts"
+          ],
+          "solution": "hostname",
+          "explanation": "`hostnamectl` gives the fuller picture -- the static hostname plus the operating system, kernel and virtualization -- and `hostnamectl set-hostname` is how you change it permanently."
+        },
+        {
+          "type": "shell",
+          "category": "Names",
+          "question": "Show the full host information for this machine: its static hostname, operating system, kernel version and architecture.",
+          "places": [
+            "/etc/hosts"
+          ],
+          "solution": "hostnamectl",
+          "explanation": "Unlike `hostname`, this writes through to /etc/hostname when you set a value, so the change survives a reboot."
+        },
+        {
+          "type": "shell",
+          "category": "Names",
+          "question": "Show the file that maps names to addresses locally, before DNS is consulted.",
+          "places": [
+            "/etc/hosts"
+          ],
+          "solution": "cat /etc/hosts",
+          "explanation": "/etc/hosts is checked first on a default RHEL system, which is decided by the hosts line in /etc/nsswitch.conf. It is how a lab machine resolves names with no DNS server at all."
+        },
+        {
+          "type": "mc",
+          "category": "Names",
+          "question": "A name resolves to the wrong address, and the DNS server is known to be correct. What should you check first?",
+          "options": [
+            "/etc/hosts, because it is consulted before DNS and may hold a stale entry",
+            "The routing table, because routes override DNS",
+            "/etc/fstab, because it lists name servers",
+            "The firewall, because it rewrites addresses"
+          ],
+          "correct": 0,
+          "explanation": "A line someone added to /etc/hosts months ago for a test outlives the test, and it silently wins over DNS every time."
+        },
+        {
+          "type": "shell",
+          "category": "Connectivity",
+          "question": "Test whether the host at 172.25.250.11 responds on the network.",
+          "places": [
+            "/usr/bin/ping"
+          ],
+          "solution": "ping 172.25.250.11",
+          "explanation": "Ping by address first and by name second: if the address works and the name does not, the fault is name resolution rather than the network."
+        },
+        {
+          "type": "shell",
+          "category": "Connectivity",
+          "question": "Show which TCP ports this machine is listening on, with numeric addresses and the process holding each one.",
+          "places": [
+            "/usr/sbin/ss"
+          ],
+          "hint": "Four flags: t for TCP, l for listening, n for numeric, p for process.",
+          "solution": "ss -tlnp",
+          "explanation": "This is the answer to 'is the service actually up and accepting connections'. ss replaces netstat, which is no longer installed by default."
+        },
+        {
+          "type": "matching",
+          "category": "Connectivity",
+          "question": "Match each network troubleshooting command to what it tells you.",
+          "pairs": [
+            {
+              "left": "ip addr",
+              "right": "Whether this machine has the address you expect"
+            },
+            {
+              "left": "ip route",
+              "right": "Whether it knows how to reach other networks"
+            },
+            {
+              "left": "ping",
+              "right": "Whether a host answers at all"
+            },
+            {
+              "left": "ss -tlnp",
+              "right": "Which ports are open and what is holding them"
+            },
+            {
+              "left": "dig",
+              "right": "What DNS says a name resolves to"
+            }
+          ],
+          "explanation": "Work outward from the machine: its own address, then its route, then the other end, then the service on it. Guessing in the middle wastes time."
+        },
+        {
+          "type": "shell",
+          "category": "NetworkManager",
+          "question": "List the NetworkManager connection profiles configured on this machine.",
+          "places": [
+            "/usr/bin/nmcli"
+          ],
+          "solution": "nmcli connection show",
+          "explanation": "NetworkManager is what actually owns the configuration on RHEL 9. Changing an address with `ip addr add` works until NetworkManager or a reboot undoes it."
+        },
+        {
+          "type": "shell",
+          "category": "NetworkManager",
+          "question": "Show the network devices on this machine and whether each one is connected.",
+          "places": [
+            "/usr/bin/nmcli"
+          ],
+          "solution": "nmcli device status",
+          "explanation": "A device shown as unmanaged is one NetworkManager has been told to leave alone; disconnected means it is managed but has no profile active on it."
+        },
+        {
+          "type": "mc",
+          "category": "NetworkManager",
+          "question": "Why is `ip addr add` not the right way to give a machine a permanent address on RHEL 9?",
+          "options": [
+            "It changes only the running kernel's configuration, so NetworkManager or a reboot discards it",
+            "It requires a reboot to take effect",
+            "It only works on wireless interfaces",
+            "It is deprecated and no longer functions"
+          ],
+          "correct": 0,
+          "explanation": "`ip` is the right tool for looking and for a temporary change while testing. `nmcli connection modify` is what writes the change to a profile that survives."
+        },
+        {
+          "type": "mc",
+          "category": "Firewall",
+          "question": "Which service manages the firewall on RHEL 9, and which command configures it?",
+          "options": [
+            "firewalld, configured with firewall-cmd",
+            "iptables, configured with ipchains",
+            "NetworkManager, configured with nmcli",
+            "SELinux, configured with semanage"
+          ],
+          "correct": 0,
+          "explanation": "firewalld organises rules into zones. `--permanent` writes a change to the saved configuration, and without it the change disappears at the next reload."
+        },
+        {
+          "type": "shell",
+          "category": "Firewall",
+          "question": "Show the full configuration of the firewall's active zone, including which services are allowed through.",
+          "places": [
+            "/usr/bin/firewall-cmd"
+          ],
+          "solution": "firewall-cmd --list-all",
+          "explanation": "To open a service you would run `sudo firewall-cmd --permanent --add-service=http` and then `sudo firewall-cmd --reload`. Forgetting --permanent is why a rule works until the next reload."
+        },
+        {
+          "type": "mc",
+          "category": "SSH",
+          "question": "What does SSH provide that telnet does not?",
+          "options": [
+            "An encrypted connection, so the password and the session cannot be read off the wire",
+            "The ability to run commands on a remote machine",
+            "A login prompt",
+            "Support for file transfer"
+          ],
+          "correct": 0,
+          "explanation": "telnet sends everything, passwords included, in plain text. That is why it is absent from a modern RHEL install and why SSH replaced it entirely."
+        },
+        {
+          "type": "mc",
+          "category": "SSH",
+          "question": "Which command logs in to the machine serverb as the user operator1?",
+          "options": [
+            "ssh operator1@serverb",
+            "ssh serverb operator1",
+            "ssh -u operator1 serverb",
+            "ssh --login=operator1 serverb"
+          ],
+          "correct": 0,
+          "explanation": "Without the user part, ssh uses your local username. `ssh operator1@serverb hostname` runs a single command on the far end and returns, without giving you an interactive shell."
+        },
+        {
+          "type": "shell",
+          "category": "SSH",
+          "question": "Generate an RSA SSH key pair for your account at the default location ~/.ssh/id_rsa, with no passphrase.",
+          "places": [
+            "~/.ssh"
+          ],
+          "hint": "-t chooses the type, -f the file, and -N takes the passphrase, which can be empty.",
+          "solution": "ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa",
+          "verify": "ls ~/.ssh",
+          "explanation": "Two files appear: id_rsa, the private key that never leaves this machine, and id_rsa.pub, the public half you are meant to hand out. A real key should have a passphrase."
+        },
+        {
+          "type": "matching",
+          "category": "SSH",
+          "question": "Match each SSH file to its role.",
+          "pairs": [
+            {
+              "left": "~/.ssh/id_rsa",
+              "right": "Your private key; it stays on your machine and must be mode 600"
+            },
+            {
+              "left": "~/.ssh/id_rsa.pub",
+              "right": "Your public key, the half you give to other machines"
+            },
+            {
+              "left": "~/.ssh/authorized_keys",
+              "right": "On the server: the public keys allowed to log in as this user"
+            },
+            {
+              "left": "~/.ssh/known_hosts",
+              "right": "The host keys of servers you have connected to before"
+            },
+            {
+              "left": "/etc/ssh/sshd_config",
+              "right": "The SSH server's own configuration"
+            }
+          ],
+          "explanation": "sshd refuses to use keys whose permissions are too open, which is the usual reason key authentication silently falls back to asking for a password."
+        },
+        {
+          "type": "mc",
+          "category": "SSH",
+          "question": "Which command copies your public key to a remote machine so you can log in without a password?",
+          "options": [
+            "ssh-copy-id operator1@serverb",
+            "ssh-keygen -c operator1@serverb",
+            "scp ~/.ssh/id_rsa operator1@serverb:",
+            "ssh --install-key operator1@serverb"
+          ],
+          "correct": 0,
+          "explanation": "ssh-copy-id appends the public key to the remote authorized_keys and fixes the permissions for you. Never copy id_rsa, the private key, anywhere -- that is the one thing that must not travel."
+        },
+        {
+          "type": "tf",
+          "category": "SSH",
+          "question": "A warning that the remote host identification has changed always means someone is intercepting the connection.",
+          "correct": false,
+          "explanation": "It means the host key does not match the one in known_hosts. That happens for innocent reasons -- the server was rebuilt, or an address was reused -- but it is also exactly what an interception looks like, so verify before removing the old entry."
+        },
+        {
+          "type": "mc",
+          "category": "SSH",
+          "question": "Which setting in /etc/ssh/sshd_config stops anyone logging in directly as root over SSH?",
+          "options": [
+            "PermitRootLogin no",
+            "AllowRootLogin false",
+            "RootAccess deny",
+            "DenyUsers root only"
+          ],
+          "correct": 0,
+          "explanation": "Combined with `PasswordAuthentication no` and key-based logins, it is the standard hardening pair. Administrators then log in as themselves and use sudo."
+        },
+        {
+          "type": "fill_blank",
+          "category": "SSH",
+          "question": "Which command copies a file to or from a remote machine over an SSH connection?",
+          "answers": [
+            "scp",
+            "the scp command",
+            "sftp",
+            "rsync"
+          ],
+          "explanation": "`scp file user@host:/path` pushes and `scp user@host:/path file` pulls. sftp is the interactive equivalent, and rsync over SSH is the right choice for anything large or repeated."
+        },
+        {
+          "type": "short_answer",
+          "category": "Connectivity",
+          "question": "A user says 'the server is down' because a web page will not load. Describe a step-by-step check you would run from the server itself to find out where the problem actually is, and say what each step rules in or out.",
+          "answerLang": null,
+          "modelAnswer": "Start at the machine and work outward, so each step rules out a whole layer.\n\nFirst, does the server have the address it should? `ip addr show` tells you. If the interface has no address or the wrong one, nothing above this matters and the fix is in NetworkManager.\n\nSecond, can it reach anything beyond its own subnet? `ip route` should show a default route, and pinging the gateway confirms it answers. No default route means the machine is isolated even though its own address looks fine.\n\nThird, is the service running? `systemctl status httpd` says whether it is active, and `journalctl -u httpd` says why if it is not. A service that failed to start looks exactly like a network fault from the outside.\n\nFourth, is it actually listening? `ss -tlnp` should show something bound to port 80. A service that is active but listening only on 127.0.0.1 will serve the machine itself and nobody else.\n\nFifth, is the firewall letting it through? `firewall-cmd --list-all` shows whether http is among the allowed services. This is the step that explains 'it works with curl on the server but not from my desk'.\n\nSixth, is it a name problem rather than a reachability problem? If the address works in a browser but the name does not, the fault is DNS or a stale /etc/hosts entry, not the server.",
+          "rubric": [
+            "Checks the machine's own address and route before anything else",
+            "Checks that the service is running, with systemctl or the journal",
+            "Checks that it is listening on the expected port, with ss",
+            "Checks the firewall, and separates a name-resolution fault from a reachability fault"
+          ],
+          "explanation": "Each layer rules out everything below it, which is why working outward from the machine is faster than guessing in the middle."
+        },
+        {
+          "type": "short_answer",
+          "category": "SSH",
+          "question": "Explain how key-based SSH authentication works, and why it is considered more secure than a password, even when the password is a strong one.",
+          "answerLang": null,
+          "modelAnswer": "You generate a pair of keys with `ssh-keygen`: a private key that stays on your own machine and a public key that is safe to hand out. The public half is appended to ~/.ssh/authorized_keys on the server, usually with `ssh-copy-id`.\n\nWhen you connect, the server picks a random challenge and asks the client to prove it holds the matching private key. The client signs the challenge and the server verifies the signature against the public key it already has. The private key itself is never transmitted, so there is nothing on the wire that could be replayed even if the traffic were captured.\n\nThat is the core of why it is stronger than a password. A password is a shared secret: it travels to the server on every login, the server has to hold something derived from it, and it can be guessed. A private key is never sent anywhere, is long enough that guessing is hopeless, and can itself be protected with a passphrase so that stealing the file is not enough.\n\nIt is also better operationally. Keys can be added and removed per user per server by editing authorized_keys, without changing anything the user has memorised, which is what makes `PasswordAuthentication no` a practical hardening step rather than an inconvenience.",
+          "rubric": [
+            "Describes the key pair, with the private key kept local and the public key placed in authorized_keys on the server",
+            "Explains that the server challenges the client, and that the private key itself is never sent",
+            "Gives a reason it beats a password: not guessable, not transmitted, or revocable per user without changing a shared secret"
+          ],
+          "explanation": "The phrase worth remembering is 'the private key never leaves the client'. Everything else about SSH key authentication follows from that."
+        }
+      ]
+    }
+  ]
+}

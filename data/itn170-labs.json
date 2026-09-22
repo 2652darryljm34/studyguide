@@ -1,0 +1,264 @@
+{
+  "title": "ITN 170 Hands-On Lab Exercises",
+  "description": "Ten short labs, one per topic, to be worked in the Practice Terminal. Every task states a goal rather than a command — choosing the right tool is the exercise. No answers here.",
+  "sections": [
+    {
+      "name": "How to Use These Labs",
+      "blocks": [
+        { "type": "heading", "text": "Before You Start" },
+        { "type": "paragraph", "text": "Open the **Practice Terminal** and work these labs there. Everything below runs on the same Red Hat Enterprise Linux 9 machine, as the user `student`, who is in the `wheel` group and can use `sudo`." },
+        { "type": "list", "items": [
+          "Each task says **what to achieve**, not what to type. Working out which command does it is the point of the exercise.",
+          "Nothing you do can break anything permanently. **Reset machine** puts it back exactly as it started, so experiment freely — including `rm -rf`, `userdel` and `dnf remove`.",
+          "Where a task says **prove it** or **confirm it**, run a second command that reads the result back. Getting into that habit is half of system administration.",
+          "A few tasks ask you to **explain** something rather than run a command. Write the answer down; those are the ones that show up on an exam as short answers.",
+          "Stuck on which command exists at all? The manual is on the machine: search it by keyword rather than guessing."
+        ] },
+        { "type": "note", "label": "No answers here, on purpose.", "text": "If you get stuck, go to the **Linux Commands Study Guide** for the topic, or work the matching quiz — those give you the command. Come back and do the lab without looking." },
+        { "type": "subheading", "text": "The working area" },
+        { "type": "code", "text": "~/labs/files/     creating, copying, moving, removing -- and shell expansions\n~/labs/text/      redirection, pipes, grep, sed, awk, sort, cut\n~/labs/perms/     permissions, ownership and umask\n~/labs/links/     hard links and symbolic links\n~/labs/survey/    a directory tree, for find and du" },
+        { "type": "table", "headers": ["Lab", "Topic", "Tasks"], "rows": [
+          ["1", "The Command Line & Getting Help", "8"],
+          ["2", "Navigating the Filesystem", "10"],
+          ["3", "Managing Files & Shell Expansions", "11"],
+          ["4", "Redirection, Pipes & the Text Toolkit", "11"],
+          ["5", "Users & Groups", "11"],
+          ["6", "Permissions & Ownership", "10"],
+          ["7", "Software: RPM, DNF & Flatpak", "10"],
+          ["8", "Finding Files, Storage & Archives", "10"],
+          ["9", "Processes, Jobs & Services", "10"],
+          ["10", "Networking & SSH", "10"]
+        ] }
+      ]
+    },
+
+    {
+      "name": "Lab 1 — The Command Line & Getting Help",
+      "blocks": [
+        { "type": "heading", "text": "Lab 1 — The Command Line & Getting Help" },
+        { "type": "paragraph", "text": "You have just been handed a shell on an unfamiliar machine and told to find your own way around. Everything in this lab is about interrogating the system and its documentation rather than changing anything." },
+        { "type": "list", "ordered": true, "items": [
+          "Find out which shell you are running, and then find the full path of the program that provides it.",
+          "Print the list of directories the shell searches when you type a command name.",
+          "Determine whether `cd` is a program on disk or something the shell does itself. Do the same for `ls`. Explain the difference in one sentence.",
+          "`/etc/passwd` has two manual pages: one for a **command** of that name, one for the **file format**. Open the file-format one specifically, and note the section number you had to ask for.",
+          "You need a command that deals with **block devices**, but you do not know its name. Search the manual page descriptions by keyword and name two candidates you found.",
+          "Inside a manual page, search forward for the word `EXAMPLES`, jump to the next match, then leave the page — without using your mouse.",
+          "Run any command, then run it again without retyping it. Then run that same command again with superuser rights, still without retyping it.",
+          "Look back through your history, find the number of a command you ran earlier in this lab, and re-run it by its number."
+        ] },
+        { "type": "note", "label": "Toolbox for this lab:", "text": "`echo` · `which` · `type` · `man` · `man -k` · `apropos` · `whatis` · `history` · `!` · environment variables · Tab · Ctrl+R · Ctrl+L · `/` and `n` inside a pager" },
+        { "type": "subheading", "text": "Write it down" },
+        { "type": "paragraph", "text": "Which two of the commands you used answer questions about a command **without running it**, and what is the difference between what each one tells you?" }
+      ]
+    },
+
+    {
+      "name": "Lab 2 — Navigating the Filesystem",
+      "blocks": [
+        { "type": "heading", "text": "Lab 2 — Navigating the Filesystem" },
+        { "type": "paragraph", "text": "Move around the tree without ever typing a full path twice, and read a directory listing for everything it can tell you. No files are created or changed in this lab." },
+        { "type": "list", "ordered": true, "items": [
+          "Confirm where you are standing right now.",
+          "Move to `/var/log` in one step, using an absolute path.",
+          "From there, reach `/etc` using a **relative** path only — no leading slash, no `~`.",
+          "Jump straight back to the directory you were in before, without typing its name.",
+          "Return to your home directory in the shortest form you know. Then do it a second way.",
+          "List everything in your home directory, including the entries `ls` normally leaves out. Explain in one sentence what makes those entries different.",
+          "List `~/labs/files` in long format, arranged so the most recently modified file ends up nearest your prompt.",
+          "Show the details of the directory `~/labs/perms` **itself** — one line describing the directory, not a listing of what is inside it.",
+          "Show the sizes of everything in `~/labs/text` in units you can read at a glance rather than in bytes.",
+          "In `~/labs/links`, display the inode number beside each entry and identify the two names that share a single inode. What does that tell you about those two names?"
+        ] },
+        { "type": "note", "label": "Toolbox for this lab:", "text": "`pwd` · `cd` · `ls` and its flags `-l -a -h -t -r -d -i -R` · the shortcuts `.` `..` `~` `-`" },
+        { "type": "subheading", "text": "Write it down" },
+        { "type": "paragraph", "text": "For each of `/etc`, `/var/log`, `/usr/bin` and `/tmp`, write one line saying what lives there and why an administrator would go there." }
+      ]
+    },
+
+    {
+      "name": "Lab 3 — Managing Files & Shell Expansions",
+      "blocks": [
+        { "type": "heading", "text": "Lab 3 — Managing Files & Shell Expansions" },
+        { "type": "paragraph", "text": "Build a small working area, then fill and dismantle it — using patterns rather than typing names one at a time. Several of these tasks are impossible to do in **one** command unless you use the right expansion, which is the point." },
+        { "type": "list", "ordered": true, "items": [
+          "Create the directory `~/labs/practice/2026/spring` with a **single** command, without creating each level separately.",
+          "In `~/labs/practice`, create five empty files named `draft-a.txt` through `draft-e.txt` with one command, spelling out the list.",
+          "In the same directory, create ten empty files named `page01.php` through `page10.php` with one command, using a range rather than a list.",
+          "In `~/labs/files`, list only the files whose names end in `.php`.",
+          "In `~/labs/files`, list only `report1.txt`, `report3.txt` and `report5.txt` using a single pattern — no braces, no typing the three names.",
+          "In `~/labs/files`, list the January and February log files but **not** the March one, using one pattern.",
+          "Copy the whole `~/labs/files/old` directory, contents included, into `~/labs/practice`.",
+          "Rename `~/labs/practice/draft-a.txt` to `notes-a.txt`. Then move `notes-a.txt` into `~/labs/practice/2026/spring` without renaming it again.",
+          "There is a file in `~/labs/files` whose name contains a space. Display its contents. Do it a second time using a different technique for handling the space.",
+          "In `~/labs/practice`, make a **hard link** and a **symbolic link** to one of your draft files. Then produce a listing that shows, at a glance, which is which — and delete the original to demonstrate what happens to each link.",
+          "Delete every `.php` file you created in `~/labs/practice` with one command. **Before you press enter on the deletion,** run a harmless command that shows you exactly which files that pattern matches."
+        ] },
+        { "type": "note", "label": "Toolbox for this lab:", "text": "`mkdir` · `touch` · `cp` · `mv` · `rm` · `rmdir` · `ln` · `ls` · `cat` · `echo` · globs `* ? [ ]` · brace expansion `{ }` · quoting and the backslash" },
+        { "type": "note", "label": "Habit worth forming:", "text": "Task 11 is the whole lesson. The shell expands the pattern **before** the command runs, so any command can be used to preview what a destructive one is about to receive." }
+      ]
+    },
+
+    {
+      "name": "Lab 4 — Redirection, Pipes & the Text Toolkit",
+      "blocks": [
+        { "type": "heading", "text": "Lab 4 — Redirection, Pipes & the Text Toolkit" },
+        { "type": "paragraph", "text": "Work in `~/labs/text`. This is the lab that turns the command line into something you can actually get answers out of: every task here is a question about a file, and none of them should be answered by reading the file yourself." },
+        { "type": "list", "ordered": true, "items": [
+          "Write the list of fruit names, with no repeats, into a new file called `unique.txt`. Confirm afterwards that the file holds what you expect.",
+          "Add the single line `kiwi` to the end of `fruit.txt` without disturbing anything already in it. Then prove the earlier lines are still there.",
+          "Run a command that fails — for instance listing a file that does not exist — so that **only** its error message is discarded and nothing appears on screen.",
+          "Run a command that produces both output and an error, and capture **both** into a single file called `both.txt`.",
+          "From `access.log`, produce a ranked table of HTTP status codes and how many times each one occurs, with the most frequent at the top.",
+          "From `access.log`, show how many requests came from the address `10.0.2.15` — as a number, not a list of lines.",
+          "From `employees.csv`, print the names of everyone in the **Engineering** department, and nothing else.",
+          "From `inventory.txt`, add up the `QTY` column and print the total. The header line must not be counted.",
+          "Show every line of `services.txt` that is **not** a comment.",
+          "Print the last whitespace-separated field of every line in `hosts.txt`, without knowing in advance how many fields each line has.",
+          "Replace every occurrence of `webteam` with `webops` inside `services.txt` permanently — but **preview the change on screen first**, and leave yourself a copy of the original."
+        ] },
+        { "type": "note", "label": "Toolbox for this lab:", "text": "`>` `>>` `2>` `2>&1` `<` `|` · `/dev/null` · `tee` · `grep` · `sed` · `awk` · `sort` · `uniq` · `cut` · `tr` · `wc` · `head` · `tail`" },
+        { "type": "subheading", "text": "Write it down" },
+        { "type": "paragraph", "text": "Two of the tasks above would give the wrong answer if you left out a `sort`. Which ones, and why?" }
+      ]
+    },
+
+    {
+      "name": "Lab 5 — Users & Groups",
+      "blocks": [
+        { "type": "heading", "text": "Lab 5 — Users & Groups" },
+        { "type": "paragraph", "text": "You are setting up accounts for a new project team. Everything here needs superuser rights, so every task is also practice at deciding when `sudo` is required. After each change, read the result back out of the system rather than assuming it worked." },
+        { "type": "list", "ordered": true, "items": [
+          "Show your own user ID, primary group and every supplementary group you belong to. Which of those groups is the one giving you `sudo`?",
+          "Create a group named `projectx`.",
+          "Create a user named `jvega` whose comment field reads `Jordan Vega`. Confirm the account exists by finding its line in the account file.",
+          "Looking at that line, write down what each of the seven colon-separated fields holds.",
+          "Make `jvega` a member of `projectx` **in addition to** the groups the account already has. Then prove that nothing else was lost.",
+          "Create an account named `feedsvc` that a person can never log in to interactively, but which is otherwise a valid account. Explain which field makes that true.",
+          "Force `dbadmin` to choose a new password the next time they log in.",
+          "Show the password aging settings for `operator1` — when it was last changed, when it expires, and the maximum age.",
+          "Lock `operator2`'s password so it cannot be used to authenticate, then confirm from the system that it is locked.",
+          "Read the first two lines of the file that holds the password hashes. Then try it again without superuser rights and explain the result.",
+          "One of the existing accounts on this machine already has a locked password. Find which one."
+        ] },
+        { "type": "note", "label": "Toolbox for this lab:", "text": "`id` · `groups` · `whoami` · `useradd` · `usermod` · `userdel` · `groupadd` · `groupdel` · `passwd` · `chage` · `getent` · `sudo` · `su` · `/etc/passwd` · `/etc/shadow` · `/etc/group`" },
+        { "type": "note", "label": "One letter will cost you:", "text": "There is a version of task 5 that appears to work and quietly removes every other group the account had — including the one that grants `sudo`. Make sure you did not use it. Running `id jvega` before **and** after is how you would know." }
+      ]
+    },
+
+    {
+      "name": "Lab 6 — Permissions & Ownership",
+      "blocks": [
+        { "type": "heading", "text": "Lab 6 — Permissions & Ownership" },
+        { "type": "paragraph", "text": "Work in `~/labs/perms`. Some of these tasks specify the octal form and some specify the symbolic form — use the one asked for, because knowing when each is the better choice is part of the skill. Check every change with a listing." },
+        { "type": "list", "ordered": true, "items": [
+          "Set `public.txt` so the owner may read and write, the group may only read, and everyone else has no access at all. Use the **octal** form.",
+          "Make `noexec.sh` executable by its owner, changing nothing else about it. Use the **symbolic** form.",
+          "Remove write permission from both group and other on `team.txt`, in one command.",
+          "Set the group column of `readonly.conf` to exactly nothing, leaving the owner and other columns untouched.",
+          "Lock down the `locked/` directory **and everything inside it** so that only its owner can use it at all.",
+          "Give `team.txt` to the user `operator1` and the group `operators` in a single command.",
+          "Give `public.txt` to the `techdocs` group **without** using `chown`, and explain why this one did not need `sudo` when task 6 did.",
+          "Display your current umask. Then work out on paper what mode a brand-new file and a brand-new directory would receive — and create one of each to check whether you were right.",
+          "Set up the `shared/` directory so that files created inside it belong to the `techdocs` group, and so that a member cannot delete another member's file. Then show the directory's own listing and point at the two letters in the mode that prove both settings are in place.",
+          "`secret.txt` will not open for you. Work out **why** using only commands that look at things — do not simply re-run it with `sudo` — and say which of the three permission columns is the one stopping you."
+        ] },
+        { "type": "note", "label": "Toolbox for this lab:", "text": "`ls -l` · `ls -ld` · `stat` · `chmod` (octal and symbolic) · `chown` · `chgrp` · `umask` · `id` · setuid, setgid and the sticky bit" },
+        { "type": "subheading", "text": "Write it down" },
+        { "type": "paragraph", "text": "A user can see a file listed with `ls` but gets Permission denied when reading it. List the checks you would run, in order, and say what each one rules out. There are at least three, and one of them is not about the file at all." }
+      ]
+    },
+
+    {
+      "name": "Lab 7 — Software: RPM, DNF & Flatpak",
+      "blocks": [
+        { "type": "heading", "text": "Lab 7 — Software: RPM, DNF & Flatpak" },
+        { "type": "paragraph", "text": "Half of these tasks are questions about what is already installed and half change what is installed. Notice as you go which tool is right for which half — reaching for the wrong one is the most common mistake in this topic." },
+        { "type": "list", "ordered": true, "items": [
+          "Find out whether the package `tree` is installed on this machine, asking about that one package by name.",
+          "You need the file `/usr/bin/awk` and want to know which package would provide it. Ask the **repositories**, not the local database.",
+          "Now ask the **local database** which installed package owns that same file. Explain when you would use each of the two.",
+          "Install `tree`. Then prove it is installed and list every file the package put on the system.",
+          "Show the summary, version and license of the installed `sudo` package.",
+          "List only the **configuration** files shipped by `openssh-server`. Where would you have looked if you did not know this command existed?",
+          "Find out which repositories this machine is currently using.",
+          "Show the history of past software transactions, and say what the most recent one did and how you would reverse it.",
+          "Remove the `nano` package and confirm it is gone.",
+          "List the Flatpak applications installed, then explain why none of them appears in a full RPM package listing."
+        ] },
+        { "type": "note", "label": "Toolbox for this lab:", "text": "`rpm -q` and its friends `-a -i -l -c -d -f` · `dnf search` · `dnf provides` · `dnf info` · `dnf list` · `dnf install` · `dnf remove` · `dnf repolist` · `dnf history` · `flatpak list` · `sudo`" },
+        { "type": "subheading", "text": "Write it down" },
+        { "type": "paragraph", "text": "You type a command and get `command not found`, but you are sure it exists on RHEL. Write the exact sequence of commands you would run to identify the package, install it, and confirm the result." }
+      ]
+    },
+
+    {
+      "name": "Lab 8 — Finding Files, Storage & Archives",
+      "blocks": [
+        { "type": "heading", "text": "Lab 8 — Finding Files, Storage & Archives" },
+        { "type": "paragraph", "text": "Searching by name is the easy half. Most of this lab is about searching by everything **other** than the name, which is where one of the two search commands stops being able to help you." },
+        { "type": "list", "ordered": true, "items": [
+          "Find every file under `~/labs` whose name ends in `.csv`, and show the full path of each. Quote the pattern, and explain what would go wrong if you did not.",
+          "Count how many directories under `~/labs/survey` have a name beginning with `day-`. The count must exclude any ordinary files.",
+          "Find the regular files under `~/labs/files` that are larger than 35 bytes.",
+          "Find everything under `~/labs/perms` that belongs to the user `root`.",
+          "Run `wc -l` on every regular file under `~/labs/text` using the search command alone — without piping into a loop.",
+          "Find every path on the machine containing the word `sonde`, using the **fast** method that does not walk the filesystem. Then explain the one situation in which that method would give you a wrong answer.",
+          "Work out which subdirectory of `~/labs` is taking the most space, as a single readable figure per directory.",
+          "Show how full each mounted filesystem is, in readable units.",
+          "One block device on this machine is present but not mounted. Identify it, mount it on `/mnt`, and prove it worked. Then read the filesystem type and UUID of every device, and say which of the two identifiers belongs in `/etc/fstab` and why.",
+          "Pack `~/labs/text` into a **gzip-compressed** archive in your home directory. Then list what is inside the archive without extracting any of it."
+        ] },
+        { "type": "note", "label": "Toolbox for this lab:", "text": "`find` with `-name -iname -type -size -user -mtime -perm -exec` · `locate` · `updatedb` · `du` · `df` · `lsblk` · `blkid` · `mount` · `umount` · `findmnt` · `tar` · `gzip` · `gunzip`" },
+        { "type": "subheading", "text": "Write it down" },
+        { "type": "paragraph", "text": "A colleague reports that `/` is full. Describe the sequence of commands you would run to find what is using the space — and name one situation where the obvious answer would mislead you." }
+      ]
+    },
+
+    {
+      "name": "Lab 9 — Processes, Jobs & Services",
+      "blocks": [
+        { "type": "heading", "text": "Lab 9 — Processes, Jobs & Services" },
+        { "type": "paragraph", "text": "The first half is about processes you started; the second is about the ones systemd started. Pay attention to which commands need `sudo` and which do not — it is a good guide to which ones change something." },
+        { "type": "list", "ordered": true, "items": [
+          "List every process on the system in the format that shows the **parent** process ID of each one. Then list them again in the format that shows the owner and the CPU and memory columns. Say which format gave you which column.",
+          "Find the process IDs of every running `sshd` process **without** grepping the output of a process listing. Explain why the grep approach is annoying.",
+          "Start `sleep 400` so that it runs in the background and gives you your prompt back immediately. Note both its job number and its process ID, and say which of the two is meaningful outside your own shell.",
+          "List your shell's jobs, then send that job the signal that asks it to shut down **cleanly**. Confirm it is gone.",
+          "Show how long the machine has been up and what its load averages are. Explain what makes a load average high or low.",
+          "Show memory and swap usage in readable units, and say which column tells you how much memory is genuinely available — and why it is not the one labelled `free`.",
+          "Find out whether `crond` is running **and** whether it starts at boot, using a single command. Then get the same two facts from two separate commands that each answer in one word.",
+          "Stop `crond`, and confirm it is no longer running.",
+          "Arrange for `atd` to start at every boot, **without** starting it right now. Confirm the setting took effect, and explain how the answer to this differs from the one in task 8.",
+          "Find a service on this machine that is loaded but not currently running."
+        ] },
+        { "type": "note", "label": "Toolbox for this lab:", "text": "`ps` · `pgrep` · `top` · `uptime` · `free` · `kill` · `killall` · `pkill` · `jobs` · `fg` · `bg` · `&` · `systemctl` with `status is-active is-enabled list-units start stop restart reload enable disable` · `journalctl`" },
+        { "type": "subheading", "text": "Write it down" },
+        { "type": "paragraph", "text": "A service was installed, configured, started and confirmed working. After a reboot it is not running. What was missed, how would you confirm that diagnosis, and how would you fix it?" }
+      ]
+    },
+
+    {
+      "name": "Lab 10 — Networking & SSH",
+      "blocks": [
+        { "type": "heading", "text": "Lab 10 — Networking & SSH" },
+        { "type": "paragraph", "text": "Find out everything you can about this machine's place on the network without changing any of it, then set up the key pair you would use to reach another machine." },
+        { "type": "list", "ordered": true, "items": [
+          "Show the addresses configured on every interface, and identify which interface carries the routable address as opposed to the loopback one.",
+          "Show the routing table and identify the default gateway.",
+          "From the address and prefix you found in task 1, work out whether `172.25.250.99` is on this machine's local network or would have to go via the gateway. Show your reasoning.",
+          "Show which TCP ports this machine is listening on, with numeric addresses, and identify which process is holding each one.",
+          "Show the name this machine calls itself. Then display the file that would resolve a name **before** DNS is consulted, and explain why a stale line in it is a classic source of confusion.",
+          "Confirm that the host at `172.25.250.11` answers on the network.",
+          "List the NetworkManager connection profiles and the device each one is attached to. Then explain why `ip addr add` is not the right way to give this machine a permanent address.",
+          "Generate an SSH key pair for your account at the default location. Show the two files it created and say which of the two may be handed to another machine — and which must never leave this one.",
+          "Show the firewall's active zone and what it currently allows through. What would you have to add to a rule so that it survives a reload?",
+          "In one sentence each, say what `ssh operator1@serverb`, `ssh operator1@serverb hostname` and `scp notes.txt operator1@serverb:/tmp/` each do differently."
+        ] },
+        { "type": "note", "label": "Toolbox for this lab:", "text": "`ip addr` · `ip route` · `hostname` · `hostnamectl` · `ping` · `ss` · `dig` · `host` · `nmcli` · `firewall-cmd` · `ssh` · `ssh-keygen` · `ssh-copy-id` · `scp` · `/etc/hosts` · `~/.ssh/`" },
+        { "type": "subheading", "text": "Write it down" },
+        { "type": "paragraph", "text": "A user says \"the web server is down\". Working from the server itself, write the ordered list of checks you would run and what each one rules out. Start at the machine and work outward — there should be at least six steps, and the last one should separate a name-resolution fault from a reachability fault." }
+      ]
+    }
+  ]
+}

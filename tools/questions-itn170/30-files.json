@@ -1,0 +1,472 @@
+{
+  "id": "files",
+  "name": "Managing Files & Shell Expansions",
+  "title": "Managing Files & Shell Expansions",
+  "description": "Chapter 7: creating, copying, moving and removing files and directories; hard and symbolic links; and the wildcards, brace expansion and quoting the shell applies before a command ever runs.",
+  "questions": [
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Creating",
+      "question": "In ~/labs/files, create three empty files in one command: draft1.txt, draft2.txt and draft3.txt. Use brace expansion rather than typing each name.",
+      "places": [
+        "~/labs/files"
+      ],
+      "cwd": "~/labs/files",
+      "hint": "The braces hold a comma-separated list, with no spaces.",
+      "solution": "touch draft{1,2,3}.txt",
+      "verify": "ls draft*.txt",
+      "explanation": "Brace expansion happens in the shell before touch runs: touch actually receives three separate arguments. `touch draft{1..3}.txt` does the same with a range."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Creating",
+      "question": "In ~/labs/files, create the five files page01.php through page05.php in one command, keeping the two-digit numbering.",
+      "places": [
+        "~/labs/files"
+      ],
+      "cwd": "~/labs/files",
+      "hint": "A numeric range keeps its leading zeros if you write them in the range.",
+      "solution": "touch page{01..05}.php",
+      "verify": "ls page*.php",
+      "explanation": "Writing {01..05} rather than {1..5} makes the shell pad every number to the same width, so the names sort correctly."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Creating",
+      "question": "In ~/labs/files, create the nested directory path project/src/lib in a single command, even though project and src do not exist yet.",
+      "places": [
+        "~/labs/files"
+      ],
+      "cwd": "~/labs/files",
+      "solution": "mkdir -p project/src/lib",
+      "verify": "ls -R project",
+      "explanation": "Without -p, mkdir refuses because the parent does not exist. With it, every missing level is created and an existing one is not an error."
+    },
+    {
+      "type": "shell",
+      "category": "Creating",
+      "question": "In ~/labs/files, create a single directory called reports. Do not use any options.",
+      "places": [
+        "~/labs/files"
+      ],
+      "cwd": "~/labs/files",
+      "solution": "mkdir reports",
+      "verify": "ls -ld reports",
+      "explanation": "Plain mkdir is enough when the parent already exists."
+    },
+    {
+      "type": "mc",
+      "core": true,
+      "category": "Creating",
+      "question": "What does `touch existing.txt` do to a file that already exists?",
+      "options": [
+        "It updates the file's access and modification timestamps, leaving the contents untouched",
+        "It empties the file",
+        "It reports an error, because the file exists",
+        "It creates a second copy of the file"
+      ],
+      "correct": 0,
+      "explanation": "touch exists to set timestamps; creating an empty file is what it does when there is nothing there to touch."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Copying and moving",
+      "question": "In ~/labs/files, make a copy of notes.txt called notes-backup.txt.",
+      "places": [
+        "~/labs/files"
+      ],
+      "cwd": "~/labs/files",
+      "solution": "cp notes.txt notes-backup.txt",
+      "verify": "ls notes*; cat notes-backup.txt",
+      "explanation": "With two file names, cp copies the first onto the second. With more than two arguments, the last one has to be a directory."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Copying and moving",
+      "question": "In ~/labs/files, copy the whole `old` directory and everything inside it to a new directory called archive.",
+      "places": [
+        "~/labs/files"
+      ],
+      "cwd": "~/labs/files",
+      "hint": "cp will not copy a directory unless you tell it to.",
+      "solution": "cp -r old archive",
+      "verify": "ls -R archive",
+      "explanation": "Without -r (or -R), cp refuses and says it is omitting the directory. -a goes further and preserves ownership, permissions and timestamps too."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Copying and moving",
+      "question": "In ~/labs/files, rename data.csv to readings.csv.",
+      "places": [
+        "~/labs/files"
+      ],
+      "cwd": "~/labs/files",
+      "solution": "mv data.csv readings.csv",
+      "verify": "ls *.csv",
+      "explanation": "There is no separate rename command: moving a file to a new name in the same directory is a rename."
+    },
+    {
+      "type": "shell",
+      "category": "Copying and moving",
+      "question": "In ~/labs/files, move all three .php files into the `old` directory in one command.",
+      "places": [
+        "~/labs/files"
+      ],
+      "cwd": "~/labs/files",
+      "solution": "mv *.php old/",
+      "verify": "ls old; ls | wc -l",
+      "explanation": "The shell expands *.php to the three names first, so mv receives four arguments and treats the last as the destination directory."
+    },
+    {
+      "type": "mc",
+      "core": true,
+      "category": "Copying and moving",
+      "question": "What is the difference between `cp file dir/` and `mv file dir/`?",
+      "options": [
+        "cp leaves the original in place and makes a second copy; mv leaves only one file, in the new location",
+        "cp works on directories and mv works only on files",
+        "mv is faster because it copies less data, but both leave two files",
+        "There is no difference; mv is an alias for cp"
+      ],
+      "correct": 0,
+      "explanation": "Within one filesystem, mv only rewrites the directory entry, so it is near-instant regardless of the file's size."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Removing",
+      "question": "In ~/labs/files, delete the file notes.bak.",
+      "places": [
+        "~/labs/files"
+      ],
+      "cwd": "~/labs/files",
+      "solution": "rm notes.bak",
+      "verify": "ls notes*",
+      "explanation": "There is no recycle bin. rm removes the name, and when the last name for a file is gone the content goes with it."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Removing",
+      "question": "In ~/labs/files, delete the `old` directory and everything inside it.",
+      "places": [
+        "~/labs/files"
+      ],
+      "cwd": "~/labs/files",
+      "solution": "rm -r old",
+      "verify": "ls",
+      "explanation": "rm refuses a directory without -r. `rmdir` is the safer alternative when you expect the directory to be empty — it fails if it is not."
+    },
+    {
+      "type": "mc",
+      "core": true,
+      "category": "Removing",
+      "question": "Why is `rm -rf` worth pausing over before you press Enter?",
+      "options": [
+        "-r descends into every subdirectory and -f suppresses every prompt and error, so a mistyped path is removed silently and cannot be undone",
+        "It only works as root, so it always fails for ordinary users",
+        "It moves files to a recoverable location rather than deleting them",
+        "It is slower than rm, so it wastes time"
+      ],
+      "correct": 0,
+      "explanation": "The combination removes both safeguards at once: the confirmation and the error message that would have told you the path was wrong."
+    },
+    {
+      "type": "shell",
+      "category": "Removing",
+      "question": "In ~/labs/files, remove the `reports` directory, using the command that only succeeds if the directory is empty.",
+      "places": [
+        "~/labs/files"
+      ],
+      "cwd": "~/labs/files",
+      "setup": "mkdir -p reports",
+      "solution": "rmdir reports",
+      "verify": "ls -d reports 2>&1",
+      "explanation": "rmdir failing is useful information: it means the directory was not as empty as you thought."
+    },
+    {
+      "type": "mc",
+      "core": true,
+      "category": "Links",
+      "question": "What is a hard link?",
+      "options": [
+        "A second directory entry pointing at the same inode, so both names are equally real and the data survives until the last one is removed",
+        "A copy of the file that is kept synchronized automatically",
+        "A shortcut file containing the path of another file",
+        "A compressed reference to a file stored elsewhere"
+      ],
+      "correct": 0,
+      "explanation": "Neither name is the 'original'. `ls -l` shows the link count, and the content is freed only when it reaches zero."
+    },
+    {
+      "type": "mc",
+      "core": true,
+      "category": "Links",
+      "question": "Which statement about symbolic links is correct?",
+      "options": [
+        "A symbolic link holds a path, so it can point across filesystems and at directories, but it breaks if the target is removed",
+        "A symbolic link holds a copy of the target's data",
+        "A symbolic link can only point at a file in the same directory",
+        "Removing a symbolic link also removes its target"
+      ],
+      "correct": 0,
+      "explanation": "A hard link cannot cross a filesystem boundary or point at a directory; a symbolic link can do both, at the cost of being able to dangle."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Links",
+      "question": "In ~/labs/links, create a symbolic link called shortcut.txt that points to original.txt.",
+      "places": [
+        "~/labs/links"
+      ],
+      "cwd": "~/labs/links",
+      "solution": "ln -s original.txt shortcut.txt",
+      "verify": "ls -l shortcut.txt; cat shortcut.txt",
+      "explanation": "The order is target first, then the name of the link — the same order as cp and mv: from, then to."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Links",
+      "question": "In ~/labs/links, create a hard link called copy.txt pointing at the same data as original.txt, then show the link count.",
+      "places": [
+        "~/labs/links"
+      ],
+      "cwd": "~/labs/links",
+      "hint": "A hard link is the default, so no option is needed for it.",
+      "solution": "ln original.txt copy.txt",
+      "verify": "ls -li original.txt copy.txt",
+      "explanation": "After this, `ls -l` shows a link count of 3 on both names — the shipped file already had a hard link of its own."
+    },
+    {
+      "type": "shell",
+      "category": "Links",
+      "question": "In ~/labs/links there is a symbolic link whose target no longer exists. Show the long listing of every entry in that directory so the broken link and what it points at are both visible.",
+      "places": [
+        "~/labs/links"
+      ],
+      "cwd": "~/labs/links",
+      "solution": "ls -l",
+      "explanation": "broken.txt points at gone.txt, which is not there. `ls -l` still shows the link and its target, because the link itself is a real file."
+    },
+    {
+      "type": "tf",
+      "core": true,
+      "category": "Links",
+      "question": "If you delete the file a hard link points at, the other hard link still gives you the data.",
+      "correct": true,
+      "explanation": "There is no 'the file it points at' — both names point at one inode, and the data goes only when the last name does."
+    },
+    {
+      "type": "tf",
+      "category": "Links",
+      "question": "If you delete the file a symbolic link points at, the symbolic link still gives you the data.",
+      "correct": false,
+      "explanation": "The link holds nothing but a path. Once the target is gone, following the link reports 'No such file or directory'."
+    },
+    {
+      "type": "mc",
+      "core": true,
+      "category": "Shell Expansions",
+      "question": "Which pattern matches abc.txt, ab.txt and a.txt but not b.txt?",
+      "options": [
+        "a*.txt",
+        "?.txt",
+        "[abc].txt",
+        "a?.txt"
+      ],
+      "correct": 0,
+      "explanation": "* matches any string including an empty one, so a*.txt covers all three. a?.txt would need exactly one character after the a."
+    },
+    {
+      "type": "matching",
+      "core": true,
+      "category": "Shell Expansions",
+      "question": "Match each shell pattern to what it matches.",
+      "pairs": [
+        {
+          "left": "*",
+          "right": "Any string of characters, including none at all"
+        },
+        {
+          "left": "?",
+          "right": "Exactly one character, whatever it is"
+        },
+        {
+          "left": "[abc]",
+          "right": "Exactly one character, from that set"
+        },
+        {
+          "left": "[!abc]",
+          "right": "Exactly one character, not from that set"
+        },
+        {
+          "left": "[0-9]",
+          "right": "Exactly one character, from that range"
+        },
+        {
+          "left": "{a,b}",
+          "right": "Generates one word for each item, whether or not any file matches"
+        }
+      ],
+      "explanation": "The first five only produce names that exist. Brace expansion is different: it generates text, which is why it works with touch."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Shell Expansions",
+      "question": "In ~/labs/files, list only the files whose names end in .php.",
+      "places": [
+        "~/labs/files"
+      ],
+      "cwd": "~/labs/files",
+      "solution": "ls *.php",
+      "explanation": "The shell expands the pattern into the matching names, so ls never sees the asterisk at all."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Shell Expansions",
+      "question": "In ~/labs/files, list the report files whose name is 'report' followed by exactly one character and then .txt.",
+      "places": [
+        "~/labs/files"
+      ],
+      "cwd": "~/labs/files",
+      "solution": "ls report?.txt",
+      "explanation": "? matches one character and only one, which is what distinguishes report1.txt from a hypothetical report10.txt."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Shell Expansions",
+      "question": "In ~/labs/files, list only report1.txt, report3.txt and report5.txt by using a character set in the pattern.",
+      "places": [
+        "~/labs/files"
+      ],
+      "cwd": "~/labs/files",
+      "hint": "Square brackets hold the set of characters allowed in that one position.",
+      "solution": "ls report[135].txt",
+      "explanation": "A set can also be a range, so report[1-3].txt would pick the first three."
+    },
+    {
+      "type": "shell",
+      "category": "Shell Expansions",
+      "question": "In ~/labs/files, list every file whose name does NOT have a digit in the position right after the word 'report'. Match only names of the form report<one character>.txt.",
+      "places": [
+        "~/labs/files"
+      ],
+      "cwd": "~/labs/files",
+      "setup": "touch reportA.txt reportB.txt",
+      "hint": "An exclamation mark at the start of a bracket set negates it.",
+      "solution": "ls report[!0-9].txt",
+      "explanation": "[!0-9] means one character that is not a digit. Some shells also accept [^0-9]."
+    },
+    {
+      "type": "shell",
+      "category": "Shell Expansions",
+      "question": "Print the text `*.txt` literally, so the shell does not turn it into a list of file names. Run this from ~/labs/files, where .txt files do exist.",
+      "places": [
+        "~/labs/files"
+      ],
+      "cwd": "~/labs/files",
+      "solution": "echo '*.txt'",
+      "explanation": "Single quotes switch off every kind of expansion. Double quotes would work here too, because they only stop globbing and word splitting — not variables."
+    },
+    {
+      "type": "mc",
+      "core": true,
+      "category": "Shell Expansions",
+      "question": "What is the difference between 'single quotes' and \"double quotes\" in Bash?",
+      "options": [
+        "Single quotes protect everything literally; double quotes still allow variable and command substitution",
+        "Double quotes protect everything literally; single quotes still allow substitution",
+        "They are interchangeable",
+        "Single quotes work only for file names, double quotes only for text"
+      ],
+      "correct": 0,
+      "explanation": "`echo '$HOME'` prints $HOME, while `echo \"$HOME\"` prints /home/student. Both stop globbing and word splitting."
+    },
+    {
+      "type": "shell",
+      "core": true,
+      "category": "Shell Expansions",
+      "question": "Print a single line that reads `My home is /home/student`, getting the path from the variable that holds it rather than typing it out.",
+      "places": [
+        "~"
+      ],
+      "solution": "echo \"My home is $HOME\"",
+      "explanation": "Double quotes keep the sentence as one argument while still expanding $HOME. Single quotes would print the words $HOME instead."
+    },
+    {
+      "type": "shell",
+      "category": "Shell Expansions",
+      "question": "Print a line that reads `This machine is servera.lab.example.com`, taking the host name from the output of a command rather than typing it.",
+      "places": [
+        "/etc"
+      ],
+      "hint": "Command substitution runs a command and drops its output into the line.",
+      "solution": "echo \"This machine is $(hostname)\"",
+      "explanation": "$(command) is the modern form; `command` in backticks does the same but nests badly and is easy to misread."
+    },
+    {
+      "type": "fill_blank",
+      "core": true,
+      "category": "Shell Expansions",
+      "question": "Which character, placed before a single special character, tells the shell to treat just that one character literally?",
+      "answers": [
+        "backslash",
+        "\\",
+        "a backslash",
+        "the backslash"
+      ],
+      "explanation": "`touch my\\ file.txt` creates one file with a space in the name. It is the escape for a single character, where quotes cover a whole run."
+    },
+    {
+      "type": "short_answer",
+      "core": true,
+      "category": "Shell Expansions",
+      "question": "A classmate runs `rm *.txt ` in what they think is their project directory and loses the wrong files. Describe two habits that would have caught the mistake before anything was deleted, and say what each one actually shows you.",
+      "answerLang": null,
+      "modelAnswer": "Run the pattern through a harmless command first. `ls *.txt` expands exactly the same way rm would, and prints the list of names that are about to be passed in. If that list is not what you expected, the pattern or the directory is wrong.\n\nConfirm where you are before acting. `pwd` prints the working directory, so you find out you are in ~/labs rather than ~/project before the pattern matters.\n\nA third habit worth having: `rm -i` prompts for each file, and on Red Hat systems root already gets that through an alias.",
+      "rubric": [
+        "Suggests previewing the pattern with ls (or echo) and explains that it expands identically",
+        "Suggests confirming the working directory with pwd, or naming an explicit path",
+        "Explains what the check reveals, rather than only naming the command"
+      ],
+      "explanation": "The key idea is that the shell expands the pattern before rm ever runs, so any command can be used to preview the same expansion."
+    },
+    {
+      "type": "shell",
+      "category": "Creating",
+      "question": "In ~/labs/files, create a backup of every .txt file at once: for each one, make a copy whose name has .bak added to the end. There are ten .txt files, so do it with a loop rather than by hand.",
+      "places": [
+        "~/labs/files"
+      ],
+      "cwd": "~/labs/files",
+      "hint": "for name in *.txt; do ... done",
+      "solution": "for f in *.txt; do cp \"$f\" \"$f.bak\"; done",
+      "verify": "ls *.bak",
+      "explanation": "Quoting \"$f\" is what makes this survive the file whose name contains a space."
+    },
+    {
+      "type": "mc",
+      "category": "Copying and moving",
+      "question": "You run `cp -r labs/ backup/` and backup already exists as a directory. What happens?",
+      "options": [
+        "labs is copied to become backup/labs",
+        "The contents of labs replace the contents of backup",
+        "cp reports an error because the destination exists",
+        "backup is renamed to labs"
+      ],
+      "correct": 0,
+      "explanation": "When the destination is an existing directory, the source is copied inside it. That is the same rule mv follows."
+    }
+  ]
+}

@@ -1,0 +1,1847 @@
+{
+  "title": "ITN 170 Linux Commands Study Guide",
+  "description": "A command-line reference for Red Hat Enterprise Linux 9: the shell, the filesystem, redirection and the text toolkit, users and groups, permissions, software, storage, processes and services, and networking and SSH.",
+  "quizFile": "data/itn170-comprehensive-review.json",
+  "sections": [
+    {
+      "name": "The Command Line & Getting Help",
+      "blocks": [
+        {
+          "type": "heading",
+          "text": "The Shell Prompt"
+        },
+        {
+          "type": "paragraph",
+          "text": "Bash is the default shell on RHEL 9. The prompt tells you three things before you type anything: who you are, which machine you are on, and where you are standing."
+        },
+        {
+          "type": "code",
+          "text": "[student@servera ~]$      <- $ means an ordinary user\n[root@servera ~]#        <- # means you are root: think before you press enter"
+        },
+        {
+          "type": "note",
+          "label": "Read the prompt:",
+          "text": "The `~` is the current directory, written as a shortcut for your home. If it says `/etc`, you are in /etc. Most destructive accidents start with being somewhere you did not think you were."
+        },
+        {
+          "type": "subheading",
+          "text": "The shape of a command"
+        },
+        {
+          "type": "code",
+          "text": "command  [options]  [arguments]\n\nls       -l -a      /etc\nls       -la        /etc          <- short options can be bundled\nls       --all      /etc          <- long options use two dashes"
+        },
+        {
+          "type": "list",
+          "items": [
+            "**Short options** are a single dash and one letter: `-l`. Several can be combined: `-la` is the same as `-l -a`.",
+            "**Long options** are two dashes and a word: `--all`. They are clearer in scripts, where somebody else has to read them later.",
+            "**Arguments** are what the command acts on. Most commands accept more than one.",
+            "Everything is **case-sensitive**: `ls` is a command, `LS` is not."
+          ]
+        },
+        {
+          "type": "subheading",
+          "text": "Editing the line you are typing"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Keys",
+            "What it does"
+          ],
+          "rows": [
+            [
+              "Tab",
+              "Complete a command or filename; press twice to list the possibilities"
+            ],
+            [
+              "Up / Down",
+              "Walk back and forward through your command history"
+            ],
+            [
+              "Ctrl+A / Ctrl+E",
+              "Jump to the beginning / end of the line"
+            ],
+            [
+              "Ctrl+U / Ctrl+K",
+              "Delete to the beginning / end of the line"
+            ],
+            [
+              "Ctrl+W",
+              "Delete the word before the cursor"
+            ],
+            [
+              "Ctrl+L",
+              "Clear the screen, keeping what you have typed"
+            ],
+            [
+              "Ctrl+C",
+              "Abandon what is running, or what you are typing"
+            ],
+            [
+              "Ctrl+D",
+              "End of input: logs you out of the shell"
+            ],
+            [
+              "Ctrl+R",
+              "Search backwards through history for a command you ran before"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Tab completion is a safety feature:",
+          "text": "It is not only faster. If Tab does not complete a filename, the file is not there, or you are not where you think you are -- which is worth knowing before the command runs."
+        },
+        {
+          "type": "subheading",
+          "text": "History"
+        },
+        {
+          "type": "code",
+          "text": "history            # numbered list of what you have run\n!42                # run command number 42 again\n!!                 # run the previous command again\nsudo !!            # ... this time with sudo\n!ls                # the most recent command starting with ls"
+        },
+        {
+          "type": "heading",
+          "text": "Getting Help"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Command",
+            "What it gives you"
+          ],
+          "rows": [
+            [
+              "`command --help`",
+              "A quick summary of options. The first thing to try."
+            ],
+            [
+              "`man command`",
+              "The full manual page: options, files, exit codes, examples"
+            ],
+            [
+              "`man -k keyword`",
+              "Search every manual page's description for a keyword"
+            ],
+            [
+              "`apropos keyword`",
+              "The same search under a different name"
+            ],
+            [
+              "`whatis command`",
+              "One line saying what a command is for"
+            ],
+            [
+              "`which command`",
+              "The path to the program that would actually run"
+            ],
+            [
+              "`type command`",
+              "Whether it is a builtin, an alias, or a program on disk"
+            ],
+            [
+              "`info command`",
+              "The GNU documentation, when a manual page is not enough"
+            ]
+          ]
+        },
+        {
+          "type": "subheading",
+          "text": "Reading a manual page"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Inside `man`, **/** searches, **n** jumps to the next match, **q** quits. It is `less`, so all of `less`'s keys work.",
+            "**SYNOPSIS** shows the syntax. Square brackets mean optional, `...` means repeatable.",
+            "**EXAMPLES**, near the bottom, is usually the fastest part of the page.",
+            "Manual pages are in numbered sections. `man 5 passwd` is the **file format** /etc/passwd; `man 1 passwd` is the **command**."
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Section",
+            "What it documents"
+          ],
+          "rows": [
+            [
+              "1",
+              "User commands"
+            ],
+            [
+              "5",
+              "File formats and configuration files"
+            ],
+            [
+              "8",
+              "System administration commands"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Navigating the Filesystem",
+      "blocks": [
+        {
+          "type": "heading",
+          "text": "One Tree, No Drive Letters"
+        },
+        {
+          "type": "paragraph",
+          "text": "Everything on a Linux system hangs off a single root directory, `/`. Extra disks do not get a letter -- they are **mounted** onto a directory somewhere in that one tree."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Directory",
+            "What lives there"
+          ],
+          "rows": [
+            [
+              "/",
+              "The root of everything"
+            ],
+            [
+              "/home",
+              "Ordinary users' home directories"
+            ],
+            [
+              "/root",
+              "The root user's home directory -- not the same as /"
+            ],
+            [
+              "/etc",
+              "System-wide configuration files"
+            ],
+            [
+              "/var",
+              "Data that changes: logs, spools, caches"
+            ],
+            [
+              "/var/log",
+              "Log files, including the ones you read when something breaks"
+            ],
+            [
+              "/usr/bin",
+              "Programs available to everyone"
+            ],
+            [
+              "/usr/sbin",
+              "Programs intended for administrators"
+            ],
+            [
+              "/tmp",
+              "Temporary files; world-writable and periodically cleaned out"
+            ],
+            [
+              "/dev",
+              "Device files: disks, terminals, /dev/null"
+            ],
+            [
+              "/proc",
+              "A view of the running kernel and its processes, generated on the fly"
+            ],
+            [
+              "/mnt, /media",
+              "Conventional places to mount other filesystems"
+            ],
+            [
+              "/boot",
+              "The kernel and what is needed to start the machine"
+            ]
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Paths"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Written as",
+            "Means"
+          ],
+          "rows": [
+            [
+              "`/etc/ssh`",
+              "An **absolute** path: start at root, no matter where you are"
+            ],
+            [
+              "`labs/files`",
+              "A **relative** path: start from the current directory"
+            ],
+            [
+              "`.`",
+              "The current directory"
+            ],
+            [
+              "`..`",
+              "The parent directory"
+            ],
+            [
+              "`~`",
+              "Your own home directory"
+            ],
+            [
+              "`~operator1`",
+              "Another user's home directory"
+            ],
+            [
+              "`-`",
+              "With `cd`, the directory you were in before"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "text": "pwd                 # where am I?\ncd /var/log         # absolute: works from anywhere\ncd ..               # up one level\ncd ../..            # up two\ncd ~                # home\ncd                  # also home\ncd -                # back to where I just was"
+        },
+        {
+          "type": "note",
+          "label": "Absolute or relative?",
+          "text": "Use absolute paths in scripts and in anything destructive, because they mean the same thing wherever they run. Use relative paths interactively, where you can see the prompt."
+        },
+        {
+          "type": "heading",
+          "text": "Listing"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Command",
+            "What it shows"
+          ],
+          "rows": [
+            [
+              "`ls`",
+              "Names in the current directory"
+            ],
+            [
+              "`ls -l`",
+              "Long format: permissions, links, owner, group, size, date"
+            ],
+            [
+              "`ls -a`",
+              "Everything, including names beginning with a dot"
+            ],
+            [
+              "`ls -la`",
+              "Both at once -- the everyday listing"
+            ],
+            [
+              "`ls -lh`",
+              "Sizes as K, M and G rather than bytes"
+            ],
+            [
+              "`ls -lt`",
+              "Most recently modified first"
+            ],
+            [
+              "`ls -ltr`",
+              "Oldest first, so the newest ends up next to your prompt"
+            ],
+            [
+              "`ls -ld dir`",
+              "The directory itself, not what is inside it"
+            ],
+            [
+              "`ls -R`",
+              "Recurse into every subdirectory"
+            ],
+            [
+              "`ls -li`",
+              "Include the inode number of each entry"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Hidden files:",
+          "text": "There is no hidden attribute. A file is hidden simply because its name begins with a dot, and `ls -a` shows it. That is the whole mechanism."
+        },
+        {
+          "type": "subheading",
+          "text": "Reading files without editing them"
+        },
+        {
+          "type": "code",
+          "text": "cat file            # print the whole thing\nless file           # page through it; / searches, q quits\nhead file           # first 10 lines\nhead -3 file        # first 3\ntail file           # last 10 lines\ntail -f /var/log/messages   # follow it as it grows\nfile something      # what kind of file is this?\nwc -l file          # how many lines?"
+        }
+      ]
+    },
+    {
+      "name": "Managing Files & Shell Expansions",
+      "blocks": [
+        {
+          "type": "heading",
+          "text": "Creating, Copying, Moving, Removing"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Command",
+            "What it does"
+          ],
+          "rows": [
+            [
+              "`touch file`",
+              "Create an empty file, or update the timestamps of one that exists"
+            ],
+            [
+              "`mkdir dir`",
+              "Create a directory"
+            ],
+            [
+              "`mkdir -p a/b/c`",
+              "Create a whole path, making parents as needed"
+            ],
+            [
+              "`cp src dst`",
+              "Copy a file"
+            ],
+            [
+              "`cp -r dir dst`",
+              "Copy a directory and everything in it"
+            ],
+            [
+              "`cp -p src dst`",
+              "Preserve mode, ownership and timestamps"
+            ],
+            [
+              "`mv old new`",
+              "Rename, or move into another directory -- the same command"
+            ],
+            [
+              "`rm file`",
+              "Delete a file. There is no recycle bin."
+            ],
+            [
+              "`rm -r dir`",
+              "Delete a directory and its contents"
+            ],
+            [
+              "`rm -i file`",
+              "Ask before each deletion"
+            ],
+            [
+              "`rmdir dir`",
+              "Delete a directory only if it is already empty"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "label": "There is no undo:",
+          "text": "`rm` does not ask and does not keep a copy. Two habits prevent nearly every accident: run the pattern through `ls` first to see what it matches, and check `pwd` before deleting anything."
+        },
+        {
+          "type": "heading",
+          "text": "Links"
+        },
+        {
+          "type": "code",
+          "text": "ln  original.txt  hardlink.txt     # hard link: a second name for one inode\nln -s original.txt softlink.txt    # symbolic link: a signpost holding a path"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "",
+            "Hard link",
+            "Symbolic link"
+          ],
+          "rows": [
+            [
+              "What it is",
+              "Another name for the same inode",
+              "A small file holding a path"
+            ],
+            [
+              "If the original is deleted",
+              "Still works -- data goes when the last name does",
+              "Breaks; it points at nothing"
+            ],
+            [
+              "Across filesystems",
+              "No",
+              "Yes"
+            ],
+            [
+              "To a directory",
+              "No",
+              "Yes"
+            ],
+            [
+              "In `ls -l`",
+              "Link count above 1",
+              "Shown as `l` with `-> target`"
+            ]
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Shell Expansions"
+        },
+        {
+          "type": "paragraph",
+          "text": "The shell rewrites your line **before** the command runs. The command never sees the pattern -- only the result. This is why `ls **.txt` and `rm **.txt` match exactly the same files."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Pattern",
+            "Matches"
+          ],
+          "rows": [
+            [
+              "`*`",
+              "Any run of characters, including none"
+            ],
+            [
+              "`?`",
+              "Exactly one character"
+            ],
+            [
+              "`[abc]`",
+              "One character, from that set"
+            ],
+            [
+              "`[!abc]`",
+              "One character, not from that set"
+            ],
+            [
+              "`[0-9]`",
+              "One character, from that range"
+            ],
+            [
+              "`{a,b,c}`",
+              "**Brace expansion**: generates one word per item, whether or not any file matches"
+            ],
+            [
+              "`{1..5}`",
+              "A range: 1 2 3 4 5"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "text": "touch report{1,2,3}.txt         # creates three files\ntouch page{01..05}.php          # creates five\nls report?.txt                  # report1.txt ... report5.txt\nls *.{txt,php}                  # both extensions\necho *.txt                      # preview what a pattern expands to"
+        },
+        {
+          "type": "note",
+          "label": "The one real difference:",
+          "text": "Globs (`*`, `?`, `[...]`) only produce names that exist. Brace expansion generates text whether the files exist or not -- which is exactly why it works with `touch` and `mkdir`."
+        },
+        {
+          "type": "subheading",
+          "text": "Quoting"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Written",
+            "Effect"
+          ],
+          "rows": [
+            [
+              "`\"double quotes\"`",
+              "Stops globbing and word splitting; `$VAR` and `$(cmd)` are still expanded"
+            ],
+            [
+              "`'single quotes'`",
+              "Everything is literal, including `$`"
+            ],
+            [
+              "`\\c`",
+              "The next single character is literal"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "text": "touch \"my file.txt\"      # one file, with a space in the name\ntouch my\\ file.txt       # the same thing\necho \"$HOME\"             # /home/student\necho '$HOME'             # $HOME"
+        },
+        {
+          "type": "subheading",
+          "text": "Variables and substitution"
+        },
+        {
+          "type": "code",
+          "text": "echo $HOME $USER $PATH $PWD\necho \"Today is $(date)\"        # command substitution\nname=\"report\"                  # no spaces around the =\necho \"${name}1.txt\"            # braces separate the name from what follows"
+        },
+        {
+          "type": "subheading",
+          "text": "Loops"
+        },
+        {
+          "type": "code",
+          "text": "for f in *.txt; do cp \"$f\" \"$f.bak\"; done\nfor i in {1..3}; do mkdir \"site-$i\"; done"
+        },
+        {
+          "type": "note",
+          "label": "Quote the variable:",
+          "text": "`\"$f\"` keeps a filename with a space in it as one argument. Unquoted, `spaced name.txt` becomes two arguments and the command does the wrong thing."
+        }
+      ]
+    },
+    {
+      "name": "Editing, Redirection & Pipes",
+      "blocks": [
+        {
+          "type": "heading",
+          "text": "vim, in the Five Minutes You Need"
+        },
+        {
+          "type": "paragraph",
+          "text": "vim opens in **command mode**, where letters are commands rather than text. `vi` is guaranteed to exist on any RHEL system, which is why it is worth knowing even if you prefer `nano`."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Key",
+            "Does"
+          ],
+          "rows": [
+            [
+              "`i` / `a`",
+              "Insert before / after the cursor"
+            ],
+            [
+              "`o`",
+              "Open a new line below and insert"
+            ],
+            [
+              "Esc",
+              "Back to command mode -- always safe to press"
+            ],
+            [
+              "`dd` / `yy` / `p`",
+              "Delete line / copy line / paste"
+            ],
+            [
+              "`u` / Ctrl+R",
+              "Undo / redo"
+            ],
+            [
+              "`/text`",
+              "Search; `n` for the next match"
+            ],
+            [
+              "`:w` / `:q` / `:wq`",
+              "Write / quit / write and quit"
+            ],
+            [
+              "`:q!`",
+              "Quit and throw away the changes"
+            ]
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "The Three Streams"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Stream",
+            "Number",
+            "What it carries"
+          ],
+          "rows": [
+            [
+              "stdin",
+              "0",
+              "Input the command reads"
+            ],
+            [
+              "stdout",
+              "1",
+              "Normal results"
+            ],
+            [
+              "stderr",
+              "2",
+              "Messages about problems"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "All three point at your terminal by default, which is why output and errors look like one thing. They are not, and `>` only moves stdout."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Written",
+            "Effect"
+          ],
+          "rows": [
+            [
+              "`cmd > file`",
+              "stdout to file, **replacing** its contents"
+            ],
+            [
+              "`cmd >> file`",
+              "stdout to file, **appending**"
+            ],
+            [
+              "`cmd 2> file`",
+              "stderr only, to file"
+            ],
+            [
+              "`cmd 2> /dev/null`",
+              "Discard the errors"
+            ],
+            [
+              "`cmd > file 2>&1`",
+              "stdout to the file, then stderr to the same place"
+            ],
+            [
+              "`cmd &> file`",
+              "Both, in bash shorthand"
+            ],
+            [
+              "`cmd < file`",
+              "Read stdin from a file"
+            ],
+            [
+              "`cmd << END`",
+              "A here document: the following lines, until END alone"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Order matters:",
+          "text": "`> file 2>&1` works; `2>&1 > file` does not. The second one copies stderr to where stdout points **at that moment** -- still the terminal -- and only then moves stdout."
+        },
+        {
+          "type": "heading",
+          "text": "Pipes"
+        },
+        {
+          "type": "code",
+          "text": "ls -a | wc -l                       # count the entries\ngrep 404 access.log | tail -3       # filter, then trim\nsort fruit.txt | uniq -c            # group, then count\nps aux | grep sshd                  # find a process\nsort fruit.txt | tee sorted.txt     # save a copy and keep going"
+        },
+        {
+          "type": "list",
+          "items": [
+            "A pipe connects the **stdout** of the left command to the **stdin** of the right one. Errors are not piped.",
+            "A redirection at the end of a pipeline belongs to the **last** command in it.",
+            "`tee` writes to a file **and** passes the data along; `tee -a` appends."
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "The Text Toolkit"
+        },
+        {
+          "type": "subheading",
+          "text": "grep -- find lines"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Option",
+            "Effect"
+          ],
+          "rows": [
+            [
+              "`-i`",
+              "Ignore case"
+            ],
+            [
+              "`-v`",
+              "Invert: print the lines that do **not** match"
+            ],
+            [
+              "`-c`",
+              "Count matching lines instead of printing them"
+            ],
+            [
+              "`-n`",
+              "Show line numbers"
+            ],
+            [
+              "`-r`",
+              "Search a whole directory tree"
+            ],
+            [
+              "`-l`",
+              "Print only the names of files that matched"
+            ],
+            [
+              "`-w`",
+              "Match whole words only -- `ssh` no longer matches `sshd`"
+            ],
+            [
+              "`-E`",
+              "Extended regular expressions (`egrep`)"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "text": "grep -v '^#' /etc/services         # drop the comments\ngrep -c 404 access.log             # how many\ngrep -rn mysql /etc                # where, and on which line\ngrep '^root' /etc/passwd           # ^ anchors to the start, $ to the end"
+        },
+        {
+          "type": "note",
+          "label": "Quote the pattern:",
+          "text": "Single quotes stop the shell expanding `*`, `?` and `$` before grep sees them."
+        },
+        {
+          "type": "subheading",
+          "text": "cut, sort, uniq, tr, wc"
+        },
+        {
+          "type": "code",
+          "text": "cut -d: -f1 /etc/passwd            # first colon-separated field\ncut -d, -f2,6 employees.csv        # two comma-separated fields\n\nsort file                          # alphabetical\nsort -n numbers.txt                # numeric: 9 before 115\nsort -rn numbers.txt               # biggest first\nsort -u file                       # sorted, duplicates removed\n\nsort file | uniq -c                # count each distinct line\nsort file | uniq -d                # only the duplicated ones\n\ntr 'a-z' 'A-Z' < file              # translate; reads stdin only\ntr -d ' ' < file                   # delete characters\n\nwc file                            # lines, words, characters\nwc -l file"
+        },
+        {
+          "type": "note",
+          "label": "Why sort before uniq:",
+          "text": "`uniq` only compares a line with the one immediately before it. Sorting is what puts the identical lines next to each other."
+        },
+        {
+          "type": "subheading",
+          "text": "sed -- edit a stream"
+        },
+        {
+          "type": "code",
+          "text": "sed 's/old/new/'  file      # first match on each line\nsed 's/old/new/g' file      # every match\nsed -i 's/old/new/g' file   # edit the file in place\nsed -i.bak 's/a/b/g' file   # ... keeping file.bak\nsed -n '4p' file            # print only line 4\nsed -n '2,5p' file          # lines 2 to 5\nsed '/^#/d' file            # delete the comment lines"
+        },
+        {
+          "type": "note",
+          "label": "Preview first:",
+          "text": "Run it without `-i` and read the output. Then add `-i`. On anything under /etc, use `-i.bak`."
+        },
+        {
+          "type": "subheading",
+          "text": "awk -- work with columns"
+        },
+        {
+          "type": "code",
+          "text": "awk '{print $1, $3}'  inventory.txt          # first and third columns\nawk '{print $NF}'     hosts.txt              # the last column\nawk -F, '{print $2}'  employees.csv          # comma-separated\nawk -F, '$3==\"Support\" {print $2}' employees.csv\nawk 'NR != 1 {total += $3} END {print total}' inventory.txt\nawk '$5 > 1000'       access.log             # print lines matching a condition"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Variable",
+            "Means"
+          ],
+          "rows": [
+            [
+              "`$0`",
+              "The whole line"
+            ],
+            [
+              "`$1`, `$2`, ...",
+              "The first, second, ... field"
+            ],
+            [
+              "`NF`",
+              "The number of fields, so `$NF` is the last one"
+            ],
+            [
+              "`NR`",
+              "The current line number"
+            ],
+            [
+              "`-F`",
+              "Set the field separator"
+            ],
+            [
+              "`BEGIN` / `END`",
+              "Blocks that run before the first line / after the last"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Which tool?",
+          "text": "**grep** picks lines. **cut** takes fixed columns. **sed** changes text. **awk** does anything involving a condition on a column, or arithmetic."
+        }
+      ]
+    },
+    {
+      "name": "Users & Groups",
+      "blocks": [
+        {
+          "type": "heading",
+          "text": "Who Am I?"
+        },
+        {
+          "type": "code",
+          "text": "whoami                 # just the name\nid                     # uid, primary group, every supplementary group\nid operator1           # the same, for somebody else\ngroups                 # the groups I am in\nwho / w                # who is logged in right now"
+        },
+        {
+          "type": "heading",
+          "text": "The Account Files"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "File",
+            "Holds",
+            "Readable by"
+          ],
+          "rows": [
+            [
+              "/etc/passwd",
+              "Account name, UID, GID, comment, home, shell",
+              "Everyone"
+            ],
+            [
+              "/etc/shadow",
+              "Password hashes and aging settings",
+              "root only"
+            ],
+            [
+              "/etc/group",
+              "Group names, GIDs and supplementary members",
+              "Everyone"
+            ],
+            [
+              "/etc/login.defs",
+              "The defaults applied to new accounts",
+              "Everyone"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "text": "student:x:1000:1000:Student User:/home/student:/bin/bash\n   1     2   3    4        5             6            7\n\n1 name   2 password placeholder (x = see /etc/shadow)   3 UID\n4 primary GID   5 comment (GECOS)   6 home   7 login shell"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "UID range",
+            "Who"
+          ],
+          "rows": [
+            [
+              "0",
+              "root"
+            ],
+            [
+              "1-999",
+              "System and service accounts"
+            ],
+            [
+              "1000 and up",
+              "Regular users created by an administrator"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "label": "/sbin/nologin",
+          "text": "An account with that shell is valid -- it owns files and runs processes -- but nobody can log in as it. That is how service accounts are locked down."
+        },
+        {
+          "type": "heading",
+          "text": "Creating and Changing Accounts"
+        },
+        {
+          "type": "code",
+          "text": "sudo useradd analyst                       # defaults for everything\nsudo useradd -c 'Data Analyst' analyst     # set the comment\nsudo useradd -u 1500 webops                # fix the UID\nsudo useradd -s /sbin/nologin backupsvc    # a service account\nsudo useradd -G operators newperson        # with a supplementary group\n\nsudo usermod -c 'New Name' analyst\nsudo usermod -s /bin/bash backupsvc\nsudo usermod -L analyst                    # lock / -U unlock\nsudo userdel analyst                       # keep the home directory\nsudo userdel -r analyst                    # remove it too"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Option",
+            "Sets"
+          ],
+          "rows": [
+            [
+              "`-c`",
+              "The comment / real name"
+            ],
+            [
+              "`-u`",
+              "The UID"
+            ],
+            [
+              "`-g`",
+              "The **primary** group"
+            ],
+            [
+              "`-G`",
+              "**Supplementary** groups"
+            ],
+            [
+              "`-s`",
+              "The login shell"
+            ],
+            [
+              "`-d`",
+              "The home directory"
+            ]
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Groups"
+        },
+        {
+          "type": "code",
+          "text": "sudo groupadd webadmin\nsudo groupadd -g 10500 auditors\nsudo groupdel webadmin\n\nsudo usermod -aG operators dbadmin     # ADD to supplementary groups\nsudo usermod -g consultants operator3  # change the primary group\ngetent group techdocs                  # who is in it"
+        },
+        {
+          "type": "note",
+          "label": "The -a is not optional:",
+          "text": "`usermod -G operators dbadmin` **replaces** every supplementary group the account had -- including `wheel`, which is how someone loses sudo by accident. Always `-aG`, and always run `id user` first so you know what to put back."
+        },
+        {
+          "type": "list",
+          "items": [
+            "A user has exactly **one primary group**, recorded in /etc/passwd. New files they create get that group.",
+            "A user can have **any number of supplementary groups**, recorded in /etc/group. These only grant access.",
+            "Group changes do not apply to a session that is already open. Log out and back in, or start a new login shell."
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Passwords and Aging"
+        },
+        {
+          "type": "code",
+          "text": "sudo passwd analyst        # set a password\npasswd                     # change my own\nsudo passwd -l operator2   # lock  /  -u unlock\nsudo passwd -S operator2   # status in one line\n\nsudo chage -l operator1    # show the aging settings\nsudo chage -d 0 dbadmin    # must change password at next login\nsudo chage -M 90 dbadmin   # maximum password age\nsudo chage -E 2026-06-30 contractor   # the account itself expires"
+        },
+        {
+          "type": "heading",
+          "text": "Becoming root"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Command",
+            "What happens"
+          ],
+          "rows": [
+            [
+              "`su - root`",
+              "A full login shell as root: their environment, their home. Needs the **root** password."
+            ],
+            [
+              "`su root`",
+              "root's identity, but your environment and current directory"
+            ],
+            [
+              "`sudo command`",
+              "One command as root. Needs **your own** password."
+            ],
+            [
+              "`sudo -i`",
+              "An interactive root shell, authenticated as you"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Why sudo wins:",
+          "text": "Each administrator uses their own password, every command is logged with their name, access is removed by taking them out of a group, and rules can allow specific commands rather than everything. On RHEL, membership of **wheel** is what grants it. Edit the rules with **visudo**, never a plain editor -- it refuses to save a file it cannot parse."
+        }
+      ]
+    },
+    {
+      "name": "Permissions & Ownership",
+      "blocks": [
+        {
+          "type": "heading",
+          "text": "Reading a Long Listing"
+        },
+        {
+          "type": "code",
+          "text": "-rw-r--r--  1  student  student   22  Jun  4 18:15  public.txt\n│└┬┘└┬┘└┬┘  │     │        │       │        │           │\n│ │  │  │   │     │        │       │        │           └ name\n│ │  │  │   │     │        │       │        └ last modified\n│ │  │  │   │     │        │       └ size in bytes\n│ │  │  │   │     │        └ group\n│ │  │  │   │     └ owner\n│ │  │  │   └ link count\n│ │  │  └ other:  what everyone else may do\n│ │  └ group:   what members of the group may do\n│ └ user:    what the owner may do\n└ type: - file, d directory, l symlink, b block, c character"
+        },
+        {
+          "type": "heading",
+          "text": "What the Bits Mean"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "",
+            "On a file",
+            "On a directory"
+          ],
+          "rows": [
+            [
+              "**r** (4)",
+              "Read the contents",
+              "List the names inside"
+            ],
+            [
+              "**w** (2)",
+              "Change the contents",
+              "Create, rename and delete entries"
+            ],
+            [
+              "**x** (1)",
+              "Run it as a program",
+              "Enter it and reach things by name"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "label": "The one that catches everyone:",
+          "text": "Deleting a file needs **write permission on the directory**, not on the file. And without **x** on a directory you cannot reach anything inside it, however open the files themselves are."
+        },
+        {
+          "type": "heading",
+          "text": "chmod"
+        },
+        {
+          "type": "subheading",
+          "text": "Octal: set all three columns at once"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Digit",
+            "Bits",
+            "Means"
+          ],
+          "rows": [
+            [
+              "7",
+              "rwx",
+              "Everything"
+            ],
+            [
+              "6",
+              "rw-",
+              "Read and write"
+            ],
+            [
+              "5",
+              "r-x",
+              "Read and run"
+            ],
+            [
+              "4",
+              "r--",
+              "Read only"
+            ],
+            [
+              "0",
+              "---",
+              "Nothing"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "text": "chmod 644 file      # rw-r--r--   the usual file\nchmod 640 file      # rw-r-----   owner writes, team reads\nchmod 600 file      # rw-------   private\nchmod 755 dir       # rwxr-xr-x   the usual directory\nchmod 700 dir       # rwx------   private directory\nchmod -R 700 dir    # and everything inside it"
+        },
+        {
+          "type": "subheading",
+          "text": "Symbolic: change only what you name"
+        },
+        {
+          "type": "code",
+          "text": "chmod u+x script.sh     # add execute for the owner\nchmod go-w file         # remove write from group and other\nchmod a+r file          # everyone can read\nchmod g=r file          # group becomes exactly read\nchmod g= file           # group gets nothing"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Who",
+            "Operator"
+          ],
+          "rows": [
+            [
+              "`u` user (owner)",
+              "`+` add"
+            ],
+            [
+              "`g` group",
+              "`-` remove"
+            ],
+            [
+              "`o` other",
+              "`=` set exactly"
+            ],
+            [
+              "`a` all three",
+              ""
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Which form?",
+          "text": "Octal when you want a known end state. Symbolic when you want to change one thing and leave the rest alone. Only the owner and root may run chmod at all."
+        },
+        {
+          "type": "heading",
+          "text": "Ownership"
+        },
+        {
+          "type": "code",
+          "text": "sudo chown operator1 file            # change the owner\nsudo chown operator1:operators file  # owner and group\nsudo chown :operators file           # group only\nchgrp techdocs file                  # group only, no sudo needed\n                                     #   if you own it and are in the group\nsudo chown -R apache:apache /var/www # a whole tree"
+        },
+        {
+          "type": "paragraph",
+          "text": "Only root may give a file to another **user** -- otherwise anyone could dodge a quota by handing their files away. You may give a file to a **group** you already belong to."
+        },
+        {
+          "type": "heading",
+          "text": "The umask"
+        },
+        {
+          "type": "code",
+          "text": "umask               # show it: 0022\numask 007           # set it for this shell\n\nNew files start from 666 and new directories from 777.\nThe umask bits are then removed:\n\n  666 - 022 = 644     rw-r--r--\n  777 - 022 = 755     rwxr-xr-x\n  666 - 007 = 660     rw-rw----"
+        },
+        {
+          "type": "note",
+          "label": "Why a new script is never executable:",
+          "text": "Files start from 666, which has no execute bit to begin with. That is why you always have to `chmod +x` a script you just wrote."
+        },
+        {
+          "type": "heading",
+          "text": "Special Permissions"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Bit",
+            "Octal",
+            "On what",
+            "Effect"
+          ],
+          "rows": [
+            [
+              "setuid",
+              "4000",
+              "A program",
+              "Runs as the file's owner, not as whoever started it"
+            ],
+            [
+              "setgid",
+              "2000",
+              "A program",
+              "Runs with the file's group"
+            ],
+            [
+              "setgid",
+              "2000",
+              "A directory",
+              "New entries inherit the directory's group"
+            ],
+            [
+              "sticky",
+              "1000",
+              "A directory",
+              "Only an entry's owner may delete it"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "text": "drwxrwsr-x   <- s in the GROUP execute position: setgid\n-rwsr-xr-x   <- s in the USER  execute position: setuid (this is /usr/bin/passwd)\ndrwxrwxrwt   <- t at the end: sticky (this is /tmp)\n\nchmod g+s  shared/      or  chmod 2775 shared/\nchmod +t   dropbox/     or  chmod 1777 dropbox/"
+        },
+        {
+          "type": "note",
+          "label": "A shared team directory:",
+          "text": "`chmod 2770` plus a group everyone is in. The **2** makes every file created inside inherit the team group, without which the group permission bits never apply to anyone's files. Add the sticky bit (**3770**) if members should not be able to delete each other's work."
+        },
+        {
+          "type": "heading",
+          "text": "Diagnosing Permission Denied"
+        },
+        {
+          "type": "list",
+          "items": [
+            "`ls -l thefile` -- the mode, the owner and the group. Which column applies to this user?",
+            "`id theuser` -- their UID and every group. A membership added since they logged in is not in their current session.",
+            "Every directory on the path needs **x**. `namei -l /full/path/to/file` checks all of them at once.",
+            "Still stuck? A trailing `.` or `+` on the mode in `ls -l` means SELinux context or an ACL is involved."
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Software: RPM, DNF & Flatpak",
+      "blocks": [
+        {
+          "type": "heading",
+          "text": "rpm or dnf?"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "",
+            "rpm",
+            "dnf"
+          ],
+          "rows": [
+            [
+              "Works on",
+              "One package, and the local database",
+              "Repositories"
+            ],
+            [
+              "Dependencies",
+              "Checks, but will not fetch them",
+              "Resolves and installs them"
+            ],
+            [
+              "Needs a network",
+              "No",
+              "Yes"
+            ],
+            [
+              "Use it to",
+              "**Ask questions** about what is installed",
+              "**Change** what is installed"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "dnf calls rpm to do the actual work. The split is 'fetch and resolve' versus 'ask and inspect'."
+        },
+        {
+          "type": "heading",
+          "text": "Reading a Package Name"
+        },
+        {
+          "type": "code",
+          "text": "tree  -  1.8.0  -  10  .  el9  .  x86_64  .rpm\n  │        │        │       │       │\n  │        │        │       │       └ architecture (noarch = any)\n  │        │        │       └ built for RHEL 9\n  │        │        └ release: which build of that version\n  │        └ upstream version\n  └ package name"
+        },
+        {
+          "type": "heading",
+          "text": "Querying with rpm"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Command",
+            "Answers"
+          ],
+          "rows": [
+            [
+              "`rpm -qa`",
+              "What is installed on this system?"
+            ],
+            [
+              "`rpm -q tree`",
+              "Is this one package installed?"
+            ],
+            [
+              "`rpm -qi tree`",
+              "What is it, in detail?"
+            ],
+            [
+              "`rpm -ql tree`",
+              "What files did it install?"
+            ],
+            [
+              "`rpm -qc openssh-server`",
+              "Which of its files are configuration?"
+            ],
+            [
+              "`rpm -qd tree`",
+              "Where is its documentation?"
+            ],
+            [
+              "`rpm -qf /usr/bin/awk`",
+              "Which package does this file belong to?"
+            ],
+            [
+              "`rpm -qip file.rpm`",
+              "The same questions, about a downloaded .rpm"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Every query starts with -q:",
+          "text": "rpm **with** -q asks questions. rpm **without** -q changes the system. That is the safest way to remember it."
+        },
+        {
+          "type": "heading",
+          "text": "Searching and Installing with dnf"
+        },
+        {
+          "type": "code",
+          "text": "dnf search tree                  # by name and summary\ndnf provides /usr/bin/awk        # which package would give me this file?\ndnf info httpd                   # details, installed or not\ndnf list installed               # what is on the system\ndnf list available               # what could be\ndnf repolist                     # which repositories are enabled\n\nsudo dnf install -y tree         # install, answering yes\nsudo dnf remove -y nano          # remove\nsudo dnf update -y               # update everything (= upgrade)\ndnf check-update                 # what *would* be updated\n\ndnf history                      # past transactions\nsudo dnf history undo last       # reverse the most recent one"
+        },
+        {
+          "type": "note",
+          "label": "'command not found' has a recipe:",
+          "text": "`dnf provides /usr/bin/thecommand` names the package. Then `sudo dnf install <package>`, and confirm with `rpm -q`."
+        },
+        {
+          "type": "subheading",
+          "text": "Groups and modules"
+        },
+        {
+          "type": "code",
+          "text": "dnf group list\nsudo dnf group install \"Development Tools\"\n\ndnf module list                  # streams and profiles\nsudo dnf module enable php:8.0"
+        },
+        {
+          "type": "paragraph",
+          "text": "A **group** is a named bundle of packages. A **module** is how RHEL 9 offers several versions of the same application; only one stream of a module can be enabled at a time."
+        },
+        {
+          "type": "heading",
+          "text": "Flatpak"
+        },
+        {
+          "type": "code",
+          "text": "flatpak list                     # installed applications\nflatpak remotes                  # configured sources, e.g. flathub\nflatpak search gimp\nsudo flatpak install flathub org.gimp.GIMP"
+        },
+        {
+          "type": "list",
+          "items": [
+            "A Flatpak application **bundles its own dependencies** and runs sandboxed.",
+            "It has its own inventory: `rpm -qa` will never list it.",
+            "The trade: it can use a newer library than the system ships, at the cost of disk space and of not being covered by the system's own updates."
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Repositories and subscriptions:",
+          "text": "Repository definitions live in **/etc/yum.repos.d/*.repo**. On RHEL, which repositories appear at all depends on the subscription attached to the machine -- `subscription-manager status` is the first thing to check when `dnf install` finds nothing."
+        }
+      ]
+    },
+    {
+      "name": "Finding Files, Storage & Archives",
+      "blocks": [
+        {
+          "type": "heading",
+          "text": "find -- walk the tree, live"
+        },
+        {
+          "type": "code",
+          "text": "find ~/labs -name '*.csv'                  # by name (quote the pattern!)\nfind ~/labs -iname '*.CSV'                 # ignoring case\nfind ~/labs -type f -name '*.txt'          # regular files only\nfind ~/labs -type d -name 'day-*'          # directories only\nfind /home -user operator1                 # by owner\nfind /var -size +100M                      # larger than 100 MB\nfind /etc -mtime -7                        # changed in the last week\nfind / -perm -4000 2>/dev/null             # every setuid program\nfind ~/labs -type f -exec wc -l {} \\;      # run a command on each result"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Test",
+            "Selects"
+          ],
+          "rows": [
+            [
+              "`-name` / `-iname`",
+              "By name, with or without case"
+            ],
+            [
+              "`-type f|d|l`",
+              "Regular file, directory, symbolic link"
+            ],
+            [
+              "`-size +10M` / `-10k` / `35c`",
+              "Larger than / smaller than / exactly"
+            ],
+            [
+              "`-user` / `-group`",
+              "By ownership"
+            ],
+            [
+              "`-mtime -7` / `+30`",
+              "Modified within 7 days / more than 30 days ago"
+            ],
+            [
+              "`-perm -4000`",
+              "By permission bits"
+            ],
+            [
+              "`-exec cmd {} \\;`",
+              "Run a command on each result (`+` batches them)"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "label": "find vs locate:",
+          "text": "**find** walks the filesystem and is always current. **locate** reads an index built by `updatedb` -- instant, but blind to anything created since. And locate only matches on the path: any search on size, time, owner or permissions has to be find."
+        },
+        {
+          "type": "heading",
+          "text": "Space"
+        },
+        {
+          "type": "code",
+          "text": "df -h                   # free space per filesystem\ndf -i                   # inode usage -- check this when df -h looks fine\ndu -sh ~/labs/survey    # total for one directory\ndu -sh *                # which subdirectory is eating the disk?\ndu -h --max-depth=1 /var"
+        },
+        {
+          "type": "note",
+          "label": "When df and du disagree:",
+          "text": "`df` asks the filesystem; `du` adds up the files it can see. A deleted file still held open by a process is invisible to du but still counted by df -- which is why restarting the process suddenly frees the space. `lsof +L1` finds them."
+        },
+        {
+          "type": "heading",
+          "text": "Block Devices and Mounting"
+        },
+        {
+          "type": "code",
+          "text": "lsblk                        # disks and partitions as a tree\nsudo blkid                   # type, LABEL and UUID of each device\nmount                        # what is mounted right now\nfindmnt                      # the same, as a readable tree\n\nsudo mount /dev/sdb1 /mnt    # attach a filesystem\nsudo umount /mnt             # detach it\n\ncat /etc/fstab               # what gets mounted at boot\nsudo mount -a                # test fstab without rebooting"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Path",
+            "Is"
+          ],
+          "rows": [
+            [
+              "`/dev/sda`",
+              "The first whole disk"
+            ],
+            [
+              "`/dev/sda1`",
+              "Its first partition"
+            ],
+            [
+              "`/dev/sr0`",
+              "An optical drive"
+            ],
+            [
+              "`/mnt`, `/media`",
+              "Conventional mount points"
+            ]
+          ]
+        },
+        {
+          "type": "list",
+          "items": [
+            "**/etc/fstab** should refer to a filesystem by **UUID**, not by `/dev/sdb1`: device names can change when hardware is added.",
+            "Mounting **hides** whatever was already in the mount point directory. It comes back when you unmount.",
+            "'target is busy' on umount means a process has a file open there -- often your own shell. `lsof /mnt` or `fuser -m /mnt` names it.",
+            "RHEL 9 uses **xfs** for / and /boot by default."
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Archives and Compression"
+        },
+        {
+          "type": "code",
+          "text": "tar -cf  archive.tar  dir/       # create\ntar -czf archive.tar.gz dir/     # create, gzip-compressed\ntar -tf  archive.tar             # list, without extracting\ntar -xf  archive.tar             # extract\ntar -xzf archive.tar.gz -C /tmp  # extract somewhere specific\n\ngzip file        # replaces file with file.gz\ngzip -k file     # keeps the original too\ngunzip file.gz   # back again\nzcat file.gz     # read it without unpacking"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Letter",
+            "Means"
+          ],
+          "rows": [
+            [
+              "`c` / `x` / `t`",
+              "Create / extract / list -- pick exactly one"
+            ],
+            [
+              "`f`",
+              "The archive filename follows immediately"
+            ],
+            [
+              "`v`",
+              "Report each file as it goes"
+            ],
+            [
+              "`z` / `j` / `J`",
+              "gzip / bzip2 / xz compression"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Two tools, one job:",
+          "text": "`gzip` compresses **one file**. `tar` packs a directory into one file. That is why they are used together -- and why `tar -tf` before `tar -xf` is a good habit: an archive that unpacks into the current directory makes a mess."
+        }
+      ]
+    },
+    {
+      "name": "Processes & Services",
+      "blocks": [
+        {
+          "type": "heading",
+          "text": "Looking at Processes"
+        },
+        {
+          "type": "code",
+          "text": "ps                # just my terminal's processes\nps aux            # everything, BSD style: USER %CPU %MEM RSS STAT\nps -ef            # everything, UNIX style: includes PPID\npgrep -l sshd     # PIDs of processes by name\ntop               # live, refreshing view\ntop -bn1          # one plain snapshot, for a script\nuptime            # load averages\nfree -h           # memory and swap"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Column in `ps aux`",
+            "Is"
+          ],
+          "rows": [
+            [
+              "USER",
+              "The account it runs as"
+            ],
+            [
+              "PID",
+              "Its own process ID"
+            ],
+            [
+              "%CPU / %MEM",
+              "Share of processor / memory"
+            ],
+            [
+              "RSS",
+              "Physical memory it occupies"
+            ],
+            [
+              "STAT",
+              "R running, S sleeping, T stopped, Z zombie"
+            ],
+            [
+              "TTY",
+              "Its terminal, or `?` for a daemon"
+            ]
+          ]
+        },
+        {
+          "type": "list",
+          "items": [
+            "A **zombie** has finished but its exit status has not been collected. It uses no CPU or memory and cannot be killed -- it is already dead.",
+            "An **orphan** is adopted by PID 1, systemd, which collects its status.",
+            "The load averages are for one, five and fifteen minutes. Compare them with the number of cores."
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Jobs"
+        },
+        {
+          "type": "code",
+          "text": "sleep 300 &      # start in the background\njobs             # list this shell's jobs\nfg %1            # bring job 1 to the foreground\nbg %1            # let a suspended job carry on in the background\nCtrl+Z           # suspend the foreground job\nCtrl+C           # interrupt it"
+        },
+        {
+          "type": "note",
+          "label": "Jobs belong to the shell:",
+          "text": "Close the terminal and the jobs go with it, unless they were started with `nohup` or disowned. Job numbers (`%1`) are per shell; PIDs are system-wide."
+        },
+        {
+          "type": "heading",
+          "text": "Signals"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Signal",
+            "Number",
+            "Asks the process to"
+          ],
+          "rows": [
+            [
+              "SIGTERM",
+              "15",
+              "Shut down cleanly. **The default.** Can be handled."
+            ],
+            [
+              "SIGKILL",
+              "9",
+              "Stop now. Cannot be caught or ignored."
+            ],
+            [
+              "SIGINT",
+              "2",
+              "Interrupt -- what Ctrl+C sends"
+            ],
+            [
+              "SIGHUP",
+              "1",
+              "The terminal has gone; many daemons reread their config instead"
+            ],
+            [
+              "SIGSTOP",
+              "19",
+              "Suspend, to be resumed later"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "text": "kill 1234          # SIGTERM -- ask nicely\nkill -9 1234       # SIGKILL -- last resort\nkill -HUP 1234     # reload configuration\nkillall httpd      # by program name\npkill -u operator1 # by pattern or by user"
+        },
+        {
+          "type": "note",
+          "label": "Ask, wait, then insist:",
+          "text": "TERM first, so the process can flush buffers, close database connections and remove its lock files. `kill -9` skips all of that -- which is how you end up with a stale PID file that stops the service restarting."
+        },
+        {
+          "type": "heading",
+          "text": "systemd and systemctl"
+        },
+        {
+          "type": "paragraph",
+          "text": "systemd is PID 1: the first process started at boot, and the thing that starts and supervises everything else. What it manages is described by **units** -- services, sockets, timers, mounts and targets."
+        },
+        {
+          "type": "code",
+          "text": "systemctl status crond               # running? enabled? recent log lines\nsystemctl is-active sshd             # one word, useful exit status\nsystemctl is-enabled sshd\nsystemctl list-units --type=service   # what is loaded\nsystemctl list-unit-files             # everything installed\n\nsudo systemctl start   httpd         # now\nsudo systemctl stop    httpd\nsudo systemctl restart httpd         # stop and start\nsudo systemctl reload  httpd         # reread config, keep connections\nsudo systemctl enable  httpd         # at boot\nsudo systemctl disable httpd\nsudo systemctl enable --now httpd    # both at once\n\njournalctl -u httpd                  # this unit's log\njournalctl -u httpd -b               # ... this boot only\njournalctl -f                        # follow it live"
+        },
+        {
+          "type": "note",
+          "label": "start ≠ enable:",
+          "text": "**start** runs it now. **enable** makes it start at boot. Neither implies the other, and forgetting `enable` is the classic reason a working service is gone after a reboot. `systemctl status` shows both: **Active** answers 'now?', and **Loaded** answers 'at boot?'."
+        }
+      ]
+    },
+    {
+      "name": "Networking & SSH",
+      "blocks": [
+        {
+          "type": "heading",
+          "text": "Looking at the Network"
+        },
+        {
+          "type": "code",
+          "text": "ip addr show           # addresses on every interface (ip a)\nip addr show ens3      # just one interface\nip route               # the routing table, including the default gateway\nhostname               # what this machine calls itself\nhostnamectl            # hostname plus OS, kernel, virtualization\ncat /etc/hosts         # local name-to-address map, checked before DNS\n\nping 172.25.250.11     # does the host answer?\nss -tlnp               # which TCP ports are listening, and what holds them\ndig example.com        # what DNS says\nhost example.com"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Setting",
+            "Decides"
+          ],
+          "rows": [
+            [
+              "IP address",
+              "How this machine is identified"
+            ],
+            [
+              "Netmask / prefix",
+              "Which addresses count as local"
+            ],
+            [
+              "Default gateway",
+              "Where traffic for other networks goes"
+            ],
+            [
+              "DNS server",
+              "What turns a name into an address"
+            ],
+            [
+              "Hostname",
+              "The name this machine calls itself"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "label": "/24 means:",
+          "text": "The first 24 bits are the network, leaving 8 bits for hosts -- the same as netmask 255.255.255.0. Anything from 172.25.250.1 to .254 is local and reached directly; everything else goes via the gateway."
+        },
+        {
+          "type": "heading",
+          "text": "NetworkManager"
+        },
+        {
+          "type": "code",
+          "text": "nmcli connection show               # the configured profiles\nnmcli device status                 # the devices, and whether connected\nsudo nmcli connection modify ens3 ipv4.addresses 172.25.250.10/24\nsudo nmcli connection modify ens3 ipv4.method manual\nsudo nmcli connection up ens3       # apply it"
+        },
+        {
+          "type": "note",
+          "label": "ip vs nmcli:",
+          "text": "`ip addr add` changes only the running kernel, and NetworkManager or a reboot throws it away. Use `ip` to look and to test; use `nmcli connection modify` to make it stick. Interface names like **ens3** describe where the card sits on the bus, so they do not shuffle when hardware changes."
+        },
+        {
+          "type": "heading",
+          "text": "The Firewall"
+        },
+        {
+          "type": "code",
+          "text": "firewall-cmd --list-all                          # the active zone\nsudo firewall-cmd --permanent --add-service=http\nsudo firewall-cmd --reload"
+        },
+        {
+          "type": "paragraph",
+          "text": "**firewalld** organises rules into zones and is configured with **firewall-cmd**. Without `--permanent` a rule disappears at the next reload; with it, the rule is written but does not take effect until you `--reload`. Doing both is the normal pattern."
+        },
+        {
+          "type": "heading",
+          "text": "SSH"
+        },
+        {
+          "type": "code",
+          "text": "ssh serverb                       # log in as my own username\nssh operator1@serverb             # as someone else\nssh operator1@serverb hostname    # run one command and return\n\nscp file.txt operator1@serverb:/tmp/     # push a file\nscp operator1@serverb:/tmp/file.txt .    # pull one\nsftp operator1@serverb                   # interactive transfer"
+        },
+        {
+          "type": "subheading",
+          "text": "Key-based authentication"
+        },
+        {
+          "type": "code",
+          "text": "ssh-keygen -t rsa                 # creates ~/.ssh/id_rsa and id_rsa.pub\nssh-copy-id operator1@serverb     # appends the PUBLIC key on the far end\nssh operator1@serverb             # no password needed now"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "File",
+            "Role"
+          ],
+          "rows": [
+            [
+              "`~/.ssh/id_rsa`",
+              "Your **private** key. Never leaves this machine. Mode 600."
+            ],
+            [
+              "`~/.ssh/id_rsa.pub`",
+              "Your public key -- the half you hand out"
+            ],
+            [
+              "`~/.ssh/authorized_keys`",
+              "On the server: the public keys allowed to log in as this user"
+            ],
+            [
+              "`~/.ssh/known_hosts`",
+              "Host keys of servers you have connected to before"
+            ],
+            [
+              "`/etc/ssh/sshd_config`",
+              "The SSH server's configuration"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The server issues a random challenge; the client signs it with the private key and the server verifies the signature against the public key it already holds. **The private key is never transmitted**, which is why key authentication beats even a strong password -- there is nothing on the wire to capture, and nothing shared to guess."
+        },
+        {
+          "type": "note",
+          "label": "Two warnings worth understanding:",
+          "text": "**Permissions too open** on ~/.ssh or a key file makes sshd refuse it and fall back to asking for a password. **REMOTE HOST IDENTIFICATION HAS CHANGED** means the host key does not match known_hosts: usually a rebuilt server, but it is also exactly what an interception looks like -- verify before you delete the old entry."
+        },
+        {
+          "type": "note",
+          "label": "Hardening:",
+          "text": "`PermitRootLogin no` and `PasswordAuthentication no` in /etc/ssh/sshd_config, with keys for everyone who needs access. Administrators then log in as themselves and use sudo -- so the logs name a person."
+        },
+        {
+          "type": "heading",
+          "text": "Working Outward: a Troubleshooting Order"
+        },
+        {
+          "type": "list",
+          "items": [
+            "**Does the machine have the right address?** `ip addr show`",
+            "**Can it reach beyond its own subnet?** `ip route`, then ping the gateway",
+            "**Is the service running?** `systemctl status`, then `journalctl -u`",
+            "**Is it listening where you expect?** `ss -tlnp` -- bound to 127.0.0.1 serves only the machine itself",
+            "**Is the firewall letting it through?** `firewall-cmd --list-all`",
+            "**Is it a name problem?** If the address works and the name does not, look at DNS and /etc/hosts"
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Why this order:",
+          "text": "Each step rules out everything below it. Guessing in the middle is what makes network troubleshooting take all afternoon."
+        }
+      ]
+    }
+  ]
+}

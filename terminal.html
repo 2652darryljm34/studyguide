@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Linux Terminal</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">Quiz<span class="brand-mark">Hub</span></a>
+    <span class="topbar-sub" id="term-subtitle">Linux terminal</span>
+  </div>
+</div>
+
+<div class="wrap wide">
+  <div class="crumb"><a href="index.html">&larr; All classes</a></div>
+
+  <div class="page-head">
+    <h1>Linux Terminal</h1>
+    <p>A practice Red Hat Enterprise Linux 9 machine running in your browser. You are
+       <code>student</code> on <code>servera</code>, with <code>sudo</code>; <code>su -</code>
+       switches to root. Nothing you type here leaves the page, and <em>Reset</em> puts the
+       machine back the way it started &mdash; so run whatever you like, including
+       <code>rm&nbsp;-rf</code>, <code>dnf&nbsp;remove</code> and <code>userdel</code>.</p>
+  </div>
+
+  <div id="loading" class="loading">Starting the machine&hellip;</div>
+
+  <div id="app" hidden>
+    <div class="sql-layout">
+      <aside class="sql-side">
+        <div class="sql-side-head">The machine</div>
+        <div id="facts"></div>
+        <div class="side-tabs" id="side-tabs">
+          <button class="side-tab is-on" data-panel="files">Files</button>
+          <button class="side-tab" data-panel="accounts">Accounts</button>
+          <button class="side-tab" data-panel="software">Software</button>
+          <button class="side-tab" data-panel="services">Services</button>
+        </div>
+        <div class="sql-side-note" id="side-note">
+          Showing your working directory. It follows you as you <code>cd</code>.
+        </div>
+        <div id="side-body" class="schema-body"></div>
+      </aside>
+
+      <main class="sql-main">
+        <div class="term-shell" id="term-shell">
+          <div class="term-scroll" id="term-scroll"></div>
+          <div class="term-inputline" id="term-inputline">
+            <span class="term-prompt" id="term-prompt"></span>
+            <input type="text" id="term-input" class="term-input" spellcheck="false"
+              autocomplete="off" autocapitalize="off" autocorrect="off"
+              aria-label="Command line">
+          </div>
+        </div>
+
+        <div class="sql-toolbar">
+          <button class="btn ghost" id="reset">Reset machine</button>
+          <button class="btn ghost" id="clear">Clear screen</button>
+          <span class="sql-status" id="status">Enter runs. Tab completes. Up and Down replay history.</span>
+        </div>
+
+        <details class="sql-recipes" open>
+          <summary>Warm-ups</summary>
+          <p class="sql-side-note">Grouped the way the course is. Click one to load it into
+             the prompt &mdash; then edit it and see what changes.</p>
+          <div id="recipes"></div>
+        </details>
+      </main>
+    </div>
+  </div>
+</div>
+
+<footer class="site">Built for sharing study quizzes with classmates.</footer>
+
+<script src="assets/box.js"></script>
+<script src="assets/shell.js"></script>
+<script src="assets/shtext.js"></script>
+<script src="assets/shadmin.js"></script>
+<script src="assets/shpkg.js"></script>
+<script src="assets/shsys.js"></script>
+<script src="assets/shellhl.js"></script>
+<script src="assets/shellview.js"></script>
+<script src="assets/term.js"></script>
+</body>
+</html>

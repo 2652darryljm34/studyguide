@@ -1,6 +1,103 @@
 {
   "classes": [
     {
+      "id": "itn170",
+      "name": "ITN 170",
+      "fullName": "Linux System Administration",
+      "guides": [
+        {
+          "id": "commands-guide",
+          "title": "Linux Commands Study Guide",
+          "description": "The whole command set in one place: the shell and getting help, the filesystem, redirection and the text toolkit, users and groups, permissions, software, storage, processes and services, and networking and SSH.",
+          "file": "data/itn170-commands-guide.json"
+        }
+      ],
+      "exercises": [
+        {
+          "id": "labs",
+          "title": "Hands-On Lab Exercises",
+          "description": "Ten short labs, one per topic, worked in the Practice Terminal. Every task states a goal rather than a command — choosing the right tool is the exercise. No answers given.",
+          "file": "data/itn170-labs.json"
+        }
+      ],
+      "tools": [
+        {
+          "id": "terminal",
+          "title": "Practice Terminal",
+          "description": "A Red Hat Enterprise Linux 9 machine running in your browser. Real commands, real permissions, real consequences — sudo, users, packages and services all work, and Reset puts the machine back.",
+          "href": "terminal.html"
+        }
+      ],
+      "quizzes": [
+        {
+          "id": "command-line",
+          "title": "Command Line & Getting Help",
+          "description": "30 questions on the shell prompt, command syntax, line-editing shortcuts, history, and finding answers in the local documentation with man, apropos and --help.",
+          "file": "data/itn170-command-line.json"
+        },
+        {
+          "id": "navigation",
+          "title": "Navigating the Filesystem",
+          "description": "28 questions on the filesystem hierarchy, absolute and relative paths, the shortcuts . .. ~ and -, and every useful flag of ls.",
+          "file": "data/itn170-navigation.json"
+        },
+        {
+          "id": "files",
+          "title": "Managing Files & Shell Expansions",
+          "description": "35 questions on touch, mkdir, cp, mv, rm and ln, plus the wildcards, brace expansion and quoting the shell applies before a command ever runs.",
+          "file": "data/itn170-files.json"
+        },
+        {
+          "id": "redirection",
+          "title": "Editing, Redirection & Pipes",
+          "description": "41 questions on vim, the three standard streams, > >> 2> and /dev/null, pipes and tee, and the text toolkit — grep, sed, awk, sort, uniq, cut, tr and wc.",
+          "file": "data/itn170-redirection.json"
+        },
+        {
+          "id": "users",
+          "title": "Managing Users & Groups",
+          "description": "32 questions on /etc/passwd and /etc/shadow, useradd and usermod, primary and supplementary groups, password aging, and getting superuser access with su and sudo.",
+          "file": "data/itn170-users.json"
+        },
+        {
+          "id": "permissions",
+          "title": "Controlling Access to Files",
+          "description": "31 questions on reading a long listing, chmod in both octal and symbolic form, chown and chgrp, the umask, and setuid, setgid and the sticky bit.",
+          "file": "data/itn170-permissions.json"
+        },
+        {
+          "id": "software",
+          "title": "Software: RPM, DNF & Flatpak",
+          "description": "30 questions on querying the RPM database, searching and installing from repositories with dnf, groups and modules, transaction history, and where Flatpak fits.",
+          "file": "data/itn170-software.json"
+        },
+        {
+          "id": "storage",
+          "title": "Finding Files, Storage & Archives",
+          "description": "31 questions on find and locate, du and df, lsblk and blkid, mounting and /etc/fstab, and packing things up with tar and gzip.",
+          "file": "data/itn170-storage.json"
+        },
+        {
+          "id": "processes",
+          "title": "Processes, Jobs & Services",
+          "description": "29 questions on ps and top, signals and kill, foreground and background jobs, and controlling systemd units with systemctl.",
+          "file": "data/itn170-processes.json"
+        },
+        {
+          "id": "network",
+          "title": "Networking, SSH & the Firewall",
+          "description": "27 questions on ip and nmcli, name resolution, listening sockets, firewalld, and connecting to other machines with SSH and key-based authentication.",
+          "file": "data/itn170-network.json"
+        },
+        {
+          "id": "comprehensive-review",
+          "title": "Comprehensive Review",
+          "description": "193 questions — the core of every topic in one pass, from the command line through to SSH. The one to sit before an exam.",
+          "file": "data/itn170-comprehensive-review.json"
+        }
+      ]
+    },
+    {
       "id": "itd256",
       "name": "ITD 256",
       "fullName": "Advanced Database Design and Management",

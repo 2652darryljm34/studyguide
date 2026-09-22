@@ -1,0 +1,432 @@
+{
+  "title": "Managing Users & Groups",
+  "description": "Chapter 10: who you are and what you belong to, the account files, creating and modifying local users and groups, password aging, and getting superuser access with su and sudo.",
+  "guideFile": "data/itn170-commands-guide.json",
+  "boxFile": "data/itn170-box.json",
+  "sections": [
+    {
+      "name": "Users & Groups",
+      "questions": [
+        {
+          "type": "shell",
+          "category": "Identity",
+          "question": "Show your own user ID, primary group and every supplementary group you belong to, in one command.",
+          "places": [
+            "/etc/passwd"
+          ],
+          "solution": "id",
+          "explanation": "`id` reads the account database, not your login session, so `id someoneelse` answers the same question about anyone on the system."
+        },
+        {
+          "type": "shell",
+          "category": "Identity",
+          "question": "Show the user ID, primary group and supplementary groups of the account named operator1.",
+          "places": [
+            "/etc/passwd"
+          ],
+          "solution": "id operator1",
+          "explanation": "You do not need to be root to look this up -- /etc/passwd and /etc/group are world-readable by design, because ordinary commands like `ls -l` have to translate numbers into names."
+        },
+        {
+          "type": "mc",
+          "category": "The Account Files",
+          "question": "Which file holds the encrypted passwords and the aging settings for local accounts?",
+          "options": [
+            "/etc/shadow",
+            "/etc/passwd",
+            "/etc/group",
+            "/etc/gshadow"
+          ],
+          "correct": 0,
+          "explanation": "/etc/passwd used to hold the hashes, which is where its name comes from. They were moved to /etc/shadow, readable only by root, because everything else on the system still needs to read /etc/passwd."
+        },
+        {
+          "type": "matching",
+          "category": "The Account Files",
+          "question": "A line in /etc/passwd is seven colon-separated fields. Match each position to what it holds.",
+          "pairs": [
+            {
+              "left": "Field 1",
+              "right": "The login name"
+            },
+            {
+              "left": "Field 3",
+              "right": "The numeric user ID (UID)"
+            },
+            {
+              "left": "Field 4",
+              "right": "The numeric ID of the primary group"
+            },
+            {
+              "left": "Field 5",
+              "right": "The comment or real name (GECOS)"
+            },
+            {
+              "left": "Field 6",
+              "right": "The home directory"
+            },
+            {
+              "left": "Field 7",
+              "right": "The login shell"
+            }
+          ],
+          "explanation": "Field 2 is the leftover password field; on a modern system it holds only an `x`, meaning 'look in /etc/shadow'."
+        },
+        {
+          "type": "shell",
+          "category": "The Account Files",
+          "question": "Show the /etc/passwd line for the account named dbadmin.",
+          "places": [
+            "/etc/passwd"
+          ],
+          "solution": "grep dbadmin /etc/passwd",
+          "explanation": "`getent passwd dbadmin` answers the same question and also works when accounts come from LDAP or another network directory rather than the local file."
+        },
+        {
+          "type": "shell",
+          "category": "The Account Files",
+          "question": "Using the field separator rather than a text search, print just the login names from /etc/passwd -- the first colon-separated field of every line.",
+          "places": [
+            "/etc/passwd"
+          ],
+          "hint": "cut can split on any single character.",
+          "solution": "cut -d: -f1 /etc/passwd",
+          "explanation": "`awk -F: '{print $1}' /etc/passwd` does the same. Both are safer than a text search because they cannot accidentally match a name inside a comment field."
+        },
+        {
+          "type": "mc",
+          "category": "The Account Files",
+          "question": "On RHEL 9, which UID range is reserved for regular user accounts created by an administrator?",
+          "options": [
+            "1000 and above",
+            "0 to 99",
+            "100 to 999",
+            "Any number, there is no convention"
+          ],
+          "correct": 0,
+          "explanation": "UID 0 is root, 1-999 are system and service accounts, and useradd starts handing out 1000 and up. The same split applies to group IDs."
+        },
+        {
+          "type": "tf",
+          "category": "The Account Files",
+          "question": "An account whose login shell is /sbin/nologin cannot be used for an interactive login, even though it is a valid account.",
+          "correct": true,
+          "explanation": "That is how service accounts like sshd and chrony are locked down: they own files and run processes, but nobody can log in as them."
+        },
+        {
+          "type": "shell",
+          "category": "Creating Accounts",
+          "question": "Create a local account named analyst with the comment Data Analyst, taking every other setting from the defaults.",
+          "places": [
+            "/etc/passwd"
+          ],
+          "hint": "Creating an account needs superuser rights, and -c sets the comment field.",
+          "solution": "sudo useradd -c 'Data Analyst' analyst",
+          "verify": "grep '^analyst:' /etc/passwd",
+          "explanation": "useradd also creates the home directory, a private group of the same name, and the /etc/shadow entry. The account has no usable password until you set one."
+        },
+        {
+          "type": "shell",
+          "category": "Creating Accounts",
+          "question": "Create a local account named backupsvc that cannot be used to log in interactively, by giving it /sbin/nologin as its shell.",
+          "places": [
+            "/etc/passwd"
+          ],
+          "hint": "-s chooses the login shell.",
+          "solution": "sudo useradd -s /sbin/nologin backupsvc",
+          "verify": "grep '^backupsvc:' /etc/passwd",
+          "explanation": "This is the standard shape of a service account: it owns files and runs a daemon, but `ssh backupsvc@host` gets nowhere."
+        },
+        {
+          "type": "shell",
+          "category": "Creating Accounts",
+          "question": "Create a local account named webops with the specific user ID 1500.",
+          "places": [
+            "/etc/passwd"
+          ],
+          "solution": "sudo useradd -u 1500 webops",
+          "verify": "id webops",
+          "explanation": "Pinning the UID matters when the same account exists on several machines or on shared storage: the filesystem records the number, not the name."
+        },
+        {
+          "type": "matching",
+          "category": "Creating Accounts",
+          "question": "Match each useradd option to what it sets.",
+          "pairs": [
+            {
+              "left": "-c",
+              "right": "The comment field, usually the person's real name"
+            },
+            {
+              "left": "-u",
+              "right": "The numeric user ID"
+            },
+            {
+              "left": "-g",
+              "right": "The primary group"
+            },
+            {
+              "left": "-G",
+              "right": "Supplementary group memberships"
+            },
+            {
+              "left": "-s",
+              "right": "The login shell"
+            },
+            {
+              "left": "-d",
+              "right": "The home directory path"
+            }
+          ],
+          "explanation": "usermod takes the same letters, which is what makes the pair easy to remember: useradd creates with them, usermod changes them."
+        },
+        {
+          "type": "shell",
+          "category": "Groups",
+          "question": "Create a group named webadmin.",
+          "places": [
+            "/etc/group"
+          ],
+          "solution": "sudo groupadd webadmin",
+          "verify": "getent group webadmin",
+          "explanation": "Groups exist so a permission can be granted once and applied to everyone who belongs. `getent group` is the reliable way to read one back."
+        },
+        {
+          "type": "shell",
+          "category": "Groups",
+          "question": "Create a group named auditors with the specific group ID 10500.",
+          "places": [
+            "/etc/group"
+          ],
+          "solution": "sudo groupadd -g 10500 auditors",
+          "verify": "getent group auditors",
+          "explanation": "As with UIDs, a fixed GID keeps ownership consistent across machines that share files."
+        },
+        {
+          "type": "shell",
+          "category": "Groups",
+          "question": "Add the user dbadmin to the supplementary group operators without disturbing any group dbadmin already belongs to.",
+          "places": [
+            "/etc/group"
+          ],
+          "hint": "Leaving out one letter here is the classic way to remove someone from every other group by accident.",
+          "solution": "sudo usermod -aG operators dbadmin",
+          "verify": "id dbadmin",
+          "explanation": "`-G` replaces the whole supplementary list; `-aG` appends to it. Forgetting the `-a` is one of the most common and most damaging mistakes in the course."
+        },
+        {
+          "type": "mc",
+          "category": "Groups",
+          "question": "What is the difference between a user's primary group and a supplementary group?",
+          "options": [
+            "The primary group is the one given to files the user creates; supplementary groups only grant access",
+            "The primary group is the first one listed alphabetically",
+            "Supplementary groups apply only to root",
+            "There is no difference; the words are interchangeable"
+          ],
+          "correct": 0,
+          "explanation": "A user has exactly one primary group, recorded in /etc/passwd, and any number of supplementary groups, recorded in /etc/group."
+        },
+        {
+          "type": "shell",
+          "category": "Groups",
+          "question": "Change the primary group of the user operator3 to the group consultants.",
+          "places": [
+            "/etc/group"
+          ],
+          "hint": "Lower-case -g is the primary group.",
+          "solution": "sudo usermod -g consultants operator3",
+          "verify": "id operator3",
+          "explanation": "Changing the primary group does not change the ownership of files the user already created -- those keep the old group until you chgrp them."
+        },
+        {
+          "type": "shell",
+          "category": "Groups",
+          "question": "Show the /etc/group line for the group named techdocs so you can see who belongs to it.",
+          "places": [
+            "/etc/group"
+          ],
+          "solution": "getent group techdocs",
+          "explanation": "The fourth field lists supplementary members. Anyone whose primary group is techdocs will not appear there -- `id` on each user is the complete answer."
+        },
+        {
+          "type": "tf",
+          "category": "Groups",
+          "question": "Deleting a group with groupdel also deletes the files that were owned by it.",
+          "correct": false,
+          "explanation": "The files stay exactly where they are; their group ownership is left as a bare number that no longer has a name. `ls -l` then shows the GID instead of a group name."
+        },
+        {
+          "type": "shell",
+          "category": "Passwords",
+          "question": "Lock the password of the account operator2 so it cannot be used to authenticate.",
+          "places": [
+            "/etc/passwd"
+          ],
+          "hint": "passwd has a flag for locking.",
+          "solution": "sudo passwd -l operator2",
+          "verify": "sudo passwd -S operator2",
+          "explanation": "Locking puts a `!` in front of the hash in /etc/shadow, which no password can ever match. `passwd -u` unlocks it again. Locking the password does not stop an SSH key from working."
+        },
+        {
+          "type": "shell",
+          "category": "Passwords",
+          "question": "Show the password aging settings for the account operator1 -- when the password was last changed, when it expires, and the minimum and maximum days.",
+          "places": [
+            "/etc/passwd"
+          ],
+          "solution": "sudo chage -l operator1",
+          "explanation": "`chage -l` is the readable view of the /etc/shadow fields. It needs root because /etc/shadow does."
+        },
+        {
+          "type": "shell",
+          "category": "Passwords",
+          "question": "Require the user dbadmin to change their password at their next login.",
+          "places": [
+            "/etc/passwd"
+          ],
+          "hint": "Setting the last-change date to zero means 'has never been changed'.",
+          "solution": "sudo chage -d 0 dbadmin",
+          "verify": "sudo chage -l dbadmin",
+          "explanation": "This is what you do after setting a temporary password for someone: they get in once with it and are forced to choose their own."
+        },
+        {
+          "type": "matching",
+          "category": "Passwords",
+          "question": "Match each chage option to the aging setting it controls.",
+          "pairs": [
+            {
+              "left": "-m",
+              "right": "The minimum number of days before the password may be changed again"
+            },
+            {
+              "left": "-M",
+              "right": "The maximum number of days a password stays valid"
+            },
+            {
+              "left": "-W",
+              "right": "How many days of warning the user gets before expiry"
+            },
+            {
+              "left": "-I",
+              "right": "How many days after expiry before the account is made inactive"
+            },
+            {
+              "left": "-E",
+              "right": "The date the account itself expires"
+            },
+            {
+              "left": "-l",
+              "right": "Print the current settings rather than change them"
+            }
+          ],
+          "explanation": "The defaults for new accounts live in /etc/login.defs, so setting policy there saves running chage on every account you create."
+        },
+        {
+          "type": "mc",
+          "category": "Superuser Access",
+          "question": "What is the difference between `su student` and `su - student`?",
+          "options": [
+            "The dash starts a login shell: it runs the user's startup files and moves to their home directory",
+            "The dash asks for the password, without it no password is needed",
+            "The dash runs the command as root rather than as student",
+            "There is no difference"
+          ],
+          "correct": 0,
+          "explanation": "Without the dash you keep your own environment and working directory, which is a common source of 'it works for me but not in the script' confusion."
+        },
+        {
+          "type": "shell",
+          "category": "Superuser Access",
+          "question": "Read the first line of /etc/shadow, a file only root may open.",
+          "places": [
+            "/etc/shadow"
+          ],
+          "hint": "sudo runs one command with superuser rights.",
+          "solution": "sudo head -1 /etc/shadow",
+          "explanation": "Running the same command without sudo gets Permission denied. sudo is preferred over `su -` because it runs one command, logs it, and does not require handing out the root password."
+        },
+        {
+          "type": "mc",
+          "category": "Superuser Access",
+          "question": "On RHEL 9, membership of which group gives an account full sudo access out of the box?",
+          "options": [
+            "wheel",
+            "sudo",
+            "admin",
+            "root"
+          ],
+          "correct": 0,
+          "explanation": "The line `%wheel ALL=(ALL) ALL` in /etc/sudoers is what grants it. Debian and Ubuntu use a group called sudo instead, which is a common point of confusion."
+        },
+        {
+          "type": "mc",
+          "category": "Superuser Access",
+          "question": "Which command should be used to edit /etc/sudoers?",
+          "options": [
+            "visudo, because it checks the syntax before saving",
+            "vim /etc/sudoers, like any other config file",
+            "sudoedit, which only works on /etc/sudoers",
+            "passwd -e, which opens the sudoers editor"
+          ],
+          "correct": 0,
+          "explanation": "A syntax error in /etc/sudoers can lock everyone out of sudo on the machine. visudo refuses to save a file it cannot parse. Drop-in files under /etc/sudoers.d/ are the tidier place for local rules."
+        },
+        {
+          "type": "tf",
+          "category": "Superuser Access",
+          "question": "When sudo asks for a password, it is asking for the root password.",
+          "correct": false,
+          "explanation": "It asks for your own password, to confirm that the person at the keyboard is still you. That is the point: nobody has to know the root password."
+        },
+        {
+          "type": "shell",
+          "category": "Superuser Access",
+          "question": "Run `whoami` as root using sudo, so it reports root rather than your own account.",
+          "places": [
+            "/usr/bin/sudo"
+          ],
+          "solution": "sudo whoami",
+          "explanation": "A useful sanity check when a script is not behaving: it tells you which identity the command is actually running under."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Identity",
+          "question": "Which command prints only the name of the user you are currently running as, and nothing else?",
+          "answers": [
+            "whoami",
+            "whoami command",
+            "id -un"
+          ],
+          "explanation": "`id -un` gives the same answer the long way round. `who` and `w` are different: they list who is logged in, which after a `su` is not the same thing."
+        },
+        {
+          "type": "short_answer",
+          "category": "Groups",
+          "question": "An administrator runs `usermod -G operators dbadmin` intending to add dbadmin to the operators group. Explain what actually happened, why it is a problem, and what they should have typed instead.",
+          "answerLang": null,
+          "modelAnswer": "`-G` sets the complete list of supplementary groups, it does not add to it. So dbadmin is now a member of operators and of nothing else: every other supplementary group the account belonged to has been silently removed.\n\nThat is a problem because group membership is usually what grants access to shared directories and to sudo. If dbadmin was in wheel, they have just lost sudo; if they were in a group owning a shared project directory, they can no longer write there. Nothing warns you, and the next failure looks like a permissions bug somewhere else.\n\nThe correct command adds the -a flag, which means append:\n\n    sudo usermod -aG operators dbadmin\n\nBefore making the change, `id dbadmin` shows the existing memberships, which is both the check and the record you need to put them back.",
+          "rubric": [
+            "Says -G replaces the whole supplementary group list rather than adding to it",
+            "Explains the consequence: the user loses access, possibly including sudo via wheel",
+            "Gives usermod -aG as the correct form, or otherwise names the -a flag"
+          ],
+          "explanation": "This single missing letter is the most common way a working account is broken during the users and groups chapter."
+        },
+        {
+          "type": "short_answer",
+          "category": "Superuser Access",
+          "question": "A site has five administrators. Explain why giving each of them sudo access through the wheel group is considered better practice than sharing the root password, and name two things sudo gives you that `su -` does not.",
+          "answerLang": null,
+          "modelAnswer": "With a shared root password, every administrator holds the same secret. It cannot be taken away from one person without changing it for everyone, and when someone leaves the organisation the password has to be rotated across every machine. Worse, once you are root through `su -` the whole session is root, so an ordinary mistake in that shell has no guard rail.\n\nWith sudo, each administrator authenticates as themselves using their own password, and their access is removed by taking them out of the wheel group.\n\nTwo things sudo adds:\n\n1. An audit trail. Every sudo command is logged with the name of the person who ran it, so there is a record of who did what.\n2. Granularity. Rules in /etc/sudoers can allow a person to run only specific commands as root, rather than everything, so a junior administrator can restart a service without being able to read /etc/shadow.\n\nsudo also limits the blast radius: you are root for one command rather than for a whole session.",
+          "rubric": [
+            "Explains that each person uses their own password and access is revoked per person",
+            "Names logging or the audit trail as a benefit",
+            "Names per-command rules, or the shorter window of root privilege, as a benefit"
+          ],
+          "explanation": "Accountability is the real argument. A shared root password makes the log useless, because every entry says the same thing."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,395 @@
+{
+  "title": "Command Line & Getting Help",
+  "description": "Chapters 1-5: Red Hat Enterprise Linux, the Bash shell, command syntax and editing shortcuts, and finding answers in the local documentation.",
+  "guideFile": "data/itn170-commands-guide.json",
+  "boxFile": "data/itn170-box.json",
+  "sections": [
+    {
+      "name": "The Command Line & Getting Help",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Getting Started",
+          "question": "What is a Linux distribution?",
+          "options": [
+            "The kernel packaged together with the libraries, utilities and installer that make a usable operating system",
+            "The Linux kernel on its own",
+            "A graphical desktop environment written for Linux",
+            "The licence that Linux source code is released under"
+          ],
+          "correct": 0,
+          "explanation": "The kernel is one component. A distribution bundles it with everything else a working system needs — and takes responsibility for testing and supporting that combination."
+        },
+        {
+          "type": "mc",
+          "category": "Getting Started",
+          "question": "Which statement best describes the relationship between Fedora, CentOS Stream and Red Hat Enterprise Linux?",
+          "options": [
+            "Fedora is the upstream community project, CentOS Stream is the continuously delivered preview of the next RHEL minor release, and RHEL is the supported enterprise product",
+            "They are three unrelated distributions that happen to use the same kernel",
+            "CentOS Stream is a rebuild of RHEL that appears after each RHEL release",
+            "RHEL is upstream of Fedora, which is upstream of CentOS Stream"
+          ],
+          "correct": 0,
+          "explanation": "Work flows Fedora → CentOS Stream → RHEL. CentOS Stream sits just ahead of the next RHEL minor release rather than behind it."
+        },
+        {
+          "type": "tf",
+          "category": "Getting Started",
+          "question": "Open source software means the source code is available, and that anyone may use, study, modify and redistribute it under the terms of its licence.",
+          "correct": true,
+          "explanation": "Availability alone is not enough — the licence has to grant those four freedoms."
+        },
+        {
+          "type": "shell",
+          "category": "Getting Started",
+          "question": "Print the contents of the file that identifies which operating system and version this machine is running. Use the file under /etc that every modern distribution provides for this.",
+          "places": [
+            "/etc"
+          ],
+          "hint": "Every systemd-based distribution ships the same file name for this.",
+          "solution": "cat /etc/os-release",
+          "explanation": "/etc/os-release is the portable way to identify a system. /etc/redhat-release is the Red Hat-specific one and holds a single line."
+        },
+        {
+          "type": "mc",
+          "category": "The Shell",
+          "question": "In the prompt `[student@servera ~]$`, what does the `~` stand for?",
+          "options": [
+            "The current working directory, which is the user's home directory",
+            "That the shell is waiting for more input",
+            "That the user has superuser privileges",
+            "The name of the shell in use"
+          ],
+          "correct": 0,
+          "explanation": "The prompt is user@host, then the working directory. A tilde there means you are in your own home directory."
+        },
+        {
+          "type": "mc",
+          "category": "The Shell",
+          "question": "A prompt ends with `#` rather than `$`. What does that tell you?",
+          "options": [
+            "You are working as the root user, so commands run with full privileges",
+            "The previous command failed",
+            "The shell is running a script rather than an interactive session",
+            "You are in a directory you do not own"
+          ],
+          "correct": 0,
+          "explanation": "Bash shows # for uid 0 and $ for everyone else. It is the quickest check before running something destructive."
+        },
+        {
+          "type": "matching",
+          "category": "The Shell",
+          "question": "Match each part of the command line `ls -l /etc/hosts` to what it is called.",
+          "pairs": [
+            {
+              "left": "ls",
+              "right": "The command"
+            },
+            {
+              "left": "-l",
+              "right": "An option, which changes how the command behaves"
+            },
+            {
+              "left": "/etc/hosts",
+              "right": "An argument, naming what the command acts on"
+            }
+          ],
+          "explanation": "Options usually start with - or --; arguments usually do not. The order is command, then options, then arguments."
+        },
+        {
+          "type": "mc",
+          "category": "The Shell",
+          "question": "Which of these is the correct way to combine the `-l` and `-a` options of `ls`?",
+          "options": [
+            "All of these work: `ls -l -a`, `ls -la`, `ls -al`",
+            "Only `ls -l -a`",
+            "Only `ls -la`",
+            "Only `ls --l --a`"
+          ],
+          "correct": 0,
+          "explanation": "Single-letter options can be given separately or bundled behind one dash, in any order. Long options (--all) cannot be bundled."
+        },
+        {
+          "type": "shell",
+          "category": "The Shell",
+          "question": "Show the user name you are currently working as.",
+          "places": [
+            "~"
+          ],
+          "solution": "whoami",
+          "explanation": "`whoami` prints the effective user name. `id` gives the same name plus the UID and every group."
+        },
+        {
+          "type": "shell",
+          "category": "The Shell",
+          "question": "Show this machine's fully qualified host name.",
+          "places": [
+            "/etc"
+          ],
+          "solution": "hostname",
+          "explanation": "`hostname` prints it; `hostnamectl` shows it along with the kernel, architecture and machine ID, and is what you use to change it."
+        },
+        {
+          "type": "fill_blank",
+          "category": "The Shell",
+          "question": "Which key completes a command or file name you have partly typed, saving both keystrokes and spelling mistakes?",
+          "answers": [
+            "Tab",
+            "the Tab key",
+            "Tab key"
+          ],
+          "explanation": "Pressing Tab once completes an unambiguous name; pressing it twice lists the candidates when more than one matches."
+        },
+        {
+          "type": "matching",
+          "category": "The Shell",
+          "question": "Match each Bash command-line editing shortcut to what it does.",
+          "pairs": [
+            {
+              "left": "Ctrl+A",
+              "right": "Move the cursor to the beginning of the line"
+            },
+            {
+              "left": "Ctrl+E",
+              "right": "Move the cursor to the end of the line"
+            },
+            {
+              "left": "Ctrl+U",
+              "right": "Delete from the cursor back to the beginning of the line"
+            },
+            {
+              "left": "Ctrl+K",
+              "right": "Delete from the cursor to the end of the line"
+            },
+            {
+              "left": "Ctrl+L",
+              "right": "Clear the screen, keeping what you have typed"
+            },
+            {
+              "left": "Ctrl+C",
+              "right": "Abandon the command that is running"
+            }
+          ],
+          "explanation": "These work in any readline program, not just Bash, so they carry over to many interactive tools."
+        },
+        {
+          "type": "mc",
+          "category": "The Shell",
+          "question": "You just ran a long command and need to run it again as root. What is the quickest correct way?",
+          "options": [
+            "`sudo !!`",
+            "`!sudo`",
+            "`sudo -r`",
+            "`repeat sudo`"
+          ],
+          "correct": 0,
+          "explanation": "`!!` expands to the whole previous command line, so `sudo !!` reruns it with privileges. `!string` reruns the most recent command starting with that string."
+        },
+        {
+          "type": "mc",
+          "category": "The Shell",
+          "question": "What does pressing the Up arrow at the shell prompt do?",
+          "options": [
+            "Recalls the previous command from the history list so you can edit and rerun it",
+            "Scrolls the terminal window up one line",
+            "Moves the cursor up within a multi-line command",
+            "Cancels the command currently being typed"
+          ],
+          "correct": 0,
+          "explanation": "History is kept per shell session and written to ~/.bash_history on logout, which is why `history` can show commands from earlier sessions."
+        },
+        {
+          "type": "tf",
+          "category": "The Shell",
+          "question": "Bash treats `Date` and `date` as the same command, because command names are case-insensitive.",
+          "correct": false,
+          "explanation": "Linux is case-sensitive throughout — command names, options, file names and user names alike. `Date` is simply not found."
+        },
+        {
+          "type": "shell",
+          "category": "The Shell",
+          "question": "Print the single line of text `Linux is case sensitive` to the screen.",
+          "places": [
+            "~"
+          ],
+          "solution": "echo \"Linux is case sensitive\"",
+          "explanation": "`echo` writes its arguments to standard output. The quotes are not strictly required here, but they keep the spacing intact and are a good habit."
+        },
+        {
+          "type": "mc",
+          "category": "The Shell",
+          "question": "What is the difference between a shell built-in command and an external command?",
+          "options": [
+            "A built-in is part of the shell program itself; an external command is a separate executable file found on the PATH",
+            "A built-in can only be used by root",
+            "An external command runs faster because it is compiled",
+            "A built-in cannot take options or arguments"
+          ],
+          "correct": 0,
+          "explanation": "`type cd` reports a built-in; `type ls` reports a path. It matters because a built-in like `cd` could not work as an external program — it has to change the shell's own state."
+        },
+        {
+          "type": "shell",
+          "category": "The Shell",
+          "question": "Find out which file on the PATH would run if you typed `grep`.",
+          "places": [
+            "/usr/bin"
+          ],
+          "hint": "There is a command whose whole job is answering this.",
+          "solution": "which grep",
+          "explanation": "`which` searches the PATH and prints the first match. `type` does the same but also recognizes built-ins, aliases and functions."
+        },
+        {
+          "type": "mc",
+          "category": "Local Documentation",
+          "question": "Manual pages are grouped into numbered sections. Which section holds ordinary user commands, and which holds file formats and configuration files?",
+          "options": [
+            "Section 1 holds user commands; section 5 holds file formats",
+            "Section 5 holds user commands; section 1 holds file formats",
+            "Section 1 holds user commands; section 8 holds file formats",
+            "Section 2 holds user commands; section 4 holds file formats"
+          ],
+          "correct": 0,
+          "explanation": "Section 1 is user commands, 5 is file formats and configuration files, and 8 is system administration commands. `passwd` exists in both 1 and 5 — the command and the file."
+        },
+        {
+          "type": "shell",
+          "category": "Local Documentation",
+          "question": "Some names have a manual page in more than one section. Display the page that documents the /etc/passwd file format, rather than the page for the passwd command.",
+          "places": [
+            "/etc"
+          ],
+          "hint": "Give the section number before the name.",
+          "solution": "man 5 passwd",
+          "explanation": "Without a section number, `man` shows the lowest-numbered match — section 1, the command. `man 5 passwd` asks for the file format page instead."
+        },
+        {
+          "type": "shell",
+          "category": "Local Documentation",
+          "question": "You cannot remember the name of the command that changes a file's permission bits, but you know it has something to do with permissions. Search the manual page descriptions for the word `permission`.",
+          "places": [
+            "/usr/share/man"
+          ],
+          "hint": "There is an option to `man` for exactly this, and a separate command that does the same thing.",
+          "solution": "man -k permission",
+          "explanation": "`man -k` and `apropos` both search the short descriptions. Its counterpart `man -f` (or `whatis`) prints the one-line description of a name you already know."
+        },
+        {
+          "type": "shell",
+          "category": "Local Documentation",
+          "question": "Print just the one-line description of the `useradd` command, without opening its full manual page.",
+          "places": [
+            "/usr/share/man"
+          ],
+          "solution": "whatis useradd",
+          "explanation": "`whatis` is the same as `man -f`. It answers 'what does this do again?' without paging through the whole manual entry."
+        },
+        {
+          "type": "matching",
+          "category": "Local Documentation",
+          "question": "Match each key you can press while reading a manual page to what it does.",
+          "pairs": [
+            {
+              "left": "q",
+              "right": "Quit and return to the shell prompt"
+            },
+            {
+              "left": "/word",
+              "right": "Search forward for the next occurrence of word"
+            },
+            {
+              "left": "Space",
+              "right": "Move forward one screen"
+            },
+            {
+              "left": "b",
+              "right": "Move back one screen"
+            }
+          ],
+          "explanation": "Manual pages are displayed through the `less` pager, so every `less` key works while reading one."
+        },
+        {
+          "type": "mc",
+          "category": "Local Documentation",
+          "question": "Where does a package put its extended documentation — READMEs, examples and licence text — when it installs?",
+          "options": [
+            "/usr/share/doc/<package-name>",
+            "/etc/doc/<package-name>",
+            "/var/doc/<package-name>",
+            "/opt/documentation"
+          ],
+          "correct": 0,
+          "explanation": "Manual pages are terse by design. /usr/share/doc often holds the worked examples and sample configuration files that the manual page leaves out."
+        },
+        {
+          "type": "short_answer",
+          "category": "Local Documentation",
+          "question": "You have been handed an unfamiliar command name and need to find out what it does and which options it takes, without internet access. Describe the order you would try the local documentation in, and why.",
+          "answerLang": null,
+          "modelAnswer": "Start with `whatis name` (or `man -f name`) for the one-line description, to confirm it is the command you think it is and see which section it lives in.\n\nThen `man name` for the full page: read NAME and SYNOPSIS first to see the argument order, then DESCRIPTION and OPTIONS for the flags. Use /word inside the pager to jump to a specific option.\n\nIf the manual page is too terse, look in /usr/share/doc/<package> for READMEs and sample configuration files. `rpm -qd name` lists exactly which documentation files the owning package installed.\n\nIf you do not know the name at all, search descriptions with `man -k keyword` or `apropos keyword` first.",
+          "rubric": [
+            "Mentions whatis or man -f for the short description",
+            "Mentions man, and reading SYNOPSIS or OPTIONS to learn the usage",
+            "Mentions /usr/share/doc for the longer documentation",
+            "Mentions man -k or apropos for searching when the name is unknown"
+          ],
+          "explanation": "The point is that the machine documents itself: nothing here needs a browser."
+        },
+        {
+          "type": "mc",
+          "category": "Subscriptions",
+          "question": "What does registering a Red Hat Enterprise Linux system with `subscription-manager register` achieve?",
+          "options": [
+            "It attaches the system to a subscription, which gives it access to Red Hat's software repositories and support",
+            "It creates a local user account for Red Hat support staff",
+            "It installs every available software package",
+            "It enables the graphical desktop environment"
+          ],
+          "correct": 0,
+          "explanation": "Without a subscription, dnf has no repositories to install from — which is why a fresh unregistered system cannot install anything."
+        },
+        {
+          "type": "shell",
+          "category": "Subscriptions",
+          "question": "Show the overall subscription status of this system.",
+          "places": [
+            "/etc/yum.repos.d"
+          ],
+          "solution": "sudo subscription-manager status",
+          "explanation": "`status` reports whether the system is currently entitled. `subscription-manager repos --list` shows which repositories that entitlement makes available."
+        },
+        {
+          "type": "tf",
+          "category": "Subscriptions",
+          "question": "Red Hat Enterprise Linux Lightspeed answers questions about the system in plain language from the command line, but you are still responsible for checking what it suggests before running it.",
+          "correct": true,
+          "explanation": "It is an assistant, not an authority. The answer still has to be checked against the manual pages and against what the machine in front of you actually looks like."
+        },
+        {
+          "type": "mc",
+          "category": "The Shell",
+          "question": "What does the `history` command show?",
+          "options": [
+            "The commands previously entered in this and earlier shell sessions",
+            "A log of every user who has logged in",
+            "The packages installed on the system over time",
+            "The files changed since the last reboot"
+          ],
+          "correct": 0,
+          "explanation": "The list is numbered, so `!42` reruns command 42. The file behind it is ~/.bash_history."
+        },
+        {
+          "type": "shell",
+          "category": "The Shell",
+          "question": "Display the date and time this machine currently reports.",
+          "places": [
+            "~"
+          ],
+          "solution": "date",
+          "explanation": "`date` prints it; `timedatectl` adds the time zone and whether the clock is synchronized with a time server."
+        }
+      ]
+    }
+  ]
+}
