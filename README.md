@@ -18,6 +18,7 @@ A static site for sharing self-study quizzes with classmates via GitHub Pages. N
 | `data/harborview.sql` | The practice database (schema + seed). Generated — see `tools/build_db.py` |
 | `data/itn170-box.json` | The practice machine's seed image. Generated — see `tools/build_box.py` |
 | `data/itn170-labs.json` | Ten hands-on lab sheets for the practice machine. Hand-written; deliberately contains no answers |
+| `data/itn170-man.json` | The real RHEL 9 man pages for every implemented command. Generated — see `tools/build_man.py` |
 | `assets/` | Shared CSS/JS |
 | `tools/` | Content sources and checkers. Never fetched by the site; only used when authoring |
 
@@ -46,6 +47,8 @@ A static site for sharing self-study quizzes with classmates via GitHub Pages. N
 | `shellhl.js` | Shell syntax highlighting — the counterpart of `sqlhl.js` |
 | `term.js` | The terminal itself. Drives `terminal.html` and the terminal on every lab page |
 | `nano.js` | The editor, drawn over the terminal pane when `nano` opens |
+| `man.js` | Fetches the real man pages in the background, after the terminal is up |
+| `shusage.js` | **Generated.** Per command: the real `--help` text, and what a bad option really does (exit code, extra lines). See `tools/build_usage.py` |
 
 ## The practice database
 
@@ -75,6 +78,7 @@ You are `student` on `servera.lab.example.com`, in the `wheel` group, with `sudo
 - **Software.** An RPM database of ~47 packages, DNF repositories with packages available to install, module streams, transaction history, and Flatpak.
 - **System.** A process table, systemd units that can be started, stopped, enabled and disabled, network interfaces and routes, block devices, mounts, and `man` pages.
 - **An editor.** `nano` opens for real — see below. `vim` does not, and says so.
+- **Real documentation.** `man` serves the genuine RHEL 9 page for every command the shell implements, harvested from a real machine — including the exit codes and error wording that no one remembers correctly.
 
 Regenerate the image after editing the generator:
 
@@ -101,6 +105,125 @@ Two things worth knowing:
 - **Ctrl+W belongs to the browser.** Chrome closes the tab on Ctrl+W and a page cannot prevent it, so the shortcut bar is made of real buttons. Everything else (`^O`, `^X`, `^K`, `^U`, `^G`, `^R`, `^A`, `^E`, `^C`) is bound to its keystroke as well as its button.
 
 `vim` does not open. It prints a message pointing at `nano` and at the study guide, because pretending to be vim badly would teach the wrong keystrokes.
+
+## Where the machine's facts come from
+
+Nothing about RHEL 9 in this project is written from memory. `tools/harvest.py`
+runs a real Rocky Linux 9 container — a RHEL 9 rebuild — and records its
+observable surface into `tools/harvest/out/`: package versions and file lists,
+man page text, `--help` output, and the stderr and exit codes of commands given
+deliberately bad input.
+
+```bash
+python3 tools/harvest.py            # ~20 min, mostly man pages
+python3 tools/harvest.py --report   # coverage, any time
+python3 tools/harvest.py --stage "commands man"
+python3 tools/build_box.py          # harvest -> data/itn170-box.json
+python3 tools/build_man.py          # harvest -> data/itn170-man.json
+python3 tools/build_usage.py        # harvest -> assets/shusage.js
+node    tools/check_errors.js       # diff our errors against the real ones
+```
+
+`tools/harvest/load.py` is the single place that decides how much of reality
+the image carries, and where it is deliberately adjusted — Red Hat repository
+names instead of Rocky's, file lists trimmed to `/usr/bin`, `/usr/sbin` and
+`/etc`, and the course's install targets demoted from installed to installable
+so that `dnf install tree` is still an exercise.
+
+Two things worth knowing if you re-run it:
+
+- **The harvest container is not the practice machine.** It is deliberately
+  over-provisioned: `tree`, `wget` and `git` are installed there *so their man
+  pages can be read*, then demoted by `INSTALL_TARGETS`.
+- **Rerunning is a deliberate act.** The output is committed on purpose; it is
+  the reference the emulator is checked against, not something a build script
+  refreshes behind your back.
+
+### Man pages
+
+`data/itn170-man.json` carries the real page for every implemented command —
+150 pages, ~670KB gzipped. That is too much to put in front of a page load, so
+`assets/man.js` fetches it in the background once the terminal is up. Until it
+lands, `man` answers from the hand-written table in `assets/shsys.js`. Nobody
+waits for a man page.
+
+Each page records the package it came from and that package's licence, and
+`man` prints both in a footer. These are real GPL/GFDL/BSD works; redistribution
+is permitted, and the attribution travels with them.
+
+`man` also respects install state: a page whose package is not installed is not
+readable, so `man tree` fails until `dnf install tree` succeeds — which is what
+a real machine does, and quietly links two chapters of the course together.
+
+### Error messages and exit codes
+
+`tools/harvest/out/errors.json` records what a real machine says when a command
+is given a bad option, a missing file, or nothing at all — the exact stderr and
+the exact exit code. `assets/shusage.js` is generated from it.
+
+There is no convention to infer, which is the point:
+
+| on an unrecognised option | commands |
+|---|---|
+| exit **1** | 76 — the coreutils habit: `cp`, `chmod`, `rm`, `cat` … |
+| exit **2** | 16 — `ls`, `grep`, `sort`, `diff`, `useradd`, `chage` |
+| exit 64 / 125 / 253 / 255 | `getent`, `tar` / `env`, `nice` / `passwd` / `hostname`, `ip`, `ss`, `which` |
+
+The emulator used to answer **2 for everything**. A student writing
+`if [ $? -eq 1 ]` around `cp` was being taught the wrong number by a machine
+that looked authoritative. Both `parseArgs` and `Ctx.usage` now take the code
+from the table, and `tools/test_shell.js` asserts the values for the commands
+the course teaches so they cannot drift back.
+
+```bash
+node tools/check_errors.js            # summary
+node tools/check_errors.js --cmd ls   # one command, in full
+node tools/check_errors.js --json     # for slicing
+python3 tools/check_facts.py          # the teaching material vs the machine
+```
+
+`check_facts.py` is the other direction: the quizzes and the guide are prose,
+and nothing verified them. A multiple-choice answer claiming
+`openssh-server 8.7p1` is only a sentence, and it stays wrong quietly. Now that
+the image is built from a real machine, those claims have a source of truth —
+package names, versions and paths under `/usr/bin` are all checkable. It found
+one real error on its first run: a model answer telling students to run
+`rpm -ql sshd`, when there is no `sshd` package (it is `openssh-server`) — in
+the same sentence that then correctly says `rpm -qc openssh-server`.
+
+**It is a report, not a gate** — it never fails a build. At the time of
+writing 85 of 348 probes match exactly. (The *rate* fell from 32% when the
+probe set grew from 237 to 348: more commands are now measured, including many
+never written to match. Absolute matches went up.) The bulk of the remainder is ~41
+commands (`ps`, `df`, `du`, `uname`, `who` …) that accept an unknown option
+silently instead of rejecting it, each needing its own fix. The checker is
+how you find them.
+
+One trap if you extend it: **probe as root.** `collect.sh` ran as root inside
+the container, so comparing against a `student` shell measures the permission
+check instead of the option error, and makes correct commands look wrong.
+
+### `--help`
+
+`ls --help` used to answer **`unrecognized option '--help'`** — while the error
+printed directly above it advised *"Try 'ls --help' for more information."* A
+circular dead end, at the exact moment a stuck learner reaches for help, in a
+course whose study guide calls `--help` the first thing to try.
+
+`assets/shusage.js` now carries the real text for **143 of the 144 implemented
+commands** (only `subscription-manager` is missing — RHEL-only, absent from
+Rocky). `assets/shell.js` answers `--help` before the argument parser sees it,
+since the parser is what used to reject it.
+
+Exit codes come from the harvest too, and are not all 0: `ssh-keygen --help`
+really does exit 1.
+
+**Page weight.** The synchronous assets come to ~429KB gzipped, of which the
+box image is 200KB and the help text 109KB; man pages add 668KB in the
+background. That is a deliberate trade — `--help` has to be instant to be worth
+having — but it is the first place to look if the terminal ever feels slow to
+start. Moving the help text into the background man bundle would save 109KB at
+the cost of `--help` not working for the first second.
 
 ## Question types
 
