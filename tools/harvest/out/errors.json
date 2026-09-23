@@ -1,4 +1,14 @@
 {
+ "awk": {
+  "bad-option": {
+   "stderr": "Usage: awk [POSIX or GNU style options] -f progfile [--] file ...\nUsage: awk [POSIX or GNU style options] [--] 'program' file ...\nPOSIX options:\t\tGNU long options: (standard)\n\t-f progfile\t\t--file=progfile\n\t-F fs\t\t\t--field-separator=fs\n\t-v var=val\t\t--assign=var=val\nShort options:\t\tGNU long options: (extensions)\n\t-b\t\t\t--characters-as-bytes\n\t-c\t\t\t--traditional\n\t-C\t\t\t--copyright\n\t-d[file]\t\t--dump-variables[=file]\n\t-D[file]\t\t--debug[=file]\n\t-e 'program-text'\t--source='program-text'\n\t-E file\t\t\t--exec=file\n\t-g\t\t\t--gen-pot\n\t-h\t\t\t--help\n\t-i includefile\t\t--include=includefile\n\t-l library\t\t--load=library\n\t-L[fatal|invalid|no-ext]\t--lint[=fatal|invalid|no-ext]\n\t-M\t\t\t--bignum\n\t-N\t\t\t--use-lc-numeric\n\t-n\t\t\t--non-decimal-data\n\t-o[file]\t\t--pretty-print[=file]\n\t-O\t\t\t--optimize\n\t-p[file]\t\t--profile[=file]\n\t-P\t\t\t--posix\n\t-r\t\t\t--re-interval\n\t-s\t\t\t--no-optimize\n\t-S\t\t\t--sandbox\n\t-t\t\t\t--lint-old\n\t-V\t\t\t--version\n\nTo report bugs, see node `Bugs' in `gawk.info'\nwhich is section `Reporting Problems and Bugs' in the\nprinted version.  This same information may be found at\nhttps://www.gnu.org/software/gawk/manual/html_node/Bugs.html.\nPLEASE do NOT try to report bugs by posting in comp.lang.awk,\nor by using a web forum such as Stack Overflow.\n\ngawk is a pattern scanning and processing language.\nBy default it reads standard input and writes standard output.\n\nExamples:\n\tawk '{ sum += $1 }; END { print sum }' file\n\tawk -F: '{ print $1 }' /etc/passwd\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "Usage: awk [POSIX or GNU style options] -f progfile [--] file ...\nUsage: awk [POSIX or GNU style options] [--] 'program' file ...\nPOSIX options:\t\tGNU long options: (standard)\n\t-f progfile\t\t--file=progfile\n\t-F fs\t\t\t--field-separator=fs\n\t-v var=val\t\t--assign=var=val\nShort options:\t\tGNU long options: (extensions)\n\t-b\t\t\t--characters-as-bytes\n\t-c\t\t\t--traditional\n\t-C\t\t\t--copyright\n\t-d[file]\t\t--dump-variables[=file]\n\t-D[file]\t\t--debug[=file]\n\t-e 'program-text'\t--source='program-text'\n\t-E file\t\t\t--exec=file\n\t-g\t\t\t--gen-pot\n\t-h\t\t\t--help\n\t-i includefile\t\t--include=includefile\n\t-l library\t\t--load=library\n\t-L[fatal|invalid|no-ext]\t--lint[=fatal|invalid|no-ext]\n\t-M\t\t\t--bignum\n\t-N\t\t\t--use-lc-numeric\n\t-n\t\t\t--non-decimal-data\n\t-o[file]\t\t--pretty-print[=file]\n\t-O\t\t\t--optimize\n\t-p[file]\t\t--profile[=file]\n\t-P\t\t\t--posix\n\t-r\t\t\t--re-interval\n\t-s\t\t\t--no-optimize\n\t-S\t\t\t--sandbox\n\t-t\t\t\t--lint-old\n\t-V\t\t\t--version\n\nTo report bugs, see node `Bugs' in `gawk.info'\nwhich is section `Reporting Problems and Bugs' in the\nprinted version.  This same information may be found at\nhttps://www.gnu.org/software/gawk/manual/html_node/Bugs.html.\nPLEASE do NOT try to report bugs by posting in comp.lang.awk,\nor by using a web forum such as Stack Overflow.\n\ngawk is a pattern scanning and processing language.\nBy default it reads standard input and writes standard output.\n\nExamples:\n\tawk '{ sum += $1 }; END { print sum }' file\n\tawk -F: '{ print $1 }' /etc/passwd\n",
+   "status": 1
+  }
+ },
  "basename": {
   "bad-option": {
    "stderr": "basename: unrecognized option '--zzz-not-an-option'\nTry 'basename --help' for more information.\n",
@@ -215,6 +225,12 @@
    "status": 1
   }
  },
+ "dnf": {
+  "missing-file": {
+   "stderr": "No such command: /nonexistent/zzz-no-such-path. Please use /usr/bin/dnf --help\nIt could be a DNF plugin command, try: \"dnf install 'dnf-command(/nonexistent/zzz-no-such-path)'\"\n",
+   "status": 1
+  }
+ },
  "du": {
   "bad-option": {
    "stderr": "du: unrecognized option '--zzz-not-an-option'\nTry 'du --help' for more information.\n",
@@ -225,7 +241,7 @@
    "status": 1
   },
   "no-args": {
-   "stderr": "du: cannot access './proc/38121/task/38121/fd/3': No such file or directory\ndu: cannot access './proc/38121/task/38121/fdinfo/3': No such file or directory\ndu: cannot access './proc/38121/fd/4': No such file or directory\ndu: cannot access './proc/38121/fdinfo/4': No such file or directory\n",
+   "stderr": "du: cannot access './proc/1269/task/1269/fd/3': No such file or directory\ndu: cannot access './proc/1269/task/1269/fdinfo/3': No such file or directory\ndu: cannot access './proc/1269/fd/4': No such file or directory\ndu: cannot access './proc/1269/fdinfo/4': No such file or directory\n",
    "status": 1
   }
  },
@@ -630,6 +646,20 @@
   },
   "missing-file": {
    "stderr": "lsof: status error on /nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "man": {
+  "bad-option": {
+   "stderr": "man: unrecognized option '--zzz-not-an-option'\nTry 'man --help' or 'man --usage' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "man: /nonexistent/zzz-no-such-path: No such file or directory\nNo manual entry for /nonexistent/zzz-no-such-path\n",
+   "status": 16
+  },
+  "no-args": {
+   "stderr": "What manual page do you want?\nFor example, try 'man man'.\n",
    "status": 1
   }
  },
@@ -1419,6 +1449,20 @@
    "status": 1
   }
  },
+ "whatis": {
+  "bad-option": {
+   "stderr": "whatis: unrecognized option '--zzz-not-an-option'\nTry 'whatis --help' or 'whatis --usage' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "/nonexistent/zzz-no-such-path: nothing appropriate.\n",
+   "status": 16
+  },
+  "no-args": {
+   "stderr": "",
+   "status": 1
+  }
+ },
  "whereis": {
   "bad-option": {
    "stderr": "whereis: bad usage\nTry 'whereis --help' for more information.\n",
@@ -1472,6 +1516,494 @@
  "yes": {
   "bad-option": {
    "stderr": "yes: unrecognized option '--zzz-not-an-option'\nTry 'yes --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "apropos": {
+  "bad-option": {
+   "stderr": "apropos: unrecognized option '--zzz-not-an-option'\nTry 'apropos --help' or 'apropos --usage' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "/nonexistent/zzz-no-such-path: nothing appropriate.\n",
+   "status": 16
+  },
+  "no-args": {
+   "stderr": "",
+   "status": 1
+  }
+ },
+ "bzip2": {
+  "bad-option": {
+   "stderr": "bzip2: Bad flag `--zzz-not-an-option'\nbzip2, a block-sorting file compressor.  Version 1.0.8, 13-Jul-2019.\n\n   usage: bzip2 [flags and input files in any order]\n\n   -h --help           print this message\n   -d --decompress     force decompression\n   -z --compress       force compression\n   -k --keep           keep (don't delete) input files\n   -f --force          overwrite existing output files\n   -t --test           test compressed file integrity\n   -c --stdout         output to standard out\n   -q --quiet          suppress noncritical error messages\n   -v --verbose        be verbose (a 2nd -v gives more)\n   -L --license        display software version & license\n   -V --version        display software version & license\n   -s --small          use less memory (at most 2500k)\n   -1 .. -9            set block size to 100k .. 900k\n   --fast              alias for -1\n   --best              alias for -9\n\n   If invoked as `bzip2', default action is to compress.\n              as `bunzip2',  default action is to decompress.\n              as `bzcat', default action is to decompress to stdout.\n\n   If no file names are given, bzip2 compresses or decompresses\n   from standard input to standard output.  You can combine\n   short flags, so `-v -4' means the same as -v4 or -4v, &c.\n\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "bzip2: Can't open input file /nonexistent/zzz-no-such-path: No such file or directory.\n",
+   "status": 1
+  }
+ },
+ "clear": {
+  "bad-option": {
+   "stderr": "clear: invalid option -- '-'\nUsage: clear [options]\n\nOptions:\n  -T TERM     use this instead of $TERM\n  -V          print curses-version\n  -x          do not try to clear scrollback\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "Usage: clear [options]\n\nOptions:\n  -T TERM     use this instead of $TERM\n  -V          print curses-version\n  -x          do not try to clear scrollback\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "TERM environment variable not set.\n",
+   "status": 1
+  }
+ },
+ "crontab": {
+  "bad-option": {
+   "stderr": "crontab: invalid option -- '-'\ncrontab: usage error: unrecognized option\nUsage:\n crontab [options] file\n crontab [options]\n crontab -n [hostname]\n\nOptions:\n -u <user>  define user\n -e         edit user's crontab\n -l         list user's crontab\n -r         delete user's crontab\n -i         prompt before deleting\n -n <host>  set host in cluster to run users' crontabs\n -c         get host in cluster to run users' crontabs\n -T <file>  test a crontab file syntax\n -s         selinux context\n -V         print version and exit\n -x <mask>  enable debugging\n\nDefault operation is replace, per 1003.2\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "/nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "firewall-cmd": {
+  "bad-option": {
+   "stderr": "usage: 'firewall-cmd --help' for usage information or see firewall-cmd(1) man page\nfirewall-cmd: error: unrecognized arguments: --zzz-not-an-option\n",
+   "status": 2
+  },
+  "missing-file": {
+   "stderr": "usage: 'firewall-cmd --help' for usage information or see firewall-cmd(1) man page\nfirewall-cmd: error: unrecognized arguments: /nonexistent/zzz-no-such-path\n",
+   "status": 2
+  },
+  "no-args": {
+   "stderr": "Error: DBUS_ERROR: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\n",
+   "status": 36
+  }
+ },
+ "flatpak": {
+  "bad-option": {
+   "stderr": "error: Unknown option --zzz-not-an-option\n\nSee 'flatpak --help'\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "error: '/nonexistent/zzz-no-such-path' is not a flatpak command. Did you mean 'document-unexport'?\n\nSee 'flatpak --help'\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "error: No command specified\n\nSee 'flatpak --help'\n",
+   "status": 1
+  }
+ },
+ "gawk": {
+  "bad-option": {
+   "stderr": "Usage: gawk [POSIX or GNU style options] -f progfile [--] file ...\nUsage: gawk [POSIX or GNU style options] [--] 'program' file ...\nPOSIX options:\t\tGNU long options: (standard)\n\t-f progfile\t\t--file=progfile\n\t-F fs\t\t\t--field-separator=fs\n\t-v var=val\t\t--assign=var=val\nShort options:\t\tGNU long options: (extensions)\n\t-b\t\t\t--characters-as-bytes\n\t-c\t\t\t--traditional\n\t-C\t\t\t--copyright\n\t-d[file]\t\t--dump-variables[=file]\n\t-D[file]\t\t--debug[=file]\n\t-e 'program-text'\t--source='program-text'\n\t-E file\t\t\t--exec=file\n\t-g\t\t\t--gen-pot\n\t-h\t\t\t--help\n\t-i includefile\t\t--include=includefile\n\t-l library\t\t--load=library\n\t-L[fatal|invalid|no-ext]\t--lint[=fatal|invalid|no-ext]\n\t-M\t\t\t--bignum\n\t-N\t\t\t--use-lc-numeric\n\t-n\t\t\t--non-decimal-data\n\t-o[file]\t\t--pretty-print[=file]\n\t-O\t\t\t--optimize\n\t-p[file]\t\t--profile[=file]\n\t-P\t\t\t--posix\n\t-r\t\t\t--re-interval\n\t-s\t\t\t--no-optimize\n\t-S\t\t\t--sandbox\n\t-t\t\t\t--lint-old\n\t-V\t\t\t--version\n\nTo report bugs, see node `Bugs' in `gawk.info'\nwhich is section `Reporting Problems and Bugs' in the\nprinted version.  This same information may be found at\nhttps://www.gnu.org/software/gawk/manual/html_node/Bugs.html.\nPLEASE do NOT try to report bugs by posting in comp.lang.awk,\nor by using a web forum such as Stack Overflow.\n\ngawk is a pattern scanning and processing language.\nBy default it reads standard input and writes standard output.\n\nExamples:\n\tgawk '{ sum += $1 }; END { print sum }' file\n\tgawk -F: '{ print $1 }' /etc/passwd\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "Usage: gawk [POSIX or GNU style options] -f progfile [--] file ...\nUsage: gawk [POSIX or GNU style options] [--] 'program' file ...\nPOSIX options:\t\tGNU long options: (standard)\n\t-f progfile\t\t--file=progfile\n\t-F fs\t\t\t--field-separator=fs\n\t-v var=val\t\t--assign=var=val\nShort options:\t\tGNU long options: (extensions)\n\t-b\t\t\t--characters-as-bytes\n\t-c\t\t\t--traditional\n\t-C\t\t\t--copyright\n\t-d[file]\t\t--dump-variables[=file]\n\t-D[file]\t\t--debug[=file]\n\t-e 'program-text'\t--source='program-text'\n\t-E file\t\t\t--exec=file\n\t-g\t\t\t--gen-pot\n\t-h\t\t\t--help\n\t-i includefile\t\t--include=includefile\n\t-l library\t\t--load=library\n\t-L[fatal|invalid|no-ext]\t--lint[=fatal|invalid|no-ext]\n\t-M\t\t\t--bignum\n\t-N\t\t\t--use-lc-numeric\n\t-n\t\t\t--non-decimal-data\n\t-o[file]\t\t--pretty-print[=file]\n\t-O\t\t\t--optimize\n\t-p[file]\t\t--profile[=file]\n\t-P\t\t\t--posix\n\t-r\t\t\t--re-interval\n\t-s\t\t\t--no-optimize\n\t-S\t\t\t--sandbox\n\t-t\t\t\t--lint-old\n\t-V\t\t\t--version\n\nTo report bugs, see node `Bugs' in `gawk.info'\nwhich is section `Reporting Problems and Bugs' in the\nprinted version.  This same information may be found at\nhttps://www.gnu.org/software/gawk/manual/html_node/Bugs.html.\nPLEASE do NOT try to report bugs by posting in comp.lang.awk,\nor by using a web forum such as Stack Overflow.\n\ngawk is a pattern scanning and processing language.\nBy default it reads standard input and writes standard output.\n\nExamples:\n\tgawk '{ sum += $1 }; END { print sum }' file\n\tgawk -F: '{ print $1 }' /etc/passwd\n",
+   "status": 1
+  }
+ },
+ "host": {
+  "bad-option": {
+   "stderr": "host: illegal option -- -\nUsage: host [-aCdilrTvVw] [-c class] [-N ndots] [-t type] [-W time]\n            [-R number] [-m flag] [-p port] hostname [server]\n       -a is equivalent to -v -t ANY\n       -A is like -a but omits RRSIG, NSEC, NSEC3\n       -c specifies query class for non-IN data\n       -C compares SOA records on authoritative nameservers\n       -d is equivalent to -v\n       -l lists all hosts in a domain, using AXFR\n       -m set memory debugging flag (trace|record|usage)\n       -N changes the number of dots allowed before root lookup is done\n       -p specifies the port on the server to query\n       -r disables recursive processing\n       -R specifies number of retries for UDP packets\n       -s a SERVFAIL response should stop query\n       -t specifies the query type\n       -T enables TCP/IP mode\n       -U enables UDP mode\n       -v enables verbose output\n       -V print version number and exit\n       -w specifies to wait forever for a reply\n       -W specifies how long to wait for a reply\n       -4 use IPv4 query transport only\n       -6 use IPv6 query transport only\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "Usage: host [-aCdilrTvVw] [-c class] [-N ndots] [-t type] [-W time]\n            [-R number] [-m flag] [-p port] hostname [server]\n       -a is equivalent to -v -t ANY\n       -A is like -a but omits RRSIG, NSEC, NSEC3\n       -c specifies query class for non-IN data\n       -C compares SOA records on authoritative nameservers\n       -d is equivalent to -v\n       -l lists all hosts in a domain, using AXFR\n       -m set memory debugging flag (trace|record|usage)\n       -N changes the number of dots allowed before root lookup is done\n       -p specifies the port on the server to query\n       -r disables recursive processing\n       -R specifies number of retries for UDP packets\n       -s a SERVFAIL response should stop query\n       -t specifies the query type\n       -T enables TCP/IP mode\n       -U enables UDP mode\n       -v enables verbose output\n       -V print version number and exit\n       -w specifies to wait forever for a reply\n       -W specifies how long to wait for a reply\n       -4 use IPv4 query transport only\n       -6 use IPv6 query transport only\n",
+   "status": 1
+  }
+ },
+ "journalctl": {
+  "bad-option": {
+   "stderr": "journalctl: unrecognized option '--zzz-not-an-option'\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "No journal files were found.\nCouldn't canonicalize path: No such file or directory\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "No journal files were found.\n",
+   "status": 0
+  }
+ },
+ "kill": {
+  "bad-option": {
+   "stderr": "kill: invalid signal name or number: -zzz-not-an-option\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "kill: cannot find process \"/nonexistent/zzz-no-such-path\"\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "kill: not enough arguments\n",
+   "status": 1
+  }
+ },
+ "killall": {
+  "bad-option": {
+   "stderr": "Usage: killall [OPTION]... [--] NAME...\n       killall -l, --list\n       killall -V, --version\n\n  -e,--exact          require exact match for very long names\n  -I,--ignore-case    case insensitive process name match\n  -g,--process-group  kill process group instead of process\n  -y,--younger-than   kill processes younger than TIME\n  -o,--older-than     kill processes older than TIME\n  -i,--interactive    ask for confirmation before killing\n  -l,--list           list all known signal names\n  -q,--quiet          don't print complaints\n  -r,--regexp         interpret NAME as an extended regular expression\n  -s,--signal SIGNAL  send this signal instead of SIGTERM\n  -u,--user USER      kill only process(es) running as USER\n  -v,--verbose        report if the signal was successfully sent\n  -V,--version        display version information\n  -w,--wait           wait for processes to die\n  -n,--ns PID         match processes that belong to the same namespaces\n                      as PID\n  -Z,--context REGEXP kill only process(es) having context\n                      (must precede other arguments)\n\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "/nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "Usage: killall [OPTION]... [--] NAME...\n       killall -l, --list\n       killall -V, --version\n\n  -e,--exact          require exact match for very long names\n  -I,--ignore-case    case insensitive process name match\n  -g,--process-group  kill process group instead of process\n  -y,--younger-than   kill processes younger than TIME\n  -o,--older-than     kill processes older than TIME\n  -i,--interactive    ask for confirmation before killing\n  -l,--list           list all known signal names\n  -q,--quiet          don't print complaints\n  -r,--regexp         interpret NAME as an extended regular expression\n  -s,--signal SIGNAL  send this signal instead of SIGTERM\n  -u,--user USER      kill only process(es) running as USER\n  -v,--verbose        report if the signal was successfully sent\n  -V,--version        display version information\n  -w,--wait           wait for processes to die\n  -n,--ns PID         match processes that belong to the same namespaces\n                      as PID\n  -Z,--context REGEXP kill only process(es) having context\n                      (must precede other arguments)\n\n",
+   "status": 1
+  }
+ },
+ "logger": {
+  "bad-option": {
+   "stderr": "logger: unrecognized option '--zzz-not-an-option'\nTry 'logger --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "mandb": {
+  "bad-option": {
+   "stderr": "mandb: unrecognized option '--zzz-not-an-option'\nTry 'mandb --help' or 'mandb --usage' for more information.\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "Updating index cache for path `/usr/share/man/overrides/man3'. Wait...\ndone.\nUpdating index cache for path `/usr/share/man/man4'. Wait...\nUpdating index cache for path `/usr/share/man/man0p'. Wait...\nUpdating index cache for path `/usr/share/man/man1p'. Wait...\nUpdating index cache for path `/usr/share/man/man3p'. Wait...\nUpdating index cache for path `/usr/share/man/man3x'. Wait...\nUpdating index cache for path `/usr/share/man/man1'. Wait...\nUpdating index cache for path `/usr/share/man/man5'. Wait...\nUpdating index cache for path `/usr/share/man/man8'. Wait...\nmandb: can't open /usr/share/man/man8/nss-resolve.8: No such file or directory\nmandb: warning: /usr/share/man/man8/libnss_resolve.so.2.8.gz: bad symlink or ROFF `.so' request\nUpdating index cache for path `/usr/share/man/man7x'. Wait...\nUpdating index cache for path `/usr/share/man/man7'. Wait...\nUpdating index cache for path `/usr/share/man/mann'. Wait...\nUpdating index cache for path `/usr/share/man/man9x'. Wait...\nUpdating index cache for path `/usr/share/man/man6x'. Wait...\nUpdating index cache for path `/usr/share/man/man5x'. Wait...\nUpdating index cache for path `/usr/share/man/man2x'. Wait...\nUpdating index cache for path `/usr/share/man/man8x'. Wait...\nUpdating index cache for path `/usr/share/man/man9'. Wait...\nUpdating index cache for path `/usr/share/man/man1x'. Wait...\nUpdating index cache for path `/usr/share/man/man2'. Wait...\nUpdating index cache for path `/usr/share/man/man3'. Wait...\nUpdating index cache for path `/usr/share/man/man6'. Wait...\nUpdating index cache for path `/usr/share/man/man4x'. Wait...\nUpdating index cache for path `/usr/share/man/man3head'. Wait...\nUpdating index cache for path `/usr/share/man/man3const'. Wait...\nUpdating index cache for path `/usr/share/man/man2type'. Wait...\nUpdating index cache for path `/usr/share/man/man3type'. Wait...\ndone.\nUpdating index cache for path `/usr/share/man/ru/man1'. Wait...\nUpdating index cache for path `/usr/share/man/ru/man5'. Wait...\nUpdating index cache for path `/usr/share/man/ru/man8'. Wait...\ndone.\nUpdating index cache for path `/usr/share/man/de/man1'. Wait...\ndone.\nUpdating index cache for path `/usr/local/share/man/man4'. Wait...\nUpdating index cache for path `/usr/local/share/man/man3x'. Wait...\nUpdating index cache for path `/usr/local/share/man/man1'. Wait...\nUpdating index cache for path `/usr/local/share/man/man5'. Wait...\nUpdating index cache for path `/usr/local/share/man/man8'. Wait...\nUpdating index cache for path `/usr/local/share/man/man7x'. Wait...\nUpdating index cache for path `/usr/local/share/man/man7'. Wait...\nUpdating index cache for path `/usr/local/share/man/mann'. Wait...\nUpdating index cache for path `/usr/local/share/man/man9x'. Wait...\nUpdating index cache for path `/usr/local/share/man/man6x'. Wait...\nUpdating index cache for path `/usr/local/share/man/man5x'. Wait...\nUpdating index cache for path `/usr/local/share/man/man2x'. Wait...\nUpdating index cache for path `/usr/local/share/man/man8x'. Wait...\nUpdating index cache for path `/usr/local/share/man/man9'. Wait...\nUpdating index cache for path `/usr/local/share/man/man1x'. Wait...\nUpdating index cache for path `/usr/local/share/man/man2'. Wait...\nUpdating index cache for path `/usr/local/share/man/man3'. Wait...\nUpdating index cache for path `/usr/local/share/man/man6'. Wait...\nUpdating index cache for path `/usr/local/share/man/man4x'. Wait...\ndone.\n",
+   "status": 0
+  }
+ },
+ "md5sum": {
+  "bad-option": {
+   "stderr": "md5sum: unrecognized option '--zzz-not-an-option'\nTry 'md5sum --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "md5sum: /nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "newgrp": {
+  "bad-option": {
+   "stderr": "Usage: newgrp [-] [group]\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "newgrp: group '/nonexistent/zzz-no-such-path' does not exist\n",
+   "status": 1
+  }
+ },
+ "nmcli": {
+  "bad-option": {
+   "stderr": "Error: Option '--zzz-not-an-option' is unknown, try 'nmcli -help'.\n",
+   "status": 2
+  },
+  "missing-file": {
+   "stderr": "Error: argument '/nonexistent/zzz-no-such-path' not understood. Try passing --help instead.\n",
+   "status": 2
+  },
+  "no-args": {
+   "stderr": "Error: Could not create NMClient object: Could not connect: No such file or directory.\n",
+   "status": 1
+  }
+ },
+ "nslookup": {
+  "bad-option": {
+   "stderr": "",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "",
+   "status": 1
+  }
+ },
+ "pkill": {
+  "bad-option": {
+   "stderr": "pkill: unrecognized option '--zzz-not-an-option'\n\nUsage:\n pkill [options] <pattern>\n\nOptions:\n -<sig>, --signal <sig>    signal to send (either number or name)\n -q, --queue <value>       integer value to be sent with the signal\n -e, --echo                display what is killed\n -c, --count               count of matching processes\n -f, --full                use full process name to match\n -g, --pgroup <PGID,...>   match listed process group IDs\n -G, --group <GID,...>     match real group IDs\n -i, --ignore-case         match case insensitively\n -n, --newest              select most recently started\n -o, --oldest              select least recently started\n -O, --older <seconds>     select where older than seconds\n -P, --parent <PPID,...>   match only child processes of the given parent\n -s, --session <SID,...>   match session IDs\n -t, --terminal <tty,...>  match by controlling terminal\n -u, --euid <ID,...>       match by effective IDs\n -U, --uid <ID,...>        match by real IDs\n -x, --exact               match exactly with the command name\n -F, --pidfile <file>      read PIDs from file\n -L, --logpidfile          fail if PID file is not locked\n -r, --runstates <state>   match runstates [D,S,Z,...]\n --ns <PID>                match the processes that belong to the same\n                           namespace as <pid>\n --nslist <ns,...>         list which namespaces will be considered for\n                           the --ns option.\n                           Available namespaces: ipc, mnt, net, pid, user, uts\n\n -h, --help     display this help and exit\n -V, --version  output version information and exit\n\nFor more details see pgrep(1).\n",
+   "status": 2
+  },
+  "missing-file": {
+   "stderr": "",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "pkill: no matching criteria specified\nTry `pkill --help' for more information.\n",
+   "status": 2
+  }
+ },
+ "pmap": {
+  "bad-option": {
+   "stderr": "pmap: unrecognized option '--zzz-not-an-option'\n\nUsage:\n pmap [options] PID [PID ...]\n\nOptions:\n -x, --extended              show details\n -X                          show even more details\n            WARNING: format changes according to /proc/PID/smaps\n -XX                         show everything the kernel provides\n -c, --read-rc               read the default rc\n -C, --read-rc-from=<file>   read the rc from file\n -n, --create-rc             create new default rc\n -N, --create-rc-to=<file>   create new rc to file\n            NOTE: pid arguments are not allowed with -n, -N\n -d, --device                show the device format\n -q, --quiet                 do not display header and footer\n -p, --show-path             show path in the mapping\n -A, --range=<low>[,<high>]  limit results to the given range\n\n -h, --help     display this help and exit\n -V, --version  output version information and exit\n\nFor more details see pmap(1).\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "\nUsage:\n pmap [options] PID [PID ...]\n\nOptions:\n -x, --extended              show details\n -X                          show even more details\n            WARNING: format changes according to /proc/PID/smaps\n -XX                         show everything the kernel provides\n -c, --read-rc               read the default rc\n -C, --read-rc-from=<file>   read the rc from file\n -n, --create-rc             create new default rc\n -N, --create-rc-to=<file>   create new rc to file\n            NOTE: pid arguments are not allowed with -n, -N\n -d, --device                show the device format\n -q, --quiet                 do not display header and footer\n -p, --show-path             show path in the mapping\n -A, --range=<low>[,<high>]  limit results to the given range\n\n -h, --help     display this help and exit\n -V, --version  output version information and exit\n\nFor more details see pmap(1).\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "\nUsage:\n pmap [options] PID [PID ...]\n\nOptions:\n -x, --extended              show details\n -X                          show even more details\n            WARNING: format changes according to /proc/PID/smaps\n -XX                         show everything the kernel provides\n -c, --read-rc               read the default rc\n -C, --read-rc-from=<file>   read the rc from file\n -n, --create-rc             create new default rc\n -N, --create-rc-to=<file>   create new rc to file\n            NOTE: pid arguments are not allowed with -n, -N\n -d, --device                show the device format\n -q, --quiet                 do not display header and footer\n -p, --show-path             show path in the mapping\n -A, --range=<low>[,<high>]  limit results to the given range\n\n -h, --help     display this help and exit\n -V, --version  output version information and exit\n\nFor more details see pmap(1).\n",
+   "status": 1
+  }
+ },
+ "renice": {
+  "bad-option": {
+   "stderr": "renice: not enough arguments\nTry 'renice --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "renice: not enough arguments\nTry 'renice --help' for more information.\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "renice: not enough arguments\nTry 'renice --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "sftp": {
+  "bad-option": {
+   "stderr": "unknown option -- -\nusage: sftp [-46AaCfNpqrv] [-B buffer_size] [-b batchfile] [-c cipher]\n          [-D sftp_server_command] [-F ssh_config] [-i identity_file]\n          [-J destination] [-l limit] [-o ssh_option] [-P port]\n          [-R num_requests] [-S program] [-s subsystem | sftp_server]\n          [-X sftp_option] destination\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "ssh: Could not resolve hostname /nonexistent/zzz-no-such-path: Name or service not known\n\nConnection closed.  \nConnection closed\n",
+   "status": 255
+  },
+  "no-args": {
+   "stderr": "usage: sftp [-46AaCfNpqrv] [-B buffer_size] [-b batchfile] [-c cipher]\n          [-D sftp_server_command] [-F ssh_config] [-i identity_file]\n          [-J destination] [-l limit] [-o ssh_option] [-P port]\n          [-R num_requests] [-S program] [-s subsystem | sftp_server]\n          [-X sftp_option] destination\n",
+   "status": 1
+  }
+ },
+ "ssh": {
+  "bad-option": {
+   "stderr": "unknown option -- -\nusage: ssh [-46AaCfGgKkMNnqsTtVvXxYy] [-B bind_interface] [-b bind_address]\n           [-c cipher_spec] [-D [bind_address:]port] [-E log_file]\n           [-e escape_char] [-F configfile] [-I pkcs11] [-i identity_file]\n           [-J destination] [-L address] [-l login_name] [-m mac_spec]\n           [-O ctl_cmd] [-o option] [-P tag] [-p port] [-R address]\n           [-S ctl_path] [-W host:port] [-w local_tun[:remote_tun]]\n           destination [command [argument ...]]\n       ssh [-Q query_option]\n",
+   "status": 255
+  },
+  "missing-file": {
+   "stderr": "Pseudo-terminal will not be allocated because stdin is not a terminal.\nssh: Could not resolve hostname /nonexistent/zzz-no-such-path: Name or service not known\n",
+   "status": 255
+  },
+  "no-args": {
+   "stderr": "usage: ssh [-46AaCfGgKkMNnqsTtVvXxYy] [-B bind_interface] [-b bind_address]\n           [-c cipher_spec] [-D [bind_address:]port] [-E log_file]\n           [-e escape_char] [-F configfile] [-I pkcs11] [-i identity_file]\n           [-J destination] [-L address] [-l login_name] [-m mac_spec]\n           [-O ctl_cmd] [-o option] [-P tag] [-p port] [-R address]\n           [-S ctl_path] [-W host:port] [-w local_tun[:remote_tun]]\n           destination [command [argument ...]]\n       ssh [-Q query_option]\n",
+   "status": 255
+  }
+ },
+ "ssh-add": {
+  "bad-option": {
+   "stderr": "Could not open a connection to your authentication agent.\n",
+   "status": 2
+  },
+  "missing-file": {
+   "stderr": "Could not open a connection to your authentication agent.\n",
+   "status": 2
+  },
+  "no-args": {
+   "stderr": "Could not open a connection to your authentication agent.\n",
+   "status": 2
+  }
+ },
+ "ssh-agent": {
+  "bad-option": {
+   "stderr": "unknown option -- -\nusage: ssh-agent [-c | -s] [-Dd] [-a bind_address] [-E fingerprint_hash]\n                 [-O option] [-P allowed_providers] [-t life]\n       ssh-agent [-a bind_address] [-E fingerprint_hash] [-O option]\n                 [-P allowed_providers] [-t life] command [arg ...]\n       ssh-agent [-c | -s] -k\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "/nonexistent/zzz-no-such-path: No such file or directory\n",
+   "status": 1
+  }
+ },
+ "ssh-copy-id": {
+  "bad-option": {
+   "stderr": "/usr/bin/ssh-copy-id: illegal option -- -\nUsage: /usr/bin/ssh-copy-id [-h|-?|-f|-n|-s|-x] [-i [identity_file]] [-t target_path] [-F ssh_config] [[-o ssh_option] ...] [-p port] [user@]hostname\n\t-f: force mode -- copy keys without trying to check if they are already installed\n\t-n: dry run    -- no keys are actually copied\n\t-s: use sftp   -- use sftp instead of executing remote-commands. Can be useful if the remote only allows sftp\n\t-x: debug      -- enables -x in this shell, for debugging\n\t-h|-?: print this help\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "/usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: \n/usr/bin/ssh-copy-id: ERROR: No identities found\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "Usage: /usr/bin/ssh-copy-id [-h|-?|-f|-n|-s|-x] [-i [identity_file]] [-t target_path] [-F ssh_config] [[-o ssh_option] ...] [-p port] [user@]hostname\n\t-f: force mode -- copy keys without trying to check if they are already installed\n\t-n: dry run    -- no keys are actually copied\n\t-s: use sftp   -- use sftp instead of executing remote-commands. Can be useful if the remote only allows sftp\n\t-x: debug      -- enables -x in this shell, for debugging\n\t-h|-?: print this help\n",
+   "status": 1
+  }
+ },
+ "ssh-keygen": {
+  "bad-option": {
+   "stderr": "unknown option -- -\nusage: ssh-keygen [-q] [-a rounds] [-b bits] [-C comment] [-f output_keyfile]\n                  [-m format] [-N new_passphrase] [-O option]\n                  [-t dsa | ecdsa | ecdsa-sk | ed25519 | ed25519-sk | rsa]\n                  [-w provider] [-Z cipher]\n       ssh-keygen -p [-a rounds] [-f keyfile] [-m format] [-N new_passphrase]\n                   [-P old_passphrase] [-Z cipher]\n       ssh-keygen -i [-f input_keyfile] [-m key_format]\n       ssh-keygen -e [-f input_keyfile] [-m key_format]\n       ssh-keygen -y [-f input_keyfile]\n       ssh-keygen -c [-a rounds] [-C comment] [-f keyfile] [-P passphrase]\n       ssh-keygen -l [-v] [-E fingerprint_hash] [-f input_keyfile]\n       ssh-keygen -B [-f input_keyfile]\n       ssh-keygen -D pkcs11\n       ssh-keygen -F hostname [-lv] [-f known_hosts_file]\n       ssh-keygen -H [-f known_hosts_file]\n       ssh-keygen -K [-a rounds] [-w provider]\n       ssh-keygen -R hostname [-f known_hosts_file]\n       ssh-keygen -r hostname [-g] [-f input_keyfile]\n       ssh-keygen -M generate [-O option] output_file\n       ssh-keygen -M screen [-f input_file] [-O option] output_file\n       ssh-keygen -I certificate_identity -s ca_key [-hU] [-D pkcs11_provider]\n                  [-n principals] [-O option] [-V validity_interval]\n                  [-z serial_number] file ...\n       ssh-keygen -L [-f input_keyfile]\n       ssh-keygen -A [-a rounds] [-f prefix_path]\n       ssh-keygen -k -f krl_file [-u] [-s ca_public] [-z version_number]\n                  file ...\n       ssh-keygen -Q [-l] -f krl_file [file ...]\n       ssh-keygen -Y find-principals -s signature_file -f allowed_signers_file\n       ssh-keygen -Y match-principals -I signer_identity -f allowed_signers_file\n       ssh-keygen -Y check-novalidate -n namespace -s signature_file\n       ssh-keygen -Y sign -f key_file -n namespace file [-O option] ...\n       ssh-keygen -Y verify -f allowed_signers_file -I signer_identity\n                  -n namespace -s signature_file [-r krl_file] [-O option]\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "Too many arguments.\nusage: ssh-keygen [-q] [-a rounds] [-b bits] [-C comment] [-f output_keyfile]\n                  [-m format] [-N new_passphrase] [-O option]\n                  [-t dsa | ecdsa | ecdsa-sk | ed25519 | ed25519-sk | rsa]\n                  [-w provider] [-Z cipher]\n       ssh-keygen -p [-a rounds] [-f keyfile] [-m format] [-N new_passphrase]\n                   [-P old_passphrase] [-Z cipher]\n       ssh-keygen -i [-f input_keyfile] [-m key_format]\n       ssh-keygen -e [-f input_keyfile] [-m key_format]\n       ssh-keygen -y [-f input_keyfile]\n       ssh-keygen -c [-a rounds] [-C comment] [-f keyfile] [-P passphrase]\n       ssh-keygen -l [-v] [-E fingerprint_hash] [-f input_keyfile]\n       ssh-keygen -B [-f input_keyfile]\n       ssh-keygen -D pkcs11\n       ssh-keygen -F hostname [-lv] [-f known_hosts_file]\n       ssh-keygen -H [-f known_hosts_file]\n       ssh-keygen -K [-a rounds] [-w provider]\n       ssh-keygen -R hostname [-f known_hosts_file]\n       ssh-keygen -r hostname [-g] [-f input_keyfile]\n       ssh-keygen -M generate [-O option] output_file\n       ssh-keygen -M screen [-f input_file] [-O option] output_file\n       ssh-keygen -I certificate_identity -s ca_key [-hU] [-D pkcs11_provider]\n                  [-n principals] [-O option] [-V validity_interval]\n                  [-z serial_number] file ...\n       ssh-keygen -L [-f input_keyfile]\n       ssh-keygen -A [-a rounds] [-f prefix_path]\n       ssh-keygen -k -f krl_file [-u] [-s ca_public] [-z version_number]\n                  file ...\n       ssh-keygen -Q [-l] -f krl_file [file ...]\n       ssh-keygen -Y find-principals -s signature_file -f allowed_signers_file\n       ssh-keygen -Y match-principals -I signer_identity -f allowed_signers_file\n       ssh-keygen -Y check-novalidate -n namespace -s signature_file\n       ssh-keygen -Y sign -f key_file -n namespace file [-O option] ...\n       ssh-keygen -Y verify -f allowed_signers_file -I signer_identity\n                  -n namespace -s signature_file [-r krl_file] [-O option]\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "",
+   "status": 1
+  }
+ },
+ "timedatectl": {
+  "bad-option": {
+   "stderr": "timedatectl: unrecognized option '--zzz-not-an-option'\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "System has not been booted with systemd as init system (PID 1). Can't operate.\nFailed to connect to bus: Host is down\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "System has not been booted with systemd as init system (PID 1). Can't operate.\nFailed to connect to bus: Host is down\n",
+   "status": 1
+  }
+ },
+ "top": {
+  "bad-option": {
+   "stderr": "top: inappropriate '-zzz-not-an-option'\nUsage:\n  top -hv | -bcEeHiOSs1 -d secs -n max -u|U user -p pid(s) -o field -w [cols]\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "top: unknown option '/'\nUsage:\n  top -hv | -bcEeHiOSs1 -d secs -n max -u|U user -p pid(s) -o field -w [cols]\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "TERM environment variable not set.\n",
+   "status": 1
+  }
+ },
+ "tracepath": {
+  "bad-option": {
+   "stderr": "tracepath: invalid option -- '-'\n\nUsage\n  tracepath [options] <destination>\n\nOptions:\n  -4             use IPv4\n  -6             use IPv6\n  -b             print both name and ip\n  -l <length>    use packet <length>\n  -m <hops>      use maximum <hops>\n  -n             no dns name resolution\n  -p <port>      use destination <port>\n  -V             print version and exit\n  <destination>  dns name or ip address\n\nFor more details see tracepath(8).\n",
+   "status": 255
+  },
+  "missing-file": {
+   "stderr": "tracepath: invalid argument: 'nonexistent/zzz-no-such-path'\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "\nUsage\n  tracepath [options] <destination>\n\nOptions:\n  -4             use IPv4\n  -6             use IPv6\n  -b             print both name and ip\n  -l <length>    use packet <length>\n  -m <hops>      use maximum <hops>\n  -n             no dns name resolution\n  -p <port>      use destination <port>\n  -V             print version and exit\n  <destination>  dns name or ip address\n\nFor more details see tracepath(8).\n",
+   "status": 255
+  }
+ },
+ "umount": {
+  "bad-option": {
+   "stderr": "umount: unrecognized option '--zzz-not-an-option'\nTry 'umount --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "umount: /nonexistent/zzz-no-such-path: must be superuser to unmount.\n",
+   "status": 32
+  },
+  "no-args": {
+   "stderr": "umount: bad usage\nTry 'umount --help' for more information.\n",
+   "status": 1
+  }
+ },
+ "updatedb": {
+  "bad-option": {
+   "stderr": "updatedb: unrecognized option '--zzz-not-an-option'\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "updatedb: unexpected operand on command line\n",
+   "status": 1
+  }
+ },
+ "vi": {
+  "bad-option": {
+   "stderr": "VIM - Vi IMproved 8.2 (2019 Dec 12, compiled Sep 03 2026 00:00:00)\nUnknown option argument: \"--zzz-not-an-option\"\nMore info with: \"vim -h\"\n",
+   "status": 1
+  }
+ },
+ "vmstat": {
+  "bad-option": {
+   "stderr": "vmstat: unrecognized option '--zzz-not-an-option'\n\nUsage:\n vmstat [options] [delay [count]]\n\nOptions:\n -a, --active           active/inactive memory\n -f, --forks            number of forks since boot\n -m, --slabs            slabinfo\n -n, --one-header       do not redisplay header\n -s, --stats            event counter statistics\n -d, --disk             disk statistics\n -D, --disk-sum         summarize disk statistics\n -p, --partition <dev>  partition specific statistics\n -S, --unit <char>      define display unit\n -w, --wide             wide output\n -t, --timestamp        show timestamp\n\n -h, --help     display this help and exit\n -V, --version  output version information and exit\n\nFor more details see vmstat(8).\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "vmstat: failed to parse argument: '/nonexistent/zzz-no-such-path'\n",
+   "status": 1
+  }
+ },
+ "watch": {
+  "bad-option": {
+   "stderr": "watch: unrecognized option '--zzz-not-an-option'\n\nUsage:\n watch [options] command\n\nOptions:\n  -b, --beep             beep if command has a non-zero exit\n  -c, --color            interpret ANSI color and style sequences\n  -d, --differences[=<permanent>]\n                         highlight changes between updates\n  -e, --errexit          exit if command has a non-zero exit\n  -g, --chgexit          exit when output from command changes\n  -n, --interval <secs>  seconds to wait between updates\n  -p, --precise          attempt run command in precise intervals\n  -t, --no-title         turn off header\n  -w, --no-wrap          turn off line wrapping\n  -x, --exec             pass command to exec instead of \"sh -c\"\n\n -h, --help     display this help and exit\n -v, --version  output version information and exit\n\nFor more details see watch(1).\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "Error opening terminal: unknown.\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "\nUsage:\n watch [options] command\n\nOptions:\n  -b, --beep             beep if command has a non-zero exit\n  -c, --color            interpret ANSI color and style sequences\n  -d, --differences[=<permanent>]\n                         highlight changes between updates\n  -e, --errexit          exit if command has a non-zero exit\n  -g, --chgexit          exit when output from command changes\n  -n, --interval <secs>  seconds to wait between updates\n  -p, --precise          attempt run command in precise intervals\n  -t, --no-title         turn off header\n  -w, --no-wrap          turn off line wrapping\n  -x, --exec             pass command to exec instead of \"sh -c\"\n\n -h, --help     display this help and exit\n -v, --version  output version information and exit\n\nFor more details see watch(1).\n",
+   "status": 1
+  }
+ },
+ "yum": {
+  "missing-file": {
+   "stderr": "No such command: /nonexistent/zzz-no-such-path. Please use /usr/bin/yum --help\nIt could be a YUM plugin command, try: \"yum install 'dnf-command(/nonexistent/zzz-no-such-path)'\"\n",
+   "status": 1
+  }
+ },
+ "zcat": {
+  "bad-option": {
+   "stderr": "gzip: unrecognized option '--zzz-not-an-option'\nTry `gzip --help' for more information.\n",
+   "status": 1
+  },
+  "missing-file": {
+   "stderr": "gzip: /nonexistent/zzz-no-such-path.gz: No such file or directory\n",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "\ngzip: stdin: unexpected end of file\n",
+   "status": 1
+  }
+ },
+ "egrep": {
+  "bad-option": {
+   "stderr": "grep: unrecognized option '--zzz-not-an-option'\nUsage: grep [OPTION]... PATTERNS [FILE]...\nTry 'grep --help' for more information.\n",
+   "status": 2
+  },
+  "missing-file": {
+   "stderr": "",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "Usage: grep [OPTION]... PATTERNS [FILE]...\nTry 'grep --help' for more information.\n",
+   "status": 2
+  }
+ },
+ "fgrep": {
+  "bad-option": {
+   "stderr": "grep: unrecognized option '--zzz-not-an-option'\nUsage: grep [OPTION]... PATTERNS [FILE]...\nTry 'grep --help' for more information.\n",
+   "status": 2
+  },
+  "missing-file": {
+   "stderr": "",
+   "status": 1
+  },
+  "no-args": {
+   "stderr": "Usage: grep [OPTION]... PATTERNS [FILE]...\nTry 'grep --help' for more information.\n",
+   "status": 2
+  }
+ },
+ "dnf-3": {
+  "missing-file": {
+   "stderr": "No such command: /nonexistent/zzz-no-such-path. Please use /usr/bin/dnf-3 --help\nIt could be a DNF plugin command, try: \"dnf install 'dnf-command(/nonexistent/zzz-no-such-path)'\"\n",
+   "status": 1
+  }
+ },
+ "domainname": {
+  "bad-option": {
+   "stderr": "domainname: unrecognized option '--zzz-not-an-option'\n",
+   "status": 255
+  },
+  "missing-file": {
+   "stderr": "domainname: you must be root to change the domain name\n",
    "status": 1
   }
  }

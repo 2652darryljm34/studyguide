@@ -303,6 +303,10 @@ pwd readlink realpath rev rm rmdir rpm rsync scp sed seq sha256sum shuf sleep
 sort split ss stat stdbuf su sudo sum systemctl tac tail tar tee test timeout
 touch tr tree truncate tsort tty umask uname unexpand uniq uptime useradd
 userdel usermod users vdir vim w wc whatis whereis which who whoami xargs yes
+apropos bzip2 clear crontab firewall-cmd flatpak gawk host journalctl kill
+killall logger mandb md5sum newgrp nmcli nslookup pkill pmap renice sftp ssh
+ssh-add ssh-agent ssh-copy-id ssh-keygen timedatectl top tracepath umount
+updatedb vi vmstat watch yum zcat egrep fgrep dnf-3 domainname
 EOF
 
 python3 - "$OUT" <<'PY'
@@ -314,7 +318,9 @@ allow = [c for c in allow if c in have]
 
 def run(argv):
     try:
-        r = subprocess.run(argv, capture_output=True, text=True, timeout=8,
+        # 25s, not 8: dnf and yum take several seconds merely to start, and
+        # their --help was being lost to the shorter timeout without a word.
+        r = subprocess.run(argv, capture_output=True, text=True, timeout=25,
                            stdin=subprocess.DEVNULL)
         return {'stdout': r.stdout, 'stderr': r.stderr, 'status': r.returncode}
     except subprocess.TimeoutExpired:

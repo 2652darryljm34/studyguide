@@ -704,11 +704,21 @@ const HarborShell = (function () {
     this.status = status === undefined ? 1 : status;
     return this.status;
   };
+  /**
+   * "cmd: missing operand" plus the Try line -- the shape every coreutils
+   * command uses when you give it nothing to work on.
+   *
+   * The wording was already right; the exit code was not. This used to answer
+   * 2 for everything, where `cp`, `chmod`, `mkdir`, `rm` and `tr` all exit 1.
+   * assets/shusage.js carries what each command really does, taken from a
+   * no-arguments probe on a real machine.
+   */
   Ctx.prototype.usage = function (msg) {
     this.errln(this.name + ': ' + msg);
     this.errln("Try '" + this.name + " --help' for more information.");
-    this.status = 2;
-    return 2;
+    const real = HarborShell.usage && HarborShell.usage[this.name];
+    this.status = (real && (real.usageStatus || real.status)) || 1;
+    return this.status;
   };
 
   /** Report an FsError the way GNU tools do: "ls: cannot access 'x': ...". */
@@ -768,6 +778,23 @@ const HarborShell = (function () {
    *   spec.long     -- { "--all": "a", "--number=": "n" }
    * Bundled short flags (-la) are split, as GNU does.
    */
+  /**
+   * A usage error, the way the real command reports one.
+   *
+   * The exit code is not guessable: 76 commands exit 1, 16 exit 2 (ls, grep,
+   * sort, useradd ...), and a handful use 64, 125, 253 or 255. Most add a
+   * `Try 'cmd --help'` line, some print a whole usage block, some print
+   * nothing more. assets/shusage.js carries the real answers, harvested from
+   * a RHEL 9 machine; 1 is the fallback because it is much the commonest.
+   */
+  function usageError(ctx, message) {
+    ctx.errln(message);
+    const real = HarborShell.usage && HarborShell.usage[ctx.name];
+    if (real && real.tail) real.tail.forEach(function (l) { ctx.errln(l); });
+    ctx.status = real ? real.status : 1;
+    return null;
+  }
+
   function parseArgs(ctx, spec) {
     const bools = new Set((spec.bool || '').split(' ').filter(Boolean));
     const values = new Set((spec.value || '').split(' ').filter(Boolean));
@@ -787,9 +814,7 @@ const HarborShell = (function () {
         const name = eq === -1 ? a : a.slice(0, eq);
         const mapped = longs[name] !== undefined ? longs[name] : longs[name + '='];
         if (mapped === undefined) {
-          ctx.errln(ctx.name + ": unrecognized option '" + a + "'");
-          ctx.status = 2;
-          return null;
+          return usageError(ctx, ctx.name + ": unrecognized option '" + a + "'");
         }
         if (values.has(mapped)) {
           flags[mapped] = eq === -1 ? args[++i] : a.slice(eq + 1);
@@ -805,9 +830,8 @@ const HarborShell = (function () {
           const rest = a.slice(k + 1);
           flags[letter] = rest !== '' ? rest : args[++i];
           if (flags[letter] === undefined) {
-            ctx.errln(ctx.name + ": option requires an argument -- '" + letter + "'");
-            ctx.status = 2;
-            return null;
+            return usageError(ctx,
+              ctx.name + ": option requires an argument -- '" + letter + "'");
           }
           break;
         }
@@ -816,9 +840,7 @@ const HarborShell = (function () {
           flags.number = (flags.number || '') + letter;
           continue;
         }
-        ctx.errln(ctx.name + ": invalid option -- '" + letter + "'");
-        ctx.status = 2;
-        return null;
+        return usageError(ctx, ctx.name + ": invalid option -- '" + letter + "'");
       }
     }
 
@@ -1185,8 +1207,45 @@ const HarborShell = (function () {
     const ctx = new Ctx(this, argv, inputOverride === null ? stdin : inputOverride);
     assignments.forEach(function (a) { ctx.assigned = true; self.env[a[0]] = a[1]; });
 
+    // `--help` before anything parses it. The study guide calls this the first
+    // thing to try, and until now `ls --help` answered "unrecognized option
+    // '--help'" -- while the error printed directly above it advised "Try 'ls
+    // --help' for more information". A circular dead end at the exact point a
+    // stuck learner reaches for help.
+    //
+    // Answered here rather than per command because every command would
+    // otherwise have to remember to check, and the text is the real one from
+    // assets/shusage.js either way.
+    if (argv.length > 1 && argv.indexOf('--help') !== -1 &&
+        argv[0].indexOf('/') === -1) {
+      const doc = HarborShell.usage && HarborShell.usage[argv[0]];
+      if (doc && doc.help && (COMMANDS[argv[0]] || BUILTINS[argv[0]])) {
+        return {
+          stdout: doc.help + '\n', stderr: '',
+          status: doc.helpStatus === undefined ? 0 : doc.helpStatus
+        };
+      }
+    }
+
     const impl = this.lookup(argv[0]);
     if (!impl) {
+      // The image carries every binary a real RHEL 9 machine has on its PATH,
+      // roughly 1,100 of them, so `which`, `ls /usr/bin` and `rpm -qf` agree
+      // with a real system. Only the commands the course covers are actually
+      // implemented. Saying "command not found" about a file the learner can
+      // see with `ls` would be the one outright lie in the machine, so the two
+      // cases get two different answers.
+      const where = argv[0].indexOf('/') === -1 ? this.onPath(argv[0]) : null;
+      if (where) {
+        return {
+          stdout: '',
+          stderr: argv[0] + ': not implemented in this practice machine.\n' +
+                  where + ' exists here so `which`, `ls` and `rpm -qf` match a ' +
+                  'real RHEL 9 system,\nbut only the commands the course covers ' +
+                  'actually run.\n',
+          status: 127
+        };
+      }
       return {
         stdout: '', stderr: 'bash: ' + argv[0] + ': command not found\n', status: 127
       };

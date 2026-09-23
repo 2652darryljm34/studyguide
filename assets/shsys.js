@@ -438,6 +438,30 @@
       return fileFormatPage(ctx, name);
     }
 
+    // The real page, if the harvested bundle has arrived. It is fetched in the
+    // background after the terminal is up (see assets/man.js), so the table
+    // below answers instantly in the moment before it lands and on any page
+    // that never loads it at all.
+    // A man page arrives with its package, and a package you have not
+    // installed has not put its documentation on the disk either. `man tree`
+    // before `dnf install tree` finds nothing on a real machine, and finding
+    // nothing here too is what makes the pair of them teach anything.
+    const real = HarborShell.manPages && HarborShell.manPages[name];
+    const pageInstalled = real && (!real.package || ctx.m.packages.installed.some(
+      function (p) { return p.name === real.package; }));
+    if (real && pageInstalled &&
+        (wantSection === null || String(wantSection) === String(real.section))) {
+      ctx.out(real.text);
+      if (real.package) {
+        ctx.outln('');
+        ctx.outln('THIS PAGE');
+        ctx.outln('       From the ' + real.package + ' package' +
+                  (real.license ? ', licensed ' + real.license : '') + '.');
+        ctx.outln('       Reproduced from Red Hat Enterprise Linux 9 for study use.');
+      }
+      return 0;
+    }
+
     const found = manPage(name);
     if (!found) {
       ctx.errln('No manual entry for ' + name);

@@ -452,6 +452,9 @@
     refreshSide();
     buildRecipes();
     setStatus('Enter runs. Tab completes. Up and Down replay history.');
+    // The real man pages, in the background -- see assets/man.js. Nothing
+    // waits on this; `man` answers from the built-in table until it lands.
+    if (typeof HarborMan !== 'undefined') HarborMan.preload();
     inputEl.focus();
 
     inputEl.addEventListener('keydown', function (e) {

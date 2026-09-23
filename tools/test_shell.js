@@ -36,6 +36,8 @@ global.HarborShell = HarborShell;
 ['shtext', 'shadmin', 'shpkg', 'shsys'].forEach(function (f) {
   require(path.join(ROOT, 'assets', f + '.js'));
 });
+// The harvested usage table -- real exit codes for a bad option.
+HarborShell.usage = require(path.join(ROOT, 'assets', 'shusage.js'));
 const ShellHL = require(path.join(ROOT, 'assets', 'shellhl.js'));
 
 const IMAGE = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'itn170-box.json'), 'utf8'));
@@ -529,6 +531,94 @@ section('Syntax highlighting');
 /* =========================================================================
  * 8. Every shipped question
  * ======================================================================= */
+
+/* =========================================================================
+ * 7b. Exit codes on a usage error, against the real machine
+ *
+ * These are checked rather than assumed because there is no rule: `ls` exits
+ * 2 on an unrecognised option while `cp` and `chmod` exit 1, and a student
+ * writing `if [ $? -eq 1 ]` around a command is trusting us to be right.
+ *
+ * The full diff lives in tools/check_errors.js -- this locks down the
+ * commands the course actually teaches, so they cannot drift back.
+ * ======================================================================= */
+
+section('Usage-error exit codes (real RHEL 9 values)');
+
+(function () {
+  const probePath = path.join(ROOT, 'tools', 'harvest', 'out', 'errors.json');
+  if (!fs.existsSync(probePath)) {
+    ok('harvested error probes are present', false,
+       'run tools/harvest.py -- without it these values cannot be checked');
+    return;
+  }
+  const probes = JSON.parse(fs.readFileSync(probePath, 'utf8'));
+
+  // The commands the course teaches, where a wrong exit code would be taught
+  // as fact. Probed as root, because the harvest container ran as root.
+  const CORE = ['ls', 'cp', 'mv', 'rm', 'mkdir', 'rmdir', 'touch', 'cat',
+                'chmod', 'chown', 'chgrp', 'grep', 'sort', 'cut', 'head',
+                'tail', 'wc', 'ln', 'diff', 'useradd', 'groupadd', 'tr'];
+
+  CORE.forEach(function (cmd) {
+    const want = probes[cmd] && probes[cmd]['bad-option'];
+    if (!want) return;
+    const sh = HarborShell.create(HarborBox.fromImage(IMAGE),
+                                  { interactive: false, user: 'root' });
+    const got = sh.run(cmd + ' --zzz-not-an-option');
+    ok(cmd + ' exits ' + want.status + ' on an unrecognised option',
+      got.status === want.status,
+      'real RHEL 9 exits ' + want.status + ', we exit ' + got.status);
+  });
+
+  // And the wording, for the handful where it is most load-bearing.
+  [['cp', 'no-args'], ['chmod', 'no-args'], ['rm', 'no-args']].forEach(function (pair) {
+    const want = probes[pair[0]] && probes[pair[0]][pair[1]];
+    if (!want) return;
+    const sh = HarborShell.create(HarborBox.fromImage(IMAGE),
+                                  { interactive: false, user: 'root' });
+    const got = sh.run(pair[0]);
+    ok(pair[0] + ' with no arguments exits ' + want.status,
+      got.status === want.status,
+      'real exits ' + want.status + ', we exit ' + got.status);
+  });
+})();
+
+/* =========================================================================
+ * 7c. --help
+ *
+ * The study guide calls `command --help` the first thing to try. It used to
+ * answer "unrecognized option '--help'" -- while the error printed directly
+ * above it said "Try 'ls --help' for more information". These lock the fix.
+ * ======================================================================= */
+
+section('--help answers with the real text');
+
+(function () {
+  if (!HarborShell.usage) {
+    ok('the usage table is loaded', false, 'assets/shusage.js did not load');
+    return;
+  }
+  ['ls', 'chmod', 'cp', 'grep', 'useradd', 'dnf'].forEach(function (cmd) {
+    const doc = HarborShell.usage[cmd];
+    if (!doc || !doc.help) {
+      ok(cmd + ' --help has harvested text', false,
+         'no help text for ' + cmd + ' -- re-run tools/harvest.py --stage probes');
+      return;
+    }
+    const sh = shell();
+    const res = sh.run(cmd + ' --help');
+    ok(cmd + ' --help prints real help, not an option error',
+      res.stdout.length > 40 && res.stderr.indexOf('unrecognized') === -1,
+      'got exit ' + res.status + ', stderr ' + JSON.stringify(res.stderr.slice(0, 80)));
+  });
+
+  // --help must win over the argument parser, which is what used to reject it.
+  const sh = shell();
+  ok('--help beats the option parser',
+    sh.run('ls --help').status === 0 && sh.run('ls --zzz').status === 2,
+    'ls --help should exit 0 and ls --zzz should exit 2');
+})();
 
 section('Shipped shell questions');
 

@@ -139,8 +139,9 @@ function startMachine(boxFile){
   window.HARBOR_BOX = boxFile;
   const files = [
     'assets/box.js', 'assets/shell.js', 'assets/shtext.js', 'assets/shadmin.js',
-    'assets/shpkg.js', 'assets/shsys.js', 'assets/shellview.js', 'assets/nano.js',
-    'assets/term.js'
+    'assets/shpkg.js', 'assets/shsys.js', 'assets/shusage.js', 'assets/shellview.js',
+    'assets/nano.js',
+    'assets/man.js', 'assets/term.js'
   ];
   const statusEl = document.getElementById('status');
   if(statusEl) statusEl.textContent = 'Starting the machine…';
