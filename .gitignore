@@ -1,0 +1,18 @@
+# Downloaded sql.js build, cached by tools/test_runtime.js. Not needed to
+# publish -- the browser fetches these from the CDN.
+tools/.cache/
+
+# Course source material: the lecture slides, the exam outline and the
+# assignment PDFs that this quiz was built from.
+#
+# GitHub Pages serves the whole repo publicly, so anything committed here
+# would be downloadable by anyone with the link -- including the assignment
+# itself. Keeping it out of the repo avoids republishing the professor's and
+# the publisher's material, and keeps the homework off a public URL.
+#
+# Delete this line if you'd rather version them (a private repo, say).
+review/
+
+# Local tooling and Python bytecode
+.claude/
+__pycache__/
