@@ -1,0 +1,1022 @@
+{
+  "title": "ITD 145 Exam 2 Extra Practice",
+  "description": "81 more questions on the same topics, for when you want more reps than the main review gives you.",
+  "guideFile": "data/itd145-exam2-guide.json",
+  "sections": [
+    {
+      "name": "NumPy",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "NumPy",
+          "question": "What is the purpose of the 'as' keyword in 'import pandas as pd'?",
+          "options": [
+            "It installs the library",
+            "It makes the library run faster",
+            "It imports only part of the library",
+            "It gives the imported library a shorter alias"
+          ],
+          "correct": 3,
+          "explanation": "The alias lets you write pd.DataFrame instead of pandas.DataFrame."
+        },
+        {
+          "type": "tf",
+          "category": "NumPy",
+          "question": "array1.shape is a method, so you must write array1.shape() with parentheses.",
+          "correct": false,
+          "explanation": "shape and size are attributes (stored values), written without parentheses."
+        },
+        {
+          "type": "mc",
+          "category": "NumPy",
+          "question": "What is the result of multiplying a NumPy array by 2, as in data * 2?",
+          "options": [
+            "Every element is doubled",
+            "The array is repeated twice, end to end",
+            "Only the first element is doubled",
+            "An error is raised"
+          ],
+          "correct": 0,
+          "explanation": "NumPy arithmetic is element-wise. With a Python list, data * 2 would repeat the list instead."
+        },
+        {
+          "type": "mc",
+          "category": "NumPy",
+          "question": "What is one advantage of an ndarray over a Python list for numeric work?",
+          "options": [
+            "It can hold text and numbers mixed together",
+            "It is faster and more memory-efficient and supports whole-array arithmetic",
+            "It can grow automatically without limit",
+            "It does not need to be imported"
+          ],
+          "correct": 1,
+          "explanation": "Homogeneous dtype and vectorized operations are the main benefits."
+        },
+        {
+          "type": "mc",
+          "category": "NumPy",
+          "question": "What does array1.ndim return for np.array([[1,2],[3,4]])?",
+          "options": [
+            "4",
+            "(2, 2)",
+            "2",
+            "1"
+          ],
+          "correct": 2,
+          "explanation": "ndim is the number of dimensions (axes). A table of rows and columns has 2."
+        },
+        {
+          "type": "mc",
+          "category": "NumPy",
+          "question": "What is the length of np.arange(0,30,6)?",
+          "options": [
+            "4",
+            "6",
+            "30",
+            "5"
+          ],
+          "correct": 3,
+          "explanation": "The values are 0, 6, 12, 18 and 24 - five elements."
+        },
+        {
+          "type": "mc",
+          "category": "NumPy",
+          "question": "What does np.zeros((3,4)) create?",
+          "options": [
+            "A 3x4 array filled with 0.0",
+            "A 1-D array of 34 zeros",
+            "A 4x3 array filled with ones",
+            "A list containing 3 and 4"
+          ],
+          "correct": 0,
+          "explanation": "Passing a tuple gives the shape: 3 rows and 4 columns."
+        },
+        {
+          "type": "mc",
+          "category": "NumPy",
+          "question": "What is the size of np.zeros((3,4))?",
+          "options": [
+            "7",
+            "12",
+            "(3, 4)",
+            "4"
+          ],
+          "correct": 1,
+          "explanation": "3 x 4 = 12 elements."
+        },
+        {
+          "type": "mc",
+          "category": "NumPy",
+          "question": "Which call is the correct way to create a 2x3 array of random floats?",
+          "options": [
+            "np.random.random(2,3)",
+            "np.random(2,3)",
+            "np.random.random((2,3))",
+            "np.array.random(2,3)"
+          ],
+          "correct": 2,
+          "explanation": "The shape must be passed as a single tuple, hence the double parentheses."
+        },
+        {
+          "type": "mc",
+          "category": "NumPy",
+          "question": "In np.arange(2, 20, 4), what does the 4 represent?",
+          "options": [
+            "The number of values to create",
+            "The stop value",
+            "The starting value",
+            "The step between values"
+          ],
+          "correct": 3,
+          "explanation": "The three arguments are start, stop, step. The result is [2 6 10 14 18]."
+        },
+        {
+          "type": "mc",
+          "category": "NumPy",
+          "question": "np.array([1, 2, 3]) has how many dimensions?",
+          "options": [
+            "1",
+            "2",
+            "3",
+            "0"
+          ],
+          "correct": 0,
+          "explanation": "A flat list produces a one-dimensional array; its shape is (3,)."
+        },
+        {
+          "type": "mc",
+          "category": "NumPy",
+          "question": "Why must the import statement come before the code that uses NumPy?",
+          "options": [
+            "The import statement sorts the code that follows",
+            "Python does not know what np refers to until the library has been imported",
+            "Imports run only at the end of a program",
+            "NumPy would otherwise run twice"
+          ],
+          "correct": 1,
+          "explanation": "Using np before import np raises a NameError."
+        }
+      ]
+    },
+    {
+      "name": "Calculations & Statistics",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Percentiles",
+          "question": "What does np.percentile(data, 50) return?",
+          "options": [
+            "The mean",
+            "The maximum",
+            "The median",
+            "The value 50"
+          ],
+          "correct": 2,
+          "explanation": "The 50th percentile is the middle value of the sorted data."
+        },
+        {
+          "type": "tf",
+          "category": "Aggregate",
+          "question": "np.max(a) returns the largest value in the array.",
+          "correct": true,
+          "explanation": "max is an aggregate: many values in, one value out."
+        },
+        {
+          "type": "mc",
+          "category": "Percentiles",
+          "question": "How does np.percentile(a, 25) differ from np.quantile(a, 0.25)?",
+          "options": [
+            "They give the same result; percentile uses a 0-100 scale and quantile uses 0-1",
+            "quantile returns the mean instead",
+            "percentile only works on 2-D arrays",
+            "They give different results"
+          ],
+          "correct": 0,
+          "explanation": "Same statistic, different scale for the second argument."
+        },
+        {
+          "type": "mc",
+          "category": "Percentiles",
+          "question": "What is the interquartile range (IQR)?",
+          "options": [
+            "The maximum minus the minimum",
+            "Q3 minus Q1, the spread of the middle 50% of the data",
+            "The mean minus the median",
+            "Q1 plus Q3"
+          ],
+          "correct": 1,
+          "explanation": "IQR ignores the extremes, so outliers barely affect it."
+        },
+        {
+          "type": "mc",
+          "category": "Correlation",
+          "question": "In the matrix returned by np.corrcoef(x, y), what are the values on the diagonal?",
+          "options": [
+            "Always 0",
+            "The means of x and y",
+            "Always 1, because each variable correlates perfectly with itself",
+            "Always -1"
+          ],
+          "correct": 2,
+          "explanation": "The off-diagonal entries hold the correlation between x and y."
+        },
+        {
+          "type": "mc",
+          "category": "Correlation",
+          "question": "Which pandas call returns the correlation between every pair of numeric columns?",
+          "options": [
+            "df.correlate_all()",
+            "df.count()",
+            "df.cor_matrix",
+            "df.corr()"
+          ],
+          "correct": 3,
+          "explanation": "df.corr() returns a matrix of pairwise correlations."
+        },
+        {
+          "type": "mc",
+          "category": "Arithmetic",
+          "question": "If a = np.array([1,2,3]), what is a * 10?",
+          "options": [
+            "[10 20 30]",
+            "[1 2 3 10]",
+            "[10 2 3]",
+            "60"
+          ],
+          "correct": 0,
+          "explanation": "The single number is broadcast across every element."
+        },
+        {
+          "type": "mc",
+          "category": "Aggregate",
+          "question": "What does the standard deviation measure?",
+          "options": [
+            "The middle value",
+            "How spread out the values are around the mean",
+            "The largest gap between neighbouring values",
+            "The count of values"
+          ],
+          "correct": 1,
+          "explanation": "A small std means values cluster tightly around the mean."
+        },
+        {
+          "type": "mc",
+          "category": "Aggregate",
+          "question": "For a 2-D array a, what does a.sum(axis=1) return?",
+          "options": [
+            "One total per column",
+            "A single grand total",
+            "One total per row",
+            "A 1x1 array"
+          ],
+          "correct": 2,
+          "explanation": "axis=1 collapses across the columns, leaving one value for each row."
+        }
+      ]
+    },
+    {
+      "name": "pandas: Series & DataFrames",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Viewing",
+          "question": "What does df.tail(3) return?",
+          "options": [
+            "The last 3 rows",
+            "The first 3 rows",
+            "Rows 3 onward",
+            "The third row"
+          ],
+          "correct": 0,
+          "explanation": "tail(n) returns the last n rows."
+        },
+        {
+          "type": "tf",
+          "category": "Series",
+          "question": "A Series has both a set of values and an index of labels.",
+          "correct": true,
+          "explanation": "The index is what lets pandas align data by label."
+        },
+        {
+          "type": "tf",
+          "category": "Filtering",
+          "question": "Inside df.query(), you must put column names in quotes.",
+          "correct": false,
+          "explanation": "Column names appear bare inside the string. Only string values need quotes."
+        },
+        {
+          "type": "mc",
+          "category": "Filtering",
+          "question": "What is the main syntactic difference between df[df['x'] > 10] and df.query('x > 10')?",
+          "options": [
+            "The first uses a Python boolean expression; the second uses a string expression",
+            "The first is for columns, the second for rows",
+            "The second returns a Series",
+            "The first cannot use comparison operators"
+          ],
+          "correct": 0,
+          "explanation": "Both give the same rows; only the way the condition is written differs."
+        },
+        {
+          "type": "mc",
+          "category": "Filtering",
+          "question": "What is the boolean mask df['x'] > 10 on its own?",
+          "options": [
+            "A filtered DataFrame",
+            "A Series of True/False values, one per row",
+            "A single Boolean",
+            "A list of column names"
+          ],
+          "correct": 1,
+          "explanation": "The mask is then used inside brackets to keep the True rows."
+        },
+        {
+          "type": "mc",
+          "category": "Viewing",
+          "question": "What does df.shape return for a DataFrame with 100 rows and 4 columns?",
+          "options": [
+            "(4, 100)",
+            "400",
+            "(100, 4)",
+            "104"
+          ],
+          "correct": 2,
+          "explanation": "shape gives (rows, columns)."
+        },
+        {
+          "type": "mc",
+          "category": "Viewing",
+          "question": "Which call shows each column's data type and count of non-null values?",
+          "options": [
+            "df.head()",
+            "df.shape",
+            "df.describe()",
+            "df.info()"
+          ],
+          "correct": 3,
+          "explanation": "describe() gives summary statistics; info() gives structure."
+        },
+        {
+          "type": "mc",
+          "category": "Counting",
+          "question": "What is the difference between unique() and nunique() on a column?",
+          "options": [
+            "unique() returns the distinct values; nunique() returns how many there are",
+            "unique() returns a count; nunique() returns the values",
+            "They are aliases",
+            "unique() works only on numbers"
+          ],
+          "correct": 0,
+          "explanation": "unique -> the values; nunique -> a number."
+        },
+        {
+          "type": "mc",
+          "category": "Counting",
+          "question": "How would you find how many rows are in a DataFrame?",
+          "options": [
+            "df.unique()",
+            "len(df)",
+            "df.columns",
+            "df.head()"
+          ],
+          "correct": 1,
+          "explanation": "df.shape[0] also gives the row count."
+        },
+        {
+          "type": "mc",
+          "category": "DataFrame",
+          "question": "Which code creates a DataFrame from a dictionary?",
+          "options": [
+            "pd.Series({'a':[1,2],'b':[3,4]}, 2)",
+            "np.dataframe({'a':[1,2]})",
+            "pd.DataFrame({'a':[1,2],'b':[3,4]})",
+            "pd.table('a','b')"
+          ],
+          "correct": 2,
+          "explanation": "Dictionary keys become column names and the lists become the columns."
+        },
+        {
+          "type": "mc",
+          "category": "Filtering",
+          "question": "You want to keep every row but blank out values that fail a condition. Which is best?",
+          "options": [
+            "df[condition]",
+            "df.dropna()",
+            "df.head(condition)",
+            "df.where(condition)"
+          ],
+          "correct": 3,
+          "explanation": "where preserves the shape and replaces failing values with NaN."
+        },
+        {
+          "type": "mc",
+          "category": "Series",
+          "question": "Which code creates a Series?",
+          "options": [
+            "pd.Series([10, 20, 30])",
+            "pd.DataFrame([10, 20, 30], [1])",
+            "np.Series([10, 20, 30])",
+            "pd.array2d([10, 20, 30])"
+          ],
+          "correct": 0,
+          "explanation": "pd.Series takes a list (or array) of values."
+        }
+      ]
+    },
+    {
+      "name": "Manipulating Data",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Columns",
+          "question": "In df.drop(['a'], axis=1), what does axis=1 mean?",
+          "options": [
+            "Operate on rows",
+            "Operate on the index only",
+            "Drop the first item only",
+            "Operate on columns"
+          ],
+          "correct": 3,
+          "explanation": "axis=0 is rows (the default), axis=1 is columns."
+        },
+        {
+          "type": "tf",
+          "category": "Columns",
+          "question": "df.rename(columns={'old':'new'}) changes df in place unless you reassign or use inplace=True.",
+          "correct": false,
+          "explanation": "It returns a new DataFrame; the original is unchanged unless you reassign or set inplace=True."
+        },
+        {
+          "type": "tf",
+          "category": "Reading data",
+          "question": "pd.read_csv() returns a DataFrame.",
+          "correct": true,
+          "explanation": "Assign it: df = pd.read_csv('file.csv')."
+        },
+        {
+          "type": "mc",
+          "category": "Combining",
+          "question": "What does pd.concat([df1, df2], axis=1) do?",
+          "options": [
+            "Places the DataFrames side by side, adding columns",
+            "Stacks df2 beneath df1",
+            "Merges on the index and key",
+            "Removes duplicates"
+          ],
+          "correct": 0,
+          "explanation": "axis=1 joins along columns; axis=0 (default) joins along rows."
+        },
+        {
+          "type": "mc",
+          "category": "Combining",
+          "question": "What is a potential side effect of concat() on the index?",
+          "options": [
+            "The index is deleted",
+            "The original index labels are kept, so duplicate labels can appear",
+            "All indexes become strings",
+            "The index is sorted automatically"
+          ],
+          "correct": 1,
+          "explanation": "Use ignore_index=True to renumber 0..n-1."
+        },
+        {
+          "type": "mc",
+          "category": "Combining",
+          "question": "Which merge type keeps all rows from both tables, filling gaps with NaN?",
+          "options": [
+            "how='inner'",
+            "how='left'",
+            "how='outer'",
+            "how='common'"
+          ],
+          "correct": 2,
+          "explanation": "outer = everything from both sides."
+        },
+        {
+          "type": "mc",
+          "category": "Combining",
+          "question": "Which merge type keeps every row of the left table plus matches from the right?",
+          "options": [
+            "how='right'",
+            "how='inner'",
+            "how='all'",
+            "how='left'"
+          ],
+          "correct": 3,
+          "explanation": "Left join: the left table is preserved in full."
+        },
+        {
+          "type": "mc",
+          "category": "Columns",
+          "question": "Which statement gives every row of a new column 'flag' the value 1?",
+          "options": [
+            "df['flag'] = 1",
+            "df.flag == 1",
+            "df.add('flag')",
+            "df['flag'] == 1"
+          ],
+          "correct": 0,
+          "explanation": "Assigning a single value fills the whole column."
+        },
+        {
+          "type": "mc",
+          "category": "Columns",
+          "question": "What does df.drop(index=[0, 1]) remove?",
+          "options": [
+            "Columns 0 and 1",
+            "The rows with index labels 0 and 1",
+            "The first two duplicates",
+            "All rows except 0 and 1"
+          ],
+          "correct": 1,
+          "explanation": "drop by index removes rows; drop by columns removes columns."
+        },
+        {
+          "type": "mc",
+          "category": "Reading data",
+          "question": "Why might you choose a pickle over a CSV to save a DataFrame?",
+          "options": [
+            "It can be opened in a text editor",
+            "It works in other languages by default",
+            "It preserves data types and the index exactly",
+            "It is always smaller"
+          ],
+          "correct": 2,
+          "explanation": "CSV must re-infer types on load; pickle stores them."
+        },
+        {
+          "type": "mc",
+          "category": "Combining",
+          "question": "To add the columns of a second table to the first by matching on 'id', which call is appropriate?",
+          "options": [
+            "pd.concat([a, b], on='id')",
+            "a.drop(b)",
+            "pd.pivot(a, b)",
+            "pd.merge(a, b, on='id')"
+          ],
+          "correct": 3,
+          "explanation": "on= names the key column that both tables share."
+        },
+        {
+          "type": "mc",
+          "category": "Combining",
+          "question": "Two DataFrames have the same columns and you want to add the second one's rows to the first. Which is correct?",
+          "options": [
+            "pd.concat([df1, df2])",
+            "pd.merge(df1, df2, on='id')",
+            "df1.rename(df2)",
+            "df1.stack(df2)"
+          ],
+          "correct": 0,
+          "explanation": "Same columns and types - append rows with concat."
+        }
+      ]
+    },
+    {
+      "name": "Indexes",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Index",
+          "question": "What does df.reset_index(drop=True) do differently?",
+          "options": [
+            "It removes all columns",
+            "It creates a fresh RangeIndex and discards the old index instead of keeping it as a column",
+            "It drops duplicate rows",
+            "It leaves the index unchanged"
+          ],
+          "correct": 1,
+          "explanation": "Useful after filtering when the old labels are not needed."
+        },
+        {
+          "type": "tf",
+          "category": "Index",
+          "question": "set_index() and reset_index() are inverse operations.",
+          "correct": true,
+          "explanation": "One moves a column to the index; the other moves it back."
+        },
+        {
+          "type": "mc",
+          "category": "Index",
+          "question": "After filtering rows with df[df['x'] > 10], the index is:",
+          "options": [
+            "Renumbered from 0 automatically",
+            "Deleted",
+            "Converted to a multi-index",
+            "Unchanged - the surviving rows keep their original labels"
+          ],
+          "correct": 3,
+          "explanation": "The labels can therefore have gaps. reset_index(drop=True) closes them."
+        },
+        {
+          "type": "mc",
+          "category": "Index",
+          "question": "Why is reset_index() commonly used after groupby()?",
+          "options": [
+            "groupby puts the group keys in the index; reset_index turns them back into ordinary columns",
+            "To sort the groups",
+            "To remove null groups",
+            "To convert the result to a Series"
+          ],
+          "correct": 0,
+          "explanation": "Alternatively use as_index=False in groupby."
+        },
+        {
+          "type": "mc",
+          "category": "Index",
+          "question": "Which statement about a RangeIndex is true?",
+          "options": [
+            "It must be typed in manually",
+            "It is generated automatically and counts up from 0",
+            "It always holds text labels",
+            "It is created only by set_index"
+          ],
+          "correct": 1,
+          "explanation": "It is what you get by default."
+        },
+        {
+          "type": "mc",
+          "category": "Index",
+          "question": "What is a typical reason to use set_index()?",
+          "options": [
+            "To add a new row",
+            "To convert strings to numbers",
+            "To look up rows by a meaningful label such as an ID",
+            "To delete duplicate columns"
+          ],
+          "correct": 2,
+          "explanation": "Labels make rows addressable by name rather than position."
+        },
+        {
+          "type": "mc",
+          "category": "Index",
+          "question": "What is the effect of reset_index() on a multi-index?",
+          "options": [
+            "It creates a deeper multi-index",
+            "It deletes the levels",
+            "It sorts the levels",
+            "The index levels become regular columns and a RangeIndex is restored"
+          ],
+          "correct": 3,
+          "explanation": "It flattens the hierarchy."
+        }
+      ]
+    },
+    {
+      "name": "Data Cleaning & Imputation",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Missing data",
+          "question": "What does df.dropna(how='all') do?",
+          "options": [
+            "Removes every row with any missing value",
+            "Removes only rows in which every value is missing",
+            "Removes all columns",
+            "Removes all rows"
+          ],
+          "correct": 1,
+          "explanation": "how='all' is much more conservative than the default 'any'."
+        },
+        {
+          "type": "tf",
+          "category": "Imputation",
+          "question": "Mean-fill computes the average using the missing values as zeros.",
+          "correct": false,
+          "explanation": "The mean ignores NaN by default."
+        },
+        {
+          "type": "tf",
+          "category": "Missing data",
+          "question": "dropna() changes the number of rows, but fillna() does not.",
+          "correct": true,
+          "explanation": "fillna keeps every row; dropna deletes some."
+        },
+        {
+          "type": "mc",
+          "category": "Duplicates",
+          "question": "Which call identifies duplicate rows without removing them?",
+          "options": [
+            "df.drop_duplicates()",
+            "df.isnull()",
+            "df.unique()",
+            "df.duplicated()"
+          ],
+          "correct": 3,
+          "explanation": "duplicated() returns a True/False Series marking repeats."
+        },
+        {
+          "type": "mc",
+          "category": "Duplicates",
+          "question": "How do you drop duplicates judged only on the column 'email'?",
+          "options": [
+            "df.drop_duplicates(subset=['email'])",
+            "df.drop_duplicates('email', all)",
+            "df.dropna(subset=['email'])",
+            "df.unique(['email'])"
+          ],
+          "correct": 0,
+          "explanation": "subset restricts the comparison to the named columns."
+        },
+        {
+          "type": "mc",
+          "category": "Missing data",
+          "question": "Which method returns True for values that are NOT missing?",
+          "options": [
+            "df.isnull()",
+            "df.notnull()",
+            "df.dropna()",
+            "df.exists()"
+          ],
+          "correct": 1,
+          "explanation": "notnull() is the opposite of isnull()."
+        },
+        {
+          "type": "mc",
+          "category": "Missing data",
+          "question": "How would you drop only rows where 'price' is missing?",
+          "options": [
+            "df.dropna(how='all')",
+            "df.drop('price')",
+            "df.dropna(subset=['price'])",
+            "df.fillna(subset=['price'])"
+          ],
+          "correct": 2,
+          "explanation": "subset limits the check to the named column(s)."
+        },
+        {
+          "type": "mc",
+          "category": "Imputation",
+          "question": "Which is a reason to impute rather than drop rows with missing data?",
+          "options": [
+            "It always improves accuracy",
+            "It removes bad data",
+            "It is required before any plot",
+            "It preserves the sample size"
+          ],
+          "correct": 3,
+          "explanation": "Dropping can shrink the data set and bias results."
+        },
+        {
+          "type": "mc",
+          "category": "Imputation",
+          "question": "A column has values 5, NaN, NaN, 9. After ffill, the column is:",
+          "options": [
+            "5, 5, 5, 9",
+            "5, 9, 9, 9",
+            "5, 7, 7, 9",
+            "5, 0, 0, 9"
+          ],
+          "correct": 0,
+          "explanation": "Each gap copies the last valid value above it."
+        },
+        {
+          "type": "mc",
+          "category": "Imputation",
+          "question": "A column has values 5, NaN, NaN, 9. After bfill, the column is:",
+          "options": [
+            "5, 5, 5, 9",
+            "5, 9, 9, 9",
+            "5, 7, 7, 9",
+            "9, 9, 9, 9"
+          ],
+          "correct": 1,
+          "explanation": "Each gap copies the next valid value below it."
+        },
+        {
+          "type": "mc",
+          "category": "Imputation",
+          "question": "Why might you fill with the median instead of the mean?",
+          "options": [
+            "The median is always larger",
+            "The mean cannot handle NaN",
+            "The median is less affected by extreme values",
+            "The median works only on text"
+          ],
+          "correct": 2,
+          "explanation": "Outliers pull the mean but hardly move the median."
+        }
+      ]
+    },
+    {
+      "name": "Analysis: Reshaping & Grouping",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Reshaping",
+          "question": "Which statement best compares stack and unstack?",
+          "options": [
+            "Both remove missing values",
+            "They are inverse operations that reshape between long and wide formats",
+            "stack works only on Series",
+            "They are aliases"
+          ],
+          "correct": 1,
+          "explanation": "One lengthens, the other widens."
+        },
+        {
+          "type": "tf",
+          "category": "Grouping",
+          "question": "After groupby(), the group keys become the index of the result.",
+          "correct": true,
+          "explanation": "reset_index() or as_index=False turns them back into columns."
+        },
+        {
+          "type": "tf",
+          "category": "Reshaping",
+          "question": "stack() makes a DataFrame wider.",
+          "correct": false,
+          "explanation": "stack makes it longer (narrower). unstack widens."
+        },
+        {
+          "type": "mc",
+          "category": "Grouping",
+          "question": "What is the difference between count() and size() in a groupby?",
+          "options": [
+            "size() counts non-null only; count() counts all rows",
+            "count() counts non-null values; size() counts all rows including nulls",
+            "They are identical",
+            "count() sums values"
+          ],
+          "correct": 1,
+          "explanation": "The gap appears when a column has missing values."
+        },
+        {
+          "type": "mc",
+          "category": "Grouping",
+          "question": "Which is the correct order of steps in groupby?",
+          "options": [
+            "Apply, split, combine",
+            "Combine, split, apply",
+            "Split, apply, combine",
+            "Sort, filter, plot"
+          ],
+          "correct": 2,
+          "explanation": "Split into groups, apply a function, combine the results."
+        },
+        {
+          "type": "mc",
+          "category": "Reshaping",
+          "question": "Which call totals sales for each month/product pair in a wide grid?",
+          "options": [
+            "df.pivot(index='month', columns='product', values='sales', aggfunc='sum')",
+            "df.groupby('sales').pivot()",
+            "df.stack('month', 'product')",
+            "df.pivot_table(index='month', columns='product', values='sales', aggfunc='sum')"
+          ],
+          "correct": 3,
+          "explanation": "pivot() does not take an aggfunc; pivot_table() does."
+        },
+        {
+          "type": "mc",
+          "category": "Grouping",
+          "question": "Which call finds the highest salary in each department?",
+          "options": [
+            "df.groupby('dept')['salary'].max()",
+            "df['salary'].max('dept')",
+            "df.max(groupby='dept')",
+            "df.groupby('salary').max('dept')"
+          ],
+          "correct": 0,
+          "explanation": "Group, select the column, aggregate."
+        },
+        {
+          "type": "mc",
+          "category": "Reshaping",
+          "question": "Long format usually means:",
+          "options": [
+            "Many columns and few rows",
+            "Few columns and many rows, with one observation per row",
+            "A DataFrame with no index",
+            "Data stored in a pickle"
+          ],
+          "correct": 1,
+          "explanation": "stack produces long format; unstack/pivot produce wide."
+        },
+        {
+          "type": "mc",
+          "category": "Grouping",
+          "question": "What does as_index=False do in groupby?",
+          "options": [
+            "Removes the group keys",
+            "Sorts the result",
+            "Keeps the group keys as ordinary columns instead of putting them in the index",
+            "Turns off aggregation"
+          ],
+          "correct": 2,
+          "explanation": "It has the same effect as calling reset_index() afterwards."
+        }
+      ]
+    },
+    {
+      "name": "Visualization",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Boxplot",
+          "question": "In a boxplot, what does the line inside the box represent?",
+          "options": [
+            "The median",
+            "The mean",
+            "The maximum",
+            "The mode"
+          ],
+          "correct": 0,
+          "explanation": "The box edges are Q1 and Q3."
+        },
+        {
+          "type": "tf",
+          "category": "Plotting",
+          "question": "pandas' df.plot() draws using matplotlib.",
+          "correct": true,
+          "explanation": "pandas plotting is a convenient wrapper around matplotlib."
+        },
+        {
+          "type": "tf",
+          "category": "Boxplot",
+          "question": "The box in a boxplot spans from Q1 to Q3.",
+          "correct": true,
+          "explanation": "The box height is the interquartile range."
+        },
+        {
+          "type": "mc",
+          "category": "Plotting",
+          "question": "Which call adds a title to a matplotlib plot?",
+          "options": [
+            "plt.header('My Title')",
+            "plt.name('My Title')",
+            "plt.title('My Title')",
+            "plt.text_title = 'My Title'"
+          ],
+          "correct": 2,
+          "explanation": "Also plt.xlabel() and plt.ylabel() for the axis labels."
+        },
+        {
+          "type": "mc",
+          "category": "Histogram",
+          "question": "Which call draws a histogram of one DataFrame column?",
+          "options": [
+            "df['col'].scatter()",
+            "df['col'].boxplot_hist",
+            "df.plot.hist('col', 'col')",
+            "df['col'].hist()"
+          ],
+          "correct": 3,
+          "explanation": "df['col'].plot(kind='hist') is equivalent."
+        },
+        {
+          "type": "mc",
+          "category": "Boxplot",
+          "question": "Which call draws a boxplot of the numeric columns in a DataFrame?",
+          "options": [
+            "df.boxplot()",
+            "df.box_hist()",
+            "df.scatter_box()",
+            "df.plot.box_only"
+          ],
+          "correct": 0,
+          "explanation": "df.plot(kind='box') also works."
+        },
+        {
+          "type": "mc",
+          "category": "Scatter",
+          "question": "Which plot is the best first check before relying on a correlation coefficient?",
+          "options": [
+            "A histogram",
+            "A scatter plot",
+            "A boxplot",
+            "A pie chart"
+          ],
+          "correct": 1,
+          "explanation": "It shows whether the relationship is roughly linear or driven by outliers."
+        },
+        {
+          "type": "mc",
+          "category": "Histogram",
+          "question": "How does a histogram differ from a bar chart?",
+          "options": [
+            "A histogram is for text; a bar chart is for numbers",
+            "They are identical",
+            "A histogram bins a continuous numeric variable; a bar chart compares distinct categories",
+            "A histogram has no y-axis"
+          ],
+          "correct": 2,
+          "explanation": "Histogram bars represent numeric ranges."
+        },
+        {
+          "type": "mc",
+          "category": "Boxplot",
+          "question": "What is the IQR shown by in a boxplot?",
+          "options": [
+            "The length of the whiskers",
+            "The dots",
+            "The line in the box",
+            "The height of the box"
+          ],
+          "correct": 3,
+          "explanation": "IQR = Q3 - Q1, the middle 50% of the data."
+        }
+      ]
+    }
+  ]
+}

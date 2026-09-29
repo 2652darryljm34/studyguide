@@ -1,0 +1,341 @@
+"""Content for the ITD 145 Exam 2 study guide. Built by build_itd145.py."""
+
+H = lambda t: {"type": "heading", "text": t}
+S = lambda t: {"type": "subheading", "text": t}
+P = lambda t: {"type": "paragraph", "text": t}
+L = lambda items, ordered=False: {"type": "list", "items": items, **({"ordered": True} if ordered else {})}
+T = lambda headers, rows: {"type": "table", "headers": headers, "rows": rows}
+C = lambda t: {"type": "code", "text": t}
+N = lambda label, t: {"type": "note", "label": label, "text": t}
+
+GUIDE = {
+    "title": "ITD 145 Exam 2 Study Guide",
+    "description": "Definitions, function-by-function reference and side-by-side comparisons for NumPy, pandas, data cleaning, reshaping and plotting.",
+    "quizFile": "data/itd145-exam2-review.json",
+    "sections": [
+        # ------------------------------------------------------------------ NumPy
+        {"name": "NumPy", "blocks": [
+            H("What NumPy Is"),
+            T(["Term", "Meaning"], [
+                ["NumPy", "**Numerical Python** — the core library for fast numeric computing in Python. It provides the **ndarray** and the functions that work on it."],
+                ["Code library (module)", "A collection of pre-written code you bring into your program with an `import` statement."],
+                ["Alias", "A short nickname given at import time with `as`. The community convention is `np` for NumPy, `pd` for pandas and `plt` for matplotlib.pyplot."],
+                ["ndarray", "NumPy's **n-dimensional array**: a fixed-size grid of values that all share **one data type**. Faster and more compact than a Python list, and it supports whole-array (element-wise) arithmetic."],
+            ]),
+            H("How to Import Code Libraries"),
+            C("import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt"),
+            L([
+                "`import numpy` loads the library; you would then have to write `numpy.array(...)` every time.",
+                "`import numpy as np` loads it under the alias `np`, so you write `np.array(...)`.",
+                "The import goes **once, at the top**, before any code that uses the library.",
+            ]),
+            H("Creating Arrays"),
+            T(["Code", "What it does", "Result"], [
+                ["`np.array([1,2,3])`", "Builds an ndarray from a Python **list**.", "1-D array `[1 2 3]`"],
+                ["`np.array([[1,2],[3,4]])`", "A list of lists becomes a **2-D** array (rows and columns).", "2 rows × 2 columns"],
+                ["`np.zeros(10)`", "Array of the given length filled with **0.0** (floats by default).", "`[0. 0. 0. ... 0.]` — ten values"],
+                ["`np.arange(0,30,6)`", "Evenly spaced values from **start** up to but **not including stop**, moving by **step**.", "`[ 0  6 12 18 24]`"],
+                ["`np.random.random((2,2))`", "Array of the given **shape** filled with random floats from 0.0 up to (not including) 1.0. The shape is passed as a **tuple**.", "2×2 array of random decimals"],
+            ]),
+            N("Watch the argument:", "`np.zeros(10)` takes a **length**; `np.random.random((2,2))` takes a **shape tuple** (note the double parentheses). `np.arange(0,30,6)` stops *before* 30, so 30 is never in the result."),
+            H("Array Attributes"),
+            T(["Attribute", "Returns", "For `np.array([[1,2,3],[4,5,6]])`"], [
+                ["`array1.shape`", "A **tuple** of the length of each dimension (rows, columns, ...).", "`(2, 3)`"],
+                ["`array1.size`", "The **total number of elements** (the product of the shape).", "`6`"],
+                ["`array1.ndim`", "The number of dimensions (axes).", "`2`"],
+                ["`array1.dtype`", "The data type of the elements.", "`int64` (platform dependent)"],
+            ]),
+            P("Attributes are written **without parentheses** — they are values stored on the array, not functions you call."),
+            H("List vs. ndarray"),
+            T(["", "Python list", "NumPy ndarray"], [
+                ["Element types", "Can mix types", "All elements share one dtype"],
+                ["`data * 2`", "Repeats the list (concatenation)", "Doubles every element"],
+                ["Speed / memory", "Slower, larger", "Faster, more compact"],
+                ["Dimensions", "Nested lists by hand", "Built-in n-dimensional support"],
+            ]),
+        ]},
+
+        # ------------------------------------------------------- Calculations & Stats
+        {"name": "Calculations & Statistics", "blocks": [
+            H("Arithmetic Functions"),
+            P("NumPy arithmetic is **element-wise**: the operation is applied to each pair of matching elements. No loop is needed. This is also called **vectorized** arithmetic."),
+            T(["Operation", "Operator", "NumPy function"], [
+                ["Add", "`a + b`", "`np.add(a, b)`"],
+                ["Subtract", "`a - b`", "`np.subtract(a, b)`"],
+                ["Multiply", "`a * b`", "`np.multiply(a, b)`"],
+                ["Divide", "`a / b`", "`np.divide(a, b)`"],
+                ["Power", "`a ** 2`", "`np.power(a, 2)`"],
+                ["Square root", "—", "`np.sqrt(a)`"],
+            ]),
+            L([
+                "**Broadcasting:** combining an array with a single number applies that number to every element, e.g. `a * 10`.",
+                "Two arrays combined element-wise must have compatible shapes.",
+            ]),
+            H("Aggregate Functions"),
+            P("An aggregate function **reduces many values to one** (or to one per row/column when you give an axis)."),
+            T(["Function", "Returns"], [
+                ["`np.sum(a)` / `a.sum()`", "Total of all elements"],
+                ["`np.mean(a)` / `a.mean()`", "Average"],
+                ["`np.median(a)`", "Middle value when sorted (the 50th percentile)"],
+                ["`np.min(a)` / `np.max(a)`", "Smallest / largest value"],
+                ["`np.std(a)`", "Standard deviation — how spread out values are around the mean"],
+                ["`np.var(a)`", "Variance — the standard deviation squared"],
+            ]),
+            S("The axis argument"),
+            T(["Call", "Collapses", "Result on a 2×3 array"], [
+                ["`a.sum()`", "Everything", "One number"],
+                ["`a.sum(axis=0)`", "Down the **rows** — one result per **column**", "3 values"],
+                ["`a.sum(axis=1)`", "Across the **columns** — one result per **row**", "2 values"],
+            ]),
+            H("Correlation"),
+            T(["Term", "Meaning"], [
+                ["Correlation", "A measure of how strongly two variables move together."],
+                ["Correlation coefficient (r)", "A number from **-1 to +1**. **+1** = perfect positive relationship, **-1** = perfect negative, **0** = no linear relationship."],
+                ["`np.corrcoef(x, y)`", "Returns a **correlation matrix** (2×2 for two variables); the off-diagonal value is r. The diagonal is always 1."],
+                ["`df.corr()`", "pandas: correlation of every pair of numeric columns in a DataFrame."],
+                ["`s1.corr(s2)`", "pandas: correlation between two Series."],
+            ]),
+            N("Remember:", "Correlation is **not causation**. A strong r says two things move together, not that one causes the other."),
+            H("Percentiles"),
+            T(["Term", "Meaning"], [
+                ["Percentile", "The value below which a given percentage of the data falls. The **90th percentile** has 90% of values at or below it."],
+                ["`np.percentile(a, 25)`", "Percentile on a **0–100** scale."],
+                ["`np.quantile(a, 0.25)`", "Same idea on a **0–1** scale."],
+                ["Quartiles", "The 25th (Q1), 50th (Q2 = median) and 75th (Q3) percentiles."],
+                ["IQR", "Interquartile range = Q3 - Q1. The spread of the middle 50%. Used by the boxplot to flag outliers."],
+            ]),
+        ]},
+
+        # ------------------------------------------------------------------- pandas
+        {"name": "pandas: Series & DataFrames", "blocks": [
+            H("The Two Core Structures"),
+            T(["", "Series", "DataFrame"], [
+                ["Dimensions", "**1-D**", "**2-D**"],
+                ["Shape", "A single labeled column of values", "A table of rows and columns"],
+                ["Labels", "An **index** for the values", "An **index** for rows and **column names**"],
+                ["Analogy", "One column of a spreadsheet", "The whole spreadsheet or a SQL table"],
+                ["Relationship", "—", "Each column of a DataFrame **is a Series**"],
+                ["Created with", "`pd.Series([10,20,30])`", "`pd.DataFrame({'a':[1,2],'b':[3,4]})`"],
+            ]),
+            P("A **Series** is a one-dimensional labeled array that can hold any data type. A **DataFrame** is a two-dimensional labeled data structure with columns that can each hold a different type."),
+            H("Looking at the Data"),
+            T(["Code", "What it does"], [
+                ["`df.head()`", "First **5** rows. `df.head(10)` gives the first 10."],
+                ["`df.tail()`", "Last **5** rows. `df.tail(3)` gives the last 3."],
+                ["`df.shape`", "Tuple `(rows, columns)`"],
+                ["`df.info()`", "Column names, dtypes and non-null counts"],
+                ["`df.describe()`", "Count, mean, std, min, quartiles and max for numeric columns"],
+                ["`df.columns` / `df.index`", "The column labels / row labels"],
+            ]),
+            H("Filtering Rows"),
+            T(["Method", "Syntax", "What it returns"], [
+                ["Boolean subset", "`df[df['field'] > 10]`", "**Only** the rows where the condition is True. Fewer rows."],
+                ["`where()`", "`df.where(df['field'] > 10)`", "**Same shape** as the original. Rows that fail the condition are kept but their values become **NaN**."],
+                ["`query()`", "`df.query('field > 10')`", "Only the matching rows, with the condition written as a **string**. Column names go inside the string, unquoted."],
+            ]),
+            S("Combining conditions"),
+            T(["Method", "AND", "OR"], [
+                ["Boolean subset", "`df[(df['a']>1) & (df['b']<5)]`", "`df[(df['a']>1) | (df['b']<5)]`"],
+                ["`query()`", "`df.query('a>1 and b<5')`", "`df.query('a>1 or b<5')`"],
+            ]),
+            N("Gotcha:", "In the boolean subset, use `&`, `|` and put **each condition in parentheses**. Python's `and`/`or` only work inside a `query()` string."),
+            H("Counting Values"),
+            T(["Code", "What it returns"], [
+                ["`df['col'].nunique()`", "How many **different** values the column has (a single number)."],
+                ["`df['col'].unique()`", "The different values themselves (an array)."],
+                ["`df['col'].value_counts()`", "The **number of rows for each unique value** in the column, most frequent first."],
+                ["`df[['a','b']].value_counts()`", "The number of rows for each unique **combination** of values across several columns."],
+                ["`df.groupby(['a','b']).size()`", "Also the row count per unique combination, ordered by the group keys."],
+                ["`len(df)`", "The total number of rows."],
+            ]),
+        ]},
+
+        # ------------------------------------------------------------ Manipulation
+        {"name": "Manipulating Data", "blocks": [
+            H("Reading Data In"),
+            T(["Code", "Reads"], [
+                ["`pd.read_csv('data.csv')`", "A **CSV** (comma-separated values) text file into a DataFrame."],
+                ["`pd.read_pickle('data.pkl')`", "A **pickle** (`.pkl`) file — Python's binary format that preserves dtypes and the index exactly."],
+            ]),
+            P("Both return a DataFrame, so you normally assign the result: `df = pd.read_csv('data.csv')`."),
+            H("Changing the Columns"),
+            T(["Task", "Code", "Notes"], [
+                ["Add a column", "`df['total'] = df['a'] + df['b']`", "Assigning to a new name creates the column; a single value fills every row."],
+                ["Rename a column", "`df.rename(columns={'old':'new'})`", "Takes a **dictionary** of old → new names. Returns a new DataFrame unless `inplace=True`."],
+                ["Remove columns", "`df.drop(columns=['a','b'])`", "Also written `df.drop(['a','b'], axis=1)`. `axis=1` means columns."],
+                ["Remove rows", "`df.drop(index=[0,1])`", "`axis=0` (the default) means rows."],
+            ]),
+            H("Combining Data Sets"),
+            T(["", "`merge()`", "`concat()`"], [
+                ["Purpose", "Bring in **new columns** by matching rows on a key", "**Stack** data sets together"],
+                ["Similar to", "A SQL **JOIN**", "A SQL **UNION ALL**"],
+                ["Matches on", "Values of a shared column (`on='id'`)", "Position/labels only — no key"],
+                ["Direction", "Side by side (wider)", "`axis=0` (default): **append rows**; `axis=1`: side by side"],
+                ["Requires", "A common key column", "For row-append, the **same columns** (same count and types)"],
+                ["Example", "`pd.merge(a, b, on='id')`", "`pd.concat([a, b])`"],
+            ]),
+            S("How merge() decides which rows to keep (the `how` argument)"),
+            T(["how=", "Keeps"], [
+                ["`'inner'` (default)", "Only keys found in **both** tables"],
+                ["`'left'`", "All rows of the left table, plus matches from the right"],
+                ["`'right'`", "All rows of the right table, plus matches from the left"],
+                ["`'outer'`", "All rows from both tables; gaps become NaN"],
+            ]),
+            N("Remember:", "Stacking rows with `concat()` keeps each frame's original index labels, so you can end up with duplicate index values. `ignore_index=True` gives a fresh 0..n-1 index."),
+        ]},
+
+        # ----------------------------------------------------------------- Indexes
+        {"name": "Indexes", "blocks": [
+            H("What an Index Is"),
+            P("The **index** is the set of labels that identifies each row. It is what lets pandas line data up by label rather than by position."),
+            T(["Term", "Meaning"], [
+                ["RangeIndex", "The **default** simple index: integers 0, 1, 2, ... n-1, assigned automatically."],
+                ["Multi-index (MultiIndex)", "A **hierarchical** index with two or more levels, e.g. (country, year). Lets you group and slice by an outer level and an inner level."],
+                ["`set_index('col')`", "Turns an existing **column into the index**. The column leaves the data area. Pass a list, `set_index(['a','b'])`, to build a multi-index."],
+                ["`reset_index()`", "Moves the index **back into a column** and installs a fresh **RangeIndex**. `reset_index(drop=True)` throws the old index away instead of keeping it as a column."],
+            ]),
+            H("set_index vs. reset_index"),
+            T(["", "`set_index()`", "`reset_index()`"], [
+                ["Direction", "Column → index", "Index → column"],
+                ["Takes", "Column name(s)", "Nothing needed"],
+                ["Resulting index", "The values of that column", "RangeIndex 0..n-1"],
+                ["Typical use", "Prepare for label lookup, or build a multi-index", "Undo `set_index`, flatten a multi-index, or renumber rows after filtering/`dropna()`"],
+            ]),
+            N("Why you meet reset_index() so often:", "`groupby()` puts the group keys in the index of the result. Calling `.reset_index()` turns them back into ordinary columns."),
+        ]},
+
+        # ----------------------------------------------------------------- Cleaning
+        {"name": "Data Cleaning & Imputation", "blocks": [
+            H("Handling Bad Data"),
+            T(["Task", "Code", "Notes"], [
+                ["Remove duplicate rows", "`df.drop_duplicates()`", "Keeps the first copy of each duplicated row by default. `subset=['col']` compares only those columns. `keep='last'` keeps the last copy."],
+                ["Find duplicates", "`df.duplicated()`", "Boolean Series: True for each repeat of a row already seen."],
+                ["Find null/NA", "`df.isnull()` or `df.isna()`", "Same result — a True/False table the same shape as the data."],
+                ["Count nulls per column", "`df.isnull().sum()`", "True counts as 1, so the sum is the number of missing values in each column."],
+                ["Find non-null", "`df.notnull()`", "The opposite of `isnull()`."],
+                ["Remove rows with NA", "`df.dropna()`", "Drops any row containing **at least one** missing value (`how='any'`, the default)."],
+            ]),
+            S("dropna() options"),
+            T(["Argument", "Effect"], [
+                ["`how='any'` (default)", "Drop the row if **any** value is missing"],
+                ["`how='all'`", "Drop the row only if **every** value is missing"],
+                ["`subset=['col']`", "Only look at the named column(s) when deciding"],
+                ["`axis=1`", "Drop **columns** with missing values instead of rows"],
+            ]),
+            P("**NaN** (Not a Number) is how pandas marks a missing numeric value; **None** and **NaT** (for dates) are also treated as missing. Note that `isnull()` finds them all, but a placeholder like `-999` or `'N/A'` typed as text is *not* missing until you convert it."),
+            H("Imputation"),
+            T(["Term", "Meaning"], [
+                ["Imputation", "**Replacing missing values with substituted values** (a constant, a statistic, or a neighbour's value) so that the row can be kept instead of deleted."],
+                ["Why not just drop?", "Dropping rows shrinks the data and can bias it. Imputation keeps the sample size."],
+            ]),
+            T(["Technique", "Code", "How it fills"], [
+                ["Constant fill", "`df.fillna(0)`", "Every NaN becomes the given value."],
+                ["Per-column fill", "`df.fillna({'a':0,'b':'unknown'})`", "A dictionary sets a different fill per column."],
+                ["Forward fill", "`df.ffill()` or `fillna(method='ffill')`", "Copies the **last valid value downward** into the gap."],
+                ["Backfill", "`df.bfill()` or `fillna(method='bfill')`", "Copies the **next valid value upward** into the gap."],
+                ["Mean fill", "`df['x'].fillna(df['x'].mean())`", "Replaces NaN with the column average."],
+                ["Median fill", "`df['x'].fillna(df['x'].median())`", "Replaces NaN with the middle value; less affected by outliers."],
+            ]),
+            N("Direction memory aid:", "**F**orward fill pushes values **down** (forward in time). **B**ackfill pulls values **up** from later rows. The mean is computed **ignoring** NaN, so `mean()` works even on a column that has gaps."),
+            H("dropna vs. fillna"),
+            T(["", "`dropna()`", "`fillna()`"], [
+                ["Approach", "Delete", "Impute"],
+                ["Row count afterward", "Fewer", "Unchanged"],
+                ["Risk", "Loses data, may bias sample", "Invents values"],
+            ]),
+        ]},
+
+        # ---------------------------------------------------------------- Analysis
+        {"name": "Analysis: Reshaping & Grouping", "blocks": [
+            H("Stack and Unstack"),
+            T(["", "`stack()`", "`unstack()`"], [
+                ["Direction", "Columns → **rows** (moves column labels into the innermost index level)", "Index level → **columns** (moves an index level out into the column labels)"],
+                ["Table becomes", "**Longer and narrower** (\"long\" format)", "**Shorter and wider** (\"wide\" format)"],
+                ["Result type", "Usually a Series with a multi-index", "A DataFrame"],
+                ["Relationship", "They are **inverses** of each other", ""],
+            ]),
+            H("pivot() and pivot_table()"),
+            P("Both reshape long data into a wide grid: values from one column become the new row labels, values from another column become the new column headings, and a third column fills the cells."),
+            C("df.pivot(index='month', columns='product', values='sales')\ndf.pivot_table(index='month', columns='product', values='sales', aggfunc='sum')"),
+            T(["", "`pivot()`", "`pivot_table()`"], [
+                ["Aggregates duplicates?", "**No** — just reshapes", "**Yes** — combines duplicates using `aggfunc`"],
+                ["Duplicate index/column pair", "Raises an **error**", "Handled by the aggregation"],
+                ["Default aggregation", "None", "**mean**"],
+                ["Extra options", "—", "`aggfunc`, `fill_value`, `margins=True` (totals)"],
+                ["Best when", "Every index/column pair is unique", "Rows repeat and need summarizing"],
+            ]),
+            H("groupby()"),
+            P("`groupby()` follows **split → apply → combine**: split the rows into groups by the key column(s), apply a function to each group, and combine the results into one table."),
+            C("df.groupby('dept')['salary'].mean()\ndf.groupby(['dept','level'])['salary'].sum()\ndf.groupby('dept').agg({'salary':['min','max'], 'age':'mean'})"),
+            T(["Function", "Per group returns"], [
+                ["`sum()`", "Total"],
+                ["`mean()`", "Average (pandas has **no** `avg()` — that name is SQL's)"],
+                ["`min()` / `max()`", "Smallest / largest"],
+                ["`count()`", "Number of **non-null** values"],
+                ["`size()`", "Number of rows, **including** nulls"],
+                ["`median()`, `std()`", "Middle value, standard deviation"],
+                ["`agg([...])` / `aggregate()`", "Applies **several** functions at once, or different ones per column"],
+            ]),
+            N("count() vs. size():", "If a column has missing values, `count()` skips them and `size()` does not."),
+            N("Result shape:", "The group keys become the **index** of the result. Add `.reset_index()` to get them back as columns. `as_index=False` does the same up front."),
+        ]},
+
+        # ------------------------------------------------------------ Visualization
+        {"name": "Visualization", "blocks": [
+            H("The Plotting Toolkit"),
+            T(["Term", "Meaning"], [
+                ["matplotlib", "The core Python plotting library. Imported as `import matplotlib.pyplot as plt`."],
+                ["`plt.show()`", "**Displays** the current plot. Required in a script; Jupyter usually shows it automatically."],
+                ["`df.plot()`", "pandas' built-in plotting, which draws with matplotlib. Default is a **line** plot of every numeric column against the index."],
+                ["Title and labels", "`plt.title('...')`, `plt.xlabel('...')`, `plt.ylabel('...')`, `plt.legend()`"],
+            ]),
+            H("Choosing a Plot"),
+            T(["Plot", "Shows", "Code", "Variables"], [
+                ["Line (basic)", "Change over an ordered axis, such as time", "`plt.plot(x, y)` or `df.plot()`", "x and y"],
+                ["Histogram", "**Distribution** of one numeric variable — how many values fall in each bin", "`df['col'].hist()` or `df['col'].plot(kind='hist')`; `bins=` sets the number of bins", "**One** numeric"],
+                ["Scatter", "**Relationship** between two numeric variables, one dot per row", "`plt.scatter(x, y)` or `df.plot.scatter(x='a', y='b')`", "**Two** numeric"],
+                ["Scatter with line", "Points **plus** a connecting line or trend line", "`plt.plot(x, y, 'o-')`, or `plt.scatter(...)` then `plt.plot(...)`", "Two numeric"],
+                ["Boxplot (box-and-whisker)", "Spread and outliers via the **five-number summary**", "`df.boxplot()` or `df['col'].plot(kind='box')`", "One or more numeric"],
+            ]),
+            H("Reading a Boxplot"),
+            T(["Part", "Meaning"], [
+                ["Line inside the box", "The **median** (Q2)"],
+                ["Box edges", "**Q1** (25th percentile) and **Q3** (75th percentile); box height is the **IQR**"],
+                ["Whiskers", "Extend to the smallest/largest values within about **1.5 × IQR** of the box"],
+                ["Dots beyond the whiskers", "**Outliers**"],
+            ]),
+            H("Histogram vs. Bar Chart vs. Scatter"),
+            T(["", "Histogram", "Bar chart", "Scatter"], [
+                ["Shows", "Distribution of numbers", "Compare values across **categories**", "Relationship between two numbers"],
+                ["X axis", "Numeric ranges (bins)", "Category names", "A numeric variable"],
+            ]),
+            N("Remember:", "The scatter plot is what you check **before** trusting a correlation number — it shows whether the relationship is really a line."),
+        ]},
+
+        # ------------------------------------------------------------- Cheat sheet
+        {"name": "Quick Comparison Sheet", "blocks": [
+            H("Commonly Confused Pairs"),
+            T(["Pair", "Difference"], [
+                ["`np.zeros(10)` vs. `np.arange(0,10)`", "`zeros` is ten 0.0 values. `arange` counts 0 up to 9."],
+                ["`shape` vs. `size`", "`shape` = dimensions as a tuple; `size` = total element count."],
+                ["`np.arange` vs. `np.random.random`", "Predictable evenly spaced values vs. random floats in [0, 1)."],
+                ["Series vs. DataFrame", "1-D vs. 2-D. A DataFrame's columns are Series."],
+                ["`df[df['x']>10]` vs. `df.where(...)`", "Subset drops failing rows; `where` keeps them as NaN."],
+                ["`df[cond]` vs. `df.query('...')`", "Same rows. Boolean expression vs. string expression."],
+                ["`head()` vs. `tail()`", "First rows vs. last rows (5 by default)."],
+                ["`value_counts()` vs. `nunique()`", "Count for **each** value vs. how many different values there are."],
+                ["`merge()` vs. `concat()`", "Join columns by key vs. stack rows (or columns) by position."],
+                ["`set_index()` vs. `reset_index()`", "Column → index vs. index → column."],
+                ["`drop_duplicates()` vs. `dropna()`", "Removes repeated rows vs. rows with missing values."],
+                ["`isnull()` vs. `dropna()`", "Detects missing values vs. removes them."],
+                ["`dropna()` vs. `fillna()`", "Delete vs. impute."],
+                ["`ffill()` vs. `bfill()`", "Fill from the value above vs. from the value below."],
+                ["`stack()` vs. `unstack()`", "Wide → long vs. long → wide."],
+                ["`pivot()` vs. `pivot_table()`", "No aggregation (errors on duplicates) vs. aggregates (default mean)."],
+                ["`count()` vs. `size()`", "Non-null values vs. all rows."],
+                ["Histogram vs. scatter vs. boxplot", "One variable's distribution vs. two variables' relationship vs. spread and outliers."],
+                ["`np.percentile(a, 90)` vs. `np.quantile(a, 0.9)`", "Same result; 0–100 scale vs. 0–1 scale."],
+            ]),
+        ]},
+    ],
+}

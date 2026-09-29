@@ -132,6 +132,33 @@
           "file": "data/itd256-midterm-extra.json"
         }
       ]
+    },
+    {
+      "id": "itd145",
+      "name": "ITD 145",
+      "fullName": "Applied Data Science Techniques",
+      "guides": [
+        {
+          "id": "exam2-guide",
+          "title": "Exam 2 Study Guide",
+          "description": "Definitions, what each function does, and side-by-side comparisons: NumPy arrays and statistics, pandas Series and DataFrames, merging and indexes, cleaning and imputation, stack/pivot/groupby, and plotting.",
+          "file": "data/itd145-exam2-guide.json"
+        }
+      ],
+      "quizzes": [
+        {
+          "id": "exam2-review",
+          "title": "Exam 2 Review",
+          "description": "92 questions on every item in the Exam 2 outline - mostly multiple choice, weighted toward definitions and comparisons, with some true/false and matching.",
+          "file": "data/itd145-exam2-review.json"
+        },
+        {
+          "id": "exam2-extra",
+          "title": "Extra Practice",
+          "description": "81 more questions on the same topics, for when you want more reps than the main review gives you.",
+          "file": "data/itd145-exam2-extra.json"
+        }
+      ]
     }
   ]
 }
