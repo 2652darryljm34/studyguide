@@ -1374,3 +1374,29 @@ pre.shell-hl code{ font: inherit; background: none; padding: 0; }
   .term-scroll{ max-height: 300px; padding: 10px 10px 4px; }
   .term-inputline{ padding: 6px 10px 9px; }
 }
+
+/* The Next / See results button stays pinned to the bottom of the window, so a
+ * long explanation never pushes it out of reach. */
+.q-actions.q-next{
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  margin: 22px -28px -28px;
+  padding: 14px 28px;
+  background: var(--card);
+  border-top: 1px solid var(--line);
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+
+/* Compact quiz header: title and study-guide link on one line, so the question,
+ * its explanation and the Next button fit on screen without scrolling. */
+.page-head.quiz-head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding: 12px 0 4px;
+}
+.page-head.quiz-head h1{ font-size: 1.25rem; margin: 0; }
+.page-head.quiz-head .btn{ padding: 7px 12px; font-size: 0.85rem; }

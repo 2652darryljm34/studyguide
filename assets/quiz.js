@@ -96,10 +96,9 @@ function render(){
   const earnedSoFar = answers.reduce((sum, a) => sum + a.score, 0);
 
   appEl.innerHTML = `
-    <div class="page-head" style="padding-top:20px;">
+    <div class="page-head quiz-head">
       <h1>${escapeHtml(quizData.title || 'Quiz')}</h1>
-      ${quizData.description ? `<p>${escapeHtml(quizData.description)}</p>` : ''}
-      ${quizData.guideFile ? `<div class="q-actions" style="justify-content:flex-start; margin-top:14px;"><a class="btn ghost" href="review.html?file=${encodeURIComponent(quizData.guideFile)}">Review the study guide &rarr;</a></div>` : ''}
+      ${quizData.guideFile ? `<a class="btn ghost" href="review.html?file=${encodeURIComponent(quizData.guideFile)}">Review the study guide &rarr;</a>` : ''}
     </div>
 
     <div class="quiz-meta">
@@ -146,7 +145,7 @@ function finishQuestion(score, detail){
 
 function appendNextButton(card, isLast){
   const actions = document.createElement('div');
-  actions.className = 'q-actions';
+  actions.className = 'q-actions q-next';
   actions.innerHTML = `<button class="btn primary" id="next-btn">${isLast ? 'See results' : 'Next question'}</button>`;
   card.appendChild(actions);
   document.getElementById('next-btn').addEventListener('click', () => { current += 1; render(); });
