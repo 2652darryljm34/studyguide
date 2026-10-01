@@ -77,7 +77,7 @@ function renderClass(cls, index){
   `).join('');
 
   return `
-    <details class="class-card" ${index === 0 ? 'open' : ''}>
+    <details class="class-card" >
       <summary>
         <div class="class-heading">
           <span class="class-code">${escapeHtml(cls.name)}</span>
