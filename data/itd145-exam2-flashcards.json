@@ -1,0 +1,348 @@
+{
+  "title": "ITD 145 Exam 2 Flashcards",
+  "cards": [
+    {
+      "topic": "NumPy",
+      "term": "NumPy",
+      "definition": "Numerical Python: the core library for fast numeric computing. It supplies the ndarray and functions that work on whole arrays at once.",
+      "useCase": "Use it for math on large sets of numbers, where it is faster and more compact than Python lists. Pandas is built on top of it.",
+      "example": "import numpy as np"
+    },
+    {
+      "topic": "NumPy",
+      "term": "Importing code libraries",
+      "definition": "A library (module) is pre-written code you load with import. An alias given with as is a short nickname. Imports go once, at the top of the file.",
+      "useCase": "Needed before any np., pd. or plt. call. Convention: np, pd, plt.",
+      "example": "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt"
+    },
+    {
+      "topic": "NumPy",
+      "term": "ndarray",
+      "definition": "NumPy's n-dimensional array: a fixed-size grid of values that all share one data type.",
+      "useCase": "Use when you need fast, element-wise math. Unlike a list, arr * 2 doubles every element.",
+      "example": "a = np.array([1,2,3])\na * 2      # [2 4 6]"
+    },
+    {
+      "topic": "NumPy",
+      "term": "np.array([1,2,3])",
+      "definition": "Builds an ndarray from a Python list (a list of lists makes a 2-D array).",
+      "useCase": "Use to convert existing data into an array so you can do vector math or stats.",
+      "example": "np.array([1,2,3])        # [1 2 3]\nnp.array([[1,2],[3,4]])  # 2x2"
+    },
+    {
+      "topic": "NumPy",
+      "term": "np.zeros(10)",
+      "definition": "Creates an array of 10 zeros (floats by default). Pass a tuple like (2,3) for a 2-D array.",
+      "useCase": "Use to make a blank array to fill later, or as a starting placeholder.",
+      "example": "np.zeros(10)    # [0. 0. 0. ... 0.]\nnp.zeros((2,3)) # 2 rows, 3 cols"
+    },
+    {
+      "topic": "NumPy",
+      "term": "np.arange(0,30,6)",
+      "definition": "Like range(): start, stop, step. The stop value is excluded.",
+      "useCase": "Use for evenly spaced sequences, such as x-axis values.",
+      "example": "np.arange(0,30,6)  # [ 0  6 12 18 24]"
+    },
+    {
+      "topic": "NumPy",
+      "term": "np.random.random((2,2))",
+      "definition": "Makes an array of random floats between 0 and 1. The shape goes in as a tuple, so note the double parentheses.",
+      "useCase": "Use for sample or test data when you do not have a real data set.",
+      "example": "np.random.random((2,2))\n# [[0.41 0.87]\n#  [0.05 0.62]]"
+    },
+    {
+      "topic": "NumPy",
+      "term": "array1.shape",
+      "definition": "Attribute (no parentheses) giving the dimensions as a tuple: (rows, columns).",
+      "useCase": "Check it to confirm an array is the size you expect before you do math with it.",
+      "example": "np.zeros((2,3)).shape  # (2, 3)"
+    },
+    {
+      "topic": "NumPy",
+      "term": "array1.size",
+      "definition": "Attribute giving the total number of elements (rows x columns).",
+      "useCase": "Use to count how many values an array holds.",
+      "example": "np.zeros((2,3)).size   # 6"
+    },
+    {
+      "topic": "NumPy",
+      "term": "Arithmetic functions",
+      "definition": "Operations applied element by element: + - * / ** and functions such as np.add, np.subtract, np.multiply, np.divide, np.sqrt, np.power.",
+      "useCase": "Use to transform every value at once with no loop, such as converting units.",
+      "example": "a = np.array([1,4,9])\na + 1         # [2 5 10]\nnp.sqrt(a)    # [1. 2. 3.]"
+    },
+    {
+      "topic": "NumPy",
+      "term": "Aggregate functions",
+      "definition": "Functions that collapse many values into one summary: sum, mean, median, min, max, std, var. Available as np.mean(a) or a.mean().",
+      "useCase": "Use to summarize a data set. Add axis=0 (down columns) or axis=1 (across rows) for 2-D arrays.",
+      "example": "a = np.array([2,4,6])\na.sum()   # 12\na.mean()  # 4.0\nnp.std(a) # 1.63"
+    },
+    {
+      "topic": "NumPy",
+      "term": "Correlation",
+      "definition": "A number from -1 to 1 showing how strongly two variables move together. +1 moves together, -1 moves oppositely, 0 means no linear relationship. np.corrcoef returns a matrix.",
+      "useCase": "Use to test whether two measures are related, such as study hours and score.",
+      "example": "np.corrcoef(x, y)\n# [[1.   0.93]\n#  [0.93 1.  ]]  -> 0.93 off-diagonal"
+    },
+    {
+      "topic": "NumPy",
+      "term": "Percentiles",
+      "definition": "The value below which a given percent of the data falls. np.percentile(a, 90) gives the 90th percentile. The 50th is the median.",
+      "useCase": "Use to find cutoffs, spread and outliers, such as 'top 10% of scores'.",
+      "example": "np.percentile(a, 90)\nnp.percentile(a, [25,50,75])  # quartiles"
+    },
+    {
+      "topic": "pandas",
+      "term": "Series",
+      "definition": "A one-dimensional labeled array. It has values plus an index. A single DataFrame column is a Series.",
+      "useCase": "Use for one column or one list of labeled values.",
+      "example": "s = pd.Series([10,20,30], index=['a','b','c'])\ndf['age']   # a Series"
+    },
+    {
+      "topic": "pandas",
+      "term": "DataFrame",
+      "definition": "A two-dimensional table of rows and columns. Each column is a Series, and columns can have different data types.",
+      "useCase": "The main pandas structure. Use it for any spreadsheet-like or CSV data.",
+      "example": "df = pd.DataFrame({'name':['Al','Bo'], 'age':[20,25]})"
+    },
+    {
+      "topic": "pandas",
+      "term": "Subset by condition",
+      "definition": "Boolean indexing: put a True/False test inside brackets and only rows where it is True are kept. Combine tests with & and |, each in parentheses.",
+      "useCase": "The most common way to filter rows.",
+      "example": "df[df['field'] > 10]\ndf[(df['a'] > 10) & (df['b'] == 'x')]"
+    },
+    {
+      "topic": "pandas",
+      "term": "df.where()",
+      "definition": "Keeps the original shape. Rows that fail the condition are replaced with NaN (or another value you give) instead of being dropped.",
+      "useCase": "Use when you need the data to stay aligned, or to blank out values that fail a test.",
+      "example": "df.where(df['field'] > 10)\ndf.where(df['field'] > 10, 0)  # fill with 0"
+    },
+    {
+      "topic": "pandas",
+      "term": "df.query()",
+      "definition": "Filters rows using a condition written as a string. Column names go in without df[...]. Use @var to refer to a Python variable.",
+      "useCase": "Use for cleaner, more readable filters, especially with several conditions.",
+      "example": "df.query('field > 10')\ndf.query('a > 10 and b == \"x\"')"
+    },
+    {
+      "topic": "pandas",
+      "term": "head() and tail()",
+      "definition": "head(n) shows the first n rows and tail(n) the last n. The default is 5.",
+      "useCase": "Use for a quick look at a new data set. They do not change the data.",
+      "example": "df.head()    # first 5\ndf.tail(3)   # last 3"
+    },
+    {
+      "topic": "pandas",
+      "term": "Count of rows per unique value",
+      "definition": "value_counts() on a column counts how many rows hold each unique value, most common first. nunique() counts how many distinct values there are.",
+      "useCase": "Use to see how data is distributed across categories.",
+      "example": "df['city'].value_counts()\ndf['city'].nunique()"
+    },
+    {
+      "topic": "pandas",
+      "term": "Counts per unique grouping of columns",
+      "definition": "Count rows for each combination of values across several columns, using value_counts on a column list or groupby().size().",
+      "useCase": "Use to count combinations, such as city and department together.",
+      "example": "df.value_counts(['city','dept'])\ndf.groupby(['city','dept']).size()"
+    },
+    {
+      "topic": "pandas",
+      "term": "Read a CSV or PKL file",
+      "definition": "read_csv loads a text CSV file into a DataFrame. read_pickle loads a pickled (.pkl) file, which keeps types exactly as saved.",
+      "useCase": "Always the first step: get your data into a DataFrame.",
+      "example": "df = pd.read_csv('data.csv')\ndf = pd.read_pickle('data.pkl')"
+    },
+    {
+      "topic": "pandas",
+      "term": "Add a new column",
+      "definition": "Assign to a column name that does not exist yet. The value can be a constant, a list, or a calculation on other columns.",
+      "useCase": "Use to create derived values, such as a total or a flag.",
+      "example": "df['total'] = df['price'] * df['qty']\ndf['passed'] = df['score'] >= 60"
+    },
+    {
+      "topic": "pandas",
+      "term": "Rename a column",
+      "definition": "rename() with a columns= dict mapping old name to new name. It returns a new DataFrame unless you set inplace=True or reassign.",
+      "useCase": "Use to fix unclear or messy column names.",
+      "example": "df = df.rename(columns={'old':'new'})"
+    },
+    {
+      "topic": "pandas",
+      "term": "Remove columns",
+      "definition": "drop() with columns= removes columns. Without inplace=True it returns a new DataFrame. (axis=1 means columns.)",
+      "useCase": "Use to discard columns you do not need.",
+      "example": "df = df.drop(columns=['a','b'])\ndf = df.drop('a', axis=1)"
+    },
+    {
+      "topic": "pandas",
+      "term": "Combine data sets (merge)",
+      "definition": "merge() joins two DataFrames side by side, adding columns, by matching key column values, like a SQL join. how= can be inner, left, right or outer.",
+      "useCase": "Use when the related data sits in two tables with a shared key, such as customers and orders.",
+      "example": "pd.merge(df1, df2, on='id', how='left')"
+    },
+    {
+      "topic": "pandas",
+      "term": "Append rows (concat)",
+      "definition": "pd.concat() stacks DataFrames on top of each other. The columns should match in name and type. axis=0 is the default (rows).",
+      "useCase": "Use to combine files with the same layout, such as monthly reports.",
+      "example": "pd.concat([jan, feb, mar], ignore_index=True)"
+    },
+    {
+      "topic": "pandas",
+      "term": "RangeIndex",
+      "definition": "The default index: whole numbers 0, 1, 2, ... assigned automatically to rows.",
+      "useCase": "Appears when you have not chosen an index. Replace it when you want labeled row lookups.",
+      "example": "df.index   # RangeIndex(start=0, stop=5, step=1)"
+    },
+    {
+      "topic": "pandas",
+      "term": "Multi-index",
+      "definition": "An index with two or more levels (hierarchical). Rows are identified by a combination of values.",
+      "useCase": "Use for grouped data, such as region then city, and as the result of groupby on several columns.",
+      "example": "df.set_index(['region','city'])\ndf.loc[('East','Boston')]"
+    },
+    {
+      "topic": "pandas",
+      "term": "set_index()",
+      "definition": "Turns one or more columns into the row index (the column leaves the data).",
+      "useCase": "Use when a column, like an ID or date, is a better row label than 0, 1, 2.",
+      "example": "df = df.set_index('id')"
+    },
+    {
+      "topic": "pandas",
+      "term": "reset_index()",
+      "definition": "Moves the index back into a normal column and restores a 0, 1, 2... RangeIndex. drop=True throws the old index away instead.",
+      "useCase": "Use after groupby, set_index or filtering, when you want a plain table again.",
+      "example": "df = df.reset_index()\ndf = df.reset_index(drop=True)"
+    },
+    {
+      "topic": "Cleaning",
+      "term": "Duplicate removal",
+      "definition": "drop_duplicates() removes repeated rows, keeping the first by default. subset= limits the check to certain columns. duplicated() shows which rows are repeats.",
+      "useCase": "Use so repeated records do not skew counts and averages.",
+      "example": "df = df.drop_duplicates()\ndf.drop_duplicates(subset=['id'])"
+    },
+    {
+      "topic": "Cleaning",
+      "term": "Finding null/NA data",
+      "definition": "isnull() (same as isna()) returns True where a value is missing. Chain .sum() to count missing values per column.",
+      "useCase": "Use to find what is missing before deciding how to handle it.",
+      "example": "df.isnull().sum()\ndf[df['age'].isnull()]"
+    },
+    {
+      "topic": "Cleaning",
+      "term": "Removing rows with NA/null",
+      "definition": "dropna() deletes rows that contain missing values. subset= limits to certain columns. how='all' drops only rows that are completely empty.",
+      "useCase": "Use when missing rows are few and cannot be reasonably filled.",
+      "example": "df = df.dropna()\ndf.dropna(subset=['age'])"
+    },
+    {
+      "topic": "Cleaning",
+      "term": "Imputation",
+      "definition": "Replacing missing values with substituted values, such as a constant, a neighbor's value, or the column mean or median, instead of deleting the row.",
+      "useCase": "Use to keep rows (and your sample size) when data is missing.",
+      "example": "# see fillna, ffill/bfill, mean-fill"
+    },
+    {
+      "topic": "Cleaning",
+      "term": "Fill in null/NA data",
+      "definition": "fillna(value) replaces missing values with the value you give. You can pass a different fill per column with a dict.",
+      "useCase": "Use for simple fixes, such as 0 for no sales or 'Unknown' for a missing label.",
+      "example": "df['qty'] = df['qty'].fillna(0)\ndf.fillna({'city':'Unknown','age':0})"
+    },
+    {
+      "topic": "Cleaning",
+      "term": "Forward-fill and backfill",
+      "definition": "ffill copies the last valid value down into the gaps (forward). bfill copies the next valid value up into the gaps (backward).",
+      "useCase": "Use for ordered data like time series: ffill for a reading that holds until it changes, bfill when the next value applies backward.",
+      "example": "df['temp'].ffill()   # df.fillna(method='ffill')\ndf['temp'].bfill()"
+    },
+    {
+      "topic": "Cleaning",
+      "term": "Mean-fill",
+      "definition": "Filling missing numbers with the average of the column using fillna(df[col].mean()).",
+      "useCase": "Use for numeric data when you want a neutral value that does not shift the average.",
+      "example": "df['age'] = df['age'].fillna(df['age'].mean())"
+    },
+    {
+      "topic": "Analysis",
+      "term": "stack() and unstack()",
+      "definition": "stack() pivots columns down into a row-index level (wide to long). unstack() moves an index level out into columns (long to wide). They reverse each other.",
+      "useCase": "Use to reshape grouped or multi-index results into a table that is easier to read or plot.",
+      "example": "s = df.set_index(['region','year'])['sales']\ns.unstack()   # years become columns"
+    },
+    {
+      "topic": "Analysis",
+      "term": "pivot()",
+      "definition": "Reshapes data: index= becomes the rows, columns= the columns, values= fills the cells. Each index/column pair must be unique, or it raises an error. No aggregation.",
+      "useCase": "Use to turn a long table into a grid when each combination appears once.",
+      "example": "df.pivot(index='region', columns='year', values='sales')"
+    },
+    {
+      "topic": "Analysis",
+      "term": "pivot_table()",
+      "definition": "Like pivot() but it aggregates (mean by default) so duplicates are allowed. aggfunc= sets the calculation, and fill_value= handles empty cells.",
+      "useCase": "Use for spreadsheet-style summaries, such as total sales by region and year.",
+      "example": "df.pivot_table(index='region', columns='year',\n  values='sales', aggfunc='sum')"
+    },
+    {
+      "topic": "Analysis",
+      "term": "groupby()",
+      "definition": "Splits rows into groups by the values in one or more columns (split), applies a function to each (apply), and combines the results (combine).",
+      "useCase": "Use to answer 'per category' questions, such as average score per class.",
+      "example": "df.groupby('class')['score'].mean()"
+    },
+    {
+      "topic": "Analysis",
+      "term": "Aggregate functions in pandas",
+      "definition": "sum(), min(), max(), mean() (the 'avg'), count(), median(), std(). agg() applies several at once or different ones per column. Note: the method is mean(), not avg().",
+      "useCase": "Use to summarize a column or a groupby result.",
+      "example": "df.groupby('class')['score'].agg(['min','max','mean'])\ndf.agg({'score':'mean','age':'max'})"
+    },
+    {
+      "topic": "Visualization",
+      "term": "Display or plot a DataFrame",
+      "definition": "df.plot() draws the DataFrame using matplotlib. plt.show() displays the current figure. Import matplotlib.pyplot as plt first.",
+      "useCase": "The quickest way to see your data. kind= sets the chart type.",
+      "example": "df.plot()\nplt.show()"
+    },
+    {
+      "topic": "Visualization",
+      "term": "Basic plot generation",
+      "definition": "plt.plot(x, y) draws a line chart. Add a title and axis labels so the chart can be read, then plt.show().",
+      "useCase": "Use for trends over time or any ordered x values.",
+      "example": "plt.plot(x, y)\nplt.title('Sales')\nplt.xlabel('Month'); plt.ylabel('USD')\nplt.show()"
+    },
+    {
+      "topic": "Visualization",
+      "term": "Histogram plot",
+      "definition": "Splits one numeric variable into bins and shows how many values fall in each. bins= sets the bin count.",
+      "useCase": "Use to see the shape of a distribution: center, spread, skew.",
+      "example": "plt.hist(df['score'], bins=10)\ndf['score'].plot(kind='hist')"
+    },
+    {
+      "topic": "Visualization",
+      "term": "Scatter plot",
+      "definition": "Plots each row as a point (x, y). Shows the relationship between two numeric variables.",
+      "useCase": "Use to look for correlation or clusters, such as hours studied vs. score.",
+      "example": "plt.scatter(df['hours'], df['score'])\ndf.plot(kind='scatter', x='hours', y='score')"
+    },
+    {
+      "topic": "Visualization",
+      "term": "Scatter plot with line",
+      "definition": "Draw the points with scatter, then draw a line on the same figure (such as a fitted trend) before plt.show().",
+      "useCase": "Use to show the trend through the points.",
+      "example": "plt.scatter(x, y)\nm, b = np.polyfit(x, y, 1)\nplt.plot(x, m*x + b)\nplt.show()"
+    },
+    {
+      "topic": "Visualization",
+      "term": "Boxplot (box-whisker)",
+      "definition": "Shows the five-number summary: min, Q1, median, Q3, max. The box is Q1 to Q3 (the middle 50%). Points past the whiskers are outliers.",
+      "useCase": "Use to compare spread across groups and spot outliers.",
+      "example": "plt.boxplot(df['score'])\ndf.boxplot(column='score', by='class')"
+    }
+  ]
+}

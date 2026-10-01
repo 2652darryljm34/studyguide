@@ -145,6 +145,14 @@
           "file": "data/itd145-exam2-guide.json"
         }
       ],
+      "tools": [
+        {
+          "id": "flashcards",
+          "title": "Exam 2 Flashcards",
+          "description": "49 flip cards, one per term on the Exam 2 outline: the definition on the back, when to use it, and example code. Mark cards as known and shuffle.",
+          "href": "flashcards.html?file=data%2Fitd145-exam2-flashcards.json"
+        }
+      ],
       "quizzes": [
         {
           "id": "exam2-review",
