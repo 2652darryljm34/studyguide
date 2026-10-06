@@ -31,6 +31,12 @@
       ],
       "quizzes": [
         {
+          "id": "final-exam",
+          "title": "Final Exam Review",
+          "description": "133 questions built from the instructor's final study guide: navigation, file maintenance, chmod, wildcards, monitoring, processes, find and links, pipes and text tools, users and sudo, vi, cron and shell scripting - with 35 hands-on terminal questions.",
+          "file": "data/itn170-final-exam.json"
+        },
+        {
           "id": "command-line",
           "title": "Command Line & Getting Help",
           "description": "30 questions on the shell prompt, command syntax, line-editing shortcuts, history, and finding answers in the local documentation with man, apropos and --help.",

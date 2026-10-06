@@ -1,0 +1,1940 @@
+{
+  "title": "ITN 170 Final Exam Review",
+  "description": "A review of everything on the instructor's final study guide: navigation, file maintenance, permissions, wildcards, viewing files, monitoring, processes and services, finding files and links, redirection and the text tools, users and sudo, vi, cron and shell scripting.",
+  "guideFile": "data/itn170-commands-guide.json",
+  "boxFile": "data/itn170-box.json",
+  "sections": [
+    {
+      "name": "1. Navigating the File System",
+      "questions": [
+        {
+          "type": "matching",
+          "category": "Navigating & Getting Help",
+          "question": "Match each navigation command to what it does.",
+          "pairs": [
+            {
+              "left": "cd",
+              "right": "Change directory"
+            },
+            {
+              "left": "pwd",
+              "right": "Print the current working directory"
+            },
+            {
+              "left": "ls",
+              "right": "List the files in a directory"
+            },
+            {
+              "left": "whoami",
+              "right": "Show the account you are logged in as"
+            },
+            {
+              "left": "clear",
+              "right": "Clear the terminal screen"
+            },
+            {
+              "left": "man",
+              "right": "Display the manual page for a command"
+            }
+          ]
+        },
+        {
+          "type": "mc",
+          "category": "Navigating & Getting Help",
+          "question": "What is the difference between `cd ..` and `cd .`?",
+          "options": [
+            "`cd ..` moves up to the parent directory; `cd .` stays in the current directory",
+            "`cd ..` moves to the home directory; `cd .` moves to the root directory",
+            "`cd ..` moves down into the first subdirectory; `cd .` moves up one level",
+            "They are identical; both go to the parent directory"
+          ],
+          "correct": 0,
+          "explanation": "A single dot is the current directory and two dots are its parent, so `cd .` does nothing visible and `cd ..` goes up one level."
+        },
+        {
+          "type": "mc",
+          "category": "Navigating & Getting Help",
+          "question": "What does `pwd` stand for?",
+          "options": [
+            "present working drive",
+            "print working directory",
+            "path of working data",
+            "parent working directory"
+          ],
+          "correct": 1,
+          "explanation": "pwd prints the full path of the directory you are currently in."
+        },
+        {
+          "type": "mc",
+          "category": "Navigating & Getting Help",
+          "question": "Which command shows the account you are currently logged in to the shell as?",
+          "options": [
+            "who -a",
+            "pwd",
+            "whoami",
+            "su -"
+          ],
+          "correct": 2,
+          "explanation": "`whoami` prints just your user name. `who` is a different command: it lists everyone logged in."
+        },
+        {
+          "type": "mc",
+          "category": "Navigating & Getting Help",
+          "question": "What does `su -` do when run without a user name?",
+          "options": [
+            "Shows a list of all users",
+            "Switches back to the previous directory",
+            "Runs one command with root privileges and then returns",
+            "Switches to the root user (su stands for switch user), after asking for root's password"
+          ],
+          "correct": 3,
+          "explanation": "`su` with no user name means root. The dash gives you root's full login environment. `sudo` is the one that runs a single command with elevated rights."
+        },
+        {
+          "type": "mc",
+          "category": "Navigating & Getting Help",
+          "question": "What does `sudo` do?",
+          "options": [
+            "Lets a permitted user run a command with root (superuser) privileges",
+            "Permanently turns your account into root",
+            "Deletes a user account",
+            "Switches the shell to a different directory"
+          ],
+          "correct": 0,
+          "explanation": "sudo runs one command with root privileges, after checking you are allowed to. `sudo su` uses that permission to start a root shell."
+        },
+        {
+          "type": "mc",
+          "category": "Navigating & Getting Help",
+          "question": "What does `ls -ltr` show?",
+          "options": [
+            "A long listing sorted alphabetically in reverse",
+            "A long listing sorted by modification time, oldest first (newest last)",
+            "Only the files owned by root",
+            "A recursive listing of every subdirectory"
+          ],
+          "correct": 1,
+          "explanation": "`-l` is the long format, `-t` sorts by modification time (newest first) and `-r` reverses that order. Compare plain `ls`, which gives names only, and `ls -l`, which adds permissions, owner, size and date."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Navigating & Getting Help",
+          "question": "Which command clears the terminal screen?",
+          "answers": [
+            "clear"
+          ],
+          "explanation": "`clear` wipes the visible screen (Ctrl+L does the same)."
+        },
+        {
+          "type": "mc",
+          "category": "Navigating & Getting Help",
+          "question": "Which command searches a file for a pattern or string?",
+          "options": [
+            "find",
+            "man",
+            "grep",
+            "cat -p"
+          ],
+          "correct": 2,
+          "explanation": "grep prints the lines of a file that match a pattern. `find` searches for files by name or attribute, not by content."
+        },
+        {
+          "type": "shell",
+          "category": "Navigating & Getting Help",
+          "question": "List the files in ~/labs/links in a long listing, with the oldest at the top and the newest at the bottom.",
+          "orderMatters": true,
+          "places": [
+            "~"
+          ],
+          "hint": "Three single-letter options combined.",
+          "solution": "ls -ltr ~/labs/links",
+          "explanation": "-l long format, -t sort by time, -r reverse so the newest comes last."
+        },
+        {
+          "type": "shell",
+          "category": "Navigating & Getting Help",
+          "question": "Print the full path of the directory you are in right now.",
+          "places": [
+            "~"
+          ],
+          "solution": "pwd",
+          "explanation": "`pwd` prints the current working directory. A fresh terminal starts in your home directory."
+        }
+      ]
+    },
+    {
+      "name": "2. File Maintenance",
+      "questions": [
+        {
+          "type": "matching",
+          "category": "File Maintenance",
+          "question": "Match each file maintenance command to what it does.",
+          "pairs": [
+            {
+              "left": "cp",
+              "right": "Copies a file"
+            },
+            {
+              "left": "mv",
+              "right": "Moves or renames a file"
+            },
+            {
+              "left": "rm",
+              "right": "Deletes a file"
+            },
+            {
+              "left": "mkdir",
+              "right": "Creates a directory"
+            },
+            {
+              "left": "rmdir",
+              "right": "Deletes an empty directory"
+            },
+            {
+              "left": "rm -r",
+              "right": "Deletes a directory and its contents"
+            }
+          ]
+        },
+        {
+          "type": "mc",
+          "category": "File Maintenance",
+          "question": "Which command renames a file?",
+          "options": [
+            "cp",
+            "rn",
+            "chmod",
+            "mv"
+          ],
+          "correct": 3,
+          "explanation": "`mv oldname newname` renames. The same command moves a file when the destination is another directory."
+        },
+        {
+          "type": "mc",
+          "category": "File Maintenance",
+          "question": "What happens if you run `rmdir` on a directory that still contains files?",
+          "options": [
+            "It fails with an error; rmdir only removes empty directories",
+            "It deletes the directory and everything inside it",
+            "It deletes only the files, leaving the directory",
+            "It asks for confirmation and then deletes everything"
+          ],
+          "correct": 0,
+          "explanation": "rmdir refuses to remove a non-empty directory. To remove a directory and its contents you need `rm -r`."
+        },
+        {
+          "type": "mc",
+          "category": "File Maintenance",
+          "question": "What does `rm -Rf` do?",
+          "options": [
+            "Renames a file and forces the new name",
+            "Forcefully removes a directory, all of its subdirectories and their contents, without prompting",
+            "Removes only the read-only files",
+            "Lists what would be deleted without deleting it"
+          ],
+          "correct": 1,
+          "explanation": "-R (or -r) means recursive, -f means force (no prompts, ignore missing files). It is the most dangerous command on this list, so double-check the path."
+        },
+        {
+          "type": "matching",
+          "category": "File Maintenance",
+          "question": "Match each command that changes a file's properties to what it changes.",
+          "pairs": [
+            {
+              "left": "chmod",
+              "right": "File permissions"
+            },
+            {
+              "left": "chown",
+              "right": "File ownership (the owning user)"
+            },
+            {
+              "left": "chgrp",
+              "right": "Group ownership"
+            }
+          ]
+        },
+        {
+          "type": "shell",
+          "category": "File Maintenance",
+          "question": "In ~/labs/files, make a copy of notes.txt called notes-copy.txt.",
+          "cwd": "~/labs/files",
+          "places": [
+            "~/labs/files"
+          ],
+          "solution": "cp notes.txt notes-copy.txt",
+          "verify": "cat notes-copy.txt",
+          "explanation": "cp source destination leaves the original in place."
+        },
+        {
+          "type": "shell",
+          "category": "File Maintenance",
+          "question": "In ~/labs/files, rename report1.txt to report-final.txt.",
+          "cwd": "~/labs/files",
+          "places": [
+            "~/labs/files"
+          ],
+          "solution": "mv report1.txt report-final.txt",
+          "verify": "ls",
+          "explanation": "mv with a destination in the same directory is a rename."
+        },
+        {
+          "type": "shell",
+          "category": "File Maintenance",
+          "question": "Create a new directory named ~/labs/archive-2025.",
+          "places": [
+            "~"
+          ],
+          "solution": "mkdir ~/labs/archive-2025",
+          "verify": "ls ~/labs",
+          "explanation": "mkdir creates the directory."
+        },
+        {
+          "type": "shell",
+          "category": "File Maintenance",
+          "question": "In ~/labs/files, delete the directory old together with everything inside it.",
+          "cwd": "~/labs/files",
+          "places": [
+            "~/labs/files"
+          ],
+          "solution": "rm -r old",
+          "verify": "ls",
+          "explanation": "rmdir would refuse because old is not empty; rm -r removes the directory and its contents."
+        },
+        {
+          "type": "shell",
+          "category": "File Maintenance",
+          "question": "Create an empty file named ~/labs/newfile.txt.",
+          "places": [
+            "~"
+          ],
+          "solution": "touch ~/labs/newfile.txt",
+          "verify": "ls ~/labs",
+          "explanation": "touch creates an empty file if it does not exist (and updates the timestamp if it does)."
+        }
+      ]
+    },
+    {
+      "name": "3. Permissions with chmod",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Permissions",
+          "question": "What number does each permission have in octal (numeric) mode?",
+          "options": [
+            "r = 1, w = 2, x = 4",
+            "r = 2, w = 4, x = 1",
+            "r = 4, w = 2, x = 1",
+            "r = 1, w = 1, x = 1"
+          ],
+          "correct": 2,
+          "explanation": "Add the values for each of owner, group and other: rwx = 4+2+1 = 7, r-x = 5, r-- = 4."
+        },
+        {
+          "type": "mc",
+          "category": "Permissions",
+          "question": "Which permissions does `chmod 755 file` set?",
+          "options": [
+            "rwxrwxrwx",
+            "rw-r--r--",
+            "rwx------",
+            "rwxr-xr-x"
+          ],
+          "correct": 3,
+          "explanation": "7 = rwx for the owner, 5 = r-x for the group, 5 = r-x for others."
+        },
+        {
+          "type": "mc",
+          "category": "Permissions",
+          "question": "Which permissions does `chmod 644 file` set?",
+          "options": [
+            "rw-r--r--",
+            "rwxr--r--",
+            "rw-rw-r--",
+            "r--r--r--"
+          ],
+          "correct": 0,
+          "explanation": "6 = rw- for the owner, 4 = r-- for the group and for others. It is the usual mode for an ordinary file."
+        },
+        {
+          "type": "mc",
+          "category": "Permissions",
+          "question": "Which octal mode makes a file readable and writable by its owner only?",
+          "options": [
+            "644",
+            "600",
+            "060",
+            "700"
+          ],
+          "correct": 1,
+          "explanation": "600 is rw-------. 700 would also grant execute."
+        },
+        {
+          "type": "mc",
+          "category": "Permissions",
+          "question": "Which octal mode matches `rwxr-x---`?",
+          "options": [
+            "755",
+            "570",
+            "750",
+            "740"
+          ],
+          "correct": 2,
+          "explanation": "rwx = 7, r-x = 5, --- = 0, so 750."
+        },
+        {
+          "type": "mc",
+          "category": "Permissions",
+          "question": "What does `chown alice:staff report.txt` do?",
+          "options": [
+            "Gives alice and staff read access",
+            "Copies report.txt to alice's home directory",
+            "Renames report.txt to alice:staff",
+            "Makes alice the owner and staff the owning group of report.txt"
+          ],
+          "correct": 3,
+          "explanation": "chown changes ownership; the part after the colon is the group. `chgrp staff report.txt` would change only the group."
+        },
+        {
+          "type": "mc",
+          "category": "Permissions",
+          "question": "To run a script as `./myscript`, which permission does it need?",
+          "options": [
+            "Execute (and read, since the shell has to read a script)",
+            "Write only",
+            "No permission; scripts always run",
+            "Setuid"
+          ],
+          "correct": 0,
+          "explanation": "Running it with `bash myscript` instead needs only read permission, because bash opens the file rather than executing it."
+        },
+        {
+          "type": "shell",
+          "category": "Permissions",
+          "question": "Make ~/labs/perms/team.txt readable, writable and executable by its owner, readable and executable by its group, and not accessible at all to others.",
+          "places": [
+            "~"
+          ],
+          "hint": "Use octal mode.",
+          "solution": "chmod 750 ~/labs/perms/team.txt",
+          "verify": "ls -l ~/labs/perms/team.txt",
+          "explanation": "rwx = 7, r-x = 5, --- = 0."
+        },
+        {
+          "type": "shell",
+          "category": "Permissions",
+          "question": "Make ~/labs/perms/noexec.sh executable by its owner, adding no other permissions to any set.",
+          "places": [
+            "~"
+          ],
+          "solution": "chmod u+x ~/labs/perms/noexec.sh",
+          "verify": "ls -l ~/labs/perms/noexec.sh",
+          "explanation": "Symbolic mode: u = user (owner), + adds, x = execute. It leaves every other bit alone."
+        }
+      ]
+    },
+    {
+      "name": "4. Wildcards",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Wildcards & Brace Expansion",
+          "question": "`touch project{1..4} project{12..14} project{a,e,g,h}` creates how many files?",
+          "options": [
+            "3",
+            "11",
+            "4",
+            "12"
+          ],
+          "correct": 1,
+          "explanation": "Brace expansion runs before the command: {1..4} gives 4 names, {12..14} gives 3 and {a,e,g,h} gives 4. 4 + 3 + 4 = 11."
+        },
+        {
+          "type": "mc",
+          "category": "Wildcards & Brace Expansion",
+          "question": "In `ls project*`, what does the `*` match?",
+          "options": [
+            "Exactly one character",
+            "Exactly one digit",
+            "Zero or more characters",
+            "Only letters"
+          ],
+          "correct": 2,
+          "explanation": "`*` matches any run of characters, including none, so plain `project` is listed too."
+        },
+        {
+          "type": "mc",
+          "category": "Wildcards & Brace Expansion",
+          "question": "In `ls project?`, what does the `?` match?",
+          "options": [
+            "Zero or more characters",
+            "Exactly two characters",
+            "One optional character",
+            "Exactly one character"
+          ],
+          "correct": 3,
+          "explanation": "`?` is a single-character wildcard."
+        },
+        {
+          "type": "mc",
+          "category": "Wildcards & Brace Expansion",
+          "question": "A directory holds project, project1-4, project12-14 and projecta, projecte, projectg, projecth. Which files does `ls project??` list?",
+          "options": [
+            "project12, project13, project14",
+            "project1, project2, project3, project4",
+            "projecta, projecte, projectg, projecth",
+            "Every file whose name starts with project"
+          ],
+          "correct": 0,
+          "explanation": "Two question marks mean exactly two characters after `project`."
+        },
+        {
+          "type": "mc",
+          "category": "Wildcards & Brace Expansion",
+          "question": "A directory holds project, project1-4, project12-14 and projecta, projecte, projectg, projecth. Which files does `ls project[13]?` list?",
+          "options": [
+            "project1, project3",
+            "project12, project13, project14",
+            "project1, project3, project12, project13",
+            "project13 only"
+          ],
+          "correct": 1,
+          "explanation": "The first character after `project` must be 1 or 3, then exactly one more character. That matches project12, project13 and project14 (project1 has no second character)."
+        },
+        {
+          "type": "mc",
+          "category": "Wildcards & Brace Expansion",
+          "question": "A directory holds project, project1-4, project12-14 and projecta, projecte, projectg, projecth. Which files does `ls project[aegh]` list?",
+          "options": [
+            "project, projecta, projecte",
+            "Only projecta",
+            "projecta, projecte, projectg, projecth",
+            "None; brackets do not work in file names"
+          ],
+          "correct": 2,
+          "explanation": "A bracket matches exactly one character from the set. `project[a-h]` would match the same four files, as a-h is a range."
+        },
+        {
+          "type": "mc",
+          "category": "Wildcards & Brace Expansion",
+          "question": "What does `ls project[!135]` match?",
+          "options": [
+            "Names ending in 1, 3 or 5",
+            "The files project1, project3 and project5 only",
+            "Names with no characters after project",
+            "A name starting with project followed by one character that is not 1, 3 or 5"
+          ],
+          "correct": 3,
+          "explanation": "Inside brackets, `!` negates the set."
+        },
+        {
+          "type": "shell",
+          "category": "Wildcards & Brace Expansion",
+          "question": "In ~/wild, list only the files whose name is `project` followed by exactly one digit.",
+          "setup": [
+            "mkdir -p ~/wild",
+            "cd ~/wild",
+            "touch project project{1..4} project{12..14} project{a,e,g,h}"
+          ],
+          "orderMatters": true,
+          "places": [
+            "~/wild"
+          ],
+          "hint": "Use a range inside square brackets.",
+          "solution": "ls project[0-9]",
+          "explanation": "A bracket range of [0-9] matches one digit. (`project?` would also pick up projecta, projecte and so on.)"
+        },
+        {
+          "type": "shell",
+          "category": "Wildcards & Brace Expansion",
+          "question": "In ~/wild, list the files named project followed by one character that is not 1, 3 or 5.",
+          "setup": [
+            "mkdir -p ~/wild",
+            "cd ~/wild",
+            "touch project project{1..4} project{12..14} project{a,e,g,h}"
+          ],
+          "orderMatters": true,
+          "places": [
+            "~/wild"
+          ],
+          "solution": "ls project[!135]",
+          "explanation": "`[!135]` is one character that is not 1, 3 or 5."
+        },
+        {
+          "type": "shell",
+          "category": "Wildcards & Brace Expansion",
+          "question": "In ~/wild, list the files named projecta, projecte, projectg and projecth, using a range of letters.",
+          "setup": [
+            "mkdir -p ~/wild",
+            "cd ~/wild",
+            "touch project project{1..4} project{12..14} project{a,e,g,h}"
+          ],
+          "orderMatters": true,
+          "places": [
+            "~/wild"
+          ],
+          "solution": "ls project[a-h]",
+          "explanation": "`[a-h]` matches one character from a to h."
+        }
+      ]
+    },
+    {
+      "name": "5. Displaying Files",
+      "questions": [
+        {
+          "type": "matching",
+          "category": "Viewing Files",
+          "question": "Match each file display command to what it does.",
+          "pairs": [
+            {
+              "left": "cat",
+              "right": "Shows a file's contents on the screen"
+            },
+            {
+              "left": "tac",
+              "right": "Shows a file's contents in reverse order, last line first"
+            },
+            {
+              "left": "more",
+              "right": "Shows a file one page at a time"
+            },
+            {
+              "left": "less",
+              "right": "Shows a file one page at a time, and lets you scroll backwards"
+            },
+            {
+              "left": "head",
+              "right": "Shows the first lines of a file"
+            },
+            {
+              "left": "tail",
+              "right": "Shows the last lines of a file"
+            }
+          ]
+        },
+        {
+          "type": "mc",
+          "category": "Viewing Files",
+          "question": "By default, how many lines do `head` and `tail` show?",
+          "options": [
+            "10",
+            "5",
+            "20",
+            "All of them"
+          ],
+          "correct": 0,
+          "explanation": "Use -n to change it, for example `tail -n 3 file`."
+        },
+        {
+          "type": "mc",
+          "category": "Viewing Files",
+          "question": "Which command shows a file with its last line first?",
+          "options": [
+            "cat -r",
+            "tac",
+            "rev",
+            "less -r"
+          ],
+          "correct": 1,
+          "explanation": "tac is cat spelled backwards, and it prints the lines backwards."
+        },
+        {
+          "type": "mc",
+          "category": "Viewing Files",
+          "question": "While viewing a file in `less`, which key scrolls forward one line at a time?",
+          "options": [
+            "q",
+            "x",
+            "j",
+            "h"
+          ],
+          "correct": 2,
+          "explanation": "`j` goes down a line (and `k` up), and `q` quits."
+        },
+        {
+          "type": "mc",
+          "category": "Viewing Files",
+          "question": "Which of these pairs are text editors?",
+          "options": [
+            "cat and tac",
+            "more and less",
+            "head and tail",
+            "vi and nano"
+          ],
+          "correct": 3,
+          "explanation": "vi and nano both create and edit files. The others only display them."
+        },
+        {
+          "type": "shell",
+          "category": "Viewing Files",
+          "question": "Show only the last 3 lines of ~/labs/text/fruit.txt.",
+          "orderMatters": true,
+          "places": [
+            "~"
+          ],
+          "solution": "tail -n 3 ~/labs/text/fruit.txt",
+          "explanation": "`tail -n 3` (or `tail -3`)."
+        },
+        {
+          "type": "shell",
+          "category": "Viewing Files",
+          "question": "Show the first 2 lines of ~/labs/text/numbers.txt.",
+          "orderMatters": true,
+          "places": [
+            "~"
+          ],
+          "solution": "head -n 2 ~/labs/text/numbers.txt",
+          "explanation": "`head -n 2` (or `head -2`)."
+        },
+        {
+          "type": "shell",
+          "category": "Viewing Files",
+          "question": "Print the contents of ~/labs/text/numbers.txt in reverse line order.",
+          "orderMatters": true,
+          "places": [
+            "~"
+          ],
+          "solution": "tac ~/labs/text/numbers.txt",
+          "explanation": "tac prints the last line first."
+        }
+      ]
+    },
+    {
+      "name": "6. Users & System Utilities",
+      "questions": [
+        {
+          "type": "matching",
+          "category": "Monitoring Users & System Utilities",
+          "question": "Match each user-monitoring command to what it shows.",
+          "pairs": [
+            {
+              "left": "who",
+              "right": "Who is currently logged in"
+            },
+            {
+              "left": "w",
+              "right": "Who is logged in and what each of them is doing"
+            },
+            {
+              "left": "last",
+              "right": "The history of past logins"
+            },
+            {
+              "left": "id",
+              "right": "Your user ID, group ID and group memberships"
+            },
+            {
+              "left": "finger",
+              "right": "A summary of each user, including idle time and login time"
+            }
+          ]
+        },
+        {
+          "type": "matching",
+          "category": "Monitoring Users & System Utilities",
+          "question": "Match each system utility to what it does.",
+          "pairs": [
+            {
+              "left": "date",
+              "right": "Displays the date and time"
+            },
+            {
+              "left": "uptime",
+              "right": "Shows how long the system has been running"
+            },
+            {
+              "left": "hostname",
+              "right": "Shows the machine's name"
+            },
+            {
+              "left": "uname",
+              "right": "Shows the kernel and operating system type"
+            },
+            {
+              "left": "which",
+              "right": "Shows where a command is located"
+            },
+            {
+              "left": "cal",
+              "right": "Displays a calendar"
+            },
+            {
+              "left": "bc",
+              "right": "A basic command-line calculator"
+            }
+          ]
+        },
+        {
+          "type": "fill_blank",
+          "category": "Monitoring Users & System Utilities",
+          "question": "Which command shows the full path of a program, for example `/usr/bin/pwd` for `pwd`?",
+          "answers": [
+            "which"
+          ],
+          "explanation": "`which pwd` searches the directories in your PATH and prints the first match."
+        },
+        {
+          "type": "mc",
+          "category": "Monitoring Users & System Utilities",
+          "question": "What does `cal 9 2016` display?",
+          "options": [
+            "A calendar for September 2016",
+            "The 9th day of 2016",
+            "A nine-month calendar from 2016",
+            "September 2016 and 2017 side by side"
+          ],
+          "correct": 0,
+          "explanation": "`cal month year`; with only a year, as in `cal 2016`, it shows all twelve months."
+        },
+        {
+          "type": "mc",
+          "category": "Monitoring Users & System Utilities",
+          "question": "Which command tells you how long the system has been running?",
+          "options": [
+            "date",
+            "uptime",
+            "uname",
+            "last -t"
+          ],
+          "correct": 1,
+          "explanation": "uptime also shows the number of logged-in users and the load average."
+        },
+        {
+          "type": "mc",
+          "category": "Monitoring Users & System Utilities",
+          "question": "Which command shows the Linux kernel release, for example 5.14.0?",
+          "options": [
+            "hostname -k",
+            "date -k",
+            "uname -r",
+            "which kernel"
+          ],
+          "correct": 2,
+          "explanation": "`uname` alone prints the OS type (Linux); `-r` adds the kernel release, and `-a` shows everything."
+        },
+        {
+          "type": "shell",
+          "category": "Monitoring Users & System Utilities",
+          "question": "Display the name of this machine.",
+          "places": [
+            "~"
+          ],
+          "solution": "hostname",
+          "explanation": "`hostname` prints the system's host name."
+        },
+        {
+          "type": "shell",
+          "category": "Monitoring Users & System Utilities",
+          "question": "Display the kernel release of this machine.",
+          "places": [
+            "~"
+          ],
+          "solution": "uname -r",
+          "explanation": "`uname -r` prints the kernel release."
+        },
+        {
+          "type": "shell",
+          "category": "Monitoring Users & System Utilities",
+          "question": "Display your user ID, group ID and the groups you belong to.",
+          "places": [
+            "~"
+          ],
+          "solution": "id",
+          "explanation": "`id` shows uid, gid and all group memberships."
+        }
+      ]
+    },
+    {
+      "name": "7. Processes, Services & System Monitoring",
+      "questions": [
+        {
+          "type": "matching",
+          "category": "Processes, Services & Monitoring",
+          "question": "Match each command to what it does.",
+          "pairs": [
+            {
+              "left": "ps",
+              "right": "Lists processes running on the system"
+            },
+            {
+              "left": "top",
+              "right": "Shows running processes with live CPU and memory use"
+            },
+            {
+              "left": "kill",
+              "right": "Terminates a process by its process ID"
+            },
+            {
+              "left": "free",
+              "right": "Summarizes RAM and swap usage"
+            },
+            {
+              "left": "df",
+              "right": "Shows free disk space for each file system"
+            },
+            {
+              "left": "dmesg",
+              "right": "Prints kernel messages, such as hardware warnings and errors"
+            },
+            {
+              "left": "netstat",
+              "right": "Shows network connections, routing and interface information"
+            }
+          ]
+        },
+        {
+          "type": "mc",
+          "category": "Processes, Services & Monitoring",
+          "question": "Which command replaced `service` for starting and stopping services in RHEL 7 and later?",
+          "options": [
+            "servicectl",
+            "initctl",
+            "chkconfig",
+            "systemctl"
+          ],
+          "correct": 3,
+          "explanation": "systemctl controls systemd services, for example `systemctl start httpd`."
+        },
+        {
+          "type": "mc",
+          "category": "Processes, Services & Monitoring",
+          "question": "What is the difference between `systemctl start httpd` and `systemctl enable httpd`?",
+          "options": [
+            "start runs the service now; enable makes it start automatically at boot",
+            "start runs it at boot; enable runs it now",
+            "They are the same",
+            "enable installs the package; start removes it"
+          ],
+          "correct": 0,
+          "explanation": "To do both at once: `systemctl enable --now httpd`."
+        },
+        {
+          "type": "mc",
+          "category": "Processes, Services & Monitoring",
+          "question": "What does `iostat 1` do?",
+          "options": [
+            "Prints one line of statistics and exits",
+            "Prints input/output statistics and refreshes them every second",
+            "Starts one new process",
+            "Limits disk I/O to 1 MB per second"
+          ],
+          "correct": 1,
+          "explanation": "The number is the interval in seconds between reports."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Processes, Services & Monitoring",
+          "question": "Which file under /proc contains information about the CPU?",
+          "answers": [
+            "/proc/cpuinfo",
+            "proc/cpuinfo"
+          ],
+          "explanation": "`cat /proc/cpuinfo`. For memory, read /proc/meminfo."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Processes, Services & Monitoring",
+          "question": "Which file under /proc contains information about memory?",
+          "answers": [
+            "/proc/meminfo",
+            "proc/meminfo"
+          ],
+          "explanation": "`cat /proc/meminfo`."
+        },
+        {
+          "type": "mc",
+          "category": "Processes, Services & Monitoring",
+          "question": "Which command gives you your disk partition information and usage?",
+          "options": [
+            "free",
+            "top",
+            "df",
+            "dmesg"
+          ],
+          "correct": 2,
+          "explanation": "`df -h` shows sizes in human-readable units. `free` is for RAM, not disks."
+        },
+        {
+          "type": "tf",
+          "category": "Processes, Services & Monitoring",
+          "question": "`top` shows all running processes together with their resource usage, and updates the display continuously.",
+          "correct": true,
+          "explanation": "Press q to quit."
+        },
+        {
+          "type": "tf",
+          "category": "Processes, Services & Monitoring",
+          "question": "An ordinary user, with no extra privilege, can start and stop any system service and kill any process.",
+          "correct": false,
+          "explanation": "Starting and stopping system services requires root (for example via sudo), and an ordinary user can only kill their own processes."
+        },
+        {
+          "type": "shell",
+          "category": "Processes, Services & Monitoring",
+          "question": "Show the free and used memory in human-readable units.",
+          "places": [
+            "~"
+          ],
+          "solution": "free -h",
+          "explanation": "-h gives GiB/MiB instead of raw KiB."
+        },
+        {
+          "type": "shell",
+          "category": "Processes, Services & Monitoring",
+          "question": "Show the disk space used by each file system in human-readable units.",
+          "places": [
+            "~"
+          ],
+          "solution": "df -h",
+          "explanation": "-h gives sizes like 19G instead of 1K-blocks."
+        }
+      ]
+    },
+    {
+      "name": "8. Finding Files and Links",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Finding Files & Links",
+          "question": "Which command searches the current directory and all subdirectories for a file named mike?",
+          "options": [
+            "`find / -name \"mike\"`",
+            "`locate . mike`",
+            "`grep . mike`",
+            "`find . -name \"mike\"`"
+          ],
+          "correct": 3,
+          "explanation": "The first argument to find is where to start; `.` means the current directory, `/` would search the whole system."
+        },
+        {
+          "type": "mc",
+          "category": "Finding Files & Links",
+          "question": "Which command searches the whole system for a file named ifcfg-enp0s3?",
+          "options": [
+            "`find / -name \"ifcfg-enp0s3\"`",
+            "`find . -name \"ifcfg-enp0s3\"`",
+            "`ls / ifcfg-enp0s3`",
+            "`which / ifcfg-enp0s3`"
+          ],
+          "correct": 0,
+          "explanation": "Starting from `/` covers the entire file system; run it with sudo to avoid permission errors."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Finding Files & Links",
+          "question": "Which command finds a file by name quickly by looking it up in a prebuilt database, for example `___ mike`?",
+          "answers": [
+            "locate"
+          ],
+          "explanation": "`locate` is fast but only as current as its database, which `updatedb` refreshes. `find` walks the real directories each time."
+        },
+        {
+          "type": "mc",
+          "category": "Finding Files & Links",
+          "question": "How does `locate` differ from `find`?",
+          "options": [
+            "locate searches file contents; find searches names",
+            "locate searches a prebuilt database (fast, may be out of date); find searches the live file system",
+            "locate only works as root; find works for everyone",
+            "There is no difference"
+          ],
+          "correct": 1,
+          "explanation": "A file created a minute ago will not show up in `locate` until `updatedb` runs."
+        },
+        {
+          "type": "mc",
+          "category": "Finding Files & Links",
+          "question": "What happens to a soft (symbolic) link if the original file is deleted or renamed?",
+          "options": [
+            "Nothing; it keeps working",
+            "The link is turned into a regular file",
+            "The link breaks and points at nothing",
+            "The link is deleted automatically"
+          ],
+          "correct": 2,
+          "explanation": "A soft link stores the original's name, like a shortcut in Windows. A hard link is another name for the same data, so deleting, renaming or moving the original does not affect it."
+        },
+        {
+          "type": "mc",
+          "category": "Finding Files & Links",
+          "question": "What happens to a hard link if the original file is deleted, renamed or moved?",
+          "options": [
+            "It breaks",
+            "It is deleted automatically",
+            "It becomes a soft link",
+            "It keeps working; the data remains as long as one name exists"
+          ],
+          "correct": 3,
+          "explanation": "Hard links are extra names for the same inode."
+        },
+        {
+          "type": "matching",
+          "category": "Finding Files & Links",
+          "question": "Match each command to the link it creates.",
+          "pairs": [
+            {
+              "left": "ln file link",
+              "right": "A hard link"
+            },
+            {
+              "left": "ln -s file link",
+              "right": "A soft (symbolic) link"
+            }
+          ]
+        },
+        {
+          "type": "shell",
+          "category": "Finding Files & Links",
+          "question": "In ~/labs/links, create a soft link named shortcut.txt that points to original.txt.",
+          "cwd": "~/labs/links",
+          "places": [
+            "~/labs/links"
+          ],
+          "solution": "ln -s original.txt shortcut.txt",
+          "verify": "ls -l",
+          "explanation": "`ln -s target linkname` makes a symbolic link; `ls -l` shows it with an arrow."
+        },
+        {
+          "type": "shell",
+          "category": "Finding Files & Links",
+          "question": "In ~/labs/links, create a hard link named backup.txt for original.txt.",
+          "cwd": "~/labs/links",
+          "places": [
+            "~/labs/links"
+          ],
+          "solution": "ln original.txt backup.txt",
+          "verify": "ls -l",
+          "explanation": "Without -s, ln makes a hard link. Afterwards, the file's link count goes up."
+        },
+        {
+          "type": "shell",
+          "category": "Finding Files & Links",
+          "question": "Find every file named notes.txt under ~/labs/files.",
+          "places": [
+            "~"
+          ],
+          "solution": "find ~/labs/files -name notes.txt",
+          "explanation": "The path is where to start; -name is the filename pattern."
+        }
+      ]
+    },
+    {
+      "name": "9. Redirection, Pipes and Text Tools",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Redirection, Pipes & Text Tools",
+          "question": "What is the difference between `ls -ltr > filename` and `ls -ltr >> filename`?",
+          "options": [
+            "`>` writes (overwriting the file); `>>` appends to the end of the file",
+            "`>` appends; `>>` overwrites",
+            "`>` sends errors; `>>` sends output",
+            "No difference"
+          ],
+          "correct": 0,
+          "explanation": "Use `>` with care: it replaces whatever was in the file."
+        },
+        {
+          "type": "mc",
+          "category": "Redirection, Pipes & Text Tools",
+          "question": "What does a pipe (`|`) do?",
+          "options": [
+            "Saves output to a file",
+            "Sends the output of one command to the input of the next",
+            "Runs two commands at the same time and ignores their output",
+            "Runs the second command only if the first fails"
+          ],
+          "correct": 1,
+          "explanation": "For example `ls -l /etc | more`."
+        },
+        {
+          "type": "mc",
+          "category": "Redirection, Pipes & Text Tools",
+          "question": "What does `ls -l | head` show?",
+          "options": [
+            "The last 10 lines of the long listing",
+            "Only the directories",
+            "The first 10 lines of the long listing",
+            "A header explaining the columns"
+          ],
+          "correct": 2,
+          "explanation": "`tail` would show the last 10 instead."
+        },
+        {
+          "type": "matching",
+          "category": "Redirection, Pipes & Text Tools",
+          "question": "Match each text tool to what it does.",
+          "pairs": [
+            {
+              "left": "grep",
+              "right": "Searches for lines matching a pattern"
+            },
+            {
+              "left": "sort",
+              "right": "Sorts lines"
+            },
+            {
+              "left": "uniq",
+              "right": "Collapses repeated adjacent lines (and counts them with -c)"
+            },
+            {
+              "left": "awk",
+              "right": "Processes text field by field, for example printing one column"
+            },
+            {
+              "left": "sed",
+              "right": "Edits a stream of text, for example substituting one string for another"
+            },
+            {
+              "left": "tee",
+              "right": "Writes its input to a file and also to the screen"
+            }
+          ]
+        },
+        {
+          "type": "mc",
+          "category": "Redirection, Pipes & Text Tools",
+          "question": "Why does `uniq` normally need `sort` first?",
+          "options": [
+            "uniq cannot read a file without being sorted",
+            "sort converts the file to a format uniq understands",
+            "uniq only works on numbers",
+            "uniq only removes duplicates that are next to each other"
+          ],
+          "correct": 3,
+          "explanation": "That is why `sort file | uniq -c` is the standard counting pipeline."
+        },
+        {
+          "type": "mc",
+          "category": "Redirection, Pipes & Text Tools",
+          "question": "The file `animals` has two columns, a name and a type, such as `Tiger Cat`. Which pipeline counts how many lines there are of each type?",
+          "options": [
+            "`awk '{print $2}' animals | sort | uniq -c`",
+            "`sort animals | wc -c`",
+            "`cut -f1 animals | uniq`",
+            "`grep -c animals Cat`"
+          ],
+          "correct": 0,
+          "explanation": "awk prints the second field, sort groups identical types together, and uniq -c counts each group."
+        },
+        {
+          "type": "shell",
+          "category": "Redirection, Pipes & Text Tools",
+          "question": "The file ~/animals has lines such as `Tiger Cat`. Print how many lines contain the word Cat.",
+          "setup": [
+            "printf 'Tiger Cat\\nJungle Cat\\nCivet Cat\\nKaffir Cat\\nRingtail Cat\\nToddy Cat\\nNative Cat\\nTiger Butterfly\\nIndian Butterfly\\nAmerican Butterfly\\nAustralian Butterfly\\nMexican Butterfly\\nCanadian Butterfly\\nAfrican Butterfly\\nDusky Reptile\\nGecko Reptile\\nCoiled Reptile\\nSwimming Reptile\\nDragon Reptile\\nCape Aves\\nFalcon Aves\\nOsprey Aves\\nDove Aves\\nSwallow Aves\\nHawk Aves\\n' > ~/animals"
+          ],
+          "places": [
+            "~"
+          ],
+          "solution": "grep -c Cat ~/animals",
+          "explanation": "`grep -c` prints a count of matching lines instead of the lines themselves."
+        },
+        {
+          "type": "shell",
+          "category": "Redirection, Pipes & Text Tools",
+          "question": "The file ~/animals has lines such as `Tiger Cat`. Print only the second column (the animal type) of every line.",
+          "setup": [
+            "printf 'Tiger Cat\\nJungle Cat\\nCivet Cat\\nKaffir Cat\\nRingtail Cat\\nToddy Cat\\nNative Cat\\nTiger Butterfly\\nIndian Butterfly\\nAmerican Butterfly\\nAustralian Butterfly\\nMexican Butterfly\\nCanadian Butterfly\\nAfrican Butterfly\\nDusky Reptile\\nGecko Reptile\\nCoiled Reptile\\nSwimming Reptile\\nDragon Reptile\\nCape Aves\\nFalcon Aves\\nOsprey Aves\\nDove Aves\\nSwallow Aves\\nHawk Aves\\n' > ~/animals"
+          ],
+          "orderMatters": true,
+          "places": [
+            "~"
+          ],
+          "solution": "awk '{print $2}' ~/animals",
+          "explanation": "`$2` is the second whitespace-separated field. `cut -d' ' -f2` gives the same result."
+        },
+        {
+          "type": "shell",
+          "category": "Redirection, Pipes & Text Tools",
+          "question": "The file ~/animals has lines such as `Tiger Cat`. Count how many animals there are of each type (print each type once, with its count).",
+          "setup": [
+            "printf 'Tiger Cat\\nJungle Cat\\nCivet Cat\\nKaffir Cat\\nRingtail Cat\\nToddy Cat\\nNative Cat\\nTiger Butterfly\\nIndian Butterfly\\nAmerican Butterfly\\nAustralian Butterfly\\nMexican Butterfly\\nCanadian Butterfly\\nAfrican Butterfly\\nDusky Reptile\\nGecko Reptile\\nCoiled Reptile\\nSwimming Reptile\\nDragon Reptile\\nCape Aves\\nFalcon Aves\\nOsprey Aves\\nDove Aves\\nSwallow Aves\\nHawk Aves\\n' > ~/animals"
+          ],
+          "orderMatters": true,
+          "places": [
+            "~"
+          ],
+          "solution": "awk '{print $2}' ~/animals | sort | uniq -c",
+          "explanation": "Print the type, sort so equal types are adjacent, then let uniq -c count them."
+        },
+        {
+          "type": "shell",
+          "category": "Redirection, Pipes & Text Tools",
+          "question": "The file ~/animals has lines such as `Tiger Cat`. Print the file's lines with the word Cat replaced by Feline.",
+          "setup": [
+            "printf 'Tiger Cat\\nJungle Cat\\nCivet Cat\\nKaffir Cat\\nRingtail Cat\\nToddy Cat\\nNative Cat\\nTiger Butterfly\\nIndian Butterfly\\nAmerican Butterfly\\nAustralian Butterfly\\nMexican Butterfly\\nCanadian Butterfly\\nAfrican Butterfly\\nDusky Reptile\\nGecko Reptile\\nCoiled Reptile\\nSwimming Reptile\\nDragon Reptile\\nCape Aves\\nFalcon Aves\\nOsprey Aves\\nDove Aves\\nSwallow Aves\\nHawk Aves\\n' > ~/animals"
+          ],
+          "orderMatters": true,
+          "places": [
+            "~"
+          ],
+          "solution": "sed 's/Cat/Feline/' ~/animals",
+          "explanation": "`s/old/new/` substitutes the first match on each line."
+        },
+        {
+          "type": "shell",
+          "category": "Redirection, Pipes & Text Tools",
+          "question": "The file ~/animals has lines such as `Tiger Cat`. Save only the lines about Reptiles into a new file ~/reptiles.txt.",
+          "setup": [
+            "printf 'Tiger Cat\\nJungle Cat\\nCivet Cat\\nKaffir Cat\\nRingtail Cat\\nToddy Cat\\nNative Cat\\nTiger Butterfly\\nIndian Butterfly\\nAmerican Butterfly\\nAustralian Butterfly\\nMexican Butterfly\\nCanadian Butterfly\\nAfrican Butterfly\\nDusky Reptile\\nGecko Reptile\\nCoiled Reptile\\nSwimming Reptile\\nDragon Reptile\\nCape Aves\\nFalcon Aves\\nOsprey Aves\\nDove Aves\\nSwallow Aves\\nHawk Aves\\n' > ~/animals"
+          ],
+          "places": [
+            "~"
+          ],
+          "solution": "grep Reptile ~/animals > ~/reptiles.txt",
+          "verify": "cat ~/reptiles.txt",
+          "explanation": "grep selects the lines and `>` redirects them to the file."
+        },
+        {
+          "type": "shell",
+          "category": "Redirection, Pipes & Text Tools",
+          "question": "The file ~/animals has lines such as `Tiger Cat`. Print the lines about Aves, and also save them to ~/aves.txt in the same command.",
+          "setup": [
+            "printf 'Tiger Cat\\nJungle Cat\\nCivet Cat\\nKaffir Cat\\nRingtail Cat\\nToddy Cat\\nNative Cat\\nTiger Butterfly\\nIndian Butterfly\\nAmerican Butterfly\\nAustralian Butterfly\\nMexican Butterfly\\nCanadian Butterfly\\nAfrican Butterfly\\nDusky Reptile\\nGecko Reptile\\nCoiled Reptile\\nSwimming Reptile\\nDragon Reptile\\nCape Aves\\nFalcon Aves\\nOsprey Aves\\nDove Aves\\nSwallow Aves\\nHawk Aves\\n' > ~/animals"
+          ],
+          "places": [
+            "~"
+          ],
+          "solution": "grep Aves ~/animals | tee ~/aves.txt",
+          "verify": "cat ~/aves.txt",
+          "explanation": "tee passes its input through to the screen while writing a copy to the file."
+        },
+        {
+          "type": "shell",
+          "category": "Redirection, Pipes & Text Tools",
+          "question": "Print the number of lines in the file ~/animals.",
+          "setup": [
+            "printf 'Tiger Cat\\nJungle Cat\\nCivet Cat\\nKaffir Cat\\nRingtail Cat\\nToddy Cat\\nNative Cat\\nTiger Butterfly\\nIndian Butterfly\\nAmerican Butterfly\\nAustralian Butterfly\\nMexican Butterfly\\nCanadian Butterfly\\nAfrican Butterfly\\nDusky Reptile\\nGecko Reptile\\nCoiled Reptile\\nSwimming Reptile\\nDragon Reptile\\nCape Aves\\nFalcon Aves\\nOsprey Aves\\nDove Aves\\nSwallow Aves\\nHawk Aves\\n' > ~/animals"
+          ],
+          "places": [
+            "~"
+          ],
+          "solution": "wc -l ~/animals",
+          "explanation": "`wc -l` counts lines."
+        },
+        {
+          "type": "shell",
+          "category": "Redirection, Pipes & Text Tools",
+          "question": "Append the text second to the end of ~/log.txt without deleting what is already there.",
+          "setup": [
+            "echo first > ~/log.txt"
+          ],
+          "places": [
+            "~"
+          ],
+          "solution": "echo second >> ~/log.txt",
+          "verify": "cat ~/log.txt",
+          "explanation": "`>>` appends; `>` would overwrite the file."
+        }
+      ]
+    },
+    {
+      "name": "10. Users, Groups and sudo",
+      "questions": [
+        {
+          "type": "matching",
+          "category": "Users, Groups & sudo",
+          "question": "Match each account-management command to what it does.",
+          "pairs": [
+            {
+              "left": "useradd",
+              "right": "Creates a new user account"
+            },
+            {
+              "left": "usermod",
+              "right": "Modifies an existing user account"
+            },
+            {
+              "left": "groupadd",
+              "right": "Creates a new group"
+            },
+            {
+              "left": "passwd",
+              "right": "Sets or changes a user's password"
+            },
+            {
+              "left": "su - user",
+              "right": "Switches to another user's login session"
+            }
+          ]
+        },
+        {
+          "type": "mc",
+          "category": "Users, Groups & sudo",
+          "question": "Which command adds the existing user newuser to the wheel group so they can use sudo, without removing them from other groups?",
+          "options": [
+            "`usermod -G wheel newuser`",
+            "`usermod -aG wheel newuser`",
+            "`useradd wheel newuser`",
+            "`passwd wheel newuser`"
+          ],
+          "correct": 1,
+          "explanation": "-G sets the supplementary groups and -a appends. Without -a, usermod replaces all of the user's supplementary groups, silently removing them from every other group."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Users, Groups & sudo",
+          "question": "On CentOS and RHEL, the members of which special group are allowed to run all commands as root through sudo?",
+          "answers": [
+            "wheel"
+          ],
+          "explanation": "Members of wheel are granted full sudo access by the default /etc/sudoers file. On Debian and Ubuntu the equivalent is called sudo."
+        },
+        {
+          "type": "mc",
+          "category": "Users, Groups & sudo",
+          "question": "What does the `wheel` group allow its members to do?",
+          "options": [
+            "Read all files in /home",
+            "Log in without a password",
+            "Run any command as root with sudo",
+            "Create new users without sudo"
+          ],
+          "correct": 2,
+          "explanation": "The group name is just a label; the line `%wheel ALL=(ALL) ALL` in sudoers is what gives it power."
+        },
+        {
+          "type": "mc",
+          "category": "Users, Groups & sudo",
+          "question": "A normal user runs `ls -la /root/` and gets `Permission denied`. What do they run to get the listing?",
+          "options": [
+            "`su ls -la /root/`",
+            "`chmod 777 /root; ls /root`",
+            "`ls -la /root/ --force`",
+            "`sudo ls -la /root/`"
+          ],
+          "correct": 3,
+          "explanation": "sudo runs just that one command as root."
+        },
+        {
+          "type": "mc",
+          "category": "Users, Groups & sudo",
+          "question": "When a wheel member runs a command with sudo, whose password is requested?",
+          "options": [
+            "Their own password",
+            "The root password",
+            "A password stored in /etc/wheel",
+            "No password is ever asked"
+          ],
+          "correct": 0,
+          "explanation": "sudo checks that you are allowed to, using your own credentials; that is why you don't need to share root's password."
+        },
+        {
+          "type": "mc",
+          "category": "Users, Groups & sudo",
+          "question": "A new sudo user runs `sudo whoami`. What is printed?",
+          "options": [
+            "The user's own name",
+            "root",
+            "wheel",
+            "sudo"
+          ],
+          "correct": 1,
+          "explanation": "The command ran as root, so `whoami` reports root."
+        },
+        {
+          "type": "mc",
+          "category": "Users, Groups & sudo",
+          "question": "After creating a user with `adduser newuser`, what must you do before they can log in?",
+          "options": [
+            "Add them to the wheel group",
+            "Restart the system",
+            "Set a password with `passwd newuser`",
+            "Run `su - newuser` as that user"
+          ],
+          "correct": 2,
+          "explanation": "A new account is locked until a password is set. Passwords failing the dictionary check will be rejected for being weak."
+        },
+        {
+          "type": "tf",
+          "category": "Users, Groups & sudo",
+          "question": "`sudo su` switches you to the root user.",
+          "correct": true,
+          "explanation": "`sudo su` uses sudo to run `su`, which starts a root shell. `sudo -i` is the usual way to do the same thing."
+        },
+        {
+          "type": "mc",
+          "category": "Users, Groups & sudo",
+          "question": "What does `su - newuser` do?",
+          "options": [
+            "Deletes newuser",
+            "Gives newuser root privileges",
+            "Runs the next command as newuser, then returns",
+            "Switches to newuser with a full login environment (requires newuser's password unless you are root)"
+          ],
+          "correct": 3,
+          "explanation": "Use `exit` to return to the previous user."
+        },
+        {
+          "type": "shell",
+          "category": "Users, Groups & sudo",
+          "question": "Create a new user account named carol.",
+          "places": [
+            "/etc"
+          ],
+          "solution": "sudo useradd carol",
+          "verify": "grep carol /etc/passwd",
+          "explanation": "`useradd` creates the account; use sudo as an ordinary user."
+        },
+        {
+          "type": "shell",
+          "category": "Users, Groups & sudo",
+          "question": "Create a new group named developers.",
+          "places": [
+            "/etc"
+          ],
+          "solution": "sudo groupadd developers",
+          "verify": "getent group developers",
+          "explanation": "`groupadd` creates a group."
+        },
+        {
+          "type": "shell",
+          "category": "Users, Groups & sudo",
+          "question": "The user bob already exists. Add bob to the wheel group, keeping any groups he is already in.",
+          "setup": [
+            "sudo useradd bob"
+          ],
+          "places": [
+            "/etc"
+          ],
+          "solution": "sudo usermod -aG wheel bob",
+          "verify": "id bob",
+          "explanation": "-a (append) must go with -G, or bob's other groups would be replaced."
+        }
+      ]
+    },
+    {
+      "name": "11. The vi Editor",
+      "questions": [
+        {
+          "type": "matching",
+          "category": "vi Editor",
+          "question": "Match each vi key or command to what it does.",
+          "pairs": [
+            {
+              "left": "i",
+              "right": "Enter insert mode"
+            },
+            {
+              "left": "Esc",
+              "right": "Leave insert mode and return to command mode"
+            },
+            {
+              "left": "r",
+              "right": "Replace the character under the cursor"
+            },
+            {
+              "left": "dd",
+              "right": "Delete the current line"
+            },
+            {
+              "left": "u",
+              "right": "Undo the last change"
+            },
+            {
+              "left": "x",
+              "right": "Delete the character under the cursor"
+            },
+            {
+              "left": ":q!",
+              "right": "Quit without saving"
+            },
+            {
+              "left": ":wq!",
+              "right": "Write (save) and quit"
+            },
+            {
+              "left": "ZZ",
+              "right": "Save and quit (Shift+Z twice)"
+            },
+            {
+              "left": "/",
+              "right": "Search for a string"
+            }
+          ]
+        },
+        {
+          "type": "mc",
+          "category": "vi Editor",
+          "question": "You made changes you don't want to keep. Which command leaves vi without saving?",
+          "options": [
+            ":q!",
+            ":wq!",
+            "ZZ",
+            ":w"
+          ],
+          "correct": 0,
+          "explanation": "The `!` forces the quit even though the buffer has unsaved changes."
+        },
+        {
+          "type": "mc",
+          "category": "vi Editor",
+          "question": "Which of these saves your changes and quits vi?",
+          "options": [
+            ":q!",
+            "ZZ (Shift+Z twice)",
+            "dd",
+            "/save"
+          ],
+          "correct": 1,
+          "explanation": ":wq and :x do the same. ZZ only works from command mode."
+        },
+        {
+          "type": "mc",
+          "category": "vi Editor",
+          "question": "You open a file in vi and start typing, but nothing appears. What is the most likely cause?",
+          "options": [
+            "The file is empty",
+            "You need to press Ctrl+S",
+            "You are in command mode; press i to enter insert mode first",
+            "vi is a read-only editor"
+          ],
+          "correct": 2,
+          "explanation": "vi starts in command mode, where keys are commands rather than text."
+        },
+        {
+          "type": "mc",
+          "category": "vi Editor",
+          "question": "In command mode, how do you search for the word error?",
+          "options": [
+            "Type `?error=` and press Enter",
+            "Type `i error`",
+            "Type `:find error`",
+            "Type `/error` and press Enter"
+          ],
+          "correct": 3,
+          "explanation": "Press n for the next match."
+        },
+        {
+          "type": "fill_blank",
+          "category": "vi Editor",
+          "question": "Which key do you press to leave insert mode and return to command mode?",
+          "answers": [
+            "esc",
+            "escape"
+          ],
+          "explanation": "Esc is the way out of any mode."
+        }
+      ]
+    },
+    {
+      "name": "12. Scheduling with cron",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "cron",
+          "question": "What are the five time fields of a crontab entry, in order?",
+          "options": [
+            "minute, hour, day of month, month, day of week",
+            "hour, minute, day of week, day of month, month",
+            "second, minute, hour, day, month",
+            "day, month, year, hour, minute"
+          ],
+          "correct": 0,
+          "explanation": "Then comes the command to run. `*` means every value."
+        },
+        {
+          "type": "matching",
+          "category": "cron",
+          "question": "Match each crontab option to what it does.",
+          "pairs": [
+            {
+              "left": "crontab -e",
+              "right": "Edit your cron jobs (opens an editor, vi by default)"
+            },
+            {
+              "left": "crontab -l",
+              "right": "List your cron jobs"
+            },
+            {
+              "left": "crontab -r",
+              "right": "Remove all your cron jobs"
+            },
+            {
+              "left": "crontab -u username -l",
+              "right": "List another user's cron jobs"
+            }
+          ]
+        },
+        {
+          "type": "mc",
+          "category": "cron",
+          "question": "What does the entry `0 3 * * * /root/Backup.sh` do?",
+          "options": [
+            "Runs it every 3 minutes",
+            "Runs /root/Backup.sh at 3:00 a.m. every day",
+            "Runs it at 3 p.m. on the first of each month",
+            "Runs it three times a day"
+          ],
+          "correct": 1,
+          "explanation": "Minute 0, hour 3, any day, any month, any weekday."
+        },
+        {
+          "type": "mc",
+          "category": "cron",
+          "question": "What does the entry `30 16 2 * * /path/to/script.sh` do?",
+          "options": [
+            "Runs it at 4:30 a.m. every day",
+            "Runs it at 16:02 every day",
+            "Runs the script at 4:30 p.m. on the 2nd of every month",
+            "Runs it every 30 minutes on the 2nd"
+          ],
+          "correct": 2,
+          "explanation": "A crontab line has five time fields, so minute 30, hour 16 (24-hour clock), day of month 2."
+        },
+        {
+          "type": "mc",
+          "category": "cron",
+          "question": "What does the entry `0 22 * * 1-5 /scripts/phpscripts.sh` do?",
+          "options": [
+            "Runs it at 10:00 p.m. on the 1st to 5th of each month",
+            "Runs it every day at 1:05 a.m.",
+            "Runs it at 10:00 a.m. on weekends",
+            "Runs the script at 10:00 p.m., Monday to Friday"
+          ],
+          "correct": 3,
+          "explanation": "The fifth field is the day of the week; 1-5 is Monday through Friday."
+        },
+        {
+          "type": "mc",
+          "category": "cron",
+          "question": "What does the entry `*/30 * * * * /path/to/script` do?",
+          "options": [
+            "Runs the script every 30 minutes",
+            "Runs it once at 30 minutes past midnight",
+            "Runs it every 30 hours",
+            "Runs it 30 times per day, at random"
+          ],
+          "correct": 0,
+          "explanation": "`*/n` means every n units of that field."
+        },
+        {
+          "type": "mc",
+          "category": "cron",
+          "question": "What does the entry `5 4 * * sun /path/to/linuxcommand` do?",
+          "options": [
+            "Runs it at 5:04 every Sunday",
+            "Runs the command at 04:05 every Sunday",
+            "Runs it at 04:05 every day for a month",
+            "Runs it at 4:05 p.m. on Sunday"
+          ],
+          "correct": 1,
+          "explanation": "Day names can be used in the day-of-week field."
+        },
+        {
+          "type": "mc",
+          "category": "cron",
+          "question": "What does the entry `23 0-23/2 * * * /path/to/script.sh` do?",
+          "options": [
+            "Runs it every 23 minutes",
+            "Runs it at 11:00 p.m. every 2 days",
+            "Runs the script at 23 minutes past every second hour (00:23, 02:23, 04:23...)",
+            "Runs it 23 times a day"
+          ],
+          "correct": 2,
+          "explanation": "The hour field `0-23/2` means every second hour from 0 through 23."
+        },
+        {
+          "type": "mc",
+          "category": "cron",
+          "question": "What does the entry `22 20 * 3 * command` do?",
+          "options": [
+            "Runs it at 22:20 on the 3rd of every month",
+            "Runs it at 8:22 p.m. on March 3 only",
+            "Runs it every 22 minutes in March",
+            "Runs the command at 8:22 p.m. every day in March"
+          ],
+          "correct": 3,
+          "explanation": "Minute 22, hour 20, any day of month, month 3, any weekday."
+        },
+        {
+          "type": "mc",
+          "category": "cron",
+          "question": "Which crontab entry runs /home/user/cleanup.sh at 6:15 a.m. every Monday?",
+          "options": [
+            "`15 6 * * 1 /home/user/cleanup.sh`",
+            "`6 15 * * 1 /home/user/cleanup.sh`",
+            "`15 6 1 * * /home/user/cleanup.sh`",
+            "`15 18 * * 1 /home/user/cleanup.sh`"
+          ],
+          "correct": 0,
+          "explanation": "Minute first, then hour; the last field is the day of week (1 = Monday). The third field is the day of the *month*."
+        },
+        {
+          "type": "matching",
+          "category": "cron",
+          "question": "Match each cron shortcut to when it runs.",
+          "pairs": [
+            {
+              "left": "@hourly",
+              "right": "Once an hour (0 * * * *)"
+            },
+            {
+              "left": "@daily",
+              "right": "Once a day at midnight (0 0 * * *)"
+            },
+            {
+              "left": "@weekly",
+              "right": "Once a week (0 0 * * 0)"
+            },
+            {
+              "left": "@monthly",
+              "right": "Once a month (0 0 1 * *)"
+            },
+            {
+              "left": "@yearly",
+              "right": "Once a year (0 0 1 1 *)"
+            },
+            {
+              "left": "@reboot",
+              "right": "Once, at every startup"
+            }
+          ]
+        },
+        {
+          "type": "mc",
+          "category": "cron",
+          "question": "Which is the same as `@daily`?",
+          "options": [
+            "`@weekly`",
+            "`@midnight`",
+            "`@hourly`",
+            "`@reboot`"
+          ],
+          "correct": 1,
+          "explanation": "@midnight and @daily are synonyms; @annually and @yearly are likewise."
+        },
+        {
+          "type": "mc",
+          "category": "cron",
+          "question": "In the class exercise, why was the system clock set with `date -s` as root before editing the crontab?",
+          "options": [
+            "Because cron refuses to run unless the date has been set",
+            "Because crontab -e needs the clock to be in 2023",
+            "So the job's scheduled time was only a minute or two away and the job could be seen running",
+            "To log the job's output to a file"
+          ],
+          "correct": 2,
+          "explanation": "Setting the clock close to the scheduled time avoids waiting a full day to see the job run."
+        }
+      ]
+    },
+    {
+      "name": "13. Shell Scripting",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Shell Scripting",
+          "question": "What is the first line `#!/bin/bash` of a script called, and what does it do?",
+          "options": [
+            "A comment that is ignored",
+            "The header that sets the script's permissions",
+            "The line that gives the script its name",
+            "The shebang (hashbang); it names the interpreter that runs the script"
+          ],
+          "correct": 3,
+          "explanation": "The kernel reads it to find which program should run the file."
+        },
+        {
+          "type": "tf",
+          "category": "Shell Scripting",
+          "question": "Any command you can type at the bash prompt can also be put in a shell script.",
+          "correct": true,
+          "explanation": "A script is a sequence of commands that bash runs in order."
+        },
+        {
+          "type": "mc",
+          "category": "Shell Scripting",
+          "question": "Which two ways of running a script are correct?",
+          "options": [
+            "`bash myscript` and `./myscript` (the latter needs execute permission)",
+            "`run myscript` and `exec myscript`",
+            "`./myscript` and `cat myscript`",
+            "`myscript` and `myscript.exe` in any directory"
+          ],
+          "correct": 0,
+          "explanation": "`bash myscript` needs only read permission. `./myscript` requires `chmod +x myscript` first."
+        },
+        {
+          "type": "mc",
+          "category": "Shell Scripting",
+          "question": "Which is a correct `if` statement in bash?",
+          "options": [
+            "`if (-f /etc/passwd) { echo yes }`",
+            "`if [ -f /etc/passwd ]; then echo yes; fi`",
+            "`if [ -f /etc/passwd ] echo yes endif`",
+            "`if -f /etc/passwd then echo yes end`"
+          ],
+          "correct": 1,
+          "explanation": "Spaces inside the brackets are required, and the block is closed with `fi` (if backwards)."
+        },
+        {
+          "type": "mc",
+          "category": "Shell Scripting",
+          "question": "What does `for i in 1 2 3; do echo $i; done` print?",
+          "options": [
+            "i, i, i",
+            "123 on one line",
+            "1, then 2, then 3, each on its own line",
+            "Nothing; the loop never runs"
+          ],
+          "correct": 2,
+          "explanation": "The loop runs once for each value, setting i each time."
+        },
+        {
+          "type": "mc",
+          "category": "Shell Scripting",
+          "question": "How is a `case` statement closed?",
+          "options": [
+            "With `endcase`",
+            "With `fi`",
+            "With `done`",
+            "With `esac` (case backwards)"
+          ],
+          "correct": 3,
+          "explanation": "Each pattern's commands end with `;;`. `fi` closes an if and `done` closes a loop."
+        },
+        {
+          "type": "shell",
+          "category": "Shell Scripting",
+          "question": "Using a for loop, print the lines `Number 1`, `Number 2` and `Number 3`.",
+          "orderMatters": true,
+          "places": [
+            "~"
+          ],
+          "solution": "for i in 1 2 3; do echo \"Number $i\"; done",
+          "explanation": "The loop variable is set to each value in turn."
+        },
+        {
+          "type": "short_answer",
+          "category": "Shell Scripting",
+          "question": "Write a short bash script that prints `Hello, <name>` for each of the names alice, bob and carol, using a for loop. Include the first line that tells the system which shell runs it.",
+          "answerLang": null,
+          "modelAnswer": "#!/bin/bash\nfor name in alice bob carol\ndo\n  echo \"Hello, $name\"\ndone",
+          "rubric": [
+            "Starts with the shebang line #!/bin/bash",
+            "Uses a for loop over the three names (for name in alice bob carol; do ... done)",
+            "Prints each name with echo and refers to the loop variable with $",
+            "Closes the loop with done"
+          ],
+          "explanation": "To run it you would save it as hello.sh, `chmod +x hello.sh` and run `./hello.sh`."
+        },
+        {
+          "type": "short_answer",
+          "category": "Shell Scripting",
+          "question": "Explain the steps to create a user named alice and give her the ability to run commands as root with sudo, naming the command for each step.",
+          "answerLang": null,
+          "modelAnswer": "1. Switch to root or use sudo: `sudo su`.\n2. Create the account: `useradd alice` (or `adduser alice`).\n3. Set a password: `passwd alice`.\n4. Add her to the wheel group: `usermod -aG wheel alice` - the -a is essential so her other groups are kept.\n5. Test: `su - alice`, then `sudo whoami` should print root.",
+          "rubric": [
+            "Creates the user with useradd or adduser",
+            "Sets a password with passwd",
+            "Adds the user to the wheel group using usermod -aG (with -a to append)",
+            "Describes testing with su - and sudo (for example sudo whoami returning root)"
+          ],
+          "explanation": "This is the sudoers how-to from class: create the user, set a password, add to wheel, test."
+        }
+      ]
+    }
+  ]
+}
