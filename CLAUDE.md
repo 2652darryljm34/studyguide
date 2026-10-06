@@ -52,3 +52,29 @@ If you add a new quiz, call `length_bias()` from its build script and make it an
 - `sql` questions run against `data/harborview.sql`; run `python tools/check_sql.py`.
 - Study-material source files (PDFs, decks, docx) from classmates' courses are not committed to the repo.
   `.gitignore` the folder or leave it untracked; the owner has asked for them to stay out.
+
+## Keep quiz content original
+
+Write every review question from scratch, from the course's study guide and topic list. Do not reproduce
+sample quizzes, past exam papers or other instructor-provided questions in this repo, whether verbatim or
+lightly reworded. If such material is supplied, use it at most to see which concepts are emphasized, then
+write new questions with different scenarios, numbers, variable and file names, and stem wording. Generic
+templates ("What does np.arange(a, b, c) return?") are fine when the numbers and the answer differ.
+
+- Keep everything written into the repo neutral about where ideas came from: code comments, docstrings,
+  commit messages, quiz titles and descriptions should say what a quiz covers ("based on the study guide"),
+  not recount what material the owner supplied.
+- Before building on newly supplied instructor material, ask the owner whether and how it may be used,
+  rather than assuming.
+- Do not offer an instructor's loose-but-accepted phrasing as a wrong answer.
+- To check overlap, compare new question stems against the supplied stems with `difflib` (keep that script
+  and the supplied text outside the repo) and rewrite anything above about 0.8 similarity.
+
+## Short mode (random subset) for long quizzes
+
+A quiz JSON can set `"shortCount": N`. `assets/quiz.js` then shows a chooser (short or full) before it
+starts. Short mode draws N questions at random, redrawn on every attempt, spread evenly across the quiz's
+sections (every section gets floor(N / sections), and the leftovers go to different random sections, so no
+two sections differ by more than one). `?mode=short` and `?mode=full` skip the chooser. A quiz without
+`shortCount` behaves as before. ITD 145's final uses it (`tools/build_itd145_final.py`).
+

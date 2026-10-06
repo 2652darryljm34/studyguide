@@ -1,0 +1,2821 @@
+{
+  "title": "ITD 145 Final Exam Review",
+  "description": "Built from the final exam study guide: descriptive statistics, distributions, inferential statistics, outliers, NumPy, pandas, cleaning, reshaping, linear regression and plotting.",
+  "shortCount": 40,
+  "sections": [
+    {
+      "name": "1. Descriptive Statistics",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Descriptive Statistics",
+          "question": "A hospital wants the average wait time across all 12,000 of its yearly emergency visits, so it times 300 randomly chosen visits. The 300 visits are the ___.",
+          "options": [
+            "sample",
+            "population",
+            "parameter",
+            "census"
+          ],
+          "correct": 0,
+          "explanation": "The group you actually measure is the sample; the 12,000 visits are the population."
+        },
+        {
+          "type": "mc",
+          "category": "Descriptive Statistics",
+          "question": "In the same study, the true average wait time across all 12,000 visits is a ___.",
+          "options": [
+            "statistic",
+            "parameter",
+            "quartile",
+            "sampling error"
+          ],
+          "correct": 1,
+          "explanation": "A number describing a population is a parameter. A number computed from a sample is a statistic."
+        },
+        {
+          "type": "mc",
+          "category": "Descriptive Statistics",
+          "question": "Which pair of symbols correctly labels the sample mean and the population mean?",
+          "options": [
+            "μ for the sample mean and x̄ for the population mean, since mu comes first",
+            "σ for the sample mean and μ for the population mean, which is the usual pairing",
+            "x̄ (x-bar) for the sample mean and μ (mu) for the population mean",
+            "x̄ for both, because the two means are calculated with the same formula"
+          ],
+          "correct": 2,
+          "explanation": "x̄ is the sample statistic and μ is the population parameter. σ is the population standard deviation."
+        },
+        {
+          "type": "tf",
+          "category": "Descriptive Statistics",
+          "question": "A sample mean will always be exactly equal to the mean of the population it was drawn from.",
+          "correct": false,
+          "explanation": "Different random samples give different means. That sample-to-sample difference is sampling error."
+        },
+        {
+          "type": "mc",
+          "category": "Descriptive Statistics",
+          "question": "A researcher doubles the size of a random sample. What is the most likely effect on the sample mean as an estimate of the population mean?",
+          "options": [
+            "It is guaranteed to equal the population mean, because the sample is larger now",
+            "It becomes biased, because a larger sample is harder to select at random",
+            "It is unchanged, because sample size has no effect on how accurate it is",
+            "It is likely to land closer to the population mean, because sampling error shrinks"
+          ],
+          "correct": 3,
+          "explanation": "Larger random samples reduce sampling error, but they cannot guarantee an exact match."
+        },
+        {
+          "type": "mc",
+          "category": "Descriptive Statistics",
+          "question": "The values in a data set are 3, 5, 7, 7 and 8. Which comparison of the mean and the median is correct?",
+          "options": [
+            "the median (7) is greater than the mean (6)",
+            "the mean (6) is greater than the median (7)",
+            "the mean and the median are both equal to 7",
+            "the mean and the median are both equal to 6"
+          ],
+          "correct": 0,
+          "explanation": "Mean = 30 / 5 = 6; median = 7. The small values pull the mean below the median."
+        },
+        {
+          "type": "mc",
+          "category": "Descriptive Statistics",
+          "question": "What is the median of the data set 4, 9, 12, 20?",
+          "options": [
+            "12",
+            "10.5",
+            "9",
+            "11.25"
+          ],
+          "correct": 1,
+          "explanation": "With an even count, average the two middle values: (9 + 12) / 2 = 10.5. The mean is 11.25."
+        },
+        {
+          "type": "mc",
+          "category": "Descriptive Statistics",
+          "question": "Which measure of central tendency is least affected by a few extreme values?",
+          "options": [
+            "mean",
+            "range",
+            "median",
+            "maximum"
+          ],
+          "correct": 2,
+          "explanation": "The median depends only on the middle of the sorted data, so a huge or tiny value barely moves it."
+        },
+        {
+          "type": "mc",
+          "category": "Descriptive Statistics",
+          "question": "A data set has a minimum of 5, Q1 = 14, a median of 30, Q3 = 38 and a maximum of 90. What is the interquartile range?",
+          "options": [
+            "33",
+            "16",
+            "85",
+            "24"
+          ],
+          "correct": 3,
+          "explanation": "IQR = Q3 − Q1 = 38 − 14 = 24. The other numbers are range-style traps: 38 − 5 = 33, 30 − 14 = 16, 90 − 5 = 85."
+        },
+        {
+          "type": "mc",
+          "category": "Descriptive Statistics",
+          "question": "The second quartile (Q2) of a data set is the same as the ___.",
+          "options": [
+            "median",
+            "mean",
+            "mode",
+            "IQR"
+          ],
+          "correct": 0,
+          "explanation": "Q1, Q2 and Q3 mark the 25th, 50th and 75th percentiles; Q2 is the 50th, the median."
+        },
+        {
+          "type": "mc",
+          "category": "Descriptive Statistics",
+          "question": "A data set has a variance of 49. What is its standard deviation?",
+          "options": [
+            "24.5",
+            "7",
+            "49",
+            "2401"
+          ],
+          "correct": 1,
+          "explanation": "The standard deviation is the square root of the variance, √49 = 7."
+        },
+        {
+          "type": "tf",
+          "category": "Descriptive Statistics",
+          "question": "The variance of a data set is expressed in the same units as the original data.",
+          "correct": false,
+          "explanation": "Variance is in squared units (for example, dollars²). The standard deviation takes the square root to return to the original units."
+        },
+        {
+          "type": "mc",
+          "category": "Descriptive Statistics",
+          "question": "Two classes both average 75 on an exam. Class A has a standard deviation of 3 and class B has a standard deviation of 12. Which statement is true?",
+          "options": [
+            "Class A's scores are more spread out around the mean than class B's scores",
+            "Class B must have the higher median, because its standard deviation is larger",
+            "Class B's scores are more spread out around the mean than class A's scores",
+            "The two classes have identical score distributions, because their means match"
+          ],
+          "correct": 2,
+          "explanation": "A larger standard deviation means the values sit farther from the mean on average."
+        },
+        {
+          "type": "mc",
+          "category": "Descriptive Statistics",
+          "question": "In a histogram of retirement ages, most people retire near 65, but a few retire in their 40s. Which skew describes this distribution?",
+          "options": [
+            "positive (right) skew",
+            "no skew at all",
+            "uniform skew",
+            "negative (left) skew"
+          ],
+          "correct": 3,
+          "explanation": "The long tail points toward the low values on the left, which is negative skew. It pulls the mean below the median."
+        },
+        {
+          "type": "mc",
+          "category": "Descriptive Statistics",
+          "question": "Household income is strongly right-skewed. Which ordering of the three averages is typical?",
+          "options": [
+            "mean > median > mode",
+            "mean < median < mode",
+            "median > mean > mode",
+            "mean = median = mode"
+          ],
+          "correct": 0,
+          "explanation": "A few very large incomes drag the mean to the right of the median, and the mode sits lowest."
+        },
+        {
+          "type": "tf",
+          "category": "Descriptive Statistics",
+          "question": "In a perfectly symmetric distribution, the mean and the median are equal.",
+          "correct": true,
+          "explanation": "Symmetry puts the center of balance (the mean) and the middle value (the median) at the same point."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Descriptive Statistics",
+          "question": "The spread measure calculated as Q3 minus Q1 is called the interquartile ___.",
+          "answers": [
+            "range"
+          ],
+          "explanation": "The interquartile range (IQR) is the spread of the middle 50% of the data."
+        },
+        {
+          "type": "matching",
+          "category": "Descriptive Statistics",
+          "question": "Match each statistic to how it is calculated or what it describes.",
+          "pairs": [
+            {
+              "left": "Mean",
+              "right": "The sum of the values divided by how many there are"
+            },
+            {
+              "left": "Median",
+              "right": "The middle value once the data are sorted"
+            },
+            {
+              "left": "Mode",
+              "right": "The value that occurs most frequently"
+            },
+            {
+              "left": "Variance",
+              "right": "The average squared distance from the mean"
+            },
+            {
+              "left": "Standard deviation",
+              "right": "The square root of the variance"
+            },
+            {
+              "left": "IQR",
+              "right": "The distance between the first and third quartiles"
+            }
+          ],
+          "explanation": "Mean, median and mode describe the center; variance, standard deviation and IQR describe the spread."
+        },
+        {
+          "type": "mc",
+          "category": "Descriptive Statistics",
+          "question": "What is the MODE of this sample: [2, 3, 3, 5, 7, 7, 7, 9, 12, 12]?",
+          "options": [
+            "7",
+            "3",
+            "12",
+            "5"
+          ],
+          "correct": 0,
+          "explanation": "The mode is the value that occurs most often. 7 appears three times, more than any other value."
+        },
+        {
+          "type": "mc",
+          "category": "Descriptive Statistics",
+          "question": "What is the MEDIAN of this unsorted sample: [9, 1, 7, 3, 5]?",
+          "options": [
+            "7",
+            "5",
+            "3",
+            "9"
+          ],
+          "correct": 1,
+          "explanation": "Sort first: 1, 3, 5, 7, 9. The middle value is 5. Taking the middle of the list as given would give 7."
+        },
+        {
+          "type": "mc",
+          "category": "Descriptive Statistics",
+          "question": "What is the MEAN of this sample: [4, 8, 15, 16, 23, 42]?",
+          "options": [
+            "15.5",
+            "16",
+            "18",
+            "20"
+          ],
+          "correct": 2,
+          "explanation": "The sum is 108 and there are 6 values, so the mean is 108 / 6 = 18. The median is 15.5."
+        },
+        {
+          "type": "mc",
+          "category": "Descriptive Statistics",
+          "question": "Which pair contains only measures of spread?",
+          "options": [
+            "mean and standard deviation",
+            "median and interquartile range",
+            "mode and variance",
+            "standard deviation and interquartile range"
+          ],
+          "correct": 3,
+          "explanation": "Mean, median and mode describe the center; standard deviation, variance, range and IQR describe how spread out the data are."
+        },
+        {
+          "type": "mc",
+          "category": "Descriptive Statistics",
+          "question": "A data set of home prices has a mean of $420,000 and a median of $350,000. What does this suggest?",
+          "options": [
+            "The distribution is probably right-skewed, with a few very expensive homes",
+            "The distribution is probably left-skewed, with a few very cheap homes",
+            "The distribution is probably symmetric, with the prices evenly spread",
+            "The distribution is probably uniform, with each price equally likely"
+          ],
+          "correct": 0,
+          "explanation": "The mean sits above the median when a few large values pull it up, which is positive (right) skew."
+        },
+        {
+          "type": "mc",
+          "category": "Descriptive Statistics",
+          "question": "In a right-skewed distribution, which measure of center sits farthest out toward the long tail?",
+          "options": [
+            "the median",
+            "the mean",
+            "the mode",
+            "the midrange"
+          ],
+          "correct": 1,
+          "explanation": "The mean is the most sensitive to extreme values, so it is dragged farthest toward the tail; the mode stays near the peak."
+        },
+        {
+          "type": "mc",
+          "category": "Descriptive Statistics",
+          "question": "A salary column includes one executive paid 100 times as much as everyone else. Which call best summarizes a typical salary?",
+          "options": [
+            "df['salary'].mean()",
+            "df['salary'].max()",
+            "df['salary'].median()",
+            "df['salary'].sum()"
+          ],
+          "correct": 2,
+          "explanation": "The mean would be dragged upward by the executive's pay; the median depends only on the middle of the sorted values."
+        },
+        {
+          "type": "mc",
+          "category": "Descriptive Statistics",
+          "question": "Two normal curves have the same mean. Curve A has a standard deviation of 2 and curve B has a standard deviation of 6. How do they compare?",
+          "options": [
+            "Curve B is wider and has a higher peak than curve A",
+            "Curve B is narrower and has a higher peak than curve A",
+            "The curves have the same shape, since their means match",
+            "Curve B is wider and has a lower peak than curve A"
+          ],
+          "correct": 3,
+          "explanation": "The total area stays 1, so spreading the values out lowers the peak."
+        },
+        {
+          "type": "mc",
+          "category": "Descriptive Statistics",
+          "question": "Maria scored 82 on an exam with a mean of 70 and a standard deviation of 6. Jon scored 75 on a different exam with a mean of 60 and a standard deviation of 10. Who did relatively better, compared with their own exam?",
+          "options": [
+            "Maria, because her z-score of 2 is higher than Jon's z-score of 1.5",
+            "Jon, because his score is 15 points above his mean and Maria's is only 12 above hers",
+            "They did equally well, because both of the scores are above the mean of their exam",
+            "Maria, because 82 is a larger number than 75 and the exams can be compared directly"
+          ],
+          "correct": 0,
+          "explanation": "Z-scores put different scales on a common footing: Maria (82 − 70) / 6 = 2.0; Jon (75 − 60) / 10 = 1.5."
+        }
+      ]
+    },
+    {
+      "name": "2. Random Variables and Distributions",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Random Variables & Distributions",
+          "question": "A random variable is best described as ___.",
+          "options": [
+            "a variable whose value is chosen by the researcher before any data are collected",
+            "a variable whose numeric value is determined by the outcome of a random process",
+            "a variable that can take only the values 0 or 1 on each trial of an experiment",
+            "a variable whose value changes every time the program that uses it is run"
+          ],
+          "correct": 1,
+          "explanation": "Examples: the number of heads in 10 flips, or the time until the next customer arrives."
+        },
+        {
+          "type": "mc",
+          "category": "Random Variables & Distributions",
+          "question": "Which of these is a DISCRETE random variable?",
+          "options": [
+            "the time a customer spends waiting in the checkout line",
+            "the weight of the groceries in a customer's shopping bag",
+            "the number of customers who enter a store in one hour",
+            "the temperature inside the store at noon on a given day"
+          ],
+          "correct": 2,
+          "explanation": "Customers are counted in whole numbers. Time, weight and temperature can take any value in a range, so they are continuous."
+        },
+        {
+          "type": "mc",
+          "category": "Random Variables & Distributions",
+          "question": "Which of these is a CONTINUOUS random variable?",
+          "options": [
+            "the number of runners who finish a race within an hour",
+            "the number of laps a runner completes before stopping",
+            "the finishing place (1st, 2nd, 3rd...) of a particular runner",
+            "the time it takes a runner to finish a race"
+          ],
+          "correct": 3,
+          "explanation": "Time can take any value in an interval (12.4 s, 12.43 s, ...). The others are counts or ranks."
+        },
+        {
+          "type": "tf",
+          "category": "Random Variables & Distributions",
+          "question": "A random variable that can take any value within an interval, such as a height, is continuous.",
+          "correct": true,
+          "explanation": "Continuous variables are measured; discrete variables are counted."
+        },
+        {
+          "type": "mc",
+          "category": "Random Variables & Distributions",
+          "question": "Which statement describes a normal distribution?",
+          "options": [
+            "It is symmetric and bell-shaped, with the mean, median and mode at the center",
+            "It is flat, with every value in the range equally likely to occur",
+            "It is skewed to the right, with the mean larger than the median",
+            "It counts the successes in a fixed number of yes-or-no trials"
+          ],
+          "correct": 0,
+          "explanation": "The normal distribution is the continuous bell curve. Flat is uniform; success counts are binomial."
+        },
+        {
+          "type": "mc",
+          "category": "Random Variables & Distributions",
+          "question": "Adult heights are normally distributed with a mean of 170 cm and a standard deviation of 10 cm. About what percentage of adults are between 150 cm and 190 cm tall?",
+          "options": [
+            "about 68%",
+            "about 95%",
+            "about 99.7%",
+            "about 50%"
+          ],
+          "correct": 1,
+          "explanation": "150 and 190 are two standard deviations below and above the mean. Empirical rule: about 95% fall within two."
+        },
+        {
+          "type": "mc",
+          "category": "Random Variables & Distributions",
+          "question": "Exam scores are normally distributed with a mean of 70 and a standard deviation of 8. About what share of students score between 62 and 78?",
+          "options": [
+            "about 95%",
+            "about 50%",
+            "about 68%",
+            "about 99.7%"
+          ],
+          "correct": 2,
+          "explanation": "62 and 78 are exactly one standard deviation below and above the mean, so about 68% fall between them."
+        },
+        {
+          "type": "mc",
+          "category": "Random Variables & Distributions",
+          "question": "Which situation is modeled by a binomial distribution?",
+          "options": [
+            "the number of emails that arrive in a one-hour interval during the work day",
+            "the height of one adult selected at random from a large population",
+            "the number showing on a single roll of a fair six-sided die",
+            "the number of defective bulbs in a random batch of 25, where each bulb is defective or not"
+          ],
+          "correct": 3,
+          "explanation": "Binomial: a fixed number of independent trials, each with two outcomes and the same chance of success."
+        },
+        {
+          "type": "mc",
+          "category": "Random Variables & Distributions",
+          "question": "Which situation is modeled best by a Poisson distribution?",
+          "options": [
+            "the number of customer calls received by a help desk in one hour",
+            "the number of heads that appear in 10 flips of a fair coin",
+            "the height of one student chosen at random from the campus",
+            "the face that shows on a single roll of a fair six-sided die"
+          ],
+          "correct": 0,
+          "explanation": "Poisson counts how many events occur in a fixed interval of time or space."
+        },
+        {
+          "type": "mc",
+          "category": "Random Variables & Distributions",
+          "question": "A random number generator returns a value between 0 and 1, and every value in that range is equally likely. The values follow a ___ distribution.",
+          "options": [
+            "normal",
+            "uniform",
+            "binomial",
+            "Poisson"
+          ],
+          "correct": 1,
+          "explanation": "A uniform distribution gives every value in its range the same likelihood, so its graph is flat."
+        },
+        {
+          "type": "mc",
+          "category": "Random Variables & Distributions",
+          "question": "Which of these is NOT a requirement for a binomial experiment?",
+          "options": [
+            "the experiment has a fixed number of trials",
+            "each trial is independent of the others",
+            "each trial must have more than two possible outcomes",
+            "the chance of success is the same on every trial"
+          ],
+          "correct": 2,
+          "explanation": "A binomial trial has exactly two outcomes, success or failure."
+        },
+        {
+          "type": "tf",
+          "category": "Random Variables & Distributions",
+          "question": "A Poisson random variable is continuous.",
+          "correct": false,
+          "explanation": "It counts events, so it takes whole-number values and is discrete."
+        },
+        {
+          "type": "matching",
+          "category": "Random Variables & Distributions",
+          "question": "Match each distribution to the situation it describes.",
+          "pairs": [
+            {
+              "left": "Normal",
+              "right": "Adult heights clustered symmetrically around an average"
+            },
+            {
+              "left": "Binomial",
+              "right": "The number of successes in a fixed number of yes-or-no trials"
+            },
+            {
+              "left": "Poisson",
+              "right": "The number of events occurring in a fixed interval of time"
+            },
+            {
+              "left": "Uniform",
+              "right": "Every value in a range is equally likely to occur"
+            }
+          ],
+          "explanation": "Normal and uniform are continuous; binomial and Poisson are discrete."
+        },
+        {
+          "type": "mc",
+          "category": "Random Variables & Distributions",
+          "question": "A histogram is used to show ___.",
+          "options": [
+            "the relationship between two numeric variables across many observations",
+            "the proportion that each category contributes to a whole",
+            "the median and the quartiles of a single numeric variable",
+            "the frequency distribution of a numeric variable grouped into bins"
+          ],
+          "correct": 3,
+          "explanation": "A histogram counts how many values fall in each range of a numeric variable."
+        },
+        {
+          "type": "tf",
+          "category": "Random Variables & Distributions",
+          "question": "Choosing very few bins for a histogram can hide features of the data, such as two separate peaks.",
+          "correct": true,
+          "explanation": "Bin width changes how the shape looks. Too few bins smooth detail away; too many make the plot noisy."
+        },
+        {
+          "type": "mc",
+          "category": "Random Variables & Distributions",
+          "question": "The bars of a histogram touch each other, but the bars of a bar chart are usually separated. Why?",
+          "options": [
+            "A histogram's bins are consecutive ranges of a numeric scale, while bar-chart bars are separate categories",
+            "A histogram shows percentages, while a bar chart can show only raw counts",
+            "A histogram is always drawn horizontally, while a bar chart is drawn vertically",
+            "A histogram always has exactly ten bins, while a bar chart can have any number"
+          ],
+          "correct": 0,
+          "explanation": "The touching bars signal a continuous scale with no gaps between the ranges."
+        },
+        {
+          "type": "tf",
+          "category": "Random Variables & Distributions",
+          "question": "The number of coin flips needed to get the first head is a discrete random variable, even though there is no maximum number of flips.",
+          "correct": true,
+          "explanation": "The possible values 1, 2, 3, ... can be counted one by one, so the variable is discrete even though the list never ends."
+        },
+        {
+          "type": "tf",
+          "category": "Random Variables & Distributions",
+          "question": "If a random variable has infinitely many possible values, it must be a continuous random variable.",
+          "correct": false,
+          "explanation": "Discrete means countable. A count with no upper limit has infinitely many values but is still discrete."
+        },
+        {
+          "type": "tf",
+          "category": "Random Variables & Distributions",
+          "question": "Between any two possible values of a continuous random variable, there are more possible values.",
+          "correct": true,
+          "explanation": "Between 170.1 cm and 170.2 cm lie 170.15 cm, 170.11 cm and so on without end, which is why exact values have probability zero."
+        },
+        {
+          "type": "mc",
+          "category": "Random Variables & Distributions",
+          "question": "Which of these fully describes a random variable?",
+          "options": [
+            "its mean, which summarizes the typical value of the variable",
+            "its probability distribution: the possible values and how likely each one is",
+            "its range, from the smallest to the largest possible value",
+            "its sample size, which is the number of times it was observed"
+          ],
+          "correct": 1,
+          "explanation": "The mean and range are summaries. The distribution describes the whole behavior of the variable."
+        },
+        {
+          "type": "mc",
+          "category": "Random Variables & Distributions",
+          "question": "A discrete random variable takes the values 0, 1 and 2 with probabilities 0.2, 0.5 and 0.3. What is its expected value?",
+          "options": [
+            "1.0",
+            "0.5",
+            "1.1",
+            "2.0"
+          ],
+          "correct": 2,
+          "explanation": "Expected value = Σ x·p = 0(0.2) + 1(0.5) + 2(0.3) = 1.1. It is the probability-weighted average, not necessarily a possible outcome."
+        },
+        {
+          "type": "mc",
+          "category": "Random Variables & Distributions",
+          "question": "If you repeat a random experiment thousands of times, the average of the outcomes settles near the random variable's ___.",
+          "options": [
+            "mode",
+            "range",
+            "sample size",
+            "expected value"
+          ],
+          "correct": 3,
+          "explanation": "The expected value is the long-run mean, the probability-weighted average of the outcomes. For a fair die it is 3.5."
+        },
+        {
+          "type": "mc",
+          "category": "Random Variables & Distributions",
+          "question": "Of 12 randomly chosen customers, each either clicks an ad or does not, with the same chance every time. The number who click follows which distribution?",
+          "options": [
+            "binomial",
+            "Poisson",
+            "uniform",
+            "normal"
+          ],
+          "correct": 0,
+          "explanation": "A fixed number of independent yes-or-no trials with the same probability of success is the binomial setting."
+        },
+        {
+          "type": "mc",
+          "category": "Random Variables & Distributions",
+          "question": "The number of typos on a page is modeled with a Poisson distribution. Which statement about this variable is true?",
+          "options": [
+            "It is continuous, because a page could have any number of typos at all",
+            "It is discrete, because it counts events and takes whole-number values",
+            "It is continuous, because the Poisson is just a type of normal distribution",
+            "It is neither discrete nor continuous, because the number of typos is random"
+          ],
+          "correct": 1,
+          "explanation": "Counts are discrete. Poisson is not a variation of the normal curve; it models the number of events in a fixed interval."
+        },
+        {
+          "type": "mc",
+          "category": "Random Variables & Distributions",
+          "question": "A lottery machine draws a number from 1 to 49, each equally likely. After 100,000 draws, a bar chart of how often each number came up would look ___.",
+          "options": [
+            "bell-shaped",
+            "right-skewed",
+            "roughly flat",
+            "two-peaked"
+          ],
+          "correct": 2,
+          "explanation": "Equal probabilities give equal long-run frequencies, a uniform distribution."
+        },
+        {
+          "type": "tf",
+          "category": "Random Variables & Distributions",
+          "question": "In a normal, non-skewed distribution, the mean, median and mode are all equal.",
+          "correct": true,
+          "explanation": "The symmetric bell shape puts all three at the center."
+        }
+      ]
+    },
+    {
+      "name": "3. Inferential Statistics",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Inferential Statistics",
+          "question": "A 95% confidence interval for a population mean is 48 to 56. Which interpretation is best?",
+          "options": [
+            "95% of all the individual values in the population lie between 48 and 56",
+            "We are 95% confident that the interval captures the true population mean",
+            "There is a 95% chance that the sample mean falls between 48 and 56",
+            "The true mean has a 95% chance of being exactly 52, the center of the interval"
+          ],
+          "correct": 1,
+          "explanation": "The 95% describes the method: intervals built this way capture the true mean about 95% of the time."
+        },
+        {
+          "type": "mc",
+          "category": "Inferential Statistics",
+          "question": "Which change makes a confidence interval NARROWER, all else being equal?",
+          "options": [
+            "increasing the confidence level",
+            "increasing the standard deviation of the data",
+            "increasing the sample size",
+            "decreasing the sample size"
+          ],
+          "correct": 2,
+          "explanation": "More data means a more precise estimate. A higher confidence level or more variability makes the interval wider."
+        },
+        {
+          "type": "mc",
+          "category": "Inferential Statistics",
+          "question": "With the same data, moving from a 90% to a 99% confidence level makes the interval ___.",
+          "options": [
+            "narrower",
+            "unchanged",
+            "shifted left",
+            "wider"
+          ],
+          "correct": 3,
+          "explanation": "To be more confident of capturing the parameter, you have to accept a wider range."
+        },
+        {
+          "type": "mc",
+          "category": "Inferential Statistics",
+          "question": "Why do researchers calculate a minimum sample size before collecting data?",
+          "options": [
+            "To make sure the sample is large enough to estimate the parameter with acceptable precision",
+            "To guarantee that the sample mean will equal the population mean exactly",
+            "To avoid having to run any hypothesis test on the data once it is collected",
+            "To make sure that the data will follow a normal distribution when plotted"
+          ],
+          "correct": 0,
+          "explanation": "A sample that is too small gives wide intervals and unreliable results."
+        },
+        {
+          "type": "mc",
+          "category": "Inferential Statistics",
+          "question": "In hypothesis testing, the null hypothesis typically states that ___.",
+          "options": [
+            "the effect is as large as the researcher expects it to be",
+            "there is no effect or no difference",
+            "the sample size is too small to draw any firm conclusion",
+            "the alternative hypothesis has already been proven to be true"
+          ],
+          "correct": 1,
+          "explanation": "The null is the default claim that the test tries to find evidence against."
+        },
+        {
+          "type": "mc",
+          "category": "Inferential Statistics",
+          "question": "A hypothesis test returns p = 0.03 at a significance level of α = 0.05. What is the correct decision?",
+          "options": [
+            "Fail to reject the null hypothesis, because p is greater than zero",
+            "Accept the null hypothesis as proven, because p is a small number",
+            "Reject the null hypothesis, because p is less than α",
+            "Reject the alternative hypothesis, because p is below 0.05"
+          ],
+          "correct": 2,
+          "explanation": "When p < α the result is statistically significant, so you reject the null."
+        },
+        {
+          "type": "mc",
+          "category": "Inferential Statistics",
+          "question": "A hypothesis test returns p = 0.20 at a significance level of α = 0.05. What is the correct conclusion?",
+          "options": [
+            "Reject the null hypothesis, because 0.20 is larger than 0.05",
+            "Accept the alternative hypothesis, because p is not equal to zero",
+            "Prove the null hypothesis true, because p is a long way from 0.05",
+            "Fail to reject the null hypothesis; the evidence is not strong enough"
+          ],
+          "correct": 3,
+          "explanation": "p > α means the data are consistent with the null. That is not proof the null is true."
+        },
+        {
+          "type": "mc",
+          "category": "Inferential Statistics",
+          "question": "Which statement best defines a p-value?",
+          "options": [
+            "The probability of results at least this extreme if the null hypothesis were true",
+            "The probability that the null hypothesis is true, given the data collected",
+            "The probability that the alternative hypothesis is true, given the data collected",
+            "The proportion of the sample that falls inside the confidence interval"
+          ],
+          "correct": 0,
+          "explanation": "A small p-value says the observed data would be surprising if the null were true."
+        },
+        {
+          "type": "mc",
+          "category": "Inferential Statistics",
+          "question": "Rejecting a null hypothesis that is actually true is called a ___.",
+          "options": [
+            "Type II error",
+            "Type I error",
+            "standard error",
+            "systematic error"
+          ],
+          "correct": 1,
+          "explanation": "Type I = false positive. Its probability is the significance level α."
+        },
+        {
+          "type": "mc",
+          "category": "Inferential Statistics",
+          "question": "Failing to reject a null hypothesis that is actually false is called a ___.",
+          "options": [
+            "Type I error",
+            "standard error",
+            "Type II error",
+            "sampling error"
+          ],
+          "correct": 2,
+          "explanation": "Type II = false negative: a real effect goes undetected."
+        },
+        {
+          "type": "mc",
+          "category": "Inferential Statistics",
+          "question": "A drug trial concludes that a drug works, when in truth it has no effect. Which error occurred?",
+          "options": [
+            "Type II error (a false negative)",
+            "Sampling error (the sample was too small)",
+            "No error, because the test result was significant",
+            "Type I error (a false positive)"
+          ],
+          "correct": 3,
+          "explanation": "The null (no effect) was true but was rejected, so it is a Type I error."
+        },
+        {
+          "type": "mc",
+          "category": "Inferential Statistics",
+          "question": "The significance level α is the probability of making a ___.",
+          "options": [
+            "Type I error",
+            "Type II error",
+            "sampling error",
+            "rounding error"
+          ],
+          "correct": 0,
+          "explanation": "Choosing α = 0.05 accepts a 5% chance of rejecting a true null."
+        },
+        {
+          "type": "mc",
+          "category": "Inferential Statistics",
+          "question": "Which test is typically used to compare a sample mean to a target value when the population standard deviation is unknown and the sample is small?",
+          "options": [
+            "z-test",
+            "t-test",
+            "F-test",
+            "Poisson test"
+          ],
+          "correct": 1,
+          "explanation": "The t-test uses the sample's own standard deviation and the t distribution, which handles small samples."
+        },
+        {
+          "type": "mc",
+          "category": "Inferential Statistics",
+          "question": "A z-test is appropriate when ___.",
+          "options": [
+            "the data are categorical, with more than two labels for each value",
+            "the population standard deviation is unknown and the sample has 10 values",
+            "the population standard deviation is known and the sample is reasonably large",
+            "the variable that is being measured can only take whole-number values"
+          ],
+          "correct": 2,
+          "explanation": "z-tests rely on a known σ (or a large n); otherwise the t-test is the safer choice."
+        },
+        {
+          "type": "mc",
+          "category": "Inferential Statistics",
+          "question": "A value of 86 comes from a distribution with a mean of 70 and a standard deviation of 8. What is its z-score?",
+          "options": [
+            "16",
+            "1.5",
+            "8",
+            "2"
+          ],
+          "correct": 3,
+          "explanation": "z = (86 − 70) / 8 = 2."
+        },
+        {
+          "type": "mc",
+          "category": "Inferential Statistics",
+          "question": "A student's z-score on a test is −1. What does that tell you?",
+          "options": [
+            "Their score is one standard deviation below the mean",
+            "Their score is one point below the mean score of the class",
+            "Their score is one standard deviation above the mean score",
+            "Their score is one percent below the average of the class"
+          ],
+          "correct": 0,
+          "explanation": "A z-score gives distance from the mean in standard deviations; the sign gives the direction."
+        },
+        {
+          "type": "tf",
+          "category": "Inferential Statistics",
+          "question": "A z-score tells you how many standard deviations a value is from the mean.",
+          "correct": true,
+          "explanation": "z = (value − mean) / standard deviation."
+        },
+        {
+          "type": "short_answer",
+          "category": "Inferential Statistics",
+          "question": "A company tests whether a new training program changes employee productivity. Explain what a Type I error and a Type II error would mean in this situation, and say which one the significance level α controls.",
+          "answerLang": null,
+          "modelAnswer": "The null hypothesis is that the program has no effect on productivity.\n\nA Type I error means rejecting a true null: concluding the program changes productivity when it really does nothing (a false positive). The significance level α is the probability of making this error, so choosing α = 0.05 accepts about a 5% risk of it.\n\nA Type II error means failing to reject a false null: concluding there is no evidence of an effect when the program really does change productivity (a false negative).",
+          "rubric": [
+            "Says the null hypothesis is 'no effect' (or no difference)",
+            "Describes a Type I error as rejecting a true null, or finding an effect that is not there",
+            "Describes a Type II error as failing to reject a false null, or missing a real effect",
+            "States that α is the probability of a Type I error"
+          ],
+          "explanation": "Type I = false alarm, Type II = missed detection."
+        },
+        {
+          "type": "mc",
+          "category": "Inferential Statistics",
+          "question": "Why do statisticians often like to have samples of at least about 30?",
+          "options": [
+            "Because 30 is the legal minimum for publishing the results of a survey",
+            "Because a sample smaller than 30 cannot be used to calculate a standard deviation",
+            "Because with 30 values the sample mean becomes exactly equal to the population mean",
+            "Because the sample mean's behavior is then reasonably close to a normal curve"
+          ],
+          "correct": 3,
+          "explanation": "This is the central-limit idea. About 30 is a rule of thumb, and skewed populations need more."
+        },
+        {
+          "type": "mc",
+          "category": "Inferential Statistics",
+          "question": "What does it mean to call a result 'statistically significant'?",
+          "options": [
+            "A result like this would be unlikely to happen by chance alone if the null hypothesis were true",
+            "The result is large enough to matter in practice for the people it affects",
+            "The result has been confirmed by a second, independent study of the same question",
+            "The null hypothesis has been proven false with complete certainty by the test"
+          ],
+          "correct": 0,
+          "explanation": "Significance is about chance, set by α. It says nothing about the size or importance of the effect."
+        },
+        {
+          "type": "mc",
+          "category": "Inferential Statistics",
+          "question": "A test is run at α = 0.05. Which of these results would NOT be called statistically significant?",
+          "options": [
+            "p = 0.03",
+            "p = 0.07",
+            "p = 0.001",
+            "p = 0.049"
+          ],
+          "correct": 1,
+          "explanation": "A result is significant only when p < α. 0.07 is above 0.05, so the null is not rejected."
+        },
+        {
+          "type": "mc",
+          "category": "Inferential Statistics",
+          "question": "A researcher lowers the significance level from α = 0.05 to α = 0.01. What happens to the chance of a Type I error?",
+          "options": [
+            "It increases, because fewer results can now be called statistically significant",
+            "It is unchanged, because α only affects how often a Type II error happens",
+            "It decreases, because the test now demands stronger evidence before rejecting the null",
+            "It drops to zero, because a stricter test can never reject a true null"
+          ],
+          "correct": 2,
+          "explanation": "α is the Type I error rate. Lowering it makes false positives rarer, at the cost of more Type II errors."
+        },
+        {
+          "type": "mc",
+          "category": "Inferential Statistics",
+          "question": "Why do analysts report a confidence interval alongside a sample mean, instead of the sample mean alone?",
+          "options": [
+            "Because the interval replaces the sample mean once the sample is large enough",
+            "Because the interval proves that the null hypothesis has been rejected by the data",
+            "Because the interval lists every individual value that was found in the sample",
+            "Because the interval shows how precise the estimate is, which a single number cannot"
+          ],
+          "correct": 3,
+          "explanation": "A mean of 52 could be 52 ± 1 or 52 ± 20. The interval's width communicates the uncertainty."
+        }
+      ]
+    },
+    {
+      "name": "4. Outliers and Choosing a Plot",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Outliers & Choosing a Plot",
+          "question": "A data set has Q1 = 12 and Q3 = 30. Using the 1.5 × IQR rule, which of these values is an outlier?",
+          "options": [
+            "50",
+            "60",
+            "-10",
+            "30"
+          ],
+          "correct": 1,
+          "explanation": "IQR = 18, so the fences are 12 − 27 = −15 and 30 + 27 = 57. Only 60 lies outside them."
+        },
+        {
+          "type": "mc",
+          "category": "Outliers & Choosing a Plot",
+          "question": "By the common z-score rule, a value is flagged as an outlier when it lies more than ___ standard deviations from the mean.",
+          "options": [
+            "1",
+            "2",
+            "3",
+            "5"
+          ],
+          "correct": 2,
+          "explanation": "In a normal distribution 99.7% of the values are within 3 standard deviations, so anything beyond is unusual."
+        },
+        {
+          "type": "mc",
+          "category": "Outliers & Choosing a Plot",
+          "question": "A value has a z-score of −3.4. Under the z-score rule, what is it?",
+          "options": [
+            "an ordinary value, because it is below the mean rather than above the mean",
+            "an outlier only if the value is also greater than the median of the data",
+            "invalid data that has to be deleted from the data set before analysis",
+            "an outlier, because it is more than 3 standard deviations below the mean"
+          ],
+          "correct": 3,
+          "explanation": "The sign gives direction only. What matters is that |z| is larger than 3."
+        },
+        {
+          "type": "mc",
+          "category": "Outliers & Choosing a Plot",
+          "question": "In a box-whisker plot, the box spans from ___.",
+          "options": [
+            "Q1 to Q3",
+            "the minimum to the maximum",
+            "the mean minus to the mean plus one SD",
+            "the 5th to the 95th percentile"
+          ],
+          "correct": 0,
+          "explanation": "The box covers the middle 50% of the data, and the line inside it is the median."
+        },
+        {
+          "type": "mc",
+          "category": "Outliers & Choosing a Plot",
+          "question": "In a box-whisker plot, individual points drawn beyond the ends of the whiskers represent ___.",
+          "options": [
+            "the mean and the median",
+            "potential outliers",
+            "the first and third quartiles",
+            "missing values"
+          ],
+          "correct": 1,
+          "explanation": "Whiskers reach the farthest values within 1.5 × IQR of the box; anything past that is plotted as a dot."
+        },
+        {
+          "type": "mc",
+          "category": "Outliers & Choosing a Plot",
+          "question": "Which is a reasonable first step when you find an outlier in your data?",
+          "options": [
+            "Delete it immediately, since outliers are always mistakes in the data",
+            "Replace it with the mean without checking anything else about the row",
+            "Investigate whether it is a data-entry error or a real but unusual observation",
+            "Ignore it, because outliers never change a statistic such as the mean"
+          ],
+          "correct": 2,
+          "explanation": "Errors should be fixed, but real extreme values can carry important information."
+        },
+        {
+          "type": "mc",
+          "category": "Outliers & Choosing a Plot",
+          "question": "Which plot best shows how a company's monthly sales changed over two years?",
+          "options": [
+            "pie chart",
+            "box-whisker plot",
+            "histogram",
+            "line plot"
+          ],
+          "correct": 3,
+          "explanation": "A line plot shows a trend over an ordered sequence such as time."
+        },
+        {
+          "type": "mc",
+          "category": "Outliers & Choosing a Plot",
+          "question": "Which chart best shows what share of a budget goes to each of five spending categories?",
+          "options": [
+            "pie chart",
+            "scatter plot",
+            "line plot",
+            "histogram"
+          ],
+          "correct": 0,
+          "explanation": "A pie chart shows parts of a whole."
+        },
+        {
+          "type": "mc",
+          "category": "Outliers & Choosing a Plot",
+          "question": "Which plot is best for checking the shape of the distribution of exam scores?",
+          "options": [
+            "pie chart",
+            "histogram",
+            "scatter plot",
+            "bar chart of student names"
+          ],
+          "correct": 1,
+          "explanation": "A histogram bins the numeric scores so you can see skew, peaks and spread."
+        },
+        {
+          "type": "mc",
+          "category": "Outliers & Choosing a Plot",
+          "question": "Which plot best shows whether taller people tend to be heavier?",
+          "options": [
+            "histogram",
+            "pie chart",
+            "scatter plot",
+            "line plot over time"
+          ],
+          "correct": 2,
+          "explanation": "A scatter plot places each (height, weight) pair, revealing any trend or correlation."
+        },
+        {
+          "type": "mc",
+          "category": "Outliers & Choosing a Plot",
+          "question": "A bar chart is best used to ___.",
+          "options": [
+            "show how one variable changes continuously over time",
+            "reveal the shape of the distribution of a numeric variable",
+            "display the quartiles and the outliers of a numeric variable",
+            "compare values across separate categories"
+          ],
+          "correct": 3,
+          "explanation": "Each bar is one category (a department, a product); a histogram or box plot handles distributions."
+        },
+        {
+          "type": "matching",
+          "category": "Outliers & Choosing a Plot",
+          "question": "Match each plot to what it is best at showing.",
+          "pairs": [
+            {
+              "left": "Histogram",
+              "right": "The shape of a numeric distribution"
+            },
+            {
+              "left": "Scatter plot",
+              "right": "The relationship between two numeric variables"
+            },
+            {
+              "left": "Line plot",
+              "right": "A trend over time or an ordered sequence"
+            },
+            {
+              "left": "Box-whisker plot",
+              "right": "The median, quartiles and outliers"
+            },
+            {
+              "left": "Bar chart",
+              "right": "A comparison across categories"
+            },
+            {
+              "left": "Pie chart",
+              "right": "The parts that make up a whole"
+            }
+          ],
+          "explanation": "Choose the plot from the question you are asking of the data."
+        },
+        {
+          "type": "mc",
+          "category": "Outliers & Choosing a Plot",
+          "question": "Why is the IQR a more robust measure of spread than the range when one value in the data is extreme?",
+          "options": [
+            "It uses only the middle half of the data, so a single extreme value barely changes it",
+            "It uses every value in the data equally, so an extreme value is averaged away",
+            "It is measured in squared units, which makes one extreme value matter less",
+            "It is recalculated after the most extreme value has been deleted by hand"
+          ],
+          "correct": 0,
+          "explanation": "The range depends entirely on the two most extreme values. The IQR (Q3 − Q1) ignores the outer quarter on each side."
+        },
+        {
+          "type": "mc",
+          "category": "Outliers & Choosing a Plot",
+          "question": "A box-whisker plot has a long upper whisker, and its median line sits close to the bottom of the box. What does this suggest about the data?",
+          "options": [
+            "The data are left-skewed, with the lower half more spread out than the upper half",
+            "The data are right-skewed, with the upper half more spread out than the lower half",
+            "The data are symmetric, with both halves spread out by the same amount",
+            "The data contain no values at all above the third quartile of the data"
+          ],
+          "correct": 1,
+          "explanation": "A median near Q1 plus a long upper whisker means the top half of the values stretches much farther than the bottom half."
+        },
+        {
+          "type": "mc",
+          "category": "Outliers & Choosing a Plot",
+          "question": "A study of 500 students finds r = 0.05 between shoe size and exam score. Which conclusion is best?",
+          "options": [
+            "Larger shoe size causes slightly higher exam scores among the students",
+            "Shoe size predicts exam score with a high degree of accuracy for students",
+            "There is no meaningful linear relationship between shoe size and exam score",
+            "Shoe size and exam score are strongly related, but the sign is unreliable"
+          ],
+          "correct": 2,
+          "explanation": "An r this close to 0 says a straight-line trend is negligible. Even a large r would not prove causation."
+        }
+      ]
+    },
+    {
+      "name": "5. NumPy",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "NumPy",
+          "question": "Which line imports NumPy using the standard alias?",
+          "options": [
+            "import numpy as np",
+            "import NumPy as np",
+            "from np import numpy",
+            "using numpy as np"
+          ],
+          "correct": 0,
+          "explanation": "Python is case-sensitive: the module is numpy, conventionally shortened to np."
+        },
+        {
+          "type": "mc",
+          "category": "NumPy",
+          "question": "A NumPy array has the shape (5, 3). How many elements does it hold, and how many dimensions does it have?",
+          "options": [
+            "8 elements and 2 dimensions",
+            "15 elements and 2 dimensions",
+            "15 elements and 1 dimension",
+            "15 elements and 3 dimensions"
+          ],
+          "correct": 1,
+          "explanation": "The size is rows × columns = 5 × 3 = 15. A shape with two numbers means a 2-D array; ndim is the length of the shape."
+        },
+        {
+          "type": "mc",
+          "category": "NumPy",
+          "question": "Which call creates an array of zeros with 3 rows and 2 columns?",
+          "options": [
+            "np.zeros((2, 3))",
+            "np.zeros(6)",
+            "np.zeros((3, 2))",
+            "np.zeros([3], [2])"
+          ],
+          "correct": 2,
+          "explanation": "The shape is given as one tuple, (rows, columns). np.zeros(6) is a flat array of six zeros."
+        },
+        {
+          "type": "mc",
+          "category": "NumPy",
+          "question": "What does np.zeros((4, 3)).ndim return?",
+          "options": [
+            "3",
+            "4",
+            "12",
+            "2"
+          ],
+          "correct": 3,
+          "explanation": "ndim counts the dimensions (axes), not the elements. A rows-and-columns array has 2."
+        },
+        {
+          "type": "mc",
+          "category": "NumPy",
+          "question": "What does np.zeros(5) create?",
+          "options": [
+            "a one-dimensional array holding five 0.0 values",
+            "a one-dimensional array holding five 1.0 values",
+            "a five-by-five array in which every value is zero",
+            "an empty array that is waiting to be filled with values"
+          ],
+          "correct": 0,
+          "explanation": "zeros(n) gives n zeros (as floats). For a grid, pass a shape tuple such as np.zeros((5, 5))."
+        },
+        {
+          "type": "mc",
+          "category": "NumPy",
+          "question": "How many elements does np.arange(3, 30, 6) create?",
+          "options": [
+            "4",
+            "5",
+            "6",
+            "9"
+          ],
+          "correct": 1,
+          "explanation": "It produces 3, 9, 15, 21, 27, and stops before 30. The stop value is never included."
+        },
+        {
+          "type": "mc",
+          "category": "NumPy",
+          "question": "What does np.random.random((3, 2)) create?",
+          "options": [
+            "a 3-by-2 array of random whole numbers between 0 and 10",
+            "a 2-by-3 array of random floats between 0 and 1",
+            "a 3-by-2 array of random floats between 0 and 1",
+            "a single random float that is somewhere between 0 and 3"
+          ],
+          "correct": 2,
+          "explanation": "The argument is a shape tuple (rows, columns); the values are drawn from [0, 1)."
+        },
+        {
+          "type": "mc",
+          "category": "NumPy",
+          "question": "If a = np.array([1, 2, 3]), what does a * 2 return?",
+          "options": [
+            "[1 2 3 1 2 3]",
+            "[1 2 3 2]",
+            "[3 4 5]",
+            "[2 4 6]"
+          ],
+          "correct": 3,
+          "explanation": "NumPy arithmetic is element by element. Only an ordinary Python list repeats when you multiply it."
+        },
+        {
+          "type": "mc",
+          "category": "NumPy",
+          "question": "What does the expression [1, 2, 3] * 2 return for an ordinary Python list?",
+          "options": [
+            "[1, 2, 3, 1, 2, 3]",
+            "[2, 4, 6]",
+            "[1, 2, 3, 2]",
+            "an error"
+          ],
+          "correct": 0,
+          "explanation": "A list repeats under *. This is one reason to convert to an ndarray before doing math."
+        },
+        {
+          "type": "mc",
+          "category": "NumPy",
+          "question": "For a = np.array([[1, 2], [3, 4]]), what does a.sum(axis=0) return?",
+          "options": [
+            "[3 7]",
+            "[4 6]",
+            "10",
+            "[2 6]"
+          ],
+          "correct": 1,
+          "explanation": "axis=0 collapses the rows, giving one total per column: 1 + 3 = 4 and 2 + 4 = 6."
+        },
+        {
+          "type": "mc",
+          "category": "NumPy",
+          "question": "For a = np.array([[1, 2], [3, 4]]), what does a.mean() return?",
+          "options": [
+            "2.0",
+            "10",
+            "2.5",
+            "4"
+          ],
+          "correct": 2,
+          "explanation": "With no axis, the mean is taken over all four elements: 10 / 4 = 2.5."
+        },
+        {
+          "type": "mc",
+          "category": "NumPy",
+          "question": "What does np.corrcoef(x, y) return?",
+          "options": [
+            "a single number between 0 and 1 that gives the strength of the relationship",
+            "a list of the covariance values for each pair of elements in x and y",
+            "an array of the z-scores for each of the values in x and in y",
+            "a 2×2 correlation matrix, where the off-diagonal value is the correlation between x and y"
+          ],
+          "correct": 3,
+          "explanation": "The diagonal is each variable correlated with itself (1.0); read x-versus-y from either off-diagonal cell."
+        },
+        {
+          "type": "mc",
+          "category": "NumPy",
+          "question": "What does np.percentile(data, 90) return?",
+          "options": [
+            "the value below which about 90% of the data fall",
+            "the 90th value in the data once it has been sorted",
+            "ninety percent of the largest value found in the data",
+            "the mean of the top 90% of the values in the data"
+          ],
+          "correct": 0,
+          "explanation": "A percentile is a position in the distribution, not an index or a fraction of the maximum."
+        },
+        {
+          "type": "tf",
+          "category": "NumPy",
+          "question": "np.array([1, 2.5, 3]) stores every element as the same data type.",
+          "correct": true,
+          "explanation": "ndarrays are homogeneous. The integers are upcast, so all three values are float64."
+        },
+        {
+          "type": "tf",
+          "category": "NumPy",
+          "question": "A NumPy array can hold integers, strings and floats while keeping each element's own type.",
+          "correct": false,
+          "explanation": "An ndarray has a single dtype. A mix of numbers and strings is converted to one type, here strings."
+        },
+        {
+          "type": "mc",
+          "category": "NumPy",
+          "question": "Why are NumPy arrays usually faster than Python lists for numeric work?",
+          "options": [
+            "They store the values as text, which the computer is able to read faster",
+            "They store same-type values in one block of memory and operate on them in compiled code",
+            "They automatically spread every operation across several separate computers",
+            "They skip the checking of data types so that each step does less work"
+          ],
+          "correct": 1,
+          "explanation": "Homogeneous, contiguous storage plus vectorized compiled loops is what makes them fast and compact."
+        },
+        {
+          "type": "fill_blank",
+          "category": "NumPy",
+          "question": "Complete the call that creates a 2 by 3 array filled with zeros: np.______((2, 3))",
+          "answers": [
+            "zeros"
+          ],
+          "explanation": "np.zeros takes a shape tuple. np.ones is the same idea with 1.0 values."
+        }
+      ]
+    },
+    {
+      "name": "6. Python, Importing and Inspecting Data",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Python, Importing & Inspecting Data",
+          "question": "Which line creates a dictionary that maps 'M' to 'Male' and 'F' to 'Female'?",
+          "options": [
+            "['M': 'Male', 'F': 'Female']",
+            "('M': 'Male', 'F': 'Female')",
+            "{'M', 'Male', 'F', 'Female'}",
+            "{'M': 'Male', 'F': 'Female'}"
+          ],
+          "correct": 3,
+          "explanation": "A dictionary uses curly braces with key: value pairs. The last option is a set of four items, not a mapping."
+        },
+        {
+          "type": "mc",
+          "category": "Python, Importing & Inspecting Data",
+          "question": "What does df['sex'].map({'M': 'Male', 'F': 'Female'}) do?",
+          "options": [
+            "returns a new Series in which each M is replaced by Male and each F by Female",
+            "changes df in place so that every M becomes Male and returns nothing",
+            "builds a dictionary out of the values that are found in the sex column",
+            "renames the column called sex so that it is now called M or F"
+          ],
+          "correct": 0,
+          "explanation": "map() looks each value up in the dictionary. Assign the result back to keep it: df['sex'] = df['sex'].map(...)."
+        },
+        {
+          "type": "mc",
+          "category": "Python, Importing & Inspecting Data",
+          "question": "Which statement imports pandas under its standard alias?",
+          "options": [
+            "import pd as pandas",
+            "import pandas as pd",
+            "from pandas import pd",
+            "import pandas.pd"
+          ],
+          "correct": 1,
+          "explanation": "The pattern is import <module> as <alias>, and pd is the convention for pandas."
+        },
+        {
+          "type": "mc",
+          "category": "Python, Importing & Inspecting Data",
+          "question": "Which expression calculates the mean of each column using ONLY the first five rows of df?",
+          "options": [
+            "df.mean().head()",
+            "df.mean.head()",
+            "df.head().mean()",
+            "df.head(mean())"
+          ],
+          "correct": 2,
+          "explanation": "Methods run left to right: head() first picks the rows, then mean() averages them. df.mean().head() would average everything and then keep the first five results."
+        },
+        {
+          "type": "mc",
+          "category": "Python, Importing & Inspecting Data",
+          "question": "What does df.sort_values('price').head(3) return?",
+          "options": [
+            "the three rows with the highest price",
+            "the first three rows of df in the original order",
+            "an error, because sort_values returns nothing to chain",
+            "the three rows with the lowest price"
+          ],
+          "correct": 3,
+          "explanation": "sort_values returns a new sorted DataFrame (ascending by default), so head(3) can be chained onto it."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Python, Importing & Inspecting Data",
+          "question": "Complete the call that loads an Excel workbook into a DataFrame: budget = pd.______('budget_2024.xlsx')",
+          "answers": [
+            "read_excel"
+          ],
+          "explanation": "pd.read_excel() reads .xlsx files. It needs an Excel engine such as openpyxl installed."
+        },
+        {
+          "type": "mc",
+          "category": "Python, Importing & Inspecting Data",
+          "question": "A file called orders.csv sits next to your notebook. Which line reads it into a DataFrame called orders?",
+          "options": [
+            "orders = pd.read_csv('orders.csv')",
+            "orders.read_csv('orders.csv')",
+            "orders = pd.import_csv('orders.csv')",
+            "orders = read_csv.pd('orders.csv')"
+          ],
+          "correct": 0,
+          "explanation": "read_csv is a function of the pandas module (pd), and you assign the DataFrame it returns to a name."
+        },
+        {
+          "type": "mc",
+          "category": "Python, Importing & Inspecting Data",
+          "question": "Which code downloads a CSV from the URL in data_url and saves it as results.csv in the same folder as the notebook?",
+          "options": [
+            "request.urlretrieve(data_url, filename='data/results.csv')  (after: from urllib import request)",
+            "request.urlretrieve(data_url, filename='results.csv')  (after: from urllib import request)",
+            "request.urlopen(data_url, filename='results.csv')  (after: from urllib import request)",
+            "request.download(data_url, 'results.csv')  (after: from urllib import request)"
+          ],
+          "correct": 1,
+          "explanation": "urlretrieve(url, filename=...) saves the file. A path such as data/results.csv would put it in a subfolder instead."
+        },
+        {
+          "type": "mc",
+          "category": "Python, Importing & Inspecting Data",
+          "question": "A column of prices was imported as text instead of numbers. Which method would reveal this by showing the data type of each column?",
+          "options": [
+            "df.count()",
+            "df.nunique()",
+            "df.info()",
+            "df.head(0)"
+          ],
+          "correct": 2,
+          "explanation": "info() lists every column with its dtype. A price column shown as object instead of float64 usually means text got in."
+        },
+        {
+          "type": "mc",
+          "category": "Python, Importing & Inspecting Data",
+          "question": "Which method would show you the smallest and largest value in each numeric column at once?",
+          "options": [
+            "df.info()",
+            "df.shape",
+            "df.dtypes",
+            "df.describe()"
+          ],
+          "correct": 3,
+          "explanation": "describe() reports min, max, mean, std and quartiles. info() reports structure: dtypes and non-null counts."
+        },
+        {
+          "type": "mc",
+          "category": "Python, Importing & Inspecting Data",
+          "question": "What is the difference between a DataFrame's shape and its size?",
+          "options": [
+            "shape is (rows, columns), while size is the total number of cells",
+            "shape is the total number of cells, while size is (rows, columns)",
+            "shape counts only the rows, while size counts only the columns",
+            "They are identical, and size is just an older name for shape"
+          ],
+          "correct": 0,
+          "explanation": "A 250-row, 6-column DataFrame has shape (250, 6) and size 1500."
+        },
+        {
+          "type": "mc",
+          "category": "Python, Importing & Inspecting Data",
+          "question": "Which statement is true of every pandas Series and every DataFrame?",
+          "options": [
+            "Each has columns that are labeled with a name",
+            "Each has an index that labels its rows",
+            "Each can hold only numeric values",
+            "Each can hold only a single data type"
+          ],
+          "correct": 1,
+          "explanation": "A Series has just an index and values; a DataFrame has an index plus labeled columns, and each column can have its own type."
+        }
+      ]
+    },
+    {
+      "name": "7. pandas: Selecting and Summarizing Data",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "pandas: Series, DataFrames & Selection",
+          "question": "What is a pandas Series?",
+          "options": [
+            "A two-dimensional table of labeled rows and labeled columns",
+            "A fixed-length list of numbers that has no labels attached",
+            "A one-dimensional labeled array of values with an index",
+            "A sequence of DataFrames that all share one common index"
+          ],
+          "correct": 2,
+          "explanation": "A Series is one labeled column of data; a DataFrame is a table of Series sharing an index."
+        },
+        {
+          "type": "mc",
+          "category": "pandas: Series, DataFrames & Selection",
+          "question": "What is a pandas DataFrame?",
+          "options": [
+            "A one-dimensional array whose values must all share the same data type",
+            "A Python dictionary that cannot be changed after it has been created",
+            "A chart that displays the values stored in a table of data",
+            "A two-dimensional labeled table whose columns can hold different data types"
+          ],
+          "correct": 3,
+          "explanation": "Unlike an ndarray, each DataFrame column can have its own dtype."
+        },
+        {
+          "type": "mc",
+          "category": "pandas: Series, DataFrames & Selection",
+          "question": "Each individual column of a DataFrame is a ___.",
+          "options": [
+            "Series",
+            "ndarray with no index",
+            "dictionary",
+            "tuple"
+          ],
+          "correct": 0,
+          "explanation": "df['col'] returns a Series that shares the DataFrame's index."
+        },
+        {
+          "type": "mc",
+          "category": "pandas: Series, DataFrames & Selection",
+          "question": "The DataFrame emp has the columns dept, name, salary and years, with the default index 0 to 5:\n0: Sales, Ana, 52000, 3\n1: Sales, Ben, 61000, 7\n2: IT, Cy, 75000, 5\n3: IT, Dee, 82000, 9\n4: HR, Eli, 48000, 2\n5: HR, Fay, 55000, 6\nWhat does emp.iloc[2]['name'] return?",
+          "options": [
+            "Ben",
+            "Cy",
+            "Dee",
+            "IT"
+          ],
+          "correct": 1,
+          "explanation": "iloc[2] is the row at position 2 (IT, Cy, 75000, 5); its name is Cy."
+        },
+        {
+          "type": "mc",
+          "category": "pandas: Series, DataFrames & Selection",
+          "question": "The DataFrame emp has the columns dept, name, salary and years, with the default index 0 to 5:\n0: Sales, Ana, 52000, 3\n1: Sales, Ben, 61000, 7\n2: IT, Cy, 75000, 5\n3: IT, Dee, 82000, 9\n4: HR, Eli, 48000, 2\n5: HR, Fay, 55000, 6\nWhich rows does emp.iloc[1:3] return?",
+          "options": [
+            "the rows at positions 1, 2 and 3 (Ben, Cy and Dee)",
+            "the rows at positions 0, 1 and 2 (Ana, Ben and Cy)",
+            "the rows at positions 1 and 2 (Ben and Cy)",
+            "only the row at position 3, which is the row for Dee"
+          ],
+          "correct": 2,
+          "explanation": "iloc slices like a Python list: the start is included and the stop is excluded."
+        },
+        {
+          "type": "mc",
+          "category": "pandas: Series, DataFrames & Selection",
+          "question": "The DataFrame emp has the columns dept, name, salary and years, with the default index 0 to 5:\n0: Sales, Ana, 52000, 3\n1: Sales, Ben, 61000, 7\n2: IT, Cy, 75000, 5\n3: IT, Dee, 82000, 9\n4: HR, Eli, 48000, 2\n5: HR, Fay, 55000, 6\nWhich rows does emp.loc[1:3] return?",
+          "options": [
+            "the rows labeled 1 and 2, because loc excludes the end label",
+            "only the row labeled 3, because loc picks just one row at a time",
+            "an error, because loc cannot take a slice of row labels",
+            "the rows labeled 1, 2 and 3, because loc includes the end label"
+          ],
+          "correct": 3,
+          "explanation": "loc is label-based and, unlike iloc, includes both endpoints of a slice."
+        },
+        {
+          "type": "mc",
+          "category": "pandas: Series, DataFrames & Selection",
+          "question": "Which pair correctly completes this sentence? In pandas, loc selects by ___ and iloc selects by ___.",
+          "options": [
+            "label; integer position",
+            "integer position; label",
+            "row; column",
+            "name; data type"
+          ],
+          "correct": 0,
+          "explanation": "Use loc when you know the index label, iloc when you know the numeric position."
+        },
+        {
+          "type": "tf",
+          "category": "pandas: Series, DataFrames & Selection",
+          "question": "The older ix indexer has been removed from current pandas; loc and iloc replace it.",
+          "correct": true,
+          "explanation": "ix mixed label and position lookups, which was ambiguous. Use loc or iloc instead."
+        },
+        {
+          "type": "mc",
+          "category": "pandas: Series, DataFrames & Selection",
+          "question": "The DataFrame emp has the columns dept, name, salary and years, with the default index 0 to 5:\n0: Sales, Ana, 52000, 3\n1: Sales, Ben, 61000, 7\n2: IT, Cy, 75000, 5\n3: IT, Dee, 82000, 9\n4: HR, Eli, 48000, 2\n5: HR, Fay, 55000, 6\nWhich code selects the rows where salary is greater than 60000?",
+          "options": [
+            "emp['salary' > 60000]",
+            "emp[emp['salary'] > 60000]",
+            "emp.where(salary > 60000)",
+            "emp[salary > 60000]"
+          ],
+          "correct": 1,
+          "explanation": "A boolean mask: the inner comparison gives True/False for each row, and the outer brackets keep the True rows."
+        },
+        {
+          "type": "mc",
+          "category": "pandas: Series, DataFrames & Selection",
+          "question": "The DataFrame emp has the columns dept, name, salary and years, with the default index 0 to 5:\n0: Sales, Ana, 52000, 3\n1: Sales, Ben, 61000, 7\n2: IT, Cy, 75000, 5\n3: IT, Dee, 82000, 9\n4: HR, Eli, 48000, 2\n5: HR, Fay, 55000, 6\nHow many rows does emp[emp['years'] >= 6] return?",
+          "options": [
+            "2",
+            "4",
+            "3",
+            "6"
+          ],
+          "correct": 2,
+          "explanation": "years of 7, 9 and 6 meet the condition (Ben, Dee and Fay)."
+        },
+        {
+          "type": "mc",
+          "category": "pandas: Series, DataFrames & Selection",
+          "question": "The DataFrame emp has the columns dept, name, salary and years, with the default index 0 to 5:\n0: Sales, Ana, 52000, 3\n1: Sales, Ben, 61000, 7\n2: IT, Cy, 75000, 5\n3: IT, Dee, 82000, 9\n4: HR, Eli, 48000, 2\n5: HR, Fay, 55000, 6\nWhich code returns the employees in the IT department who earn more than 80000?",
+          "options": [
+            "emp[emp['dept'] == 'IT' and emp['salary'] > 80000]",
+            "emp[(emp['dept'] == 'IT'), (emp['salary'] > 80000)]",
+            "emp[emp['dept'] == 'IT' & emp['salary'] > 80000]",
+            "emp[(emp['dept'] == 'IT') & (emp['salary'] > 80000)]"
+          ],
+          "correct": 3,
+          "explanation": "Combine masks with & and wrap each comparison in parentheses; the word and does not work on Series."
+        },
+        {
+          "type": "mc",
+          "category": "pandas: Series, DataFrames & Selection",
+          "question": "How does emp.where(emp['salary'] > 60000) differ from emp[emp['salary'] > 60000]?",
+          "options": [
+            "where keeps every row and puts NaN where the condition is False, while the mask drops those rows",
+            "where drops the rows where the condition is False, while the mask keeps all rows and fills NaN",
+            "where works only on a Series, while the mask works only on a whole DataFrame object",
+            "They are identical in both shape and content, so either one can be used"
+          ],
+          "correct": 0,
+          "explanation": "where preserves the shape of the original; boolean masking returns only the matching rows."
+        },
+        {
+          "type": "mc",
+          "category": "pandas: Series, DataFrames & Selection",
+          "question": "Which code is equivalent to emp[emp['salary'] > 60000]?",
+          "options": [
+            "emp.query(salary > 60000)",
+            "emp.query('salary > 60000')",
+            "emp.filter('salary > 60000')",
+            "emp.query['salary > 60000']"
+          ],
+          "correct": 1,
+          "explanation": "query() takes the condition as a string and returns a new DataFrame of the matching rows."
+        },
+        {
+          "type": "mc",
+          "category": "pandas: Series, DataFrames & Selection",
+          "question": "The DataFrame emp has the columns dept, name, salary and years, with the default index 0 to 5:\n0: Sales, Ana, 52000, 3\n1: Sales, Ben, 61000, 7\n2: IT, Cy, 75000, 5\n3: IT, Dee, 82000, 9\n4: HR, Eli, 48000, 2\n5: HR, Fay, 55000, 6\nWhat does emp.query(\"dept == 'IT' and years > 6\") return?",
+          "options": [
+            "both Cy's row and Dee's row",
+            "Ben's row and Dee's row",
+            "only Dee's row",
+            "an error, because query cannot use the word and"
+          ],
+          "correct": 2,
+          "explanation": "Both conditions must hold: IT employees are Cy (5 years) and Dee (9 years); only Dee has more than 6. Inside query(), and works."
+        },
+        {
+          "type": "mc",
+          "category": "pandas: Series, DataFrames & Selection",
+          "question": "The DataFrame emp has the columns dept, name, salary and years, with the default index 0 to 5:\n0: Sales, Ana, 52000, 3\n1: Sales, Ben, 61000, 7\n2: IT, Cy, 75000, 5\n3: IT, Dee, 82000, 9\n4: HR, Eli, 48000, 2\n5: HR, Fay, 55000, 6\nWhat does emp.tail(2) return?",
+          "options": [
+            "the first two rows (Ana and Ben)",
+            "the last two columns of the DataFrame",
+            "every row except the last two",
+            "the last two rows (Eli and Fay)"
+          ],
+          "correct": 3,
+          "explanation": "head(n) gives the first n rows and tail(n) the last n; the default for both is 5."
+        },
+        {
+          "type": "mc",
+          "category": "pandas: Series, DataFrames & Selection",
+          "question": "The DataFrame emp has the columns dept, name, salary and years, with the default index 0 to 5:\n0: Sales, Ana, 52000, 3\n1: Sales, Ben, 61000, 7\n2: IT, Cy, 75000, 5\n3: IT, Dee, 82000, 9\n4: HR, Eli, 48000, 2\n5: HR, Fay, 55000, 6\nWhat does emp['dept'].value_counts() show?",
+          "options": [
+            "how many rows have each department: Sales 2, IT 2, HR 2",
+            "the number of non-null values in the column, which is 6",
+            "the unique department names only, without any counts",
+            "the total salary for each of the departments in the table"
+          ],
+          "correct": 0,
+          "explanation": "value_counts() lists each unique value with its frequency; count() would give just the single total."
+        },
+        {
+          "type": "mc",
+          "category": "pandas: Series, DataFrames & Selection",
+          "question": "Which code returns the number of rows for every unique combination of the columns 'city' and 'plan' in df?",
+          "options": [
+            "df[['city', 'plan']].unique()",
+            "df.groupby(['city', 'plan']).size()",
+            "df.groupby('city', 'plan').count()",
+            "df['city', 'plan'].size()"
+          ],
+          "correct": 1,
+          "explanation": "Group by both columns (as a list) and take size() to count the rows in each group."
+        },
+        {
+          "type": "mc",
+          "category": "pandas: Series, DataFrames & Selection",
+          "question": "The DataFrame emp has the columns dept, name, salary and years, with the default index 0 to 5:\n0: Sales, Ana, 52000, 3\n1: Sales, Ben, 61000, 7\n2: IT, Cy, 75000, 5\n3: IT, Dee, 82000, 9\n4: HR, Eli, 48000, 2\n5: HR, Fay, 55000, 6\nWhat does emp.shape return?",
+          "options": [
+            "(4, 6)",
+            "24",
+            "(6, 4)",
+            "6"
+          ],
+          "correct": 2,
+          "explanation": "shape is an attribute giving (rows, columns). size would be 24."
+        },
+        {
+          "type": "mc",
+          "category": "pandas: Series, DataFrames & Selection",
+          "question": "In pandas, axis=1 refers to ___.",
+          "options": [
+            "the rows, so the operation runs down each column",
+            "the index labels only, and not the data",
+            "the DataFrame as a whole, in a single result",
+            "the columns, so the operation runs across each row"
+          ],
+          "correct": 3,
+          "explanation": "axis=0 works down the rows (one result per column); axis=1 works across the columns (one result per row)."
+        },
+        {
+          "type": "mc",
+          "category": "pandas: Series, DataFrames & Selection",
+          "question": "The DataFrame emp has the columns dept, name, salary and years, with the default index 0 to 5:\n0: Sales, Ana, 52000, 3\n1: Sales, Ben, 61000, 7\n2: IT, Cy, 75000, 5\n3: IT, Dee, 82000, 9\n4: HR, Eli, 48000, 2\n5: HR, Fay, 55000, 6\nWhat does emp[['salary', 'years']].sum(axis=1) compute?",
+          "options": [
+            "the sum of salary and years for each row",
+            "the sum of each column, giving one result per column",
+            "a single grand total of both columns combined together",
+            "the sum of the index labels for each of the rows"
+          ],
+          "correct": 0,
+          "explanation": "axis=1 adds across the columns within each row, so it returns one value per row."
+        },
+        {
+          "type": "mc",
+          "category": "pandas: Series, DataFrames & Selection",
+          "question": "Which statistics does df.describe() report for a numeric column by default?",
+          "options": [
+            "mean, mode, variance, skewness and range for the column",
+            "count, mean, standard deviation, minimum, quartiles and maximum",
+            "count, median, mode, sum and variance for the column",
+            "mean, correlation, p-value and R-squared for the column"
+          ],
+          "correct": 1,
+          "explanation": "describe() gives count, mean, std, min, 25%, 50%, 75% and max. It has no mode or variance row."
+        },
+        {
+          "type": "mc",
+          "category": "pandas: Series, DataFrames & Selection",
+          "question": "By default, pandas df.std() and df.var() compute the ___.",
+          "options": [
+            "population standard deviation and variance (dividing by n)",
+            "median absolute deviation and the range of each column",
+            "sample standard deviation and variance (dividing by n − 1)",
+            "standard error and confidence interval of each column"
+          ],
+          "correct": 2,
+          "explanation": "pandas uses ddof=1. NumPy's np.std and np.var default to dividing by n."
+        },
+        {
+          "type": "mc",
+          "category": "pandas: Series, DataFrames & Selection",
+          "question": "What does df.count() return?",
+          "options": [
+            "the total number of rows in the DataFrame",
+            "the number of unique values in each column",
+            "the number of columns in the DataFrame",
+            "the number of non-null values in each column"
+          ],
+          "correct": 3,
+          "explanation": "count() ignores missing values, so a column with NaNs reports fewer than the number of rows."
+        }
+      ]
+    },
+    {
+      "name": "8. Manipulating and Cleaning Data",
+      "questions": [
+        {
+          "type": "fill_blank",
+          "category": "Manipulating & Cleaning Data",
+          "question": "Complete the call that loads a CSV file into a DataFrame: df = pd.______('sales.csv')",
+          "answers": [
+            "read_csv"
+          ],
+          "explanation": "pd.read_csv() reads a comma-separated file into a DataFrame."
+        },
+        {
+          "type": "mc",
+          "category": "Manipulating & Cleaning Data",
+          "question": "Which call reads a pickled file named data.pkl into a DataFrame?",
+          "options": [
+            "pd.read_pickle('data.pkl')",
+            "pd.read_pkl('data.pkl')",
+            "pd.load_pickle('data.pkl')",
+            "pd.open_pickle('data.pkl')"
+          ],
+          "correct": 0,
+          "explanation": "Pickle files use read_pickle, and DataFrame.to_pickle() writes them."
+        },
+        {
+          "type": "mc",
+          "category": "Manipulating & Cleaning Data",
+          "question": "Which code adds a column named bonus, equal to 10% of salary, to emp?",
+          "options": [
+            "emp.add_column('bonus', emp['salary'] * 0.10)",
+            "emp['bonus'] = emp['salary'] * 0.10",
+            "emp['bonus'] == emp['salary'] * 0.10",
+            "emp.bonus() = emp['salary'] * 0.10"
+          ],
+          "correct": 1,
+          "explanation": "Assigning to a new column name creates the column. Note the single = for assignment."
+        },
+        {
+          "type": "mc",
+          "category": "Manipulating & Cleaning Data",
+          "question": "Does emp.rename(columns={'salary': 'pay'}) change emp itself?",
+          "options": [
+            "Yes, rename always modifies emp directly and then returns nothing at all",
+            "No, it works only on the row index labels, and not on the column names",
+            "No, it returns a new DataFrame unless you assign the result or pass inplace=True",
+            "Yes, but only when the new column name is shorter than the old one"
+          ],
+          "correct": 2,
+          "explanation": "Most pandas methods return a new object. Assign it back: emp = emp.rename(...)."
+        },
+        {
+          "type": "mc",
+          "category": "Manipulating & Cleaning Data",
+          "question": "Which code removes the column years from emp and returns a new DataFrame?",
+          "options": [
+            "emp.drop(['years'])",
+            "emp.remove('years')",
+            "emp.delete(columns='years')",
+            "emp.drop(columns=['years'])"
+          ],
+          "correct": 3,
+          "explanation": "drop(['years']) with no axis looks for a row labeled 'years' and raises a KeyError."
+        },
+        {
+          "type": "mc",
+          "category": "Manipulating & Cleaning Data",
+          "question": "Which call adds the columns of df2 to df1, matching rows on a shared key column named id?",
+          "options": [
+            "pd.merge(df1, df2, on='id')",
+            "pd.concat([df1, df2], on='id')",
+            "df1.append(df2, on='id')",
+            "pd.stack(df1, df2, on='id')"
+          ],
+          "correct": 0,
+          "explanation": "merge combines tables side by side on a key, much like a SQL join."
+        },
+        {
+          "type": "mc",
+          "category": "Manipulating & Cleaning Data",
+          "question": "By default, df1.join(df2) matches rows using ___.",
+          "options": [
+            "the first column of each DataFrame",
+            "the index of both DataFrames",
+            "any columns that have the same name in both",
+            "the row position, after sorting both tables"
+          ],
+          "correct": 1,
+          "explanation": "join() aligns on the index. Matching on shared column names is what merge() does by default."
+        },
+        {
+          "type": "mc",
+          "category": "Manipulating & Cleaning Data",
+          "question": "Which code stacks the rows of df2 underneath df1, when both have the same columns?",
+          "options": [
+            "pd.concat(df1, df2)",
+            "pd.merge(df1, df2)",
+            "pd.concat([df1, df2])",
+            "df1.join(df2)"
+          ],
+          "correct": 2,
+          "explanation": "concat takes a list of DataFrames. Passing them as two separate arguments is an error."
+        },
+        {
+          "type": "mc",
+          "category": "Manipulating & Cleaning Data",
+          "question": "When you stack two DataFrames with pd.concat and both use index labels 0, 1, 2, what happens to the labels?",
+          "options": [
+            "The repeated labels are renumbered automatically by concat",
+            "The duplicate rows are dropped automatically by concat",
+            "pandas raises an error whenever a label repeats",
+            "The repeated labels are kept unless you pass ignore_index=True"
+          ],
+          "correct": 3,
+          "explanation": "concat only stacks. Use ignore_index=True for a fresh 0..n-1 index, and drop_duplicates() to remove repeated rows."
+        },
+        {
+          "type": "mc",
+          "category": "Manipulating & Cleaning Data",
+          "question": "Which code removes duplicate rows from df?",
+          "options": [
+            "df.drop_duplicates()",
+            "df.drop_unique()",
+            "df.remove_duplicates()",
+            "df.duplicated()"
+          ],
+          "correct": 0,
+          "explanation": "duplicated() only reports which rows are repeats, as True/False; drop_duplicates() removes them."
+        },
+        {
+          "type": "mc",
+          "category": "Manipulating & Cleaning Data",
+          "question": "What does df.isna().sum().sum() return?",
+          "options": [
+            "the number of columns that contain at least one missing value",
+            "the total number of missing values in the whole DataFrame",
+            "the number of rows that contain at least one missing value",
+            "the sum of all of the values that are not missing in the table"
+          ],
+          "correct": 1,
+          "explanation": "isna() gives a True/False table; the first sum() counts Trues per column and the second adds those counts up."
+        },
+        {
+          "type": "mc",
+          "category": "Manipulating & Cleaning Data",
+          "question": "What does df.dropna(axis=1) do?",
+          "options": [
+            "drops every row that contains at least one missing value",
+            "drops every column that is made up entirely of numeric values",
+            "drops every column that contains at least one missing value",
+            "fills each missing value with the value from the previous column"
+          ],
+          "correct": 2,
+          "explanation": "The default dropna() drops rows; axis=1 switches it to columns."
+        },
+        {
+          "type": "mc",
+          "category": "Manipulating & Cleaning Data",
+          "question": "What is imputation?",
+          "options": [
+            "Deleting every row that contains a missing value from the data set",
+            "Converting text columns into numeric columns before running an analysis",
+            "Combining two DataFrames that share a common key column",
+            "Replacing missing values with substitute values estimated from the data"
+          ],
+          "correct": 3,
+          "explanation": "Imputing keeps the row but fills the gap, for example with the mean or with a neighboring value."
+        },
+        {
+          "type": "mc",
+          "category": "Manipulating & Cleaning Data",
+          "question": "Which code fills the missing values in the salary column with that column's mean?",
+          "options": [
+            "emp['salary'].fillna(emp['salary'].mean())",
+            "emp['salary'].fillna('mean')",
+            "emp['salary'].fillna(method='mean')",
+            "emp['salary'].fill(emp.mean())"
+          ],
+          "correct": 0,
+          "explanation": "fillna() takes the replacement value, so compute the mean first and pass it in."
+        },
+        {
+          "type": "mc",
+          "category": "Manipulating & Cleaning Data",
+          "question": "For the series 5, NaN, 8, which statement is correct?",
+          "options": [
+            "ffill gives 5, 8, 8 and bfill gives 5, 5, 8",
+            "ffill gives 5, 5, 8 and bfill gives 5, 8, 8",
+            "ffill and bfill both give 5, 6.5, 8",
+            "ffill gives 5, 0, 8 and bfill gives 5, 0, 8"
+          ],
+          "correct": 1,
+          "explanation": "Forward fill carries the last valid value forward; backward fill pulls the next valid value back."
+        },
+        {
+          "type": "mc",
+          "category": "Manipulating & Cleaning Data",
+          "question": "Daily prices are missing for one holiday between two valid trading days. Which fill strategy is most defensible?",
+          "options": [
+            "Fill with 0, since no trading took place on that day",
+            "Drop the whole price column, since it contains a gap in the data",
+            "Forward fill, since prices tend to carry over from the previous valid day",
+            "Fill with the most common price found across all of the dates"
+          ],
+          "correct": 2,
+          "explanation": "A 0 would look like a crash. Carrying the last value forward is a common, explainable choice for ordered data."
+        },
+        {
+          "type": "mc",
+          "category": "Manipulating & Cleaning Data",
+          "question": "What is a drawback of filling every missing value in a column with that column's mean?",
+          "options": [
+            "It always increases the number of rows in the DataFrame",
+            "It changes the data type of the whole column into text",
+            "It makes the mean of the column differ from its original mean",
+            "It shrinks the variance of the column and can hide real variation in the data"
+          ],
+          "correct": 3,
+          "explanation": "The mean is unchanged, but the filled values all sit at the center, so the spread looks smaller than it is."
+        },
+        {
+          "type": "mc",
+          "category": "Manipulating & Cleaning Data",
+          "question": "After df = pd.read_csv('data.csv'), what type of object is df?",
+          "options": [
+            "a DataFrame",
+            "a Series",
+            "an ndarray",
+            "a list of dictionaries"
+          ],
+          "correct": 0,
+          "explanation": "read_csv returns a DataFrame, with the column names taken from the file's header row."
+        },
+        {
+          "type": "short_answer",
+          "category": "Manipulating & Cleaning Data",
+          "question": "A DataFrame of patient records has missing values in the age column for 8% of the rows. Compare two ways of handling them: dropping the rows with dropna(), and filling them with the column mean using fillna(). Give one advantage and one disadvantage of each.",
+          "answerLang": null,
+          "modelAnswer": "dropna(): Advantage: simple, and no made-up values enter the data. Disadvantage: loses the other information in those rows and shrinks the sample, which can bias results if the missing ages are not random.\n\nfillna(mean): Advantage: keeps every row, so the other columns are still used and the sample size is preserved. Disadvantage: invents values that cluster at the mean, which reduces the variance and can weaken relationships with other variables.",
+          "rubric": [
+            "Gives an advantage of dropna(), such as simplicity or no invented values",
+            "Gives a disadvantage of dropna(), such as lost rows or a smaller sample",
+            "Gives an advantage of mean-filling, such as keeping all rows",
+            "Gives a disadvantage of mean-filling, such as reduced variance or distorted data"
+          ],
+          "explanation": "The best choice depends on how much is missing and why."
+        },
+        {
+          "type": "mc",
+          "category": "Manipulating & Cleaning Data",
+          "question": "Which pair of methods identifies duplicate rows and then removes them?",
+          "options": [
+            "find_duplicates() and drop_duplicates()",
+            "duplicated() and remove_duplicates()",
+            "duplicated() and drop_duplicates()",
+            "info() and drop_duplicates()"
+          ],
+          "correct": 2,
+          "explanation": "duplicated() returns True/False for each row; drop_duplicates() returns the DataFrame without the repeats."
+        },
+        {
+          "type": "mc",
+          "category": "Manipulating & Cleaning Data",
+          "question": "What is the difference between unique(), nunique() and value_counts() on a column?",
+          "options": [
+            "unique() counts the distinct values, nunique() lists them, and value_counts() adds them up",
+            "unique() counts how often each value occurs, nunique() lists them, and value_counts() sorts them",
+            "unique() lists the distinct values, nunique() sorts them, and value_counts() removes duplicates",
+            "unique() lists the distinct values, nunique() counts them, and value_counts() counts how often each one occurs"
+          ],
+          "correct": 3,
+          "explanation": "For a column with values a, a, b: unique() gives [a, b], nunique() gives 2, value_counts() gives a 2, b 1."
+        },
+        {
+          "type": "mc",
+          "category": "Manipulating & Cleaning Data",
+          "question": "Which tasks are typical early steps when cleaning a DataFrame, after you have examined it?",
+          "options": [
+            "Drop duplicate rows, drop rows and columns you do not need, and rename columns",
+            "Sort the index, convert every column into text, and drop every row that holds a zero",
+            "Plot each of the columns, fit a regression model, and then drop all of the outliers",
+            "Pivot the data, merge it with another table, and then reset the row index"
+          ],
+          "correct": 0,
+          "explanation": "Examine first (info, describe, head), then remove what is not needed and tidy the names before dealing with types and missing values."
+        },
+        {
+          "type": "mc",
+          "category": "Manipulating & Cleaning Data",
+          "question": "A table has one row per product and one column per region. Which description fits it?",
+          "options": [
+            "long format",
+            "wide format",
+            "stacked format",
+            "merged format"
+          ],
+          "correct": 1,
+          "explanation": "Wide data spreads one variable (region) across several columns. Long data has one row per product-region pair."
+        },
+        {
+          "type": "mc",
+          "category": "Manipulating & Cleaning Data",
+          "question": "A survey table has one row per respondent, with separate columns Q1, Q2 and Q3 holding their answers. You need one row for each respondent-and-question pair so that you can plot every answer. What should you do?",
+          "options": [
+            "Reshape the table from long to wide, for example with pivot() or unstack()",
+            "Drop the duplicate rows from the table, using drop_duplicates()",
+            "Reshape the table from wide to long, for example with melt() or stack()",
+            "Merge the table with itself, using pd.merge() on the respondent column"
+          ],
+          "correct": 2,
+          "explanation": "One row per respondent with a column per question is wide format. Plotting and grouping are usually easier on long format."
+        },
+        {
+          "type": "mc",
+          "category": "Manipulating & Cleaning Data",
+          "question": "What is binning?",
+          "options": [
+            "Converting each value into text so that the values can be sorted",
+            "Removing the values that fall outside the whiskers of a box plot",
+            "Splitting a DataFrame into a training set and a test set",
+            "Grouping continuous values into ranges, which can make trends easier to see"
+          ],
+          "correct": 3,
+          "explanation": "Binning reduces detail on purpose. A histogram bins automatically, and pd.cut() bins a column explicitly."
+        },
+        {
+          "type": "mc",
+          "category": "Manipulating & Cleaning Data",
+          "question": "Which function groups a numeric column into ranges, such as age bands?",
+          "options": [
+            "pd.cut()",
+            "pd.bin()",
+            "pd.split()",
+            "pd.band()"
+          ],
+          "correct": 0,
+          "explanation": "pd.cut(df['age'], bins=[0, 18, 65, 100]) assigns each value to an interval."
+        },
+        {
+          "type": "mc",
+          "category": "Manipulating & Cleaning Data",
+          "question": "You change a column in a subset created by filtering df and get a SettingWithCopyWarning. What is the usual fix?",
+          "options": [
+            "Ignore it, since the warning always means that the change was saved to the original",
+            "Create the subset with .copy(), or set values on the original with .loc",
+            "Convert every column of the DataFrame to a string before changing the subset",
+            "Delete the original DataFrame first so that only the subset remains"
+          ],
+          "correct": 1,
+          "explanation": "pandas cannot tell whether your subset is a view or a copy. df2 = df[df['x'] > 1].copy() makes the intent explicit."
+        },
+        {
+          "type": "mc",
+          "category": "Manipulating & Cleaning Data",
+          "question": "You have January and February sales tables with identical columns, and you want one table containing every row from both. Which call does that?",
+          "options": [
+            "pd.merge(jan, feb)",
+            "jan.join(feb)",
+            "pd.concat([jan, feb])",
+            "pd.pivot(jan, feb)"
+          ],
+          "correct": 2,
+          "explanation": "concat stacks tables one under the other by default. merge and join add columns by matching on a key or the index."
+        },
+        {
+          "type": "mc",
+          "category": "Manipulating & Cleaning Data",
+          "question": "By default, pd.merge(df1, df2, on='id') keeps ___.",
+          "options": [
+            "every row from both tables, with NaN filling the gaps (an outer join)",
+            "every row of df1 only, even when no match exists (a left join)",
+            "every row of df2 only, even when no match exists (a right join)",
+            "only the rows whose id appears in both tables (an inner join)"
+          ],
+          "correct": 3,
+          "explanation": "Use how='left', 'right' or 'outer' to change that."
+        }
+      ]
+    },
+    {
+      "name": "9. Indexes, Reshaping and Grouping",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Indexes, Reshaping & Grouping",
+          "question": "What does emp.set_index('name') do?",
+          "options": [
+            "Sorts the DataFrame alphabetically by the contents of the name column",
+            "Returns a DataFrame that uses the name column as its row index",
+            "Renames the index of the DataFrame so that it is called name",
+            "Removes the name column and discards the values that it held"
+          ],
+          "correct": 1,
+          "explanation": "The name column moves out of the data and becomes the row labels."
+        },
+        {
+          "type": "mc",
+          "category": "Indexes, Reshaping & Grouping",
+          "question": "What does reset_index() do to a DataFrame whose index is currently the name column?",
+          "options": [
+            "Deletes the index and the name values from the DataFrame permanently",
+            "Sorts the rows back into the original order of the source file",
+            "Moves the index back into a regular column and restores a 0, 1, 2... index",
+            "Resets every value in the DataFrame to NaN and starts over"
+          ],
+          "correct": 2,
+          "explanation": "Add drop=True if you want to discard the old index instead of keeping it as a column."
+        },
+        {
+          "type": "mc",
+          "category": "Indexes, Reshaping & Grouping",
+          "question": "A DataFrame created without specifying an index gets which kind of index by default?",
+          "options": [
+            "a MultiIndex built from the first two columns",
+            "an index made up of the column names",
+            "no index at all; rows are identified only by position",
+            "a RangeIndex of integers 0, 1, 2, ..."
+          ],
+          "correct": 3,
+          "explanation": "The default RangeIndex counts the rows from 0."
+        },
+        {
+          "type": "mc",
+          "category": "Indexes, Reshaping & Grouping",
+          "question": "What is a MultiIndex?",
+          "options": [
+            "An index with two or more levels, such as region and product",
+            "Two separate DataFrames that happen to share the same index",
+            "An index that contains repeated labels only",
+            "A list of the column names in the DataFrame"
+          ],
+          "correct": 0,
+          "explanation": "set_index(['region', 'product']) builds one. Use unstack() to move a level into the columns."
+        },
+        {
+          "type": "mc",
+          "category": "Indexes, Reshaping & Grouping",
+          "question": "Which code returns the mean salary of each department?",
+          "options": [
+            "emp.groupby('salary')['dept'].mean()",
+            "emp.groupby('dept')['salary'].mean()",
+            "emp.mean('dept')['salary']",
+            "emp['salary'].groupby().mean('dept')"
+          ],
+          "correct": 1,
+          "explanation": "Group by the category, select the column to summarize, then aggregate."
+        },
+        {
+          "type": "mc",
+          "category": "Indexes, Reshaping & Grouping",
+          "question": "The DataFrame emp has the columns dept, name, salary and years, with the default index 0 to 5:\n0: Sales, Ana, 52000, 3\n1: Sales, Ben, 61000, 7\n2: IT, Cy, 75000, 5\n3: IT, Dee, 82000, 9\n4: HR, Eli, 48000, 2\n5: HR, Fay, 55000, 6\nWhich department has the highest mean salary?",
+          "options": [
+            "Sales",
+            "HR",
+            "IT",
+            "They are tied"
+          ],
+          "correct": 2,
+          "explanation": "IT: (75000 + 82000) / 2 = 78500. Sales: 56500. HR: 51500."
+        },
+        {
+          "type": "mc",
+          "category": "Indexes, Reshaping & Grouping",
+          "question": "What does emp.groupby('dept')['salary'].agg(['min', 'max']) return?",
+          "options": [
+            "one row per salary, with the department shown in two columns",
+            "a single row holding the overall minimum and maximum salary",
+            "one column per department, holding every salary for that department",
+            "one row per department, with the minimum and maximum salary as two columns"
+          ],
+          "correct": 3,
+          "explanation": "agg() with a list applies each function to every group."
+        },
+        {
+          "type": "mc",
+          "category": "Indexes, Reshaping & Grouping",
+          "question": "What does emp.pivot_table(index='dept', values='salary', aggfunc='max') return?",
+          "options": [
+            "the highest salary in each department, one row per department",
+            "the highest salary in the whole table, as a single number",
+            "the total salary of each department, one row per department",
+            "one row per employee, with the salary as the only column"
+          ],
+          "correct": 0,
+          "explanation": "index sets the rows, values picks the column, and aggfunc says how to summarize each group."
+        },
+        {
+          "type": "mc",
+          "category": "Indexes, Reshaping & Grouping",
+          "question": "A DataFrame has two different rows with the same product and the same region. You call df.pivot(index='product', columns='region', values='sales'). What happens?",
+          "options": [
+            "It adds the two sales values together, so that the cell holds their total",
+            "It raises an error, because pivot cannot handle a repeated product-and-region pair",
+            "It averages the two sales values, so that the cell holds their mean",
+            "It keeps the first row it finds and quietly discards the second row"
+          ],
+          "correct": 1,
+          "explanation": "pivot only reshapes. pivot_table(..., aggfunc='sum') would combine the duplicates instead."
+        },
+        {
+          "type": "mc",
+          "category": "Indexes, Reshaping & Grouping",
+          "question": "What does unstack() do on a DataFrame that has a two-level row index?",
+          "options": [
+            "Moves the column labels into a new row-index level, making the table longer",
+            "Removes the duplicated labels from the index of the rows",
+            "Moves the innermost row-index level into the columns, making the table wider",
+            "Splits the DataFrame into two separate DataFrames by level"
+          ],
+          "correct": 2,
+          "explanation": "stack() does the opposite: it pushes columns down into the row index."
+        },
+        {
+          "type": "mc",
+          "category": "Indexes, Reshaping & Grouping",
+          "question": "Which operation turns the columns of a DataFrame into an innermost row-index level, making the table longer?",
+          "options": [
+            "unstack()",
+            "pivot_table()",
+            "describe()",
+            "stack()"
+          ],
+          "correct": 3,
+          "explanation": "stack() lengthens the table; unstack() and pivot_table() widen it."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Indexes, Reshaping & Grouping",
+          "question": "To split rows into groups by a column and then summarize each group, use the DataFrame method df.______('column').",
+          "answers": [
+            "groupby"
+          ],
+          "explanation": "groupby() followed by an aggregate such as sum() or mean() is the pandas version of SQL's GROUP BY."
+        },
+        {
+          "type": "matching",
+          "category": "Indexes, Reshaping & Grouping",
+          "question": "Match each pandas call to what it does.",
+          "pairs": [
+            {
+              "left": "set_index('id')",
+              "right": "Makes the id column the row index"
+            },
+            {
+              "left": "reset_index()",
+              "right": "Moves the index back into a column and renumbers the rows"
+            },
+            {
+              "left": "stack()",
+              "right": "Pivots columns into the innermost row-index level"
+            },
+            {
+              "left": "unstack()",
+              "right": "Pivots an index level out into the columns"
+            },
+            {
+              "left": "pivot_table()",
+              "right": "Reshapes the data while aggregating repeated entries"
+            },
+            {
+              "left": "groupby()",
+              "right": "Splits the rows into groups so each can be summarized"
+            }
+          ],
+          "explanation": "Reshaping calls change the table's layout; groupby changes what is being summarized."
+        },
+        {
+          "type": "mc",
+          "category": "Indexes, Reshaping & Grouping",
+          "question": "Which code returns only the total units for each product in a DataFrame named orders?",
+          "options": [
+            "orders.groupby('product')['units'].sum()",
+            "orders.groupby('product').sum('units')",
+            "orders['units'].groupby('product').sum()",
+            "orders.sum('product')['units']"
+          ],
+          "correct": 0,
+          "explanation": "Group by the category, select the one column to total, then aggregate. Without selecting a column, sum() would add every numeric column."
+        },
+        {
+          "type": "mc",
+          "category": "Indexes, Reshaping & Grouping",
+          "question": "What does df['dept'].value_counts().plot(kind='bar') draw?",
+          "options": [
+            "a histogram that bins the department names into equal-width ranges",
+            "a bar for each department, with the height showing how many rows it has",
+            "a line that follows the number of rows from the first to the last department",
+            "a pie slice for each department showing its share of the total salary"
+          ],
+          "correct": 1,
+          "explanation": "value_counts() gives a count per category, and a bar plot is the right choice for categories."
+        },
+        {
+          "type": "short_answer",
+          "category": "Indexes, Reshaping & Grouping",
+          "question": "A DataFrame has one row per product and one column per region (North, South), holding sales figures. Explain what stack() and unstack() do, how they differ, and what each would do to this table. State whether the table is wide or long before and after.",
+          "answerLang": null,
+          "modelAnswer": "The table starts WIDE: each region is its own column.\n\nstack() moves the column labels into the row index. For this table it turns the North and South columns into an inner index level, giving one row per (product, region) pair with a single sales column. The result is LONGER and narrower (long format).\n\nunstack() does the reverse: it moves the inner row-index level back out into columns. Unstacking the stacked result gives back one row per product with a column for each region. The result is WIDER and shorter (wide format).\n\nSo stack = columns to rows (longer); unstack = index level to columns (wider).",
+          "rubric": [
+            "Identifies the starting table as wide (regions spread across columns)",
+            "Says stack() moves columns into the row index, making the data longer",
+            "Says unstack() moves an index level into columns, making the data wider",
+            "Applies both operations to the product/region example correctly"
+          ],
+          "explanation": "A common slip is reversing the directions: remember that stack makes the table taller."
+        }
+      ]
+    },
+    {
+      "name": "10. Linear Regression",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Linear Regression",
+          "question": "A correlation coefficient of −0.9 between hours of TV watched and exam score indicates ___.",
+          "options": [
+            "a strong negative linear relationship",
+            "a weak negative linear relationship",
+            "a strong positive linear relationship",
+            "no linear relationship at all"
+          ],
+          "correct": 0,
+          "explanation": "The sign gives the direction and the size (close to 1 in magnitude) gives the strength."
+        },
+        {
+          "type": "mc",
+          "category": "Linear Regression",
+          "question": "A correlation coefficient close to 0 means ___.",
+          "options": [
+            "the two variables are exactly equal to each other in every row",
+            "there is little or no linear relationship between the two variables",
+            "one variable causes the other variable to change by a small amount",
+            "the data contain mostly missing values in both of the columns"
+          ],
+          "correct": 1,
+          "explanation": "Near 0 means a straight-line trend is absent; there could still be a curved relationship."
+        },
+        {
+          "type": "tf",
+          "category": "Linear Regression",
+          "question": "A high correlation between two variables proves that one of them causes the other.",
+          "correct": false,
+          "explanation": "Correlation measures association only. A third variable, or coincidence, may explain it."
+        },
+        {
+          "type": "mc",
+          "category": "Linear Regression",
+          "question": "Which code returns a table of pairwise correlation coefficients for the numeric columns of df?",
+          "options": [
+            "df.correl()",
+            "df.corrcoef()",
+            "df.corr()",
+            "df.relate()"
+          ],
+          "correct": 2,
+          "explanation": "DataFrame.corr() returns the correlation matrix; corrcoef is a NumPy function, np.corrcoef."
+        },
+        {
+          "type": "mc",
+          "category": "Linear Regression",
+          "question": "What does R², reported by a model's score() method, measure?",
+          "options": [
+            "the average squared distance between the predictions and the actual values",
+            "the slope of the best-fit line drawn through the points of the data",
+            "the probability that each prediction made by the model is correct",
+            "the proportion of the variation in the target that the model explains"
+          ],
+          "correct": 3,
+          "explanation": "R² runs from 0 (explains nothing) to 1 (explains everything) for a good fit."
+        },
+        {
+          "type": "mc",
+          "category": "Linear Regression",
+          "question": "A model's R² on the test set is 0.82. Which interpretation is best?",
+          "options": [
+            "About 82% of the variation in the target is explained by the model's features",
+            "The model's predictions are exactly correct about 82% of the time",
+            "The model's predictions are off by 82% of the actual value on average",
+            "82% of the rows in the test set were used to train the model"
+          ],
+          "correct": 0,
+          "explanation": "R² is a share of variation explained, not an accuracy percentage."
+        },
+        {
+          "type": "mc",
+          "category": "Linear Regression",
+          "question": "What does mean squared error (MSE) measure?",
+          "options": [
+            "the average of the actual values minus the predicted values, unsquared",
+            "the average of the squared differences between the predicted and the actual values",
+            "the square root of the average difference between the model's features",
+            "the proportion of the rows that the model predicted exactly right"
+          ],
+          "correct": 1,
+          "explanation": "Squaring stops positive and negative errors cancelling and punishes large misses. Lower is better."
+        },
+        {
+          "type": "mc",
+          "category": "Linear Regression",
+          "question": "Model A has an MSE of 4 and model B has an MSE of 9, both on the same test data. Which statement is correct?",
+          "options": [
+            "Model B is better, because a higher error means that the model has learned more",
+            "They are equally good, because MSE only reflects the size of the test set",
+            "Model A is better, because its predictions are closer to the actual values on average",
+            "Neither can be compared, because MSE is only comparable with R-squared values"
+          ],
+          "correct": 2,
+          "explanation": "On the same data, the smaller MSE means smaller average error."
+        },
+        {
+          "type": "mc",
+          "category": "Linear Regression",
+          "question": "In a model that predicts a car's resale price from its age and mileage, the dependent variable is ___.",
+          "options": [
+            "age",
+            "mileage",
+            "age and mileage together",
+            "resale price"
+          ],
+          "correct": 3,
+          "explanation": "The dependent (target) variable is what you predict. Age and mileage are the independent variables (features)."
+        },
+        {
+          "type": "mc",
+          "category": "Linear Regression",
+          "question": "Another name for the independent variables in a regression model is ___.",
+          "options": [
+            "features",
+            "targets",
+            "labels",
+            "residuals"
+          ],
+          "correct": 0,
+          "explanation": "Features are the inputs (X); the target or label is the output (y)."
+        },
+        {
+          "type": "mc",
+          "category": "Linear Regression",
+          "question": "Which equation describes a MULTIPLE linear regression model?",
+          "options": [
+            "price = b0 + b1·sqft, which uses a single feature",
+            "price = b0 + b1·sqft + b2·bedrooms",
+            "bedrooms = b0 + b1·sqft, which uses a single feature",
+            "price = b0, a constant with no features at all"
+          ],
+          "correct": 1,
+          "explanation": "Multiple regression has two or more independent variables; simple regression has exactly one."
+        },
+        {
+          "type": "mc",
+          "category": "Linear Regression",
+          "question": "Which sequence describes the usual regression workflow in scikit-learn?",
+          "options": [
+            "Fit the model on the whole data set, then split it into train and test sets to predict",
+            "Predict on the test set, then fit the model to the predictions that it made",
+            "Split into train and test sets, fit the model on the training set, then predict on the test set",
+            "Fit the model on the test set, then use the training set to predict"
+          ],
+          "correct": 2,
+          "explanation": "The test set must stay unseen during fitting, or the score will look better than it really is."
+        },
+        {
+          "type": "mc",
+          "category": "Linear Regression",
+          "question": "Why is a data set split into training and test sets?",
+          "options": [
+            "To make the model train faster by reducing the data that it reads",
+            "To remove the outliers from the data before the model is fitted",
+            "To balance the number of rows that are held in each of the columns",
+            "To measure how well the model predicts data it was not fitted on"
+          ],
+          "correct": 3,
+          "explanation": "Performance on the training data alone would overstate how well the model generalizes."
+        },
+        {
+          "type": "mc",
+          "category": "Linear Regression",
+          "question": "train_test_split(X, y, test_size=0.25) is applied to 200 rows. How many rows go to the training set?",
+          "options": [
+            "150",
+            "50",
+            "25",
+            "175"
+          ],
+          "correct": 0,
+          "explanation": "25% of 200 is 50 test rows, which leaves 150 for training."
+        },
+        {
+          "type": "mc",
+          "category": "Linear Regression",
+          "question": "model.fit(df['sqft'], df['price']) raises an error. What is the likely fix?",
+          "options": [
+            "Convert the price column into strings before the model is fitted",
+            "Pass the feature as a 2-D table, df[['sqft']], instead of the 1-D Series df['sqft']",
+            "Call model.predict() before calling model.fit() on the same data",
+            "Drop every row of df that contains a duplicate value in it"
+          ],
+          "correct": 1,
+          "explanation": "scikit-learn expects X to be 2-D (rows × features), so use double brackets even for one feature."
+        },
+        {
+          "type": "mc",
+          "category": "Linear Regression",
+          "question": "What does model.predict(X_test) return?",
+          "options": [
+            "the R-squared score for the rows in X_test",
+            "the correlation between X_test and y_test",
+            "the model's predicted target values for the rows in X_test",
+            "the rows of X_test sorted by their predicted value"
+          ],
+          "correct": 2,
+          "explanation": "predict() returns y-hat values. score(X_test, y_test) is what compares them with the truth."
+        },
+        {
+          "type": "mc",
+          "category": "Linear Regression",
+          "question": "What is a heatmap of df.corr() used for?",
+          "options": [
+            "to display the distribution of a single variable by grouping it into bins",
+            "to show how one variable changes over time by joining points with a line",
+            "to compare the totals of several categories using bars of equal width",
+            "to see at a glance which pairs of variables are strongly correlated, using color"
+          ],
+          "correct": 3,
+          "explanation": "Each cell is one pair's correlation, colored by its strength and direction."
+        },
+        {
+          "type": "short_answer",
+          "category": "Linear Regression",
+          "question": "Explain the difference between simple linear regression and multiple linear regression. Then give a realistic question that multiple regression could answer, and name its dependent variable and its independent variables.",
+          "answerLang": null,
+          "modelAnswer": "Simple linear regression predicts one dependent (target) variable from ONE independent variable (feature), fitting a line y = mx + b. Multiple linear regression predicts one dependent variable from TWO OR MORE independent variables.\n\nExample: predicting a used car's resale price. The dependent variable is the resale price; the independent variables are the car's age, mileage and engine size.",
+          "rubric": [
+            "Says simple regression uses one independent variable",
+            "Says multiple regression uses two or more independent variables",
+            "Gives a realistic example question",
+            "Names the dependent variable and at least two independent variables for the example"
+          ],
+          "explanation": "Both predict a single target; they differ in how many features go in."
+        },
+        {
+          "type": "short_answer",
+          "category": "Linear Regression",
+          "question": "Describe the steps you would follow to build and evaluate a linear regression model in Python, from a DataFrame to a score. For each step, name the function or method you would use.",
+          "answerLang": null,
+          "modelAnswer": "1. Choose the features X (for example df[['sqft', 'age']]) and the target y (df['price']).\n2. Split the data with train_test_split(X, y, test_size=0.2) into training and test sets.\n3. Create the model, LinearRegression(), and fit it on the training data with model.fit(X_train, y_train).\n4. Predict with model.predict(X_test).\n5. Evaluate on the test set with model.score(X_test, y_test) (R²) or mean_squared_error(y_test, predictions).",
+          "rubric": [
+            "Separates the features (X) from the target (y)",
+            "Splits the data into training and test sets (train_test_split)",
+            "Fits the model on the training data only (fit)",
+            "Predicts on the test data (predict)",
+            "Evaluates with R² (score) or mean squared error"
+          ],
+          "explanation": "The key idea is that the test data play no part in fitting."
+        }
+      ]
+    },
+    {
+      "name": "11. Plotting with Matplotlib",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Plotting Code",
+          "question": "Which line displays the current Matplotlib figure?",
+          "options": [
+            "plt.show()",
+            "plt.display()",
+            "plt.render()",
+            "plt.print()"
+          ],
+          "correct": 0,
+          "explanation": "plot, hist, scatter and the rest only build the figure; show() draws it."
+        },
+        {
+          "type": "mc",
+          "category": "Plotting Code",
+          "question": "What does plt.plot(x, y) draw by default?",
+          "options": [
+            "a scatter of separate points with no line between them",
+            "a line connecting the (x, y) points in order",
+            "a histogram of the x values and the y values",
+            "a pie chart of the y values and their shares"
+          ],
+          "correct": 1,
+          "explanation": "Use plt.scatter for unconnected points."
+        },
+        {
+          "type": "mc",
+          "category": "Plotting Code",
+          "question": "Which code draws a histogram of the list scores using 8 bins?",
+          "options": [
+            "plt.histogram(scores, bins=8)",
+            "plt.bar(scores, bins=8)",
+            "plt.hist(scores, bins=8)",
+            "plt.plot(scores, bins=8)"
+          ],
+          "correct": 2,
+          "explanation": "The function is hist, and bins controls how many ranges the values are grouped into."
+        },
+        {
+          "type": "mc",
+          "category": "Plotting Code",
+          "question": "Which code draws a scatter plot with height on the x-axis and weight on the y-axis?",
+          "options": [
+            "plt.scatterplot(height, weight)",
+            "plt.points(height, weight)",
+            "plt.hist(height, weight)",
+            "plt.scatter(height, weight)"
+          ],
+          "correct": 3,
+          "explanation": "plt.scatter takes the x values first, then the y values."
+        },
+        {
+          "type": "mc",
+          "category": "Plotting Code",
+          "question": "Which sequence draws a scatter plot with a fitted line on top of it?",
+          "options": [
+            "plt.scatter(x, y), then plt.plot(x, y_pred), then plt.show()",
+            "plt.line(x, y), then plt.scatter(x, y_pred), then plt.show()",
+            "plt.show(), then plt.scatter(x, y), then plt.plot(x, y_pred)",
+            "plt.hist(x, y), then plt.plot(x, y_pred), then plt.show()"
+          ],
+          "correct": 0,
+          "explanation": "Both layers are added to the same figure before show() displays it."
+        },
+        {
+          "type": "mc",
+          "category": "Plotting Code",
+          "question": "Which code draws a box-whisker plot of the list scores?",
+          "options": [
+            "plt.box(scores)",
+            "plt.boxplot(scores)",
+            "plt.whisker(scores)",
+            "plt.hist(scores, box=True)"
+          ],
+          "correct": 1,
+          "explanation": "matplotlib's function is boxplot."
+        },
+        {
+          "type": "mc",
+          "category": "Plotting Code",
+          "question": "Which line labels the x-axis of the current plot as 'Height (in)'?",
+          "options": [
+            "plt.label_x('Height (in)')",
+            "plt.axis('Height (in)')",
+            "plt.xlabel('Height (in)')",
+            "plt.title_x('Height (in)')"
+          ],
+          "correct": 2,
+          "explanation": "xlabel and ylabel name the axes, and title names the whole plot."
+        },
+        {
+          "type": "mc",
+          "category": "Plotting Code",
+          "question": "In sns.heatmap(df.corr(), annot=True), what does annot=True do?",
+          "options": [
+            "annotates the color bar with the R-squared of the model",
+            "highlights only those cells that have values above 0.5",
+            "adds a title that names the DataFrame being plotted",
+            "writes each correlation value inside its cell"
+          ],
+          "correct": 3,
+          "explanation": "Without annot, you see only colors and have to read the values from the color bar."
+        }
+      ]
+    }
+  ]
+}

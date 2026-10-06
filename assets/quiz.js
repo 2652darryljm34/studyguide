@@ -10,6 +10,7 @@ const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
 let quizData = null;
 let flat = [];        // flattened, ordered list of { sectionName, ...question }
 let current = 0;
+let quizMode = 'full'; // 'full', or 'short' for a quiz that sets shortCount
 let answers = [];      // { item, correct, detail }
 let dbPromise = null;  // shared practice-database session for `sql` questions
 let boxPromise = null; // shared practice-machine image for `shell` questions
@@ -66,17 +67,80 @@ async function init(){
     const needsBox = sections.some(s => (s.questions || []).some(q => q.type === 'shell'));
     if(needsBox) ensureBox();
 
-    startQuiz();
+    // A quiz that declares "shortCount" offers a short mode: that many questions,
+    // drawn at random and spread evenly across its sections, redrawn every attempt.
+    // ?mode=short or ?mode=full skips the chooser.
+    const requested = params.get('mode');
+    if(quizData.shortCount && requested !== 'short' && requested !== 'full'){
+      renderModeChoice();
+    } else {
+      startQuiz(quizData.shortCount && requested === 'short' ? 'short' : 'full');
+    }
   }catch(err){
     loadingEl.textContent = "Couldn't load this quiz. " + err.message;
     loadingEl.classList.add('load-error');
   }
 }
 
-function startQuiz(){
+/* Pick n questions, as even a spread across the sections as the sections allow:
+ * every section gets floor(n / sections), and the leftover questions go one each
+ * to randomly chosen sections (a section only gets a second extra once every
+ * section with room has had one), so no two sections differ by more than one. */
+function pickEvenly(sections, n){
+  const caps = sections.map(s => (s.questions || []).length);
+  const total = caps.reduce((a, b) => a + b, 0);
+  let left = Math.min(n, total);
+  const base = Math.floor(left / sections.length);
+  const quota = caps.map(c => Math.min(base, c));
+  left -= quota.reduce((a, b) => a + b, 0);
+  while(left > 0){
+    const open = shuffle(caps.map((c, i) => i).filter(i => quota[i] < caps[i]));
+    if(!open.length) break;
+    for(const i of open){
+      if(left === 0) break;
+      quota[i]++;
+      left--;
+    }
+  }
+  return sections.map((s, i) => shuffle(s.questions || []).slice(0, quota[i]));
+}
+
+function renderModeChoice(){
+  const sections = quizData._sections;
+  const total = sections.reduce((n, s) => n + (s.questions || []).length, 0);
+  const short = Math.min(quizData.shortCount, total);
+  appEl.innerHTML = `
+    <div class="page-head quiz-head">
+      <h1>${escapeHtml(quizData.title || 'Quiz')}</h1>
+      ${quizData.guideFile ? `<a class="btn ghost" href="review.html?file=${encodeURIComponent(quizData.guideFile)}">Review the study guide &rarr;</a>` : ''}
+    </div>
+    <p class="mode-lead">How much do you want to do?</p>
+    <div class="mode-choice">
+      <button class="mode-card" id="mode-short" type="button">
+        <span class="mode-name">Short quiz</span>
+        <span class="mode-count">${short} questions</span>
+        <span class="mode-desc">A fresh random set every time, spread evenly across all ${sections.length} topics.</span>
+        <span class="mode-go">Start short quiz &rarr;</span>
+      </button>
+      <button class="mode-card" id="mode-full" type="button">
+        <span class="mode-name">Full review</span>
+        <span class="mode-count">${total} questions</span>
+        <span class="mode-desc">Every question, topic by topic, shuffled within each topic.</span>
+        <span class="mode-go">Start full review &rarr;</span>
+      </button>
+    </div>
+  `;
+  document.getElementById('mode-short').addEventListener('click', () => startQuiz('short'));
+  document.getElementById('mode-full').addEventListener('click', () => startQuiz('full'));
+}
+
+function startQuiz(mode){
+  if(mode) quizMode = mode;
+  const picked = (quizMode === 'short' && quizData.shortCount)
+    ? pickEvenly(quizData._sections, quizData.shortCount) : null;
   flat = [];
-  quizData._sections.forEach(section => {
-    const qs = shuffle(section.questions || []);
+  quizData._sections.forEach((section, i) => {
+    const qs = shuffle(picked ? picked[i] : (section.questions || []));
     qs.forEach(q => flat.push(Object.assign({ sectionName: section.name }, q)));
   });
   current = 0;
@@ -102,7 +166,7 @@ function render(){
     </div>
 
     <div class="quiz-meta">
-      <span>${item.sectionName ? escapeHtml(item.sectionName) + ' &middot; ' : ''}Question ${current + 1} of ${total}</span>
+      <span>${item.sectionName ? escapeHtml(item.sectionName) + ' &middot; ' : ''}Question ${current + 1} of ${total}${quizMode === 'short' && quizData.shortCount ? ' &middot; Short quiz' : ''}</span>
       <span id="score-tally">Score: ${fmtScore(earnedSoFar)}/${answers.length}</span>
     </div>
     <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
@@ -756,18 +820,21 @@ function renderResults(){
 
   appEl.innerHTML = `
     <div class="results">
-      <div class="score-label">${escapeHtml(quizData.title || 'Quiz')} \u2014 results</div>
+      <div class="score-label">${escapeHtml(quizData.title || 'Quiz')}${quizMode === 'short' && quizData.shortCount ? ' (short quiz)' : ''} \u2014 results</div>
       <div class="score">${fmtScore(earned)}/${total}</div>
       <div class="score-label">${pct}% &middot; ${headline}</div>
       <div class="results-actions">
-        <button class="btn primary" id="retry-btn">Retake quiz</button>
+        <button class="btn primary" id="retry-btn">${quizMode === 'short' && quizData.shortCount ? 'New short quiz' : 'Retake quiz'}</button>
+        ${quizData.shortCount ? '<button class="btn ghost" id="mode-btn">Change length</button>' : ''}
         <a class="btn ghost" href="index.html">Back to classes</a>
       </div>
     </div>
     <div class="review" id="review"></div>
   `;
 
-  document.getElementById('retry-btn').addEventListener('click', startQuiz);
+  document.getElementById('retry-btn').addEventListener('click', () => startQuiz());
+  const modeBtn = document.getElementById('mode-btn');
+  if(modeBtn) modeBtn.addEventListener('click', renderModeChoice);
 
   const reviewEl = document.getElementById('review');
   answers.forEach(a => {

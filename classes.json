@@ -169,6 +169,13 @@
       ],
       "quizzes": [
         {
+          "id": "final-exam",
+          "featured": true,
+          "title": "Final Exam Review",
+          "description": "Choose a short quiz (40 random questions, spread evenly across the topics) or the full 215-question review. Comprehensive: statistics, distributions, hypothesis testing, outliers, NumPy, pandas, cleaning, reshaping, linear regression and plotting.",
+          "file": "data/itd145-final-exam.json"
+        },
+        {
           "id": "exam2-review",
           "title": "Exam 2 Review",
           "description": "92 questions on every item in the Exam 2 outline - mostly multiple choice, weighted toward definitions and comparisons, with some true/false and matching.",
