@@ -32,6 +32,7 @@
       "quizzes": [
         {
           "id": "final-exam",
+          "featured": true,
           "title": "Final Exam Review",
           "description": "133 questions built from the instructor's final study guide: navigation, file maintenance, chmod, wildcards, monitoring, processes, find and links, pipes and text tools, users and sudo, vi, cron and shell scripting - with 35 hands-on terminal questions.",
           "file": "data/itn170-final-exam.json"
@@ -127,6 +128,7 @@
       "quizzes": [
         {
           "id": "final-exam",
+          "featured": true,
           "title": "Final Exam Review",
           "description": "150 questions built from the highlighted portions of the course review: database basics, the DBMS and data models, keys and integrity, normalization, SQL (26 you run against the practice database), transactions, and data warehousing, NoSQL and connectivity.",
           "file": "data/itd256-final-exam.json"

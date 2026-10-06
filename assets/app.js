@@ -20,16 +20,49 @@ async function loadClasses(){
       return;
     }
 
+    renderFeatured(classes);
     listEl.innerHTML = classes.map((cls, i) => renderClass(cls, i)).join('');
   }catch(err){
     listEl.innerHTML = `<div class="load-error">Couldn't load classes.json. ${escapeHtml(err.message)}</div>`;
   }
 }
 
+// A quiz marked "featured": true in classes.json is pulled out to the banner at
+// the top of the page and listed first, highlighted, inside its own class.
+// "badge" overrides the default label.
+const isFeatured = q => !!q.featured;
+const badgeFor = q => (typeof q.badge === 'string' && q.badge) || 'Updated';
+
+function renderFeatured(classes){
+  const section = document.getElementById('featured');
+  const list = document.getElementById('featured-list');
+  if(!section || !list) return;
+  const cards = [];
+  classes.forEach(cls => {
+    (cls.quizzes || []).filter(isFeatured).forEach(q => {
+      cards.push(`
+        <a class="featured-card" href="quiz.html?file=${encodeURIComponent(q.file)}">
+          <div class="featured-card-top">
+            <span class="featured-class">${escapeHtml(cls.name)}${cls.fullName ? ` <span>${escapeHtml(cls.fullName)}</span>` : ''}</span>
+            <span class="new-pill">${escapeHtml(badgeFor(q))}</span>
+          </div>
+          <div class="featured-card-title">${escapeHtml(q.title)}</div>
+          ${q.description ? `<div class="featured-card-desc">${escapeHtml(q.description)}</div>` : ''}
+          <div class="featured-card-go">Start the review &rarr;</div>
+        </a>`);
+    });
+  });
+  if(!cards.length) return;
+  list.innerHTML = cards.join('');
+  section.hidden = false;
+}
+
 function renderClass(cls, index){
   const guides = cls.guides || [];
-  const quizzes = cls.quizzes || [];
-  const count = quizzes.length;
+  const allQuizzes = cls.quizzes || [];
+  const featured = allQuizzes.filter(isFeatured);
+  const quizzes = allQuizzes.filter(q => !isFeatured(q));
+  const count = allQuizzes.length;
   const countLabel = count === 1 ? '1 quiz' : `${count} quizzes`;
 
   const guideRows = guides.map(g => `
@@ -66,6 +99,16 @@ function renderClass(cls, index){
     </a>
   `).join('');
 
+  const featuredRows = featured.map(q => `
+    <a class="quiz-row featured-row" href="quiz.html?file=${encodeURIComponent(q.file)}">
+      <div>
+        <div class="quiz-row-title"><span class="new-pill">${escapeHtml(badgeFor(q))}</span>${escapeHtml(q.title)}</div>
+        ${q.description ? `<div class="quiz-row-desc">${escapeHtml(q.description)}</div>` : ''}
+      </div>
+      <div class="quiz-row-go">Start &rarr;</div>
+    </a>
+  `).join('');
+
   const rows = quizzes.map(q => `
     <a class="quiz-row" href="quiz.html?file=${encodeURIComponent(q.file)}">
       <div>
@@ -80,7 +123,7 @@ function renderClass(cls, index){
     <details class="class-card" >
       <summary>
         <div class="class-heading">
-          <span class="class-code">${escapeHtml(cls.name)}</span>
+          <span class="class-code">${escapeHtml(cls.name)}${featured.length ? ` <span class="new-pill">${escapeHtml(badgeFor(featured[0]))}</span>` : ''}</span>
           ${cls.fullName ? `<span class="class-full">${escapeHtml(cls.fullName)}</span>` : ''}
         </div>
         <div style="display:flex; align-items:center; gap:10px;">
@@ -89,6 +132,7 @@ function renderClass(cls, index){
         </div>
       </summary>
       <div class="quiz-rows">
+        ${featuredRows}
         ${guideRows}
         ${exerciseRows}
         ${toolRows}
