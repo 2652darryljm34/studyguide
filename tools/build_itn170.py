@@ -20,7 +20,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from qcheck import check
+from qcheck import check, length_bias
 
 # Windows consoles default to cp1252, which cannot print the em dashes and
 # arrows that appear in the question text. Never let that crash a report.
@@ -100,6 +100,10 @@ def main():
     ids = [t["doc"].get("id") for t in topics]
     if len(set(ids)) != len(ids):
         problems.append("two source files share an id: %s" % sorted(ids))
+
+    # Advisory only here: these quizzes predate the answer-length rule in CLAUDE.md.
+    for w in length_bias([q for t in topics for q in t["questions"]], "WARNING answer length", per_question=False):
+        print(w)
 
     if problems:
         print("\n%d problem(s):" % len(problems))

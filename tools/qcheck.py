@@ -240,3 +240,48 @@ def problems_for(questions, label):
     for i, q in enumerate(questions):
         check(q, "%s[%d]" % (label, i), found)
     return found
+
+
+# ---------------------------------------------------------------------------
+# Answer-length bias
+#
+# A multiple-choice question whose right answer is the longest, most specific
+# option can be passed by someone who has not read the question. Authors drift
+# into this naturally: the correct answer is written carefully and the wrong
+# ones are dashed off. So the wrong answers must be written to the same length
+# and specificity as the right one -- see CLAUDE.md.
+# ---------------------------------------------------------------------------
+
+LONGEST_SHARE_MAX = 0.40   # of a quiz's mc questions, at most this share may have the right answer longest
+LONGEST_RATIO_MAX = 1.40   # no single right answer may exceed the longest wrong one by more than this
+LONGEST_MIN_CHARS = 25     # very short options (CREATE TABLE, ZZ) are too small to be a tell
+
+
+def length_bias(questions, label, per_question=True):
+    """Messages describing answer-length bias in a list of questions.
+
+    per_question=False reports only the quiz-wide summary line."""
+    msgs = []
+    longest = total = 0
+    for i, q in enumerate(questions):
+        if q.get("type") != "mc":
+            continue
+        opts = q.get("options") or []
+        correct = q.get("correct")
+        if len(opts) < 2 or not isinstance(correct, int) or not (0 <= correct < len(opts)):
+            continue
+        right = len(opts[correct])
+        wrong = [len(o) for k, o in enumerate(opts) if k != correct]
+        total += 1
+        if right > max(wrong):
+            longest += 1
+        if per_question and right >= LONGEST_MIN_CHARS and right > LONGEST_RATIO_MAX * max(wrong):
+            msgs.append("%s[%d]: the right answer is %d characters but the longest wrong "
+                        "one is %d -- lengthen the wrong answers or trim the right one"
+                        % (label, i, right, max(wrong)))
+    if total >= 10 and longest / total > LONGEST_SHARE_MAX:
+        msgs.append("%s: the right answer is the longest option in %d of %d multiple-choice "
+                    "questions (%d%%; the limit is %d%%)"
+                    % (label, longest, total, round(100 * longest / total),
+                       round(100 * LONGEST_SHARE_MAX)))
+    return msgs

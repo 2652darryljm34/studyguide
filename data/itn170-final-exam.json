@@ -82,10 +82,10 @@
           "category": "Navigating & Getting Help",
           "question": "What does `su -` do when run without a user name?",
           "options": [
-            "Shows a list of all users",
-            "Switches back to the previous directory",
-            "Runs one command with root privileges and then returns",
-            "Switches to the root user (su stands for switch user), after asking for root's password"
+            "Lists every user account that is currently logged in to the system",
+            "Switches back to the previous directory that the shell was in",
+            "Runs a single command with root privileges and then returns to your user",
+            "Switches to the root user, after asking for root's password"
           ],
           "correct": 3,
           "explanation": "`su` with no user name means root. The dash gives you root's full login environment. `sudo` is the one that runs a single command with elevated rights."
@@ -95,10 +95,10 @@
           "category": "Navigating & Getting Help",
           "question": "What does `sudo` do?",
           "options": [
-            "Lets a permitted user run a command with root (superuser) privileges",
-            "Permanently turns your account into root",
-            "Deletes a user account",
-            "Switches the shell to a different directory"
+            "Lets a permitted user run a command with root privileges",
+            "Permanently turns your own account into the root account for the session",
+            "Deletes a user account together with the files in its home directory",
+            "Switches the shell into a different directory somewhere on the system"
           ],
           "correct": 0,
           "explanation": "sudo runs one command with root privileges, after checking you are allowed to. `sudo su` uses that permission to start a root shell."
@@ -108,10 +108,10 @@
           "category": "Navigating & Getting Help",
           "question": "What does `ls -ltr` show?",
           "options": [
-            "A long listing sorted alphabetically in reverse",
-            "A long listing sorted by modification time, oldest first (newest last)",
-            "Only the files owned by root",
-            "A recursive listing of every subdirectory"
+            "A long listing sorted alphabetically by file name, in reverse order",
+            "A long listing sorted by modification time, oldest first",
+            "A long listing of only the files that are owned by the root user",
+            "A recursive long listing of every subdirectory below the current one"
           ],
           "correct": 1,
           "explanation": "`-l` is the long format, `-t` sorts by modification time (newest first) and `-r` reverses that order. Compare plain `ls`, which gives names only, and `ls -l`, which adds permissions, owner, size and date."
@@ -215,9 +215,9 @@
           "question": "What happens if you run `rmdir` on a directory that still contains files?",
           "options": [
             "It fails with an error; rmdir only removes empty directories",
-            "It deletes the directory and everything inside it",
-            "It deletes only the files, leaving the directory",
-            "It asks for confirmation and then deletes everything"
+            "It deletes the directory and everything inside it without any warning",
+            "It deletes only the files, leaving the empty directory in place",
+            "It asks for confirmation and then deletes the directory and its files"
           ],
           "correct": 0,
           "explanation": "rmdir refuses to remove a non-empty directory. To remove a directory and its contents you need `rm -r`."
@@ -227,10 +227,10 @@
           "category": "File Maintenance",
           "question": "What does `rm -Rf` do?",
           "options": [
-            "Renames a file and forces the new name",
-            "Forcefully removes a directory, all of its subdirectories and their contents, without prompting",
-            "Removes only the read-only files",
-            "Lists what would be deleted without deleting it"
+            "Renames a file and forces the new name over any existing file",
+            "Forcefully removes a directory and everything inside it, without prompting",
+            "Removes only the files that are read-only, leaving other files alone",
+            "Lists what would be deleted without deleting anything at all"
           ],
           "correct": 1,
           "explanation": "-R (or -r) means recursive, -f means force (no prompts, ignore missing files). It is the most dangerous command on this list, so double-check the path."
@@ -387,9 +387,9 @@
           "category": "Permissions",
           "question": "What does `chown alice:staff report.txt` do?",
           "options": [
-            "Gives alice and staff read access",
-            "Copies report.txt to alice's home directory",
-            "Renames report.txt to alice:staff",
+            "Gives alice and members of staff read access to report.txt only",
+            "Copies report.txt into alice's home directory as a new file",
+            "Renames report.txt to alice:staff and leaves its owner unchanged",
             "Makes alice the owner and staff the owning group of report.txt"
           ],
           "correct": 3,
@@ -400,10 +400,10 @@
           "category": "Permissions",
           "question": "To run a script as `./myscript`, which permission does it need?",
           "options": [
-            "Execute (and read, since the shell has to read a script)",
-            "Write only",
-            "No permission; scripts always run",
-            "Setuid"
+            "Execute and read permission",
+            "Write permission only, since the shell makes a copy to run",
+            "No permission at all; scripts always run when named",
+            "The setuid bit, so that the script runs as its owner"
           ],
           "correct": 0,
           "explanation": "Running it with `bash myscript` instead needs only read permission, because bash opens the file rather than executing it."
@@ -519,10 +519,10 @@
           "category": "Wildcards & Brace Expansion",
           "question": "What does `ls project[!135]` match?",
           "options": [
-            "Names ending in 1, 3 or 5",
-            "The files project1, project3 and project5 only",
-            "Names with no characters after project",
-            "A name starting with project followed by one character that is not 1, 3 or 5"
+            "Names that end in 1, 3 or 5 after the word project",
+            "Only the files project1, project3 and project5, and no others",
+            "Names that have no characters after the word project at all",
+            "A name that is project plus one character that is not 1, 3 or 5"
           ],
           "correct": 3,
           "explanation": "Inside brackets, `!` negates the set."
@@ -900,10 +900,10 @@
           "category": "Processes, Services & Monitoring",
           "question": "What is the difference between `systemctl start httpd` and `systemctl enable httpd`?",
           "options": [
-            "start runs the service now; enable makes it start automatically at boot",
-            "start runs it at boot; enable runs it now",
-            "They are the same",
-            "enable installs the package; start removes it"
+            "start runs the service now; enable makes it start at boot",
+            "start runs it at boot time; enable runs it immediately",
+            "They are the same; enable is only an older name for start",
+            "enable installs the package; start removes it again"
           ],
           "correct": 0,
           "explanation": "To do both at once: `systemctl enable --now httpd`."
@@ -913,10 +913,10 @@
           "category": "Processes, Services & Monitoring",
           "question": "What does `iostat 1` do?",
           "options": [
-            "Prints one line of statistics and exits",
-            "Prints input/output statistics and refreshes them every second",
-            "Starts one new process",
-            "Limits disk I/O to 1 MB per second"
+            "Prints a single line of I/O statistics and then exits",
+            "Prints I/O statistics and refreshes them every second",
+            "Starts one new process that reads from the disk",
+            "Limits disk I/O to 1 MB per second for all processes"
           ],
           "correct": 1,
           "explanation": "The number is the interval in seconds between reports."
@@ -1033,10 +1033,10 @@
           "category": "Finding Files & Links",
           "question": "How does `locate` differ from `find`?",
           "options": [
-            "locate searches file contents; find searches names",
-            "locate searches a prebuilt database (fast, may be out of date); find searches the live file system",
-            "locate only works as root; find works for everyone",
-            "There is no difference"
+            "locate searches inside file contents; find searches only file names",
+            "locate searches a prebuilt database; find searches the live file system",
+            "locate only works when run as root; find works for everyone",
+            "There is no difference; locate is only a shorter name for find"
           ],
           "correct": 1,
           "explanation": "A file created a minute ago will not show up in `locate` until `updatedb` runs."
@@ -1059,10 +1059,10 @@
           "category": "Finding Files & Links",
           "question": "What happens to a hard link if the original file is deleted, renamed or moved?",
           "options": [
-            "It breaks",
-            "It is deleted automatically",
-            "It becomes a soft link",
-            "It keeps working; the data remains as long as one name exists"
+            "It breaks and points at a file that no longer exists",
+            "It is deleted automatically along with the original file",
+            "It silently becomes a soft link to the new location",
+            "It keeps working; the data remains while any name exists"
           ],
           "correct": 3,
           "explanation": "Hard links are extra names for the same inode."
@@ -1126,10 +1126,10 @@
           "category": "Redirection, Pipes & Text Tools",
           "question": "What is the difference between `ls -ltr > filename` and `ls -ltr >> filename`?",
           "options": [
-            "`>` writes (overwriting the file); `>>` appends to the end of the file",
-            "`>` appends; `>>` overwrites",
-            "`>` sends errors; `>>` sends output",
-            "No difference"
+            "`>` overwrites the file; `>>` appends to the end of it",
+            "`>` appends to the file; `>>` overwrites it completely",
+            "`>` sends error messages; `>>` sends normal output",
+            "There is no difference; both replace the file contents"
           ],
           "correct": 0,
           "explanation": "Use `>` with care: it replaces whatever was in the file."
@@ -1210,9 +1210,9 @@
           "question": "The file `animals` has two columns, a name and a type, such as `Tiger Cat`. Which pipeline counts how many lines there are of each type?",
           "options": [
             "`awk '{print $2}' animals | sort | uniq -c`",
-            "`sort animals | wc -c`",
-            "`cut -f1 animals | uniq`",
-            "`grep -c animals Cat`"
+            "`sort animals | uniq -c | wc -l`",
+            "`cut -d' ' -f1 animals | sort | uniq -c`",
+            "`grep -c Cat animals`"
           ],
           "correct": 0,
           "explanation": "awk prints the second field, sort groups identical types together, and uniq -c counts each group."
@@ -1458,10 +1458,10 @@
           "category": "Users, Groups & sudo",
           "question": "What does `su - newuser` do?",
           "options": [
-            "Deletes newuser",
-            "Gives newuser root privileges",
-            "Runs the next command as newuser, then returns",
-            "Switches to newuser with a full login environment (requires newuser's password unless you are root)"
+            "Deletes the newuser account along with its home directory",
+            "Gives newuser root privileges on the system from then on",
+            "Runs only the next command as newuser, then returns to you",
+            "Switches to newuser with a full login environment"
           ],
           "correct": 3,
           "explanation": "Use `exit` to return to the previous user."
@@ -1573,9 +1573,9 @@
           "question": "Which of these saves your changes and quits vi?",
           "options": [
             ":q!",
-            "ZZ (Shift+Z twice)",
-            "dd",
-            "/save"
+            "ZZ",
+            ":e!",
+            "dd"
           ],
           "correct": 1,
           "explanation": ":wq and :x do the same. ZZ only works from command mode."
@@ -1585,10 +1585,10 @@
           "category": "vi Editor",
           "question": "You open a file in vi and start typing, but nothing appears. What is the most likely cause?",
           "options": [
-            "The file is empty",
-            "You need to press Ctrl+S",
+            "The file is empty, so there is nothing for vi to display on screen",
+            "You need to press Ctrl+S first to unlock the file for editing",
             "You are in command mode; press i to enter insert mode first",
-            "vi is a read-only editor"
+            "vi is a read-only editor, so a different editor is needed to type"
           ],
           "correct": 2,
           "explanation": "vi starts in command mode, where keys are commands rather than text."
@@ -1675,10 +1675,10 @@
           "category": "cron",
           "question": "What does the entry `30 16 2 * * /path/to/script.sh` do?",
           "options": [
-            "Runs it at 4:30 a.m. every day",
-            "Runs it at 16:02 every day",
+            "Runs it at 4:30 a.m. every day of the month",
+            "Runs it at 16:02 every day of every month",
             "Runs the script at 4:30 p.m. on the 2nd of every month",
-            "Runs it every 30 minutes on the 2nd"
+            "Runs it every 30 minutes on the 2nd of the month"
           ],
           "correct": 2,
           "explanation": "A crontab line has five time fields, so minute 30, hour 16 (24-hour clock), day of month 2."
@@ -1727,10 +1727,10 @@
           "category": "cron",
           "question": "What does the entry `23 0-23/2 * * * /path/to/script.sh` do?",
           "options": [
-            "Runs it every 23 minutes",
-            "Runs it at 11:00 p.m. every 2 days",
-            "Runs the script at 23 minutes past every second hour (00:23, 02:23, 04:23...)",
-            "Runs it 23 times a day"
+            "Runs it every 23 minutes throughout the whole day",
+            "Runs it at 11:00 p.m. on every second day",
+            "Runs at 23 minutes past every second hour (00:23, 02:23...)",
+            "Runs it 23 times a day, at evenly spaced intervals"
           ],
           "correct": 2,
           "explanation": "The hour field `0-23/2` means every second hour from 0 through 23."
@@ -1740,9 +1740,9 @@
           "category": "cron",
           "question": "What does the entry `22 20 * 3 * command` do?",
           "options": [
-            "Runs it at 22:20 on the 3rd of every month",
-            "Runs it at 8:22 p.m. on March 3 only",
-            "Runs it every 22 minutes in March",
+            "Runs it at 22:20 on the 3rd day of every month",
+            "Runs it at 8:22 p.m. on March 3 only, once a year",
+            "Runs it every 22 minutes for the whole of March",
             "Runs the command at 8:22 p.m. every day in March"
           ],
           "correct": 3,
@@ -1810,10 +1810,10 @@
           "category": "cron",
           "question": "In the class exercise, why was the system clock set with `date -s` as root before editing the crontab?",
           "options": [
-            "Because cron refuses to run unless the date has been set",
-            "Because crontab -e needs the clock to be in 2023",
-            "So the job's scheduled time was only a minute or two away and the job could be seen running",
-            "To log the job's output to a file"
+            "Because cron refuses to run any job until the system date has been set",
+            "Because crontab -e needs the clock to be set to 2023 to save entries",
+            "So the scheduled time was only a minute or two away and the job could be seen running",
+            "To make cron write the job's output to a log file for later review"
           ],
           "correct": 2,
           "explanation": "Setting the clock close to the scheduled time avoids waiting a full day to see the job run."
@@ -1828,10 +1828,10 @@
           "category": "Shell Scripting",
           "question": "What is the first line `#!/bin/bash` of a script called, and what does it do?",
           "options": [
-            "A comment that is ignored",
-            "The header that sets the script's permissions",
-            "The line that gives the script its name",
-            "The shebang (hashbang); it names the interpreter that runs the script"
+            "A comment that bash ignores completely when the script runs",
+            "The header that sets the script's permissions when it is saved",
+            "The line that gives the script its name in the process list",
+            "The shebang; it names the interpreter that runs the script"
           ],
           "correct": 3,
           "explanation": "The kernel reads it to find which program should run the file."
@@ -1848,10 +1848,10 @@
           "category": "Shell Scripting",
           "question": "Which two ways of running a script are correct?",
           "options": [
-            "`bash myscript` and `./myscript` (the latter needs execute permission)",
-            "`run myscript` and `exec myscript`",
-            "`./myscript` and `cat myscript`",
-            "`myscript` and `myscript.exe` in any directory"
+            "`bash myscript` and `./myscript`, once it has execute permission",
+            "`run myscript` and `exec myscript`, from any directory",
+            "`./myscript` and `cat myscript`, which both start the script",
+            "`myscript` and `myscript.exe`, from any directory"
           ],
           "correct": 0,
           "explanation": "`bash myscript` needs only read permission. `./myscript` requires `chmod +x myscript` first."
@@ -1874,10 +1874,10 @@
           "category": "Shell Scripting",
           "question": "What does `for i in 1 2 3; do echo $i; done` print?",
           "options": [
-            "i, i, i",
-            "123 on one line",
+            "The letter i three times, each on its own line",
+            "123 printed on a single line with no spaces",
             "1, then 2, then 3, each on its own line",
-            "Nothing; the loop never runs"
+            "Nothing, because the loop never runs"
           ],
           "correct": 2,
           "explanation": "The loop runs once for each value, setting i each time."
@@ -1890,7 +1890,7 @@
             "With `endcase`",
             "With `fi`",
             "With `done`",
-            "With `esac` (case backwards)"
+            "With `esac`"
           ],
           "correct": 3,
           "explanation": "Each pattern's commands end with `;;`. `fi` closes an if and `done` closes a loop."

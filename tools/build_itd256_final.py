@@ -17,7 +17,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from qcheck import check
+from qcheck import check, length_bias
 
 try:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -41,6 +41,8 @@ def main():
             check(q, "%s[%d]" % (sec["name"], i), problems)
             by_type[q["type"]] = by_type.get(q["type"], 0) + 1
             total += 1
+
+    problems += length_bias([q for sec in doc["sections"] for q in sec["questions"]], "answer length")
 
     if problems:
         print("%d problem(s):" % len(problems))

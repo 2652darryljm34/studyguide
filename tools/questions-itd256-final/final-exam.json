@@ -35,9 +35,9 @@
           "question": "A record in a file system corresponds to which database term?",
           "options": [
             "An entity instance (a row)",
-            "An attribute",
-            "An entity (a table)",
-            "A constraint"
+            "An attribute (a column)",
+            "An entity (a whole table)",
+            "A constraint on the table"
           ],
           "correct": 0,
           "explanation": "A record is a set of related fields describing one person, place or thing, which in a table is a row. A field is an attribute, and a table is an entity."
@@ -86,10 +86,10 @@
           "category": "File Systems & Database Basics",
           "question": "What is a cloud database?",
           "options": [
-            "A database created and maintained with cloud services that provide defined performance measures",
-            "A database stored on a single local server",
-            "A database that can only be queried by OLAP tools",
-            "A backup copy kept off-site"
+            "A database built and run on cloud services with defined performance measures",
+            "A database stored on a single local server that users reach over a private network",
+            "A database that can only be queried with OLAP tools and cannot be updated",
+            "A backup copy of an on-site database kept at a remote location for recovery"
           ],
           "correct": 0,
           "explanation": "A cloud database can behave like a centralized or distributed one, but the provider (AWS, Azure, Google Cloud) deals with the infrastructure."
@@ -99,10 +99,10 @@
           "category": "File Systems & Database Basics",
           "question": "What is an analytical database?",
           "options": [
-            "A database that processes day-to-day transactions",
-            "A database that stores historical data and business metrics used exclusively for tactical or strategic decision making",
-            "A database with no tables",
-            "A database that stores only images"
+            "A database that records day-to-day operational transactions such as orders and payments as they happen",
+            "A database storing historical data and business metrics used only for tactical or strategic decisions",
+            "A database that holds only the current day's data so that response times are as short as possible",
+            "A database that stores unstructured files such as images and video for use by web applications"
           ],
           "correct": 1,
           "explanation": "Analytical databases serve decision making, not day-to-day operations."
@@ -112,10 +112,10 @@
           "category": "File Systems & Database Basics",
           "question": "What is a data warehouse?",
           "options": [
-            "A backup of every table in a transactional database",
-            "A file system of spreadsheets",
+            "A backup of every table in a transactional database, kept for disaster recovery",
+            "A file system of departmental spreadsheets that is shared across the business",
             "A database that stores data in a format optimized for decision support",
-            "A tool for entering data faster"
+            "A tool that speeds up data entry by validating each field as it is typed"
           ],
           "correct": 2,
           "explanation": "Operational data is optimized for updates; warehouse data is optimized for reading and analysis."
@@ -125,10 +125,10 @@
           "category": "File Systems & Database Basics",
           "question": "Why is database design important?",
           "options": [
-            "Design only affects how the screens look",
-            "Good design makes a DBMS unnecessary",
-            "Design matters only for very small databases",
-            "A well-designed database makes data management easier and produces accurate, valuable information; a poor design causes difficult-to-trace errors"
+            "Design only affects how screens and reports look, while the stored data is unaffected either way",
+            "A good design makes a DBMS unnecessary, because the data can then be kept in flat files",
+            "Design matters only for very large databases; small ones work well however they are built",
+            "A good design makes data easier to manage and gives accurate information; a poor one causes hard-to-trace errors"
           ],
           "correct": 3,
           "explanation": "A poorly designed database can cause errors that lead to poor decision making."
@@ -170,9 +170,9 @@
           "question": "What is data dependence?",
           "options": [
             "A change in how the data is stored forces a change in how it is accessed",
-            "Data that can only be read by one user",
-            "Data that depends on other data for its meaning",
-            "Data copied into several places"
+            "Data that can be read by only one user at a time because of locking",
+            "Data whose meaning depends on other data being stored in the same table",
+            "Data that has been copied into several files that must be kept in step"
           ],
           "correct": 0,
           "explanation": "With data dependence, programs must be modified when the storage characteristics change."
@@ -182,10 +182,10 @@
           "category": "File Systems & Database Basics",
           "question": "What is data independence?",
           "options": [
-            "Data that is independent of any business rules",
-            "Data storage characteristics can change without affecting the programs' ability to access the data",
-            "Data stored in more than one table",
-            "Data that can never be changed"
+            "Data that is independent of any business rules, so it can be stored without constraints",
+            "Storage characteristics can change without affecting the programs' ability to access the data",
+            "Data stored across more than one table so that no single table holds everything",
+            "Data that can never be changed once entered, so programs always see the same values"
           ],
           "correct": 1,
           "explanation": "Its practical significance is the difference between the logical format (what the user or application sees) and the physical format (how it is stored on hardware, which should be hidden entirely)."
@@ -195,10 +195,10 @@
           "category": "File Systems & Database Basics",
           "question": "Which statement about the logical and physical formats of data is correct?",
           "options": [
-            "Logical is the actual storage on hardware; physical is the user's view",
-            "They are two names for the same thing",
-            "Logical is the representation presented to the application or user; physical is the actual storage on hardware and should be hidden from the user",
-            "Physical is the representation presented to the user"
+            "Logical is the actual storage on hardware; physical is what the application or user sees",
+            "They are two names for the same format, used in different DBMS products",
+            "Logical is what the user or application sees; physical is the actual storage, which should be hidden",
+            "Physical is the representation shown to the user; logical is how the DBMS files are laid out"
           ],
           "correct": 2,
           "explanation": "Data independence lets the physical format change without the logical view being affected."
@@ -208,9 +208,9 @@
           "category": "File Systems & Database Basics",
           "question": "What is data redundancy?",
           "options": [
-            "Storing data in an encrypted form",
-            "Keeping a backup copy of the database",
-            "Storing data in more than one table",
+            "Storing data in an encrypted form that only the DBMS can decode",
+            "Keeping a regular backup copy of the database on another server",
+            "Storing the data of one entity across more than one table",
             "Unnecessarily storing the same data in different places"
           ],
           "correct": 3,
@@ -222,9 +222,9 @@
           "question": "Anomalies develop when:",
           "options": [
             "Not all of the required changes to redundant data are made successfully",
-            "A table has no primary key",
-            "A query returns no rows",
-            "Users enter data too quickly"
+            "A table is defined without a primary key and rows cannot be told apart",
+            "A query returns no rows because the WHERE clause matches nothing",
+            "Users enter data into the tables faster than the DBMS can process it"
           ],
           "correct": 0,
           "explanation": "Types are update anomalies (inconsistent data), insertion anomalies (incomplete new data) and deletion anomalies (partial removal)."
@@ -253,10 +253,10 @@
           "category": "File Systems & Database Basics",
           "question": "Compared with a file system, a database system allows for:",
           "options": [
-            "Less security but faster development",
+            "Less security but faster development, because there are fewer rules to enforce",
             "More data independence, more robust organization and better control of data access",
-            "More redundancy but simpler design",
-            "No need for a data dictionary"
+            "More redundancy but simpler design, because each file stands alone",
+            "No need for a data dictionary, because the programs describe the data themselves"
           ],
           "correct": 1,
           "explanation": "These are the advantages of a database over file-based storage."
@@ -271,10 +271,10 @@
           "category": "DBMS & Data Models",
           "question": "A database system is best described as:",
           "options": [
-            "Only the software that stores data",
-            "A single computer running a database",
-            "An organization of components that define and regulate the collection, storage, management and use of data within a database environment",
-            "A collection of spreadsheets"
+            "The DBMS software alone, which stores the data and answers each user's queries as they arrive",
+            "A single computer running a database, together with the operating system it needs",
+            "An organization of components that regulate the collection, storage, management and use of data",
+            "The set of tables and relationships that make up one application's data model"
           ],
           "correct": 2,
           "explanation": "The components are hardware, software, people, procedures and data."
@@ -298,9 +298,9 @@
           "question": "What does the data dictionary store?",
           "options": [
             "The definitions of data elements and their relationships",
-            "Only the user passwords",
-            "A copy of every row in the database",
-            "The SQL statements users have run"
+            "The user names and passwords of everyone allowed to use the database",
+            "A copy of every row in the database, kept for recovery after a failure",
+            "The text of the SQL statements that users have run against the database"
           ],
           "correct": 0,
           "explanation": "Data dictionary management is one of the DBMS functions."
@@ -336,10 +336,10 @@
           "category": "DBMS & Data Models",
           "question": "What is a query language?",
           "options": [
-            "A language in which users write each step of the retrieval procedure",
-            "A language for designing screens",
-            "A language only for creating tables",
-            "A language in which users specify what result they want, and the system determines how to produce it"
+            "A language in which users write each step of the procedure used to retrieve the data",
+            "A language used only to design the screens and reports that users see",
+            "A language used only to create tables and define keys, with no way to retrieve data",
+            "A language where users say what result they want and the system decides how to produce it"
           ],
           "correct": 3,
           "explanation": "This is why SQL is called a nonprocedural language."
@@ -358,10 +358,10 @@
           "category": "DBMS & Data Models",
           "question": "What is a data model?",
           "options": [
-            "A simple representation of complex real-world data structures, useful for supporting a specific problem domain",
-            "The finished database filled with data",
-            "A backup of the data dictionary",
-            "The physical files on a server"
+            "A simple representation of complex real-world data structures for a specific problem domain",
+            "The finished database, filled with data and ready for end users to query",
+            "A complete copy of the data dictionary stored in a separate backup location",
+            "The physical files and disks on which the database is stored on the server"
           ],
           "correct": 0,
           "explanation": "Data modeling is creating a specific data model for a determined problem domain."
@@ -407,10 +407,10 @@
           "category": "DBMS & Data Models",
           "question": "What do business rules help to identify?",
           "options": [
-            "Only the primary keys",
-            "Only the SQL queries needed",
+            "Only the primary keys, since keys are the only part that business rules affect",
+            "Only the SQL queries that the application will need to run",
             "Entities, attributes, relationships and constraints",
-            "The hardware to buy"
+            "The hardware and network that the database system will need"
           ],
           "correct": 2,
           "explanation": "Nouns in business rules translate into entities and verbs into relationships."
@@ -427,9 +427,9 @@
           "category": "DBMS & Data Models",
           "question": "In the relational model, a relation is:",
           "options": [
-            "A link between two databases",
-            "A foreign key",
-            "A SQL query",
+            "A link between two separate databases that lets them share their data",
+            "A foreign key that connects a row in one table to a row in another",
+            "A SQL query that combines the rows of two or more tables",
             "A table, a matrix of intersecting rows (tuples) and columns (attributes)"
           ],
           "correct": 3,
@@ -440,10 +440,10 @@
           "category": "DBMS & Data Models",
           "question": "An RDBMS does which of the following?",
           "options": [
-            "Hides the complexities of the relational model from the user, making it easier to understand and implement",
-            "Requires users to write the physical access paths",
-            "Stores data only in hierarchies",
-            "Replaces the need for keys"
+            "Hides the complexity of the relational model, making it easier to understand and implement",
+            "Requires users to write the physical access paths that locate each row on disk",
+            "Stores all of its data in hierarchies of parent and child segments",
+            "Replaces the need for keys by identifying each row by its position in the table"
           ],
           "correct": 0,
           "explanation": "The RDBMS performs the basic functions of the hierarchical and network DBMS systems, too."
@@ -453,10 +453,10 @@
           "category": "DBMS & Data Models",
           "question": "What is an entity relationship diagram (ERD)?",
           "options": [
-            "A list of all SQL statements",
+            "A list of all the SQL statements that have been run against the database",
             "A graphical representation of the entities and relationships in a database structure",
-            "A table of data types",
-            "A list of users and permissions"
+            "A table that lists each attribute's data type and the range of its values",
+            "A list of users and the permissions each one has on the entities"
           ],
           "correct": 1,
           "explanation": "ERDs use graphic representations to model database components."
@@ -504,10 +504,10 @@
           "category": "DBMS & Data Models",
           "question": "In the object-oriented data model, what is inheritance?",
           "options": [
-            "Copying a table into another database",
-            "A foreign key referencing a parent table",
+            "Copying a table, along with its rows, into another database for safekeeping",
+            "A foreign key in a child table that references the primary key of a parent",
             "An object inherits the methods and attributes of its parent classes",
-            "Deleting a parent row deletes its children"
+            "A rule that deleting a parent row also deletes all of its child rows"
           ],
           "correct": 2,
           "explanation": "A class hierarchy resembles an upside-down tree in which each class has only one parent."
@@ -517,9 +517,9 @@
           "category": "DBMS & Data Models",
           "question": "Which of these is an advantage of the relational model?",
           "options": [
-            "It needs very little hardware",
-            "It requires no keys",
-            "It eliminates the need for design",
+            "It needs very little hardware and system software overhead, even for large databases",
+            "It requires no keys because each row stores its relationships inside itself",
+            "It eliminates the need for design because any table structure will work equally well",
             "It isolates the end user from physical-level details and promotes structural independence"
           ],
           "correct": 3,
@@ -530,10 +530,10 @@
           "category": "DBMS & Data Models",
           "question": "Which of the following describes the logical model, as opposed to the physical model?",
           "options": [
-            "The logical model represents the data as the user or application sees it (tables, keys, relationships) and is independent of storage details",
-            "The logical model describes where each file is on disk",
-            "The logical model is the same as the data dictionary",
-            "The logical model is built after the physical model"
+            "The logical model shows the data as users and applications see it, independent of storage details",
+            "The logical model describes where each file is located on disk and how it is indexed",
+            "The logical model is the same thing as the data dictionary for the database",
+            "The logical model is built only after the physical model has been implemented"
           ],
           "correct": 0,
           "explanation": "The physical model describes how the data is actually stored on hardware."
@@ -548,10 +548,10 @@
           "category": "Keys & Integrity",
           "question": "What is a key?",
           "options": [
-            "Any attribute that cannot be null",
+            "Any attribute that cannot be null, whether or not it identifies the row",
             "One or more attributes that determine other attributes",
-            "A password to the database",
-            "A column holding only numbers"
+            "A password that a user must supply to be allowed to open the database",
+            "A column that holds only numbers, so it can be sorted and compared easily"
           ],
           "correct": 1,
           "explanation": "Keys ensure each row is uniquely identifiable, establish relationships among tables and ensure data integrity."
@@ -561,10 +561,10 @@
           "category": "Keys & Integrity",
           "question": "What is a primary key?",
           "options": [
-            "Any column used in a WHERE clause",
-            "The first column of a table",
+            "Any column that is used in a WHERE clause to filter the rows returned",
+            "The first column of a table, whether or not its values are unique",
             "An attribute or combination of attributes that uniquely identifies a row",
-            "An attribute that may be null"
+            "An attribute whose value may be null when the row has no identifier yet"
           ],
           "correct": 2,
           "explanation": "Each table row must have a primary key."
@@ -574,9 +574,9 @@
           "category": "Keys & Integrity",
           "question": "What is a natural key?",
           "options": [
-            "A key generated automatically by the DBMS",
-            "A foreign key that matches exactly one row",
-            "A key made of two or more attributes",
+            "A key generated automatically by the DBMS when a row is inserted, such as an auto-number",
+            "A foreign key that matches exactly one row in the related table, and no others",
+            "A key made of two or more attributes that are combined to identify the row",
             "A real-world identifier that uniquely identifies real-world objects, familiar to end users"
           ],
           "correct": 3,
@@ -588,9 +588,9 @@
           "question": "What is a surrogate key?",
           "options": [
             "An artificial (made-up) primary key, such as an auto-number",
-            "A key that references another table",
-            "A key taken from a real-world identifier",
-            "A key that is allowed to be null"
+            "A key that references the primary key of another table in the database",
+            "A key taken from a real-world identifier that users already know",
+            "A key whose value is allowed to be null until the row is completed"
           ],
           "correct": 0,
           "explanation": "Surrogate means 'in place of'."
@@ -600,10 +600,10 @@
           "category": "Keys & Integrity",
           "question": "When are surrogate primary keys useful?",
           "options": [
-            "Whenever a table has fewer than ten rows",
-            "When no natural key is suitable, when the primary key would be a composite of several data types, or when the natural key is too long to be usable",
-            "Only when the table has a foreign key",
-            "Never; natural keys should always be used"
+            "Whenever a table has fewer than ten rows, because natural keys are not needed for small tables",
+            "When no natural key is suitable, when the key would be a composite of several data types, or when it is too long",
+            "Only when the table already has a foreign key, which must then be replaced by a surrogate",
+            "Never, because natural keys should always be preferred and a surrogate just adds a column"
           ],
           "correct": 1,
           "explanation": "These are the three situations listed."
@@ -626,9 +626,9 @@
           "category": "Keys & Integrity",
           "question": "What is a foreign key?",
           "options": [
-            "A key that points to a table in a different database",
-            "A key that is not allowed to match anything",
-            "An artificial key",
+            "A key that points to a table stored in a different database on another server",
+            "A key that is not allowed to match any value in another table",
+            "An artificial key generated by the DBMS when a row is inserted",
             "The primary key of one table placed in another table to create a common attribute"
           ],
           "correct": 3,
@@ -639,10 +639,10 @@
           "category": "Keys & Integrity",
           "question": "What is entity integrity?",
           "options": [
-            "The condition in which each row in a table has its own unique identity: all primary key values are unique and no part of the primary key is null",
-            "Every foreign key matches a primary key",
-            "Every table has at least one row",
-            "Every column has a data type"
+            "Each row has a unique identity: primary key values are unique and none is null",
+            "Every foreign key value matches a primary key value in the related table",
+            "Every table contains at least one row, so that no table is ever left empty",
+            "Every column has a data type, and every value conforms to that data type"
           ],
           "correct": 0,
           "explanation": "Example: no invoice can have a duplicate number, nor can it be null."
@@ -652,10 +652,10 @@
           "category": "Keys & Integrity",
           "question": "What is referential integrity?",
           "options": [
-            "Every table has a primary key",
-            "Every reference to a record in one table by a record in a related table is valid (no orphaned records)",
-            "Every primary key is an integer",
-            "No two tables have the same column name"
+            "Every table has a primary key, and no two rows in the table share the same key value",
+            "Every reference from a record in one table to a related table is valid (no orphaned records)",
+            "Every primary key is an integer, which the DBMS increments automatically on each insert",
+            "No two tables have a column of the same name, so every join is unambiguous to the DBMS"
           ],
           "correct": 1,
           "explanation": "A foreign key may have either a null entry or one value matching a primary key in the related table."
@@ -665,10 +665,10 @@
           "category": "Keys & Integrity",
           "question": "A customer has not yet been assigned a sales representative. Which statement about the foreign key rep_number in CUSTOMER is true?",
           "options": [
-            "It must hold a valid rep number; null is never allowed",
-            "It may hold any number",
-            "It may be null, but it cannot hold a rep number that doesn't exist in the sales representative table",
-            "It must be deleted from the table"
+            "It must hold a valid rep number, because null is never allowed in a foreign key",
+            "It may hold any number, whether or not that rep exists in the other table",
+            "It may be null, but it cannot hold a rep number that doesn't exist in the other table",
+            "It must be deleted from the table until a sales representative is assigned"
           ],
           "correct": 2,
           "explanation": "It is possible for an attribute to have no corresponding value, but impossible to have an invalid entry."
@@ -692,9 +692,9 @@
           "question": "What is null?",
           "options": [
             "The absence of any data value (unknown, known but missing, or inapplicable)",
-            "The number zero",
-            "An empty string",
-            "The word NULL typed as text"
+            "The number zero, used when a numeric value has not been entered",
+            "An empty string of characters, used when a text value is blank",
+            "The word NULL typed into a text column as a placeholder value"
           ],
           "correct": 0,
           "explanation": "Null is not zero and not a blank."
@@ -753,10 +753,10 @@
           "category": "Keys & Integrity",
           "question": "A composite (bridge or associative) entity that resolves an M:N relationship contains:",
           "options": [
-            "Only a new surrogate key",
+            "Only a new surrogate key, with no reference to the tables being linked",
             "The primary keys of the tables to be linked, as foreign keys",
-            "A copy of every attribute from both tables",
-            "Nothing; it is an empty table"
+            "A copy of every attribute from both of the tables that are linked",
+            "Nothing; it is an empty table that exists only in the ERD"
           ],
           "correct": 1,
           "explanation": "In Harborview, the gadget_group_map table is a bridge that links gadget and gadget_group."
@@ -780,10 +780,10 @@
           "category": "Keys & Integrity",
           "question": "Summary of the relational model: which statement is correct?",
           "options": [
-            "Keys are optional in relational tables",
-            "Rows are the basic building blocks and tables are optional",
-            "Tables are the basic building blocks, keys are central to their use, and each table row must have a primary key",
-            "Tables can only be linked through the data dictionary"
+            "Keys are optional in relational tables, and rows can be identified by their position",
+            "Rows are the basic building blocks and tables are only a way of displaying them",
+            "Tables are the basic building blocks, keys are central, and each row must have a primary key",
+            "Tables can be linked only through the data dictionary, never through common attributes"
           ],
           "correct": 2,
           "explanation": "Although the tables are independent, they are linked by common attributes (foreign keys)."
@@ -798,9 +798,9 @@
           "category": "Normalization",
           "question": "What is normalization?",
           "options": [
-            "Converting all data to the same format",
-            "Adding indexes to speed up queries",
-            "Encrypting the tables",
+            "Converting all of the data to the same data type and format",
+            "Adding indexes to the tables so that queries run faster",
+            "Encrypting the tables so that only authorized users can read them",
             "Evaluating and correcting table structures to minimize data redundancies"
           ],
           "correct": 3,
@@ -845,8 +845,8 @@
           "options": [
             "It is in 1NF and has no partial dependencies",
             "It is in 2NF and has no transitive dependencies",
-            "It has no foreign keys",
-            "It has at most three columns"
+            "It has no foreign keys and only a single primary key",
+            "It has at most three columns, one of which is the primary key"
           ],
           "correct": 1,
           "explanation": "Convert 2NF to 3NF by making new tables to eliminate transitive dependencies and reassigning the dependent attributes."
@@ -856,10 +856,10 @@
           "category": "Normalization",
           "question": "What is a functional dependence?",
           "options": [
-            "Two attributes that always have the same data type",
-            "An attribute that cannot be null",
-            "Attribute B is functionally dependent on attribute A if each value of A determines one and only one value of B",
-            "A column that references another table"
+            "Two attributes that must always have the same data type and the same length",
+            "An attribute that cannot be null because the primary key depends on it",
+            "B is functionally dependent on A if each value of A determines one and only one value of B",
+            "A column that references the primary key of another table through a join"
           ],
           "correct": 2,
           "explanation": "Written A → B, where A is the determinant and B is the dependent attribute. Example: PROJ_NUM → PROJ_NAME."
@@ -869,9 +869,9 @@
           "category": "Normalization",
           "question": "What is a partial dependency?",
           "options": [
-            "A dependency of one non-key attribute on another non-key attribute",
-            "A dependency on the whole primary key",
-            "A dependency that holds for only some rows",
+            "A dependency of one non-key attribute on another non-key attribute in the same table",
+            "A dependency of an attribute on the whole of the primary key, not just part of it",
+            "A dependency that holds for only some of the rows in the table, not all of them",
             "A functional dependence in which the determinant is only part of the primary key"
           ],
           "correct": 3,
@@ -883,9 +883,9 @@
           "question": "What is a transitive dependency?",
           "options": [
             "An attribute that depends on another non-primary-key attribute",
-            "An attribute that depends on only part of the primary key",
-            "An attribute that depends on the whole primary key",
-            "A dependency that crosses two tables"
+            "An attribute that depends on only part of a composite primary key",
+            "An attribute that depends on the whole of the primary key",
+            "A dependency that crosses from one table to another through a join"
           ],
           "correct": 0,
           "explanation": "It occurs only when a functional dependence exists among non-key attributes, and it is more difficult to identify. Transitive dependencies are removed to reach 3NF."
@@ -921,9 +921,9 @@
           "category": "Normalization",
           "question": "A table has the primary key (proj_num, emp_num) and the dependency (proj_num, emp_num) → assign_hours. What kind of dependency is it?",
           "options": [
-            "A partial dependency",
-            "A transitive dependency",
-            "No dependency",
+            "A partial dependency, because assign_hours depends on a composite key",
+            "A transitive dependency, because assign_hours is not itself a key",
+            "No dependency, because assign_hours is not part of the primary key",
             "A full functional dependency on the whole primary key"
           ],
           "correct": 3,
@@ -935,9 +935,9 @@
           "question": "The four dependencies are: proj_num → proj_name; emp_num → emp_name, job_class; job_class → chg_hour; proj_num, emp_num → assign_hours. Which set of 3NF tables results?",
           "options": [
             "PROJECT(proj_num, proj_name), EMPLOYEE(emp_num, emp_name, job_class), JOB(job_class, chg_hour), ASSIGNMENT(proj_num, emp_num, assign_hours)",
-            "One table with all six attributes",
-            "PROJECT(proj_num, proj_name) and ASSIGNMENT(proj_num, emp_num, emp_name, job_class, chg_hour, assign_hours)",
-            "EMPLOYEE(emp_num, emp_name, job_class, chg_hour) and ASSIGNMENT(proj_num, emp_num, assign_hours)"
+            "PROJECT(proj_num, proj_name), EMPLOYEE(emp_num, emp_name, job_class, chg_hour), ASSIGNMENT(proj_num, emp_num, assign_hours)",
+            "PROJECT(proj_num, proj_name, emp_num), EMPLOYEE(emp_num, emp_name, job_class), JOB(job_class, chg_hour, assign_hours)",
+            "PROJECT(proj_num, proj_name) and ASSIGNMENT(proj_num, emp_num, emp_name, job_class, chg_hour, assign_hours)"
           ],
           "correct": 0,
           "explanation": "Each determinant becomes the primary key of its own table, which removes the partial dependencies (for 2NF) and the transitive dependency job_class → chg_hour (for 3NF)."
@@ -947,10 +947,10 @@
           "category": "Normalization",
           "question": "Which of these describes 1NF?",
           "options": [
-            "A table with no partial dependencies",
-            "A tabular format in which all key attributes are defined, there are no repeating groups, and all attributes depend on the primary key",
-            "A table with no transitive dependencies",
-            "A table with exactly one column"
+            "A table with no partial dependencies, so that every attribute depends on the whole primary key",
+            "A tabular format with key attributes defined, no repeating groups, and all attributes dependent on the primary key",
+            "A table with no transitive dependencies, so that no non-key attribute depends on another one",
+            "A table with exactly one column, which serves as the primary key for the whole table"
           ],
           "correct": 1,
           "explanation": "All relational tables satisfy 1NF requirements."
@@ -967,10 +967,10 @@
           "category": "Normalization",
           "question": "How do you convert a table to 2NF?",
           "options": [
-            "Remove all foreign keys",
-            "Add a surrogate key to every table",
-            "Make new tables to eliminate the partial dependencies and reassign the dependent attributes to them",
-            "Merge the tables back together"
+            "Remove all of the foreign keys so that no table refers to any other table",
+            "Add a surrogate key to every table so that no composite keys remain in the design",
+            "Make new tables to remove the partial dependencies and move the dependent attributes into them",
+            "Merge the tables back together so that each entity is stored in only one table"
           ],
           "correct": 2,
           "explanation": "Remove the composite primary key from the 1NF table, creating tables for each determinant that is part of it."
@@ -980,10 +980,10 @@
           "category": "Normalization",
           "question": "What is denormalization?",
           "options": [
-            "Producing a higher normal form",
-            "Deleting all of the foreign keys",
-            "Removing the primary keys",
-            "Producing a lower normal form, which results in increased performance and greater data redundancy"
+            "Producing a higher normal form, which gives less redundancy and slower queries",
+            "Deleting all of the foreign keys so that the tables can no longer be joined",
+            "Removing the primary keys so that rows can be stored in any order",
+            "Producing a lower normal form, giving increased performance and greater data redundancy"
           ],
           "correct": 3,
           "explanation": "It is sometimes necessary."
@@ -993,10 +993,10 @@
           "category": "Normalization",
           "question": "Why is denormalization sometimes necessary?",
           "options": [
-            "Joining a large number of tables takes additional I/O operations and processing logic, which reduces system speed",
-            "Because normalized tables cannot be queried",
-            "Because 3NF tables have no keys",
-            "Because denormalized tables use less storage"
+            "Joining many tables takes extra I/O operations and processing logic, which reduces system speed",
+            "Because normalized tables cannot be queried with SQL without first being merged",
+            "Because 3NF tables have no keys, so rows cannot be told apart",
+            "Because denormalized tables use less storage and need fewer indexes overall"
           ],
           "correct": 0,
           "explanation": "Design goals include both normalized relations and processing requirements and speed."
@@ -1041,10 +1041,10 @@
           "category": "SQL Concepts",
           "question": "What does CRUD stand for in SQL's data manipulation language?",
           "options": [
-            "Create, Retrieve, Use, Drop",
+            "Commit, Rollback, Update, Define (the four commands of transaction control)",
             "Create (INSERT), Read (SELECT), Update (UPDATE), Delete (DELETE)",
-            "Commit, Rollback, Update, Define",
-            "Copy, Remove, Undo, Display"
+            "Copy, Remove, Undo, Display (the four commands for working with a table)",
+            "Create, Retrieve, Use, Drop (the four commands of the DDL)"
           ],
           "correct": 1,
           "explanation": "These four commands are the DML."
@@ -1094,9 +1094,9 @@
           "category": "SQL Concepts",
           "question": "Which of these is a DDL command?",
           "options": [
-            "INSERT",
-            "SELECT",
-            "UPDATE",
+            "INSERT INTO",
+            "SELECT ... FROM",
+            "UPDATE ... SET",
             "CREATE TABLE"
           ],
           "correct": 3,
@@ -1108,9 +1108,9 @@
           "question": "What does the DISTINCT keyword do in a SELECT?",
           "options": [
             "Produces a list of only unique values",
-            "Sorts the result in ascending order",
-            "Returns only the first row",
-            "Removes null values"
+            "Sorts the result in ascending order by the first column listed",
+            "Returns only the first row of the result set",
+            "Removes the rows that contain null values from the result"
           ],
           "correct": 0,
           "explanation": "For example: `SELECT DISTINCT v_code FROM product;`"
@@ -1133,10 +1133,10 @@
           "category": "SQL Concepts",
           "question": "Which syntax joins two tables on a column with the same name in both?",
           "options": [
-            "SELECT column-list FROM table1 JOIN table2 WHERE common_column",
+            "SELECT column-list FROM table1 JOIN table2 WHERE (common_column)",
             "SELECT column-list FROM table1, table2 GROUP BY common_column",
             "SELECT column-list FROM table1 JOIN table2 USING (common_column)",
-            "SELECT column-list FROM table1 UNION table2"
+            "SELECT column-list FROM table1 UNION table2 USING common_column"
           ],
           "correct": 2,
           "explanation": "The USING column must exist in both tables, and only rows with matching values are returned."
@@ -1146,10 +1146,10 @@
           "category": "SQL Concepts",
           "question": "When should JOIN ... ON be used instead of JOIN ... USING?",
           "options": [
-            "When you need an outer join only",
-            "When both tables are the same",
-            "ON can only be used with three tables",
-            "When the tables do not share a common column name, so you express the join condition explicitly"
+            "When the join must be an outer join, because USING works only with inner joins",
+            "When the result must also be restricted by a WHERE clause on one of the joined tables",
+            "When three or more tables are joined, because USING can only join two tables at a time",
+            "When the tables have no common column name, so the join condition is stated explicitly"
           ],
           "correct": 3,
           "explanation": "Syntax: `SELECT column-list FROM table1 JOIN table2 ON join-condition`."
@@ -1185,10 +1185,10 @@
           "category": "SQL Concepts",
           "question": "What does the WHERE clause do?",
           "options": [
-            "Sorts the rows",
-            "Groups the rows",
-            "Adds conditional restrictions to the SELECT statement to limit the rows returned",
-            "Names the tables to use"
+            "Sorts the rows of the result into ascending or descending order",
+            "Groups the rows that share the same value in one or more columns",
+            "Adds conditions to the SELECT statement to limit the rows returned",
+            "Names the table or tables from which the data is retrieved"
           ],
           "correct": 2,
           "explanation": "WHERE is also used with UPDATE and DELETE to restrict the rows affected."
@@ -1243,10 +1243,10 @@
           "category": "SQL Concepts",
           "question": "What is the difference between WHERE and HAVING?",
           "options": [
-            "WHERE filters groups; HAVING filters rows",
+            "WHERE filters the groups that GROUP BY forms; HAVING filters the individual rows",
             "WHERE filters rows before grouping; HAVING filters the groups after GROUP BY",
-            "They are identical",
-            "HAVING can be used only without GROUP BY"
+            "They are identical, and either can be used to filter on an aggregate",
+            "HAVING can be used only in queries that do not contain a GROUP BY clause"
           ],
           "correct": 1,
           "explanation": "A condition on an aggregate such as COUNT(*) >= 10 belongs in HAVING."
@@ -1348,9 +1348,9 @@
           "category": "SQL Concepts",
           "question": "What is a view?",
           "options": [
-            "A copy of a table stored on disk",
-            "A backup of the schema",
-            "An index on a primary key",
+            "A physical copy of a table stored on disk for faster reading",
+            "A backup of the database schema kept in the data dictionary",
+            "An index built on the primary key to speed up joins",
             "A virtual table based on a SELECT query"
           ],
           "correct": 3,
@@ -1362,9 +1362,9 @@
           "question": "SQL essentially has two sets of commands:",
           "options": [
             "Data definition language (DDL) and data manipulation language (DML)",
-            "Queries and reports",
-            "Tables and views",
-            "Keys and indexes"
+            "Queries and reports, the first for retrieving and the second for printing",
+            "Tables and views, the first for storing data and the second for showing it",
+            "Keys and indexes, the first for identifying rows and the second for speed"
           ],
           "correct": 0,
           "explanation": "DDL defines the structure and DML works with the data."
@@ -1387,10 +1387,10 @@
           "category": "SQL Concepts",
           "question": "Which of these are ANSI standard SQL data types?",
           "options": [
-            "TABLE, ROW, COLUMN and KEY",
-            "SELECT, FROM and WHERE",
+            "TABLE, ROW, COLUMN, KEY and INDEX, the building blocks of a database",
+            "SELECT, FROM, WHERE, GROUP BY and ORDER BY, the clauses of a query",
             "DECIMAL, INTEGER, FLOAT, CHAR, VARCHAR, DATE and DATETIME",
-            "PRIMARY, FOREIGN and UNIQUE"
+            "PRIMARY, FOREIGN, UNIQUE and CHECK, the constraints on a column"
           ],
           "correct": 2,
           "explanation": "They are supported by all RDBMS vendors in different ways."
@@ -1719,9 +1719,9 @@
           "question": "What is a transaction?",
           "options": [
             "A sequence of database operations that access or modify the database as a unit",
-            "Any SELECT statement",
-            "A single UPDATE of a single row only",
-            "A purchase made by a customer"
+            "Any SELECT statement that reads data from one or more of the tables in the database",
+            "A single UPDATE statement that changes the data in only one row at a time",
+            "A purchase made by a customer, recorded as a row in the sales table"
           ],
           "correct": 0,
           "explanation": "A transaction is all or nothing."
@@ -1763,10 +1763,10 @@
           "category": "Transactions & Locking",
           "question": "Which two TCL commands does SQL provide for transactions?",
           "options": [
-            "GRANT and REVOKE",
-            "COMMIT and ROLLBACK",
-            "INSERT and DELETE",
-            "SAVE and LOAD"
+            "GRANT and REVOKE, which give or take away permissions",
+            "COMMIT and ROLLBACK, which save or undo changes",
+            "INSERT and DELETE, which add or remove rows",
+            "SAVE and LOAD, which write or read a database file"
           ],
           "correct": 1,
           "explanation": "COMMIT saves the changes to disk; ROLLBACK restores the previous database state."
@@ -1776,10 +1776,10 @@
           "category": "Transactions & Locking",
           "question": "What does COMMIT do?",
           "options": [
-            "Undoes the changes",
-            "Locks every table",
+            "Undoes every change the transaction made since it started",
+            "Locks every table in the database until the session ends",
             "Saves the changes made by the transaction to disk",
-            "Starts a new transaction without saving"
+            "Starts a new transaction without saving the earlier one"
           ],
           "correct": 2,
           "explanation": "Changes made before the commit can still be rolled back."
@@ -1789,9 +1789,9 @@
           "category": "Transactions & Locking",
           "question": "What does ROLLBACK do?",
           "options": [
-            "Saves the changes permanently",
-            "Deletes the table",
-            "Shows what changes were made",
+            "Saves the changes made by the transaction permanently to disk",
+            "Deletes the table that the transaction was working with",
+            "Shows a list of the changes that the transaction has made",
             "Restores the database to its previous state"
           ],
           "correct": 3,
@@ -1803,9 +1803,9 @@
           "question": "What is concurrency control?",
           "options": [
             "Coordinating the simultaneous execution of transactions",
-            "Limiting the number of tables",
-            "Copying data to another server",
-            "Encrypting database traffic"
+            "Limiting the number of tables that a transaction may access at once",
+            "Copying the data to another server so that users can read it",
+            "Encrypting the traffic between the database and its users"
           ],
           "correct": 0,
           "explanation": "Multiple users must be able to use the database at the same time without compromising integrity."
@@ -1815,10 +1815,10 @@
           "category": "Transactions & Locking",
           "question": "What do locks do?",
           "options": [
-            "Prevent anyone from ever reading data",
+            "Prevent anyone from ever reading a data item once it has been written",
             "Guarantee a transaction unique access to a data item",
-            "Encrypt the data item",
-            "Make a table read-only forever"
+            "Encrypt the data item so that other transactions cannot read it",
+            "Make a table read-only for every user until the next backup"
           ],
           "correct": 1,
           "explanation": "Locks can result in deadlock."
@@ -1828,10 +1828,10 @@
           "category": "Transactions & Locking",
           "question": "What is a deadlock (a 'deadly embrace')?",
           "options": [
-            "A table that cannot be opened",
-            "A transaction that was rolled back",
+            "A table that cannot be opened because it has been corrupted",
+            "A transaction that was rolled back because it violated a constraint",
             "Two users each want the data the other has locked",
-            "A lock that expires after one second"
+            "A lock that expires automatically after one second of waiting"
           ],
           "correct": 2,
           "explanation": "Each transaction waits for the other to release its lock, so neither can proceed."
@@ -1841,10 +1841,10 @@
           "category": "Transactions & Locking",
           "question": "Which statement about optimistic concurrency control is correct?",
           "options": [
-            "It locks every row before each transaction",
-            "It requires all transactions to run one at a time",
-            "It assumes that most transactions conflict",
-            "It assumes the majority of transactions do not conflict, and executes them concurrently using private, temporary copies of data"
+            "It locks every row that a transaction might use before the transaction starts",
+            "It requires all transactions to run one at a time, in the order they arrive",
+            "It assumes that most transactions conflict, so each is checked against all others",
+            "It assumes most transactions do not conflict and runs them on private, temporary copies of data"
           ],
           "correct": 3,
           "explanation": "Time stamping is an example of an optimistic method: each transaction gets a unique time stamp, and conflicting transactions are scheduled in time stamp order."
@@ -1866,10 +1866,10 @@
           "category": "Data Warehousing, NoSQL & Connectivity",
           "question": "Why is operational data not well suited for decision support?",
           "options": [
-            "It is optimized for updates, modifications and inserts (highly normalized, minimal storage, many joins) rather than for reading and analysis",
-            "It is stored in spreadsheets",
-            "It is always unstructured",
-            "It does not contain historical data of any kind"
+            "It is optimized for updates and inserts (highly normalized, many joins), not for analysis",
+            "It is stored in spreadsheets, which cannot be combined with other data sources",
+            "It is always unstructured, so it cannot be organized into tables and columns",
+            "It does not contain historical data of any kind, so trends cannot be seen"
           ],
           "correct": 0,
           "explanation": "Operational data is highly normalized; a data warehouse is denormalized and optimized for reading speed."
@@ -1879,10 +1879,10 @@
           "category": "Data Warehousing, NoSQL & Connectivity",
           "question": "Which statement describes a data warehouse?",
           "options": [
-            "A highly normalized database optimized for updates",
-            "An integrated, subject-oriented, time-variant, nonvolatile collection of data that supports decision making; denormalized and optimized for reading speed",
-            "A temporary table for one report",
-            "A collection of unrelated spreadsheets"
+            "A highly normalized collection of data, optimized for fast updates and inserts",
+            "An integrated, subject-oriented, time-variant, nonvolatile collection of data for decision support",
+            "A temporary table that holds the data for one report and is dropped afterwards",
+            "A collection of unrelated operational databases that are queried one at a time"
           ],
           "correct": 1,
           "explanation": "It is optimized for read speed, not for space and storage."
@@ -1892,10 +1892,10 @@
           "category": "Data Warehousing, NoSQL & Connectivity",
           "question": "What is Big Data?",
           "options": [
-            "Any database with more than 100 tables",
-            "Data stored in the cloud",
-            "Data of such volume, velocity and variety that the relational model struggles to adapt to it",
-            "Data that is highly normalized"
+            "Any database that has more than one hundred tables or a billion rows",
+            "Data that is stored in the cloud rather than on the organization's servers",
+            "Data of such volume, velocity and variety that the relational model struggles with it",
+            "Data that is highly normalized and spread across many related tables"
           ],
           "correct": 2,
           "explanation": "Volume, velocity and variety are collectively called the 3 Vs of Big Data."
@@ -1924,10 +1924,10 @@
           "category": "Data Warehousing, NoSQL & Connectivity",
           "question": "What is Hadoop?",
           "options": [
-            "A query language",
-            "A relational DBMS",
-            "A kind of ERD",
-            "The framework that emerged as the standard for the physical storage of Big Data"
+            "A query language for retrieving data from document and key-value databases",
+            "A relational DBMS designed for transaction processing in the cloud",
+            "A kind of ERD notation used to model the structure of Big Data",
+            "The framework that became the standard for physical storage of Big Data"
           ],
           "correct": 3,
           "explanation": "It was quickly adopted for Big Data storage."
@@ -1938,9 +1938,9 @@
           "question": "What does NoSQL mean?",
           "options": [
             "A broad term for several nonrelational database approaches to data management",
-            "Any database that does not use a network",
-            "A database with no data",
-            "A SQL dialect without SELECT"
+            "Any database that is not connected to a network and cannot be reached",
+            "A database with no data in it, used only to test the design",
+            "A dialect of SQL that has no SELECT statement for retrieving rows"
           ],
           "correct": 0,
           "explanation": "The main types include key-value, document, column-oriented and graph databases."
@@ -1950,10 +1950,10 @@
           "category": "Data Warehousing, NoSQL & Connectivity",
           "question": "What is a key-value database?",
           "options": [
-            "A database with only two tables",
+            "A database that has only two tables, one holding the keys and one holding the values",
             "A database that stores data in key-value pairs, where the key is the primary key",
-            "A relational database with a surrogate key",
-            "A database that stores only keys"
+            "A relational database that uses a surrogate key as the primary key in every table",
+            "A database that stores only the keys, with the values held in a separate system"
           ],
           "correct": 1,
           "explanation": "Example value: \"name John, age 31, city New York\"."
@@ -1963,10 +1963,10 @@
           "category": "Data Warehousing, NoSQL & Connectivity",
           "question": "How does a document database differ from a key-value database?",
           "options": [
-            "It has no keys",
-            "It stores data in tables with foreign keys",
+            "It has no keys, so each document must be found by scanning them all",
+            "It stores its data in tables that are linked together by foreign keys",
             "The value component is an encoded document, such as JSON",
-            "It stores only PDF files"
+            "It can store only PDF files, which are indexed by their file names"
           ],
           "correct": 2,
           "explanation": "Example document: {name: \"John\", age: 31, city: \"New York\"}."
@@ -1976,9 +1976,9 @@
           "category": "Data Warehousing, NoSQL & Connectivity",
           "question": "What is MongoDB?",
           "options": [
-            "A graph database that stores nodes and edges",
-            "A relational database",
-            "A Big Data framework for physical storage",
+            "A graph database that stores data as nodes, edges and properties",
+            "A relational database that stores data in tables with foreign keys",
+            "A Big Data framework for the physical storage of very large files",
             "A document (NoSQL) database that stores documents in JSON format"
           ],
           "correct": 3,
@@ -1989,10 +1989,10 @@
           "category": "Data Warehousing, NoSQL & Connectivity",
           "question": "What is database connectivity?",
           "options": [
-            "The mechanisms through which applications connect and communicate with data repositories",
-            "The speed of a network connection",
-            "A kind of foreign key",
-            "Copying data between tables"
+            "The mechanisms that let applications connect and communicate with data repositories",
+            "The speed of the network connection between the client computer and the database server",
+            "A kind of foreign key that links rows in two different databases to each other",
+            "A process for copying data from one table into another table in the same database"
           ],
           "correct": 0,
           "explanation": "Examples include ODBC, native connectivity and OLE-DB."
@@ -2015,10 +2015,10 @@
           "category": "Data Warehousing, NoSQL & Connectivity",
           "question": "What is cloud computing?",
           "options": [
-            "Running software only on a local server",
-            "A way of encrypting databases",
-            "A computing model that provides ubiquitous, on-demand access to a shared pool of configurable resources that can be rapidly provisioned",
-            "A type of query language"
+            "Running software only on a local server that the organization owns and maintains itself",
+            "A method of encrypting databases so that they can be sent safely across the internet",
+            "A model giving on-demand access to a shared pool of configurable resources that can be rapidly provisioned",
+            "A type of query language used to retrieve data from distributed databases"
           ],
           "correct": 2,
           "explanation": "AWS, Azure and Google Cloud are examples of providers."

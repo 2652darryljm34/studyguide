@@ -19,7 +19,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from qcheck import check
+from qcheck import check, length_bias
 
 # Windows consoles default to cp1252, which cannot print the em dashes and
 # arrows that appear in the question text. Never let that crash a report.
@@ -81,6 +81,10 @@ def main():
         sections.append({"name": doc["name"], "questions": qs})
         print("%-24s %3d core of %3d  %s"
               % (name, sum(1 for q in qs if q.get("core")), len(qs), doc["name"]))
+
+    # Advisory only here: these quizzes predate the answer-length rule in CLAUDE.md.
+    for w in length_bias([q for s in sections for q in s["questions"]], "WARNING answer length", per_question=False):
+        print(w)
 
     if problems:
         print("\n%d problem(s):" % len(problems))
