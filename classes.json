@@ -126,6 +126,12 @@
       ],
       "quizzes": [
         {
+          "id": "final-exam",
+          "title": "Final Exam Review",
+          "description": "150 questions built from the highlighted portions of the course review: database basics, the DBMS and data models, keys and integrity, normalization, SQL (26 you run against the practice database), transactions, and data warehousing, NoSQL and connectivity.",
+          "file": "data/itd256-final-exam.json"
+        },
+        {
           "id": "midterm-review",
           "title": "Midterm Review",
           "description": "78 questions — the exam's own question count, doubled — weighted toward the terms highlighted in the lecture deck and the worked examples from the assignments.",

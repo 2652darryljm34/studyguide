@@ -1,0 +1,2030 @@
+{
+  "title": "ITD 256 Final Exam Review",
+  "description": "Built from the highlighted portions of the instructor's course review: database and file-system basics, the DBMS and data models, keys and integrity, normalization, SQL, transactions, and data warehousing, NoSQL and connectivity.",
+  "guideFile": "data/itd256-midterm-guide.json",
+  "dbFile": "data/harborview.sql",
+  "sections": [
+    {
+      "name": "1. Data, Files and Databases",
+      "questions": [
+        {
+          "type": "matching",
+          "category": "File Systems & Database Basics",
+          "question": "Match each basic term to its definition.",
+          "pairs": [
+            {
+              "left": "Data",
+              "right": "Raw facts, such as a telephone number or a birth date, with little meaning unless organized"
+            },
+            {
+              "left": "Field",
+              "right": "A character or group of characters with a specific meaning, used to define and store data (also called an attribute)"
+            },
+            {
+              "left": "Record",
+              "right": "A logically connected set of fields that describes a person, place or thing (also called an entity instance)"
+            },
+            {
+              "left": "Table (in a DBMS)",
+              "right": "A collection of related records (also called an entity)"
+            }
+          ]
+        },
+        {
+          "type": "mc",
+          "category": "File Systems & Database Basics",
+          "question": "A record in a file system corresponds to which database term?",
+          "options": [
+            "An entity instance (a row)",
+            "An attribute",
+            "An entity (a table)",
+            "A constraint"
+          ],
+          "correct": 0,
+          "explanation": "A record is a set of related fields describing one person, place or thing, which in a table is a row. A field is an attribute, and a table is an entity."
+        },
+        {
+          "type": "mc",
+          "category": "File Systems & Database Basics",
+          "question": "A field is also known as a(n):",
+          "options": [
+            "Entity instance",
+            "Attribute",
+            "Entity",
+            "Record"
+          ],
+          "correct": 1,
+          "explanation": "Field = attribute, record = entity instance, table = entity."
+        },
+        {
+          "type": "mc",
+          "category": "File Systems & Database Basics",
+          "question": "Data that exists in its original (raw) state is called:",
+          "options": [
+            "Structured data",
+            "Semistructured data",
+            "Unstructured data",
+            "Metadata"
+          ],
+          "correct": 2,
+          "explanation": "Structured data results from formatting the raw data; semistructured data (such as XML) is only partially processed."
+        },
+        {
+          "type": "mc",
+          "category": "File Systems & Database Basics",
+          "question": "Data that has been formatted to fit a defined structure is called:",
+          "options": [
+            "Unstructured data",
+            "Raw data",
+            "Redundant data",
+            "Structured data"
+          ],
+          "correct": 3,
+          "explanation": "Structure is applied depending on the type of processing the data will go through."
+        },
+        {
+          "type": "mc",
+          "category": "File Systems & Database Basics",
+          "question": "What is a cloud database?",
+          "options": [
+            "A database created and maintained with cloud services that provide defined performance measures",
+            "A database stored on a single local server",
+            "A database that can only be queried by OLAP tools",
+            "A backup copy kept off-site"
+          ],
+          "correct": 0,
+          "explanation": "A cloud database can behave like a centralized or distributed one, but the provider (AWS, Azure, Google Cloud) deals with the infrastructure."
+        },
+        {
+          "type": "mc",
+          "category": "File Systems & Database Basics",
+          "question": "What is an analytical database?",
+          "options": [
+            "A database that processes day-to-day transactions",
+            "A database that stores historical data and business metrics used exclusively for tactical or strategic decision making",
+            "A database with no tables",
+            "A database that stores only images"
+          ],
+          "correct": 1,
+          "explanation": "Analytical databases serve decision making, not day-to-day operations."
+        },
+        {
+          "type": "mc",
+          "category": "File Systems & Database Basics",
+          "question": "What is a data warehouse?",
+          "options": [
+            "A backup of every table in a transactional database",
+            "A file system of spreadsheets",
+            "A database that stores data in a format optimized for decision support",
+            "A tool for entering data faster"
+          ],
+          "correct": 2,
+          "explanation": "Operational data is optimized for updates; warehouse data is optimized for reading and analysis."
+        },
+        {
+          "type": "mc",
+          "category": "File Systems & Database Basics",
+          "question": "Why is database design important?",
+          "options": [
+            "Design only affects how the screens look",
+            "Good design makes a DBMS unnecessary",
+            "Design matters only for very small databases",
+            "A well-designed database makes data management easier and produces accurate, valuable information; a poor design causes difficult-to-trace errors"
+          ],
+          "correct": 3,
+          "explanation": "A poorly designed database can cause errors that lead to poor decision making."
+        },
+        {
+          "type": "tf",
+          "category": "File Systems & Database Basics",
+          "question": "Using Microsoft Excel as a database is an appropriate use of a spreadsheet.",
+          "correct": false,
+          "explanation": "It is a classic misuse: spreadsheets lack the integrity, security, multi-user control and relationships that a DBMS provides."
+        },
+        {
+          "type": "matching",
+          "category": "File Systems & Database Basics",
+          "question": "Match each problem to the file-system limitation it illustrates.",
+          "pairs": [
+            {
+              "left": "Lengthy development times",
+              "right": "Every new report needs extensive custom programming"
+            },
+            {
+              "left": "Difficult to get quick answers",
+              "right": "Ad hoc queries are hard; there is no query language"
+            },
+            {
+              "left": "Lack of security and limited data sharing",
+              "right": "Left up to each developer"
+            },
+            {
+              "left": "Complex system administration",
+              "right": "Few if any standards"
+            }
+          ],
+          "explanation": "These are some of the problems with file system data processing."
+        },
+        {
+          "type": "mc",
+          "category": "File Systems & Database Basics",
+          "question": "What is data dependence?",
+          "options": [
+            "A change in how the data is stored forces a change in how it is accessed",
+            "Data that can only be read by one user",
+            "Data that depends on other data for its meaning",
+            "Data copied into several places"
+          ],
+          "correct": 0,
+          "explanation": "With data dependence, programs must be modified when the storage characteristics change."
+        },
+        {
+          "type": "mc",
+          "category": "File Systems & Database Basics",
+          "question": "What is data independence?",
+          "options": [
+            "Data that is independent of any business rules",
+            "Data storage characteristics can change without affecting the programs' ability to access the data",
+            "Data stored in more than one table",
+            "Data that can never be changed"
+          ],
+          "correct": 1,
+          "explanation": "Its practical significance is the difference between the logical format (what the user or application sees) and the physical format (how it is stored on hardware, which should be hidden entirely)."
+        },
+        {
+          "type": "mc",
+          "category": "File Systems & Database Basics",
+          "question": "Which statement about the logical and physical formats of data is correct?",
+          "options": [
+            "Logical is the actual storage on hardware; physical is the user's view",
+            "They are two names for the same thing",
+            "Logical is the representation presented to the application or user; physical is the actual storage on hardware and should be hidden from the user",
+            "Physical is the representation presented to the user"
+          ],
+          "correct": 2,
+          "explanation": "Data independence lets the physical format change without the logical view being affected."
+        },
+        {
+          "type": "mc",
+          "category": "File Systems & Database Basics",
+          "question": "What is data redundancy?",
+          "options": [
+            "Storing data in an encrypted form",
+            "Keeping a backup copy of the database",
+            "Storing data in more than one table",
+            "Unnecessarily storing the same data in different places"
+          ],
+          "correct": 3,
+          "explanation": "Redundancy produces islands of information and raises the probability of different versions of the same data."
+        },
+        {
+          "type": "mc",
+          "category": "File Systems & Database Basics",
+          "question": "Anomalies develop when:",
+          "options": [
+            "Not all of the required changes to redundant data are made successfully",
+            "A table has no primary key",
+            "A query returns no rows",
+            "Users enter data too quickly"
+          ],
+          "correct": 0,
+          "explanation": "Types are update anomalies (inconsistent data), insertion anomalies (incomplete new data) and deletion anomalies (partial removal)."
+        },
+        {
+          "type": "matching",
+          "category": "File Systems & Database Basics",
+          "question": "Match each anomaly to its description.",
+          "pairs": [
+            {
+              "left": "Update anomaly",
+              "right": "A change made in only some places leaves the data inconsistent"
+            },
+            {
+              "left": "Insertion anomaly",
+              "right": "New data cannot be added completely"
+            },
+            {
+              "left": "Deletion anomaly",
+              "right": "Removing a row also removes other, still-needed data"
+            }
+          ]
+        },
+        {
+          "type": "mc",
+          "category": "File Systems & Database Basics",
+          "question": "Compared with a file system, a database system allows for:",
+          "options": [
+            "Less security but faster development",
+            "More data independence, more robust organization and better control of data access",
+            "More redundancy but simpler design",
+            "No need for a data dictionary"
+          ],
+          "correct": 1,
+          "explanation": "These are the advantages of a database over file-based storage."
+        }
+      ]
+    },
+    {
+      "name": "2. The DBMS and Data Models",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "DBMS & Data Models",
+          "question": "A database system is best described as:",
+          "options": [
+            "Only the software that stores data",
+            "A single computer running a database",
+            "An organization of components that define and regulate the collection, storage, management and use of data within a database environment",
+            "A collection of spreadsheets"
+          ],
+          "correct": 2,
+          "explanation": "The components are hardware, software, people, procedures and data."
+        },
+        {
+          "type": "mc",
+          "category": "DBMS & Data Models",
+          "question": "Which are the five components of a database system environment?",
+          "options": [
+            "Tables, rows, columns, keys and indexes",
+            "Entities, attributes, relationships, constraints and rules",
+            "Servers, clients, networks, files and backups",
+            "Hardware, software, people, procedures and data"
+          ],
+          "correct": 3,
+          "explanation": "A database system is more than the DBMS software."
+        },
+        {
+          "type": "mc",
+          "category": "DBMS & Data Models",
+          "question": "What does the data dictionary store?",
+          "options": [
+            "The definitions of data elements and their relationships",
+            "Only the user passwords",
+            "A copy of every row in the database",
+            "The SQL statements users have run"
+          ],
+          "correct": 0,
+          "explanation": "Data dictionary management is one of the DBMS functions."
+        },
+        {
+          "type": "mc",
+          "category": "DBMS & Data Models",
+          "question": "Which DBMS function enables recovery of the database after a failure?",
+          "options": [
+            "Security management",
+            "Backup and recovery management",
+            "Data transformation and presentation",
+            "Multiuser access control"
+          ],
+          "correct": 1,
+          "explanation": "Backup and recovery lets you restore the database after a failure."
+        },
+        {
+          "type": "mc",
+          "category": "DBMS & Data Models",
+          "question": "Which DBMS function minimizes redundancy and maximizes consistency?",
+          "options": [
+            "Data storage management",
+            "Backup and recovery management",
+            "Data integrity management",
+            "Database communication interfaces"
+          ],
+          "correct": 2,
+          "explanation": "Integrity management is what keeps the data consistent."
+        },
+        {
+          "type": "mc",
+          "category": "DBMS & Data Models",
+          "question": "What is a query language?",
+          "options": [
+            "A language in which users write each step of the retrieval procedure",
+            "A language for designing screens",
+            "A language only for creating tables",
+            "A language in which users specify what result they want, and the system determines how to produce it"
+          ],
+          "correct": 3,
+          "explanation": "This is why SQL is called a nonprocedural language."
+        },
+        {
+          "type": "fill_blank",
+          "category": "DBMS & Data Models",
+          "question": "What does SQL stand for? (Four words, e.g. Structured ___ ___ ___)",
+          "answers": [
+            "structured query language"
+          ],
+          "explanation": "SQL is the de facto query language and data access standard, supported by nearly all DBMS vendors with slight variations."
+        },
+        {
+          "type": "mc",
+          "category": "DBMS & Data Models",
+          "question": "What is a data model?",
+          "options": [
+            "A simple representation of complex real-world data structures, useful for supporting a specific problem domain",
+            "The finished database filled with data",
+            "A backup of the data dictionary",
+            "The physical files on a server"
+          ],
+          "correct": 0,
+          "explanation": "Data modeling is creating a specific data model for a determined problem domain."
+        },
+        {
+          "type": "mc",
+          "category": "DBMS & Data Models",
+          "question": "Which are the three levels of data modeling?",
+          "options": [
+            "Primary, secondary and tertiary",
+            "Conceptual, logical and physical",
+            "Entity, attribute and relationship",
+            "Structured, semistructured and unstructured"
+          ],
+          "correct": 1,
+          "explanation": "Conceptual (big-picture entities and relationships), logical (tables, keys and attributes, independent of the physical details) and physical (how it is stored in a particular DBMS)."
+        },
+        {
+          "type": "matching",
+          "category": "DBMS & Data Models",
+          "question": "Match each data model building block to its definition.",
+          "pairs": [
+            {
+              "left": "Entity",
+              "right": "A person, place, thing or event"
+            },
+            {
+              "left": "Attribute",
+              "right": "A characteristic of an entity"
+            },
+            {
+              "left": "Relationship",
+              "right": "An association among entities"
+            },
+            {
+              "left": "Constraint",
+              "right": "A restriction placed on the data"
+            }
+          ]
+        },
+        {
+          "type": "mc",
+          "category": "DBMS & Data Models",
+          "question": "What do business rules help to identify?",
+          "options": [
+            "Only the primary keys",
+            "Only the SQL queries needed",
+            "Entities, attributes, relationships and constraints",
+            "The hardware to buy"
+          ],
+          "correct": 2,
+          "explanation": "Nouns in business rules translate into entities and verbs into relationships."
+        },
+        {
+          "type": "tf",
+          "category": "DBMS & Data Models",
+          "question": "Relationships are always bidirectional.",
+          "correct": true,
+          "explanation": "To identify a relationship's type, ask both: how many B are related to one A, and how many A are related to one B?"
+        },
+        {
+          "type": "mc",
+          "category": "DBMS & Data Models",
+          "question": "In the relational model, a relation is:",
+          "options": [
+            "A link between two databases",
+            "A foreign key",
+            "A SQL query",
+            "A table, a matrix of intersecting rows (tuples) and columns (attributes)"
+          ],
+          "correct": 3,
+          "explanation": "Rows are tuples and columns are attributes."
+        },
+        {
+          "type": "mc",
+          "category": "DBMS & Data Models",
+          "question": "An RDBMS does which of the following?",
+          "options": [
+            "Hides the complexities of the relational model from the user, making it easier to understand and implement",
+            "Requires users to write the physical access paths",
+            "Stores data only in hierarchies",
+            "Replaces the need for keys"
+          ],
+          "correct": 0,
+          "explanation": "The RDBMS performs the basic functions of the hierarchical and network DBMS systems, too."
+        },
+        {
+          "type": "mc",
+          "category": "DBMS & Data Models",
+          "question": "What is an entity relationship diagram (ERD)?",
+          "options": [
+            "A list of all SQL statements",
+            "A graphical representation of the entities and relationships in a database structure",
+            "A table of data types",
+            "A list of users and permissions"
+          ],
+          "correct": 1,
+          "explanation": "ERDs use graphic representations to model database components."
+        },
+        {
+          "type": "matching",
+          "category": "DBMS & Data Models",
+          "question": "Match each ER-model term to its meaning.",
+          "pairs": [
+            {
+              "left": "Entity instance (entity occurrence)",
+              "right": "A row in a relational table"
+            },
+            {
+              "left": "Attributes",
+              "right": "Describe particular characteristics of an entity"
+            },
+            {
+              "left": "Cardinality / connectivity",
+              "right": "The term used to label relationship types (1:1, 1:M, M:N)"
+            }
+          ]
+        },
+        {
+          "type": "matching",
+          "category": "DBMS & Data Models",
+          "question": "Match each object-oriented term to its relational equivalent.",
+          "pairs": [
+            {
+              "left": "Object",
+              "right": "A row"
+            },
+            {
+              "left": "Class",
+              "right": "A table"
+            },
+            {
+              "left": "Inheritance",
+              "right": "A subclass takes on the methods and attributes of its parent classes (no relational equivalent)"
+            }
+          ]
+        },
+        {
+          "type": "mc",
+          "category": "DBMS & Data Models",
+          "question": "In the object-oriented data model, what is inheritance?",
+          "options": [
+            "Copying a table into another database",
+            "A foreign key referencing a parent table",
+            "An object inherits the methods and attributes of its parent classes",
+            "Deleting a parent row deletes its children"
+          ],
+          "correct": 2,
+          "explanation": "A class hierarchy resembles an upside-down tree in which each class has only one parent."
+        },
+        {
+          "type": "mc",
+          "category": "DBMS & Data Models",
+          "question": "Which of these is an advantage of the relational model?",
+          "options": [
+            "It needs very little hardware",
+            "It requires no keys",
+            "It eliminates the need for design",
+            "It isolates the end user from physical-level details and promotes structural independence"
+          ],
+          "correct": 3,
+          "explanation": "Other advantages: tabular view improves conceptual simplicity, ad hoc querying with SQL, relationships done through primary and foreign keys. A disadvantage is that it needs substantial hardware and system software overhead."
+        },
+        {
+          "type": "mc",
+          "category": "DBMS & Data Models",
+          "question": "Which of the following describes the logical model, as opposed to the physical model?",
+          "options": [
+            "The logical model represents the data as the user or application sees it (tables, keys, relationships) and is independent of storage details",
+            "The logical model describes where each file is on disk",
+            "The logical model is the same as the data dictionary",
+            "The logical model is built after the physical model"
+          ],
+          "correct": 0,
+          "explanation": "The physical model describes how the data is actually stored on hardware."
+        }
+      ]
+    },
+    {
+      "name": "3. Keys, Integrity and Relationships",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Keys & Integrity",
+          "question": "What is a key?",
+          "options": [
+            "Any attribute that cannot be null",
+            "One or more attributes that determine other attributes",
+            "A password to the database",
+            "A column holding only numbers"
+          ],
+          "correct": 1,
+          "explanation": "Keys ensure each row is uniquely identifiable, establish relationships among tables and ensure data integrity."
+        },
+        {
+          "type": "mc",
+          "category": "Keys & Integrity",
+          "question": "What is a primary key?",
+          "options": [
+            "Any column used in a WHERE clause",
+            "The first column of a table",
+            "An attribute or combination of attributes that uniquely identifies a row",
+            "An attribute that may be null"
+          ],
+          "correct": 2,
+          "explanation": "Each table row must have a primary key."
+        },
+        {
+          "type": "mc",
+          "category": "Keys & Integrity",
+          "question": "What is a natural key?",
+          "options": [
+            "A key generated automatically by the DBMS",
+            "A foreign key that matches exactly one row",
+            "A key made of two or more attributes",
+            "A real-world identifier that uniquely identifies real-world objects, familiar to end users"
+          ],
+          "correct": 3,
+          "explanation": "A natural key can be used as the primary key of the entity being modeled."
+        },
+        {
+          "type": "mc",
+          "category": "Keys & Integrity",
+          "question": "What is a surrogate key?",
+          "options": [
+            "An artificial (made-up) primary key, such as an auto-number",
+            "A key that references another table",
+            "A key taken from a real-world identifier",
+            "A key that is allowed to be null"
+          ],
+          "correct": 0,
+          "explanation": "Surrogate means 'in place of'."
+        },
+        {
+          "type": "mc",
+          "category": "Keys & Integrity",
+          "question": "When are surrogate primary keys useful?",
+          "options": [
+            "Whenever a table has fewer than ten rows",
+            "When no natural key is suitable, when the primary key would be a composite of several data types, or when the natural key is too long to be usable",
+            "Only when the table has a foreign key",
+            "Never; natural keys should always be used"
+          ],
+          "correct": 1,
+          "explanation": "These are the three situations listed."
+        },
+        {
+          "type": "mc",
+          "category": "Keys & Integrity",
+          "question": "What is a composite key?",
+          "options": [
+            "A key made up of one text and one number",
+            "A key shared by two tables",
+            "A key made up of multiple attributes",
+            "A key that has been encrypted"
+          ],
+          "correct": 2,
+          "explanation": "Each attribute that is part of the key is a key attribute."
+        },
+        {
+          "type": "mc",
+          "category": "Keys & Integrity",
+          "question": "What is a foreign key?",
+          "options": [
+            "A key that points to a table in a different database",
+            "A key that is not allowed to match anything",
+            "An artificial key",
+            "The primary key of one table placed in another table to create a common attribute"
+          ],
+          "correct": 3,
+          "explanation": "Foreign keys are how independent tables are linked."
+        },
+        {
+          "type": "mc",
+          "category": "Keys & Integrity",
+          "question": "What is entity integrity?",
+          "options": [
+            "The condition in which each row in a table has its own unique identity: all primary key values are unique and no part of the primary key is null",
+            "Every foreign key matches a primary key",
+            "Every table has at least one row",
+            "Every column has a data type"
+          ],
+          "correct": 0,
+          "explanation": "Example: no invoice can have a duplicate number, nor can it be null."
+        },
+        {
+          "type": "mc",
+          "category": "Keys & Integrity",
+          "question": "What is referential integrity?",
+          "options": [
+            "Every table has a primary key",
+            "Every reference to a record in one table by a record in a related table is valid (no orphaned records)",
+            "Every primary key is an integer",
+            "No two tables have the same column name"
+          ],
+          "correct": 1,
+          "explanation": "A foreign key may have either a null entry or one value matching a primary key in the related table."
+        },
+        {
+          "type": "mc",
+          "category": "Keys & Integrity",
+          "question": "A customer has not yet been assigned a sales representative. Which statement about the foreign key rep_number in CUSTOMER is true?",
+          "options": [
+            "It must hold a valid rep number; null is never allowed",
+            "It may hold any number",
+            "It may be null, but it cannot hold a rep number that doesn't exist in the sales representative table",
+            "It must be deleted from the table"
+          ],
+          "correct": 2,
+          "explanation": "It is possible for an attribute to have no corresponding value, but impossible to have an invalid entry."
+        },
+        {
+          "type": "mc",
+          "category": "Keys & Integrity",
+          "question": "With referential integrity enforced, what happens if you try to delete a row whose primary key has matching foreign key values in another table?",
+          "options": [
+            "The matching rows are silently ignored",
+            "The database creates a new primary key",
+            "The primary key becomes null",
+            "The deletion is not allowed"
+          ],
+          "correct": 3,
+          "explanation": "Enforcing it makes it impossible to delete a row in one table whose primary key has mandatory matching foreign key values in another."
+        },
+        {
+          "type": "mc",
+          "category": "Keys & Integrity",
+          "question": "What is null?",
+          "options": [
+            "The absence of any data value (unknown, known but missing, or inapplicable)",
+            "The number zero",
+            "An empty string",
+            "The word NULL typed as text"
+          ],
+          "correct": 0,
+          "explanation": "Null is not zero and not a blank."
+        },
+        {
+          "type": "tf",
+          "category": "Keys & Integrity",
+          "question": "A primary key may contain a null value as long as the remaining values are unique.",
+          "correct": false,
+          "explanation": "Entity integrity forbids null in any part of the primary key."
+        },
+        {
+          "type": "matching",
+          "category": "Keys & Integrity",
+          "question": "Match each term to its description.",
+          "pairs": [
+            {
+              "left": "Data dictionary",
+              "right": "A description of all tables in the database, created by the user and designer"
+            },
+            {
+              "left": "Database schema",
+              "right": "The complete logical view of the database"
+            },
+            {
+              "left": "Entity integrity",
+              "right": "Primary key values are unique and never null"
+            },
+            {
+              "left": "Referential integrity",
+              "right": "A foreign key is either null or matches a primary key in the related table"
+            }
+          ]
+        },
+        {
+          "type": "matching",
+          "category": "Keys & Integrity",
+          "question": "Match each relationship type to its description.",
+          "pairs": [
+            {
+              "left": "One-to-many (1:M)",
+              "right": "The norm for relational databases; the most common type"
+            },
+            {
+              "left": "One-to-one (1:1)",
+              "right": "One entity can be related to only one other entity"
+            },
+            {
+              "left": "Many-to-many (M:N)",
+              "right": "Implemented by creating a new connecting entity in 1:M relationships with the original entities"
+            }
+          ]
+        },
+        {
+          "type": "mc",
+          "category": "Keys & Integrity",
+          "question": "A composite (bridge or associative) entity that resolves an M:N relationship contains:",
+          "options": [
+            "Only a new surrogate key",
+            "The primary keys of the tables to be linked, as foreign keys",
+            "A copy of every attribute from both tables",
+            "Nothing; it is an empty table"
+          ],
+          "correct": 1,
+          "explanation": "In Harborview, the gadget_group_map table is a bridge that links gadget and gadget_group."
+        },
+        {
+          "type": "tf",
+          "category": "Keys & Integrity",
+          "question": "Chen notation allows direct representation of M:N relationships.",
+          "correct": true,
+          "explanation": "Crow's Foot notation does not; it needs a bridge table (associative entity)."
+        },
+        {
+          "type": "tf",
+          "category": "Keys & Integrity",
+          "question": "Crow's Foot notation allows direct representation of M:N relationships.",
+          "correct": false,
+          "explanation": "Crow's Foot needs a bridge table (associative entity). Chen notation can show M:N directly."
+        },
+        {
+          "type": "mc",
+          "category": "Keys & Integrity",
+          "question": "Summary of the relational model: which statement is correct?",
+          "options": [
+            "Keys are optional in relational tables",
+            "Rows are the basic building blocks and tables are optional",
+            "Tables are the basic building blocks, keys are central to their use, and each table row must have a primary key",
+            "Tables can only be linked through the data dictionary"
+          ],
+          "correct": 2,
+          "explanation": "Although the tables are independent, they are linked by common attributes (foreign keys)."
+        }
+      ]
+    },
+    {
+      "name": "4. Normalization",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Normalization",
+          "question": "What is normalization?",
+          "options": [
+            "Converting all data to the same format",
+            "Adding indexes to speed up queries",
+            "Encrypting the tables",
+            "Evaluating and correcting table structures to minimize data redundancies"
+          ],
+          "correct": 3,
+          "explanation": "It reduces data anomalies and assigns attributes to tables based on determination."
+        },
+        {
+          "type": "matching",
+          "category": "Normalization",
+          "question": "Match each normal form to its characteristic.",
+          "pairs": [
+            {
+              "left": "1NF",
+              "right": "Table format, no repeating groups, and the primary key is identified"
+            },
+            {
+              "left": "2NF",
+              "right": "1NF and no partial dependencies"
+            },
+            {
+              "left": "3NF",
+              "right": "2NF and no transitive dependencies"
+            }
+          ]
+        },
+        {
+          "type": "mc",
+          "category": "Normalization",
+          "question": "A table is in 2NF when:",
+          "options": [
+            "It is in 1NF and has no partial dependencies",
+            "It is in 1NF and has no transitive dependencies",
+            "It has no primary key",
+            "It has only one column"
+          ],
+          "correct": 0,
+          "explanation": "If a 1NF table has a single-attribute primary key, it is automatically in 2NF."
+        },
+        {
+          "type": "mc",
+          "category": "Normalization",
+          "question": "A table is in 3NF when:",
+          "options": [
+            "It is in 1NF and has no partial dependencies",
+            "It is in 2NF and has no transitive dependencies",
+            "It has no foreign keys",
+            "It has at most three columns"
+          ],
+          "correct": 1,
+          "explanation": "Convert 2NF to 3NF by making new tables to eliminate transitive dependencies and reassigning the dependent attributes."
+        },
+        {
+          "type": "mc",
+          "category": "Normalization",
+          "question": "What is a functional dependence?",
+          "options": [
+            "Two attributes that always have the same data type",
+            "An attribute that cannot be null",
+            "Attribute B is functionally dependent on attribute A if each value of A determines one and only one value of B",
+            "A column that references another table"
+          ],
+          "correct": 2,
+          "explanation": "Written A → B, where A is the determinant and B is the dependent attribute. Example: PROJ_NUM → PROJ_NAME."
+        },
+        {
+          "type": "mc",
+          "category": "Normalization",
+          "question": "What is a partial dependency?",
+          "options": [
+            "A dependency of one non-key attribute on another non-key attribute",
+            "A dependency on the whole primary key",
+            "A dependency that holds for only some rows",
+            "A functional dependence in which the determinant is only part of the primary key"
+          ],
+          "correct": 3,
+          "explanation": "A necessary condition is a composite primary key. Partial dependencies are removed to reach 2NF."
+        },
+        {
+          "type": "mc",
+          "category": "Normalization",
+          "question": "What is a transitive dependency?",
+          "options": [
+            "An attribute that depends on another non-primary-key attribute",
+            "An attribute that depends on only part of the primary key",
+            "An attribute that depends on the whole primary key",
+            "A dependency that crosses two tables"
+          ],
+          "correct": 0,
+          "explanation": "It occurs only when a functional dependence exists among non-key attributes, and it is more difficult to identify. Transitive dependencies are removed to reach 3NF."
+        },
+        {
+          "type": "mc",
+          "category": "Normalization",
+          "question": "A table has the primary key (proj_num, emp_num) and the dependency proj_num → proj_name. What kind of dependency is that?",
+          "options": [
+            "A transitive dependency",
+            "A partial dependency",
+            "A full functional dependency",
+            "A multivalued dependency"
+          ],
+          "correct": 1,
+          "explanation": "The determinant, proj_num, is only part of the composite primary key."
+        },
+        {
+          "type": "mc",
+          "category": "Normalization",
+          "question": "In the same table, emp_num → job_class and job_class → chg_hour. What kind of dependency is job_class → chg_hour?",
+          "options": [
+            "A partial dependency",
+            "A dependency on the whole key",
+            "A transitive dependency",
+            "A referential dependency"
+          ],
+          "correct": 2,
+          "explanation": "chg_hour depends on job_class, which is not part of the primary key."
+        },
+        {
+          "type": "mc",
+          "category": "Normalization",
+          "question": "A table has the primary key (proj_num, emp_num) and the dependency (proj_num, emp_num) → assign_hours. What kind of dependency is it?",
+          "options": [
+            "A partial dependency",
+            "A transitive dependency",
+            "No dependency",
+            "A full functional dependency on the whole primary key"
+          ],
+          "correct": 3,
+          "explanation": "assign_hours depends on the entire composite key, and not on any subset of it."
+        },
+        {
+          "type": "mc",
+          "category": "Normalization",
+          "question": "The four dependencies are: proj_num → proj_name; emp_num → emp_name, job_class; job_class → chg_hour; proj_num, emp_num → assign_hours. Which set of 3NF tables results?",
+          "options": [
+            "PROJECT(proj_num, proj_name), EMPLOYEE(emp_num, emp_name, job_class), JOB(job_class, chg_hour), ASSIGNMENT(proj_num, emp_num, assign_hours)",
+            "One table with all six attributes",
+            "PROJECT(proj_num, proj_name) and ASSIGNMENT(proj_num, emp_num, emp_name, job_class, chg_hour, assign_hours)",
+            "EMPLOYEE(emp_num, emp_name, job_class, chg_hour) and ASSIGNMENT(proj_num, emp_num, assign_hours)"
+          ],
+          "correct": 0,
+          "explanation": "Each determinant becomes the primary key of its own table, which removes the partial dependencies (for 2NF) and the transitive dependency job_class → chg_hour (for 3NF)."
+        },
+        {
+          "type": "mc",
+          "category": "Normalization",
+          "question": "Which of these describes 1NF?",
+          "options": [
+            "A table with no partial dependencies",
+            "A tabular format in which all key attributes are defined, there are no repeating groups, and all attributes depend on the primary key",
+            "A table with no transitive dependencies",
+            "A table with exactly one column"
+          ],
+          "correct": 1,
+          "explanation": "All relational tables satisfy 1NF requirements."
+        },
+        {
+          "type": "tf",
+          "category": "Normalization",
+          "question": "A table cannot be a valid relational table without already being in 1NF.",
+          "correct": true,
+          "explanation": "All relational tables satisfy the 1NF requirements."
+        },
+        {
+          "type": "mc",
+          "category": "Normalization",
+          "question": "How do you convert a table to 2NF?",
+          "options": [
+            "Remove all foreign keys",
+            "Add a surrogate key to every table",
+            "Make new tables to eliminate the partial dependencies and reassign the dependent attributes to them",
+            "Merge the tables back together"
+          ],
+          "correct": 2,
+          "explanation": "Remove the composite primary key from the 1NF table, creating tables for each determinant that is part of it."
+        },
+        {
+          "type": "mc",
+          "category": "Normalization",
+          "question": "What is denormalization?",
+          "options": [
+            "Producing a higher normal form",
+            "Deleting all of the foreign keys",
+            "Removing the primary keys",
+            "Producing a lower normal form, which results in increased performance and greater data redundancy"
+          ],
+          "correct": 3,
+          "explanation": "It is sometimes necessary."
+        },
+        {
+          "type": "mc",
+          "category": "Normalization",
+          "question": "Why is denormalization sometimes necessary?",
+          "options": [
+            "Joining a large number of tables takes additional I/O operations and processing logic, which reduces system speed",
+            "Because normalized tables cannot be queried",
+            "Because 3NF tables have no keys",
+            "Because denormalized tables use less storage"
+          ],
+          "correct": 0,
+          "explanation": "Design goals include both normalized relations and processing requirements and speed."
+        },
+        {
+          "type": "tf",
+          "category": "Normalization",
+          "question": "Denormalization increases data redundancy in exchange for faster processing.",
+          "correct": true,
+          "explanation": "Fewer joins means faster queries, but redundancy is back, so the application must keep the copies consistent."
+        }
+      ]
+    },
+    {
+      "name": "5. SQL Concepts",
+      "questions": [
+        {
+          "type": "matching",
+          "category": "SQL Concepts",
+          "question": "Match each category of SQL to its commands.",
+          "pairs": [
+            {
+              "left": "DDL (data definition language)",
+              "right": "CREATE TABLE/DATABASE, DROP TABLE/DATABASE, ALTER TABLE"
+            },
+            {
+              "left": "DML (data manipulation language)",
+              "right": "INSERT, SELECT, UPDATE, DELETE (CRUD)"
+            },
+            {
+              "left": "TCL (transaction control language)",
+              "right": "COMMIT, ROLLBACK"
+            },
+            {
+              "left": "DCL (data control language)",
+              "right": "GRANT, REVOKE"
+            }
+          ]
+        },
+        {
+          "type": "mc",
+          "category": "SQL Concepts",
+          "question": "What does CRUD stand for in SQL's data manipulation language?",
+          "options": [
+            "Create, Retrieve, Use, Drop",
+            "Create (INSERT), Read (SELECT), Update (UPDATE), Delete (DELETE)",
+            "Commit, Rollback, Update, Define",
+            "Copy, Remove, Undo, Display"
+          ],
+          "correct": 1,
+          "explanation": "These four commands are the DML."
+        },
+        {
+          "type": "matching",
+          "category": "SQL Concepts",
+          "question": "Match each DDL command to what it does.",
+          "pairs": [
+            {
+              "left": "CREATE DATABASE",
+              "right": "Creates the database schema"
+            },
+            {
+              "left": "DROP DATABASE",
+              "right": "Removes the database schema entirely"
+            },
+            {
+              "left": "CREATE TABLE",
+              "right": "Creates a new table"
+            },
+            {
+              "left": "ALTER TABLE",
+              "right": "Modifies a table's definition (add, modify or delete attributes or constraints)"
+            },
+            {
+              "left": "DROP TABLE",
+              "right": "Permanently deletes a table and its data"
+            }
+          ]
+        },
+        {
+          "type": "mc",
+          "category": "SQL Concepts",
+          "question": "Which command changes a table's structure, such as adding a column?",
+          "options": [
+            "UPDATE",
+            "CREATE VIEW",
+            "ALTER TABLE",
+            "DROP TABLE"
+          ],
+          "correct": 2,
+          "explanation": "UPDATE changes the data in rows, not the structure."
+        },
+        {
+          "type": "mc",
+          "category": "SQL Concepts",
+          "question": "Which of these is a DDL command?",
+          "options": [
+            "INSERT",
+            "SELECT",
+            "UPDATE",
+            "CREATE TABLE"
+          ],
+          "correct": 3,
+          "explanation": "INSERT, SELECT and UPDATE are DML."
+        },
+        {
+          "type": "mc",
+          "category": "SQL Concepts",
+          "question": "What does the DISTINCT keyword do in a SELECT?",
+          "options": [
+            "Produces a list of only unique values",
+            "Sorts the result in ascending order",
+            "Returns only the first row",
+            "Removes null values"
+          ],
+          "correct": 0,
+          "explanation": "For example: `SELECT DISTINCT v_code FROM product;`"
+        },
+        {
+          "type": "mc",
+          "category": "SQL Concepts",
+          "question": "Which clause of a SELECT statement specifies the table or tables from which the data is retrieved?",
+          "options": [
+            "WHERE",
+            "FROM",
+            "GROUP BY",
+            "SELECT"
+          ],
+          "correct": 1,
+          "explanation": "SELECT lists the columns, FROM names the tables."
+        },
+        {
+          "type": "mc",
+          "category": "SQL Concepts",
+          "question": "Which syntax joins two tables on a column with the same name in both?",
+          "options": [
+            "SELECT column-list FROM table1 JOIN table2 WHERE common_column",
+            "SELECT column-list FROM table1, table2 GROUP BY common_column",
+            "SELECT column-list FROM table1 JOIN table2 USING (common_column)",
+            "SELECT column-list FROM table1 UNION table2"
+          ],
+          "correct": 2,
+          "explanation": "The USING column must exist in both tables, and only rows with matching values are returned."
+        },
+        {
+          "type": "mc",
+          "category": "SQL Concepts",
+          "question": "When should JOIN ... ON be used instead of JOIN ... USING?",
+          "options": [
+            "When you need an outer join only",
+            "When both tables are the same",
+            "ON can only be used with three tables",
+            "When the tables do not share a common column name, so you express the join condition explicitly"
+          ],
+          "correct": 3,
+          "explanation": "Syntax: `SELECT column-list FROM table1 JOIN table2 ON join-condition`."
+        },
+        {
+          "type": "mc",
+          "category": "SQL Concepts",
+          "question": "What is a recursive join?",
+          "options": [
+            "A join of a table to itself",
+            "A join of more than three tables",
+            "A join that returns every row",
+            "A join without a condition"
+          ],
+          "correct": 0,
+          "explanation": "A recursive query joins a table to itself, for example an employee to their supervisor."
+        },
+        {
+          "type": "mc",
+          "category": "SQL Concepts",
+          "question": "Which clause sorts the final result of a query?",
+          "options": [
+            "GROUP BY",
+            "ORDER BY",
+            "HAVING",
+            "DISTINCT"
+          ],
+          "correct": 1,
+          "explanation": "`ORDER BY last_name, first_name` sorts first by last name, then by first name; DESC reverses a column's order."
+        },
+        {
+          "type": "mc",
+          "category": "SQL Concepts",
+          "question": "What does the WHERE clause do?",
+          "options": [
+            "Sorts the rows",
+            "Groups the rows",
+            "Adds conditional restrictions to the SELECT statement to limit the rows returned",
+            "Names the tables to use"
+          ],
+          "correct": 2,
+          "explanation": "WHERE is also used with UPDATE and DELETE to restrict the rows affected."
+        },
+        {
+          "type": "matching",
+          "category": "SQL Concepts",
+          "question": "Match each special operator to its use.",
+          "pairs": [
+            {
+              "left": "BETWEEN ... AND ...",
+              "right": "Checks whether a value falls within a range"
+            },
+            {
+              "left": "IN",
+              "right": "Checks whether a value matches any value in a list"
+            },
+            {
+              "left": "LIKE",
+              "right": "Matches a pattern, using wildcards such as %"
+            }
+          ]
+        },
+        {
+          "type": "mc",
+          "category": "SQL Concepts",
+          "question": "Which rows does `WHERE last_name LIKE 'R%'` return?",
+          "options": [
+            "Rows whose last_name ends with R",
+            "Rows whose last_name is exactly R",
+            "Rows whose last_name contains an R anywhere",
+            "Rows whose last_name starts with R"
+          ],
+          "correct": 3,
+          "explanation": "`%` matches any number of characters. `'%R'` would be ends with R, and `'%R%'` contains R."
+        },
+        {
+          "type": "mc",
+          "category": "SQL Concepts",
+          "question": "Which clause shows only the groups produced by GROUP BY that meet a condition?",
+          "options": [
+            "HAVING",
+            "WHERE",
+            "ORDER BY",
+            "DISTINCT"
+          ],
+          "correct": 0,
+          "explanation": "HAVING operates like WHERE, but is applied to the output of the GROUP BY operation."
+        },
+        {
+          "type": "mc",
+          "category": "SQL Concepts",
+          "question": "What is the difference between WHERE and HAVING?",
+          "options": [
+            "WHERE filters groups; HAVING filters rows",
+            "WHERE filters rows before grouping; HAVING filters the groups after GROUP BY",
+            "They are identical",
+            "HAVING can be used only without GROUP BY"
+          ],
+          "correct": 1,
+          "explanation": "A condition on an aggregate such as COUNT(*) >= 10 belongs in HAVING."
+        },
+        {
+          "type": "matching",
+          "category": "SQL Concepts",
+          "question": "Match each aggregate function to what it computes.",
+          "pairs": [
+            {
+              "left": "COUNT",
+              "right": "The number of rows"
+            },
+            {
+              "left": "MIN",
+              "right": "The smallest value"
+            },
+            {
+              "left": "MAX",
+              "right": "The largest value"
+            },
+            {
+              "left": "SUM",
+              "right": "The total of the values"
+            },
+            {
+              "left": "AVG",
+              "right": "The average of the values"
+            }
+          ]
+        },
+        {
+          "type": "mc",
+          "category": "SQL Concepts",
+          "question": "In what order are the clauses of a SELECT written?",
+          "options": [
+            "SELECT, WHERE, FROM, ORDER BY, GROUP BY, HAVING",
+            "FROM, SELECT, WHERE, HAVING, GROUP BY, ORDER BY",
+            "SELECT, FROM, WHERE, GROUP BY, HAVING, ORDER BY",
+            "SELECT, FROM, GROUP BY, WHERE, ORDER BY, HAVING"
+          ],
+          "correct": 2,
+          "explanation": "Build one clause at a time in this order; WHERE, GROUP BY, HAVING and ORDER BY are optional."
+        },
+        {
+          "type": "mc",
+          "category": "SQL Concepts",
+          "question": "Which statement adds new rows to a table?",
+          "options": [
+            "UPDATE",
+            "ALTER",
+            "SELECT",
+            "INSERT"
+          ],
+          "correct": 3,
+          "explanation": "`INSERT INTO tablename (field1, field2) VALUES (value1, value2);` Each value must be in the same order as the field names."
+        },
+        {
+          "type": "mc",
+          "category": "SQL Concepts",
+          "question": "Which statement modifies existing rows?",
+          "options": [
+            "UPDATE",
+            "INSERT",
+            "ALTER",
+            "DELETE"
+          ],
+          "correct": 0,
+          "explanation": "`UPDATE tablename SET column = expression [WHERE condition];` Always use WHERE to specify which rows."
+        },
+        {
+          "type": "mc",
+          "category": "SQL Concepts",
+          "question": "Which statement gets rid of rows?",
+          "options": [
+            "DROP",
+            "DELETE",
+            "REMOVE",
+            "UPDATE"
+          ],
+          "correct": 1,
+          "explanation": "`DELETE FROM tablename [WHERE condition];` Always use WHERE to limit the damage."
+        },
+        {
+          "type": "mc",
+          "category": "SQL Concepts",
+          "question": "What happens if you run an UPDATE or DELETE with no WHERE clause?",
+          "options": [
+            "Nothing happens",
+            "Only the first row is affected",
+            "Every row in the table is affected",
+            "The statement is rejected as a syntax error"
+          ],
+          "correct": 2,
+          "explanation": "That is why the rule is: always use WHERE to specify which rows."
+        },
+        {
+          "type": "mc",
+          "category": "SQL Concepts",
+          "question": "What is a view?",
+          "options": [
+            "A copy of a table stored on disk",
+            "A backup of the schema",
+            "An index on a primary key",
+            "A virtual table based on a SELECT query"
+          ],
+          "correct": 3,
+          "explanation": "`CREATE VIEW viewname AS SELECT query` is a DDL command that stores the subquery in the data dictionary. The tables it is based on are the base tables."
+        },
+        {
+          "type": "mc",
+          "category": "SQL Concepts",
+          "question": "SQL essentially has two sets of commands:",
+          "options": [
+            "Data definition language (DDL) and data manipulation language (DML)",
+            "Queries and reports",
+            "Tables and views",
+            "Keys and indexes"
+          ],
+          "correct": 0,
+          "explanation": "DDL defines the structure and DML works with the data."
+        },
+        {
+          "type": "mc",
+          "category": "SQL Concepts",
+          "question": "Table joins are classified as:",
+          "options": [
+            "Primary joins and foreign joins",
+            "Inner joins and outer joins",
+            "Natural joins and artificial joins only",
+            "Left joins and up joins"
+          ],
+          "correct": 1,
+          "explanation": "Joins use keywords like USING and ON. An inner join returns only rows that match on a common value; an outer join also returns unmatched rows."
+        },
+        {
+          "type": "mc",
+          "category": "SQL Concepts",
+          "question": "Which of these are ANSI standard SQL data types?",
+          "options": [
+            "TABLE, ROW, COLUMN and KEY",
+            "SELECT, FROM and WHERE",
+            "DECIMAL, INTEGER, FLOAT, CHAR, VARCHAR, DATE and DATETIME",
+            "PRIMARY, FOREIGN and UNIQUE"
+          ],
+          "correct": 2,
+          "explanation": "They are supported by all RDBMS vendors in different ways."
+        }
+      ]
+    },
+    {
+      "name": "6. Writing SQL",
+      "questions": [
+        {
+          "type": "sql",
+          "category": "SQL Practice",
+          "question": "Select all fields and all records from the region table.",
+          "tables": [
+            "region"
+          ],
+          "solution": "SELECT * FROM region;",
+          "explanation": "The asterisk is a wildcard for 'every column'.",
+          "expectedRows": 4
+        },
+        {
+          "type": "sql",
+          "category": "SQL Practice",
+          "question": "Select just the gadget_title and daily_fee fields from every record in the gadget table.",
+          "tables": [
+            "gadget"
+          ],
+          "solution": "SELECT gadget_title, daily_fee FROM gadget;",
+          "explanation": "List the columns, separated by commas, then name the table.",
+          "expectedRows": 45
+        },
+        {
+          "type": "sql",
+          "category": "SQL Practice",
+          "question": "Select the gadget_title of every gadget whose daily_fee is above 10.",
+          "tables": [
+            "gadget"
+          ],
+          "solution": "SELECT gadget_title FROM gadget WHERE daily_fee > 10;",
+          "explanation": "WHERE restricts the rows returned.",
+          "expectedRows": 12
+        },
+        {
+          "type": "sql",
+          "category": "SQL Practice",
+          "question": "Select the total amount in the ledger_entry table for the patron with patron_id = 8.",
+          "tables": [
+            "ledger_entry"
+          ],
+          "solution": "SELECT SUM(amount) FROM ledger_entry WHERE patron_id = 8;",
+          "explanation": "SUM is an aggregate: it reduces the matching rows to a single value.",
+          "expectedRows": 1
+        },
+        {
+          "type": "sql",
+          "category": "SQL Practice",
+          "question": "Select the total amount recorded by the steward with steward_id = 2, rounded to the nearest whole number.",
+          "tables": [
+            "ledger_entry"
+          ],
+          "solution": "SELECT ROUND(SUM(amount)) FROM ledger_entry WHERE steward_id = 2;",
+          "explanation": "ROUND wraps the aggregate.",
+          "expectedRows": 1
+        },
+        {
+          "type": "sql",
+          "category": "SQL Practice",
+          "question": "List the gadget_title of all gadgets in the group labelled 'Plumbing'. (Join gadget, gadget_group_map and gadget_group.)",
+          "tables": [
+            "gadget",
+            "gadget_group_map",
+            "gadget_group"
+          ],
+          "solution": "SELECT gadget_title FROM gadget\n  JOIN gadget_group_map USING (gadget_id)\n  JOIN gadget_group USING (group_id)\nWHERE group_label = 'Plumbing';",
+          "explanation": "Chain the joins through the bridge table using USING on the shared key names.",
+          "expectedRows": 6
+        },
+        {
+          "type": "sql",
+          "category": "SQL Practice",
+          "question": "List the titles of all gadgets with the word drill in the gadget_title.",
+          "tables": [
+            "gadget"
+          ],
+          "solution": "SELECT gadget_title FROM gadget WHERE gadget_title LIKE '%drill%';",
+          "explanation": "% on both sides matches the word anywhere in the title.",
+          "expectedRows": 4
+        },
+        {
+          "type": "sql",
+          "category": "SQL Practice",
+          "question": "List the contact_email of all patrons whose given_name ends in in.",
+          "tables": [
+            "patron"
+          ],
+          "solution": "SELECT contact_email FROM patron WHERE given_name LIKE '%in';",
+          "explanation": "'%in' means anything followed by 'in'.",
+          "expectedRows": 4
+        },
+        {
+          "type": "sql",
+          "category": "SQL Practice",
+          "question": "How many times did the patron with patron_id = 34 check out a unit in the month of June (any year)? Use the MONTH() function on checked_out_on.",
+          "tables": [
+            "checkout"
+          ],
+          "solution": "SELECT COUNT(*) FROM checkout WHERE patron_id = 34 AND MONTH(checked_out_on) = 6;",
+          "explanation": "MONTH(date) returns the numeric month of the date passed to it.",
+          "expectedRows": 1
+        },
+        {
+          "type": "sql",
+          "category": "SQL Practice",
+          "question": "Select all fields from the maker table where the maker_name includes the letters TOOL, matching any case, using UPPER().",
+          "tables": [
+            "maker"
+          ],
+          "solution": "SELECT * FROM maker WHERE UPPER(maker_name) LIKE '%TOOL%';",
+          "explanation": "Converting to upper case first makes the match case-insensitive.",
+          "expectedRows": 2
+        },
+        {
+          "type": "sql",
+          "category": "SQL Practice",
+          "question": "List the maker_name and home_region of the makers whose home_region is either Canada or Italy, using IN.",
+          "tables": [
+            "maker"
+          ],
+          "solution": "SELECT maker_name, home_region FROM maker WHERE home_region IN ('Canada', 'Italy');",
+          "explanation": "IN is a shorter way of writing several OR conditions.",
+          "expectedRows": 3
+        },
+        {
+          "type": "sql",
+          "category": "SQL Practice",
+          "question": "List the maker_name and home_region of the makers whose home_region is either Canada or Italy, using OR instead of IN.",
+          "tables": [
+            "maker"
+          ],
+          "solution": "SELECT maker_name, home_region FROM maker WHERE home_region = 'Canada' OR home_region = 'Italy';",
+          "explanation": "Both forms return the same rows.",
+          "expectedRows": 3
+        },
+        {
+          "type": "sql",
+          "category": "SQL Practice",
+          "question": "Select checkout_id, checked_out_on, unit_id and patron_id from the checkout table for checkouts between '2024-06-01' and '2024-06-15'. Use BETWEEN ... AND ...",
+          "tables": [
+            "checkout"
+          ],
+          "solution": "SELECT checkout_id, checked_out_on, unit_id, patron_id FROM checkout\nWHERE checked_out_on BETWEEN '2024-06-01' AND '2024-06-15';",
+          "explanation": "Dates use the YYYY-MM-DD format. BETWEEN includes both end values.",
+          "expectedRows": 4
+        },
+        {
+          "type": "sql",
+          "category": "SQL Practice",
+          "question": "List the first and last names of patrons who checked out a unit between '2024-06-01' and '2024-06-30', each patron once, ordered by surname. Use DISTINCT.",
+          "tables": [
+            "checkout",
+            "patron"
+          ],
+          "solution": "SELECT DISTINCT given_name, surname FROM checkout\n  JOIN patron USING (patron_id)\nWHERE checked_out_on BETWEEN '2024-06-01' AND '2024-06-30'\nORDER BY surname;",
+          "orderMatters": true,
+          "explanation": "DISTINCT removes the duplicates from patrons who borrowed more than once.",
+          "expectedRows": 10
+        },
+        {
+          "type": "sql",
+          "category": "SQL Practice",
+          "question": "List each steward's surname alongside their supervisor's surname (stewards with no supervisor can be left out). This is a recursive join; join steward to itself using aliases.",
+          "tables": [
+            "steward"
+          ],
+          "solution": "SELECT s.surname AS steward, b.surname AS supervisor\nFROM steward s\n  JOIN steward b ON s.supervisor_id = b.steward_id;",
+          "explanation": "A table alias identifies which copy of the table each column came from. The join condition uses ON because the columns have different names.",
+          "expectedRows": 11
+        },
+        {
+          "type": "sql",
+          "category": "SQL Practice",
+          "question": "List all patrons' given_name and surname, sorted by surname and then by given_name.",
+          "tables": [
+            "patron"
+          ],
+          "solution": "SELECT given_name, surname FROM patron ORDER BY surname, given_name;",
+          "orderMatters": true,
+          "explanation": "A cascading order sequence sorts by the first column, then the second within ties.",
+          "expectedRows": 60
+        },
+        {
+          "type": "sql",
+          "category": "SQL Practice",
+          "question": "List each gadget_title and daily_fee, with the most expensive daily_fee first.",
+          "tables": [
+            "gadget"
+          ],
+          "solution": "SELECT gadget_title, daily_fee FROM gadget ORDER BY daily_fee DESC;",
+          "orderMatters": true,
+          "explanation": "DESC reverses the sort.",
+          "expectedRows": 45
+        },
+        {
+          "type": "sql",
+          "category": "SQL Practice",
+          "question": "List each different power_source in the gadget table once.",
+          "tables": [
+            "gadget"
+          ],
+          "solution": "SELECT DISTINCT power_source FROM gadget;",
+          "explanation": "DISTINCT removes duplicate values.",
+          "expectedRows": 4
+        },
+        {
+          "type": "sql",
+          "category": "SQL Practice",
+          "question": "Show the lowest, highest and average daily_fee in the gadget table.",
+          "tables": [
+            "gadget"
+          ],
+          "solution": "SELECT MIN(daily_fee), MAX(daily_fee), AVG(daily_fee) FROM gadget;",
+          "explanation": "Each aggregate reduces the whole table to one value.",
+          "expectedRows": 1
+        },
+        {
+          "type": "sql",
+          "category": "SQL Practice",
+          "question": "How many checkouts were made in each year? Show the year and the count, grouped by year.",
+          "tables": [
+            "checkout"
+          ],
+          "solution": "SELECT YEAR(checked_out_on) AS checkout_year, COUNT(*) AS number_of_checkouts\nFROM checkout\nGROUP BY checkout_year;",
+          "explanation": "GROUP BY collects the rows sharing the same value so that the aggregate is computed per group.",
+          "expectedRows": 2
+        },
+        {
+          "type": "sql",
+          "category": "SQL Practice",
+          "question": "How many gadgets are there for each power_source? Show the power_source and the count.",
+          "tables": [
+            "gadget"
+          ],
+          "solution": "SELECT power_source, COUNT(*) AS gadgets FROM gadget GROUP BY power_source;",
+          "explanation": "One output row per group.",
+          "expectedRows": 4
+        },
+        {
+          "type": "sql",
+          "category": "SQL Practice",
+          "question": "Summarize the number of checkouts per patron, limited to the patrons with 10 or more checkouts. Show patron_id and the count.",
+          "tables": [
+            "checkout"
+          ],
+          "solution": "SELECT patron_id, COUNT(*) AS num_checkouts\nFROM checkout\nGROUP BY patron_id\nHAVING num_checkouts >= 10;",
+          "explanation": "The condition is on an aggregate, so it must be in HAVING, not WHERE.",
+          "expectedRows": 3
+        },
+        {
+          "type": "sql",
+          "category": "SQL Practice",
+          "question": "Show the number of checkouts in each month of 2025. Show the month number and the count.",
+          "tables": [
+            "checkout"
+          ],
+          "solution": "SELECT MONTH(checked_out_on) AS checkout_month, COUNT(*) AS number_of_checkouts\nFROM checkout\nWHERE YEAR(checked_out_on) = 2025\nGROUP BY checkout_month;",
+          "explanation": "WHERE restricts the rows to 2025 before they are grouped.",
+          "expectedRows": 8
+        },
+        {
+          "type": "sql",
+          "category": "SQL Practice",
+          "question": "Add a new row to gadget_group with group_id 12 and group_label 'Concrete and Masonry'.",
+          "tables": [
+            "gadget_group"
+          ],
+          "solution": "INSERT INTO gadget_group (group_id, group_label)\nVALUES (12, 'Concrete and Masonry');",
+          "verify": "SELECT group_id, group_label FROM gadget_group ORDER BY group_id",
+          "explanation": "The values are in the same order as the column names. Graded on the table afterwards.",
+          "expectedRows": 9
+        },
+        {
+          "type": "sql",
+          "category": "SQL Practice",
+          "question": "Change the daily_fee of the gadget with gadget_id = 1 to 12.50.",
+          "tables": [
+            "gadget"
+          ],
+          "solution": "UPDATE gadget SET daily_fee = 12.50 WHERE gadget_id = 1;",
+          "verify": "SELECT gadget_id, daily_fee FROM gadget ORDER BY gadget_id",
+          "explanation": "Always use WHERE to say which rows to change; without it every gadget would be updated.",
+          "expectedRows": 45
+        },
+        {
+          "type": "sql",
+          "category": "SQL Practice",
+          "question": "Delete every row for group_id 8 from the gadget_group_map table.",
+          "tables": [
+            "gadget_group_map"
+          ],
+          "solution": "DELETE FROM gadget_group_map WHERE group_id = 8;",
+          "verify": "SELECT gadget_id, group_id FROM gadget_group_map ORDER BY gadget_id, group_id",
+          "explanation": "Referential integrity means the child rows in the bridge table have to go before the parent row. Always use WHERE to limit the damage.",
+          "expectedRows": 45
+        },
+        {
+          "type": "mc",
+          "category": "SQL Practice",
+          "question": "You run `UPDATE gadget SET daily_fee = 5;` with no WHERE clause. What happens?",
+          "options": [
+            "Only the first gadget is changed",
+            "Nothing; SQL requires a WHERE clause",
+            "Only gadgets with a fee are changed",
+            "Every gadget's daily_fee is set to 5"
+          ],
+          "correct": 3,
+          "explanation": "The reason to always use WHERE with UPDATE and DELETE."
+        }
+      ]
+    },
+    {
+      "name": "7. Transactions and Locking",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Transactions & Locking",
+          "question": "What is a transaction?",
+          "options": [
+            "A sequence of database operations that access or modify the database as a unit",
+            "Any SELECT statement",
+            "A single UPDATE of a single row only",
+            "A purchase made by a customer"
+          ],
+          "correct": 0,
+          "explanation": "A transaction is all or nothing."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Transactions & Locking",
+          "question": "The four properties of a transaction are summarized by the acronym ______.",
+          "answers": [
+            "acid"
+          ],
+          "explanation": "Atomic, Consistent, Isolated, Durable."
+        },
+        {
+          "type": "matching",
+          "category": "Transactions & Locking",
+          "question": "Match each ACID property to its meaning.",
+          "pairs": [
+            {
+              "left": "Atomic",
+              "right": "Either all of the transaction's operations happen or none of them do"
+            },
+            {
+              "left": "Consistent",
+              "right": "The database moves from one valid state to another"
+            },
+            {
+              "left": "Isolated",
+              "right": "Concurrent transactions do not interfere with one another"
+            },
+            {
+              "left": "Durable",
+              "right": "Once committed, the changes persist, even after a failure"
+            }
+          ]
+        },
+        {
+          "type": "mc",
+          "category": "Transactions & Locking",
+          "question": "Which two TCL commands does SQL provide for transactions?",
+          "options": [
+            "GRANT and REVOKE",
+            "COMMIT and ROLLBACK",
+            "INSERT and DELETE",
+            "SAVE and LOAD"
+          ],
+          "correct": 1,
+          "explanation": "COMMIT saves the changes to disk; ROLLBACK restores the previous database state."
+        },
+        {
+          "type": "mc",
+          "category": "Transactions & Locking",
+          "question": "What does COMMIT do?",
+          "options": [
+            "Undoes the changes",
+            "Locks every table",
+            "Saves the changes made by the transaction to disk",
+            "Starts a new transaction without saving"
+          ],
+          "correct": 2,
+          "explanation": "Changes made before the commit can still be rolled back."
+        },
+        {
+          "type": "mc",
+          "category": "Transactions & Locking",
+          "question": "What does ROLLBACK do?",
+          "options": [
+            "Saves the changes permanently",
+            "Deletes the table",
+            "Shows what changes were made",
+            "Restores the database to its previous state"
+          ],
+          "correct": 3,
+          "explanation": "It undoes the transaction's uncommitted changes."
+        },
+        {
+          "type": "mc",
+          "category": "Transactions & Locking",
+          "question": "What is concurrency control?",
+          "options": [
+            "Coordinating the simultaneous execution of transactions",
+            "Limiting the number of tables",
+            "Copying data to another server",
+            "Encrypting database traffic"
+          ],
+          "correct": 0,
+          "explanation": "Multiple users must be able to use the database at the same time without compromising integrity."
+        },
+        {
+          "type": "mc",
+          "category": "Transactions & Locking",
+          "question": "What do locks do?",
+          "options": [
+            "Prevent anyone from ever reading data",
+            "Guarantee a transaction unique access to a data item",
+            "Encrypt the data item",
+            "Make a table read-only forever"
+          ],
+          "correct": 1,
+          "explanation": "Locks can result in deadlock."
+        },
+        {
+          "type": "mc",
+          "category": "Transactions & Locking",
+          "question": "What is a deadlock (a 'deadly embrace')?",
+          "options": [
+            "A table that cannot be opened",
+            "A transaction that was rolled back",
+            "Two users each want the data the other has locked",
+            "A lock that expires after one second"
+          ],
+          "correct": 2,
+          "explanation": "Each transaction waits for the other to release its lock, so neither can proceed."
+        },
+        {
+          "type": "mc",
+          "category": "Transactions & Locking",
+          "question": "Which statement about optimistic concurrency control is correct?",
+          "options": [
+            "It locks every row before each transaction",
+            "It requires all transactions to run one at a time",
+            "It assumes that most transactions conflict",
+            "It assumes the majority of transactions do not conflict, and executes them concurrently using private, temporary copies of data"
+          ],
+          "correct": 3,
+          "explanation": "Time stamping is an example of an optimistic method: each transaction gets a unique time stamp, and conflicting transactions are scheduled in time stamp order."
+        },
+        {
+          "type": "tf",
+          "category": "Transactions & Locking",
+          "question": "Concurrency control with time stamping is an optimistic method.",
+          "correct": true,
+          "explanation": "Time stamping assigns each transaction a unique time stamp and schedules conflicting transactions in time stamp order."
+        }
+      ]
+    },
+    {
+      "name": "8. Warehouses, Big Data and Connectivity",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Data Warehousing, NoSQL & Connectivity",
+          "question": "Why is operational data not well suited for decision support?",
+          "options": [
+            "It is optimized for updates, modifications and inserts (highly normalized, minimal storage, many joins) rather than for reading and analysis",
+            "It is stored in spreadsheets",
+            "It is always unstructured",
+            "It does not contain historical data of any kind"
+          ],
+          "correct": 0,
+          "explanation": "Operational data is highly normalized; a data warehouse is denormalized and optimized for reading speed."
+        },
+        {
+          "type": "mc",
+          "category": "Data Warehousing, NoSQL & Connectivity",
+          "question": "Which statement describes a data warehouse?",
+          "options": [
+            "A highly normalized database optimized for updates",
+            "An integrated, subject-oriented, time-variant, nonvolatile collection of data that supports decision making; denormalized and optimized for reading speed",
+            "A temporary table for one report",
+            "A collection of unrelated spreadsheets"
+          ],
+          "correct": 1,
+          "explanation": "It is optimized for read speed, not for space and storage."
+        },
+        {
+          "type": "mc",
+          "category": "Data Warehousing, NoSQL & Connectivity",
+          "question": "What is Big Data?",
+          "options": [
+            "Any database with more than 100 tables",
+            "Data stored in the cloud",
+            "Data of such volume, velocity and variety that the relational model struggles to adapt to it",
+            "Data that is highly normalized"
+          ],
+          "correct": 2,
+          "explanation": "Volume, velocity and variety are collectively called the 3 Vs of Big Data."
+        },
+        {
+          "type": "matching",
+          "category": "Data Warehousing, NoSQL & Connectivity",
+          "question": "Match each of the 3 Vs of Big Data to its meaning.",
+          "pairs": [
+            {
+              "left": "Volume",
+              "right": "The sheer amount of data"
+            },
+            {
+              "left": "Velocity",
+              "right": "The speed at which data is generated and must be processed"
+            },
+            {
+              "left": "Variety",
+              "right": "The many different forms the data takes"
+            }
+          ]
+        },
+        {
+          "type": "mc",
+          "category": "Data Warehousing, NoSQL & Connectivity",
+          "question": "What is Hadoop?",
+          "options": [
+            "A query language",
+            "A relational DBMS",
+            "A kind of ERD",
+            "The framework that emerged as the standard for the physical storage of Big Data"
+          ],
+          "correct": 3,
+          "explanation": "It was quickly adopted for Big Data storage."
+        },
+        {
+          "type": "mc",
+          "category": "Data Warehousing, NoSQL & Connectivity",
+          "question": "What does NoSQL mean?",
+          "options": [
+            "A broad term for several nonrelational database approaches to data management",
+            "Any database that does not use a network",
+            "A database with no data",
+            "A SQL dialect without SELECT"
+          ],
+          "correct": 0,
+          "explanation": "The main types include key-value, document, column-oriented and graph databases."
+        },
+        {
+          "type": "mc",
+          "category": "Data Warehousing, NoSQL & Connectivity",
+          "question": "What is a key-value database?",
+          "options": [
+            "A database with only two tables",
+            "A database that stores data in key-value pairs, where the key is the primary key",
+            "A relational database with a surrogate key",
+            "A database that stores only keys"
+          ],
+          "correct": 1,
+          "explanation": "Example value: \"name John, age 31, city New York\"."
+        },
+        {
+          "type": "mc",
+          "category": "Data Warehousing, NoSQL & Connectivity",
+          "question": "How does a document database differ from a key-value database?",
+          "options": [
+            "It has no keys",
+            "It stores data in tables with foreign keys",
+            "The value component is an encoded document, such as JSON",
+            "It stores only PDF files"
+          ],
+          "correct": 2,
+          "explanation": "Example document: {name: \"John\", age: 31, city: \"New York\"}."
+        },
+        {
+          "type": "mc",
+          "category": "Data Warehousing, NoSQL & Connectivity",
+          "question": "What is MongoDB?",
+          "options": [
+            "A graph database that stores nodes and edges",
+            "A relational database",
+            "A Big Data framework for physical storage",
+            "A document (NoSQL) database that stores documents in JSON format"
+          ],
+          "correct": 3,
+          "explanation": "Neo4j is the graph database example."
+        },
+        {
+          "type": "mc",
+          "category": "Data Warehousing, NoSQL & Connectivity",
+          "question": "What is database connectivity?",
+          "options": [
+            "The mechanisms through which applications connect and communicate with data repositories",
+            "The speed of a network connection",
+            "A kind of foreign key",
+            "Copying data between tables"
+          ],
+          "correct": 0,
+          "explanation": "Examples include ODBC, native connectivity and OLE-DB."
+        },
+        {
+          "type": "mc",
+          "category": "Data Warehousing, NoSQL & Connectivity",
+          "question": "Which database connectivity interface is the most popular and common?",
+          "options": [
+            "Object Linking and Embedding for Databases (OLE-DB)",
+            "Open Database Connectivity (ODBC)",
+            "Native database connectivity",
+            "Extensible Markup Language (XML)"
+          ],
+          "correct": 1,
+          "explanation": "ODBC is most popular and common."
+        },
+        {
+          "type": "mc",
+          "category": "Data Warehousing, NoSQL & Connectivity",
+          "question": "What is cloud computing?",
+          "options": [
+            "Running software only on a local server",
+            "A way of encrypting databases",
+            "A computing model that provides ubiquitous, on-demand access to a shared pool of configurable resources that can be rapidly provisioned",
+            "A type of query language"
+          ],
+          "correct": 2,
+          "explanation": "AWS, Azure and Google Cloud are examples of providers."
+        }
+      ]
+    }
+  ]
+}
