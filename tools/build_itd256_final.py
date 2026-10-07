@@ -55,6 +55,9 @@ def main():
         "description": doc["description"],
         "guideFile": "data/itd256-midterm-guide.json",
         "dbFile": "data/harborview.sql",
+        # Lets the quiz page offer "how many questions?"; this is the suggested size
+        # (see renderLengthChoice in assets/quiz.js).
+        "shortCount": 40,
         "sections": doc["sections"],
     }
     with open(OUT, "w", encoding="utf-8", newline="\n") as fh:

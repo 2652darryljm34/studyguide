@@ -1473,31 +1473,53 @@ pre.shell-hl code{ font: inherit; background: none; padding: 0; }
 
 /* ---------- Quiz length chooser (quizzes that set shortCount) ---------- */
 .mode-lead{ margin: 24px 0 4px; color: var(--ink-soft); }
-.mode-choice{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 14px;
+.len-card{
   margin-top: 12px;
-}
-.mode-card{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 6px;
   padding: 20px;
-  text-align: left;
-  font: inherit;
-  color: var(--ink);
   background: var(--card);
-  border: 2px solid var(--line);
+  border: 2px solid var(--accent);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.len-top{ display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.len-label{ font-weight: 600; }
+.len-numwrap{ display: inline-flex; align-items: baseline; gap: 8px; }
+.len-num{
+  width: 5.5rem;
+  padding: 8px 10px;
+  font: inherit;
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.len-num:focus-visible{ outline: 2px solid var(--accent); outline-offset: 1px; }
+.len-of{ color: var(--ink-soft); font-size: 0.9rem; }
+.len-range{ width: 100%; accent-color: var(--accent); height: 28px; }
+.len-presets{ display: flex; flex-wrap: wrap; gap: 8px; }
+.len-preset{
+  padding: 6px 14px;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 20px;
   cursor: pointer;
 }
-.mode-card:hover{ border-color: var(--accent); }
-.mode-card:focus-visible{ outline: 3px solid var(--ink); outline-offset: 2px; }
-#mode-short{ border-color: var(--accent); }
-.mode-name{ font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 1.25rem; }
-.mode-count{ font-weight: 700; color: var(--accent); }
-.mode-desc{ font-size: 0.9rem; color: var(--ink-soft); }
-.mode-go{ margin-top: auto; padding-top: 8px; font-weight: 700; font-size: 0.9rem; color: var(--accent); }
+.len-preset:hover{ border-color: var(--accent); }
+.len-preset.on{ color: var(--accent-ink); background: var(--accent); border-color: var(--accent); }
+.len-preset:focus-visible{ outline: 2px solid var(--ink); outline-offset: 2px; }
+.len-note{ margin: 0; min-height: 2.8em; font-size: 0.9rem; color: var(--ink-soft); }
+.len-go{ align-self: flex-start; }
+@media (max-width: 480px){
+  .len-card{ padding: 16px; }
+  .len-go{ align-self: stretch; }
+}

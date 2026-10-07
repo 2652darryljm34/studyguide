@@ -3,6 +3,7 @@
   "description": "Built from the highlighted portions of the instructor's course review: database and file-system basics, the DBMS and data models, keys and integrity, normalization, SQL, transactions, and data warehousing, NoSQL and connectivity.",
   "guideFile": "data/itd256-midterm-guide.json",
   "dbFile": "data/harborview.sql",
+  "shortCount": 40,
   "sections": [
     {
       "name": "1. Data, Files and Databases",

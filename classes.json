@@ -34,7 +34,7 @@
           "id": "final-exam",
           "featured": true,
           "title": "Final Exam Review",
-          "description": "133 questions built from the instructor's final study guide: navigation, file maintenance, chmod, wildcards, monitoring, processes, find and links, pipes and text tools, users and sudo, vi, cron and shell scripting - with 35 hands-on terminal questions.",
+          "description": "Choose how many questions to take (random, spread evenly across the topics) or run the full 133. Covers navigation, files, permissions, wildcards, monitoring, processes, find and links, pipes and text tools, users and sudo, vi, cron and scripting, with 35 hands-on terminal questions.",
           "file": "data/itn170-final-exam.json"
         },
         {
@@ -130,7 +130,7 @@
           "id": "final-exam",
           "featured": true,
           "title": "Final Exam Review",
-          "description": "150 questions built from the highlighted portions of the course review: database basics, the DBMS and data models, keys and integrity, normalization, SQL (26 you run against the practice database), transactions, and data warehousing, NoSQL and connectivity.",
+          "description": "Choose how many questions to take (random, spread evenly across the topics) or run the full 150. Covers database basics, the DBMS and data models, keys and integrity, normalization, SQL (26 you run against the practice database), transactions, and data warehousing, NoSQL and connectivity.",
           "file": "data/itd256-final-exam.json"
         },
         {
@@ -172,7 +172,7 @@
           "id": "final-exam",
           "featured": true,
           "title": "Final Exam Review",
-          "description": "Choose a short quiz (40 random questions, spread evenly across the topics) or the full 215-question review. Comprehensive: statistics, distributions, hypothesis testing, outliers, NumPy, pandas, cleaning, reshaping, linear regression and plotting.",
+          "description": "Choose how many questions to take (random, spread evenly across the topics) or run the full 215. Comprehensive: statistics, distributions, hypothesis testing, outliers, NumPy, pandas, cleaning, reshaping, linear regression and plotting.",
           "file": "data/itd145-final-exam.json"
         },
         {

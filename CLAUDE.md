@@ -70,11 +70,13 @@ templates ("What does np.arange(a, b, c) return?") are fine when the numbers and
 - To check overlap, compare new question stems against the supplied stems with `difflib` (keep that script
   and the supplied text outside the repo) and rewrite anything above about 0.8 similarity.
 
-## Short mode (random subset) for long quizzes
+## Choosing how many questions (random sample) for long quizzes
 
-A quiz JSON can set `"shortCount": N`. `assets/quiz.js` then shows a chooser (short or full) before it
-starts. Short mode draws N questions at random, redrawn on every attempt, spread evenly across the quiz's
-sections (every section gets floor(N / sections), and the leftovers go to different random sections, so no
-two sections differ by more than one). `?mode=short` and `?mode=full` skip the chooser. A quiz without
-`shortCount` behaves as before. ITD 145's final uses it (`tools/build_itd145_final.py`).
-
+A quiz JSON can set `"shortCount": N`. `assets/quiz.js` then shows a picker before it starts: a slider,
+a number box and quick-pick buttons, from one question per topic up to every question, starting at N (the
+suggested size) or the length the learner chose last time (kept in localStorage). A sample is drawn at random,
+redrawn on every attempt, and spread evenly across the quiz's sections: every section gets floor(n / sections)
+and the leftovers go to different random sections, so no two sections differ by more than one. Choosing the
+full count runs every question in topic order. `?n=30`, `?mode=short` (N) and `?mode=full` skip the picker.
+A quiz without `shortCount` behaves as before. All three final exams use it (the `build_*_final.py` scripts).
+Run `node tools/test_quiz_length.js` after changing the quiz page or any quiz that sets it.

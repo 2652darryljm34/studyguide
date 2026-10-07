@@ -56,6 +56,9 @@ def main():
         "description": doc["description"],
         "guideFile": "data/itn170-commands-guide.json",
         "boxFile": "data/itn170-box.json",
+        # Lets the quiz page offer "how many questions?"; this is the suggested size
+        # (see renderLengthChoice in assets/quiz.js).
+        "shortCount": 40,
         "sections": doc["sections"],
     }
     with open(OUT, "w", encoding="utf-8", newline="\n") as fh:

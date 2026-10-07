@@ -10,7 +10,7 @@ const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
 let quizData = null;
 let flat = [];        // flattened, ordered list of { sectionName, ...question }
 let current = 0;
-let quizMode = 'full'; // 'full', or 'short' for a quiz that sets shortCount
+let quizCount = null; // null = every question; a number = sample that many, spread across the sections
 let answers = [];      // { item, correct, detail }
 let dbPromise = null;  // shared practice-database session for `sql` questions
 let boxPromise = null; // shared practice-machine image for `shell` questions
@@ -67,14 +67,19 @@ async function init(){
     const needsBox = sections.some(s => (s.questions || []).some(q => q.type === 'shell'));
     if(needsBox) ensureBox();
 
-    // A quiz that declares "shortCount" offers a short mode: that many questions,
-    // drawn at random and spread evenly across its sections, redrawn every attempt.
-    // ?mode=short or ?mode=full skips the chooser.
-    const requested = params.get('mode');
-    if(quizData.shortCount && requested !== 'short' && requested !== 'full'){
-      renderModeChoice();
+    // A quiz that sets "shortCount" lets the learner choose how many questions to take (shortCount is
+    // the suggested size): that many, drawn at random and spread evenly across the sections, redrawn
+    // every attempt. ?n=30, ?mode=short (the suggested size) or ?mode=full skip the chooser.
+    if(quizData.shortCount){
+      const total = totalQuestions();
+      const asked = parseInt(params.get('n'), 10);
+      const mode = params.get('mode');
+      if(Number.isFinite(asked) && asked > 0) startQuiz(asked >= total ? null : asked);
+      else if(mode === 'short') startQuiz(quizData.shortCount >= total ? null : quizData.shortCount);
+      else if(mode === 'full') startQuiz(null);
+      else renderLengthChoice();
     } else {
-      startQuiz(quizData.shortCount && requested === 'short' ? 'short' : 'full');
+      startQuiz(null);
     }
   }catch(err){
     loadingEl.textContent = "Couldn't load this quiz. " + err.message;
@@ -105,39 +110,116 @@ function pickEvenly(sections, n){
   return sections.map((s, i) => shuffle(s.questions || []).slice(0, quota[i]));
 }
 
-function renderModeChoice(){
-  const sections = quizData._sections;
-  const total = sections.reduce((n, s) => n + (s.questions || []).length, 0);
-  const short = Math.min(quizData.shortCount, total);
+function totalQuestions(){
+  return quizData._sections.reduce((n, s) => n + (s.questions || []).length, 0);
+}
+
+function isSampled(){
+  return !!quizData.shortCount && quizCount !== null && quizCount < totalQuestions();
+}
+
+/* Remember the last length chosen for this quiz, if the browser lets us. */
+function savedCount(){
+  try{
+    const v = parseInt(localStorage.getItem('quizCount:' + file), 10);
+    return Number.isFinite(v) ? v : null;
+  }catch(e){ return null; }
+}
+function saveCount(n){
+  try{ localStorage.setItem('quizCount:' + file, String(n)); }catch(e){}
+}
+
+/* One plain sentence on what a given length will give you. */
+function lengthNote(n){
+  const sections = quizData._sections.filter(s => (s.questions || []).length);
+  const topics = sections.length;
+  const total = totalQuestions();
+  if(n >= total) return 'Every question, topic by topic, shuffled within each topic.';
+  const again = ' A new random set every time.';
+  if(n < topics) return `One question from each of ${n} randomly chosen topics.` + again;
+  const smallest = Math.min(...sections.map(s => s.questions.length));
+  if(n <= smallest * topics){
+    const base = Math.floor(n / topics);
+    return (n % topics === 0
+      ? `Exactly ${base} from each of the ${topics} topics, chosen at random.`
+      : `${base} or ${base + 1} from each of the ${topics} topics, chosen at random.`) + again;
+  }
+  return `Random questions from all ${topics} topics, as evenly as the topic sizes allow.` + again;
+}
+
+function renderLengthChoice(){
+  const total = totalQuestions();
+  const topics = quizData._sections.filter(s => (s.questions || []).length).length;
+  const min = Math.min(topics, total);          // at least one question from every topic
+  const clamp = v => Math.max(min, Math.min(total, Math.round(Number(v)) || min));
+  const suggested = clamp(quizData.shortCount);
+  const saved = savedCount();
+  const initial = saved === null ? suggested : clamp(saved);
+  const presets = [...new Set([20, 40, 60, 100, suggested, total].filter(v => v >= min && v <= total))]
+    .sort((a, b) => a - b);
+
   appEl.innerHTML = `
     <div class="page-head quiz-head">
       <h1>${escapeHtml(quizData.title || 'Quiz')}</h1>
       ${quizData.guideFile ? `<a class="btn ghost" href="review.html?file=${encodeURIComponent(quizData.guideFile)}">Review the study guide &rarr;</a>` : ''}
     </div>
-    <p class="mode-lead">How much do you want to do?</p>
-    <div class="mode-choice">
-      <button class="mode-card" id="mode-short" type="button">
-        <span class="mode-name">Short quiz</span>
-        <span class="mode-count">${short} questions</span>
-        <span class="mode-desc">A fresh random set every time, spread evenly across all ${sections.length} topics.</span>
-        <span class="mode-go">Start short quiz &rarr;</span>
-      </button>
-      <button class="mode-card" id="mode-full" type="button">
-        <span class="mode-name">Full review</span>
-        <span class="mode-count">${total} questions</span>
-        <span class="mode-desc">Every question, topic by topic, shuffled within each topic.</span>
-        <span class="mode-go">Start full review &rarr;</span>
-      </button>
+    <p class="mode-lead">How many questions do you want?</p>
+    <div class="len-card">
+      <div class="len-top">
+        <label class="len-label" for="len-num">Number of questions</label>
+        <span class="len-numwrap">
+          <input id="len-num" class="len-num" type="number" inputmode="numeric" min="${min}" max="${total}" step="1" value="${initial}">
+          <span class="len-of">of ${total}</span>
+        </span>
+      </div>
+      <input id="len-range" class="len-range" type="range" min="${min}" max="${total}" step="1" value="${initial}" aria-label="Number of questions">
+      <div class="len-presets" id="len-presets" role="group" aria-label="Quick choices"></div>
+      <p class="len-note" id="len-note" aria-live="polite"></p>
+      <button class="btn primary len-go" id="len-go" type="button"></button>
     </div>
   `;
-  document.getElementById('mode-short').addEventListener('click', () => startQuiz('short'));
-  document.getElementById('mode-full').addEventListener('click', () => startQuiz('full'));
+
+  const num = document.getElementById('len-num');
+  const range = document.getElementById('len-range');
+  const note = document.getElementById('len-note');
+  const go = document.getElementById('len-go');
+  const presetsEl = document.getElementById('len-presets');
+
+  const set = v => {
+    const n = clamp(v);
+    num.value = n;
+    range.value = n;
+    note.textContent = lengthNote(n);
+    go.textContent = n >= total ? `Start full review (${total} questions)` : `Start quiz (${n} questions)`;
+    presetsEl.innerHTML = presets.map(p =>
+      `<button type="button" class="len-preset${p === n ? ' on' : ''}" data-n="${p}" aria-pressed="${p === n}">${p === total ? 'All ' + total : p}</button>`
+    ).join('');
+    return n;
+  };
+
+  range.addEventListener('input', () => set(range.value));
+  // Typing: follow along once the box holds a whole, in-range number; tidy up when it loses focus.
+  num.addEventListener('input', () => {
+    const v = Number(num.value);
+    if(Number.isInteger(v) && v >= min && v <= total) set(v);
+  });
+  num.addEventListener('change', () => set(num.value));
+  presetsEl.addEventListener('click', e => {
+    const btn = e.target && e.target.closest ? e.target.closest('[data-n]') : null;
+    if(btn) set(btn.dataset.n);
+  });
+  go.addEventListener('click', () => {
+    const n = set(num.value);
+    saveCount(n);
+    startQuiz(n >= total ? null : n);
+  });
+
+  set(initial);
 }
 
-function startQuiz(mode){
-  if(mode) quizMode = mode;
-  const picked = (quizMode === 'short' && quizData.shortCount)
-    ? pickEvenly(quizData._sections, quizData.shortCount) : null;
+function startQuiz(count){
+  if(count !== undefined) quizCount = count;   // a retake passes nothing and keeps the last choice
+  const picked = isSampled() ? pickEvenly(quizData._sections, quizCount) : null;
   flat = [];
   quizData._sections.forEach((section, i) => {
     const qs = shuffle(picked ? picked[i] : (section.questions || []));
@@ -166,7 +248,7 @@ function render(){
     </div>
 
     <div class="quiz-meta">
-      <span>${item.sectionName ? escapeHtml(item.sectionName) + ' &middot; ' : ''}Question ${current + 1} of ${total}${quizMode === 'short' && quizData.shortCount ? ' &middot; Short quiz' : ''}</span>
+      <span>${item.sectionName ? escapeHtml(item.sectionName) + ' &middot; ' : ''}Question ${current + 1} of ${total}${isSampled() ? ' &middot; Random set' : ''}</span>
       <span id="score-tally">Score: ${fmtScore(earnedSoFar)}/${answers.length}</span>
     </div>
     <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
@@ -820,11 +902,11 @@ function renderResults(){
 
   appEl.innerHTML = `
     <div class="results">
-      <div class="score-label">${escapeHtml(quizData.title || 'Quiz')}${quizMode === 'short' && quizData.shortCount ? ' (short quiz)' : ''} \u2014 results</div>
+      <div class="score-label">${escapeHtml(quizData.title || 'Quiz')}${isSampled() ? ' (' + quizCount + ' random questions)' : ''} \u2014 results</div>
       <div class="score">${fmtScore(earned)}/${total}</div>
       <div class="score-label">${pct}% &middot; ${headline}</div>
       <div class="results-actions">
-        <button class="btn primary" id="retry-btn">${quizMode === 'short' && quizData.shortCount ? 'New short quiz' : 'Retake quiz'}</button>
+        <button class="btn primary" id="retry-btn">${isSampled() ? 'New random set' : 'Retake quiz'}</button>
         ${quizData.shortCount ? '<button class="btn ghost" id="mode-btn">Change length</button>' : ''}
         <a class="btn ghost" href="index.html">Back to classes</a>
       </div>
@@ -834,7 +916,7 @@ function renderResults(){
 
   document.getElementById('retry-btn').addEventListener('click', () => startQuiz());
   const modeBtn = document.getElementById('mode-btn');
-  if(modeBtn) modeBtn.addEventListener('click', renderModeChoice);
+  if(modeBtn) modeBtn.addEventListener('click', renderLengthChoice);
 
   const reviewEl = document.getElementById('review');
   answers.forEach(a => {
