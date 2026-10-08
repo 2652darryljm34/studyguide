@@ -24,8 +24,8 @@ Rules for every `mc` question:
 4. **Trim the right answer** rather than only padding the wrong ones. Put the full definition in the
    explanation.
 5. **Vary which option is longest.** Aim for the right answer being the longest in roughly a quarter of
-   questions, never a majority. Also vary the position of the right answer (the build scripts do not
-   shuffle options).
+   questions, never a majority. The position of the right answer does not matter: the quiz page shuffles
+   the options on every attempt (see below), so write them in whatever order reads naturally.
 6. Do not reuse the same giveaway wording in distractors across questions ("always", "never", "only")
    unless it is also used in some right answers.
 
@@ -116,3 +116,16 @@ Current sets: ITN 170 final (`tools/build_itn170_final_guide.py`, `build_itn170_
 `build_itn170_final.py`). ITD 145 and ITD 256 are archived; they have final quizzes but were finished before this
 rule, so they have no matching final flashcards or guide.
 
+## Option order is shuffled at run time
+
+`assets/quiz.js` shows each multiple-choice question's options in a fresh random order on every attempt,
+including retakes and random samples, so the position of the right answer can never be learned. The stored
+order is only the author's. True/false stays True then False, and numbers are shuffled like anything
+else (sorting them would pin the right answer to one slot). Exceptions, handled by `shuffleOptions()`:
+
+- "None / All / Both of the above" stay at the bottom;
+- `"keepOrder": true` on a question leaves it exactly as written.
+
+So never write an option that points at another by position ("option B", "the first answer", "both A and C").
+`qcheck.py` rejects those unless the question sets `keepOrder`. Run `node tools/test_option_shuffle.js` after
+changing the quiz page or the option rules.

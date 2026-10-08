@@ -34,6 +34,22 @@ function shuffle(arr){
   return a;
 }
 
+/* Show a multiple-choice question's options in a fresh random order for every attempt, so the
+ * position of the right answer cannot be learned (the stored order is only the author's). Returns
+ * { options: [text...], correct: index } for the order shown. Exceptions:
+ *   - "None / All / Both of the above" stay at the bottom;
+ *   - a question with "keepOrder": true is left exactly as written.
+ * Numbers are shuffled like anything else: sorting them would pin the right answer to one slot. */
+function shuffleOptions(q){
+  const all = (q.options || []).map((text, i) => ({ text, ok: i === q.correct }));
+  let shown = all;
+  if(!q.keepOrder){
+    const PINNED = /^(none|all|both) of the (above|these)\b/i;
+    shown = shuffle(all.filter(o => !PINNED.test(o.text))).concat(all.filter(o => PINNED.test(o.text)));
+  }
+  return { options: shown.map(o => o.text), correct: shown.findIndex(o => o.ok) };
+}
+
 function normalizeAnswer(str){
   return String(str).toLowerCase().trim().replace(/[.,;:'"]/g, '').replace(/\s+/g, ' ');
 }
@@ -223,7 +239,11 @@ function startQuiz(count){
   flat = [];
   quizData._sections.forEach((section, i) => {
     const qs = shuffle(picked ? picked[i] : (section.questions || []));
-    qs.forEach(q => flat.push(Object.assign({ sectionName: section.name }, q)));
+    qs.forEach(q => {
+      const entry = Object.assign({ sectionName: section.name }, q);
+      if(entry.type === 'mc') entry._shown = shuffleOptions(entry);   // a fresh order every attempt
+      flat.push(entry);
+    });
   });
   current = 0;
   answers = [];
@@ -260,7 +280,8 @@ function render(){
   const badge = item.category ? `<span class="cat-badge">${escapeHtml(item.category)}</span>` : '';
 
   if(item.type === 'mc'){
-    renderMC(card, item, badge, item.options, item.correct);
+    const shown = item._shown || { options: item.options, correct: item.correct };
+    renderMC(card, item, badge, shown.options, shown.correct);
   } else if(item.type === 'tf'){
     renderMC(card, item, badge, ['True', 'False'], item.correct ? 0 : 1);
   } else if(item.type === 'fill_blank'){

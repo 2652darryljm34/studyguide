@@ -94,6 +94,16 @@ ORDERED_PROMPT = re.compile(
 # problem; `&>` moves both, so it is.
 STDOUT_REDIR = re.compile(r"(?:^|[^0-9>&])>(?![>|&])|&>")
 
+# Multiple-choice options are shuffled every time a quiz is taken (assets/quiz.js), so an option
+# must never point at another one by position. "None/All/Both of the above" are fine: the quiz
+# page keeps those at the bottom.
+POSITIONAL = re.compile(
+    r"\b(?:option|choice|answer)s? [A-D]\b"
+    r"|\b(?:first|second|third|fourth|last|previous|preceding) (?:option|choice|answer)\b"
+    r"|\b(?:both|neither|either) [A-D] (?:and|or|nor) [A-D]\b",
+    re.I,
+)
+
 SQL_STARTERS = {"select", "insert", "update", "delete", "create", "drop",
                 "alter", "with", "--"}
 
@@ -134,6 +144,13 @@ def check(q, where, problems):
             fault("correct index %r is out of range" % q.get("correct"))
         if len(set(opts)) != len(opts):
             fault("duplicate options")
+        if "keepOrder" in q and not isinstance(q["keepOrder"], bool):
+            fault("`keepOrder` must be true or false")
+        if not q.get("keepOrder"):
+            for o in opts:
+                if POSITIONAL.search(o):
+                    fault("option %r refers to another option by position, but options are "
+                          "shuffled; reword it or set \"keepOrder\": true" % o[:50])
 
     elif kind == "tf":
         if not isinstance(q.get("correct"), bool):
