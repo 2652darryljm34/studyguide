@@ -66,7 +66,7 @@ function render(data){
     <div class="page-head" style="padding-top:20px;">
       <h1>${escapeHtml(data.title || 'Study Guide')}</h1>
       ${data.description ? `<p>${escapeHtml(data.description)}</p>` : ''}
-      ${data.quizFile ? `<div class="q-actions" style="justify-content:flex-start; margin-top:14px;"><a class="btn primary" href="quiz.html?file=${encodeURIComponent(data.quizFile)}">Take the quiz &rarr;</a></div>` : ''}
+      ${(data.flashcardsFile || data.quizFile) ? `<div class="q-actions" style="justify-content:flex-start; margin-top:14px; gap:10px; flex-wrap:wrap;">${data.flashcardsFile ? `<a class="btn ghost" href="flashcards.html?file=${encodeURIComponent(data.flashcardsFile)}">Study the flashcards &rarr;</a>` : ''}${data.quizFile ? `<a class="btn primary" href="quiz.html?file=${encodeURIComponent(data.quizFile)}">Take the quiz &rarr;</a>` : ''}</div>` : ''}
     </div>
   `;
 

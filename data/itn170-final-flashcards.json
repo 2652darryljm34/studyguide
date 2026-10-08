@@ -1,0 +1,791 @@
+{
+  "title": "ITN 170 Final Flashcards",
+  "guideFile": "data/itn170-final-guide.json",
+  "quizFile": "data/itn170-final-exam.json",
+  "cards": [
+    {
+      "topic": "Navigation",
+      "term": "cd",
+      "definition": "Change directory: moves your shell into another directory. With no argument it takes you home.",
+      "useCase": "Move around the file system. Relative paths start from where you are; absolute paths start at /.",
+      "example": "cd /etc\ncd ~\ncd .."
+    },
+    {
+      "topic": "Navigation",
+      "term": "cd .. vs cd .",
+      "definition": "A single dot is the current directory and two dots are its parent. So cd .. goes up a level, and cd . stays put.",
+      "useCase": "Go up one level with ..; the single dot is handy in commands such as cp file . (copy it here).",
+      "example": "pwd        # /home/student/labs\ncd ..\npwd        # /home/student"
+    },
+    {
+      "topic": "Navigation",
+      "term": "pwd",
+      "definition": "Print working directory: shows the full path of the directory you are in.",
+      "useCase": "Check where you are before using a relative path or deleting anything.",
+      "example": "pwd"
+    },
+    {
+      "topic": "Navigation",
+      "term": "ls",
+      "definition": "Lists the files and directories in a directory.",
+      "useCase": "See what is here. Options change how much detail you get and in what order.",
+      "example": "ls\nls /etc"
+    },
+    {
+      "topic": "Navigation",
+      "term": "ls -l",
+      "definition": "Long listing: file type and permissions, link count, owner, group, size, date and name for each entry.",
+      "useCase": "Check permissions and ownership.",
+      "example": "ls -l"
+    },
+    {
+      "topic": "Navigation",
+      "term": "ls -ltr",
+      "definition": "A long listing (-l) sorted by modification time (-t), with the order reversed (-r), so the oldest file is first and the newest is last.",
+      "useCase": "The most recently changed file ends up at the bottom, next to your prompt.",
+      "example": "ls -ltr /var/log"
+    },
+    {
+      "topic": "Navigation",
+      "term": "whoami",
+      "definition": "Prints the name of the account you are logged in as.",
+      "useCase": "Check who you are before running privileged commands.",
+      "example": "whoami"
+    },
+    {
+      "topic": "Navigation",
+      "term": "su -",
+      "definition": "Switch user. With no name it switches to root, loads root's login environment, and asks for root's password.",
+      "useCase": "Get a root shell, or become another user with su - name. Type exit to come back.",
+      "example": "su -\nsu - bob"
+    },
+    {
+      "topic": "Navigation",
+      "term": "sudo",
+      "definition": "Runs a single command with root privileges, if the sudoers configuration allows you. It asks for your own password.",
+      "useCase": "Do administration without staying logged in as root.",
+      "example": "sudo ls /root\nsudo systemctl restart sshd"
+    },
+    {
+      "topic": "Navigation",
+      "term": "sudo su",
+      "definition": "Uses sudo to run su, which gives you a root shell. You type your own password, not root's.",
+      "useCase": "A quick way to become root when your account is allowed to use sudo.",
+      "example": "sudo su\nwhoami      # root"
+    },
+    {
+      "topic": "Navigation",
+      "term": "clear",
+      "definition": "Clears the terminal screen.",
+      "useCase": "Tidy up the display. Ctrl+L does the same thing.",
+      "example": "clear"
+    },
+    {
+      "topic": "Navigation",
+      "term": "man",
+      "definition": "Displays the manual page for a command: its options, syntax and examples.",
+      "useCase": "Look something up without leaving the terminal. Press q to quit and / to search the page.",
+      "example": "man ls\nman -k password"
+    },
+    {
+      "topic": "File Maintenance",
+      "term": "cp",
+      "definition": "Copies a file to a new name or location. With -r it copies a directory and everything in it.",
+      "useCase": "Make a backup or a duplicate. The original stays where it is.",
+      "example": "cp notes.txt notes.bak\ncp -r project project-backup"
+    },
+    {
+      "topic": "File Maintenance",
+      "term": "mv",
+      "definition": "Moves a file or directory somewhere else. Moving within the same directory is how you rename.",
+      "useCase": "Rename or relocate files.",
+      "example": "mv old.txt new.txt\nmv report.txt ~/Documents/"
+    },
+    {
+      "topic": "File Maintenance",
+      "term": "rm",
+      "definition": "Removes (deletes) files. There is no trash can, so deleted files are gone.",
+      "useCase": "Delete files you no longer need. Add -i to be asked before each one.",
+      "example": "rm draft.txt\nrm -i *.bak"
+    },
+    {
+      "topic": "File Maintenance",
+      "term": "mkdir",
+      "definition": "Makes a new directory.",
+      "useCase": "Create folders. With -p it also creates any missing parent directories.",
+      "example": "mkdir projects\nmkdir -p projects/2025/reports"
+    },
+    {
+      "topic": "File Maintenance",
+      "term": "rmdir",
+      "definition": "Removes a directory, but only if it is empty. It refuses if anything is inside.",
+      "useCase": "Safe cleanup of empty folders.",
+      "example": "rmdir old-notes"
+    },
+    {
+      "topic": "File Maintenance",
+      "term": "rm -r",
+      "definition": "Removes a directory and everything inside it, working recursively.",
+      "useCase": "Delete a folder that is not empty, where rmdir would refuse.",
+      "example": "rm -r old-project"
+    },
+    {
+      "topic": "File Maintenance",
+      "term": "rm -rf",
+      "definition": "Recursive (-r) and forced (-f) removal: deletes a whole tree without prompting and ignores files that do not exist.",
+      "useCase": "Very powerful and very dangerous. Double-check the path before pressing Enter.",
+      "example": "rm -rf build/"
+    },
+    {
+      "topic": "File Maintenance",
+      "term": "touch",
+      "definition": "Creates an empty file if it does not exist yet, or updates its timestamp if it does.",
+      "useCase": "Make placeholder files quickly, especially together with brace expansion.",
+      "example": "touch notes.txt\ntouch project{1..3}"
+    },
+    {
+      "topic": "File Maintenance",
+      "term": "chmod",
+      "definition": "Changes the permission bits (read, write, execute) of a file or directory, in symbolic or octal form.",
+      "useCase": "Make a script executable, or lock a file down.",
+      "example": "chmod 644 notes.txt\nchmod u+x script.sh"
+    },
+    {
+      "topic": "File Maintenance",
+      "term": "chown",
+      "definition": "Changes the owner of a file, and optionally its group too (owner:group).",
+      "useCase": "Hand a file over to another user. Needs root.",
+      "example": "sudo chown alice report.txt\nsudo chown alice:staff report.txt"
+    },
+    {
+      "topic": "File Maintenance",
+      "term": "chgrp",
+      "definition": "Changes the group that owns a file.",
+      "useCase": "Share files with a team without changing the owner.",
+      "example": "sudo chgrp developers app.conf"
+    },
+    {
+      "topic": "Permissions",
+      "term": "Octal permission values",
+      "definition": "Each permission has a number: read is 4, write is 2, execute is 1. You add them up separately for the owner, the group and others.",
+      "useCase": "Convert quickly: 7 = rwx, 6 = rw-, 5 = r-x, 4 = r--, 0 = no access.",
+      "example": "rwx  r-x  r--\n 7    5    4     ->  754"
+    },
+    {
+      "topic": "Permissions",
+      "term": "chmod 755",
+      "definition": "Owner rwx, group r-x, others r-x. The usual mode for programs and directories.",
+      "useCase": "Everyone can run it or enter it, but only the owner can change it.",
+      "example": "chmod 755 script.sh"
+    },
+    {
+      "topic": "Permissions",
+      "term": "chmod 644",
+      "definition": "Owner rw-, group r--, others r--. The usual mode for ordinary files.",
+      "useCase": "Everyone can read it, only the owner can edit it.",
+      "example": "chmod 644 notes.txt"
+    },
+    {
+      "topic": "Permissions",
+      "term": "chmod 600",
+      "definition": "Owner rw-, and no access at all for the group or others.",
+      "useCase": "Private files, such as SSH keys.",
+      "example": "chmod 600 ~/.ssh/id_rsa"
+    },
+    {
+      "topic": "Permissions",
+      "term": "chmod u+x",
+      "definition": "Symbolic mode: u is the owner, + adds a permission, x is execute. All the other bits stay as they are.",
+      "useCase": "Make a script runnable without touching its other permissions. Use g or o for group or others, - to remove.",
+      "example": "chmod u+x script.sh\nchmod g-w file.txt"
+    },
+    {
+      "topic": "Permissions",
+      "term": "Reading ls -l permissions",
+      "definition": "Ten characters: the file type, then rwx for the owner, the group and others. A dash means that permission is missing.",
+      "useCase": "Work out who can do what from a long listing.",
+      "example": "-rwxr-xr--  1 alice staff 120 notes.sh\n(file; owner rwx; group r-x; others r--)"
+    },
+    {
+      "topic": "Wildcards",
+      "term": "* wildcard",
+      "definition": "Matches zero or more characters in a file name.",
+      "useCase": "Act on many files at once. Note that it also matches nothing, so project* matches plain project.",
+      "example": "ls project*\nrm *.tmp"
+    },
+    {
+      "topic": "Wildcards",
+      "term": "? wildcard",
+      "definition": "Matches exactly one character.",
+      "useCase": "Match names of a fixed length: one ? is one character, two ?? are two.",
+      "example": "ls project?     # project1, projectA\nls project??    # project12"
+    },
+    {
+      "topic": "Wildcards",
+      "term": "[ ] sets and ranges",
+      "definition": "Matches exactly one character from the listed set or range.",
+      "useCase": "Pick out particular names: [aegh] is a list, [a-h] is a range.",
+      "example": "ls project[aegh]\nls project[a-h]"
+    },
+    {
+      "topic": "Wildcards",
+      "term": "[!135] negated set",
+      "definition": "A set starting with ! matches one character that is NOT any of those listed.",
+      "useCase": "Match everything except a few characters.",
+      "example": "ls project[!135]"
+    },
+    {
+      "topic": "Wildcards",
+      "term": "Brace expansion",
+      "definition": "The shell expands {...} lists and ranges into separate words before the command runs. It builds names; it does not search for files that exist.",
+      "useCase": "Create many files or directories in one command.",
+      "example": "touch project{1..4}\ntouch file{a,e,g}"
+    },
+    {
+      "topic": "Viewing Files",
+      "term": "cat",
+      "definition": "Prints a file's contents to the screen.",
+      "useCase": "Look at a short file, or feed a file into a pipe.",
+      "example": "cat notes.txt"
+    },
+    {
+      "topic": "Viewing Files",
+      "term": "tac",
+      "definition": "Prints a file with the last line first. It is cat spelled backwards.",
+      "useCase": "Read a log from newest to oldest.",
+      "example": "tac log.txt"
+    },
+    {
+      "topic": "Viewing Files",
+      "term": "more",
+      "definition": "Shows a file one screen at a time. Press Space for the next page.",
+      "useCase": "Page through a long file or a long command output.",
+      "example": "more /etc/services\nls -l /etc | more"
+    },
+    {
+      "topic": "Viewing Files",
+      "term": "less",
+      "definition": "A pager that can also scroll backwards and search. Arrow keys or j and k move a line at a time, / searches, q quits.",
+      "useCase": "Read long files comfortably. Usually better than more.",
+      "example": "less /var/log/messages"
+    },
+    {
+      "topic": "Viewing Files",
+      "term": "head",
+      "definition": "Shows the first 10 lines of a file, or as many as you ask for with -n.",
+      "useCase": "Peek at the start of a file.",
+      "example": "head notes.txt\nhead -n 3 notes.txt"
+    },
+    {
+      "topic": "Viewing Files",
+      "term": "tail",
+      "definition": "Shows the last 10 lines of a file. With -f it keeps following new lines as they are added.",
+      "useCase": "Check the latest log entries.",
+      "example": "tail -n 5 log.txt\ntail -f /var/log/messages"
+    },
+    {
+      "topic": "Viewing Files",
+      "term": "nano",
+      "definition": "A simple text editor that shows its key commands on screen. Ctrl+O saves and Ctrl+X exits.",
+      "useCase": "Quick edits without learning vi.",
+      "example": "nano notes.txt"
+    },
+    {
+      "topic": "Users & System Info",
+      "term": "who",
+      "definition": "Lists who is logged in right now, with their terminal and login time.",
+      "useCase": "See who else is on the system.",
+      "example": "who"
+    },
+    {
+      "topic": "Users & System Info",
+      "term": "w",
+      "definition": "Shows who is logged in and what each person is running, plus the system load.",
+      "useCase": "A fuller view than who.",
+      "example": "w"
+    },
+    {
+      "topic": "Users & System Info",
+      "term": "last",
+      "definition": "Shows the history of logins and reboots, newest first.",
+      "useCase": "Find out who logged in, from where, and when.",
+      "example": "last\nlast -n 5"
+    },
+    {
+      "topic": "Users & System Info",
+      "term": "finger",
+      "definition": "Prints a short summary of users: login name, real name, terminal, idle time and login time. It may need to be installed.",
+      "useCase": "Look up information about a user.",
+      "example": "finger\nfinger alice"
+    },
+    {
+      "topic": "Users & System Info",
+      "term": "id",
+      "definition": "Shows your user ID, your group ID and all the groups you belong to, or those of another user.",
+      "useCase": "Check group membership, for example whether you are in wheel.",
+      "example": "id\nid alice"
+    },
+    {
+      "topic": "Users & System Info",
+      "term": "date",
+      "definition": "Displays the system date and time. As root it can also set them with -s.",
+      "useCase": "Check the clock, or set it before testing a scheduled job.",
+      "example": "date\nsudo date -s \"28 Mar 2023 20:05:40\""
+    },
+    {
+      "topic": "Users & System Info",
+      "term": "uptime",
+      "definition": "Shows how long the system has been running, how many users are logged in, and the load average.",
+      "useCase": "Find out when the machine last rebooted and how busy it is.",
+      "example": "uptime"
+    },
+    {
+      "topic": "Users & System Info",
+      "term": "hostname",
+      "definition": "Shows (or sets) the name of the machine.",
+      "useCase": "Confirm which server you are on.",
+      "example": "hostname"
+    },
+    {
+      "topic": "Users & System Info",
+      "term": "uname",
+      "definition": "Prints information about the kernel and operating system. -r gives the kernel release and -a gives everything.",
+      "useCase": "Check the kernel version.",
+      "example": "uname\nuname -r"
+    },
+    {
+      "topic": "Users & System Info",
+      "term": "which",
+      "definition": "Shows the full path of the program that would run for a command name.",
+      "useCase": "Find where a command lives.",
+      "example": "which pwd"
+    },
+    {
+      "topic": "Users & System Info",
+      "term": "cal",
+      "definition": "Displays a calendar for this month, a given month, or a whole year.",
+      "useCase": "Check a date quickly.",
+      "example": "cal\ncal 9 2016\ncal 2016"
+    },
+    {
+      "topic": "Users & System Info",
+      "term": "bc",
+      "definition": "A command-line calculator for basic arithmetic.",
+      "useCase": "Do sums in the terminal, or pipe an expression into it.",
+      "example": "echo '2 + 3 * 4' | bc"
+    },
+    {
+      "topic": "Processes & Monitoring",
+      "term": "systemctl",
+      "definition": "Controls systemd services: start, stop, restart, enable at boot, and show status. It replaced the service command in RHEL 7. Most actions need root.",
+      "useCase": "Start a service now, or make it start automatically at boot.",
+      "example": "sudo systemctl start httpd\nsudo systemctl enable httpd\nsystemctl status httpd"
+    },
+    {
+      "topic": "Processes & Monitoring",
+      "term": "service",
+      "definition": "The older command for starting and stopping services. On current RHEL it is a thin wrapper around systemctl.",
+      "useCase": "Recognize it in older tutorials and scripts.",
+      "example": "sudo service httpd restart"
+    },
+    {
+      "topic": "Processes & Monitoring",
+      "term": "ps",
+      "definition": "Lists processes. On its own it shows only your current shell; the options aux show every process.",
+      "useCase": "Find a process and its ID.",
+      "example": "ps\nps aux | grep sshd"
+    },
+    {
+      "topic": "Processes & Monitoring",
+      "term": "top",
+      "definition": "A live, updating view of processes with their CPU and memory use. Press q to quit.",
+      "useCase": "See what is using the machine's resources right now.",
+      "example": "top"
+    },
+    {
+      "topic": "Processes & Monitoring",
+      "term": "kill",
+      "definition": "Sends a signal to a process, by its ID. The default asks it to terminate; -9 forces it.",
+      "useCase": "Stop a stuck program. An ordinary user can only signal their own processes.",
+      "example": "kill 1234\nkill -9 1234"
+    },
+    {
+      "topic": "Processes & Monitoring",
+      "term": "free",
+      "definition": "Summarizes memory: total, used and free RAM, and swap. -h shows human-readable sizes.",
+      "useCase": "Check whether the machine is short of memory.",
+      "example": "free -h"
+    },
+    {
+      "topic": "Processes & Monitoring",
+      "term": "df",
+      "definition": "Reports free disk space for each mounted file system. -h shows human-readable sizes.",
+      "useCase": "Find out which disk is filling up.",
+      "example": "df -h"
+    },
+    {
+      "topic": "Processes & Monitoring",
+      "term": "dmesg",
+      "definition": "Prints the kernel's message buffer: hardware detection, driver messages, warnings and errors.",
+      "useCase": "Diagnose hardware or boot problems.",
+      "example": "dmesg | tail"
+    },
+    {
+      "topic": "Processes & Monitoring",
+      "term": "iostat",
+      "definition": "Reports CPU and disk input/output statistics. A number gives the refresh interval in seconds. It is part of the sysstat package.",
+      "useCase": "Watch disk activity over time.",
+      "example": "iostat 1"
+    },
+    {
+      "topic": "Processes & Monitoring",
+      "term": "netstat",
+      "definition": "Shows network connections, listening ports, the routing table and interface statistics. An older tool, now replaced by ss and ip.",
+      "useCase": "See what the machine is connected to and what it is listening on.",
+      "example": "netstat -tulpn"
+    },
+    {
+      "topic": "Processes & Monitoring",
+      "term": "/proc/cpuinfo",
+      "definition": "A virtual file the kernel generates that describes each CPU.",
+      "useCase": "Check the processor model and number of cores.",
+      "example": "cat /proc/cpuinfo"
+    },
+    {
+      "topic": "Processes & Monitoring",
+      "term": "/proc/meminfo",
+      "definition": "A virtual file the kernel generates that describes memory use in detail.",
+      "useCase": "See the numbers behind the free command.",
+      "example": "cat /proc/meminfo"
+    },
+    {
+      "topic": "Finding Files & Links",
+      "term": "find",
+      "definition": "Searches a directory tree for files by name, type, size, owner and more. It reads the real directories each time, so it is always up to date.",
+      "useCase": "Locate a file when you know part of its name. The first argument is where to start.",
+      "example": "find . -name \"notes.txt\"\nfind / -name \"ifcfg-enp0s3\" 2>/dev/null"
+    },
+    {
+      "topic": "Finding Files & Links",
+      "term": "locate",
+      "definition": "Finds files by name using a prebuilt database. Very fast, but only as current as the last updatedb run.",
+      "useCase": "A quick lookup for files that have existed for a while.",
+      "example": "locate notes.txt\nsudo updatedb"
+    },
+    {
+      "topic": "Finding Files & Links",
+      "term": "Hard link",
+      "definition": "A second name for the same data. Deleting, renaming or moving the original does not affect it, and the data stays until the last name is gone.",
+      "useCase": "Keep a file reachable under two names within one file system.",
+      "example": "ln original.txt copy.txt"
+    },
+    {
+      "topic": "Finding Files & Links",
+      "term": "Soft (symbolic) link",
+      "definition": "A small file that stores the path to its target, like a shortcut. If the target is deleted or renamed, the link breaks.",
+      "useCase": "Point to a file or directory somewhere else, even on another file system.",
+      "example": "ln -s /etc/hosts hostslink\nls -l hostslink"
+    },
+    {
+      "topic": "Finding Files & Links",
+      "term": "ln vs ln -s",
+      "definition": "ln makes a hard link. ln -s makes a soft (symbolic) link.",
+      "useCase": "Pick the link type: -s when you want a shortcut that can cross file systems.",
+      "example": "ln file hardlink\nln -s file softlink"
+    },
+    {
+      "topic": "Pipes & Text Tools",
+      "term": "> (overwrite)",
+      "definition": "Redirects a command's output into a file, replacing whatever was in the file.",
+      "useCase": "Save output. Be careful: an existing file is wiped.",
+      "example": "ls -ltr > filelist.txt"
+    },
+    {
+      "topic": "Pipes & Text Tools",
+      "term": ">> (append)",
+      "definition": "Redirects output to the end of a file, keeping what is already there.",
+      "useCase": "Add to a log or list.",
+      "example": "date >> log.txt"
+    },
+    {
+      "topic": "Pipes & Text Tools",
+      "term": "| (pipe)",
+      "definition": "Sends the output of one command to the input of the next.",
+      "useCase": "Chain small tools together.",
+      "example": "ls -l /etc | more\nls -l | head"
+    },
+    {
+      "topic": "Pipes & Text Tools",
+      "term": "grep",
+      "definition": "Prints the lines that match a pattern. -c counts them, -i ignores case.",
+      "useCase": "Search inside files or command output.",
+      "example": "grep Cat animals\ngrep -c Cat animals"
+    },
+    {
+      "topic": "Pipes & Text Tools",
+      "term": "sort",
+      "definition": "Sorts lines of text. -n sorts numerically, -r reverses, -k picks a column.",
+      "useCase": "Put output in order, and prepare it for uniq.",
+      "example": "sort -k2 animals"
+    },
+    {
+      "topic": "Pipes & Text Tools",
+      "term": "uniq",
+      "definition": "Collapses repeated lines, but only when they are next to each other, so the input should be sorted first. -c counts them.",
+      "useCase": "Remove duplicates or count them.",
+      "example": "sort animals | uniq"
+    },
+    {
+      "topic": "Pipes & Text Tools",
+      "term": "sort | uniq -c",
+      "definition": "The standard counting pipeline: sort puts identical lines together, then uniq -c counts each group.",
+      "useCase": "Build a frequency table of anything.",
+      "example": "awk '{print $2}' animals | sort | uniq -c"
+    },
+    {
+      "topic": "Pipes & Text Tools",
+      "term": "awk",
+      "definition": "Processes text one line at a time, split into fields: $1 is the first field, $2 the second, and so on.",
+      "useCase": "Pull out a column.",
+      "example": "awk '{print $2}' animals"
+    },
+    {
+      "topic": "Pipes & Text Tools",
+      "term": "sed",
+      "definition": "A stream editor. The common use is substitution: s/old/new/ replaces the first match on each line.",
+      "useCase": "Find and replace in text without opening an editor.",
+      "example": "sed 's/Cat/Feline/' animals"
+    },
+    {
+      "topic": "Pipes & Text Tools",
+      "term": "tee",
+      "definition": "Copies its input to a file and also passes it on to the screen (or the next command).",
+      "useCase": "Save an intermediate result while still seeing it.",
+      "example": "grep Aves animals | tee aves.txt"
+    },
+    {
+      "topic": "Pipes & Text Tools",
+      "term": "wc",
+      "definition": "Counts lines, words and bytes. -l counts lines only.",
+      "useCase": "Count how many lines or matches there are.",
+      "example": "wc -l animals\ngrep Cat animals | wc -l"
+    },
+    {
+      "topic": "Users, Groups & sudo",
+      "term": "useradd",
+      "definition": "Creates a new user account. adduser is the same command on RHEL and CentOS. New accounts are locked until a password is set.",
+      "useCase": "Add someone to the system.",
+      "example": "sudo useradd newuser"
+    },
+    {
+      "topic": "Users, Groups & sudo",
+      "term": "passwd",
+      "definition": "Sets or changes a user's password. Weak passwords may be rejected by the dictionary check.",
+      "useCase": "Unlock a new account, or reset a password.",
+      "example": "sudo passwd newuser"
+    },
+    {
+      "topic": "Users, Groups & sudo",
+      "term": "groupadd",
+      "definition": "Creates a new group.",
+      "useCase": "Set up a group before adding users to it.",
+      "example": "sudo groupadd developers"
+    },
+    {
+      "topic": "Users, Groups & sudo",
+      "term": "usermod",
+      "definition": "Modifies an existing user account: groups, shell, home directory and more.",
+      "useCase": "Change a user without recreating them.",
+      "example": "sudo usermod -aG developers newuser"
+    },
+    {
+      "topic": "Users, Groups & sudo",
+      "term": "usermod -aG",
+      "definition": "-G sets a user's supplementary groups and -a appends to them. Without -a, the user's other supplementary groups are replaced.",
+      "useCase": "Add a user to a group safely. Never leave out the -a.",
+      "example": "sudo usermod -aG wheel newuser"
+    },
+    {
+      "topic": "Users, Groups & sudo",
+      "term": "wheel group",
+      "definition": "On RHEL and CentOS, members of this special group may run any command as root through sudo.",
+      "useCase": "The way to make an account an administrator.",
+      "example": "id newuser     # groups=...,10(wheel)"
+    },
+    {
+      "topic": "Users, Groups & sudo",
+      "term": "su - user",
+      "definition": "Starts a login session as another user. As root you do not need their password. exit returns to your own session.",
+      "useCase": "Test a new account.",
+      "example": "su - newuser\nexit"
+    },
+    {
+      "topic": "Users, Groups & sudo",
+      "term": "sudo whoami",
+      "definition": "A quick test that sudo works: it prints root, because the command ran with root's rights.",
+      "useCase": "Verify that a new sudo user was set up correctly.",
+      "example": "sudo whoami      # root"
+    },
+    {
+      "topic": "Users, Groups & sudo",
+      "term": "Steps to add a sudo user",
+      "definition": "Become root, create the user, set a password, add the user to wheel, then test with su - and sudo.",
+      "useCase": "The complete recipe, in order.",
+      "example": "sudo su\nuseradd newuser\npasswd newuser\nusermod -aG wheel newuser\nsu - newuser\nsudo whoami"
+    },
+    {
+      "topic": "Users, Groups & sudo",
+      "term": "/etc/sudoers",
+      "definition": "The configuration file that decides who may use sudo. Edit it with visudo, which checks the syntax. On RHEL the wheel group is granted full access.",
+      "useCase": "See where sudo permissions come from.",
+      "example": "sudo visudo\n%wheel  ALL=(ALL)  ALL"
+    },
+    {
+      "topic": "vi",
+      "term": "vi modes",
+      "definition": "vi starts in command mode, where keys are commands rather than text. Press i to enter insert mode and type; Esc returns to command mode.",
+      "useCase": "The reason typing appears to do nothing when you first open a file.",
+      "example": "vi notes.txt\n(i) type your text (Esc)"
+    },
+    {
+      "topic": "vi",
+      "term": "i",
+      "definition": "Enters insert mode, so what you type goes into the file.",
+      "useCase": "Start adding text at the cursor.",
+      "example": "i"
+    },
+    {
+      "topic": "vi",
+      "term": "Esc",
+      "definition": "Leaves insert mode and returns to command mode.",
+      "useCase": "The way out of any mode.",
+      "example": "Esc"
+    },
+    {
+      "topic": "vi",
+      "term": "r",
+      "definition": "Replaces the single character under the cursor with the next one you type.",
+      "useCase": "Fix one wrong letter.",
+      "example": "r"
+    },
+    {
+      "topic": "vi",
+      "term": "dd",
+      "definition": "Deletes the current line.",
+      "useCase": "Remove a whole line quickly.",
+      "example": "dd"
+    },
+    {
+      "topic": "vi",
+      "term": "u",
+      "definition": "Undoes the last change.",
+      "useCase": "Recover from a mistaken delete.",
+      "example": "u"
+    },
+    {
+      "topic": "vi",
+      "term": "x",
+      "definition": "Deletes the character under the cursor.",
+      "useCase": "Remove a single character.",
+      "example": "x"
+    },
+    {
+      "topic": "vi",
+      "term": ":q!",
+      "definition": "Quits without saving, throwing away any changes.",
+      "useCase": "Get out after a mistake.",
+      "example": ":q!"
+    },
+    {
+      "topic": "vi",
+      "term": ":wq and ZZ",
+      "definition": "Both save the file and quit. ZZ is Shift+Z pressed twice, from command mode.",
+      "useCase": "Finish editing and keep your changes.",
+      "example": ":wq\nZZ"
+    },
+    {
+      "topic": "vi",
+      "term": "/ (search)",
+      "definition": "Searches forward for a string. Press n for the next match.",
+      "useCase": "Find a word in a long file.",
+      "example": "/error"
+    },
+    {
+      "topic": "cron",
+      "term": "crontab -e",
+      "definition": "Edits your personal cron table, normally in vi. Each line is one scheduled job.",
+      "useCase": "Schedule a command or script to run automatically.",
+      "example": "crontab -e"
+    },
+    {
+      "topic": "cron",
+      "term": "crontab -l and -r",
+      "definition": "-l lists your scheduled jobs and -r removes all of them. As root, -u name works on another user's table.",
+      "useCase": "Check what is scheduled, or clear it. Be careful: -r deletes the whole table.",
+      "example": "crontab -l\ncrontab -r\nsudo crontab -u alice -l"
+    },
+    {
+      "topic": "cron",
+      "term": "Five time fields",
+      "definition": "A cron line is: minute, hour, day of month, month, day of week, then the command. A * means every value.",
+      "useCase": "Read any schedule from left to right.",
+      "example": "30 16 2 * *  /path/script.sh\n# 4:30 p.m. on the 2nd of every month"
+    },
+    {
+      "topic": "cron",
+      "term": "0 3 * * *",
+      "definition": "Minute 0, hour 3, every day, every month, every weekday: runs daily at 3:00 a.m.",
+      "useCase": "A typical nightly job such as a backup.",
+      "example": "0 3 * * * /root/backup.sh"
+    },
+    {
+      "topic": "cron",
+      "term": "*/30 and ranges",
+      "definition": "*/n means every n units of that field. A range like 1-5 covers several values; in the weekday field 1-5 is Monday to Friday.",
+      "useCase": "Repeat often, or run only on weekdays.",
+      "example": "*/30 * * * * /path/command\n0 22 * * 1-5 /path/command"
+    },
+    {
+      "topic": "cron",
+      "term": "@daily, @hourly, @reboot",
+      "definition": "Shortcuts for common schedules: @hourly (0 * * * *), @daily or @midnight (0 0 * * *), @weekly (0 0 * * 0), @monthly (0 0 1 * *), @yearly (0 0 1 1 *), @reboot (once at startup).",
+      "useCase": "Write a schedule without counting stars.",
+      "example": "@daily /path/script.sh\n@reboot /path/start.sh"
+    },
+    {
+      "topic": "Shell Scripting",
+      "term": "Shebang (#!/bin/bash)",
+      "definition": "The first line of a script. It names the interpreter that should run the file.",
+      "useCase": "Tell the system which shell the script is written for.",
+      "example": "#!/bin/bash\necho \"Hello\""
+    },
+    {
+      "topic": "Shell Scripting",
+      "term": "Running a script",
+      "definition": "bash script reads it, so it only needs read permission. ./script runs it directly, so it needs execute permission (and the shebang).",
+      "useCase": "Choose how to launch a script.",
+      "example": "bash myscript.sh\nchmod +x myscript.sh\n./myscript.sh"
+    },
+    {
+      "topic": "Shell Scripting",
+      "term": "if statement",
+      "definition": "Runs commands only when a test is true. The test goes in [ ] with spaces inside, and the block ends with fi.",
+      "useCase": "Make a decision, such as whether a file exists.",
+      "example": "if [ -f /etc/passwd ]; then\n  echo \"found it\"\nfi"
+    },
+    {
+      "topic": "Shell Scripting",
+      "term": "for loop",
+      "definition": "Repeats commands once for each value in a list, setting a variable each time. The body is closed with done.",
+      "useCase": "Do the same thing to several items.",
+      "example": "for name in alice bob carol; do\n  echo \"Hello, $name\"\ndone"
+    },
+    {
+      "topic": "Shell Scripting",
+      "term": "case statement",
+      "definition": "Chooses between several patterns. Each branch ends with ;; and the whole statement is closed with esac.",
+      "useCase": "A tidy alternative to a long chain of ifs.",
+      "example": "case $1 in\n  start) echo \"starting\" ;;\n  stop)  echo \"stopping\" ;;\n  *)     echo \"usage\" ;;\nesac"
+    }
+  ]
+}

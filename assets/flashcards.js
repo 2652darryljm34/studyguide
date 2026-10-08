@@ -46,6 +46,11 @@
     document.title = d.title + ' - QuizHub';
     $('fc-subtitle').textContent = d.title;
     $('loading').hidden = true; $('app').hidden = false;
+    // Decks that belong to a set (guide + flashcards + quiz) link to the other two.
+    const links = [];
+    if (d.guideFile) links.push(`<a href="review.html?file=${encodeURIComponent(d.guideFile)}">Review guide</a>`);
+    if (d.quizFile) links.push(`<a href="quiz.html?file=${encodeURIComponent(d.quizFile)}">Take the quiz</a>`);
+    $('fc-links').innerHTML = links.join(' &middot; ');
     drawChips(); build();
   }).catch(err => { $('loading').textContent = "Couldn't load the flashcards. " + err.message; });
 

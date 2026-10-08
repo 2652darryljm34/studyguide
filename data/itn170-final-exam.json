@@ -1,7 +1,7 @@
 {
   "title": "ITN 170 Final Exam Review",
   "description": "A review of everything on the instructor's final study guide: navigation, file maintenance, permissions, wildcards, viewing files, monitoring, processes and services, finding files and links, redirection and the text tools, users and sudo, vi, cron and shell scripting.",
-  "guideFile": "data/itn170-commands-guide.json",
+  "guideFile": "data/itn170-final-guide.json",
   "boxFile": "data/itn170-box.json",
   "shortCount": 40,
   "sections": [

@@ -80,3 +80,39 @@ and the leftovers go to different random sections, so no two sections differ by 
 full count runs every question in topic order. `?n=30`, `?mode=short` (N) and `?mode=full` skip the picker.
 A quiz without `shortCount` behaves as before. All three final exams use it (the `build_*_final.py` scripts).
 Run `node tools/test_quiz_length.js` after changing the quiz page or any quiz that sets it.
+
+## Home page highlights and flashcards
+
+- A guide, tool or quiz in `classes.json` with `"featured": true` is shown in the "Updated" banner at the top of
+  the home page (in study order: guide, flashcards, quiz), listed first inside its class, and gets an "Updated"
+  pill on the class header. `"badge"` changes the
+  label and `"cta"` the banner link text. Remove the flag once the material is finished, so the banner only shows
+  what is still being worked on.
+- Flashcard decks are `{title, cards: [{topic, term, definition, useCase, example}]}` shown by `flashcards.html`.
+  Terms must be unique in a deck (known cards are remembered by term). The ITN 170 final deck is built by
+  `tools/build_itn170_flashcards.py`; keep definitions in your own words and the back of a card short.
+
+## Every exam is built as a set: review guide, flashcards and quiz
+
+When an exam comes up, build all three together and keep them in step, rather than the quiz alone:
+
+1. **Review guide** (`review.html`, a `data/*-guide.json` with `quizFile`, `flashcardsFile` and, for Linux, `boxFile`).
+2. **Flashcards** (`flashcards.html`, a deck with `guideFile` and `quizFile`).
+3. **Quiz** (`quiz.html`, with `guideFile`), with the "how many questions" picker via `shortCount`.
+
+They cover the same topics in the same order, in the same wording, and link to each other. Write each one
+in original words (see "Keep quiz content original"), and give each its own build script in `tools/`.
+Then:
+
+- Register all three in `classes.json` and flag them `"featured": true` while the exam is upcoming.
+- Add the set to `SETS` in `tools/check_study_sets.py` and run `python3 tools/check_study_sets.py`. It fails
+  if a piece is missing, a link is broken, or the three no longer cover the same number of topics.
+- When a topic changes in one piece (a corrected fact, a new command), change it in the other two as well,
+  then rebuild all three and rerun the checker.
+- When a class is over, set `"archived": true` on it in `classes.json` and remove its `featured` flags. It
+  moves to the collapsed Archive section at the bottom of the home page and keeps all its material.
+
+Current sets: ITN 170 final (`tools/build_itn170_final_guide.py`, `build_itn170_flashcards.py`,
+`build_itn170_final.py`). ITD 145 and ITD 256 are archived; they have final quizzes but were finished before this
+rule, so they have no matching final flashcards or guide.
+

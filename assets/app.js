@@ -20,18 +20,38 @@ async function loadClasses(){
       return;
     }
 
-    renderFeatured(classes);
-    listEl.innerHTML = classes.map((cls, i) => renderClass(cls, i)).join('');
+    // Finished classes ("archived": true in classes.json) move to a collapsed section
+    // at the bottom; everything else, including the "Updated" banner, is the live classes.
+    const live = classes.filter(c => !c.archived);
+    const archived = classes.filter(c => c.archived);
+    renderFeatured(live);
+    listEl.innerHTML = live.map((cls, i) => renderClass(cls, i)).join('');
+    renderArchive(archived);
   }catch(err){
     listEl.innerHTML = `<div class="load-error">Couldn't load classes.json. ${escapeHtml(err.message)}</div>`;
   }
 }
 
-// A quiz marked "featured": true in classes.json is pulled out to the banner at
-// the top of the page and listed first, highlighted, inside its own class.
-// "badge" overrides the default label.
+// A quiz or tool marked "featured": true in classes.json is pulled out to the banner
+// at the top of the page and listed first, highlighted, inside its own class.
+// "badge" overrides the default label and "cta" the link text on the banner card.
 const isFeatured = q => !!q.featured;
 const badgeFor = q => (typeof q.badge === 'string' && q.badge) || 'Updated';
+
+// Everything a class has flagged as featured, in study order: guides, then tools
+// (flashcards and so on), then quizzes.
+function featuredItems(cls){
+  const guides = (cls.guides || []).filter(isFeatured).map(g => ({
+    q: g, href: 'review.html?file=' + encodeURIComponent(g.file), cta: g.cta || 'Read the guide', go: 'Read'
+  }));
+  const tools = (cls.tools || []).filter(isFeatured).map(t => ({
+    q: t, href: t.href, cta: t.cta || 'Open', go: 'Open'
+  }));
+  const quizzes = (cls.quizzes || []).filter(isFeatured).map(q => ({
+    q, href: 'quiz.html?file=' + encodeURIComponent(q.file), cta: q.cta || 'Start the review', go: 'Start'
+  }));
+  return guides.concat(tools, quizzes);
+}
 
 function renderFeatured(classes){
   const section = document.getElementById('featured');
@@ -39,16 +59,16 @@ function renderFeatured(classes){
   if(!section || !list) return;
   const cards = [];
   classes.forEach(cls => {
-    (cls.quizzes || []).filter(isFeatured).forEach(q => {
+    featuredItems(cls).forEach(({ q, href, cta }) => {
       cards.push(`
-        <a class="featured-card" href="quiz.html?file=${encodeURIComponent(q.file)}">
+        <a class="featured-card" href="${escapeHtml(href)}">
           <div class="featured-card-top">
             <span class="featured-class">${escapeHtml(cls.name)}${cls.fullName ? ` <span>${escapeHtml(cls.fullName)}</span>` : ''}</span>
             <span class="new-pill">${escapeHtml(badgeFor(q))}</span>
           </div>
           <div class="featured-card-title">${escapeHtml(q.title)}</div>
           ${q.description ? `<div class="featured-card-desc">${escapeHtml(q.description)}</div>` : ''}
-          <div class="featured-card-go">Start the review &rarr;</div>
+          <div class="featured-card-go">${escapeHtml(cta)} &rarr;</div>
         </a>`);
     });
   });
@@ -57,15 +77,25 @@ function renderFeatured(classes){
   section.hidden = false;
 }
 
+function renderArchive(archived){
+  const box = document.getElementById('archive');
+  const list = document.getElementById('archive-list');
+  if(!box || !list || !archived.length) return;
+  list.innerHTML = archived.map((cls, i) => renderClass(cls, i)).join('');
+  const sub = document.getElementById('archive-sub');
+  if(sub) sub.textContent = archived.length === 1 ? '1 finished class' : archived.length + ' finished classes';
+  box.hidden = false;
+}
+
 function renderClass(cls, index){
   const guides = cls.guides || [];
   const allQuizzes = cls.quizzes || [];
-  const featured = allQuizzes.filter(isFeatured);
+  const featured = featuredItems(cls);
   const quizzes = allQuizzes.filter(q => !isFeatured(q));
   const count = allQuizzes.length;
   const countLabel = count === 1 ? '1 quiz' : `${count} quizzes`;
 
-  const guideRows = guides.map(g => `
+  const guideRows = guides.filter(g => !isFeatured(g)).map(g => `
     <a class="quiz-row guide-row" href="review.html?file=${encodeURIComponent(g.file)}">
       <div>
         <div class="quiz-row-title"><span class="guide-badge">Study guide</span>${escapeHtml(g.title)}</div>
@@ -89,7 +119,7 @@ function renderClass(cls, index){
   `).join('');
 
   // Interactive extras (the SQL playground, say) -- anything with its own page.
-  const toolRows = (cls.tools || []).map(t => `
+  const toolRows = (cls.tools || []).filter(t => !isFeatured(t)).map(t => `
     <a class="quiz-row tool-row" href="${escapeHtml(t.href)}">
       <div>
         <div class="quiz-row-title"><span class="guide-badge tool-badge">Interactive</span>${escapeHtml(t.title)}</div>
@@ -99,13 +129,13 @@ function renderClass(cls, index){
     </a>
   `).join('');
 
-  const featuredRows = featured.map(q => `
-    <a class="quiz-row featured-row" href="quiz.html?file=${encodeURIComponent(q.file)}">
+  const featuredRows = featured.map(({ q, href, go }) => `
+    <a class="quiz-row featured-row" href="${escapeHtml(href)}">
       <div>
         <div class="quiz-row-title"><span class="new-pill">${escapeHtml(badgeFor(q))}</span>${escapeHtml(q.title)}</div>
         ${q.description ? `<div class="quiz-row-desc">${escapeHtml(q.description)}</div>` : ''}
       </div>
-      <div class="quiz-row-go">Start &rarr;</div>
+      <div class="quiz-row-go">${go} &rarr;</div>
     </a>
   `).join('');
 
@@ -123,7 +153,7 @@ function renderClass(cls, index){
     <details class="class-card" >
       <summary>
         <div class="class-heading">
-          <span class="class-code">${escapeHtml(cls.name)}${featured.length ? ` <span class="new-pill">${escapeHtml(badgeFor(featured[0]))}</span>` : ''}</span>
+          <span class="class-code">${escapeHtml(cls.name)}${featured.length ? ` <span class="new-pill">${escapeHtml(badgeFor(featured[0].q))}</span>` : ''}</span>
           ${cls.fullName ? `<span class="class-full">${escapeHtml(cls.fullName)}</span>` : ''}
         </div>
         <div style="display:flex; align-items:center; gap:10px;">

@@ -6,6 +6,14 @@
       "fullName": "Linux System Administration",
       "guides": [
         {
+          "id": "final-guide",
+          "featured": true,
+          "cta": "Read the guide",
+          "title": "Final Review Guide",
+          "description": "Everything on the final in one place, in the same order as the quiz and flashcards, ending with the mix-ups that cost marks. A practice terminal sits beside it.",
+          "file": "data/itn170-final-guide.json"
+        },
+        {
           "id": "commands-guide",
           "title": "Linux Commands Study Guide",
           "description": "The whole command set in one place: the shell and getting help, the filesystem, redirection and the text toolkit, users and groups, permissions, software, storage, processes and services, and networking and SSH.",
@@ -22,6 +30,14 @@
         }
       ],
       "tools": [
+        {
+          "id": "final-flashcards",
+          "featured": true,
+          "cta": "Study the flashcards",
+          "title": "Final Flashcards",
+          "description": "112 flip cards, one per command or idea on the final review: the definition on the back, when to use it, and example code. Filter by topic, mark cards as known, and shuffle.",
+          "href": "flashcards.html?file=data%2Fitn170-final-flashcards.json"
+        },
         {
           "id": "terminal",
           "title": "Practice Terminal",
@@ -107,6 +123,7 @@
     },
     {
       "id": "itd256",
+      "archived": true,
       "name": "ITD 256",
       "fullName": "Advanced Database Design and Management",
       "guides": [
@@ -128,7 +145,6 @@
       "quizzes": [
         {
           "id": "final-exam",
-          "featured": true,
           "title": "Final Exam Review",
           "description": "Choose how many questions to take (random, spread evenly across the topics) or run the full 150. Covers database basics, the DBMS and data models, keys and integrity, normalization, SQL (26 you run against the practice database), transactions, and data warehousing, NoSQL and connectivity.",
           "file": "data/itd256-final-exam.json"
@@ -149,6 +165,7 @@
     },
     {
       "id": "itd145",
+      "archived": true,
       "name": "ITD 145",
       "fullName": "Applied Data Science Techniques",
       "guides": [
@@ -170,7 +187,6 @@
       "quizzes": [
         {
           "id": "final-exam",
-          "featured": true,
           "title": "Final Exam Review",
           "description": "Choose how many questions to take (random, spread evenly across the topics) or run the full 215. Comprehensive: statistics, distributions, hypothesis testing, outliers, NumPy, pandas, cleaning, reshaping, linear regression and plotting.",
           "file": "data/itd145-final-exam.json"

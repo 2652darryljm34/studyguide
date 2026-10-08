@@ -54,7 +54,7 @@ def main():
     quiz = {
         "title": doc["title"],
         "description": doc["description"],
-        "guideFile": "data/itn170-commands-guide.json",
+        "guideFile": "data/itn170-final-guide.json",
         "boxFile": "data/itn170-box.json",
         # Lets the quiz page offer "how many questions?"; this is the suggested size
         # (see renderLengthChoice in assets/quiz.js).
