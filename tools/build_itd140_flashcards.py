@@ -4,7 +4,7 @@ Builds the ITD 140 Quiz 1 flashcards -> data/itd140-quiz1-flashcards.json.
 
     python3 tools/build_itd140_flashcards.py
 
-One card per term, grouped into the same seven topics as the quiz and guide. Terms must be unique
+One card per term, grouped into the same eight topics as the quiz and guide. Terms must be unique
 (the deck remembers "known" cards by term), and the build refuses incomplete cards.
 """
 
@@ -125,6 +125,26 @@ c(G, "Bias", "Error from a model that is too simple. High bias goes with underfi
 c(G, "Variance", "Error from a model that is too sensitive to the particular training examples. High variance goes with overfitting.",
   "Too much means the model does not carry over to new data.",
   "A model that changes a lot with each training set")
+
+P = "The Machine Learning Process"
+c(P, "ML process (the steps)", "Gather data, identify features and target, split into training and test sets, fit the model, test it.",
+  "Use it to answer 'what are the steps to train a model'.",
+  "Prepare the data -> train -> evaluate")
+c(P, "Gather the data", "Collect the examples (rows) the model will learn from.",
+  "The first step; everything else depends on it.",
+  "A table of 5,000 past house sales")
+c(P, "Identify features and target", "Choose the input variables (features) and the single variable to predict (target).",
+  "Do it before fitting so the algorithm knows what to use and what to predict.",
+  "Features: area, bedrooms. Target: price")
+c(P, "Train/test split", "Dividing the data into a training set to learn from and a test set held back to check the result.",
+  "Done before training so the test examples stay unseen.",
+  "80% to train, 20% to test")
+c(P, "Fit (train) the model", "Run the training algorithm on the training set so it learns the model's parameters.",
+  "The step where the model learns; hyperparameters are chosen before it.",
+  "model.fit(training features, training targets)")
+c(P, "Test the model", "Score the fitted model on the test set and compute its accuracy.",
+  "Shows how well it generalizes; compare with training accuracy.",
+  "Train 96%, test 71% -> overfitting")
 
 if __name__ == "__main__":
     seen = set()

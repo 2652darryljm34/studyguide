@@ -43,7 +43,7 @@ def main():
         "title": "Quiz 1: Machine Learning Fundamentals",
         "description": "%d questions on AI versus machine learning, the three types of learning, classification and regression, "
                        "clustering with k-means, parameters and hyperparameters, accuracy and the confusion matrix, "
-                       "and overfitting, underfitting, bias and variance (with short-answer practice)." % total,
+                       "overfitting, underfitting, bias and variance, and the steps of the machine learning process (with short-answer practice)." % total,
         "guideFile": "data/itd140-quiz1-guide.json",
         "sections": [{"name": n, "questions": qs} for n, qs in SECTIONS],
     }

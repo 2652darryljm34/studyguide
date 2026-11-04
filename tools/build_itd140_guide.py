@@ -5,7 +5,7 @@ Builds the ITD 140 Quiz 1 study guide -> data/itd140-quiz1-guide.json.
     python3 tools/build_itd140_guide.py
 
 One of a set of three built together: this guide, the flashcards (build_itd140_flashcards.py) and
-the quiz (build_itd140_quiz1.py). All three follow the same seven topics in the same order and link
+the quiz (build_itd140_quiz1.py). All three follow the same eight topics in the same order and link
 to each other. When a topic changes in one, change it in all three.
 """
 
@@ -95,9 +95,24 @@ section("7. Generalization, Bias and Variance",
        "Low training accuracy: **underfit**, bias too high."),
     note("Watch out:", "High training accuracy proves nothing about new data. Always check the test accuracy."))
 
+section("8. The Machine Learning Process",
+    p("A common short-answer question asks for the **basic steps to train and check a model**. Learn the steps in order, and learn how they group into **three main points**."),
+    table(["#", "Step", "What happens"],
+          ["1", "**Gather the data**", "Collect the examples (rows) the model will learn from"],
+          ["2", "**Identify features and target**", "Pick the input variables (features) and the one variable to predict (target / label)"],
+          ["3", "**Split the data**", "Divide into a **training set** and a **test set** so some examples stay unseen"],
+          ["4", "**Fit (train) the model**", "Choose an algorithm and its hyperparameters; the algorithm learns the **parameters** from the training set"],
+          ["5", "**Test the model**", "Measure accuracy on the **test set** and compare it with training accuracy"]),
+    h("The same process as three points"),
+    ul("**Prepare the data:** gather it, identify features and target, split into training and test sets.",
+       "**Train the model:** fit it to the training set.",
+       "**Evaluate the model:** test it on the test set and check accuracy and generalization."),
+    note("Remember:", "The test set is **never** used for training. Steps 2 and 3 can swap places (the split does not depend on which columns are features). If the test result is poor, adjust (different algorithm or hyperparameters, more data) and repeat from step 4."),
+    p("This order is a reasonable summary of the topic list, not a confirmed marking scheme. If your instructor's wording differs, use theirs."))
+
 guide = {
     "title": "ITD 140 Quiz 1 Study Guide",
-    "description": "AI and machine learning, the three types of learning, classification and regression, k-means, parameters and hyperparameters, accuracy and the confusion matrix, and generalization, in the same order as the quiz and flashcards.",
+    "description": "AI and machine learning, the three types of learning, classification and regression, k-means, parameters and hyperparameters, accuracy and the confusion matrix, generalization, and the machine learning process, in the same order as the quiz and flashcards.",
     "quizFile": "data/itd140-quiz1.json",
     "flashcardsFile": "data/itd140-quiz1-flashcards.json",
     "sections": SECTIONS,

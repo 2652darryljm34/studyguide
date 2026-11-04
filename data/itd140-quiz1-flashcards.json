@@ -219,6 +219,48 @@
       "definition": "Error from a model that is too sensitive to the particular training examples. High variance goes with overfitting.",
       "useCase": "Too much means the model does not carry over to new data.",
       "example": "A model that changes a lot with each training set"
+    },
+    {
+      "topic": "The Machine Learning Process",
+      "term": "ML process (the steps)",
+      "definition": "Gather data, identify features and target, split into training and test sets, fit the model, test it.",
+      "useCase": "Use it to answer 'what are the steps to train a model'.",
+      "example": "Prepare the data -> train -> evaluate"
+    },
+    {
+      "topic": "The Machine Learning Process",
+      "term": "Gather the data",
+      "definition": "Collect the examples (rows) the model will learn from.",
+      "useCase": "The first step; everything else depends on it.",
+      "example": "A table of 5,000 past house sales"
+    },
+    {
+      "topic": "The Machine Learning Process",
+      "term": "Identify features and target",
+      "definition": "Choose the input variables (features) and the single variable to predict (target).",
+      "useCase": "Do it before fitting so the algorithm knows what to use and what to predict.",
+      "example": "Features: area, bedrooms. Target: price"
+    },
+    {
+      "topic": "The Machine Learning Process",
+      "term": "Train/test split",
+      "definition": "Dividing the data into a training set to learn from and a test set held back to check the result.",
+      "useCase": "Done before training so the test examples stay unseen.",
+      "example": "80% to train, 20% to test"
+    },
+    {
+      "topic": "The Machine Learning Process",
+      "term": "Fit (train) the model",
+      "definition": "Run the training algorithm on the training set so it learns the model's parameters.",
+      "useCase": "The step where the model learns; hyperparameters are chosen before it.",
+      "example": "model.fit(training features, training targets)"
+    },
+    {
+      "topic": "The Machine Learning Process",
+      "term": "Test the model",
+      "definition": "Score the fitted model on the test set and compute its accuracy.",
+      "useCase": "Shows how well it generalizes; compare with training accuracy.",
+      "example": "Train 96%, test 71% -> overfitting"
     }
   ]
 }
