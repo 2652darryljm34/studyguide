@@ -16,3 +16,6 @@ review/
 # Local tooling and Python bytecode
 .claude/
 __pycache__/
+
+# Course slide decks and handouts dropped into the repo root
+*.pptx.pdf

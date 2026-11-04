@@ -1,0 +1,1121 @@
+{
+  "title": "Quiz 1: Relational Databases, SQL and MySQL Data Types",
+  "description": "86 questions on tables, rows and columns, primary and foreign keys, indexes, views and routines, basic SELECT and JOIN queries, the system catalog, and choosing MySQL data types.",
+  "guideFile": "data/itd132-quiz1-guide.json",
+  "dbFile": "data/harborview.sql",
+  "sections": [
+    {
+      "name": "1. Tables, Rows and Columns",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Tables, Rows and Columns",
+          "question": "What does a relational database management system store its data in?",
+          "options": [
+            "Tables made of rows and columns, related through keys",
+            "Flat files, one per record, linked by file names",
+            "Hierarchies of parent and child nodes, linked by paths",
+            "Documents of nested fields, linked by embedded copies"
+          ],
+          "correct": 0,
+          "explanation": "An RDBMS holds everything in tables. Relationships between tables are expressed with primary and foreign keys, not with file names, hierarchies or embedded documents."
+        },
+        {
+          "type": "mc",
+          "category": "Tables, Rows and Columns",
+          "question": "In the formal relational vocabulary, which term names a single row of a table?",
+          "options": [
+            "Attribute",
+            "Tuple",
+            "Relation",
+            "Domain"
+          ],
+          "correct": 1,
+          "explanation": "A tuple is a row (a record). An attribute is a column (a field), and a relation is the table itself."
+        },
+        {
+          "type": "mc",
+          "category": "Tables, Rows and Columns",
+          "question": "In the formal relational vocabulary, which term names a column?",
+          "options": [
+            "Tuple",
+            "Relation",
+            "Attribute",
+            "Schema"
+          ],
+          "correct": 2,
+          "explanation": "An attribute is a column or field. The informal terms are column or field; the non-relational equivalent is a field."
+        },
+        {
+          "type": "mc",
+          "category": "Tables, Rows and Columns",
+          "question": "A table of library members has a row for every member. Which formal term describes the whole table?",
+          "options": [
+            "Tuple (or record)",
+            "Attribute (or field)",
+            "Index (or key)",
+            "Relation (or entity)"
+          ],
+          "correct": 3,
+          "explanation": "The table as a whole is a relation, also called an entity. Its rows are tuples and its columns are attributes."
+        },
+        {
+          "type": "matching",
+          "category": "Tables, Rows and Columns",
+          "question": "Match each informal term to its formal relational equivalent.",
+          "pairs": [
+            {
+              "left": "Table",
+              "right": "Relation / entity"
+            },
+            {
+              "left": "Column",
+              "right": "Attribute"
+            },
+            {
+              "left": "Row",
+              "right": "Tuple"
+            }
+          ],
+          "explanation": "Informally we say table, column and row; formally they are relation, attribute and tuple."
+        },
+        {
+          "type": "mc",
+          "category": "Tables, Rows and Columns",
+          "question": "Which statement about a relational table is true?",
+          "options": [
+            "Each row holds exactly one value for each column",
+            "A single column may hold a mix of text and numbers",
+            "Rows must be stored in order of their creation date",
+            "A cell may hold a list of several values at once"
+          ],
+          "correct": 0,
+          "explanation": "Every cell holds one value, and all values in a column share one type. The order of rows and columns carries no meaning."
+        },
+        {
+          "type": "tf",
+          "category": "Tables, Rows and Columns",
+          "question": "In a relational table, swapping the order of two rows changes the meaning of the data.",
+          "correct": false,
+          "explanation": "The order of rows (and of columns) has no significance. Meaning comes from the values and the keys, not from position."
+        },
+        {
+          "type": "tf",
+          "category": "Tables, Rows and Columns",
+          "question": "Every value stored in one column of a table must have the same data type.",
+          "correct": true,
+          "explanation": "Each column is assigned a datatype such as integer, text or date, and every value in that column must fit it."
+        },
+        {
+          "type": "mc",
+          "category": "Tables, Rows and Columns",
+          "question": "A clinic stores patients, appointments and doctors. Why is each kind of information kept in its own table?",
+          "options": [
+            "It forces every query to read a smaller number of columns",
+            "It removes redundancy, so a fact is entered once and stays consistent",
+            "It lets each table use a different database engine for speed",
+            "It makes sure no two tables can ever share a key value"
+          ],
+          "correct": 1,
+          "explanation": "A table about one subject means a patient's details are typed once and referenced elsewhere, avoiding duplicated and conflicting copies."
+        },
+        {
+          "type": "mc",
+          "category": "Tables, Rows and Columns",
+          "question": "Two departments both look up customer details. In a well-designed relational database, how is that customer data held?",
+          "options": [
+            "Copied into one table per department so each owns its data",
+            "Stored in a spreadsheet that each department edits locally",
+            "Entered once in a single customer table that both departments query",
+            "Typed into every order row so no join is ever needed"
+          ],
+          "correct": 2,
+          "explanation": "Keeping one authoritative copy avoids inconsistencies between departments' versions."
+        },
+        {
+          "type": "mc",
+          "category": "Tables, Rows and Columns",
+          "question": "A row in a non-relational file system corresponds to which relational term?",
+          "options": [
+            "An attribute, also called a field",
+            "A relation, also called a file",
+            "A key, also called an index",
+            "A tuple, also called a record"
+          ],
+          "correct": 3,
+          "explanation": "Record and row are the same idea: record in a file, row or tuple in a table."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Tables, Rows and Columns",
+          "question": "Each column in a table is assigned a specific ____ such as integer, text or date. (one word)",
+          "answers": [
+            "datatype",
+            "data type"
+          ],
+          "explanation": "The datatype tells the database how to store, validate and compare the values in the column."
+        }
+      ]
+    },
+    {
+      "name": "2. Primary and Foreign Keys",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Primary and Foreign Keys",
+          "question": "What is the job of a primary key?",
+          "options": [
+            "To identify each row in the table uniquely",
+            "To point at a row stored in a different table",
+            "To speed up every query that reads the table",
+            "To restrict which users may change the table"
+          ],
+          "correct": 0,
+          "explanation": "A primary key uniquely identifies a row. Pointing to another table is the job of a foreign key."
+        },
+        {
+          "type": "mc",
+          "category": "Primary and Foreign Keys",
+          "question": "Which pair of rules must every primary key value obey?",
+          "options": [
+            "It must be numeric and it must be auto-generated",
+            "It must be unique and it must not be NULL",
+            "It must be short and it must never be changed",
+            "It must be sorted and it must start at the value 1"
+          ],
+          "correct": 1,
+          "explanation": "Uniqueness and NOT NULL are the two mandatory properties. Numeric, short or auto-generated keys are common practice, not rules."
+        },
+        {
+          "type": "mc",
+          "category": "Primary and Foreign Keys",
+          "question": "What does a foreign key do?",
+          "options": [
+            "Stores a value that must be unique across its own table",
+            "Stores a copy of every column from a related table",
+            "Stores a value that refers to the primary key of a related table",
+            "Stores a value that is calculated from other columns"
+          ],
+          "correct": 2,
+          "explanation": "A foreign key value is a reference to the associated table's primary key, which is how rows in two tables are related."
+        },
+        {
+          "type": "tf",
+          "category": "Primary and Foreign Keys",
+          "question": "A foreign key column may be given a different name from the primary key it refers to.",
+          "correct": true,
+          "explanation": "Matching names are common, but what matters is that the values refer to the primary key of the referenced table."
+        },
+        {
+          "type": "tf",
+          "category": "Primary and Foreign Keys",
+          "question": "A table in a relational database is allowed to have no primary key at all.",
+          "correct": false,
+          "explanation": "Every table must have a primary key. If none is declared, all the columns together act as the key."
+        },
+        {
+          "type": "mc",
+          "category": "Primary and Foreign Keys",
+          "question": "A shipment table has shipment_id as its primary key and warehouse_id as a foreign key to the warehouse table. Which table is the referencing table?",
+          "options": [
+            "warehouse, because it holds the foreign key",
+            "shipment, because it holds the referenced key",
+            "warehouse, because it holds the referenced key",
+            "shipment, because it holds the foreign key"
+          ],
+          "correct": 3,
+          "explanation": "The table containing the foreign key is the referencing (foreign) table; the table containing the primary key it points to is the referenced (primary) table."
+        },
+        {
+          "type": "mc",
+          "category": "Primary and Foreign Keys",
+          "question": "A shipment table has shipment_id as its primary key and warehouse_id as a foreign key to the warehouse table. Which table is the referenced table?",
+          "options": [
+            "warehouse, because it holds the primary key being pointed to",
+            "shipment, because it holds the primary key being pointed to",
+            "warehouse, because it holds the foreign key doing the pointing",
+            "shipment, because it holds the foreign key doing the pointing"
+          ],
+          "correct": 0,
+          "explanation": "The referenced (primary) table is the one whose primary key the foreign key refers to."
+        },
+        {
+          "type": "mc",
+          "category": "Primary and Foreign Keys",
+          "question": "A table lists which student enrolled in which section. Neither student_id nor section_id is unique alone, but each pair appears once. What kind of primary key is needed?",
+          "options": [
+            "A surrogate key made of a single auto-numbered column",
+            "A composite key made of student_id and section_id together",
+            "A foreign key made of student_id and section_id together",
+            "A candidate key made of the student's name and section"
+          ],
+          "correct": 1,
+          "explanation": "When one column cannot identify a row but a combination can, the primary key is composite (composed of more than one column)."
+        },
+        {
+          "type": "tf",
+          "category": "Primary and Foreign Keys",
+          "question": "If a table has no primary key declared, the database treats all of its columns together as the key.",
+          "correct": true,
+          "explanation": "With no primary key assigned, the full set of columns becomes the key, which is why a compact, deliberate key is better practice."
+        },
+        {
+          "type": "mc",
+          "category": "Primary and Foreign Keys",
+          "question": "Which primary key is best practice?",
+          "options": [
+            "One that combines every column that could ever be unique",
+            "One that holds descriptive text so rows are readable",
+            "One that is as compact as possible",
+            "One that is recalculated whenever the row is updated"
+          ],
+          "correct": 2,
+          "explanation": "Compact keys keep indexes small and joins fast. A key built from many or wide columns costs space and speed."
+        },
+        {
+          "type": "mc",
+          "category": "Primary and Foreign Keys",
+          "question": "In a table of order lines, the columns are order_id, product_id, quantity and ship_date. A given product can appear once per order. What is the natural primary key?",
+          "options": [
+            "order_id alone, since it names the order",
+            "product_id alone, since it names the item",
+            "quantity and ship_date together, since they vary",
+            "order_id and product_id together"
+          ],
+          "correct": 3,
+          "explanation": "A single order has several lines, and a product appears on many orders, so only the pair order_id + product_id identifies one line."
+        },
+        {
+          "type": "mc",
+          "category": "Primary and Foreign Keys",
+          "question": "In an orders table, customer_id holds the value 7, and no customer 7 exists in the customer table. What has gone wrong?",
+          "options": [
+            "The foreign key refers to a primary key value that is not there",
+            "The primary key of the customer table has been duplicated",
+            "The primary key of the orders table has become NULL",
+            "The two tables have been joined on the wrong data type"
+          ],
+          "correct": 0,
+          "explanation": "A foreign key value must match an existing primary key value in the referenced table, otherwise the relationship is broken (an orphan row)."
+        },
+        {
+          "type": "mc",
+          "category": "Primary and Foreign Keys",
+          "question": "In the example where order 3 has customer_id 1 and customer 1 is Joe Smith, what does that foreign key value tell you?",
+          "options": [
+            "Joe Smith placed three orders in total",
+            "Order 3 belongs to Joe Smith",
+            "Order 1 belongs to the third customer",
+            "Joe Smith is the first row in the order table"
+          ],
+          "correct": 1,
+          "explanation": "The foreign key links the order to the customer row whose primary key has that value."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Primary and Foreign Keys",
+          "question": "A primary key made of more than one column is called a ____ key. (one word)",
+          "answers": [
+            "composite"
+          ],
+          "explanation": "A composite primary key is 'composed' of two or more columns."
+        },
+        {
+          "type": "matching",
+          "category": "Primary and Foreign Keys",
+          "question": "Match each term to its meaning.",
+          "pairs": [
+            {
+              "left": "Primary key",
+              "right": "Uniquely identifies each row; never NULL"
+            },
+            {
+              "left": "Foreign key",
+              "right": "Refers to a row in another table"
+            },
+            {
+              "left": "Composite key",
+              "right": "A primary key built from several columns"
+            },
+            {
+              "left": "Referenced table",
+              "right": "The table whose primary key is pointed to"
+            }
+          ],
+          "explanation": "Keys define the relational structure: how rows are identified and how tables relate."
+        }
+      ]
+    },
+    {
+      "name": "3. Indexes, Views and Routines",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Indexes, Views and Routines",
+          "question": "How is a database index best compared to something familiar?",
+          "options": [
+            "The table of contents at the front that lists each chapter in reading order",
+            "The glossary at the back that defines each term in plain everyday language",
+            "The index at the back of a book that lists the pages for each term",
+            "The appendix at the back that adds extra material for further reading and study"
+          ],
+          "correct": 2,
+          "explanation": "An index relates each indexed value to the physical location of the matching rows, just as a book index maps terms to pages."
+        },
+        {
+          "type": "mc",
+          "category": "Indexes, Views and Routines",
+          "question": "What is the main reason to create an index on a column?",
+          "options": [
+            "To prevent users from reading the column's values directly",
+            "To store a second copy of the table for backup purposes",
+            "To make the column's values unique across the whole table",
+            "To let the database find rows by that column's value quickly"
+          ],
+          "correct": 3,
+          "explanation": "Indexes are a performance design element for fast lookup. Backup and uniqueness are different features."
+        },
+        {
+          "type": "tf",
+          "category": "Indexes, Views and Routines",
+          "question": "Indexes are transparent to the user: a query is written the same way whether or not an index exists.",
+          "correct": true,
+          "explanation": "The database decides when to use an index. Users and applications do not reference it in their queries."
+        },
+        {
+          "type": "mc",
+          "category": "Indexes, Views and Routines",
+          "question": "What is a view?",
+          "options": [
+            "A virtual table whose rows are computed from underlying tables when it is used",
+            "A stored copy of a table that is refreshed automatically each night",
+            "A special table that records every change made to its rows over time",
+            "A fast lookup structure that points to where matching rows are stored"
+          ],
+          "correct": 0,
+          "explanation": "A view looks like a table to applications but holds no data of its own; its contents are computed from base tables each time."
+        },
+        {
+          "type": "mc",
+          "category": "Indexes, Views and Routines",
+          "question": "What are the tables that actually hold the data called, to tell them apart from views?",
+          "options": [
+            "Parent tables",
+            "Base tables",
+            "Index tables",
+            "Master tables"
+          ],
+          "correct": 1,
+          "explanation": "Base tables store the information; views are computed from them."
+        },
+        {
+          "type": "tf",
+          "category": "Indexes, Views and Routines",
+          "question": "A view stores its own copy of the rows it displays.",
+          "correct": false,
+          "explanation": "A view does not hold data. Whenever it is accessed, its rows are computed from the underlying tables."
+        },
+        {
+          "type": "mc",
+          "category": "Indexes, Views and Routines",
+          "question": "What is a stored procedure?",
+          "options": [
+            "A query result saved inside the database so it can be reused by many users",
+            "A backup job saved inside the database that runs on a nightly schedule",
+            "A routine saved inside the database that can take parameters and run queries",
+            "A security rule saved inside the database that limits access to tables"
+          ],
+          "correct": 2,
+          "explanation": "Stored procedures are named routines held in the database itself, which can accept parameters such as a minimum spend."
+        },
+        {
+          "type": "mc",
+          "category": "Indexes, Views and Routines",
+          "question": "What makes a trigger different from an ordinary stored procedure?",
+          "options": [
+            "It runs only when an administrator schedules it to run overnight each day",
+            "It runs only when a user calls it by name and passes the required parameters",
+            "It fires automatically whenever the database server is stopped or restarted",
+            "It fires automatically when data in its table is inserted, updated or deleted"
+          ],
+          "correct": 3,
+          "explanation": "A trigger is a special stored procedure tied to a table; it runs on its own when a matching change happens."
+        },
+        {
+          "type": "mc",
+          "category": "Indexes, Views and Routines",
+          "question": "A business rule says that every time a row is removed from the staff table, a record of the removal must be written to an audit table. Which object suits this best?",
+          "options": [
+            "A trigger on the staff table",
+            "A view over the staff table",
+            "An index on the staff table",
+            "A composite key on the staff table"
+          ],
+          "correct": 0,
+          "explanation": "Triggers automatically maintain business rules when data changes. A view, index or key does not run actions."
+        },
+        {
+          "type": "mc",
+          "category": "Indexes, Views and Routines",
+          "question": "A manager wants a reusable routine that returns every customer who has spent more than an amount she supplies each time. Which object fits?",
+          "options": [
+            "A trigger that fires on every insert into the customer table",
+            "A stored procedure with a parameter for the amount",
+            "An index on the column that holds the spending total",
+            "A view with the amount written in its definition"
+          ],
+          "correct": 1,
+          "explanation": "Stored procedures can take parameters, so one routine can serve many different thresholds."
+        },
+        {
+          "type": "matching",
+          "category": "Indexes, Views and Routines",
+          "question": "Match each database object to what it is for.",
+          "pairs": [
+            {
+              "left": "Index",
+              "right": "Fast lookup of rows by value"
+            },
+            {
+              "left": "View",
+              "right": "A virtual table computed from base tables"
+            },
+            {
+              "left": "Stored procedure",
+              "right": "A saved routine that can take parameters"
+            },
+            {
+              "left": "Trigger",
+              "right": "A routine that fires on insert, update or delete"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "4. SQL Queries and the System Catalog",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "SQL Queries and the System Catalog",
+          "question": "Which SQL statement retrieves data from a table?",
+          "options": [
+            "INSERT",
+            "UPDATE",
+            "SELECT",
+            "CREATE"
+          ],
+          "correct": 2,
+          "explanation": "SELECT reads data. INSERT adds rows, UPDATE changes them, and CREATE builds objects such as tables."
+        },
+        {
+          "type": "mc",
+          "category": "SQL Queries and the System Catalog",
+          "question": "In SELECT title, price FROM book WHERE price > 15; what does the WHERE clause do?",
+          "options": [
+            "It keeps only the columns whose name is above 15",
+            "It sorts the rows so the prices above 15 come first",
+            "It adds 15 to the price in each row it returns",
+            "It keeps only the rows whose price is above 15"
+          ],
+          "correct": 3,
+          "explanation": "WHERE is a restriction (filter) on rows. The column list after SELECT controls which columns come back."
+        },
+        {
+          "type": "mc",
+          "category": "SQL Queries and the System Catalog",
+          "question": "In SELECT title, price FROM book WHERE price > 15; which part chooses the columns that are returned?",
+          "options": [
+            "title, price",
+            "FROM book",
+            "WHERE price > 15",
+            "price > 15"
+          ],
+          "correct": 0,
+          "explanation": "The list after SELECT names the columns. FROM names the table and WHERE filters rows."
+        },
+        {
+          "type": "mc",
+          "category": "SQL Queries and the System Catalog",
+          "question": "What does a JOIN do?",
+          "options": [
+            "Copies all of the rows from one table into a second table in the database",
+            "Links rows from two or more tables by comparing values in key columns",
+            "Merges two tables into one new permanent table stored in the database",
+            "Combines the columns of one table into a single text value in the output"
+          ],
+          "correct": 1,
+          "explanation": "A join returns rows with matching key values (such as PK and FK) as a result; it does not change the stored tables."
+        },
+        {
+          "type": "tf",
+          "category": "SQL Queries and the System Catalog",
+          "question": "A JOIN permanently merges the two tables it reads into a single new table.",
+          "correct": false,
+          "explanation": "A join only produces a result set. The underlying tables are unchanged."
+        },
+        {
+          "type": "mc",
+          "category": "SQL Queries and the System Catalog",
+          "question": "A query joins orders and customers. Which columns would you normally compare?",
+          "options": [
+            "The two primary keys of the tables being joined",
+            "The first column that appears in each of the tables",
+            "The foreign key in orders and the primary key in customers",
+            "The two columns that happen to have the same type"
+          ],
+          "correct": 2,
+          "explanation": "Joins follow the relationship: the FK in one table is matched with the PK it refers to."
+        },
+        {
+          "type": "mc",
+          "category": "SQL Queries and the System Catalog",
+          "question": "Which statement removes existing rows from a table?",
+          "options": [
+            "DROP",
+            "REMOVE",
+            "ALTER",
+            "DELETE"
+          ],
+          "correct": 3,
+          "explanation": "DELETE removes rows. DROP removes a whole object such as a table, and ALTER changes a table's structure."
+        },
+        {
+          "type": "mc",
+          "category": "SQL Queries and the System Catalog",
+          "question": "Besides retrieving data, which tasks does SQL cover?",
+          "options": [
+            "Inserting, updating and deleting rows, and creating or dropping objects",
+            "Designing screens, printing reports, and scheduling nightly backups of files",
+            "Compiling programs, installing software, and managing the files on a disk",
+            "Encrypting disks, routing traffic, and monitoring the health of networks"
+          ],
+          "correct": 0,
+          "explanation": "SQL is also used for data changes and for defining objects such as tables and views."
+        },
+        {
+          "type": "mc",
+          "category": "SQL Queries and the System Catalog",
+          "question": "What are system tables, also called the data dictionary or system catalog?",
+          "options": [
+            "Tables that store the business data for the applications built on top of the database",
+            "Special tables the system uses to hold information about the database itself",
+            "Tables that each user creates to keep their own private working notes and scratch data",
+            "Tables that hold backup copies of the user tables so they can be recovered"
+          ],
+          "correct": 1,
+          "explanation": "System tables describe the database: its tables, users and columns."
+        },
+        {
+          "type": "mc",
+          "category": "SQL Queries and the System Catalog",
+          "question": "Which is an example of metadata that the system catalog would hold?",
+          "options": [
+            "The total sales figure for last month",
+            "The phone number of a particular customer",
+            "The list of column names and data types in a table",
+            "The price of one product on a given day"
+          ],
+          "correct": 2,
+          "explanation": "Metadata is data about data. A column's name and type describe the table; sales, phone numbers and prices are ordinary data."
+        },
+        {
+          "type": "tf",
+          "category": "SQL Queries and the System Catalog",
+          "question": "You should alter the system tables directly, in the same way that you update your own tables.",
+          "correct": false,
+          "explanation": "System tables are managed by the database. You read them but never alter them directly."
+        },
+        {
+          "type": "fill_blank",
+          "category": "SQL Queries and the System Catalog",
+          "question": "Data about data, such as the names of a table's columns, is called ____. (one word)",
+          "answers": [
+            "metadata",
+            "meta data"
+          ],
+          "explanation": "Metadata is the information the system tables keep about tables, columns and users."
+        },
+        {
+          "type": "sql",
+          "category": "SQL Queries and the System Catalog",
+          "question": "Show the given_name and hourly_rate of every steward who earns more than 20 per hour.",
+          "tables": [
+            "steward"
+          ],
+          "solution": "SELECT given_name, hourly_rate FROM steward WHERE hourly_rate > 20;",
+          "explanation": "Name the two columns after SELECT and filter rows with WHERE.",
+          "expectedRows": 9
+        },
+        {
+          "type": "sql",
+          "category": "SQL Queries and the System Catalog",
+          "question": "List the title and daily fee of every gadget whose daily fee is under 3.",
+          "tables": [
+            "gadget"
+          ],
+          "solution": "SELECT gadget_title, daily_fee FROM gadget WHERE daily_fee < 3;",
+          "explanation": "A filter on a numeric column; only the two named columns are returned.",
+          "expectedRows": 4
+        },
+        {
+          "type": "sql",
+          "category": "SQL Queries and the System Catalog",
+          "question": "Show each gadget's title together with the name of its maker. Join gadget and maker on maker_id.",
+          "tables": [
+            "gadget",
+            "maker"
+          ],
+          "solution": "SELECT gadget.gadget_title, maker.maker_name FROM gadget JOIN maker ON gadget.maker_id = maker.maker_id;",
+          "explanation": "gadget.maker_id is the foreign key and maker.maker_id is the primary key it refers to.",
+          "expectedRows": 45
+        },
+        {
+          "type": "sql",
+          "category": "SQL Queries and the System Catalog",
+          "question": "Show every locality's name with its region's name, by joining locality and region on region_id.",
+          "tables": [
+            "locality",
+            "region"
+          ],
+          "solution": "SELECT locality.locality_name, region.region_name FROM locality JOIN region ON locality.region_id = region.region_id;",
+          "explanation": "A join across a foreign key: locality.region_id refers to region.region_id.",
+          "expectedRows": 18
+        }
+      ]
+    },
+    {
+      "name": "5. MySQL Data Types",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "MySQL Data Types",
+          "question": "Why does a database column need a declared data type at all?",
+          "options": [
+            "The same bits take up less disk space once a type has been declared for them",
+            "The same bits can only be read by the single user who first created them",
+            "The same bits stay encrypted on disk until a type has been declared for them",
+            "The same bits can mean a number, text or a date, and the type says which"
+          ],
+          "correct": 3,
+          "explanation": "A type is the contract that tells MySQL how to interpret stored bits, as well as how much space to reserve and what operations are valid."
+        },
+        {
+          "type": "mc",
+          "category": "MySQL Data Types",
+          "question": "Which is a benefit of declaring a correct data type, other than interpretation?",
+          "options": [
+            "It rejects nonsense, such as text in a column meant for ages",
+            "It makes every column in the table unique and not null",
+            "It lets two columns hold different types in the same row",
+            "It turns every value into text before it is stored"
+          ],
+          "correct": 0,
+          "explanation": "Types give free validation, proper sorting and math, and date arithmetic."
+        },
+        {
+          "type": "mc",
+          "category": "MySQL Data Types",
+          "question": "A column holds quantities from 0 to 200 and never goes negative. Which numeric type is the smallest that fits?",
+          "options": [
+            "SMALLINT UNSIGNED",
+            "TINYINT UNSIGNED",
+            "MEDIUMINT UNSIGNED",
+            "INT UNSIGNED"
+          ],
+          "correct": 1,
+          "explanation": "TINYINT is one byte and UNSIGNED gives it a range of 0 to 255, which covers 200. Larger integer types waste space."
+        },
+        {
+          "type": "mc",
+          "category": "MySQL Data Types",
+          "question": "Which integer type uses 4 bytes and is the default workhorse integer?",
+          "options": [
+            "TINYINT",
+            "MEDIUMINT",
+            "INT",
+            "BIGINT"
+          ],
+          "correct": 2,
+          "explanation": "INT is 4 bytes and covers about ±2.1 billion. BIGINT is 8 bytes, MEDIUMINT 3, TINYINT 1."
+        },
+        {
+          "type": "mc",
+          "category": "MySQL Data Types",
+          "question": "A table is expected to hold more than ten billion rows, each with an auto-numbered ID. Which type should the ID use?",
+          "options": [
+            "INT",
+            "MEDIUMINT",
+            "DECIMAL(5,2)",
+            "BIGINT"
+          ],
+          "correct": 3,
+          "explanation": "INT tops out near 2.1 billion (4.3 billion unsigned). BIGINT has room for IDs far beyond that."
+        },
+        {
+          "type": "matching",
+          "category": "MySQL Data Types",
+          "question": "Match each integer type to its storage size.",
+          "pairs": [
+            {
+              "left": "TINYINT",
+              "right": "1 byte"
+            },
+            {
+              "left": "SMALLINT",
+              "right": "2 bytes"
+            },
+            {
+              "left": "MEDIUMINT",
+              "right": "3 bytes"
+            },
+            {
+              "left": "INT",
+              "right": "4 bytes"
+            },
+            {
+              "left": "BIGINT",
+              "right": "8 bytes"
+            }
+          ]
+        },
+        {
+          "type": "mc",
+          "category": "MySQL Data Types",
+          "question": "What does adding UNSIGNED to an integer column do?",
+          "options": [
+            "Allows no negative values, which doubles the positive range",
+            "Allows only negative values, which doubles the negative range",
+            "Allows decimal places, which doubles the number of digits",
+            "Allows NULL values, which doubles the number of states"
+          ],
+          "correct": 0,
+          "explanation": "The same number of bits is used for non-negative values only, so the maximum doubles."
+        },
+        {
+          "type": "mc",
+          "category": "MySQL Data Types",
+          "question": "Which type should hold a product price in a shop's database?",
+          "options": [
+            "FLOAT",
+            "DECIMAL(8,2)",
+            "DOUBLE",
+            "BIT(8)"
+          ],
+          "correct": 1,
+          "explanation": "DECIMAL is exact fixed-point, so money is not subject to rounding. FLOAT and DOUBLE are approximate."
+        },
+        {
+          "type": "mc",
+          "category": "MySQL Data Types",
+          "question": "Why should FLOAT and DOUBLE be avoided for currency?",
+          "options": [
+            "They store only whole numbers, so any cents in a price would be lost entirely",
+            "They store text values, so they cannot be added together in a query at all",
+            "They store approximate values, so sums such as 0.1 + 0.2 may not equal 0.3",
+            "They store negative values only, so every total would come out wrong and negative"
+          ],
+          "correct": 2,
+          "explanation": "Floating point types are fast but imprecise. DECIMAL is the exact choice for money."
+        },
+        {
+          "type": "tf",
+          "category": "MySQL Data Types",
+          "question": "DECIMAL(M,D) stores exact values, so it is the right choice when rounding errors are not acceptable.",
+          "correct": true,
+          "explanation": "DECIMAL is exact fixed-point: M is the total digits and D the digits after the decimal point."
+        },
+        {
+          "type": "mc",
+          "category": "MySQL Data Types",
+          "question": "Which type is meant for a true or false flag?",
+          "options": [
+            "BIT(8), which is stored as eight characters of text",
+            "TINYTEXT, which is stored as the words true or false",
+            "DECIMAL(1,0), which is stored as a fixed-point digit",
+            "BOOLEAN, which is stored as 1 for true and 0 for false"
+          ],
+          "correct": 3,
+          "explanation": "BOOLEAN (BOOL) is one byte holding 1 or 0. TINYINT is used the same way in practice."
+        },
+        {
+          "type": "mc",
+          "category": "MySQL Data Types",
+          "question": "What is the difference between CHAR(10) and VARCHAR(10)?",
+          "options": [
+            "CHAR pads values to a fixed length; VARCHAR stores only the length used",
+            "CHAR stores only the length used; VARCHAR pads to a fixed length",
+            "CHAR holds numbers only; VARCHAR holds letters and symbols too",
+            "CHAR holds up to ten bytes; VARCHAR holds up to ten thousand"
+          ],
+          "correct": 0,
+          "explanation": "CHAR(N) is fixed length and suits uniform values such as codes. VARCHAR(N) is variable length."
+        },
+        {
+          "type": "mc",
+          "category": "MySQL Data Types",
+          "question": "A column holds two-letter state abbreviations such as TX and OH. Which type fits best?",
+          "options": [
+            "TEXT",
+            "CHAR(2)",
+            "VARCHAR(255)",
+            "BLOB"
+          ],
+          "correct": 1,
+          "explanation": "A uniform, fixed-length value is where CHAR is a good fit. TEXT and BLOB are for large or binary content."
+        },
+        {
+          "type": "mc",
+          "category": "MySQL Data Types",
+          "question": "A column holds customer last names that vary from 2 to 40 characters. Which type is the safe default?",
+          "options": [
+            "CHAR(50)",
+            "LONGTEXT",
+            "VARCHAR(50)",
+            "ENUM('short','long')"
+          ],
+          "correct": 2,
+          "explanation": "VARCHAR is the default for most text because it stores only the length used."
+        },
+        {
+          "type": "mc",
+          "category": "MySQL Data Types",
+          "question": "When is TEXT a better choice than VARCHAR?",
+          "options": [
+            "When every value is the same short length each time",
+            "When the column needs to be indexed for very fast lookups",
+            "When the values are a small fixed list of allowed words",
+            "When the content may be longer than the VARCHAR limit allows"
+          ],
+          "correct": 3,
+          "explanation": "Reach for TEXT only past VARCHAR limits. It indexes poorly, so it is a poor choice for short, searchable values."
+        },
+        {
+          "type": "mc",
+          "category": "MySQL Data Types",
+          "question": "Which type family holds binary large objects such as images and files?",
+          "options": [
+            "BLOB",
+            "TEXT",
+            "ENUM",
+            "VARBINARY(20)"
+          ],
+          "correct": 0,
+          "explanation": "BLOB types store raw bytes of any size up to their limit. TEXT is for character data."
+        },
+        {
+          "type": "mc",
+          "category": "MySQL Data Types",
+          "question": "A column must hold exactly one of 'bronze', 'silver' or 'gold'. Which type is compact and self-validating?",
+          "options": [
+            "SET('bronze','silver','gold')",
+            "ENUM('bronze','silver','gold')",
+            "TINYTEXT",
+            "VARCHAR(255)"
+          ],
+          "correct": 1,
+          "explanation": "ENUM allows one value from a fixed list. SET allows zero or more, so it would permit combinations."
+        },
+        {
+          "type": "mc",
+          "category": "MySQL Data Types",
+          "question": "A column records which days of the week a class meets, and a class can meet on several days. Which type is designed for this?",
+          "options": [
+            "ENUM('Mon','Tue','Wed','Thu','Fri')",
+            "CHAR(5)",
+            "SET('Mon','Tue','Wed','Thu','Fri')",
+            "TINYINT UNSIGNED"
+          ],
+          "correct": 2,
+          "explanation": "SET stores zero or more values from a predefined list. ENUM holds just one."
+        },
+        {
+          "type": "tf",
+          "category": "MySQL Data Types",
+          "question": "ENUM is a good choice for values that change often, because new options can be added without altering the table.",
+          "correct": false,
+          "explanation": "ENUM suits a known, fixed set but is painful to alter later, since adding a value means changing the column definition."
+        },
+        {
+          "type": "mc",
+          "category": "MySQL Data Types",
+          "question": "With the utf8mb4 character set, what should you keep in mind when sizing text columns?",
+          "options": [
+            "A single character always takes exactly 1 byte",
+            "A single character takes at most 2 bytes",
+            "A single character takes a variable number of bits",
+            "A single character can take up to 4 bytes"
+          ],
+          "correct": 3,
+          "explanation": "utf8mb4 uses up to 4 bytes per character, so byte limits and index sizes need attention."
+        },
+        {
+          "type": "mc",
+          "category": "MySQL Data Types",
+          "question": "Which DATE range and format does MySQL use?",
+          "options": [
+            "YYYY-MM-DD, covering years 1000 through 9999",
+            "DD-MM-YYYY, covering years 1000 through 9999",
+            "YYYY-MM-DD, covering years 1970 through 2038",
+            "MM/DD/YYYY, covering years 0001 through 9999"
+          ],
+          "correct": 0,
+          "explanation": "DATE is 3 bytes in YYYY-MM-DD format. 1970 to 2038 is the TIMESTAMP range."
+        },
+        {
+          "type": "mc",
+          "category": "MySQL Data Types",
+          "question": "Which of these can represent a duration longer than 24 hours, such as 90:30:00?",
+          "options": [
+            "DATE",
+            "TIME",
+            "YEAR",
+            "TIMESTAMP"
+          ],
+          "correct": 1,
+          "explanation": "TIME stores HH:MM:SS and, unlike a clock time, can also hold durations beyond a day."
+        },
+        {
+          "type": "mc",
+          "category": "MySQL Data Types",
+          "question": "What is the difference between DATETIME and TIMESTAMP?",
+          "options": [
+            "DATETIME is stored as UTC and converted to the session time zone; TIMESTAMP is not converted",
+            "TIMESTAMP stores a date only; DATETIME stores a date and a time together",
+            "TIMESTAMP is stored as UTC and converted to the session time zone; DATETIME is not converted",
+            "DATETIME is limited to years 1970 to 2038; TIMESTAMP covers years 1000 to 9999"
+          ],
+          "correct": 2,
+          "explanation": "TIMESTAMP is 4 bytes, UTC based and limited to 1970-2038. DATETIME is 5 bytes, has a wider range and stores the literal value."
+        },
+        {
+          "type": "mc",
+          "category": "MySQL Data Types",
+          "question": "A system must store birth dates of historical figures born in the 1700s. Which type works?",
+          "options": [
+            "TIMESTAMP",
+            "TIME",
+            "YEAR",
+            "DATE"
+          ],
+          "correct": 3,
+          "explanation": "TIMESTAMP starts at 1970, so it cannot hold 1700s dates. DATE covers 1000 to 9999."
+        },
+        {
+          "type": "mc",
+          "category": "MySQL Data Types",
+          "question": "Which date type runs into a limit in the year 2038?",
+          "options": [
+            "TIMESTAMP",
+            "DATETIME",
+            "DATE",
+            "YEAR"
+          ],
+          "correct": 0,
+          "explanation": "TIMESTAMP is limited to 1970 through 2038; DATETIME and DATE have much wider ranges."
+        },
+        {
+          "type": "tf",
+          "category": "MySQL Data Types",
+          "question": "Storing dates as strings such as 'March 5, 2026' is fine, because MySQL can sort them correctly.",
+          "correct": false,
+          "explanation": "Strings lose correct sorting, validation and date arithmetic. Use a DATE, DATETIME or TIMESTAMP column."
+        },
+        {
+          "type": "mc",
+          "category": "MySQL Data Types",
+          "question": "A table needs only the model year of a vehicle (such as 2019). Which type is the smallest?",
+          "options": [
+            "DATE, at 3 bytes",
+            "YEAR, at 1 byte",
+            "TIME, at 3 bytes",
+            "DATETIME, at 5 bytes"
+          ],
+          "correct": 1,
+          "explanation": "YEAR stores a year only and uses a single byte."
+        },
+        {
+          "type": "mc",
+          "category": "MySQL Data Types",
+          "question": "What kind of data is the JSON type intended for?",
+          "options": [
+            "Fixed, fully structured rows where every attribute needs a relational column of its own",
+            "Large binary files such as images that need to be stored and downloaded whole",
+            "Flexible, semi-structured documents that need validation and path-based queries",
+            "Small, repeated status codes that each need to fit in a single byte of storage"
+          ],
+          "correct": 2,
+          "explanation": "JSON is a native type for structured documents. It should not replace a proper relational column when one would do."
+        },
+        {
+          "type": "mc",
+          "category": "MySQL Data Types",
+          "question": "What is the rule of thumb for choosing a data type?",
+          "options": [
+            "Pick the largest type available for each column so that no value is ever rejected by it",
+            "Pick the most general type available so that columns can be changed freely later on",
+            "Pick the very same type for every column in the table so that joins are always simpler",
+            "Pick the smallest, most specific type that still represents the data faithfully"
+          ],
+          "correct": 3,
+          "explanation": "Smaller types keep indexes lean and queries fast; being specific also gives free validation."
+        },
+        {
+          "type": "matching",
+          "category": "MySQL Data Types",
+          "question": "Match each requirement to the best type.",
+          "pairs": [
+            {
+              "left": "A price in dollars and cents",
+              "right": "DECIMAL(10,2)"
+            },
+            {
+              "left": "A two-state on/off flag",
+              "right": "BOOLEAN"
+            },
+            {
+              "left": "A photo stored in the database",
+              "right": "BLOB"
+            },
+            {
+              "left": "A one-of-three status label",
+              "right": "ENUM"
+            }
+          ]
+        },
+        {
+          "type": "matching",
+          "category": "MySQL Data Types",
+          "question": "Match each date type to its description.",
+          "pairs": [
+            {
+              "left": "DATE",
+              "right": "Calendar date only, years 1000-9999"
+            },
+            {
+              "left": "DATETIME",
+              "right": "Date and time, literal value, no time zone conversion"
+            },
+            {
+              "left": "TIMESTAMP",
+              "right": "Stored as UTC, years 1970-2038"
+            },
+            {
+              "left": "YEAR",
+              "right": "A single year, 1 byte"
+            }
+          ]
+        },
+        {
+          "type": "fill_blank",
+          "category": "MySQL Data Types",
+          "question": "To store money exactly, with no rounding error, use the ____ type. (one word)",
+          "answers": [
+            "decimal"
+          ],
+          "explanation": "DECIMAL(M,D) is exact fixed-point; FLOAT and DOUBLE are approximate."
+        }
+      ]
+    }
+  ]
+}

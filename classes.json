@@ -1,14 +1,87 @@
 {
   "classes": [
     {
+      "id": "itd140",
+      "name": "ITD 140",
+      "fullName": "Machine Learning I",
+      "guides": [
+        {
+          "id": "quiz1-guide",
+          "featured": true,
+          "cta": "Read the guide",
+          "title": "Quiz 1 Study Guide",
+          "description": "AI versus machine learning, the three types of learning, classification and regression, k-means, parameters and hyperparameters, accuracy and the confusion matrix, and overfitting and underfitting, in the same order as the quiz and flashcards.",
+          "file": "data/itd140-quiz1-guide.json"
+        }
+      ],
+      "tools": [
+        {
+          "id": "quiz1-flashcards",
+          "featured": true,
+          "cta": "Study the flashcards",
+          "title": "Quiz 1 Flashcards",
+          "description": "31 flip cards, one per term: the definition on the back, when to use it, and an example. Filter by topic, mark cards as known, and shuffle.",
+          "href": "flashcards.html?file=data%2Fitd140-quiz1-flashcards.json"
+        }
+      ],
+      "quizzes": [
+        {
+          "id": "quiz1",
+          "featured": true,
+          "title": "Quiz 1: Machine Learning Fundamentals",
+          "description": "88 questions across seven topics, with four short-answer questions and a self-check rubric for each, mirroring the quiz's mix of multiple choice and written answers.",
+          "file": "data/itd140-quiz1.json"
+        }
+      ]
+    },
+    {
+      "id": "itd132",
+      "name": "ITD 132",
+      "fullName": "Structured Query Language",
+      "guides": [
+        {
+          "id": "quiz1-guide",
+          "featured": true,
+          "cta": "Read the guide",
+          "title": "Quiz 1 Study Guide",
+          "description": "Tables and keys, indexes and views, SELECT and JOIN, the system catalog and MySQL data types in one place, in the same order as the quiz and flashcards.",
+          "file": "data/itd132-quiz1-guide.json"
+        }
+      ],
+      "tools": [
+        {
+          "id": "quiz1-flashcards",
+          "featured": true,
+          "cta": "Study the flashcards",
+          "title": "Quiz 1 Flashcards",
+          "description": "42 flip cards, one per term: the definition on the back, when to use it, and example code. Filter by topic, mark cards as known, and shuffle.",
+          "href": "flashcards.html?file=data%2Fitd132-quiz1-flashcards.json"
+        },
+        {
+          "id": "sql-playground",
+          "title": "SQL Playground",
+          "description": "A real database running in your browser. Write queries against the Harborview Tool Library, including INSERT, UPDATE and DELETE — Reset puts it back.",
+          "href": "sql.html"
+        }
+      ],
+      "quizzes": [
+        {
+          "id": "quiz1",
+          "featured": true,
+          "title": "Quiz 1: Relational Databases, SQL and MySQL Data Types",
+          "description": "86 questions on tables, rows and columns, primary and foreign keys, indexes, views, stored procedures and triggers, basic SELECT and JOIN queries (4 you run against the practice database), the system catalog, and choosing MySQL numeric, string and date/time types.",
+          "file": "data/itd132-quiz1.json"
+        }
+      ]
+    },
+    {
       "id": "itn170",
+      "archived": true,
       "name": "ITN 170",
       "fullName": "Linux System Administration",
       "guides": [
         {
           "id": "final-guide",
-          "featured": true,
-          "cta": "Read the guide",
           "title": "Final Review Guide",
           "description": "Everything on the final in one place, in the same order as the quiz and flashcards, ending with the mix-ups that cost marks. A practice terminal sits beside it.",
           "file": "data/itn170-final-guide.json"
@@ -32,8 +105,6 @@
       "tools": [
         {
           "id": "final-flashcards",
-          "featured": true,
-          "cta": "Study the flashcards",
           "title": "Final Flashcards",
           "description": "112 flip cards, one per command or idea on the final review: the definition on the back, when to use it, and example code. Filter by topic, mark cards as known, and shuffle.",
           "href": "flashcards.html?file=data%2Fitn170-final-flashcards.json"
@@ -48,7 +119,6 @@
       "quizzes": [
         {
           "id": "final-exam",
-          "featured": true,
           "title": "Final Exam Review",
           "description": "Choose how many questions to take (random, spread evenly across the topics) or run the full 133. Covers navigation, files, permissions, wildcards, monitoring, processes, find and links, pipes and text tools, users and sudo, vi, cron and scripting, with 35 hands-on terminal questions.",
           "file": "data/itn170-final-exam.json"

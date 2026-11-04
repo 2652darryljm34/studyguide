@@ -1,0 +1,307 @@
+{
+  "title": "ITD 140 Quiz 1 Study Guide",
+  "description": "AI and machine learning, the three types of learning, classification and regression, k-means, parameters and hyperparameters, accuracy and the confusion matrix, and generalization, in the same order as the quiz and flashcards.",
+  "quizFile": "data/itd140-quiz1.json",
+  "flashcardsFile": "data/itd140-quiz1-flashcards.json",
+  "sections": [
+    {
+      "name": "1. AI and Machine Learning",
+      "blocks": [
+        {
+          "type": "heading",
+          "text": "Two different words"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Term",
+            "Meaning"
+          ],
+          "rows": [
+            [
+              "**Artificial intelligence (AI)**",
+              "The overall field or science of making machines perform tasks that need intelligence"
+            ],
+            [
+              "**Machine learning (ML)**",
+              "One specific approach to AI: the system **learns rules from data** instead of being given them"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Machine learning is a **subset** of AI. A program of hand-written if/else rules can be AI, but it is not ML, because nothing is learned."
+        },
+        {
+          "type": "subheading",
+          "text": "Vocabulary"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Word",
+            "Meaning"
+          ],
+          "rows": [
+            [
+              "Training data",
+              "The examples the algorithm learns from"
+            ],
+            [
+              "Model",
+              "What the training algorithm produces; used to make predictions"
+            ],
+            [
+              "Feature",
+              "An **input** variable describing each example"
+            ],
+            [
+              "Target variable (label)",
+              "The value the model is trained to **predict**"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Remember:",
+          "text": "AI is the whole field; ML is one approach inside it. Not every AI system uses ML."
+        }
+      ]
+    },
+    {
+      "name": "2. Types of Machine Learning",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Type",
+            "What drives the learning",
+            "Example"
+          ],
+          "rows": [
+            [
+              "**Supervised**",
+              "**Labels** (the 'answers') are given with the data",
+              "Emails already marked spam or not spam"
+            ],
+            [
+              "**Unsupervised**",
+              "**No labels**; the algorithm finds structure itself",
+              "Grouping shoppers by buying habits"
+            ],
+            [
+              "**Reinforcement**",
+              "**Feedback from the environment** (rewards and penalties)",
+              "A program learning a game by its score"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Remember:",
+          "text": "Ask what the data comes with. Labels means supervised, nothing means unsupervised, and a reward from the environment means reinforcement."
+        }
+      ]
+    },
+    {
+      "name": "3. Classification and Regression",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Both are **supervised** learning. What separates them is the target variable."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "",
+            "Classification",
+            "Regression"
+          ],
+          "rows": [
+            [
+              "Target",
+              "A **discrete**, fixed set of categories",
+              "A **continuous** value with infinite possibilities"
+            ],
+            [
+              "Example",
+              "Dog or not dog; spam or not spam",
+              "House price; temperature; rainfall"
+            ],
+            [
+              "Algorithms",
+              "kNN, decision tree, random forest, neural net, logistic regression",
+              "Linear regression"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Watch out:",
+          "text": "**Logistic regression** has 'regression' in its name but is almost always used for **binary classification**. Linear regression is the one that predicts continuous numbers."
+        },
+        {
+          "type": "paragraph",
+          "text": "**kNN** classifies a new example by the labels of its k closest training examples."
+        }
+      ]
+    },
+    {
+      "name": "4. Clustering and k-means",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "**Clustering** groups unlabelled examples so that similar ones end up together. It is **unsupervised** learning."
+        },
+        {
+          "type": "heading",
+          "text": "k-means"
+        },
+        {
+          "type": "list",
+          "items": [
+            "The hyperparameter **k** is the **number of clusters** you want the algorithm to find.",
+            "It starts with **random positions** for each **centroid** (the centre of a cluster).",
+            "It then repeats: assign each point to its nearest centroid, and move each centroid to the centre of its points, until they settle on the actual cluster centres."
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Remember:",
+          "text": "Because the starting centroids are random, two runs can give different clusters. And k in k-means (clusters) is not the same as k in kNN (neighbours)."
+        }
+      ]
+    },
+    {
+      "name": "5. Parameters and Hyperparameters",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "",
+            "Parameters",
+            "Hyperparameters"
+          ],
+          "rows": [
+            [
+              "What",
+              "Variables **inside the model**",
+              "**Configuration** of the training algorithm"
+            ],
+            [
+              "Set by",
+              "The training algorithm, while it learns",
+              "**Us**, before training"
+            ],
+            [
+              "Examples",
+              "Centroid positions; the slope a regression learns",
+              "k in k-means; neighbours in kNN"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Remember:",
+          "text": "Parameters are trained. Hyperparameters are chosen."
+        }
+      ]
+    },
+    {
+      "name": "6. Accuracy and the Confusion Matrix",
+      "blocks": [
+        {
+          "type": "code",
+          "text": "accuracy = number correct / total number of samples"
+        },
+        {
+          "type": "paragraph",
+          "text": "45 correct out of 60 samples gives 45 / 60 = **75%**. If you are told the number **wrong**, subtract first: 18 wrong out of 200 means 182 correct, so 91%."
+        },
+        {
+          "type": "heading",
+          "text": "Confusion matrix"
+        },
+        {
+          "type": "paragraph",
+          "text": "A grid comparing **actual** classes with **predicted** classes. Correct predictions sit on the **diagonal**; every other cell is a mistake, and shows which classes get confused with which."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "",
+            "Predicted cat",
+            "Predicted dog"
+          ],
+          "rows": [
+            [
+              "**Actual cat**",
+              "40",
+              "10"
+            ],
+            [
+              "**Actual dog**",
+              "5",
+              "45"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Accuracy here is (40 + 45) / 100 = **85%**. The 10 is cats the model called dogs."
+        }
+      ]
+    },
+    {
+      "name": "7. Generalization, Bias and Variance",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "**Generalization** is how well a model works on **unseen** examples, those not in its training set. Training accuracy comes from the training data; **test accuracy** comes from data held back."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "",
+            "Overfit",
+            "Underfit"
+          ],
+          "rows": [
+            [
+              "What happens",
+              "**Memorizes** the training set",
+              "Too simple to capture the complexity of the data"
+            ],
+            [
+              "Bias / variance",
+              "**High variance**, low bias",
+              "**High bias**, low variance"
+            ],
+            [
+              "Training accuracy",
+              "High",
+              "Low"
+            ],
+            [
+              "Test accuracy",
+              "Low",
+              "Low (or high)"
+            ]
+          ]
+        },
+        {
+          "type": "list",
+          "items": [
+            "High training accuracy, low test accuracy: **overfit**, variance too high.",
+            "Low training accuracy: **underfit**, bias too high."
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Watch out:",
+          "text": "High training accuracy proves nothing about new data. Always check the test accuracy."
+        }
+      ]
+    }
+  ]
+}

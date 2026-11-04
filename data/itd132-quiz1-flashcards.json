@@ -1,0 +1,301 @@
+{
+  "title": "ITD 132 Quiz 1 Flashcards",
+  "guideFile": "data/itd132-quiz1-guide.json",
+  "quizFile": "data/itd132-quiz1.json",
+  "cards": [
+    {
+      "topic": "Tables, Rows and Columns",
+      "term": "Table (relation)",
+      "definition": "A collection of rows and columns holding data about one subject. Formally a relation or entity.",
+      "useCase": "Keep each kind of thing (customers, products) in its own table so each fact is stored once.",
+      "example": "CREATE TABLE customer (\n  customer_id INT PRIMARY KEY,\n  full_name VARCHAR(80)\n);"
+    },
+    {
+      "topic": "Tables, Rows and Columns",
+      "term": "Column (attribute)",
+      "definition": "One named field of a table with a single datatype. Formally an attribute.",
+      "useCase": "Every value in the column must fit its type.",
+      "example": "full_name VARCHAR(80)"
+    },
+    {
+      "topic": "Tables, Rows and Columns",
+      "term": "Row (tuple)",
+      "definition": "One record in a table, with exactly one value for each column. Formally a tuple.",
+      "useCase": "Row order carries no meaning, so never rely on it.",
+      "example": "INSERT INTO customer VALUES (1, 'Joe Smith');"
+    },
+    {
+      "topic": "Tables, Rows and Columns",
+      "term": "Redundancy",
+      "definition": "The same fact stored in more than one place, which risks the copies disagreeing.",
+      "useCase": "Avoid it by giving each subject its own table and relating tables with keys.",
+      "example": "One customer table, referenced by orders"
+    },
+    {
+      "topic": "Tables, Rows and Columns",
+      "term": "RDBMS",
+      "definition": "Relational database management system: software that stores data in related tables and retrieves it with SQL.",
+      "useCase": "Use one when data needs integrity, relationships and multi-user access.",
+      "example": "MySQL"
+    },
+    {
+      "topic": "Primary and Foreign Keys",
+      "term": "Primary key (PK)",
+      "definition": "A column, or set of columns, that uniquely identifies each row. It must be unique and never NULL.",
+      "useCase": "Every table needs one. Keep it compact.",
+      "example": "customer_id INT PRIMARY KEY"
+    },
+    {
+      "topic": "Primary and Foreign Keys",
+      "term": "Foreign key (FK)",
+      "definition": "A column whose values refer to the primary key of another table, relating the rows of the two tables.",
+      "useCase": "Store the customer a purchase belongs to without copying the customer's details.",
+      "example": "orders.customer_id -> customer.customer_id"
+    },
+    {
+      "topic": "Primary and Foreign Keys",
+      "term": "Composite key",
+      "definition": "A primary key made of more than one column, needed when only the combination is unique.",
+      "useCase": "Use it for rows such as enrolments or order lines.",
+      "example": "PRIMARY KEY (order_id, product_id)"
+    },
+    {
+      "topic": "Primary and Foreign Keys",
+      "term": "Referenced table",
+      "definition": "The table whose primary key a foreign key points to. Also called the primary table.",
+      "useCase": "Identify which side of a relationship holds the PK.",
+      "example": "customer, for orders.customer_id"
+    },
+    {
+      "topic": "Primary and Foreign Keys",
+      "term": "Referencing table",
+      "definition": "The table that contains the foreign key. Also called the foreign table.",
+      "useCase": "Identify which side of a relationship holds the FK.",
+      "example": "orders, for orders.customer_id"
+    },
+    {
+      "topic": "Primary and Foreign Keys",
+      "term": "NULL",
+      "definition": "A marker meaning no value is stored. A primary key can never be NULL.",
+      "useCase": "Allow it only in columns where a value may legitimately be missing.",
+      "example": "returned_on DATE NULL"
+    },
+    {
+      "topic": "Indexes, Views and Routines",
+      "term": "Index",
+      "definition": "A structure that relates each indexed value to where its rows are stored, so lookups are fast, like a book's index.",
+      "useCase": "Add one on columns you search often. Queries are written the same either way.",
+      "example": "CREATE INDEX idx_surname ON patron (surname);"
+    },
+    {
+      "topic": "Indexes, Views and Routines",
+      "term": "View",
+      "definition": "A virtual table whose rows are computed from base tables each time it is used. It holds no data itself.",
+      "useCase": "Give users a simplified or restricted picture of the data.",
+      "example": "CREATE VIEW active_patron AS\n  SELECT * FROM patron WHERE is_active = 1;"
+    },
+    {
+      "topic": "Indexes, Views and Routines",
+      "term": "Base table",
+      "definition": "A table that actually stores data, as opposed to a view.",
+      "useCase": "Tell stored data apart from computed results.",
+      "example": "patron, gadget"
+    },
+    {
+      "topic": "Indexes, Views and Routines",
+      "term": "Stored procedure",
+      "definition": "A named routine saved inside the database that can take parameters and run queries or other tasks.",
+      "useCase": "Reuse one piece of logic, such as customers who spent more than an amount you pass in.",
+      "example": "CALL big_spenders(500);"
+    },
+    {
+      "topic": "Indexes, Views and Routines",
+      "term": "Trigger",
+      "definition": "A special stored procedure that fires automatically when data in its table is inserted, updated or deleted.",
+      "useCase": "Enforce business rules, such as writing an audit record whenever a row is deleted.",
+      "example": "AFTER DELETE ON staff ... INSERT INTO audit ..."
+    },
+    {
+      "topic": "SQL Queries and the System Catalog",
+      "term": "SELECT",
+      "definition": "The statement that retrieves data. The list after it chooses the columns.",
+      "useCase": "Read data without changing it.",
+      "example": "SELECT title, price FROM book;"
+    },
+    {
+      "topic": "SQL Queries and the System Catalog",
+      "term": "WHERE",
+      "definition": "A restriction that keeps only the rows meeting a condition.",
+      "useCase": "Filter rows; the column list chooses columns, WHERE chooses rows.",
+      "example": "SELECT title FROM book WHERE price > 15;"
+    },
+    {
+      "topic": "SQL Queries and the System Catalog",
+      "term": "JOIN",
+      "definition": "Links rows from two or more tables by comparing key columns and returning the matching rows. The tables themselves are unchanged.",
+      "useCase": "Combine data across a relationship, matching an FK with its PK.",
+      "example": "SELECT o.order_id, c.full_name\nFROM orders o JOIN customer c\n  ON o.customer_id = c.customer_id;"
+    },
+    {
+      "topic": "SQL Queries and the System Catalog",
+      "term": "INSERT / UPDATE / DELETE",
+      "definition": "The statements that add rows, change existing rows, and remove rows.",
+      "useCase": "Modify data; SELECT only reads it.",
+      "example": "DELETE FROM book WHERE book_id = 9;"
+    },
+    {
+      "topic": "SQL Queries and the System Catalog",
+      "term": "CREATE / DROP",
+      "definition": "Statements that build or remove database objects such as tables and views.",
+      "useCase": "Define or remove structure rather than data.",
+      "example": "DROP TABLE old_orders;"
+    },
+    {
+      "topic": "SQL Queries and the System Catalog",
+      "term": "System catalog",
+      "definition": "Special system tables, also called the data dictionary, that hold information about the database itself.",
+      "useCase": "Look up what tables, columns and users exist. Read it; never alter it directly.",
+      "example": "information_schema.columns"
+    },
+    {
+      "topic": "SQL Queries and the System Catalog",
+      "term": "Metadata",
+      "definition": "Data about data, such as a table's column names and types.",
+      "useCase": "Distinguish descriptions of the data from the data itself.",
+      "example": "Column name: price, type: DECIMAL(8,2)"
+    },
+    {
+      "topic": "MySQL Data Types",
+      "term": "Data type",
+      "definition": "The contract that tells MySQL how to interpret stored bits, how much space to use, and which operations are valid.",
+      "useCase": "Pick the smallest, most specific type that represents the data faithfully.",
+      "example": "age TINYINT UNSIGNED"
+    },
+    {
+      "topic": "MySQL Data Types",
+      "term": "TINYINT / SMALLINT / MEDIUMINT",
+      "definition": "Integers of 1, 2 and 3 bytes. TINYINT covers -128 to 127 (0 to 255 unsigned).",
+      "useCase": "Use the smallest that fits to save space and keep indexes lean.",
+      "example": "is_open TINYINT"
+    },
+    {
+      "topic": "MySQL Data Types",
+      "term": "INT",
+      "definition": "A 4-byte integer, about plus or minus 2.1 billion. The default integer.",
+      "useCase": "General counters and IDs.",
+      "example": "visits INT"
+    },
+    {
+      "topic": "MySQL Data Types",
+      "term": "BIGINT",
+      "definition": "An 8-byte integer, about plus or minus 9.2 quintillion.",
+      "useCase": "IDs or counters that may pass 2 billion.",
+      "example": "event_id BIGINT"
+    },
+    {
+      "topic": "MySQL Data Types",
+      "term": "UNSIGNED",
+      "definition": "An attribute that forbids negative values, doubling the positive range.",
+      "useCase": "Use it when a value can never be negative.",
+      "example": "quantity INT UNSIGNED"
+    },
+    {
+      "topic": "MySQL Data Types",
+      "term": "DECIMAL(M,D)",
+      "definition": "Exact fixed-point number with M total digits and D after the point. No rounding error.",
+      "useCase": "Money.",
+      "example": "price DECIMAL(8,2)"
+    },
+    {
+      "topic": "MySQL Data Types",
+      "term": "FLOAT / DOUBLE",
+      "definition": "Approximate floating-point numbers of 4 and 8 bytes. Fast but imprecise.",
+      "useCase": "Scientific measurements. Avoid for currency, since 0.1 + 0.2 may not equal 0.3.",
+      "example": "ratio DOUBLE"
+    },
+    {
+      "topic": "MySQL Data Types",
+      "term": "BOOLEAN",
+      "definition": "A true/false value stored in one byte as 1 or 0.",
+      "useCase": "On/off flags.",
+      "example": "is_active BOOLEAN"
+    },
+    {
+      "topic": "MySQL Data Types",
+      "term": "CHAR(N)",
+      "definition": "A fixed-length string padded to N characters.",
+      "useCase": "Uniform values such as two-letter state codes.",
+      "example": "state CHAR(2)"
+    },
+    {
+      "topic": "MySQL Data Types",
+      "term": "VARCHAR(N)",
+      "definition": "A variable-length string of up to N characters (65,535 bytes at most). The default for most text.",
+      "useCase": "Names, emails and other text of varying length.",
+      "example": "last_name VARCHAR(50)"
+    },
+    {
+      "topic": "MySQL Data Types",
+      "term": "TEXT family",
+      "definition": "Variable-length text from TINYTEXT up to LONGTEXT (255 bytes to 4 GB). Indexes poorly.",
+      "useCase": "Only when content may exceed VARCHAR limits.",
+      "example": "body LONGTEXT"
+    },
+    {
+      "topic": "MySQL Data Types",
+      "term": "BLOB family",
+      "definition": "Binary large objects: raw bytes for images and files.",
+      "useCase": "Store binary content in the database.",
+      "example": "photo MEDIUMBLOB"
+    },
+    {
+      "topic": "MySQL Data Types",
+      "term": "ENUM",
+      "definition": "One value from a fixed list. Compact and self-validating, but painful to change later.",
+      "useCase": "A known, stable set of choices.",
+      "example": "tier ENUM('bronze','silver','gold')"
+    },
+    {
+      "topic": "MySQL Data Types",
+      "term": "SET",
+      "definition": "Zero or more values from a predefined list.",
+      "useCase": "Several choices at once, such as days a class meets.",
+      "example": "days SET('Mon','Tue','Wed')"
+    },
+    {
+      "topic": "MySQL Data Types",
+      "term": "DATE / TIME",
+      "definition": "DATE holds YYYY-MM-DD (years 1000-9999). TIME holds HH:MM:SS and can exceed 24 hours.",
+      "useCase": "Calendar dates; clock times or elapsed durations.",
+      "example": "born DATE\nrun_time TIME"
+    },
+    {
+      "topic": "MySQL Data Types",
+      "term": "DATETIME",
+      "definition": "A date and time stored as written, with no time zone conversion and a wide range.",
+      "useCase": "Predictable literal timestamps and dates beyond 2038.",
+      "example": "starts_at DATETIME"
+    },
+    {
+      "topic": "MySQL Data Types",
+      "term": "TIMESTAMP",
+      "definition": "A 4-byte date and time stored as UTC and converted to the session time zone. Limited to 1970-2038.",
+      "useCase": "Row creation or change times that follow the viewer's time zone.",
+      "example": "created_at TIMESTAMP"
+    },
+    {
+      "topic": "MySQL Data Types",
+      "term": "YEAR",
+      "definition": "A one-byte value that holds a year only.",
+      "useCase": "A model year or graduation year.",
+      "example": "model_year YEAR"
+    },
+    {
+      "topic": "MySQL Data Types",
+      "term": "JSON",
+      "definition": "A native type for structured documents, with validation and path-based queries.",
+      "useCase": "Flexible, semi-structured data. Not where a relational column would do.",
+      "example": "settings JSON"
+    }
+  ]
+}

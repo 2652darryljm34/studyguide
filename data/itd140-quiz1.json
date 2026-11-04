@@ -1,0 +1,1148 @@
+{
+  "title": "Quiz 1: Machine Learning Fundamentals",
+  "description": "88 questions on AI versus machine learning, the three types of learning, classification and regression, clustering with k-means, parameters and hyperparameters, accuracy and the confusion matrix, and overfitting, underfitting, bias and variance (with short-answer practice).",
+  "guideFile": "data/itd140-quiz1-guide.json",
+  "sections": [
+    {
+      "name": "1. AI and Machine Learning",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "AI and Machine Learning",
+          "question": "How are artificial intelligence and machine learning related?",
+          "options": [
+            "Machine learning is one specific approach within the wider field of AI",
+            "Artificial intelligence is one specific approach within the wider field of machine learning",
+            "Machine learning and artificial intelligence are two names for exactly the same thing",
+            "Machine learning replaced artificial intelligence once computers became fast enough"
+          ],
+          "correct": 0,
+          "explanation": "AI is the overall field or science of making machines behave intelligently. ML is one approach to it, in which the system learns from data instead of following hand-written rules."
+        },
+        {
+          "type": "mc",
+          "category": "AI and Machine Learning",
+          "question": "Which description best fits artificial intelligence as a whole?",
+          "options": [
+            "The practice of storing large amounts of data in one central location for analysis",
+            "The field of building systems that perform tasks needing human-like intelligence",
+            "The method of fitting a line through a set of points to predict a number",
+            "The process of cleaning raw data so that it can be loaded into a spreadsheet"
+          ],
+          "correct": 1,
+          "explanation": "AI is the broad science. Data storage, line fitting and data cleaning are different activities or individual techniques."
+        },
+        {
+          "type": "mc",
+          "category": "AI and Machine Learning",
+          "question": "What most clearly separates a machine learning system from a traditional program?",
+          "options": [
+            "It runs on special hardware so it can follow the rules a programmer wrote faster",
+            "It stores every example it has seen in a lookup table that the programmer wrote by hand",
+            "It finds its own rules by learning from examples rather than having them written by hand",
+            "It asks a human to approve each answer before the answer is returned to the user"
+          ],
+          "correct": 2,
+          "explanation": "In traditional programming a person writes the rules. In ML the rules (the model) are learned from data."
+        },
+        {
+          "type": "tf",
+          "category": "AI and Machine Learning",
+          "question": "Every artificial intelligence system uses machine learning.",
+          "correct": false,
+          "explanation": "ML is one approach to AI. Some AI systems, such as hand-coded rule engines, involve no learning at all."
+        },
+        {
+          "type": "tf",
+          "category": "AI and Machine Learning",
+          "question": "Machine learning is a subset of artificial intelligence.",
+          "correct": true,
+          "explanation": "AI is the overall field and ML is a specific approach within it."
+        },
+        {
+          "type": "mc",
+          "category": "AI and Machine Learning",
+          "question": "A team writes thousands of if/else rules by hand so a program can spot spam. Which statement is accurate?",
+          "options": [
+            "It is machine learning, because the program makes decisions automatically on its own",
+            "It is machine learning, because thousands of rules are involved in making the decision",
+            "It is neither AI nor machine learning, because a person wrote the rules by hand",
+            "It is a way of building AI, but it is not machine learning because nothing is learned"
+          ],
+          "correct": 3,
+          "explanation": "Hand-written rules can still be AI, but ML requires that the system learns the rules from data."
+        },
+        {
+          "type": "mc",
+          "category": "AI and Machine Learning",
+          "question": "In machine learning, what is the 'training data'?",
+          "options": [
+            "The collection of examples the algorithm learns from",
+            "The collection of results the finished model produces after deployment",
+            "The collection of rules the programmer writes before the algorithm runs",
+            "The collection of computers on which the algorithm will be executed"
+          ],
+          "correct": 0,
+          "explanation": "Training data is the set of examples used to fit the model."
+        },
+        {
+          "type": "mc",
+          "category": "AI and Machine Learning",
+          "question": "What is a 'model' in machine learning?",
+          "options": [
+            "What a data scientist draws: the diagram used to plan the stages of a project",
+            "What a training algorithm produces: the learned relationship used to make predictions",
+            "What a database stores: the table used to organize the rows of training data",
+            "What a programmer writes: the function used to load the files from the disk"
+          ],
+          "correct": 1,
+          "explanation": "The algorithm trains and the model is the trained result that predicts for new inputs."
+        },
+        {
+          "type": "mc",
+          "category": "AI and Machine Learning",
+          "question": "What is a 'feature' in a dataset used for machine learning?",
+          "options": [
+            "The answer variable that the model is built to predict, such as its sale price",
+            "The error value that the model makes when it predicts the wrong answer",
+            "An input variable that describes each example, such as a house's floor area",
+            "The setting that the engineer picks before the training begins, such as the speed"
+          ],
+          "correct": 2,
+          "explanation": "Features are the inputs. The thing being predicted is the target (label)."
+        },
+        {
+          "type": "mc",
+          "category": "AI and Machine Learning",
+          "question": "What is the 'target variable'?",
+          "options": [
+            "The value the model is given as its input",
+            "The value the engineer chooses before training starts",
+            "The value that measures how long training took",
+            "The value the model is trying to predict"
+          ],
+          "correct": 3,
+          "explanation": "The target is the output the model learns to predict from the features."
+        },
+        {
+          "type": "matching",
+          "category": "AI and Machine Learning",
+          "question": "Match each term to its meaning.",
+          "pairs": [
+            {
+              "left": "Artificial intelligence",
+              "right": "The overall field of making machines act intelligently"
+            },
+            {
+              "left": "Machine learning",
+              "right": "An approach to AI in which a system learns from data"
+            },
+            {
+              "left": "Feature",
+              "right": "An input variable describing each example"
+            },
+            {
+              "left": "Target variable",
+              "right": "The value the model is trained to predict"
+            }
+          ]
+        },
+        {
+          "type": "fill_blank",
+          "category": "AI and Machine Learning",
+          "question": "The overall field of making machines behave intelligently is called artificial ____. (one word)",
+          "answers": [
+            "intelligence"
+          ],
+          "explanation": "Artificial intelligence (AI) is the umbrella field; machine learning is one approach inside it."
+        }
+      ]
+    },
+    {
+      "name": "2. Types of Machine Learning",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Types of Machine Learning",
+          "question": "What defines supervised learning?",
+          "options": [
+            "The training examples come with labels, the 'answers' the model should learn to produce",
+            "The training examples come with no labels, so the model looks for structure on its own",
+            "The training examples come with a person who watches and corrects the model each time",
+            "The training examples come with feedback from an environment that scores each action"
+          ],
+          "correct": 0,
+          "explanation": "Supervised learning learns from labelled data. No labels means unsupervised; feedback from an environment means reinforcement."
+        },
+        {
+          "type": "mc",
+          "category": "Types of Machine Learning",
+          "question": "What defines unsupervised learning?",
+          "options": [
+            "The data has labels, so the algorithm learns to reproduce the given answers",
+            "The data has no labels, so the algorithm looks for structure by itself",
+            "The data has a reward signal, so the algorithm learns which actions pay off",
+            "The data has been cleaned by a person, so the algorithm needs no extra checks"
+          ],
+          "correct": 1,
+          "explanation": "Without labels, algorithms such as clustering must discover patterns on their own."
+        },
+        {
+          "type": "mc",
+          "category": "Types of Machine Learning",
+          "question": "What defines reinforcement learning?",
+          "options": [
+            "A model learns from a table of examples that each carry the correct label",
+            "A model learns from a pile of examples that have no labels or any feedback",
+            "An agent learns from feedback its environment gives in response to its actions",
+            "An agent learns from a person who writes out the rules for each situation"
+          ],
+          "correct": 2,
+          "explanation": "Reinforcement learning is driven by feedback (rewards and penalties) from the environment."
+        },
+        {
+          "type": "mc",
+          "category": "Types of Machine Learning",
+          "question": "An email service trains a model on thousands of messages that people already marked as 'spam' or 'not spam'. Which type of learning is this?",
+          "options": [
+            "Unsupervised learning",
+            "Reinforcement learning",
+            "Transfer learning",
+            "Supervised learning"
+          ],
+          "correct": 3,
+          "explanation": "The messages carry labels, so the model is learning from the given answers."
+        },
+        {
+          "type": "mc",
+          "category": "Types of Machine Learning",
+          "question": "A retailer feeds purchase histories, with no categories attached, into an algorithm that finds natural groups of shoppers. Which type of learning is this?",
+          "options": [
+            "Unsupervised learning",
+            "Supervised learning",
+            "Reinforcement learning",
+            "Transfer learning"
+          ],
+          "correct": 0,
+          "explanation": "No labels are given; the algorithm discovers the groups itself."
+        },
+        {
+          "type": "mc",
+          "category": "Types of Machine Learning",
+          "question": "A program learns to play a video game by trying moves and receiving points when it scores. Which type of learning is this?",
+          "options": [
+            "Supervised learning",
+            "Reinforcement learning",
+            "Unsupervised learning",
+            "Clustering analysis"
+          ],
+          "correct": 1,
+          "explanation": "The score is feedback from the environment, which is the hallmark of reinforcement learning."
+        },
+        {
+          "type": "mc",
+          "category": "Types of Machine Learning",
+          "question": "A robot arm is rewarded each time it places a block on the stack without dropping it. Which type of learning does this describe?",
+          "options": [
+            "Supervised learning, since the reward is a label supplied for each example",
+            "Unsupervised learning, since the reward is a group assigned to each example",
+            "Reinforcement learning, since the reward is feedback from its environment",
+            "Supervised learning, since the robot is a machine that has been programmed"
+          ],
+          "correct": 2,
+          "explanation": "A reward given for actions taken is environmental feedback, not a label attached to a dataset."
+        },
+        {
+          "type": "tf",
+          "category": "Types of Machine Learning",
+          "question": "Supervised learning needs labelled training data.",
+          "correct": true,
+          "explanation": "Labels are the 'answers' the model learns to predict."
+        },
+        {
+          "type": "tf",
+          "category": "Types of Machine Learning",
+          "question": "Unsupervised learning uses labelled training data.",
+          "correct": false,
+          "explanation": "Unsupervised learning works with no labels at all."
+        },
+        {
+          "type": "mc",
+          "category": "Types of Machine Learning",
+          "question": "Which of the following is a labelled example?",
+          "options": [
+            "A photo of a cat taken with a phone camera",
+            "A folder holding ten thousand unsorted photos",
+            "A set of ten thousand pixel values from one photo",
+            "A photo of a cat together with the word 'cat'"
+          ],
+          "correct": 3,
+          "explanation": "A label is the answer attached to an example. An unlabelled photo is just input."
+        },
+        {
+          "type": "matching",
+          "category": "Types of Machine Learning",
+          "question": "Match each type of machine learning to what drives the learning.",
+          "pairs": [
+            {
+              "left": "Supervised",
+              "right": "Labels (the answers) supplied with the data"
+            },
+            {
+              "left": "Unsupervised",
+              "right": "Structure found in data with no labels"
+            },
+            {
+              "left": "Reinforcement",
+              "right": "Feedback from the environment"
+            }
+          ]
+        },
+        {
+          "type": "mc",
+          "category": "Types of Machine Learning",
+          "question": "Which type of learning needs somebody to label the data in advance?",
+          "options": [
+            "Supervised learning",
+            "Unsupervised learning",
+            "Reinforcement learning",
+            "Both unsupervised and reinforcement learning"
+          ],
+          "correct": 0,
+          "explanation": "Labels must be created before supervised training, which is often the expensive part."
+        }
+      ]
+    },
+    {
+      "name": "3. Classification and Regression",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Classification and Regression",
+          "question": "What does a classification model predict?",
+          "options": [
+            "A number chosen from a continuous range with infinite possibilities",
+            "A category chosen from a discrete, fixed set of options",
+            "A group chosen from the natural clusters found in unlabelled data",
+            "A score chosen from the feedback an environment gives for an action"
+          ],
+          "correct": 1,
+          "explanation": "Classification has a fixed set of target categories (for example dog or not dog). Regression predicts a continuous value."
+        },
+        {
+          "type": "mc",
+          "category": "Classification and Regression",
+          "question": "What does a regression model predict?",
+          "options": [
+            "A discrete category, with only a fixed set of possible results",
+            "A cluster number, with only as many results as there are clusters",
+            "A continuous numeric value, with infinitely many possible results",
+            "A yes or no answer, with exactly two possible results"
+          ],
+          "correct": 2,
+          "explanation": "Regression targets are continuous, such as a house price or a temperature."
+        },
+        {
+          "type": "mc",
+          "category": "Classification and Regression",
+          "question": "Predicting whether a customer will cancel a subscription (yes or no) is which kind of problem?",
+          "options": [
+            "Regression",
+            "Clustering",
+            "Reinforcement",
+            "Classification"
+          ],
+          "correct": 3,
+          "explanation": "The target is one of a fixed set of categories."
+        },
+        {
+          "type": "mc",
+          "category": "Classification and Regression",
+          "question": "Predicting the selling price of a used car from its mileage and age is which kind of problem?",
+          "options": [
+            "Regression",
+            "Classification",
+            "Clustering",
+            "Segmentation"
+          ],
+          "correct": 0,
+          "explanation": "A price is a continuous value."
+        },
+        {
+          "type": "mc",
+          "category": "Classification and Regression",
+          "question": "Predicting tomorrow's rainfall in millimetres is which kind of problem?",
+          "options": [
+            "Classification",
+            "Regression",
+            "Clustering",
+            "Association"
+          ],
+          "correct": 1,
+          "explanation": "Rainfall in millimetres can take any value in a range, so it is a regression target."
+        },
+        {
+          "type": "mc",
+          "category": "Classification and Regression",
+          "question": "Deciding whether a scan shows 'healthy', 'benign' or 'malignant' tissue is which kind of problem?",
+          "options": [
+            "Regression, because there are three possible outputs to choose from",
+            "Clustering, because the scan holds three kinds of tissue to be grouped",
+            "Classification, because there are three fixed categories",
+            "Regression, because the answer can be written with the digits 1, 2 and 3"
+          ],
+          "correct": 2,
+          "explanation": "Three fixed categories make it classification, even if they are stored as numbers."
+        },
+        {
+          "type": "matching",
+          "category": "Classification and Regression",
+          "question": "Match each task to the kind of supervised learning problem it is.",
+          "pairs": [
+            {
+              "left": "Predicting tomorrow's temperature",
+              "right": "Regression: the answer is a continuous number"
+            },
+            {
+              "left": "Deciding if a transaction is fraud or not",
+              "right": "Binary classification: two fixed categories"
+            },
+            {
+              "left": "Predicting a home's sale price",
+              "right": "Regression: the answer is a price that can take any value"
+            },
+            {
+              "left": "Recognising which of five fruits is in a photo",
+              "right": "Multi-class classification: five fixed categories"
+            }
+          ]
+        },
+        {
+          "type": "mc",
+          "category": "Classification and Regression",
+          "question": "Which of these algorithms is used for classification?",
+          "options": [
+            "k-means clustering",
+            "Linear regression",
+            "Principal components",
+            "k-nearest neighbours (kNN)"
+          ],
+          "correct": 3,
+          "explanation": "kNN, decision trees, random forests and neural nets can all classify. k-means is unsupervised, and linear regression predicts numbers."
+        },
+        {
+          "type": "mc",
+          "category": "Classification and Regression",
+          "question": "Which pair lists two algorithms that can be used for classification?",
+          "options": [
+            "Decision tree and random forest",
+            "Decision tree and k-means",
+            "Random forest and linear regression",
+            "k-means and linear regression"
+          ],
+          "correct": 0,
+          "explanation": "Decision trees and random forests classify. k-means is clustering, and linear regression is a regression method."
+        },
+        {
+          "type": "mc",
+          "category": "Classification and Regression",
+          "question": "Which algorithm is used to predict a continuous number such as a house price?",
+          "options": [
+            "Logistic regression",
+            "Linear regression",
+            "k-means",
+            "k-nearest neighbours as a classifier"
+          ],
+          "correct": 1,
+          "explanation": "Linear regression predicts continuous values."
+        },
+        {
+          "type": "mc",
+          "category": "Classification and Regression",
+          "question": "Despite its name, logistic regression is almost always used for what?",
+          "options": [
+            "Predicting a continuous number, such as a price",
+            "Grouping unlabelled data into clusters",
+            "Binary classification, such as yes or no",
+            "Learning from rewards in a game"
+          ],
+          "correct": 2,
+          "explanation": "Logistic regression outputs a probability that is turned into one of two classes."
+        },
+        {
+          "type": "tf",
+          "category": "Classification and Regression",
+          "question": "Logistic regression is mainly used to predict continuous values such as prices.",
+          "correct": false,
+          "explanation": "It is almost always used for binary classification. Linear regression is the continuous-value method."
+        },
+        {
+          "type": "tf",
+          "category": "Classification and Regression",
+          "question": "A model that predicts whether an email is spam is solving a regression problem.",
+          "correct": false,
+          "explanation": "Spam or not spam is two fixed categories, so it is classification."
+        },
+        {
+          "type": "mc",
+          "category": "Classification and Regression",
+          "question": "Which statement about kNN is correct?",
+          "options": [
+            "It groups unlabelled examples by moving cluster centres until they settle",
+            "It fits a straight line through the examples and reads off the answer from it",
+            "It learns by being rewarded when an action leads to a good outcome",
+            "It classifies a new example by looking at the labels of its closest training examples"
+          ],
+          "correct": 3,
+          "explanation": "kNN is a supervised classification method: the class of a new point comes from its k nearest labelled neighbours."
+        },
+        {
+          "type": "short_answer",
+          "category": "Classification and Regression",
+          "question": "A hospital wants to (a) estimate how many days a patient will stay and (b) flag whether a patient will be readmitted within 30 days. For each goal, say whether it is a regression or a classification problem and explain why. Name one algorithm that could be used for each.",
+          "answerLang": null,
+          "modelAnswer": "(a) Length of stay is a regression problem: the target is a number of days, a continuous value that can take many possible values. Linear regression could be used.\n\n(b) Readmission within 30 days is a classification problem, specifically binary: the target is one of two fixed categories (readmitted or not). Logistic regression, a decision tree or kNN could be used.\n\nBoth are supervised, because past patients come with known outcomes (labels).",
+          "rubric": [
+            "Identifies (a) as regression and gives the reason: a continuous numeric target",
+            "Identifies (b) as classification (binary) and gives the reason: a fixed set of categories",
+            "Names a suitable algorithm for each, such as linear regression and logistic regression, kNN or a decision tree",
+            "Notes that both are supervised because the past outcomes act as labels"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "4. Clustering and k-means",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Clustering and k-means",
+          "question": "What is clustering?",
+          "options": [
+            "Grouping unlabelled examples so that similar ones end up together",
+            "Predicting a category for an example from a set of labelled ones",
+            "Predicting a number for an example from a set of labelled ones",
+            "Choosing actions for an agent from the rewards its environment gives"
+          ],
+          "correct": 0,
+          "explanation": "Clustering is the main example of unsupervised learning: no labels are given and the algorithm finds the groups."
+        },
+        {
+          "type": "mc",
+          "category": "Clustering and k-means",
+          "question": "Clustering belongs to which family of machine learning?",
+          "options": [
+            "Supervised learning",
+            "Unsupervised learning",
+            "Reinforcement learning",
+            "Deep learning only"
+          ],
+          "correct": 1,
+          "explanation": "Clustering finds structure in data that has no labels."
+        },
+        {
+          "type": "mc",
+          "category": "Clustering and k-means",
+          "question": "What does the hyperparameter k mean in k-means?",
+          "options": [
+            "The number of neighbours that vote on the label of a new example",
+            "The number of times that the algorithm repeats its training loop",
+            "The number of clusters you want the algorithm to find",
+            "The number of features that each example in the dataset has"
+          ],
+          "correct": 2,
+          "explanation": "In k-means you choose k up front. (In kNN, k is a different thing: the number of neighbours.)"
+        },
+        {
+          "type": "mc",
+          "category": "Clustering and k-means",
+          "question": "What is a centroid in k-means?",
+          "options": [
+            "The label of a cluster, which the algorithm is given before it starts",
+            "The farthest point in a cluster, which the algorithm uses as the boundary",
+            "The number of points in a cluster, which the algorithm uses to rank clusters",
+            "The centre of a cluster, which the algorithm keeps moving to fit the data"
+          ],
+          "correct": 3,
+          "explanation": "Each centroid represents the centre of one cluster."
+        },
+        {
+          "type": "mc",
+          "category": "Clustering and k-means",
+          "question": "How does k-means begin?",
+          "options": [
+            "It places k centroids at random positions",
+            "It reads the labels to place a centroid in each class",
+            "It places every example in a single large cluster",
+            "It asks the user to mark the centre of each cluster"
+          ],
+          "correct": 0,
+          "explanation": "The initial centroid positions are random; the algorithm then improves them."
+        },
+        {
+          "type": "mc",
+          "category": "Clustering and k-means",
+          "question": "After the centroids are placed, what does k-means do over time?",
+          "options": [
+            "It assigns points to the farthest centroid and moves each centroid away from its own points",
+            "It assigns points to the nearest centroid and moves each centroid toward the centre of its points",
+            "It assigns points to a random centroid and keeps the centroids where they were first placed",
+            "It assigns points to the label they were given and moves the centroids to match those labels"
+          ],
+          "correct": 1,
+          "explanation": "These two steps repeat until the centroids settle on the actual cluster centres."
+        },
+        {
+          "type": "mc",
+          "category": "Clustering and k-means",
+          "question": "You run k-means with k = 4 on customer data. How many clusters will the algorithm return?",
+          "options": [
+            "Two",
+            "However many labels the data has",
+            "Four",
+            "Whatever number gives the best accuracy"
+          ],
+          "correct": 2,
+          "explanation": "k is the number of clusters you ask for."
+        },
+        {
+          "type": "tf",
+          "category": "Clustering and k-means",
+          "question": "k-means needs labelled examples in order to work.",
+          "correct": false,
+          "explanation": "k-means is unsupervised. It only needs the features."
+        },
+        {
+          "type": "tf",
+          "category": "Clustering and k-means",
+          "question": "In k-means, you choose the value of k before training.",
+          "correct": true,
+          "explanation": "k is a hyperparameter set by the person, not learned by the algorithm."
+        },
+        {
+          "type": "mc",
+          "category": "Clustering and k-means",
+          "question": "Which is a good use of clustering?",
+          "options": [
+            "Predicting the price of a house from its size and location",
+            "Deciding whether a photograph contains a dog or does not",
+            "Training a character to win a game by trial and error",
+            "Finding natural groups of customers when no group names exist"
+          ],
+          "correct": 3,
+          "explanation": "With no predefined groups, clustering lets the data suggest them. The others are regression, classification and reinforcement learning."
+        },
+        {
+          "type": "mc",
+          "category": "Clustering and k-means",
+          "question": "Two runs of k-means on the same data, with the same k, can end up with different clusters. What is the most likely reason?",
+          "options": [
+            "The starting positions of the centroids are chosen at random",
+            "The labels are shuffled by the algorithm each time that it runs",
+            "The value of k is changed by the algorithm as it learns more",
+            "The data is deleted by the algorithm once a cluster is found"
+          ],
+          "correct": 0,
+          "explanation": "Random starting centroids can lead the algorithm to settle in different places."
+        },
+        {
+          "type": "matching",
+          "category": "Clustering and k-means",
+          "question": "Match each k-means term to its meaning.",
+          "pairs": [
+            {
+              "left": "k",
+              "right": "How many clusters to look for"
+            },
+            {
+              "left": "Centroid",
+              "right": "The centre of a cluster"
+            },
+            {
+              "left": "Cluster",
+              "right": "A group of similar examples"
+            },
+            {
+              "left": "Initial placement",
+              "right": "Random positions for the centroids"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "5. Parameters and Hyperparameters",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Parameters and Hyperparameters",
+          "question": "What is a parameter of a model?",
+          "options": [
+            "A configuration option for the training algorithm that the engineer picks beforehand",
+            "A variable inside the model that the training algorithm sets by learning from data",
+            "A column in the dataset that describes each example and is fed to the model",
+            "A measure of how many of the model's predictions turned out to be correct"
+          ],
+          "correct": 1,
+          "explanation": "Parameters are learned during training (for example the weights in a regression)."
+        },
+        {
+          "type": "mc",
+          "category": "Parameters and Hyperparameters",
+          "question": "What is a hyperparameter?",
+          "options": [
+            "A variable inside the model that the training algorithm learns by itself",
+            "A feature in the dataset that has been scaled to lie between zero and one",
+            "A configuration of the training algorithm that we set ourselves",
+            "A label in the dataset that tells the model what the right answer is"
+          ],
+          "correct": 2,
+          "explanation": "Hyperparameters are set by us before training; parameters are set by the training algorithm."
+        },
+        {
+          "type": "mc",
+          "category": "Parameters and Hyperparameters",
+          "question": "Who or what sets the value of a model's parameters?",
+          "options": [
+            "The engineer, before training begins",
+            "The user, once the model is deployed",
+            "The labels, which are copied into the model",
+            "The training algorithm, as it learns from the data"
+          ],
+          "correct": 3,
+          "explanation": "Parameters are trained; hyperparameters are chosen by the person."
+        },
+        {
+          "type": "mc",
+          "category": "Parameters and Hyperparameters",
+          "question": "Who or what sets the value of a hyperparameter?",
+          "options": [
+            "The person building the model",
+            "The training algorithm, as it learns",
+            "The test data, after training",
+            "The model, as it predicts"
+          ],
+          "correct": 0,
+          "explanation": "Hyperparameters are configuration choices made by us."
+        },
+        {
+          "type": "mc",
+          "category": "Parameters and Hyperparameters",
+          "question": "Which of these is a hyperparameter?",
+          "options": [
+            "The position of each centroid at the end of k-means",
+            "The number of clusters k in k-means",
+            "The slope that linear regression learns from the data",
+            "The label of each example in a training set"
+          ],
+          "correct": 1,
+          "explanation": "k is chosen by us. The final centroid positions and a learned slope are parameters that the algorithm finds."
+        },
+        {
+          "type": "mc",
+          "category": "Parameters and Hyperparameters",
+          "question": "Which of these is a parameter?",
+          "options": [
+            "The number of neighbours that kNN consults for each new example",
+            "The maximum depth that is allowed for a decision tree",
+            "The slope and intercept that a line-fitting algorithm finds",
+            "The number of clusters that k-means is told to produce"
+          ],
+          "correct": 2,
+          "explanation": "The slope and intercept are learned from data. The others are chosen by us before training."
+        },
+        {
+          "type": "tf",
+          "category": "Parameters and Hyperparameters",
+          "question": "Hyperparameters are learned automatically from the training data.",
+          "correct": false,
+          "explanation": "Hyperparameters are set by us. Parameters are the values learned from the data."
+        },
+        {
+          "type": "tf",
+          "category": "Parameters and Hyperparameters",
+          "question": "The positions of the centroids in k-means are parameters, because the algorithm moves them as it trains.",
+          "correct": true,
+          "explanation": "Centroid positions are learned during training. The number of centroids, k, is the hyperparameter."
+        },
+        {
+          "type": "matching",
+          "category": "Parameters and Hyperparameters",
+          "question": "Match each item to whether it is a parameter or a hyperparameter.",
+          "pairs": [
+            {
+              "left": "Number of clusters k",
+              "right": "Hyperparameter: chosen by us before training"
+            },
+            {
+              "left": "Final centroid positions",
+              "right": "Parameter: moved by the algorithm during training"
+            },
+            {
+              "left": "Slope learned by a regression",
+              "right": "Parameter: found from the training data"
+            },
+            {
+              "left": "Number of neighbours in kNN",
+              "right": "Hyperparameter: a setting we configure"
+            }
+          ]
+        },
+        {
+          "type": "short_answer",
+          "category": "Parameters and Hyperparameters",
+          "question": "Explain the difference between a parameter and a hyperparameter. Use k-means to give one example of each, and say who or what sets each one.",
+          "answerLang": null,
+          "modelAnswer": "Parameters are variables inside the model that must be trained or optimised. The training algorithm sets them as it learns from the data. Hyperparameters are configuration settings for the training algorithm, and we set them ourselves before training begins.\n\nIn k-means, the hyperparameter is k, the number of clusters we ask the algorithm to find, and we choose it. The parameters are the centroid positions: they start at random and are moved by the algorithm until they sit at the actual cluster centres.",
+          "rubric": [
+            "Defines a parameter as an internal variable trained or set by the training algorithm",
+            "Defines a hyperparameter as a configuration of the training algorithm set by us",
+            "Gives k as the k-means hyperparameter",
+            "Gives the centroid positions as the k-means parameters"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "6. Accuracy and the Confusion Matrix",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Accuracy and the Confusion Matrix",
+          "question": "How is accuracy calculated?",
+          "options": [
+            "The number of wrong predictions divided by the total number of samples",
+            "The number of correct predictions divided by the number of wrong predictions",
+            "The number of samples in the test set divided by the size of the whole dataset",
+            "The number of correct predictions divided by the total number of samples"
+          ],
+          "correct": 3,
+          "explanation": "Accuracy = correct / total."
+        },
+        {
+          "type": "mc",
+          "category": "Accuracy and the Confusion Matrix",
+          "question": "A model makes 80 correct predictions out of 100 test samples. What is its accuracy?",
+          "options": [
+            "80%",
+            "20%",
+            "8%",
+            "100%"
+          ],
+          "correct": 0,
+          "explanation": "80 / 100 = 0.80."
+        },
+        {
+          "type": "mc",
+          "category": "Accuracy and the Confusion Matrix",
+          "question": "A classifier predicts 45 of 60 samples correctly. What is its accuracy?",
+          "options": [
+            "45%",
+            "75%",
+            "60%",
+            "25%"
+          ],
+          "correct": 1,
+          "explanation": "45 / 60 = 0.75."
+        },
+        {
+          "type": "mc",
+          "category": "Accuracy and the Confusion Matrix",
+          "question": "A model gets 18 predictions wrong out of 200 samples. What is its accuracy?",
+          "options": [
+            "9%",
+            "18%",
+            "91%",
+            "82%"
+          ],
+          "correct": 2,
+          "explanation": "It got 182 right: 182 / 200 = 0.91. The 9% is its error rate."
+        },
+        {
+          "type": "mc",
+          "category": "Accuracy and the Confusion Matrix",
+          "question": "What is a confusion matrix?",
+          "options": [
+            "A list that shows each feature next to the weight it was given",
+            "A chart that shows how accuracy changes as training goes on",
+            "A table that shows which hyperparameters were tried and when",
+            "A grid that compares the actual classes with the predicted classes"
+          ],
+          "correct": 3,
+          "explanation": "Rows and columns hold actual versus predicted classes, so you can see where the model gets confused."
+        },
+        {
+          "type": "mc",
+          "category": "Accuracy and the Confusion Matrix",
+          "question": "In a confusion matrix, where do the correct predictions appear?",
+          "options": [
+            "On the diagonal, where the actual and predicted classes agree",
+            "Off the diagonal, where the actual and predicted classes differ",
+            "In the first row, where the first class is the one being counted",
+            "In the last column, where the totals for every class are written"
+          ],
+          "correct": 0,
+          "explanation": "Cells where predicted equals actual are the correct ones."
+        },
+        {
+          "type": "mc",
+          "category": "Accuracy and the Confusion Matrix",
+          "question": "A confusion matrix for cats and dogs shows 40 cats called cats, 10 cats called dogs, 5 dogs called cats and 45 dogs called dogs. What is the accuracy?",
+          "options": [
+            "40%",
+            "85%",
+            "75%",
+            "90%"
+          ],
+          "correct": 1,
+          "explanation": "Correct = 40 + 45 = 85 out of 100 total, which is 85%."
+        },
+        {
+          "type": "mc",
+          "category": "Accuracy and the Confusion Matrix",
+          "question": "A cat-and-dog classifier's confusion matrix has a cell with 10 cats that the model labelled as dogs. What does that cell represent?",
+          "options": [
+            "Dogs that the model wrongly classified as cats",
+            "Cats that the model correctly classified as cats",
+            "Cats that the model wrongly classified as dogs",
+            "Dogs that the model correctly classified as dogs"
+          ],
+          "correct": 2,
+          "explanation": "Off-diagonal cells are mistakes: actual cat, predicted dog."
+        },
+        {
+          "type": "tf",
+          "category": "Accuracy and the Confusion Matrix",
+          "question": "Accuracy is the number of wrong predictions divided by the total number of samples.",
+          "correct": false,
+          "explanation": "That would be the error rate. Accuracy uses the correct predictions."
+        },
+        {
+          "type": "tf",
+          "category": "Accuracy and the Confusion Matrix",
+          "question": "A confusion matrix shows more detail than accuracy alone, because it shows which classes get mistaken for which.",
+          "correct": true,
+          "explanation": "Accuracy is one number. The matrix shows where the mistakes happen."
+        }
+      ]
+    },
+    {
+      "name": "7. Generalization, Bias and Variance",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Generalization, Bias and Variance",
+          "question": "What does generalization mean in machine learning?",
+          "options": [
+            "How many different kinds of problem a model can be applied to without retraining",
+            "How quickly a model can be trained on a very large training set",
+            "How closely a model reproduces the answers for its own training examples",
+            "How well a model performs on new examples that were not in its training set"
+          ],
+          "correct": 3,
+          "explanation": "A model that generalizes extends what it learned to unseen data."
+        },
+        {
+          "type": "mc",
+          "category": "Generalization, Bias and Variance",
+          "question": "What is overfitting?",
+          "options": [
+            "The model memorizes the training set instead of learning the pattern behind it",
+            "The model is too simple to capture the complexity that is in the data",
+            "The model is given too few examples for the algorithm to start training",
+            "The model is trained for so short a time that the parameters never change"
+          ],
+          "correct": 0,
+          "explanation": "An overfit model matches the training data very closely but does not carry over to new data."
+        },
+        {
+          "type": "mc",
+          "category": "Generalization, Bias and Variance",
+          "question": "What is underfitting?",
+          "options": [
+            "The model memorizes the training set instead of learning the pattern in it",
+            "The model is too simple to capture the complexity of the data",
+            "The model gets perfect results on the training set and poor results on new data",
+            "The model is trained with so many examples that it can no longer improve"
+          ],
+          "correct": 1,
+          "explanation": "An underfit model fails to capture the pattern even in the training data."
+        },
+        {
+          "type": "mc",
+          "category": "Generalization, Bias and Variance",
+          "question": "Which pair of symptoms points to overfitting?",
+          "options": [
+            "Low training accuracy and low test accuracy",
+            "Low training accuracy and high test accuracy",
+            "High training accuracy and low test accuracy",
+            "High training accuracy and high test accuracy"
+          ],
+          "correct": 2,
+          "explanation": "A big gap between training and test performance means the model memorized the training set."
+        },
+        {
+          "type": "mc",
+          "category": "Generalization, Bias and Variance",
+          "question": "A model scores 99% on its training data and 62% on its test data. What is the most likely problem?",
+          "options": [
+            "Underfitting, and its bias is too high",
+            "Underfitting, and its variance is too high",
+            "Overfitting, and its bias is too high",
+            "Overfitting, and its variance is too high"
+          ],
+          "correct": 3,
+          "explanation": "Great on training, poor on test: overfitting, which goes with high variance and low bias."
+        },
+        {
+          "type": "mc",
+          "category": "Generalization, Bias and Variance",
+          "question": "A model scores 55% on its training data and 54% on its test data. What is the most likely problem?",
+          "options": [
+            "Underfitting, and its bias is too high",
+            "Overfitting, and its bias is too high",
+            "Overfitting, and its variance is too high",
+            "Underfitting, and its variance is too high"
+          ],
+          "correct": 0,
+          "explanation": "Poor on both: the model is too simple, which means high bias."
+        },
+        {
+          "type": "mc",
+          "category": "Generalization, Bias and Variance",
+          "question": "Which combination describes an overfit model?",
+          "options": [
+            "High bias and low variance",
+            "High variance and low bias",
+            "High bias and high variance",
+            "Low bias and low variance"
+          ],
+          "correct": 1,
+          "explanation": "Overfit models are too sensitive to the training data (high variance) and fit it closely (low bias)."
+        },
+        {
+          "type": "mc",
+          "category": "Generalization, Bias and Variance",
+          "question": "Which combination describes an underfit model?",
+          "options": [
+            "High variance and low bias",
+            "High variance and high bias",
+            "High bias and low variance",
+            "Low variance and low bias"
+          ],
+          "correct": 2,
+          "explanation": "Underfit models make strong, simple assumptions (high bias) and change little with the data (low variance)."
+        },
+        {
+          "type": "mc",
+          "category": "Generalization, Bias and Variance",
+          "question": "What does training accuracy measure?",
+          "options": [
+            "How accurate the model is on data it has never seen before",
+            "How accurate the model was before any training had been done",
+            "How accurate the model is once the hyperparameters are changed",
+            "How accurate the model is on the data it was trained with"
+          ],
+          "correct": 3,
+          "explanation": "Training accuracy comes from the training data."
+        },
+        {
+          "type": "mc",
+          "category": "Generalization, Bias and Variance",
+          "question": "What does test accuracy measure?",
+          "options": [
+            "How accurate the model is on data held back from training",
+            "How accurate the model is on the data it learned from",
+            "How accurate the model was when training first started",
+            "How accurate the model is on the labels it is given"
+          ],
+          "correct": 0,
+          "explanation": "Test accuracy shows how well the model generalizes to unseen examples."
+        },
+        {
+          "type": "mc",
+          "category": "Generalization, Bias and Variance",
+          "question": "Why do we keep a separate test set that the model never trains on?",
+          "options": [
+            "To give the model extra examples when the training set runs out",
+            "To measure how well the model works on examples it has not memorized",
+            "To let the model correct the labels of its training examples",
+            "To make the training run faster by reducing the data it reads"
+          ],
+          "correct": 1,
+          "explanation": "Performance on training data alone cannot reveal overfitting; unseen data can."
+        },
+        {
+          "type": "tf",
+          "category": "Generalization, Bias and Variance",
+          "question": "A model with very high training accuracy is guaranteed to perform well on new data.",
+          "correct": false,
+          "explanation": "It may have memorized the training set. Test accuracy shows how well it generalizes."
+        },
+        {
+          "type": "tf",
+          "category": "Generalization, Bias and Variance",
+          "question": "Low training accuracy means the model is underfitting, whether the test accuracy is low or high.",
+          "correct": true,
+          "explanation": "If the model cannot even do well on the data it trained on, it is too simple: high bias."
+        },
+        {
+          "type": "tf",
+          "category": "Generalization, Bias and Variance",
+          "question": "An overfit model has high bias and low variance.",
+          "correct": false,
+          "explanation": "Overfit models have high variance and low bias. Underfit models have high bias and low variance."
+        },
+        {
+          "type": "matching",
+          "category": "Generalization, Bias and Variance",
+          "question": "Match each result to the diagnosis.",
+          "pairs": [
+            {
+              "left": "High training accuracy, low test accuracy",
+              "right": "Overfit: variance too high"
+            },
+            {
+              "left": "Low training accuracy, low test accuracy",
+              "right": "Underfit: bias too high"
+            },
+            {
+              "left": "High training accuracy, high test accuracy",
+              "right": "Generalizes well"
+            },
+            {
+              "left": "Memorizes the training set",
+              "right": "Overfit"
+            }
+          ]
+        },
+        {
+          "type": "short_answer",
+          "category": "Generalization, Bias and Variance",
+          "question": "A data scientist trains a model and reports 97% accuracy on the training data but only 68% on the test data. (a) Name the problem. (b) Describe it in terms of bias and variance. (c) Explain what the two accuracies tell you about generalization.",
+          "answerLang": null,
+          "modelAnswer": "(a) The model is overfitting: it has memorized the training set rather than learning the underlying pattern.\n\n(b) An overfit model has high variance and low bias. It fits the training data very closely, but its predictions change a lot with the particular examples it saw, so it does not carry over.\n\n(c) Generalization is how well the model does on unseen examples, and the test accuracy measures that. The large gap between 97% on training and 68% on test shows it generalizes poorly. High training accuracy alone says nothing about new data.",
+          "rubric": [
+            "Names the problem as overfitting",
+            "States high variance and low bias",
+            "Explains that test accuracy measures generalization to unseen data",
+            "Points out that the large gap between training and test accuracy is the evidence"
+          ]
+        },
+        {
+          "type": "short_answer",
+          "category": "Generalization, Bias and Variance",
+          "question": "Compare overfitting and underfitting. For each, give the training and test accuracy pattern, say whether bias or variance is too high, and say what the model has failed to do.",
+          "answerLang": null,
+          "modelAnswer": "Overfitting: training accuracy is high but test accuracy is low. Variance is too high (and bias is low). The model has memorized the training set instead of learning the pattern, so it fails to generalize to unseen examples.\n\nUnderfitting: training accuracy is low, and test accuracy is also low (or at best not high). Bias is too high (and variance is low). The model is too simple and does not capture the complexity of the data, so it fails even on the training set.",
+          "rubric": [
+            "Overfit: high training and low test accuracy, with high variance",
+            "Underfit: low training accuracy, with high bias",
+            "Says an overfit model memorizes the training set and fails to generalize",
+            "Says an underfit model is too simple to capture the complexity of the data"
+          ]
+        }
+      ]
+    }
+  ]
+}

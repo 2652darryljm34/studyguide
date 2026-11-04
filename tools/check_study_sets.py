@@ -32,6 +32,10 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 SETS = [
     ("ITN 170 final", "itn170",
      "data/itn170-final-guide.json", "data/itn170-final-flashcards.json", "data/itn170-final-exam.json"),
+    ("ITD 132 quiz 1", "itd132",
+     "data/itd132-quiz1-guide.json", "data/itd132-quiz1-flashcards.json", "data/itd132-quiz1.json"),
+    ("ITD 140 quiz 1", "itd140",
+     "data/itd140-quiz1-guide.json", "data/itd140-quiz1-flashcards.json", "data/itd140-quiz1.json"),
 ]
 
 EXTRA_GUIDE_SECTIONS = ("Common Mix-ups",)
