@@ -57,23 +57,35 @@ function renderFeatured(classes){
   const section = document.getElementById('featured');
   const list = document.getElementById('featured-list');
   if(!section || !list) return;
-  const cards = [];
-  classes.forEach(cls => {
-    featuredItems(cls).forEach(({ q, href, cta }) => {
-      cards.push(`
-        <a class="featured-card" href="${escapeHtml(href)}">
-          <div class="featured-card-top">
-            <span class="featured-class">${escapeHtml(cls.name)}${cls.fullName ? ` <span>${escapeHtml(cls.fullName)}</span>` : ''}</span>
-            <span class="new-pill">${escapeHtml(badgeFor(q))}</span>
+  // One expandable card per class, holding just that class's updated material.
+  const cards = classes.map(cls => {
+    const items = featuredItems(cls);
+    if(!items.length) return '';
+    const rows = items.map(({ q, href, go }) => `
+      <a class="quiz-row featured-row" href="${escapeHtml(href)}">
+        <div>
+          <div class="quiz-row-title">${escapeHtml(q.title)}</div>
+          ${q.description ? `<div class="quiz-row-desc">${escapeHtml(q.description)}</div>` : ''}
+        </div>
+        <div class="quiz-row-go">${go} &rarr;</div>
+      </a>`).join('');
+    return `
+      <details class="class-card">
+        <summary>
+          <div class="class-heading">
+            <span class="class-code">${escapeHtml(cls.name)}</span>
+            ${cls.fullName ? `<span class="class-full">${escapeHtml(cls.fullName)}</span>` : ''}
           </div>
-          <div class="featured-card-title">${escapeHtml(q.title)}</div>
-          ${q.description ? `<div class="featured-card-desc">${escapeHtml(q.description)}</div>` : ''}
-          <div class="featured-card-go">${escapeHtml(cta)} &rarr;</div>
-        </a>`);
-    });
-  });
-  if(!cards.length) return;
-  list.innerHTML = cards.join('');
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span class="class-count">${items.length} updated</span>
+            ${chevronSvg}
+          </div>
+        </summary>
+        <div class="quiz-rows">${rows}</div>
+      </details>`;
+  }).join('');
+  if(!cards) return;
+  list.innerHTML = cards;
   section.hidden = false;
 }
 

@@ -1435,8 +1435,8 @@ pre.shell-hl code{ font: inherit; background: none; padding: 0; }
 .featured-sub{ margin: 6px 0 0; color: var(--ink-soft); font-size: 0.92rem; }
 .featured-list{
   margin-top: 16px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 12px;
 }
 .featured-card{
