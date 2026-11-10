@@ -1,0 +1,329 @@
+{
+  "title": "SUPPLEMENTAL: Full-Course Flashcards (not for Quiz 1)",
+  "guideFile": "data/itd140-supplemental-guide.json",
+  "quizFile": "data/itd140-supplemental-quiz.json",
+  "cards": [
+    {
+      "topic": "Machine Learning Foundations",
+      "term": "Traditional programming vs ML",
+      "definition": "Traditional: data plus rules give answers. ML: data plus answers give the rules (the model).",
+      "useCase": "Use ML when the rules are too many or too hard to write by hand.",
+      "example": "A learned miles-to-km line instead of a typed formula"
+    },
+    {
+      "topic": "Machine Learning Foundations",
+      "term": "Correlation",
+      "definition": "A number from -1 to +1 showing how two variables move together.",
+      "useCase": "Check it to see whether one variable could help predict another.",
+      "example": "+0.9 strong positive; -0.9 strong inverse; 0 none"
+    },
+    {
+      "topic": "Machine Learning Foundations",
+      "term": "Multivariate regression",
+      "definition": "Regression that predicts a value from two or more inputs, each with its own coefficient.",
+      "useCase": "Use it when one input is not enough to predict a number.",
+      "example": "Price from area, age and bedrooms"
+    },
+    {
+      "topic": "Machine Learning Foundations",
+      "term": "Logistic regression",
+      "definition": "A model that outputs a probability compared with a threshold; used for binary classification.",
+      "useCase": "Use it for yes/no predictions.",
+      "example": "Probability 0.7 > 0.5, so predict 'will break down'"
+    },
+    {
+      "topic": "Machine Learning Foundations",
+      "term": "Deep learning",
+      "definition": "Machine learning with neural networks that have 2 or more hidden layers.",
+      "useCase": "Use it when features are hard to hand-pick, as with images.",
+      "example": "Each layer's output feeds the next layer"
+    },
+    {
+      "topic": "Supervised Learning and Its Algorithms",
+      "term": "Training and test sets",
+      "definition": "Labelled data split into a training set (about 70-80%) and a test set (about 20-30%).",
+      "useCase": "Train on the first, check accuracy on the second.",
+      "example": "150 rows: 120 train, 30 test"
+    },
+    {
+      "topic": "Supervised Learning and Its Algorithms",
+      "term": "Support vector machine (SVM)",
+      "definition": "A classifier that finds a boundary between classes using the points nearest it, the support vectors.",
+      "useCase": "Good in high-dimensional data; kernels allow curved boundaries.",
+      "example": "Separating two flower species"
+    },
+    {
+      "topic": "Supervised Learning and Its Algorithms",
+      "term": "Support vectors",
+      "definition": "The training points that define the SVM boundary.",
+      "useCase": "Only these points are kept in the decision function, so SVMs are memory efficient.",
+      "example": "The points closest to the dividing line"
+    },
+    {
+      "topic": "Supervised Learning and Its Algorithms",
+      "term": "Linear separability",
+      "definition": "Classes are linearly separable when a straight line or plane can split them.",
+      "useCase": "Tells you whether a linear model can work.",
+      "example": "Two blobs on opposite sides of a line"
+    },
+    {
+      "topic": "Supervised Learning and Its Algorithms",
+      "term": "Iris dataset",
+      "definition": "A classic dataset: 150 flowers, 3 species (labels), 4 measurements in cm (features).",
+      "useCase": "Practice for classification and clustering.",
+      "example": "Features: sepal and petal length and width"
+    },
+    {
+      "topic": "Evaluating a Model",
+      "term": "True/false positives and negatives",
+      "definition": "TP and TN are correct predictions; FP is a negative called positive; FN is a positive called negative.",
+      "useCase": "Read them from the confusion matrix.",
+      "example": "Spam called ham = false negative"
+    },
+    {
+      "topic": "Evaluating a Model",
+      "term": "Cross-validation",
+      "definition": "Splitting the data into k folds, using each as the test set once, and scoring k models.",
+      "useCase": "Gives a steadier accuracy estimate than a single split.",
+      "example": "5 folds on 500 rows: 400 train, 100 test each round"
+    },
+    {
+      "topic": "Evaluating a Model",
+      "term": "Generalization",
+      "definition": "How well a model performs on examples it did not see in training.",
+      "useCase": "Measured by test accuracy.",
+      "example": "Train 97%, test 70%: poor generalization"
+    },
+    {
+      "topic": "Evaluating a Model",
+      "term": "Overfitting (high variance)",
+      "definition": "The model memorizes the training set and its noise: high training accuracy, low test accuracy.",
+      "useCase": "Fix with regularization, fewer features or more data.",
+      "example": "Train 99%, test 70%"
+    },
+    {
+      "topic": "Evaluating a Model",
+      "term": "Underfitting (high bias)",
+      "definition": "The model is too simple to capture the pattern: low accuracy on training and test sets.",
+      "useCase": "Fix with a more flexible model or better features.",
+      "example": "Straight line through curved data"
+    },
+    {
+      "topic": "Clustering and Distance",
+      "term": "Centroid-based clustering",
+      "definition": "Clustering by distance to cluster centres that are moved to fit the data. Example: k-means.",
+      "useCase": "Use it when you know roughly how many groups you want.",
+      "example": "k-means with k = 3"
+    },
+    {
+      "topic": "Clustering and Distance",
+      "term": "Hierarchical clustering",
+      "definition": "Connectivity-based clustering that joins points step by step into a tree of clusters.",
+      "useCase": "Use it when you want to see how groups nest.",
+      "example": "Merging the two closest points, then groups"
+    },
+    {
+      "topic": "Clustering and Distance",
+      "term": "DBSCAN",
+      "definition": "Density-based spatial clustering of applications with noise: groups points that are densely packed.",
+      "useCase": "Use it for odd-shaped clusters and to flag noise points.",
+      "example": "A dense ring of points becomes one cluster"
+    },
+    {
+      "topic": "Clustering and Distance",
+      "term": "Euclidean distance",
+      "definition": "The straight-line distance between two points: the square root of the squared differences added up.",
+      "useCase": "The usual distance for clustering and kNN.",
+      "example": "(0,0) to (3,4) is 5"
+    },
+    {
+      "topic": "Clustering and Distance",
+      "term": "Manhattan distance",
+      "definition": "The sum of the horizontal and vertical differences, like walking a street grid.",
+      "useCase": "Cheaper to compute but less precise than Euclidean.",
+      "example": "(0,0) to (3,4) is 7"
+    },
+    {
+      "topic": "The Machine Learning Workflow",
+      "term": "ML project steps",
+      "definition": "Load, explore, transform, split, create, train and test, tune, predict on live data, monitor.",
+      "useCase": "Follow in order; the split comes before training.",
+      "example": "Load CSV -> explore -> encode -> split -> fit"
+    },
+    {
+      "topic": "The Machine Learning Workflow",
+      "term": "Transform the data",
+      "definition": "Convert non-numeric data into numbers, because scikit-learn requires numeric input.",
+      "useCase": "Do it before splitting and fitting.",
+      "example": "One-hot encode a text column"
+    },
+    {
+      "topic": "The Machine Learning Workflow",
+      "term": "fit / predict / accuracy_score",
+      "definition": "fit trains the model, predict returns labels for new inputs, accuracy_score compares them with the real labels.",
+      "useCase": "The three calls of the scikit-learn pattern.",
+      "example": "classifier.predict(x_test)"
+    },
+    {
+      "topic": "The Machine Learning Workflow",
+      "term": "train_test_split",
+      "definition": "A scikit-learn function that splits data into training and test sets.",
+      "useCase": "Set test_size to the share held back.",
+      "example": "test_size=0.2 on 150 rows: 30 test"
+    },
+    {
+      "topic": "The Machine Learning Workflow",
+      "term": "Monitor the live model",
+      "definition": "Periodically evaluate the deployed model and tune, retrain or redeploy if needed.",
+      "useCase": "Do it because real-world data changes.",
+      "example": "Accuracy slowly drops after a year"
+    },
+    {
+      "topic": "Feature Selection",
+      "term": "Feature selection",
+      "definition": "Removing inputs that do not help the model.",
+      "useCase": "Saves time and memory and often improves results.",
+      "example": "Dropping a column that never changes"
+    },
+    {
+      "topic": "Feature Selection",
+      "term": "Filter method",
+      "definition": "Scores features by their own characteristics, without training a model.",
+      "useCase": "A quick screen for irrelevant features.",
+      "example": "Low-variance filter; correlation; SelectKBest"
+    },
+    {
+      "topic": "Feature Selection",
+      "term": "Wrapper method",
+      "definition": "Trains a model on feature subsets and scores them: very effective but computationally intensive.",
+      "useCase": "Use it when accuracy matters more than speed.",
+      "example": "Forward selection; RFE"
+    },
+    {
+      "topic": "Feature Selection",
+      "term": "Embedded method",
+      "definition": "Feature selection built into model training; fits the model once.",
+      "useCase": "A balance between filter and wrapper.",
+      "example": "LASSO"
+    },
+    {
+      "topic": "Feature Selection",
+      "term": "RFE (recursive feature elimination)",
+      "definition": "A wrapper that repeatedly builds models, drops the weakest feature, and ranks features by elimination order.",
+      "useCase": "Use it for a thorough ranking.",
+      "example": "Eliminate one feature per round"
+    },
+    {
+      "topic": "Dimensionality Reduction",
+      "term": "Dimensionality reduction",
+      "definition": "Cutting the number of features (dimensions) while keeping the useful information.",
+      "useCase": "Reduces processing time and memory.",
+      "example": "Dropping LD2 when LD1 separates the classes"
+    },
+    {
+      "topic": "Dimensionality Reduction",
+      "term": "PCA",
+      "definition": "Principal component analysis: an unsupervised method that maps features onto fewer dimensions with maximum variance.",
+      "useCase": "Use it to compress features without labels.",
+      "example": "Ten measurements reduced to two components"
+    },
+    {
+      "topic": "Dimensionality Reduction",
+      "term": "LDA",
+      "definition": "Linear discriminant analysis: a supervised method that finds the axes that best separate classes.",
+      "useCase": "Use it when labels are available.",
+      "example": "Axes LD1 and LD2"
+    },
+    {
+      "topic": "Dimensionality Reduction",
+      "term": "Dimension",
+      "definition": "Another word for a feature or input.",
+      "useCase": "Remember: dimensions = features = inputs.",
+      "example": "A dataset with 57 columns has 57 dimensions"
+    },
+    {
+      "topic": "Feature Encoding",
+      "term": "Binarization",
+      "definition": "Converting a continuous value into two classes at a threshold.",
+      "useCase": "Use it when only above-or-below matters.",
+      "example": "5,000 views or more = popular"
+    },
+    {
+      "topic": "Feature Encoding",
+      "term": "Binning",
+      "definition": "Grouping continuous values into ranges (bins).",
+      "useCase": "Use it to turn a number into a few categories.",
+      "example": "Ages into 20-30, 30-40, 40-50"
+    },
+    {
+      "topic": "Feature Encoding",
+      "term": "One-hot encoding",
+      "definition": "Turning each category into its own 0/1 column.",
+      "useCase": "Use it for text categories so no false order is implied.",
+      "example": "green = [0, 1, 0]"
+    },
+    {
+      "topic": "Feature Encoding",
+      "term": "Why not 1, 2, 3 for categories",
+      "definition": "Numbering categories implies an order that does not exist.",
+      "useCase": "Avoid ordinal numbers for unordered categories.",
+      "example": "Blue = 3 looks 'greater' than red = 1"
+    },
+    {
+      "topic": "Feature Encoding",
+      "term": "pd.get_dummies",
+      "definition": "The pandas function that one-hot encodes a column.",
+      "useCase": "Call it on the categorical column.",
+      "example": "pd.get_dummies(df['colour'])"
+    },
+    {
+      "topic": "Scaling",
+      "term": "Scaling",
+      "definition": "Putting attributes on comparable scales.",
+      "useCase": "Do it for distance-based algorithms such as kNN.",
+      "example": "Rating 1-5 next to rating 1-10"
+    },
+    {
+      "topic": "Scaling",
+      "term": "Normalization (min-max)",
+      "definition": "Rescaling values into the range 0 to 1: (x - min) / (max - min).",
+      "useCase": "Use it when the distribution is unknown or not Gaussian.",
+      "example": "Min 10, max 110: 35 becomes 0.25"
+    },
+    {
+      "topic": "Scaling",
+      "term": "Standardization",
+      "definition": "Rescaling to mean 0 and standard deviation 1: (x - mean) / standard deviation.",
+      "useCase": "Use it when the algorithm assumes normal data.",
+      "example": "Mean 60, std 5: 70 becomes 2"
+    },
+    {
+      "topic": "Scaling",
+      "term": "Normalization vs standardization",
+      "definition": "Normalization gives a 0-1 range; standardization centres on 0 with variance 1.",
+      "useCase": "Choose by the algorithm and the data's distribution.",
+      "example": "kNN: normalization; assumes normal: standardization"
+    },
+    {
+      "topic": "Regularization",
+      "term": "Regularization",
+      "definition": "Penalizing large weights so a model stops fitting noise, balancing bias and variance.",
+      "useCase": "Use it to reduce overfitting.",
+      "example": "Train 99%, test 72%"
+    },
+    {
+      "topic": "Regularization",
+      "term": "L1 (LASSO)",
+      "definition": "Regularization that can push coefficients to exactly zero, removing features.",
+      "useCase": "Use it for feature selection as well as regularization.",
+      "example": "A feature's weight shrinks to 0"
+    },
+    {
+      "topic": "Regularization",
+      "term": "L2 (Ridge)",
+      "definition": "Regularization that shrinks weights but keeps most or all features.",
+      "useCase": "Use it to smooth out outliers without dropping features.",
+      "example": "Many small weights, none exactly zero"
+    }
+  ]
+}

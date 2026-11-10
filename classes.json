@@ -10,8 +10,14 @@
           "featured": true,
           "cta": "Read the guide",
           "title": "Quiz 1 Study Guide",
-          "description": "AI versus machine learning, the three types of learning, classification and regression, k-means, parameters and hyperparameters, accuracy and the confusion matrix, and overfitting and underfitting, in the same order as the quiz and flashcards.",
+          "description": "AI versus machine learning, the three types of learning, classification and regression, k-means, parameters and hyperparameters, accuracy and the confusion matrix, and overfitting and underfitting, and the machine learning process, in the same order as the quiz and flashcards.",
           "file": "data/itd140-quiz1-guide.json"
+        },
+        {
+          "id": "supplemental-guide",
+          "title": "SUPPLEMENTAL: Full-Course Study Guide (not for Quiz 1)",
+          "description": "Supplemental, whole-course material for later (final-exam prep). Not the Quiz 1 guide: use the Quiz 1 guide above for the upcoming quiz.",
+          "file": "data/itd140-supplemental-guide.json"
         }
       ],
       "tools": [
@@ -20,8 +26,14 @@
           "featured": true,
           "cta": "Study the flashcards",
           "title": "Quiz 1 Flashcards",
-          "description": "31 flip cards, one per term: the definition on the back, when to use it, and an example. Filter by topic, mark cards as known, and shuffle.",
+          "description": "39 flip cards, one per term: the definition on the back, when to use it, and an example. Filter by topic, mark cards as known, and shuffle.",
           "href": "flashcards.html?file=data%2Fitd140-quiz1-flashcards.json"
+        },
+        {
+          "id": "supplemental-flashcards",
+          "title": "SUPPLEMENTAL: Full-Course Flashcards (not for Quiz 1)",
+          "description": "46 supplemental cards covering the whole course for later (final-exam prep). Not the Quiz 1 deck.",
+          "href": "flashcards.html?file=data%2Fitd140-supplemental-flashcards.json"
         }
       ],
       "quizzes": [
@@ -29,8 +41,14 @@
           "id": "quiz1",
           "featured": true,
           "title": "Quiz 1: Machine Learning Fundamentals",
-          "description": "88 questions across seven topics, with four short-answer questions and a self-check rubric for each, mirroring the quiz's mix of multiple choice and written answers.",
+          "description": "120 questions across eight topics, including graph and chart questions, with six short-answer questions and a self-check rubric for each, mirroring the quiz's mix of multiple choice and written answers.",
           "file": "data/itd140-quiz1.json"
+        },
+        {
+          "id": "supplemental-quiz",
+          "title": "SUPPLEMENTAL: Full-Course Review (not for Quiz 1)",
+          "description": "108 questions on the whole course, including feature selection, PCA and LDA, encoding, scaling and regularization. Supplemental practice for later in the course. For the upcoming quiz use Quiz 1: Machine Learning Fundamentals.",
+          "file": "data/itd140-supplemental-quiz.json"
         }
       ]
     },
@@ -41,7 +59,6 @@
       "guides": [
         {
           "id": "quiz1-guide",
-          "featured": true,
           "cta": "Read the guide",
           "title": "Quiz 1 Study Guide",
           "description": "Tables and keys, indexes and views, SELECT and JOIN, the system catalog and MySQL data types in one place, in the same order as the quiz and flashcards.",
@@ -51,7 +68,6 @@
       "tools": [
         {
           "id": "quiz1-flashcards",
-          "featured": true,
           "cta": "Study the flashcards",
           "title": "Quiz 1 Flashcards",
           "description": "42 flip cards, one per term: the definition on the back, when to use it, and example code. Filter by topic, mark cards as known, and shuffle.",
@@ -67,7 +83,6 @@
       "quizzes": [
         {
           "id": "quiz1",
-          "featured": true,
           "title": "Quiz 1: Relational Databases, SQL and MySQL Data Types",
           "description": "86 questions on tables, rows and columns, primary and foreign keys, indexes, views, stored procedures and triggers, basic SELECT and JOIN queries (4 you run against the practice database), the system catalog, and choosing MySQL numeric, string and date/time types.",
           "file": "data/itd132-quiz1.json"

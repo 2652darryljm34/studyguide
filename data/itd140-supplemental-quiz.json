@@ -1,0 +1,1432 @@
+{
+  "title": "SUPPLEMENTAL: Full-Course Review (not for Quiz 1)",
+  "description": "108 questions across ten topics of the whole course, including feature selection, PCA and LDA, encoding, scaling and regularization. Supplemental practice for later in the course. It is NOT the Quiz 1 review: for the upcoming quiz use Quiz 1: Machine Learning Fundamentals.",
+  "guideFile": "data/itd140-supplemental-guide.json",
+  "shortCount": 40,
+  "sections": [
+    {
+      "name": "1. Machine Learning Foundations",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Machine Learning Foundations",
+          "question": "A program converts miles to kilometres. In traditional programming the rule is typed in by the programmer. What changes in machine learning?",
+          "options": [
+            "The rule is typed in, but then run on a much faster kind of computer",
+            "The rule is looked up from a stored table that the programmer filled in",
+            "The rule is voted on by a group of users each time the program runs",
+            "The rule is learned from example pairs of miles and kilometres"
+          ],
+          "correct": 3,
+          "explanation": "In ML the data (inputs and answers) goes in and the rule, the model, comes out."
+        },
+        {
+          "type": "mc",
+          "category": "Machine Learning Foundations",
+          "question": "A model learns the relationship y = m*x + b from data. In machine learning terms, what are m and b?",
+          "options": [
+            "Values the training algorithm finds, which together define the model",
+            "Values the engineer must choose before any data is ever collected",
+            "Values taken from the test set once the model has been fitted",
+            "Values that measure how many predictions turned out to be wrong"
+          ],
+          "correct": 0,
+          "explanation": "m and b are the parameters of a linear model; training finds them."
+        },
+        {
+          "type": "mc",
+          "category": "Machine Learning Foundations",
+          "question": "Two variables have a correlation near -1. What does that mean?",
+          "options": [
+            "A strong direct relationship: as one rises, the other rises too",
+            "A strong inverse relationship: as one rises, the other falls",
+            "A weak relationship: changes in one barely affect the other",
+            "A perfect match: the two variables always hold the same value"
+          ],
+          "correct": 1,
+          "explanation": "Near +1 is a strong positive relationship, near -1 a strong negative (inverse) one, and near 0 no relationship."
+        },
+        {
+          "type": "mc",
+          "category": "Machine Learning Foundations",
+          "question": "Two variables have a correlation near 0. What does that tell you?",
+          "options": [
+            "They move in opposite directions",
+            "They move in the same direction",
+            "There is no linear relationship between them",
+            "They hold exactly the same values"
+          ],
+          "correct": 2,
+          "explanation": "A value near 0 means changing one variable has no effect on the other."
+        },
+        {
+          "type": "mc",
+          "category": "Machine Learning Foundations",
+          "question": "What distinguishes multivariate regression from simple linear regression?",
+          "options": [
+            "It predicts two or more results from a single input variable using one coefficient",
+            "It predicts a category from two or more inputs by counting nearby neighbours",
+            "It predicts a number from a single input by grouping the data into clusters",
+            "It predicts the result from two or more input variables, each with its own coefficient"
+          ],
+          "correct": 3,
+          "explanation": "Simple regression uses one input (y = mx + b). Multivariate regression uses several, and training finds the best coefficients."
+        },
+        {
+          "type": "mc",
+          "category": "Machine Learning Foundations",
+          "question": "Logistic regression produces a probability that is compared with a threshold such as 0.5. What is it used for?",
+          "options": [
+            "Binary classification, such as breakdown or no breakdown",
+            "Continuous prediction, such as the price of a house",
+            "Clustering, such as grouping stocks by behaviour",
+            "Dimensionality reduction, such as dropping unused columns"
+          ],
+          "correct": 0,
+          "explanation": "A probability above the threshold is rounded to class 1, below it to class 0."
+        },
+        {
+          "type": "mc",
+          "category": "Machine Learning Foundations",
+          "question": "How is deep learning described in the course material?",
+          "options": [
+            "Machine learning that uses a single decision tree with many branches",
+            "Machine learning that uses neural networks with two or more hidden layers",
+            "Machine learning that uses only unlabelled data to group similar items",
+            "Machine learning that uses a rule table written by domain experts"
+          ],
+          "correct": 1,
+          "explanation": "Each layer's output becomes the input to the next, between the input and output layers."
+        },
+        {
+          "type": "tf",
+          "category": "Machine Learning Foundations",
+          "question": "Machine learning needs no data, because the programmer supplies the rules.",
+          "correct": false,
+          "explanation": "ML learns the rules from data. Supplying the rules by hand is traditional programming."
+        },
+        {
+          "type": "tf",
+          "category": "Machine Learning Foundations",
+          "question": "Linear regression is a simple form of predictive analytics that fits a line to the data.",
+          "correct": true,
+          "explanation": "It creates a linear expression to approximate the data and predict new values."
+        },
+        {
+          "type": "matching",
+          "category": "Machine Learning Foundations",
+          "question": "Match each term to its meaning.",
+          "pairs": [
+            {
+              "left": "Artificial intelligence",
+              "right": "The overall science of making machines behave intelligently"
+            },
+            {
+              "left": "Machine learning",
+              "right": "An approach to AI that learns rules from data"
+            },
+            {
+              "left": "Deep learning",
+              "right": "Machine learning with neural nets that have 2+ hidden layers"
+            },
+            {
+              "left": "Logistic regression",
+              "right": "A model used for binary classification"
+            }
+          ]
+        },
+        {
+          "type": "mc",
+          "category": "Machine Learning Foundations",
+          "question": "Which problem is a good fit for machine learning rather than hand-written rules?",
+          "options": [
+            "Converting inches to centimetres, where a fixed formula always applies",
+            "Sorting a list of numbers, where the steps of the method are known",
+            "Recognizing handwritten digits, where the rules are too many to write down",
+            "Adding sales tax to a price, where the rate is published and fixed"
+          ],
+          "correct": 2,
+          "explanation": "ML earns its keep when the rule is hard to express but plenty of examples exist."
+        }
+      ]
+    },
+    {
+      "name": "2. Supervised Learning and Its Algorithms",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Supervised Learning and Its Algorithms",
+          "question": "A supervised learning solution needs a training set and a test set. What must both contain?",
+          "options": [
+            "Input values only, since the labels are found by the model",
+            "Correct labels only, since the inputs are found by the model",
+            "Cluster centres only, since the groups are chosen in advance",
+            "Input values and the correct label for each example"
+          ],
+          "correct": 3,
+          "explanation": "The labels are what the model learns to predict and what its predictions are checked against."
+        },
+        {
+          "type": "mc",
+          "category": "Supervised Learning and Its Algorithms",
+          "question": "What share of the data usually goes to the training set?",
+          "options": [
+            "About 70-80%",
+            "About 20-30%",
+            "About 50%",
+            "About 100%"
+          ],
+          "correct": 0,
+          "explanation": "The rest, 20-30%, is the test set."
+        },
+        {
+          "type": "mc",
+          "category": "Supervised Learning and Its Algorithms",
+          "question": "In the 150-flower iris dataset, what are the 'features' and what is the 'label'?",
+          "options": [
+            "Features are the three species; the label is the sepal length of the flower",
+            "Features are the four measurements in centimetres; the label is the species",
+            "Features are the 150 flowers; the label is the number of petals it has",
+            "Features are the four species; the label is the width of the petals"
+          ],
+          "correct": 1,
+          "explanation": "Sepal length and width and petal length and width are the inputs; the species (setosa, versicolor, virginica) is the label."
+        },
+        {
+          "type": "mc",
+          "category": "Supervised Learning and Its Algorithms",
+          "question": "A spam dataset has 57 attribute columns and a 58th column holding 1 or 0. What is that 58th column?",
+          "options": [
+            "A feature: the number of capital letters in the message",
+            "A cluster id: the group the message was placed in",
+            "The label: 1 means spam and 0 means not spam",
+            "A parameter: a weight learned for the last attribute"
+          ],
+          "correct": 2,
+          "explanation": "The first 57 columns are inputs; the 58th is the correct output."
+        },
+        {
+          "type": "mc",
+          "category": "Supervised Learning and Its Algorithms",
+          "question": "When classifying with kNN, what does k stand for?",
+          "options": [
+            "The number of clusters the algorithm should look for in the data",
+            "The number of features that each training example is described by",
+            "The number of times the algorithm repeats before it stops",
+            "The number of nearest training points consulted for a new example"
+          ],
+          "correct": 3,
+          "explanation": "k is a hyperparameter set by us. (In k-means, k means something different: the number of clusters.)"
+        },
+        {
+          "type": "mc",
+          "category": "Supervised Learning and Its Algorithms",
+          "question": "A kNN classifier with k = 5 finds that 3 of the 5 nearest points are class P and 2 are class Q. What does it predict?",
+          "options": [
+            "Class P, by majority vote",
+            "Class Q, because the closest points always count the most",
+            "Both classes, with a 60/40 split",
+            "No class, because the vote is not unanimous"
+          ],
+          "correct": 0,
+          "explanation": "The new point takes the most common label among its k nearest neighbours."
+        },
+        {
+          "type": "mc",
+          "category": "Supervised Learning and Its Algorithms",
+          "question": "How does a decision tree decide which of two job offers to recommend?",
+          "options": [
+            "By measuring distance to the nearest labelled offers and voting among them",
+            "By asking questions about features such as salary and commute at each node",
+            "By moving centroids until each offer sits inside one of the groups",
+            "By fitting a straight line through all the offers it has seen before"
+          ],
+          "correct": 1,
+          "explanation": "Each decision node tests one feature; the path ends in a class."
+        },
+        {
+          "type": "mc",
+          "category": "Supervised Learning and Its Algorithms",
+          "question": "In traditional machine learning, what had to be done by hand before using a decision tree?",
+          "options": [
+            "Pick the labels, such as accept or decline, by guessing",
+            "Pick the test set, by choosing the easiest cases",
+            "Pick or build the features, such as salary or commute",
+            "Pick the training algorithm, by writing it from scratch"
+          ],
+          "correct": 2,
+          "explanation": "Traditional ML needed hand-picked features; deep learning learns them."
+        },
+        {
+          "type": "mc",
+          "category": "Supervised Learning and Its Algorithms",
+          "question": "What does a support vector machine (SVM) try to do?",
+          "options": [
+            "Find the average of every class, using all the points that the dataset holds",
+            "Find the groups in the data, using the centres that the algorithm moves around",
+            "Find the missing labels, using the rewards that an environment hands out",
+            "Find a boundary that separates the classes, using the points nearest it (the support vectors)"
+          ],
+          "correct": 3,
+          "explanation": "Only a subset of training points (the support vectors) define the boundary, which makes SVMs memory efficient."
+        },
+        {
+          "type": "mc",
+          "category": "Supervised Learning and Its Algorithms",
+          "question": "Which of these is an advantage of SVMs?",
+          "options": [
+            "They stay effective in high-dimensional spaces",
+            "They give exact probability estimates directly",
+            "They never need a kernel to be chosen",
+            "They run fastest when features outnumber samples"
+          ],
+          "correct": 0,
+          "explanation": "SVMs also use kernel functions. Probabilities need an extra, expensive step, and many more features than samples risks overfitting."
+        },
+        {
+          "type": "mc",
+          "category": "Supervised Learning and Its Algorithms",
+          "question": "What does it mean for two classes to be linearly separable?",
+          "options": [
+            "A curved boundary is needed to split one class from the other",
+            "A straight line (or flat plane) can split one class from the other",
+            "The two classes contain exactly the same number of examples",
+            "The two classes have the same average value for every feature"
+          ],
+          "correct": 1,
+          "explanation": "If a straight boundary can separate them, a linear model can learn it."
+        },
+        {
+          "type": "matching",
+          "category": "Supervised Learning and Its Algorithms",
+          "question": "Match each algorithm to its description.",
+          "pairs": [
+            {
+              "left": "kNN",
+              "right": "Classifies by a vote among the k closest training points"
+            },
+            {
+              "left": "Decision tree",
+              "right": "Classifies by following questions about features to a leaf"
+            },
+            {
+              "left": "SVM",
+              "right": "Classifies using a boundary defined by support vectors"
+            },
+            {
+              "left": "Linear regression",
+              "right": "Predicts a continuous value by fitting a line"
+            }
+          ]
+        },
+        {
+          "type": "tf",
+          "category": "Supervised Learning and Its Algorithms",
+          "question": "A support vector machine can only be used with one fixed kernel function.",
+          "correct": false,
+          "explanation": "Different kernel functions can be specified, including custom ones."
+        },
+        {
+          "type": "tf",
+          "category": "Supervised Learning and Its Algorithms",
+          "question": "In a supervised workflow the trained model is finally used on new data to make predictions.",
+          "correct": true,
+          "explanation": "Train on the training set, check on the test set, then predict for unseen examples."
+        },
+        {
+          "type": "short_answer",
+          "category": "Supervised Learning and Its Algorithms",
+          "question": "A bank wants to flag loan applications as 'likely to repay' or 'likely to default' using past applications whose outcomes are known. (a) Is this supervised or unsupervised, and why? (b) Is it classification or regression? (c) Name two algorithms that could do it and say briefly how one of them reaches a prediction.",
+          "answerLang": null,
+          "modelAnswer": "(a) Supervised: the past applications come with known outcomes, which act as labels.\n\n(b) Classification: the target is one of two fixed categories (repay or default).\n\n(c) For example kNN and a decision tree (SVM or logistic regression also work). A decision tree asks questions about features such as income or loan size, following the branches to a leaf that gives the class. kNN instead finds the k most similar past applications and takes a majority vote of their outcomes.",
+          "rubric": [
+            "Says supervised and links it to the known outcomes being labels",
+            "Says classification because the target is a fixed set of categories",
+            "Names two suitable algorithms (kNN, decision tree, SVM, logistic regression)",
+            "Explains how one of them reaches a prediction"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "3. Evaluating a Model",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Evaluating a Model",
+          "question": "A test set has 250 examples and the model gets 215 right. What is its accuracy?",
+          "options": [
+            "14%",
+            "35%",
+            "86%",
+            "21.5%"
+          ],
+          "correct": 2,
+          "explanation": "215 / 250 = 0.86."
+        },
+        {
+          "type": "mc",
+          "category": "Evaluating a Model",
+          "question": "In the confusion matrix shown (rows actual, columns predicted), what is the accuracy?",
+          "options": [
+            "52%",
+            "34%",
+            "14%",
+            "86%"
+          ],
+          "correct": 3,
+          "explanation": "Correct = 52 + 34 = 86 of 100.",
+          "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 200\" role=\"img\" aria-label=\"Confusion matrix of actual class against predicted class\" style=\"max-width:340px;width:100%;height:auto;font-family:sans-serif\"><title>Confusion matrix of actual class against predicted class</title><text x=\"200\" y=\"22\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">Predicted</text><text x=\"155.0\" y=\"50\" font-size=\"13\" text-anchor=\"middle\" font-weight=\"normal\" fill=\"var(--ink, #222)\">Spam</text><text x=\"245.0\" y=\"50\" font-size=\"13\" text-anchor=\"middle\" font-weight=\"normal\" fill=\"var(--ink, #222)\">Ham</text><text x=\"40\" y=\"120\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">Actual</text><text x=\"100\" y=\"95.0\" font-size=\"13\" text-anchor=\"end\" font-weight=\"normal\" fill=\"var(--ink, #222)\">Spam</text><rect x=\"110\" y=\"60\" width=\"90\" height=\"60\" fill=\"#2f855a\" fill-opacity=\"0.18\" stroke=\"var(--ink-soft, #777)\"/><text x=\"155.0\" y=\"97.0\" font-size=\"20\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">52</text><rect x=\"200\" y=\"60\" width=\"90\" height=\"60\" fill=\"#c0392b\" fill-opacity=\"0.10\" stroke=\"var(--ink-soft, #777)\"/><text x=\"245.0\" y=\"97.0\" font-size=\"20\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">8</text><text x=\"100\" y=\"155.0\" font-size=\"13\" text-anchor=\"end\" font-weight=\"normal\" fill=\"var(--ink, #222)\">Ham</text><rect x=\"110\" y=\"120\" width=\"90\" height=\"60\" fill=\"#c0392b\" fill-opacity=\"0.10\" stroke=\"var(--ink-soft, #777)\"/><text x=\"155.0\" y=\"157.0\" font-size=\"20\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">6</text><rect x=\"200\" y=\"120\" width=\"90\" height=\"60\" fill=\"#2f855a\" fill-opacity=\"0.18\" stroke=\"var(--ink-soft, #777)\"/><text x=\"245.0\" y=\"157.0\" font-size=\"20\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">34</text></svg>"
+        },
+        {
+          "type": "mc",
+          "category": "Evaluating a Model",
+          "question": "With 'Spam' as the positive class, which cell holds the false negatives?",
+          "options": [
+            "Actual spam called ham, which is 8 messages",
+            "Actual ham called spam, which is 6 messages",
+            "Actual spam called spam, which is 52 messages",
+            "Actual ham called ham, which is 34 messages"
+          ],
+          "correct": 0,
+          "explanation": "A false negative is a positive example the model called negative.",
+          "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 200\" role=\"img\" aria-label=\"Confusion matrix of actual class against predicted class\" style=\"max-width:340px;width:100%;height:auto;font-family:sans-serif\"><title>Confusion matrix of actual class against predicted class</title><text x=\"200\" y=\"22\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">Predicted</text><text x=\"155.0\" y=\"50\" font-size=\"13\" text-anchor=\"middle\" font-weight=\"normal\" fill=\"var(--ink, #222)\">Spam</text><text x=\"245.0\" y=\"50\" font-size=\"13\" text-anchor=\"middle\" font-weight=\"normal\" fill=\"var(--ink, #222)\">Ham</text><text x=\"40\" y=\"120\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">Actual</text><text x=\"100\" y=\"95.0\" font-size=\"13\" text-anchor=\"end\" font-weight=\"normal\" fill=\"var(--ink, #222)\">Spam</text><rect x=\"110\" y=\"60\" width=\"90\" height=\"60\" fill=\"#2f855a\" fill-opacity=\"0.18\" stroke=\"var(--ink-soft, #777)\"/><text x=\"155.0\" y=\"97.0\" font-size=\"20\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">52</text><rect x=\"200\" y=\"60\" width=\"90\" height=\"60\" fill=\"#c0392b\" fill-opacity=\"0.10\" stroke=\"var(--ink-soft, #777)\"/><text x=\"245.0\" y=\"97.0\" font-size=\"20\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">8</text><text x=\"100\" y=\"155.0\" font-size=\"13\" text-anchor=\"end\" font-weight=\"normal\" fill=\"var(--ink, #222)\">Ham</text><rect x=\"110\" y=\"120\" width=\"90\" height=\"60\" fill=\"#c0392b\" fill-opacity=\"0.10\" stroke=\"var(--ink-soft, #777)\"/><text x=\"155.0\" y=\"157.0\" font-size=\"20\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">6</text><rect x=\"200\" y=\"120\" width=\"90\" height=\"60\" fill=\"#2f855a\" fill-opacity=\"0.18\" stroke=\"var(--ink-soft, #777)\"/><text x=\"245.0\" y=\"157.0\" font-size=\"20\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">34</text></svg>"
+        },
+        {
+          "type": "mc",
+          "category": "Evaluating a Model",
+          "question": "How many items should a confusion matrix hold altogether?",
+          "options": [
+            "As many as there are features in the dataset",
+            "As many as there are examples in the test set",
+            "As many as there are classes the model can predict",
+            "As many as there are rows in the training set"
+          ],
+          "correct": 1,
+          "explanation": "Every test example lands in exactly one cell."
+        },
+        {
+          "type": "mc",
+          "category": "Evaluating a Model",
+          "question": "What does k-fold cross-validation do?",
+          "options": [
+            "It splits the data into k parts and discards every part after it is used",
+            "It splits the data into k classes and gives each class its own algorithm",
+            "It splits the data into k parts and lets each part serve once as the test set",
+            "It splits the data into k features and keeps only the most useful one"
+          ],
+          "correct": 2,
+          "explanation": "k models are trained and scored, so every example is used for testing exactly once."
+        },
+        {
+          "type": "mc",
+          "category": "Evaluating a Model",
+          "question": "A dataset has 500 rows and you run 5-fold cross-validation. How many rows are in the training part of each round?",
+          "options": [
+            "100",
+            "250",
+            "500",
+            "400"
+          ],
+          "correct": 3,
+          "explanation": "Each fold holds 100 rows, so each round trains on the other 4 folds: 400 rows, tested on 100."
+        },
+        {
+          "type": "mc",
+          "category": "Evaluating a Model",
+          "question": "Why use cross-validation instead of a single train/test split?",
+          "options": [
+            "The score no longer depends on one lucky or unlucky split",
+            "The model no longer needs any labelled data to learn from",
+            "The model no longer needs hyperparameters to be set up front",
+            "The model no longer risks having any bias at all in it"
+          ],
+          "correct": 0,
+          "explanation": "Averaging several test scores gives a steadier estimate of how well it generalizes."
+        },
+        {
+          "type": "mc",
+          "category": "Evaluating a Model",
+          "question": "What does generalization mean?",
+          "options": [
+            "How many kinds of problem the model can be applied to",
+            "How well the model handles examples that were not in the training set",
+            "How fast the model finishes training on a large set",
+            "How closely the model copies its training examples"
+          ],
+          "correct": 1,
+          "explanation": "A model that generalizes extends what it learned to unseen data."
+        },
+        {
+          "type": "mc",
+          "category": "Evaluating a Model",
+          "question": "Each plot fits a curve to the same points. Which plot shows a model that has memorized noise?",
+          "options": [
+            "Plot A, where a straight line ignores the curve",
+            "Plot C, where the curve follows the trend",
+            "Plot B, where the curve bends to reach every point",
+            "Both Plot A and Plot C"
+          ],
+          "correct": 2,
+          "explanation": "Chasing every point is overfitting: high variance, low bias.",
+          "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 660 200\" role=\"img\" aria-label=\"Three scatter plots, each with a different curve fitted to the same points\" style=\"max-width:660px;width:100%;height:auto;font-family:sans-serif\"><title>Three scatter plots, each with a different curve fitted to the same points</title><rect x=\"10\" y=\"10\" width=\"200\" height=\"150\" fill=\"none\" stroke=\"var(--ink-soft, #777)\" stroke-width=\"1\"/><path d=\"M20.0 151.5 L200.0 75.9\" fill=\"none\" stroke=\"var(--accent, #2b6cb0)\" stroke-width=\"2\"/><circle cx=\"24.5\" cy=\"110.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"33.5\" cy=\"108.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"42.5\" cy=\"125.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"51.5\" cy=\"122.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"60.5\" cy=\"127.6\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"69.5\" cy=\"156.8\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"78.5\" cy=\"162.1\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"87.5\" cy=\"127.5\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"96.5\" cy=\"152.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"105.5\" cy=\"152.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"114.5\" cy=\"116.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"123.5\" cy=\"134.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"132.5\" cy=\"112.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"141.5\" cy=\"120.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"150.5\" cy=\"104.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"159.5\" cy=\"114.7\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"168.5\" cy=\"81.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"177.5\" cy=\"57.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"186.5\" cy=\"56.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"195.5\" cy=\"30.5\" r=\"3.2\" fill=\"var(--ink, #222)\"/><text x=\"110.0\" y=\"180\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">Plot A</text><rect x=\"225\" y=\"10\" width=\"200\" height=\"150\" fill=\"none\" stroke=\"var(--ink-soft, #777)\" stroke-width=\"1\"/><path d=\"M239.5 110.9 L248.5 108.2 L257.5 125.0 L266.5 122.4 L275.5 127.6 L284.5 156.8 L293.5 162.1 L302.5 127.5 L311.5 152.9 L320.5 152.4 L329.5 116.0 L338.5 134.4 L347.5 112.2 L356.5 120.4 L365.5 104.0 L374.5 114.7 L383.5 81.2 L392.5 57.2 L401.5 56.9 L410.5 30.5\" fill=\"none\" stroke=\"var(--accent, #2b6cb0)\" stroke-width=\"2\"/><circle cx=\"239.5\" cy=\"110.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"248.5\" cy=\"108.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"257.5\" cy=\"125.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"266.5\" cy=\"122.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"275.5\" cy=\"127.6\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"284.5\" cy=\"156.8\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"293.5\" cy=\"162.1\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"302.5\" cy=\"127.5\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"311.5\" cy=\"152.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"320.5\" cy=\"152.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"329.5\" cy=\"116.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"338.5\" cy=\"134.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"347.5\" cy=\"112.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"356.5\" cy=\"120.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"365.5\" cy=\"104.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"374.5\" cy=\"114.7\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"383.5\" cy=\"81.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"392.5\" cy=\"57.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"401.5\" cy=\"56.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"410.5\" cy=\"30.5\" r=\"3.2\" fill=\"var(--ink, #222)\"/><text x=\"325.0\" y=\"180\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">Plot B</text><rect x=\"440\" y=\"10\" width=\"200\" height=\"150\" fill=\"none\" stroke=\"var(--ink-soft, #777)\" stroke-width=\"1\"/><path d=\"M450.0 93.4 L454.5 99.4 L459.0 104.9 L463.5 110.1 L468.0 114.9 L472.5 119.3 L477.0 123.3 L481.5 127.0 L486.0 130.3 L490.5 133.1 L495.0 135.6 L499.5 137.7 L504.0 139.5 L508.5 140.8 L513.0 141.8 L517.5 142.3 L522.0 142.5 L526.5 142.3 L531.0 141.8 L535.5 140.8 L540.0 139.5 L544.5 137.7 L549.0 135.6 L553.5 133.1 L558.0 130.3 L562.5 127.0 L567.0 123.3 L571.5 119.3 L576.0 114.9 L580.5 110.1 L585.0 104.9 L589.5 99.4 L594.0 93.4 L598.5 87.1 L603.0 80.4 L607.5 73.3 L612.0 65.8 L616.5 58.0 L621.0 49.7 L625.5 41.1 L630.0 32.1\" fill=\"none\" stroke=\"var(--accent, #2b6cb0)\" stroke-width=\"2\"/><circle cx=\"454.5\" cy=\"110.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"463.5\" cy=\"108.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"472.5\" cy=\"125.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"481.5\" cy=\"122.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"490.5\" cy=\"127.6\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"499.5\" cy=\"156.8\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"508.5\" cy=\"162.1\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"517.5\" cy=\"127.5\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"526.5\" cy=\"152.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"535.5\" cy=\"152.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"544.5\" cy=\"116.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"553.5\" cy=\"134.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"562.5\" cy=\"112.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"571.5\" cy=\"120.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"580.5\" cy=\"104.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"589.5\" cy=\"114.7\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"598.5\" cy=\"81.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"607.5\" cy=\"57.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"616.5\" cy=\"56.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"625.5\" cy=\"30.5\" r=\"3.2\" fill=\"var(--ink, #222)\"/><text x=\"540.0\" y=\"180\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">Plot C</text></svg>"
+        },
+        {
+          "type": "mc",
+          "category": "Evaluating a Model",
+          "question": "The chart shows training and test accuracy for one model. What is the likely problem?",
+          "options": [
+            "Underfitting, because bias is too high",
+            "Underfitting, because variance is too high",
+            "No problem, because both bars are high",
+            "Overfitting, because variance is too high"
+          ],
+          "correct": 3,
+          "explanation": "Training accuracy far above test accuracy is the overfitting signature.",
+          "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 185\" role=\"img\" aria-label=\"Bar chart of training accuracy next to test accuracy\" style=\"max-width:300px;width:100%;height:auto;font-family:sans-serif\"><title>Bar chart of training accuracy next to test accuracy</title><line x1=\"50\" y1=\"150\" x2=\"270\" y2=\"150\" stroke=\"var(--ink-soft, #777)\"/><rect x=\"80\" y=\"21.3\" width=\"60\" height=\"128.7\" fill=\"var(--accent, #2b6cb0)\"/><text x=\"110\" y=\"14.299999999999983\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">99%</text><text x=\"110\" y=\"170\" font-size=\"13\" text-anchor=\"middle\" font-weight=\"normal\" fill=\"var(--ink, #222)\">Training</text><rect x=\"180\" y=\"59.0\" width=\"60\" height=\"91.0\" fill=\"#c0392b\"/><text x=\"210\" y=\"52.0\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">70%</text><text x=\"210\" y=\"170\" font-size=\"13\" text-anchor=\"middle\" font-weight=\"normal\" fill=\"var(--ink, #222)\">Test</text><text x=\"25\" y=\"22\" font-size=\"12\" text-anchor=\"start\" font-weight=\"normal\" fill=\"var(--ink-soft, #777)\">Accuracy</text></svg>"
+        },
+        {
+          "type": "tf",
+          "category": "Evaluating a Model",
+          "question": "Low training accuracy points to underfitting, whatever the test accuracy is.",
+          "correct": true,
+          "explanation": "A model that cannot learn its own training data is too simple: high bias."
+        },
+        {
+          "type": "tf",
+          "category": "Evaluating a Model",
+          "question": "An underfit model has high variance and low bias.",
+          "correct": false,
+          "explanation": "Underfit models have high bias and low variance. Overfit models are the reverse."
+        },
+        {
+          "type": "matching",
+          "category": "Evaluating a Model",
+          "question": "Match each result to its diagnosis.",
+          "pairs": [
+            {
+              "left": "Training 98%, test 60%",
+              "right": "Overfit: variance too high"
+            },
+            {
+              "left": "Training 55%, test 53%",
+              "right": "Underfit: bias too high"
+            },
+            {
+              "left": "Training 91%, test 89%",
+              "right": "Generalizes well"
+            },
+            {
+              "left": "Memorizes the training set",
+              "right": "Overfit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "4. Clustering and Distance",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Clustering and Distance",
+          "question": "Why does clustering count as unsupervised learning?",
+          "options": [
+            "It works on data that has no labels",
+            "It works on data that has been checked by a person",
+            "It works on data that comes with rewards for each action",
+            "It works on data that is too small to be split in two"
+          ],
+          "correct": 0,
+          "explanation": "Clustering algorithms identify items with similar attributes without being given answers."
+        },
+        {
+          "type": "mc",
+          "category": "Clustering and Distance",
+          "question": "Which clustering methods match their families?",
+          "options": [
+            "k-means is density-based, hierarchical is centroid-based, DBSCAN is connectivity-based",
+            "k-means is centroid-based, hierarchical is connectivity-based, DBSCAN is density-based",
+            "k-means is connectivity-based, hierarchical is density-based, DBSCAN is centroid-based",
+            "k-means is centroid-based, hierarchical is density-based, DBSCAN is connectivity-based"
+          ],
+          "correct": 1,
+          "explanation": "Centroid, connectivity and density are the three families named for clustering."
+        },
+        {
+          "type": "mc",
+          "category": "Clustering and Distance",
+          "question": "What does DBSCAN stand for?",
+          "options": [
+            "Distance-based sorting of clusters and neighbours in nested sets",
+            "Dynamic binary search for centroids and numeric nearest values",
+            "Density-based spatial clustering of applications with noise",
+            "Divisive bottom-up splitting of clusters by correlation and norm"
+          ],
+          "correct": 2,
+          "explanation": "It groups points that are packed closely together."
+        },
+        {
+          "type": "mc",
+          "category": "Clustering and Distance",
+          "question": "In a distance-based clustering algorithm, what is the centroid?",
+          "options": [
+            "The label of a cluster, given by the person running the algorithm",
+            "The outermost point of a cluster, used to draw its edge",
+            "The total number of points that a cluster has gathered",
+            "The centre of a cluster, from which distances are measured"
+          ],
+          "correct": 3,
+          "explanation": "Points are included in or excluded from a cluster by their distance from its centre."
+        },
+        {
+          "type": "mc",
+          "category": "Clustering and Distance",
+          "question": "What is Euclidean distance?",
+          "options": [
+            "The straight-line distance between two points",
+            "The sum of the horizontal and vertical steps between two points",
+            "The count of features on which two points differ from each other",
+            "The difference in the average value of the two points' features"
+          ],
+          "correct": 0,
+          "explanation": "For points (a1, a2) and (b1, b2) it is the square root of (a1-b1)^2 + (a2-b2)^2, the hypotenuse."
+        },
+        {
+          "type": "mc",
+          "category": "Clustering and Distance",
+          "question": "A delivery rider moves along a street grid: 3 blocks east and 4 blocks north. What is the Manhattan distance, and what is the Euclidean distance?",
+          "options": [
+            "Manhattan 5, Euclidean 7",
+            "Manhattan 7, Euclidean 5",
+            "Manhattan 7, Euclidean 12",
+            "Manhattan 12, Euclidean 5"
+          ],
+          "correct": 1,
+          "explanation": "Manhattan adds the steps: 3 + 4 = 7. Euclidean is the straight line: the square root of 9 + 16 = 5."
+        },
+        {
+          "type": "mc",
+          "category": "Clustering and Distance",
+          "question": "How does Manhattan distance compare with Euclidean distance?",
+          "options": [
+            "It is more expensive to compute but more precise",
+            "It is cheaper to compute and more precise",
+            "It is cheaper to compute but less precise",
+            "It is more expensive to compute and less precise"
+          ],
+          "correct": 2,
+          "explanation": "It adds the horizontal and vertical distances instead of using a square root."
+        },
+        {
+          "type": "tf",
+          "category": "Clustering and Distance",
+          "question": "A clustering algorithm learns from a labelled training set.",
+          "correct": false,
+          "explanation": "Clustering does not use labelled training data."
+        },
+        {
+          "type": "tf",
+          "category": "Clustering and Distance",
+          "question": "Data association is another common unsupervised solution besides clustering.",
+          "correct": true,
+          "explanation": "Clustering and data association are the usual examples."
+        },
+        {
+          "type": "matching",
+          "category": "Clustering and Distance",
+          "question": "Match each clustering method to how it forms groups.",
+          "pairs": [
+            {
+              "left": "k-means",
+              "right": "By distance to moving centroids"
+            },
+            {
+              "left": "Hierarchical",
+              "right": "By connecting points step by step into a tree of clusters"
+            },
+            {
+              "left": "DBSCAN",
+              "right": "By grouping points that are densely packed"
+            },
+            {
+              "left": "Euclidean distance",
+              "right": "The straight-line distance between two points"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "5. The Machine Learning Workflow",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "The Machine Learning Workflow",
+          "question": "Which sequence starts a typical machine learning project correctly?",
+          "options": [
+            "Split the data, load it, transform it, then explore what is in it",
+            "Transform the data, split it, load it, then explore the result",
+            "Explore the model, load the data, split it, then transform the labels",
+            "Load the data, explore it, transform it, then split it for training and testing"
+          ],
+          "correct": 3,
+          "explanation": "You need the data in hand before you can explore, clean or split it."
+        },
+        {
+          "type": "mc",
+          "category": "The Machine Learning Workflow",
+          "question": "Why must non-numeric columns be converted before using scikit-learn?",
+          "options": [
+            "The library requires numeric data",
+            "The library refuses any column with more than ten values",
+            "The library stores text as a type that cannot be indexed",
+            "The library sorts the columns by the first letter of their names"
+          ],
+          "correct": 0,
+          "explanation": "Text categories are encoded as numbers, for example with one-hot encoding."
+        },
+        {
+          "type": "mc",
+          "category": "The Machine Learning Workflow",
+          "question": "After the model is trained and tested, what comes next in the workflow?",
+          "options": [
+            "Throw away the model and train a new one from the same data",
+            "Tune the model and evaluate its accuracy, then predict on live data",
+            "Merge the test set into the training set and stop checking",
+            "Convert the labels back to text and hand over the model"
+          ],
+          "correct": 1,
+          "explanation": "Tuning and evaluation come before predictions on live data the model has not seen."
+        },
+        {
+          "type": "mc",
+          "category": "The Machine Learning Workflow",
+          "question": "Once a model is running in production, what should be done?",
+          "options": [
+            "Leave it alone, because a trained model never loses accuracy",
+            "Delete the test set, because it is no longer needed",
+            "Periodically evaluate it and retune, retrain or redeploy if it has drifted",
+            "Raise k, because more neighbours always help over time"
+          ],
+          "correct": 2,
+          "explanation": "Real-world data changes, so performance should be monitored."
+        },
+        {
+          "type": "mc",
+          "category": "The Machine Learning Workflow",
+          "question": "In scikit-learn, what does classifier.fit(x_train, y_train) do?",
+          "options": [
+            "It tests the model on the test inputs and labels",
+            "It splits the data into training and test sets",
+            "It scores the predictions with the accuracy measure",
+            "It trains the model on the training inputs and labels"
+          ],
+          "correct": 3,
+          "explanation": "fit trains; predict uses the model; accuracy_score compares predictions with the real labels."
+        },
+        {
+          "type": "mc",
+          "category": "The Machine Learning Workflow",
+          "question": "What does train_test_split(x, y, test_size=0.2) return for a 150-row dataset?",
+          "options": [
+            "120 training rows and 30 test rows",
+            "30 training rows and 120 test rows",
+            "150 training rows and 20 test rows",
+            "100 training rows and 50 test rows"
+          ],
+          "correct": 0,
+          "explanation": "20% of 150 is 30 rows held back for testing."
+        },
+        {
+          "type": "mc",
+          "category": "The Machine Learning Workflow",
+          "question": "In scikit-learn, which call produces predicted labels for the test inputs?",
+          "options": [
+            "classifier.fit(x_test)",
+            "classifier.predict(x_test)",
+            "accuracy_score(x_test)",
+            "train_test_split(y_test)"
+          ],
+          "correct": 1,
+          "explanation": "predict takes inputs only and returns labels; accuracy_score then compares them with y_test."
+        },
+        {
+          "type": "tf",
+          "category": "The Machine Learning Workflow",
+          "question": "Exploring the data with pandas and charts is part of the workflow, before the model is built.",
+          "correct": true,
+          "explanation": "Exploring and visualizing the data comes right after loading it."
+        },
+        {
+          "type": "matching",
+          "category": "The Machine Learning Workflow",
+          "question": "Match each workflow step to what it does.",
+          "pairs": [
+            {
+              "left": "Load",
+              "right": "Bring the dataset into the program"
+            },
+            {
+              "left": "Transform",
+              "right": "Convert non-numeric data into numbers"
+            },
+            {
+              "left": "Split",
+              "right": "Hold back examples for testing"
+            },
+            {
+              "left": "Tune",
+              "right": "Adjust the model to improve accuracy"
+            }
+          ]
+        },
+        {
+          "type": "short_answer",
+          "category": "The Machine Learning Workflow",
+          "question": "List the steps of a machine learning project from loading the data to running the model in production, and say what happens in each step.",
+          "answerLang": null,
+          "modelAnswer": "1. Load the dataset.\n2. Explore the data with pandas and visualizations.\n3. Transform the data: scikit-learn needs numbers, so non-numeric values are converted.\n4. Split the data into a training set and a test set.\n5. Create a model.\n6. Train the model on the training set, then test it on the test set.\n7. Tune the model and evaluate its accuracy.\n8. Make predictions on live data the model has not seen.\n9. Periodically evaluate the live model and, if needed, tune, retrain or redeploy it.",
+          "rubric": [
+            "Loads and explores the data first",
+            "Transforms non-numeric data into numbers",
+            "Splits into training and test sets before training",
+            "Trains, tests, then tunes and evaluates accuracy",
+            "Predicts on live data and keeps monitoring the model"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "6. Feature Selection",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Feature Selection",
+          "question": "Why remove features before training?",
+          "options": [
+            "Fewer labelled rows means faster training, less memory and often cleaner labels",
+            "Fewer irrelevant outputs means faster scoring, less memory and often better rewards",
+            "Fewer irrelevant inputs means faster training, less memory and often better results",
+            "Fewer trained models means faster testing, less memory and often better clusters"
+          ],
+          "correct": 2,
+          "explanation": "Irrelevant features add cost without adding information."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Selection",
+          "question": "What is a filter method of feature selection?",
+          "options": [
+            "It scores features by training a new model on every subset of them",
+            "It scores features as a side effect of building the final model",
+            "It scores features by asking a person to rank them in order",
+            "It scores features using their own characteristics, without training a model"
+          ],
+          "correct": 3,
+          "explanation": "Filters are cheap and good for a quick screen, but usually predict less well than wrappers."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Selection",
+          "question": "What is a wrapper method of feature selection?",
+          "options": [
+            "It trains a model on candidate feature subsets and scores each subset",
+            "It scores features by their variance and drops the ones that rarely change",
+            "It scores features inside one model that is trained only once",
+            "It scores features by the colour that the chart assigns to each"
+          ],
+          "correct": 0,
+          "explanation": "Wrappers are very computationally intensive because a new model is trained for each subset."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Selection",
+          "question": "What is an embedded method of feature selection?",
+          "options": [
+            "Selection that happens before any data is loaded, as with a rule list",
+            "Selection that happens while the model is being built, as with LASSO",
+            "Selection that happens after predictions are made, as with accuracy",
+            "Selection that happens by hand, as with a spreadsheet review"
+          ],
+          "correct": 1,
+          "explanation": "It fits the model once, which makes it a balance between speed and effectiveness."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Selection",
+          "question": "Which pairing of method and cost is correct?",
+          "options": [
+            "Filter: slow; wrapper: fast; embedded: in between",
+            "Filter: in between; wrapper: fast; embedded: slow",
+            "Filter: fast; wrapper: slow; embedded: in between",
+            "Filter: fast; wrapper: in between; embedded: slow"
+          ],
+          "correct": 2,
+          "explanation": "Filter is quick but less effective; wrapper is slow but very effective; embedded balances the two."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Selection",
+          "question": "In forward feature selection, what happens at each step?",
+          "options": [
+            "One more feature is removed, dropping the one that helps the model least",
+            "One more feature is scaled, shrinking the one that varies the most",
+            "One more feature is encoded, splitting the one that has most categories",
+            "One more feature is added, keeping the one that helps the model most"
+          ],
+          "correct": 3,
+          "explanation": "Backward elimination does the opposite: it removes one feature at a time."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Selection",
+          "question": "Recursive Feature Elimination (RFE) is which kind of method, and how does it rank features?",
+          "options": [
+            "A wrapper: it repeatedly builds models and ranks features by the order they were eliminated",
+            "A filter: it scores each feature once by its variance and ranks them by that score",
+            "An embedded method: it fits the model one time and ranks features by their weights",
+            "A clustering method: it groups the features and ranks them by cluster size"
+          ],
+          "correct": 0,
+          "explanation": "RFE is very computationally intensive but very effective."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Selection",
+          "question": "What does SelectKBest do?",
+          "options": [
+            "It keeps the K rows with the highest values in the label column",
+            "It keeps the K features with the highest scores, for example from ANOVA",
+            "It keeps the K models with the highest accuracy on the test set",
+            "It keeps the K clusters with the highest number of points"
+          ],
+          "correct": 1,
+          "explanation": "It is a filter method."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Selection",
+          "question": "A feature takes nearly the same value in every row. What does a univariate filter suggest?",
+          "options": [
+            "Its low variance means it is the single best predictor of the target",
+            "Its low variance means it must be one-hot encoded before use",
+            "Its low variance means it adds little to predicting the target",
+            "Its low variance means it should be normalized to a larger range"
+          ],
+          "correct": 2,
+          "explanation": "Low-variance features tend to contribute less to prediction."
+        },
+        {
+          "type": "tf",
+          "category": "Feature Selection",
+          "question": "A multivariate filter can use pairwise correlations between features.",
+          "correct": true,
+          "explanation": "A heatmap of correlations shows which features move together."
+        },
+        {
+          "type": "tf",
+          "category": "Feature Selection",
+          "question": "LASSO is an example of a wrapper method.",
+          "correct": false,
+          "explanation": "LASSO has built-in feature selection, which makes it an embedded method."
+        }
+      ]
+    },
+    {
+      "name": "7. Dimensionality Reduction",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Dimensionality Reduction",
+          "question": "In machine learning, which words mean the same thing as 'dimensions'?",
+          "options": [
+            "Labels and outputs",
+            "Rows and records",
+            "Clusters and groups",
+            "Features and inputs"
+          ],
+          "correct": 3,
+          "explanation": "Dimensions = features = inputs."
+        },
+        {
+          "type": "mc",
+          "category": "Dimensionality Reduction",
+          "question": "Why reduce the number of dimensions?",
+          "options": [
+            "It cuts processing time and memory use and can reveal the features that matter",
+            "It adds labelled rows and memory use and can reveal the clusters that formed",
+            "It cuts the number of rows and training time and can reveal the labels that exist",
+            "It adds processing power and speed and can reveal the models that overfit"
+          ],
+          "correct": 0,
+          "explanation": "Dropping columns that do not affect the output keeps the results while saving resources."
+        },
+        {
+          "type": "mc",
+          "category": "Dimensionality Reduction",
+          "question": "What does principal component analysis (PCA) do?",
+          "options": [
+            "It maps the labels to fewer classes that keep as many correct answers as possible",
+            "It maps the features to fewer dimensions that keep as much spread in the data as possible",
+            "It maps the rows to fewer clusters that keep as many centroids as possible",
+            "It maps the models to fewer trees that keep as many splits as possible"
+          ],
+          "correct": 1,
+          "explanation": "PCA picks new axes along which the points are most spread out."
+        },
+        {
+          "type": "mc",
+          "category": "Dimensionality Reduction",
+          "question": "PCA is which kind of machine learning?",
+          "options": [
+            "Supervised",
+            "Reinforcement",
+            "Unsupervised",
+            "Deep"
+          ],
+          "correct": 2,
+          "explanation": "It uses no labels."
+        },
+        {
+          "type": "mc",
+          "category": "Dimensionality Reduction",
+          "question": "Linear discriminant analysis (LDA) differs from PCA because it is what?",
+          "options": [
+            "Unsupervised, so it ignores the labels to find the axes that spread the points out",
+            "Supervised, so it uses the labels to find the axes that average the classes together",
+            "Unsupervised, so it ignores the labels to find the axes that remove the outliers",
+            "Supervised, so it uses the labels to find the axes that best separate the classes"
+          ],
+          "correct": 3,
+          "explanation": "PCA maximizes variance; LDA maximizes class separation."
+        },
+        {
+          "type": "mc",
+          "category": "Dimensionality Reduction",
+          "question": "After LDA, component LD1 separates two classes cleanly and LD2 does not. What can you do?",
+          "options": [
+            "Drop LD2 and still get much the same results",
+            "Drop LD1 and keep LD2 to separate the classes",
+            "Keep both and double the number of classes",
+            "Convert both to one-hot columns before training"
+          ],
+          "correct": 0,
+          "explanation": "A dimension that does not help tell the classes apart can be removed."
+        },
+        {
+          "type": "tf",
+          "category": "Dimensionality Reduction",
+          "question": "PCA needs labelled data to find its components.",
+          "correct": false,
+          "explanation": "PCA is unsupervised."
+        },
+        {
+          "type": "tf",
+          "category": "Dimensionality Reduction",
+          "question": "LDA uses the class labels.",
+          "correct": true,
+          "explanation": "LDA is a supervised approach to dimensionality reduction."
+        },
+        {
+          "type": "matching",
+          "category": "Dimensionality Reduction",
+          "question": "Match each technique to its goal.",
+          "pairs": [
+            {
+              "left": "PCA",
+              "right": "Maximize the variance (spread) along the component axes"
+            },
+            {
+              "left": "LDA",
+              "right": "Maximize the separation between classes"
+            },
+            {
+              "left": "Dimensionality reduction",
+              "right": "Cut the number of features while keeping the useful information"
+            },
+            {
+              "left": "Dimension",
+              "right": "Another word for a feature or input"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "8. Feature Encoding",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Feature Encoding",
+          "question": "A video's view count is turned into 'popular' (5,000 views or more) or 'unpopular'. What is this called?",
+          "options": [
+            "One-hot encoding",
+            "Binarization",
+            "Standardization",
+            "Regularization"
+          ],
+          "correct": 1,
+          "explanation": "Binarization turns a continuous value into two classes at a chosen threshold."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Encoding",
+          "question": "With a binarization threshold of 5,000 and the rule 'at least 5,000 is popular', how is a video with exactly 5,000 views labelled?",
+          "options": [
+            "Unpopular",
+            "Both, because it sits on the threshold",
+            "Popular",
+            "Neither, because it is excluded"
+          ],
+          "correct": 2,
+          "explanation": "The rule uses 'greater than or equal to', so 5,000 counts as popular."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Encoding",
+          "question": "What is binning?",
+          "options": [
+            "Putting categories into columns of 1s and 0s, one per category",
+            "Putting values onto a scale from zero to one using the minimum and maximum",
+            "Putting rows into training and test sets in a fixed ratio",
+            "Putting continuous values into ranges, such as 20-30 and 30-40"
+          ],
+          "correct": 3,
+          "explanation": "Each value is replaced by the bin (range) it falls into."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Encoding",
+          "question": "A colour column holds red, green and blue. Why is mapping them to 1, 2 and 3 a problem?",
+          "options": [
+            "It implies an order, so blue looks 'greater' than red",
+            "It implies a distance, so all three colours look identical",
+            "It implies a label, so the colour looks like the answer",
+            "It implies a cluster, so the three colours look like one group"
+          ],
+          "correct": 0,
+          "explanation": "The numbers introduce an ordinal relationship that the categories do not have."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Encoding",
+          "question": "How does one-hot encoding represent 'green' when the categories are red, green and blue?",
+          "options": [
+            "As [1, 0, 0]",
+            "As [0, 1, 0]",
+            "As [0, 0, 1]",
+            "As [2]"
+          ],
+          "correct": 1,
+          "explanation": "One column per category, with a 1 only in the column of the matching category."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Encoding",
+          "question": "How many columns does one-hot encoding create for a column with 6 different categories?",
+          "options": [
+            "1",
+            "3",
+            "6",
+            "12"
+          ],
+          "correct": 2,
+          "explanation": "One column per category."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Encoding",
+          "question": "Which pandas call one-hot encodes a column?",
+          "options": [
+            "pd.split(column)",
+            "pd.scale(column)",
+            "pd.select_k_best(column)",
+            "pd.get_dummies(column)"
+          ],
+          "correct": 3,
+          "explanation": "get_dummies creates a column of 0s and 1s for each category."
+        },
+        {
+          "type": "tf",
+          "category": "Feature Encoding",
+          "question": "One-hot encoding avoids implying an order between categories.",
+          "correct": true,
+          "explanation": "Each category gets its own binary column instead of an ordered number."
+        },
+        {
+          "type": "tf",
+          "category": "Feature Encoding",
+          "question": "Binarization turns text categories into several 0/1 columns.",
+          "correct": false,
+          "explanation": "That is one-hot encoding. Binarization turns a continuous value into two classes at a threshold."
+        },
+        {
+          "type": "matching",
+          "category": "Feature Encoding",
+          "question": "Match each encoding to what it does.",
+          "pairs": [
+            {
+              "left": "Binarization",
+              "right": "Splits a continuous value into two classes at a threshold"
+            },
+            {
+              "left": "Binning",
+              "right": "Groups continuous values into ranges"
+            },
+            {
+              "left": "One-hot",
+              "right": "Gives each category its own 0/1 column"
+            },
+            {
+              "left": "Ordinal numbering",
+              "right": "Implies an order that the categories may not have"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "9. Scaling",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Scaling",
+          "question": "Why scale features before training?",
+          "options": [
+            "Attributes on very different scales can distort the results",
+            "Attributes with very different names can confuse the results",
+            "Attributes with very few values can shrink the results",
+            "Attributes with very many rows can delay the results"
+          ],
+          "correct": 0,
+          "explanation": "Aligning the scales helps many ML and data-mining operations."
+        },
+        {
+          "type": "mc",
+          "category": "Scaling",
+          "question": "What does normalization (min-max scaling) do?",
+          "options": [
+            "It rescales values to a mean of 0 and a standard deviation of 1",
+            "It rescales values into the range 0 to 1",
+            "It rescales values into whole numbers from 1 to 100",
+            "It rescales values so that every one equals the average"
+          ],
+          "correct": 1,
+          "explanation": "Each new column has a minimum of 0 and a maximum of 1."
+        },
+        {
+          "type": "mc",
+          "category": "Scaling",
+          "question": "A column has minimum 10 and maximum 110. What does min-max scaling turn the value 35 into?",
+          "options": [
+            "0.35",
+            "0.5",
+            "0.25",
+            "35"
+          ],
+          "correct": 2,
+          "explanation": "(35 - 10) / (110 - 10) = 25 / 100 = 0.25."
+        },
+        {
+          "type": "mc",
+          "category": "Scaling",
+          "question": "What does standardization do?",
+          "options": [
+            "It squeezes the values into the range 0 to 1 using min and max",
+            "It converts each value to the nearest whole number",
+            "It sorts the values from the smallest to the biggest",
+            "It centres the values at a mean of 0 with a standard deviation of 1"
+          ],
+          "correct": 3,
+          "explanation": "Standardization is centring at zero and standardizing the variance to one."
+        },
+        {
+          "type": "mc",
+          "category": "Scaling",
+          "question": "A value is 70, the column mean is 60 and the standard deviation is 5. What is its standardized value?",
+          "options": [
+            "2",
+            "10",
+            "0.5",
+            "-2"
+          ],
+          "correct": 0,
+          "explanation": "(70 - 60) / 5 = 2."
+        },
+        {
+          "type": "mc",
+          "category": "Scaling",
+          "question": "When is normalization the better choice?",
+          "options": [
+            "When you know the data is exactly Gaussian, with algorithms that assume normal data",
+            "When you do not know the data's distribution or it is not Gaussian, with algorithms like kNN or neural networks",
+            "When you know the data has no variation at all, with algorithms like k-means",
+            "When you do not know the data's labels or they are all missing, with clustering"
+          ],
+          "correct": 1,
+          "explanation": "Standardization suits algorithms that assume normally distributed data."
+        },
+        {
+          "type": "mc",
+          "category": "Scaling",
+          "question": "Why does scaling matter for distance-based algorithms such as kNN?",
+          "options": [
+            "A feature with many categories would dominate the label assignment",
+            "A feature with missing values would dominate the training time",
+            "A feature with large values would dominate the distance calculation",
+            "A feature with a low variance would dominate the vote count"
+          ],
+          "correct": 2,
+          "explanation": "Euclidean distance mixes all the features, so their scales must be comparable."
+        },
+        {
+          "type": "tf",
+          "category": "Scaling",
+          "question": "After min-max scaling, the smallest value in a column becomes 0 and the largest becomes 1.",
+          "correct": true,
+          "explanation": "That is the definition of the 0-to-1 range."
+        },
+        {
+          "type": "tf",
+          "category": "Scaling",
+          "question": "Standardization and normalization are two names for the same thing.",
+          "correct": false,
+          "explanation": "Normalization uses a 0-1 range; standardization centres on mean 0 with standard deviation 1."
+        },
+        {
+          "type": "matching",
+          "category": "Scaling",
+          "question": "Match each scaling method to its result.",
+          "pairs": [
+            {
+              "left": "Normalization",
+              "right": "Values fall in the range 0 to 1"
+            },
+            {
+              "left": "Standardization",
+              "right": "Mean 0 and standard deviation 1"
+            },
+            {
+              "left": "Min-max scaling",
+              "right": "Another name for normalization"
+            },
+            {
+              "left": "Unscaled features",
+              "right": "Can let a large-valued feature dominate distances"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "10. Regularization",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Regularization",
+          "question": "What problem does regularization address?",
+          "options": [
+            "Underfitting, where the model is too simple to learn the pattern",
+            "Missing labels, where the model has no answers to learn from",
+            "Slow loading, where the model waits for the dataset to arrive",
+            "Overfitting, where the model learns the noise in the training data"
+          ],
+          "correct": 3,
+          "explanation": "It punishes the model for over-learning noise and outliers."
+        },
+        {
+          "type": "mc",
+          "category": "Regularization",
+          "question": "How does regularization help?",
+          "options": [
+            "It penalizes large weights, balancing bias and variance",
+            "It rewards large weights, balancing rows and columns",
+            "It deletes the test set, balancing speed and size",
+            "It adds more clusters, balancing density and distance"
+          ],
+          "correct": 0,
+          "explanation": "Each feature has a weight; regularization flattens out the weights that chase outliers."
+        },
+        {
+          "type": "mc",
+          "category": "Regularization",
+          "question": "Which names go with L1 and L2 regularization?",
+          "options": [
+            "L1 is Ridge and L2 is LASSO",
+            "L1 is LASSO and L2 is Ridge",
+            "L1 is PCA and L2 is LDA",
+            "L1 is RFE and L2 is SelectKBest"
+          ],
+          "correct": 1,
+          "explanation": "Remember LASSO = L1."
+        },
+        {
+          "type": "mc",
+          "category": "Regularization",
+          "question": "Which regularization is more likely to push some coefficients exactly to zero, removing those features?",
+          "options": [
+            "L2 (Ridge)",
+            "Both do it equally",
+            "L1 (LASSO)",
+            "Neither can do it"
+          ],
+          "correct": 2,
+          "explanation": "L2 keeps most, if not all, features, with smaller weights."
+        },
+        {
+          "type": "mc",
+          "category": "Regularization",
+          "question": "Why is LASSO called an embedded feature selection method?",
+          "options": [
+            "Running the model on each subset selects features by trial and error",
+            "Computing a correlation matrix selects features before any model exists",
+            "Drawing a histogram selects features by looking at their spread",
+            "Zeroing coefficients selects features while the model is being fitted"
+          ],
+          "correct": 3,
+          "explanation": "The selection is built into model construction."
+        },
+        {
+          "type": "tf",
+          "category": "Regularization",
+          "question": "Regularization is meant to reduce overfitting.",
+          "correct": true,
+          "explanation": "It penalizes the model for fitting noise."
+        },
+        {
+          "type": "tf",
+          "category": "Regularization",
+          "question": "L2 (Ridge) regularization usually eliminates most features entirely.",
+          "correct": false,
+          "explanation": "L1 does that. L2 shrinks weights but keeps most or all features."
+        },
+        {
+          "type": "short_answer",
+          "category": "Regularization",
+          "question": "Explain what regularization is for, how it works, and how L1 (LASSO) and L2 (Ridge) differ.",
+          "answerLang": null,
+          "modelAnswer": "Regularization reduces overfitting. An overfit model is trying too hard to capture the noise in the training data, so it generalizes badly. Each feature has a coefficient (weight); regularization penalizes large weights, flattening out the effect of outliers and balancing bias and variance.\n\nL1 (LASSO) is more likely to push coefficients to exactly zero, which eliminates features, so it also acts as feature selection. L2 (Ridge) shrinks the weights but keeps most, if not all, of the features.",
+          "rubric": [
+            "Says it reduces overfitting (learning noise)",
+            "Says it penalizes large weights or coefficients",
+            "Says L1 (LASSO) can zero out coefficients and remove features",
+            "Says L2 (Ridge) keeps most or all features"
+          ]
+        },
+        {
+          "type": "short_answer",
+          "category": "Regularization",
+          "question": "A model scores 99% on training data and 72% on test data. Name two techniques from this course that could help, and explain how each would help.",
+          "answerLang": null,
+          "modelAnswer": "The model is overfitting. Regularization (L1 or L2) penalizes large weights so the model stops fitting noise. Feature selection or dimensionality reduction (such as PCA, or removing low-variance features) removes inputs that carry no information, so there is less noise to memorize. Other valid answers: more training data, a larger k in kNN, or cross-validation to tune hyperparameters.",
+          "rubric": [
+            "Diagnoses the problem as overfitting",
+            "Names a suitable technique and explains how it helps (for example regularization)",
+            "Names a second suitable technique and explains how it helps"
+          ]
+        }
+      ]
+    }
+  ]
+}

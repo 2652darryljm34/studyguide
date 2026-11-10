@@ -36,6 +36,8 @@ SETS = [
      "data/itd132-quiz1-guide.json", "data/itd132-quiz1-flashcards.json", "data/itd132-quiz1.json"),
     ("ITD 140 quiz 1", "itd140",
      "data/itd140-quiz1-guide.json", "data/itd140-quiz1-flashcards.json", "data/itd140-quiz1.json"),
+    ("ITD 140 supplemental full course", "itd140",
+     "data/itd140-supplemental-guide.json", "data/itd140-supplemental-flashcards.json", "data/itd140-supplemental-quiz.json"),
 ]
 
 EXTRA_GUIDE_SECTIONS = ("Common Mix-ups",)
