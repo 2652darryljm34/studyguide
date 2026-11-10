@@ -139,9 +139,11 @@ const press = (id, n) => api.el('len-presets').handlers.click({ target: { closes
   api.el('len-go').handlers.click();
   ok('works with no localStorage', api.flat.length === 40);
 
-  // a quiz without shortCount is untouched
+  // a quiz that does not set shortCount gets the picker by default, suggesting 30
   load('itd145-exam2-review', '?file=x', {}); await api.init();
-  ok('quiz without shortCount: no chooser, all questions', api.flat.length === 92 && !/How many questions/.test(api.el('app').innerHTML), api.flat.length);
+  ok('quiz without shortCount: chooser shown, 30 suggested', /How many questions/.test(api.el('app').innerHTML) && api.el('len-num').value === 30, api.el('len-num').value);
+  api.el('len-go').handlers.click();
+  ok('quiz without shortCount: 30 asked', api.flat.length === 30, api.flat.length);
 
   console.log(failures ? `\n${failures} FAILED` : '\nall length-picker checks passed');
   process.exit(failures ? 1 : 0);

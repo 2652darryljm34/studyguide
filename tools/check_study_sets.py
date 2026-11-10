@@ -12,7 +12,7 @@ For every set listed in SETS below it checks that
   * the three cover the same topics: the quiz's sections and the flashcards' topics are the same
     count, and the guide has one section per topic (it may add a closing "Common Mix-ups"
     section)
-  * the set is listed on the home page in classes.json
+  * the set is listed on the home page in classes.json, with a mastery loop link (and, for ITD 140, number drills)
 
 When you build a new exam, add its set here (see CLAUDE.md). Exits 1 on any problem.
 """
@@ -39,6 +39,9 @@ SETS = [
     ("ITD 140 supplemental full course", "itd140",
      "data/itd140-supplemental-guide.json", "data/itd140-supplemental-flashcards.json", "data/itd140-supplemental-quiz.json"),
 ]
+
+# Sets whose course has number drills (drills.html is ITD 140 only); every set needs a mastery loop.
+NEEDS_DRILLS = ("ITD 140 quiz 1", "ITD 140 supplemental full course")
 
 EXTRA_GUIDE_SECTIONS = ("Common Mix-ups",)
 
@@ -101,6 +104,13 @@ def main():
 
         for rel in (guide_f, cards_f, quiz_f):
             expect(listed(registry, class_id, rel), "%s is not listed under %s in classes.json" % (rel, class_id))
+
+        cls = next((c for c in registry["classes"] if c["id"] == class_id), {})
+        hrefs = [t.get("href", "") for t in cls.get("tools", [])]
+        expect(any(quiz_f.replace("/", "%2F") in h and "mode=mastery" in h for h in hrefs),
+               "no mastery loop link for %s in classes.json" % quiz_f)
+        if name in NEEDS_DRILLS:
+            expect(any(h.startswith("drills.html") for h in hrefs), "no number drills link under %s" % class_id)
 
         print("%-16s guide %2d sections | flashcards %3d cards in %2d topics | quiz %3d questions in %2d sections"
               % (name, len(guide["sections"]), len(cards["cards"]), len(topics),

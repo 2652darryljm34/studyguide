@@ -95,6 +95,9 @@ async function init(){
     if(needsBox) ensureBox();
 
     quizData._allSections = quizData._sections;   // the topic picker narrows _sections; this is the full list
+    // The topic + question-count picker is the default for any quiz of 20+ questions (suggested size 30).
+    // A quiz sets "shortCount" to change the suggestion, or "shortCount": 0 to always run in full.
+    if(quizData.shortCount === undefined && totalQuestions() >= 20) quizData.shortCount = 30;
     // A quiz that sets "shortCount" lets the learner choose how many questions to take (shortCount is
     // the suggested size): that many, drawn at random and spread evenly across the sections, redrawn
     // every attempt. ?n=30, ?mode=short (the suggested size) or ?mode=full skip the chooser.

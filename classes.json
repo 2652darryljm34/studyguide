@@ -106,6 +106,12 @@
           "title": "SQL Playground",
           "description": "A real database running in your browser. Write queries against the Harborview Tool Library, including INSERT, UPDATE and DELETE — Reset puts it back.",
           "href": "sql.html"
+        },
+        {
+          "id": "quiz1-mastery",
+          "title": "Quiz 1 Mastery Loop",
+          "description": "The Quiz 1 questions as a repeat-until-mastered loop: each must be answered correctly twice in a row and misses come back sooner. SQL questions are left out. Choose the topics and how many questions.",
+          "href": "quiz.html?file=data%2Fitd132-quiz1.json&mode=mastery"
         }
       ],
       "quizzes": [
@@ -157,6 +163,12 @@
           "title": "Practice Terminal",
           "description": "A Red Hat Enterprise Linux 9 machine running in your browser. Real commands, real permissions, real consequences — sudo, users, packages and services all work, nano opens, and Reset puts the machine back.",
           "href": "terminal.html"
+        },
+        {
+          "id": "final-mastery",
+          "title": "Final Exam Mastery Loop",
+          "description": "The final exam questions as a repeat-until-mastered loop: each must be answered correctly twice in a row and misses come back sooner. Terminal and short-answer questions are left out. Choose the topics and how many questions.",
+          "href": "quiz.html?file=data%2Fitn170-final-exam.json&mode=mastery"
         }
       ],
       "quizzes": [

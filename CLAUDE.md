@@ -92,15 +92,18 @@ Run `node tools/test_quiz_length.js` after changing the quiz page or any quiz th
   Terms must be unique in a deck (known cards are remembered by term). The ITN 170 final deck is built by
   `tools/build_itn170_flashcards.py`; keep definitions in your own words and the back of a card short.
 
-## Every exam is built as a set: review guide, flashcards and quiz
+## Every exam is built as a set: review guide, flashcards, quiz, mastery loop (and drills)
 
 When an exam comes up, build all three together and keep them in step, rather than the quiz alone:
 
 1. **Review guide** (`review.html`, a `data/*-guide.json` with `quizFile`, `flashcardsFile` and, for Linux, `boxFile`).
 2. **Flashcards** (`flashcards.html`, a deck with `guideFile` and `quizFile`).
-3. **Quiz** (`quiz.html`, with `guideFile`), with the "how many questions" picker via `shortCount`.
+3. **Quiz** (`quiz.html`, with `guideFile`). Any quiz of 20+ questions gets the topic and "how many questions" picker by
+   default (suggested 30; set `shortCount` to change it, or `"shortCount": 0` to run in full).
+4. **Mastery loop**: a tool in `classes.json` linking `quiz.html?file=<quiz>&mode=mastery`.
+5. **Number drills** (`drills.html`) when the course has calculations. Only ITD 140 has drills so far.
 
-They cover the same topics in the same order, in the same wording, and link to each other. Write each one
+The first three cover the same topics in the same order, in the same wording, and link to each other. Write each one
 in original words (see "Keep quiz content original"), and give each its own build script in `tools/`.
 Then:
 
