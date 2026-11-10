@@ -33,13 +33,17 @@
           "id": "quiz1-mastery",
           "title": "Quiz 1 Mastery Loop",
           "description": "The Quiz 1 questions as a repeat-until-mastered loop: each must be answered correctly twice in a row and misses come back sooner. Choose the topics and how many questions.",
-          "href": "quiz.html?file=data%2Fitd140-quiz1.json&mode=mastery"
+          "href": "quiz.html?file=data%2Fitd140-quiz1.json&mode=mastery",
+          "featured": true,
+          "cta": "Start the mastery loop"
         },
         {
           "id": "quiz1-drills",
           "title": "Quiz 1 Number Drills",
           "description": "Endless calculation practice with new numbers every time: accuracy, confusion matrix terms and overfit versus underfit. Get 5 right in a row to master each drill.",
-          "href": "drills.html?set=quiz1"
+          "href": "drills.html?set=quiz1",
+          "featured": true,
+          "cta": "Practice the drills"
         },
         {
           "id": "supplemental-flashcards",
