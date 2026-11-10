@@ -1553,3 +1553,14 @@ pre.shell-hl code{ font: inherit; background: none; padding: 0; }
 
 .len-topics{ border: 0; padding: 0; margin: 0 0 16px; }
 .len-topic{ display: block; padding: 4px 0; cursor: pointer; }
+
+/* feedback */
+.fb-tab{ position: fixed; right: 12px; bottom: 12px; z-index: 50; font: inherit; font-size: .8rem; padding: 4px 10px; border-radius: 14px; border: 1px solid var(--border, #bbb); background: var(--card, #fff); color: inherit; opacity: .7; cursor: pointer; }
+.fb-tab:hover, .fb-tab:focus{ opacity: 1; }
+.fb-box{ position: fixed; right: 12px; bottom: 48px; z-index: 60; width: min(340px, calc(100vw - 24px)); padding: 12px; border-radius: 10px; border: 1px solid var(--border, #bbb); background: var(--card, #fff); color: inherit; box-shadow: 0 6px 24px rgba(0,0,0,.25); display: grid; gap: 8px; }
+.fb-head, .fb-row{ display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.fb-x{ border: 0; background: none; font-size: 1.3rem; color: inherit; cursor: pointer; }
+.fb-ctx{ margin: 0; font-size: .8rem; opacity: .8; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fb-text, .fb-kind{ font: inherit; width: 100%; box-sizing: border-box; padding: 6px; border-radius: 6px; border: 1px solid var(--border, #bbb); background: transparent; color: inherit; }
+.fb-msg{ font-size: .8rem; }
+.fb-report{ background: none; border: 0; padding: 0; margin-top: 8px; font: inherit; font-size: .75rem; opacity: .6; text-decoration: underline; color: inherit; cursor: pointer; }

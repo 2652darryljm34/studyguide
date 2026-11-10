@@ -1,0 +1,11 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{db}/documents {
+    // Anyone may leave feedback (short text only); nobody can read it except you in the Firebase console.
+    match /feedback/{id} {
+      allow create: if request.resource.data.keys().hasOnly(['text','kind','page','label','topic','at'])
+                    && request.resource.data.text is string && request.resource.data.text.size() <= 1000;
+      allow read, update, delete: if false;
+    }
+  }
+}

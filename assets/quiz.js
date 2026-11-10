@@ -335,6 +335,13 @@ function render(){
   // Optional "figure": author-written inline SVG shown under the question text.
   const prompt = card.querySelector && card.querySelector('.q-prompt');
   if(item.figure && prompt) prompt.insertAdjacentHTML('afterend', `<div class="q-fig">${item.figure}</div>`);
+  if(window.QuizFeedback){
+    const b = document.createElement('button');
+    b.className = 'fb-report';
+    b.textContent = 'Report a problem with this question';
+    b.addEventListener('click', () => QuizFeedback.open({ kind: 'Question', topic: item.sectionName || '', label: String(item.question || item.prompt || '').slice(0, 120) }));
+    card.appendChild(b);
+  }
 }
 
 function fmtScore(n){
