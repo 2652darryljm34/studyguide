@@ -351,6 +351,7 @@ function fmtScore(n){
 function finishQuestion(score, detail){
   // score is 0..1 credit for this question (1 = fully correct, fractional = partial credit)
   answers.push({ item: flat[current], score, correct: score === 1, detail: detail || null });
+  if(score === 1 && window.Leaderboard) Leaderboard.addCorrect();
   const earned = answers.reduce((sum, a) => sum + a.score, 0);
   document.getElementById('score-tally').textContent = `Score: ${fmtScore(earned)}/${answers.length}`;
 }

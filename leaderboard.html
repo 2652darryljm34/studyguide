@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leaderboard</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="topbar"><div class="topbar-inner"><a class="brand" href="index.html">Quiz<span class="brand-mark">Hub</span></a><span class="topbar-sub">Leaderboard</span></div></div>
+<div class="wrap">
+  <div class="crumb"><a href="index.html">&larr; All classes</a></div>
+  <div class="page-head"><h1>Leaderboard</h1></div>
+  <p>Correct answers across all quizzes. Join from the tab at the bottom-left of any page.</p>
+  <div class="len-presets" id="tabs"><button class="len-preset on" data-k="total">All time</button><button class="len-preset" data-k="week">This week</button></div>
+  <ol id="rows" class="lb-rows"></ol>
+  <p id="msg" class="len-note"></p>
+</div>
+<footer class="site">Built for sharing study quizzes with classmates.</footer>
+<script src="assets/firebase-config.js"></script>
+<script type="module">
+const cfg = window.FIREBASE_CONFIG, msg = document.getElementById('msg'), rows = document.getElementById('rows');
+if (!cfg) msg.textContent = 'The leaderboard is not set up yet.';
+else {
+  const B = 'https://www.gstatic.com/firebasejs/10.12.2/';
+  const [{ initializeApp }, fs] = await Promise.all([import(B + 'firebase-app.js'), import(B + 'firebase-firestore.js')]);
+  const db = fs.getFirestore(initializeApp(cfg));
+  let mine = null; try { mine = JSON.parse(localStorage.getItem('qh-player')).uid; } catch (e) { /* not joined */ }
+  const weekNow = Math.floor(Date.now() / 604800000);
+  async function show(k) {
+    msg.textContent = 'Loading…'; rows.innerHTML = '';
+    try {
+      // The weekly view fetches this week's players and sorts here, which needs no extra Firestore index.
+      const q = k === 'total' ? fs.query(fs.collection(db, 'players'), fs.orderBy('total', 'desc'), fs.limit(50))
+                              : fs.query(fs.collection(db, 'players'), fs.where('weekId', '==', weekNow), fs.limit(200));
+      let list = (await fs.getDocs(q)).docs.map(d => ({ id: d.id, ...d.data() }));
+      list = list.filter(p => p[k] > 0).sort((a, b) => b[k] - a[k]).slice(0, 50);
+      list.forEach(p => { const li = document.createElement('li'); if (p.id === mine) li.style.fontWeight = '700'; li.textContent = `${p.name}: ${p[k]}`; rows.appendChild(li); });
+      msg.textContent = list.length ? '' : 'No scores yet. Answer some questions to get on the board.';
+    } catch (e) { msg.textContent = "Couldn't load the leaderboard."; }
+  }
+  document.getElementById('tabs').addEventListener('click', e => {
+    const b = e.target.closest('[data-k]'); if (!b) return;
+    document.querySelectorAll('#tabs .len-preset').forEach(x => x.classList.toggle('on', x === b));
+    show(b.dataset.k);
+  });
+  show('total');
+}
+</script>
+</body>
+</html>

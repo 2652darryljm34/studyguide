@@ -1564,3 +1564,6 @@ pre.shell-hl code{ font: inherit; background: none; padding: 0; }
 .fb-text, .fb-kind{ font: inherit; width: 100%; box-sizing: border-box; padding: 6px; border-radius: 6px; border: 1px solid var(--border, #bbb); background: transparent; color: inherit; }
 .fb-msg{ font-size: .8rem; }
 .fb-report{ background: none; border: 0; padding: 0; margin-top: 8px; font: inherit; font-size: .75rem; opacity: .6; text-decoration: underline; color: inherit; cursor: pointer; }
+.pl-tab{ right: auto; left: 12px; }
+.pl-box{ right: auto; left: 12px; }
+.lb-rows{ padding-left: 1.6em; line-height: 1.8; }
