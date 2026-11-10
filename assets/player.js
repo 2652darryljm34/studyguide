@@ -98,7 +98,7 @@
       if (name.length < 2) { q('.fb-msg').textContent = 'At least 2 characters.'; return; }
       q('.pl-go').disabled = true;
       try { me ? await rename(name) : await join(name); b.remove(); }
-      catch (e) { q('.fb-msg').textContent = "Couldn't save. Try again later."; q('.pl-go').disabled = false; }
+      catch (e) { console.error(e); q('.fb-msg').textContent = "Couldn't save (" + (e.code || e.message) + "). Try again later."; q('.pl-go').disabled = false; }
     });
     const lv = q('.pl-leave');
     if (lv) lv.addEventListener('click', async () => {
