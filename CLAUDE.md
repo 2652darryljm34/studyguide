@@ -129,3 +129,14 @@ else (sorting them would pin the right answer to one slot). Exceptions, handled 
 So never write an option that points at another by position ("option B", "the first answer", "both A and C").
 `qcheck.py` rejects those unless the question sets `keepOrder`. Run `node tools/test_option_shuffle.js` after
 changing the quiz page or the option rules.
+
+## Extra practice modes (supplemental, ITD 140)
+
+- **Mastery loop:** `quiz.html?file=...&mode=mastery` runs any quiz as repeat-until-mastered: each auto-graded question
+  (not short answer, sql or shell) must be right twice in a row, a miss brings it back after about 3 others, and the
+  quiz picker still chooses how many. It changes nothing unless `mode=mastery` is in the URL. `node tools/test_mastery.js`.
+- **Number drills:** `drills.html` (`assets/drillgen.js` generators, `assets/drills.js` page). Fresh numbers every
+  problem, worked steps, 5 right in a row masters a drill; progress is in localStorage. Add a drill by adding an entry
+  to `DRILLS` in `drillgen.js`. `node tools/test_drills.js`.
+- Both are listed under ITD 140 in `classes.json` titled "SUPPLEMENTAL ... (not for Quiz 1)" and are not featured. Keep
+  the Quiz 1 guide, flashcards and quiz untouched until the quiz is over.

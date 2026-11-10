@@ -15,6 +15,15 @@ let answers = [];      // { item, correct, detail }
 let dbPromise = null;  // shared practice-database session for `sql` questions
 let boxPromise = null; // shared practice-machine image for `shell` questions
 
+/* Mastery loop (?mode=mastery): each question must be answered correctly MASTERY_NEED times in a row.
+ * A miss resets its streak and brings it back after a few others; a right answer brings it back later.
+ * Only auto-graded types are used (no short answer, sql or shell). The queue ends when all are mastered. */
+const masteryOn = params.get('mode') === 'mastery';
+const MASTERY_NEED = 2;
+let mStreak = new Map();  // question id -> current streak
+let mDone = new Set();    // ids that reached MASTERY_NEED
+let mTotal = 0;
+
 function escapeHtml(str){
   return String(str).replace(/[&<>"']/g, s => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
@@ -73,7 +82,9 @@ async function init(){
     document.title = quizData.title || 'Quiz';
     subtitleEl.textContent = quizData.title || '';
     loadingEl.hidden = true;
-    quizData._sections = sections;
+    quizData._sections = masteryOn
+      ? sections.map(s => ({ name: s.name, questions: (s.questions || []).filter(q => ['mc', 'tf', 'fill_blank', 'matching'].includes(q.type)) }))
+      : sections;
 
     // Start downloading the SQL engine now if any question needs it, so it is
     // usually ready by the time the learner reaches the first SQL question.
@@ -180,6 +191,7 @@ function renderLengthChoice(){
       ${quizData.guideFile ? `<a class="btn ghost" href="review.html?file=${encodeURIComponent(quizData.guideFile)}">Review the study guide &rarr;</a>` : ''}
     </div>
     <p class="mode-lead">How many questions do you want?</p>
+    ${masteryOn ? `<p class="len-note">Mastery loop: every question must be answered correctly ${MASTERY_NEED} times in a row. Misses come back sooner, so the quiz ends only when you have mastered them all.</p>` : ''}
     <div class="len-card">
       <div class="len-top">
         <label class="len-label" for="len-num">Number of questions</label>
@@ -206,7 +218,7 @@ function renderLengthChoice(){
     num.value = n;
     range.value = n;
     note.textContent = lengthNote(n);
-    go.textContent = n >= total ? `Start full review (${total} questions)` : `Start quiz (${n} questions)`;
+    go.textContent = masteryOn ? `Start mastery loop (${n} questions)` : n >= total ? `Start full review (${total} questions)` : `Start quiz (${n} questions)`;
     presetsEl.innerHTML = presets.map(p =>
       `<button type="button" class="len-preset${p === n ? ' on' : ''}" data-n="${p}" aria-pressed="${p === n}">${p === total ? 'All ' + total : p}</button>`
     ).join('');
@@ -242,11 +254,13 @@ function startQuiz(count){
     qs.forEach(q => {
       const entry = Object.assign({ sectionName: section.name }, q);
       if(entry.type === 'mc') entry._shown = shuffleOptions(entry);   // a fresh order every attempt
+      entry._mid = flat.length;
       flat.push(entry);
     });
   });
   current = 0;
   answers = [];
+  mStreak = new Map(); mDone = new Set(); mTotal = flat.length;
   render();
 }
 
@@ -257,7 +271,7 @@ function render(){
   }
   const item = flat[current];
   const total = flat.length;
-  const pct = Math.round((current / total) * 100);
+  const pct = masteryOn ? Math.round((mDone.size / Math.max(mTotal, 1)) * 100) : Math.round((current / total) * 100);
 
   const earnedSoFar = answers.reduce((sum, a) => sum + a.score, 0);
 
@@ -268,7 +282,7 @@ function render(){
     </div>
 
     <div class="quiz-meta">
-      <span>${item.sectionName ? escapeHtml(item.sectionName) + ' &middot; ' : ''}Question ${current + 1} of ${total}${isSampled() ? ' &middot; Random set' : ''}</span>
+      <span>${item.sectionName ? escapeHtml(item.sectionName) + ' &middot; ' : ''}${masteryOn ? `Mastered ${mDone.size} of ${mTotal} &middot; attempt ${current + 1}` : `Question ${current + 1} of ${total}${isSampled() ? ' &middot; Random set' : ''}`}</span>
       <span id="score-tally">Score: ${fmtScore(earnedSoFar)}/${answers.length}</span>
     </div>
     <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
@@ -313,7 +327,21 @@ function finishQuestion(score, detail){
   document.getElementById('score-tally').textContent = `Score: ${fmtScore(earned)}/${answers.length}`;
 }
 
+/* Mastery loop: update the streak for the question just answered and queue it again if it is not mastered. */
+function masteryRequeue(){
+  const a = answers[answers.length - 1];
+  if(!a) return;
+  const id = a.item._mid;
+  const streak = a.score === 1 ? (mStreak.get(id) || 0) + 1 : 0;
+  mStreak.set(id, streak);
+  if(streak >= MASTERY_NEED){ mDone.add(id); return; }
+  const again = Object.assign({}, a.item);
+  if(again.type === 'mc') again._shown = shuffleOptions(again);
+  flat.splice(Math.min(flat.length, current + 1 + (streak === 0 ? 3 : 7)), 0, again);
+}
+
 function appendNextButton(card, isLast){
+  if(masteryOn){ masteryRequeue(); isLast = current + 1 === flat.length; }
   const actions = document.createElement('div');
   actions.className = 'q-actions q-next';
   actions.innerHTML = `<button class="btn primary" id="next-btn">${isLast ? 'See results' : 'Next question'}</button>`;
@@ -913,7 +941,43 @@ function appendSelfGradeFallback(card, item, feedbackEl){
 }
 
 /* ---------- Results ---------- */
+function renderMasteryResults(){
+  const missed = answers.filter(a => a.score !== 1);
+  const firstTry = new Set(answers.filter(a => a.score === 1).map(a => a.item._mid));
+  const slipped = new Set(missed.map(a => a.item._mid));
+  const clean = [...firstTry].filter(id => !slipped.has(id)).length;
+  appEl.innerHTML = `
+    <div class="results">
+      <div class="score-label">${escapeHtml(quizData.title || 'Quiz')} — mastery loop complete</div>
+      <div class="score">${mTotal}/${mTotal}</div>
+      <div class="score-label">mastered in ${answers.length} attempts &middot; ${clean} never missed &middot; ${slipped.size} needed extra practice</div>
+      <div class="results-actions">
+        <button class="btn primary" id="retry-btn">New set</button>
+        ${quizData.shortCount ? '<button class="btn ghost" id="mode-btn">Change length</button>' : ''}
+        <a class="btn ghost" href="index.html">Back to classes</a>
+      </div>
+    </div>
+    <div class="review" id="review"></div>
+  `;
+  document.getElementById('retry-btn').addEventListener('click', () => startQuiz());
+  const modeBtn = document.getElementById('mode-btn');
+  if(modeBtn) modeBtn.addEventListener('click', renderLengthChoice);
+  const reviewEl = document.getElementById('review');
+  const seen = new Set();
+  missed.forEach(a => {
+    if(seen.has(a.item._mid)) return;
+    seen.add(a.item._mid);
+    const item = document.createElement('div');
+    item.className = 'review-item';
+    item.innerHTML = `<span class="review-tag bad">Needed extra practice</span><div class="rq">${nl2br(a.item.question)}</div>` +
+      (a.detail && a.detail.correctAnswer ? `<div class="review-answer">Correct answer: ${escapeHtml(a.detail.correctAnswer)}</div>` : '') +
+      (a.item.explanation ? `<div class="review-explain">${escapeHtml(a.item.explanation)}</div>` : '');
+    reviewEl.appendChild(item);
+  });
+}
+
 function renderResults(){
+  if(masteryOn) return renderMasteryResults();
   const total = flat.length;
   const earned = answers.reduce((sum, a) => sum + a.score, 0);
   const pct = Math.round((earned / total) * 100);

@@ -34,6 +34,18 @@
           "title": "SUPPLEMENTAL: Full-Course Flashcards (not for Quiz 1)",
           "description": "46 supplemental cards covering the whole course for later (final-exam prep). Not the Quiz 1 deck.",
           "href": "flashcards.html?file=data%2Fitd140-supplemental-flashcards.json"
+        },
+        {
+          "id": "supplemental-drills",
+          "title": "SUPPLEMENTAL: Number Drills (not for Quiz 1)",
+          "description": "Endless calculation practice with new numbers every time: accuracy, confusion matrix terms, scaling, distance, train/test and k-fold sizes, kNN votes. Get 5 right in a row to master each drill. For later in the course, not the Quiz 1 review.",
+          "href": "drills.html"
+        },
+        {
+          "id": "supplemental-mastery",
+          "title": "SUPPLEMENTAL: Mastery Loop (not for Quiz 1)",
+          "description": "The full-course question bank as a repeat-until-mastered loop: every question must be answered correctly twice in a row, misses come back sooner, and it ends only when you have mastered them all. Choose how many questions. Not the Quiz 1 review.",
+          "href": "quiz.html?file=data%2Fitd140-supplemental-quiz.json&mode=mastery"
         }
       ],
       "quizzes": [
