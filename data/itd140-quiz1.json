@@ -2,6 +2,7 @@
   "title": "Quiz 1: Machine Learning Fundamentals",
   "description": "120 questions on AI versus machine learning, the three types of learning, classification and regression, clustering with k-means, parameters and hyperparameters, accuracy and the confusion matrix, overfitting, underfitting, bias and variance, and the steps of the machine learning process (with short-answer practice).",
   "guideFile": "data/itd140-quiz1-guide.json",
+  "shortCount": 40,
   "sections": [
     {
       "name": "1. AI and Machine Learning",

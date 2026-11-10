@@ -45,6 +45,7 @@ def main():
                        "clustering with k-means, parameters and hyperparameters, accuracy and the confusion matrix, "
                        "overfitting, underfitting, bias and variance, and the steps of the machine learning process (with short-answer practice)." % total,
         "guideFile": "data/itd140-quiz1-guide.json",
+        "shortCount": 40,
         "sections": [{"name": n, "questions": qs} for n, qs in SECTIONS],
     }
     with open(OUT, "w", encoding="utf-8", newline="\n") as fh:

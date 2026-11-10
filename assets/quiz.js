@@ -94,6 +94,7 @@ async function init(){
     const needsBox = sections.some(s => (s.questions || []).some(q => q.type === 'shell'));
     if(needsBox) ensureBox();
 
+    quizData._allSections = quizData._sections;   // the topic picker narrows _sections; this is the full list
     // A quiz that sets "shortCount" lets the learner choose how many questions to take (shortCount is
     // the suggested size): that many, drawn at random and spread evenly across the sections, redrawn
     // every attempt. ?n=30, ?mode=short (the suggested size) or ?mode=full skip the chooser.
@@ -175,15 +176,12 @@ function lengthNote(n){
 }
 
 function renderLengthChoice(){
-  const total = totalQuestions();
-  const topics = quizData._sections.filter(s => (s.questions || []).length).length;
-  const min = Math.min(topics, total);          // at least one question from every topic
+  const all = quizData._allSections.filter(s => (s.questions || []).length);
+  quizData._sections = quizData._allSections;
+  let total, min, suggested;
   const clamp = v => Math.max(min, Math.min(total, Math.round(Number(v)) || min));
-  const suggested = clamp(quizData.shortCount);
   const saved = savedCount();
-  const initial = saved === null ? suggested : clamp(saved);
-  const presets = [...new Set([20, 40, 60, 100, suggested, total].filter(v => v >= min && v <= total))]
-    .sort((a, b) => a - b);
+  const picker = all.length > 1;
 
   appEl.innerHTML = `
     <div class="page-head quiz-head">
@@ -193,14 +191,18 @@ function renderLengthChoice(){
     <p class="mode-lead">How many questions do you want?</p>
     ${masteryOn ? `<p class="len-note">Mastery loop: every question must be answered correctly ${MASTERY_NEED} times in a row. Misses come back sooner, so the quiz ends only when you have mastered them all.</p>` : ''}
     <div class="len-card">
+      ${picker ? `<fieldset class="len-topics"><legend class="len-label">Topics</legend>
+        <div class="len-presets"><button type="button" class="len-preset" id="tp-all">All topics</button><button type="button" class="len-preset" id="tp-none">None</button></div>
+        ${all.map((s, i) => `<label class="len-topic"><input type="checkbox" data-t="${i}" checked> ${escapeHtml(s.name)} <span class="len-of">(${s.questions.length})</span></label>`).join('')}
+      </fieldset>` : ''}
       <div class="len-top">
         <label class="len-label" for="len-num">Number of questions</label>
         <span class="len-numwrap">
-          <input id="len-num" class="len-num" type="number" inputmode="numeric" min="${min}" max="${total}" step="1" value="${initial}">
-          <span class="len-of">of ${total}</span>
+          <input id="len-num" class="len-num" type="number" inputmode="numeric" step="1">
+          <span class="len-of" id="len-of"></span>
         </span>
       </div>
-      <input id="len-range" class="len-range" type="range" min="${min}" max="${total}" step="1" value="${initial}" aria-label="Number of questions">
+      <input id="len-range" class="len-range" type="range" step="1" aria-label="Number of questions">
       <div class="len-presets" id="len-presets" role="group" aria-label="Quick choices"></div>
       <p class="len-note" id="len-note" aria-live="polite"></p>
       <button class="btn primary len-go" id="len-go" type="button"></button>
@@ -212,19 +214,38 @@ function renderLengthChoice(){
   const note = document.getElementById('len-note');
   const go = document.getElementById('len-go');
   const presetsEl = document.getElementById('len-presets');
+  const boxes = [...appEl.querySelectorAll('[data-t]')];
 
   const set = v => {
     const n = clamp(v);
     num.value = n;
     range.value = n;
-    note.textContent = lengthNote(n);
+    note.textContent = total ? lengthNote(n) : 'Tick at least one topic.';
+    go.disabled = !total;
     go.textContent = masteryOn ? `Start mastery loop (${n} questions)` : n >= total ? `Start full review (${total} questions)` : `Start quiz (${n} questions)`;
+    const presets = [...new Set([20, 40, 60, 100, suggested, total].filter(x => x >= min && x <= total))].sort((a, b) => a - b);
     presetsEl.innerHTML = presets.map(p =>
       `<button type="button" class="len-preset${p === n ? ' on' : ''}" data-n="${p}" aria-pressed="${p === n}">${p === total ? 'All ' + total : p}</button>`
     ).join('');
     return n;
   };
 
+  // Re-aim the picker at whichever topics are ticked.
+  const chosen = () => {
+    quizData._sections = picker ? all.filter((s, i) => boxes[i].checked) : all;
+    total = totalQuestions();
+    min = Math.min(quizData._sections.length, total);   // at least one question from every ticked topic
+    suggested = clamp(quizData.shortCount);
+    num.min = range.min = min; num.max = range.max = total;
+    document.getElementById('len-of').textContent = 'of ' + total;
+    set(saved === null ? suggested : num.value || saved);
+  };
+
+  boxes.forEach(b => b.addEventListener('change', chosen));
+  if(picker){
+    document.getElementById('tp-all').addEventListener('click', () => { boxes.forEach(b => b.checked = true); chosen(); });
+    document.getElementById('tp-none').addEventListener('click', () => { boxes.forEach(b => b.checked = false); chosen(); });
+  }
   range.addEventListener('input', () => set(range.value));
   // Typing: follow along once the box holds a whole, in-range number; tidy up when it loses focus.
   num.addEventListener('input', () => {
@@ -242,7 +263,7 @@ function renderLengthChoice(){
     startQuiz(n >= total ? null : n);
   });
 
-  set(initial);
+  chosen();
 }
 
 function startQuiz(count){

@@ -1550,3 +1550,6 @@ pre.shell-hl code{ font: inherit; background: none; padding: 0; }
 .archive-note{ margin: 0 0 4px; font-size: 0.9rem; color: var(--ink-soft); }
 .archive .class-list{ margin-top: 12px; }
 .archive .class-card{ box-shadow: none; }
+
+.len-topics{ border: 0; padding: 0; margin: 0 0 16px; }
+.len-topic{ display: block; padding: 4px 0; cursor: pointer; }

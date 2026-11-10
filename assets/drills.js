@@ -3,7 +3,11 @@
 const GOAL = 5;                       // correct in a row to mark a drill mastered
 const STORE = 'quizhub-drills-itd140';
 const appEl = document.getElementById('app');
-const { DRILLS, check } = DrillGen;
+const { DRILLS: ALL_DRILLS, check } = DrillGen;
+// ?set=quiz1 narrows the page to the drills that match the Quiz 1 topics.
+const QUIZ1 = ['accuracy', 'matrix', 'confterm', 'diagnose'];
+const SET = new URLSearchParams(location.search).get('set');
+const DRILLS = SET === 'quiz1' ? ALL_DRILLS.filter(d => QUIZ1.includes(d.id)) : ALL_DRILLS;
 const byId = Object.fromEntries(DRILLS.map(d => [d.id, d]));
 
 let progress = {};

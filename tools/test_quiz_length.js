@@ -58,7 +58,8 @@ QUIZZES.forEach(name => {
 // ---------- 2. the chooser flow, driven through a stubbed page ----------
 function load(file, search, store) {
   const els = {};
-  const el = id => (els[id] = els[id] || { innerHTML: '', value: '', textContent: '', hidden: false, classList: { add() {} }, handlers: {}, addEventListener(t, f) { this.handlers[t] = f; } });
+  const el = id => (els[id] = els[id] || { innerHTML: '', value: '', textContent: '', hidden: false, classList: { add() {} }, handlers: {}, addEventListener(t, f) { this.handlers[t] = f; },
+    querySelectorAll(sel) { return sel === '[data-t]' ? (this.innerHTML.match(/data-t=/g) || []).map(() => ({ checked: true, addEventListener() {} })) : []; } });
   global.document = { getElementById: el, title: '' };
   global.window = { location: { search } };
   global.URLSearchParams = URLSearchParams;
@@ -78,7 +79,7 @@ const press = (id, n) => api.el('len-presets').handlers.click({ target: { closes
   const app = api.el('app').innerHTML;
   ok('chooser shown', /How many questions/.test(app) && /id="len-range"/.test(app));
   ok('no quiz started yet', api.flat.length === 0);
-  ok('slider range is 8..150', /min="8" max="150"/.test(app), app.match(/id="len-range"[^>]*/)[0]);
+  ok('slider range is 8..150', api.el('len-range').min === 8 && api.el('len-range').max === 150, api.el('len-range').min);
   ok('starts at the suggested 40', api.el('len-num').value === 40 && /Start quiz \(40 questions\)/.test(api.el('len-go').textContent), api.el('len-num').value);
   ok('note says 5 from each of 8 topics', /Exactly 5 from each of the 8 topics/.test(api.el('len-note').textContent), api.el('len-note').textContent);
 
@@ -129,7 +130,7 @@ const press = (id, n) => api.el('len-presets').handlers.click({ target: { closes
 
   // small and large topic counts
   load('itn170-final-exam', '?file=x', {}); await api.init();
-  ok('ITN 170 minimum is 13 (one per topic)', /min="13" max="133"/.test(api.el('app').innerHTML));
+  ok('ITN 170 minimum is 13 (one per topic)', api.el('len-range').min === 13 && api.el('len-range').max === 133);
   api.el('len-go').handlers.click();
   ok('ITN 170 default gives 40, 13 topics', api.flat.length === 40 && new Set(api.flat.map(q => q.sectionName)).size === 13);
 

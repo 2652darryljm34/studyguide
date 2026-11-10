@@ -30,6 +30,18 @@
           "href": "flashcards.html?file=data%2Fitd140-quiz1-flashcards.json"
         },
         {
+          "id": "quiz1-mastery",
+          "title": "Quiz 1 Mastery Loop",
+          "description": "The Quiz 1 questions as a repeat-until-mastered loop: each must be answered correctly twice in a row and misses come back sooner. Choose the topics and how many questions.",
+          "href": "quiz.html?file=data%2Fitd140-quiz1.json&mode=mastery"
+        },
+        {
+          "id": "quiz1-drills",
+          "title": "Quiz 1 Number Drills",
+          "description": "Endless calculation practice with new numbers every time: accuracy, confusion matrix terms and overfit versus underfit. Get 5 right in a row to master each drill.",
+          "href": "drills.html?set=quiz1"
+        },
+        {
           "id": "supplemental-flashcards",
           "title": "SUPPLEMENTAL: Full-Course Flashcards (not for Quiz 1)",
           "description": "46 supplemental cards covering the whole course for later (final-exam prep). Not the Quiz 1 deck.",
@@ -53,7 +65,7 @@
           "id": "quiz1",
           "featured": true,
           "title": "Quiz 1: Machine Learning Fundamentals",
-          "description": "120 questions across eight topics, including graph and chart questions, with six short-answer questions and a self-check rubric for each, mirroring the quiz's mix of multiple choice and written answers.",
+          "description": "120 questions across eight topics, including graph and chart questions, with six short-answer questions and a self-check rubric for each, mirroring the quiz's mix of multiple choice and written answers. Choose which topics and how many questions.",
           "file": "data/itd140-quiz1.json"
         },
         {
