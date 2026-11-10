@@ -103,6 +103,20 @@
     },
     {
       "topic": "Classification and Regression",
+      "term": "Choosing k in kNN",
+      "definition": "k is a hyperparameter: a tiny k follows noise (overfits), a huge k smooths too much (underfits).",
+      "useCase": "Try several values of k and compare test accuracy.",
+      "example": "k = 1 matches every training point; k = 7 votes among seven neighbours"
+    },
+    {
+      "topic": "Classification and Regression",
+      "term": "Decision node",
+      "definition": "A point in a decision tree that tests one feature and sends the example down a branch.",
+      "useCase": "Follow the nodes from the top until a leaf gives the class.",
+      "example": "Is the commute under 30 minutes? yes -> next question, no -> leaf"
+    },
+    {
+      "topic": "Classification and Regression",
       "term": "Linear regression",
       "definition": "A regression method that fits a line to predict a continuous value.",
       "useCase": "Predict numbers such as prices.",
@@ -245,7 +259,7 @@
       "topic": "The Machine Learning Process",
       "term": "Train/test split",
       "definition": "Dividing the data into a training set to learn from and a test set held back to check the result.",
-      "useCase": "Done before training so the test examples stay unseen.",
+      "useCase": "Typically 70-80% trains and 20-30% tests; done before training so the test examples stay unseen.",
       "example": "80% to train, 20% to test"
     },
     {

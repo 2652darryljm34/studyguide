@@ -66,6 +66,12 @@ c(C, "kNN (k-nearest neighbours)", "A classifier that labels a new example by lo
 c(C, "Decision tree / random forest", "Supervised models that classify by following a series of questions; a random forest combines many trees.",
   "Classification when you want an easy-to-read set of rules.",
   "Is the age over 30? -> Is the income over 50k? -> ...")
+c(C, "Choosing k in kNN", "k is a hyperparameter: a tiny k follows noise (overfits), a huge k smooths too much (underfits).",
+  "Try several values of k and compare test accuracy.",
+  "k = 1 matches every training point; k = 7 votes among seven neighbours")
+c(C, "Decision node", "A point in a decision tree that tests one feature and sends the example down a branch.",
+  "Follow the nodes from the top until a leaf gives the class.",
+  "Is the commute under 30 minutes? yes -> next question, no -> leaf")
 c(C, "Linear regression", "A regression method that fits a line to predict a continuous value.",
   "Predict numbers such as prices.",
   "price = slope x area + intercept")
@@ -137,7 +143,7 @@ c(P, "Identify features and target", "Choose the input variables (features) and 
   "Do it before fitting so the algorithm knows what to use and what to predict.",
   "Features: area, bedrooms. Target: price")
 c(P, "Train/test split", "Dividing the data into a training set to learn from and a test set held back to check the result.",
-  "Done before training so the test examples stay unseen.",
+  "Typically 70-80% trains and 20-30% tests; done before training so the test examples stay unseen.",
   "80% to train, 20% to test")
 c(P, "Fit (train) the model", "Run the training algorithm on the training set so it learns the model's parameters.",
   "The step where the model learns; hyperparameters are chosen before it.",

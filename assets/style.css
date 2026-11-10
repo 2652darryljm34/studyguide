@@ -363,6 +363,8 @@ code{
   white-space: normal;
 }
 
+.q-fig{ margin: 0 0 20px; }
+
 .fb-input, .sa-input{
   width: 100%;
   font: inherit;

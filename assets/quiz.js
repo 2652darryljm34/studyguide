@@ -297,6 +297,9 @@ function render(){
   } else {
     card.innerHTML = `<p>Unsupported question type: ${escapeHtml(item.type)}</p>`;
   }
+  // Optional "figure": author-written inline SVG shown under the question text.
+  const prompt = card.querySelector && card.querySelector('.q-prompt');
+  if(item.figure && prompt) prompt.insertAdjacentHTML('afterend', `<div class="q-fig">${item.figure}</div>`);
 }
 
 function fmtScore(n){

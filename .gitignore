@@ -19,3 +19,6 @@ __pycache__/
 
 # Course slide decks and handouts dropped into the repo root
 *.pptx.pdf
+
+# course decks stay out of the repo
+*.pptx

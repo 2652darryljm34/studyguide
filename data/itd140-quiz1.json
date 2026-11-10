@@ -1,6 +1,6 @@
 {
   "title": "Quiz 1: Machine Learning Fundamentals",
-  "description": "99 questions on AI versus machine learning, the three types of learning, classification and regression, clustering with k-means, parameters and hyperparameters, accuracy and the confusion matrix, overfitting, underfitting, bias and variance, and the steps of the machine learning process (with short-answer practice).",
+  "description": "120 questions on AI versus machine learning, the three types of learning, classification and regression, clustering with k-means, parameters and hyperparameters, accuracy and the confusion matrix, overfitting, underfitting, bias and variance, and the steps of the machine learning process (with short-answer practice).",
   "guideFile": "data/itd140-quiz1-guide.json",
   "sections": [
     {
@@ -508,6 +508,100 @@
             "Names a suitable algorithm for each, such as linear regression and logistic regression, kNN or a decision tree",
             "Notes that both are supervised because the past outcomes act as labels"
           ]
+        },
+        {
+          "type": "mc",
+          "category": "Classification and Regression",
+          "question": "A kNN classifier uses k = 3 to label the yellow star. Looking only at the solid ring, what class does it predict?",
+          "options": [
+            "Red square, because two of the three nearest points are red squares",
+            "Blue circle, because blue circles are the most common class overall",
+            "Red square, because red squares are the class closest to the star",
+            "Blue circle, because the nearest single point to the star is blue"
+          ],
+          "correct": 0,
+          "explanation": "kNN takes a majority vote among the k nearest labelled points: 2 squares against 1 circle.",
+          "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 200\" role=\"img\" aria-label=\"Red squares and blue circles with a yellow star to classify. A solid ring holds its 3 nearest points and a dashed ring its 7 nearest\" style=\"max-width:300px;width:100%;height:auto;font-family:sans-serif\"><title>Red squares and blue circles with a yellow star to classify. A solid ring holds its 3 nearest points and a dashed ring its 7 nearest</title><rect x=\"5\" y=\"5\" width=\"290\" height=\"190\" fill=\"none\" stroke=\"var(--ink-soft, #777)\"/><circle cx=\"150\" cy=\"100\" r=\"60\" fill=\"none\" stroke=\"var(--ink-soft, #777)\" stroke-dasharray=\"6 4\"/><circle cx=\"150\" cy=\"100\" r=\"30\" fill=\"none\" stroke=\"var(--ink, #222)\" stroke-width=\"1.6\"/><rect x=\"126\" y=\"86\" width=\"9\" height=\"9\" fill=\"#c0392b\"/><rect x=\"166\" y=\"111\" width=\"9\" height=\"9\" fill=\"#c0392b\"/><rect x=\"36\" y=\"36\" width=\"9\" height=\"9\" fill=\"#c0392b\"/><rect x=\"56\" y=\"156\" width=\"9\" height=\"9\" fill=\"#c0392b\"/><rect x=\"226\" y=\"46\" width=\"9\" height=\"9\" fill=\"#c0392b\"/><rect x=\"246\" y=\"146\" width=\"9\" height=\"9\" fill=\"#c0392b\"/><circle cx=\"155\" cy=\"80\" r=\"5\" fill=\"var(--accent, #2b6cb0)\"/><circle cx=\"100\" cy=\"100\" r=\"5\" fill=\"var(--accent, #2b6cb0)\"/><circle cx=\"190\" cy=\"140\" r=\"5\" fill=\"var(--accent, #2b6cb0)\"/><circle cx=\"150\" cy=\"50\" r=\"5\" fill=\"var(--accent, #2b6cb0)\"/><circle cx=\"110\" cy=\"60\" r=\"5\" fill=\"var(--accent, #2b6cb0)\"/><circle cx=\"260\" cy=\"70\" r=\"5\" fill=\"var(--accent, #2b6cb0)\"/><circle cx=\"40\" cy=\"150\" r=\"5\" fill=\"var(--accent, #2b6cb0)\"/><path d=\"M150 90 l3 7 l7 1 l-5 5 l2 8 l-7 -4 l-7 4 l2 -8 l-5 -5 l7 -1z\" fill=\"#f6c90e\" stroke=\"var(--ink, #222)\"/><text x=\"150\" y=\"190\" font-size=\"11\" text-anchor=\"middle\" font-weight=\"normal\" fill=\"var(--ink-soft, #777)\">inner ring: 3 nearest  |  dashed ring: 7 nearest</text></svg>"
+        },
+        {
+          "type": "mc",
+          "category": "Classification and Regression",
+          "question": "The same star is classified again with k = 7, using the dashed ring. What class does kNN predict now?",
+          "options": [
+            "Red square, because the two closest points are still red squares",
+            "Blue circle, because five of the seven nearest points are blue circles",
+            "Red square, because a larger k always keeps the earlier answer",
+            "Blue circle, because the dashed ring is drawn in a lighter colour"
+          ],
+          "correct": 1,
+          "explanation": "Changing the hyperparameter k changed the vote (2 squares and 5 circles), so the prediction flipped.",
+          "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 200\" role=\"img\" aria-label=\"Red squares and blue circles with a yellow star to classify. A solid ring holds its 3 nearest points and a dashed ring its 7 nearest\" style=\"max-width:300px;width:100%;height:auto;font-family:sans-serif\"><title>Red squares and blue circles with a yellow star to classify. A solid ring holds its 3 nearest points and a dashed ring its 7 nearest</title><rect x=\"5\" y=\"5\" width=\"290\" height=\"190\" fill=\"none\" stroke=\"var(--ink-soft, #777)\"/><circle cx=\"150\" cy=\"100\" r=\"60\" fill=\"none\" stroke=\"var(--ink-soft, #777)\" stroke-dasharray=\"6 4\"/><circle cx=\"150\" cy=\"100\" r=\"30\" fill=\"none\" stroke=\"var(--ink, #222)\" stroke-width=\"1.6\"/><rect x=\"126\" y=\"86\" width=\"9\" height=\"9\" fill=\"#c0392b\"/><rect x=\"166\" y=\"111\" width=\"9\" height=\"9\" fill=\"#c0392b\"/><rect x=\"36\" y=\"36\" width=\"9\" height=\"9\" fill=\"#c0392b\"/><rect x=\"56\" y=\"156\" width=\"9\" height=\"9\" fill=\"#c0392b\"/><rect x=\"226\" y=\"46\" width=\"9\" height=\"9\" fill=\"#c0392b\"/><rect x=\"246\" y=\"146\" width=\"9\" height=\"9\" fill=\"#c0392b\"/><circle cx=\"155\" cy=\"80\" r=\"5\" fill=\"var(--accent, #2b6cb0)\"/><circle cx=\"100\" cy=\"100\" r=\"5\" fill=\"var(--accent, #2b6cb0)\"/><circle cx=\"190\" cy=\"140\" r=\"5\" fill=\"var(--accent, #2b6cb0)\"/><circle cx=\"150\" cy=\"50\" r=\"5\" fill=\"var(--accent, #2b6cb0)\"/><circle cx=\"110\" cy=\"60\" r=\"5\" fill=\"var(--accent, #2b6cb0)\"/><circle cx=\"260\" cy=\"70\" r=\"5\" fill=\"var(--accent, #2b6cb0)\"/><circle cx=\"40\" cy=\"150\" r=\"5\" fill=\"var(--accent, #2b6cb0)\"/><path d=\"M150 90 l3 7 l7 1 l-5 5 l2 8 l-7 -4 l-7 4 l2 -8 l-5 -5 l7 -1z\" fill=\"#f6c90e\" stroke=\"var(--ink, #222)\"/><text x=\"150\" y=\"190\" font-size=\"11\" text-anchor=\"middle\" font-weight=\"normal\" fill=\"var(--ink-soft, #777)\">inner ring: 3 nearest  |  dashed ring: 7 nearest</text></svg>"
+        },
+        {
+          "type": "mc",
+          "category": "Classification and Regression",
+          "question": "In kNN, what is the usual effect of choosing k = 1?",
+          "options": [
+            "The model averages over too many points, so it tends to underfit",
+            "The model ignores the training labels, so it tends to cluster",
+            "The model follows individual noisy points, so it tends to overfit",
+            "The model fits a straight line, so it tends to be a regression"
+          ],
+          "correct": 2,
+          "explanation": "With k = 1 a single odd training point decides the answer nearby: low bias, high variance."
+        },
+        {
+          "type": "mc",
+          "category": "Classification and Regression",
+          "question": "In kNN, what is the usual effect of choosing a very large k, close to the size of the training set?",
+          "options": [
+            "The vote is dominated by a single point, so the model tends to overfit",
+            "The vote is split evenly among classes, so the model always scores 50%",
+            "The vote is dropped completely, so the model starts to cluster the data",
+            "The vote is dominated by the biggest class, so the model tends to underfit"
+          ],
+          "correct": 3,
+          "explanation": "A huge k smooths away local structure: high bias, low variance."
+        },
+        {
+          "type": "mc",
+          "category": "Classification and Regression",
+          "question": "How does a decision tree reach a prediction for a new example?",
+          "options": [
+            "It follows a series of questions about feature values down the tree to a final class",
+            "It averages the answers of the k closest training examples to the new one",
+            "It moves a set of centres around until each example belongs to a group",
+            "It multiplies each feature by a learned weight and adds up the results"
+          ],
+          "correct": 0,
+          "explanation": "Each decision node tests one feature (for example, is the commute under 30 minutes?). The leaf reached gives the class."
+        },
+        {
+          "type": "mc",
+          "category": "Classification and Regression",
+          "question": "What is a random forest?",
+          "options": [
+            "A model made of many clusters whose centres are averaged",
+            "A model made of many decision trees whose predictions are combined",
+            "A model made of many neighbours whose labels are counted",
+            "A model made of many layers whose weights are adjusted"
+          ],
+          "correct": 1,
+          "explanation": "Combining many trees is usually more reliable than relying on one tree."
+        },
+        {
+          "type": "mc",
+          "category": "Classification and Regression",
+          "question": "Plot A shows points around a rising line and Plot B shows two groups split by a boundary. Which pairing is right?",
+          "options": [
+            "Plot A is classification (a category is predicted) and Plot B is regression (a number is predicted)",
+            "Plot A is regression (a category is predicted) and Plot B is clustering (a number is predicted)",
+            "Plot A is regression (a number is predicted) and Plot B is classification (a category is predicted)",
+            "Plot A is clustering (a number is predicted) and Plot B is classification (a category is predicted)"
+          ],
+          "correct": 2,
+          "explanation": "A line through points predicts a continuous value (regression). A boundary between labelled groups assigns a category (classification).",
+          "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 420 190\" role=\"img\" aria-label=\"Plot A: points around a rising line. Plot B: two groups of points split by a dashed boundary\" style=\"max-width:420px;width:100%;height:auto;font-family:sans-serif\"><title>Plot A: points around a rising line. Plot B: two groups of points split by a dashed boundary</title><rect x=\"5\" y=\"5\" width=\"190\" height=\"150\" fill=\"none\" stroke=\"var(--ink-soft, #777)\"/><circle cx=\"20.0\" cy=\"130.1\" r=\"3.3\" fill=\"var(--ink, #222)\"/><circle cx=\"30.5\" cy=\"136.8\" r=\"3.3\" fill=\"var(--ink, #222)\"/><circle cx=\"41.0\" cy=\"115.3\" r=\"3.3\" fill=\"var(--ink, #222)\"/><circle cx=\"51.5\" cy=\"119.2\" r=\"3.3\" fill=\"var(--ink, #222)\"/><circle cx=\"62.0\" cy=\"101.5\" r=\"3.3\" fill=\"var(--ink, #222)\"/><circle cx=\"72.5\" cy=\"98.0\" r=\"3.3\" fill=\"var(--ink, #222)\"/><circle cx=\"83.0\" cy=\"105.0\" r=\"3.3\" fill=\"var(--ink, #222)\"/><circle cx=\"93.5\" cy=\"84.3\" r=\"3.3\" fill=\"var(--ink, #222)\"/><circle cx=\"104.0\" cy=\"85.6\" r=\"3.3\" fill=\"var(--ink, #222)\"/><circle cx=\"114.5\" cy=\"75.8\" r=\"3.3\" fill=\"var(--ink, #222)\"/><circle cx=\"125.0\" cy=\"69.2\" r=\"3.3\" fill=\"var(--ink, #222)\"/><circle cx=\"135.5\" cy=\"63.4\" r=\"3.3\" fill=\"var(--ink, #222)\"/><circle cx=\"146.0\" cy=\"51.5\" r=\"3.3\" fill=\"var(--ink, #222)\"/><circle cx=\"156.5\" cy=\"56.4\" r=\"3.3\" fill=\"var(--ink, #222)\"/><circle cx=\"167.0\" cy=\"36.6\" r=\"3.3\" fill=\"var(--ink, #222)\"/><circle cx=\"177.5\" cy=\"32.7\" r=\"3.3\" fill=\"var(--ink, #222)\"/><line x1=\"20\" y1=\"135\" x2=\"178\" y2=\"38\" stroke=\"var(--accent, #2b6cb0)\" stroke-width=\"2\"/><text x=\"100\" y=\"177\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">Plot A</text><rect x=\"215\" y=\"5\" width=\"190\" height=\"150\" fill=\"none\" stroke=\"var(--ink-soft, #777)\"/><circle cx=\"241.0\" cy=\"59.3\" r=\"4\" fill=\"var(--accent, #2b6cb0)\"/><rect x=\"358.3\" y=\"124.2\" width=\"8\" height=\"8\" fill=\"#c0392b\"/><circle cx=\"259.0\" cy=\"42.5\" r=\"4\" fill=\"var(--accent, #2b6cb0)\"/><rect x=\"351.6\" y=\"134.1\" width=\"8\" height=\"8\" fill=\"#c0392b\"/><circle cx=\"243.2\" cy=\"98.2\" r=\"4\" fill=\"var(--accent, #2b6cb0)\"/><rect x=\"357.0\" y=\"97.7\" width=\"8\" height=\"8\" fill=\"#c0392b\"/><circle cx=\"256.9\" cy=\"106.0\" r=\"4\" fill=\"var(--accent, #2b6cb0)\"/><rect x=\"362.4\" y=\"96.5\" width=\"8\" height=\"8\" fill=\"#c0392b\"/><circle cx=\"285.1\" cy=\"94.0\" r=\"4\" fill=\"var(--accent, #2b6cb0)\"/><rect x=\"346.4\" y=\"32.1\" width=\"8\" height=\"8\" fill=\"#c0392b\"/><circle cx=\"287.3\" cy=\"83.8\" r=\"4\" fill=\"var(--accent, #2b6cb0)\"/><rect x=\"348.7\" y=\"129.1\" width=\"8\" height=\"8\" fill=\"#c0392b\"/><circle cx=\"268.9\" cy=\"110.2\" r=\"4\" fill=\"var(--accent, #2b6cb0)\"/><rect x=\"379.6\" y=\"56.4\" width=\"8\" height=\"8\" fill=\"#c0392b\"/><circle cx=\"257.8\" cy=\"126.6\" r=\"4\" fill=\"var(--accent, #2b6cb0)\"/><rect x=\"346.1\" y=\"109.1\" width=\"8\" height=\"8\" fill=\"#c0392b\"/><circle cx=\"244.9\" cy=\"105.9\" r=\"4\" fill=\"var(--accent, #2b6cb0)\"/><rect x=\"371.6\" y=\"129.5\" width=\"8\" height=\"8\" fill=\"#c0392b\"/><circle cx=\"282.2\" cy=\"85.4\" r=\"4\" fill=\"var(--accent, #2b6cb0)\"/><rect x=\"348.9\" y=\"41.5\" width=\"8\" height=\"8\" fill=\"#c0392b\"/><line x1=\"313\" y1=\"10\" x2=\"313\" y2=\"150\" stroke=\"var(--ink, #222)\" stroke-dasharray=\"5 4\" stroke-width=\"2\"/><text x=\"310\" y=\"177\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">Plot B</text></svg>"
         }
       ]
     },
@@ -519,12 +613,12 @@
           "category": "Clustering and k-means",
           "question": "What is clustering?",
           "options": [
-            "Grouping unlabelled examples so that similar ones end up together",
             "Predicting a category for an example from a set of labelled ones",
             "Predicting a number for an example from a set of labelled ones",
-            "Choosing actions for an agent from the rewards its environment gives"
+            "Choosing actions for an agent from the rewards its environment gives",
+            "Grouping unlabelled examples so that similar ones end up together"
           ],
-          "correct": 0,
+          "correct": 3,
           "explanation": "Clustering is the main example of unsupervised learning: no labels are given and the algorithm finds the groups."
         },
         {
@@ -532,12 +626,12 @@
           "category": "Clustering and k-means",
           "question": "Clustering belongs to which family of machine learning?",
           "options": [
-            "Supervised learning",
             "Unsupervised learning",
+            "Supervised learning",
             "Reinforcement learning",
             "Deep learning only"
           ],
-          "correct": 1,
+          "correct": 0,
           "explanation": "Clustering finds structure in data that has no labels."
         },
         {
@@ -546,11 +640,11 @@
           "question": "What does the hyperparameter k mean in k-means?",
           "options": [
             "The number of neighbours that vote on the label of a new example",
-            "The number of times that the algorithm repeats its training loop",
             "The number of clusters you want the algorithm to find",
+            "The number of times that the algorithm repeats its training loop",
             "The number of features that each example in the dataset has"
           ],
-          "correct": 2,
+          "correct": 1,
           "explanation": "In k-means you choose k up front. (In kNN, k is a different thing: the number of neighbours.)"
         },
         {
@@ -560,10 +654,10 @@
           "options": [
             "The label of a cluster, which the algorithm is given before it starts",
             "The farthest point in a cluster, which the algorithm uses as the boundary",
-            "The number of points in a cluster, which the algorithm uses to rank clusters",
-            "The centre of a cluster, which the algorithm keeps moving to fit the data"
+            "The centre of a cluster, which the algorithm keeps moving to fit the data",
+            "The number of points in a cluster, which the algorithm uses to rank clusters"
           ],
-          "correct": 3,
+          "correct": 2,
           "explanation": "Each centroid represents the centre of one cluster."
         },
         {
@@ -571,12 +665,12 @@
           "category": "Clustering and k-means",
           "question": "How does k-means begin?",
           "options": [
-            "It places k centroids at random positions",
             "It reads the labels to place a centroid in each class",
             "It places every example in a single large cluster",
-            "It asks the user to mark the centre of each cluster"
+            "It asks the user to mark the centre of each cluster",
+            "It places k centroids at random positions"
           ],
-          "correct": 0,
+          "correct": 3,
           "explanation": "The initial centroid positions are random; the algorithm then improves them."
         },
         {
@@ -584,12 +678,12 @@
           "category": "Clustering and k-means",
           "question": "After the centroids are placed, what does k-means do over time?",
           "options": [
-            "It assigns points to the farthest centroid and moves each centroid away from its own points",
             "It assigns points to the nearest centroid and moves each centroid toward the centre of its points",
+            "It assigns points to the farthest centroid and moves each centroid away from its own points",
             "It assigns points to a random centroid and keeps the centroids where they were first placed",
             "It assigns points to the label they were given and moves the centroids to match those labels"
           ],
-          "correct": 1,
+          "correct": 0,
           "explanation": "These two steps repeat until the centroids settle on the actual cluster centres."
         },
         {
@@ -598,11 +692,11 @@
           "question": "You run k-means with k = 4 on customer data. How many clusters will the algorithm return?",
           "options": [
             "Two",
-            "However many labels the data has",
             "Four",
+            "However many labels the data has",
             "Whatever number gives the best accuracy"
           ],
-          "correct": 2,
+          "correct": 1,
           "explanation": "k is the number of clusters you ask for."
         },
         {
@@ -626,10 +720,10 @@
           "options": [
             "Predicting the price of a house from its size and location",
             "Deciding whether a photograph contains a dog or does not",
-            "Training a character to win a game by trial and error",
-            "Finding natural groups of customers when no group names exist"
+            "Finding natural groups of customers when no group names exist",
+            "Training a character to win a game by trial and error"
           ],
-          "correct": 3,
+          "correct": 2,
           "explanation": "With no predefined groups, clustering lets the data suggest them. The others are regression, classification and reinforcement learning."
         },
         {
@@ -637,12 +731,12 @@
           "category": "Clustering and k-means",
           "question": "Two runs of k-means on the same data, with the same k, can end up with different clusters. What is the most likely reason?",
           "options": [
-            "The starting positions of the centroids are chosen at random",
             "The labels are shuffled by the algorithm each time that it runs",
             "The value of k is changed by the algorithm as it learns more",
-            "The data is deleted by the algorithm once a cluster is found"
+            "The data is deleted by the algorithm once a cluster is found",
+            "The starting positions of the centroids are chosen at random"
           ],
-          "correct": 0,
+          "correct": 3,
           "explanation": "Random starting centroids can lead the algorithm to settle in different places."
         },
         {
@@ -667,6 +761,20 @@
               "right": "Random positions for the centroids"
             }
           ]
+        },
+        {
+          "type": "mc",
+          "category": "Clustering and k-means",
+          "question": "These points have no labels. The red X marks are the centroids that k-means ended with. What value of k was used?",
+          "options": [
+            "3, because there are three centroids and so three clusters",
+            "2, because the points fall into two broad regions of the plot",
+            "4, because the points are scattered across four corners of the plot",
+            "14, because that is how many points make up each of the groups"
+          ],
+          "correct": 0,
+          "explanation": "k is the number of clusters, which equals the number of centroids.",
+          "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 310 200\" role=\"img\" aria-label=\"Scatter plot of unlabelled points in 3 groups, with a red X at the centre of each group\" style=\"max-width:310px;width:100%;height:auto;font-family:sans-serif\"><title>Scatter plot of unlabelled points in 3 groups, with a red X at the centre of each group</title><rect x=\"5\" y=\"5\" width=\"300\" height=\"190\" fill=\"none\" stroke=\"var(--ink-soft, #777)\"/><circle cx=\"53.5\" cy=\"46.2\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"79.4\" cy=\"32.5\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"68.0\" cy=\"32.9\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"85.4\" cy=\"62.4\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"89.0\" cy=\"53.9\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"75.6\" cy=\"56.6\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"59.7\" cy=\"61.7\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"52.4\" cy=\"55.7\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"79.8\" cy=\"60.7\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"64.3\" cy=\"86.3\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"70.8\" cy=\"53.0\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"72.2\" cy=\"53.7\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"64.6\" cy=\"55.8\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"98.4\" cy=\"60.3\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><path d=\"M70 60 m-6 -6 l12 12 m0 -12 l-12 12\" stroke=\"#c0392b\" stroke-width=\"3\"/><circle cx=\"202.5\" cy=\"128.1\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"228.2\" cy=\"117.3\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"191.3\" cy=\"149.7\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"179.6\" cy=\"115.6\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"209.3\" cy=\"147.4\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"186.7\" cy=\"90.9\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"209.3\" cy=\"113.7\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"194.6\" cy=\"125.5\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"203.1\" cy=\"123.5\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"194.0\" cy=\"135.5\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"221.1\" cy=\"120.4\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"193.7\" cy=\"128.8\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"206.7\" cy=\"107.5\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"193.6\" cy=\"132.6\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><path d=\"M200 120 m-6 -6 l12 12 m0 -12 l-12 12\" stroke=\"#c0392b\" stroke-width=\"3\"/><circle cx=\"118.7\" cy=\"146.1\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"123.0\" cy=\"149.6\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"120.0\" cy=\"126.8\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"144.5\" cy=\"152.4\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"107.7\" cy=\"161.8\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"124.3\" cy=\"150.2\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"134.7\" cy=\"177.1\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"127.8\" cy=\"169.0\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"150.2\" cy=\"137.7\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"112.7\" cy=\"159.3\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"96.1\" cy=\"146.8\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"138.1\" cy=\"162.5\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"128.1\" cy=\"127.3\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><circle cx=\"152.9\" cy=\"156.6\" r=\"3.5\" fill=\"var(--ink-soft, #777)\" fill-opacity=\"0.7\"/><path d=\"M120 150 m-6 -6 l12 12 m0 -12 l-12 12\" stroke=\"#c0392b\" stroke-width=\"3\"/></svg>"
         }
       ]
     },
@@ -923,6 +1031,48 @@
           "question": "A confusion matrix shows more detail than accuracy alone, because it shows which classes get mistaken for which.",
           "correct": true,
           "explanation": "Accuracy is one number. The matrix shows where the mistakes happen."
+        },
+        {
+          "type": "mc",
+          "category": "Accuracy and the Confusion Matrix",
+          "question": "Using the confusion matrix shown (rows are the actual class, columns the predicted class), what is the accuracy?",
+          "options": [
+            "40%",
+            "75%",
+            "90%",
+            "85%"
+          ],
+          "correct": 3,
+          "explanation": "Correct = 40 + 45 = 85 of 100 samples.",
+          "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 200\" role=\"img\" aria-label=\"Confusion matrix of actual class against predicted class\" style=\"max-width:340px;width:100%;height:auto;font-family:sans-serif\"><title>Confusion matrix of actual class against predicted class</title><text x=\"200\" y=\"22\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">Predicted</text><text x=\"155.0\" y=\"50\" font-size=\"13\" text-anchor=\"middle\" font-weight=\"normal\" fill=\"var(--ink, #222)\">Cat</text><text x=\"245.0\" y=\"50\" font-size=\"13\" text-anchor=\"middle\" font-weight=\"normal\" fill=\"var(--ink, #222)\">Dog</text><text x=\"40\" y=\"120\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">Actual</text><text x=\"100\" y=\"95.0\" font-size=\"13\" text-anchor=\"end\" font-weight=\"normal\" fill=\"var(--ink, #222)\">Cat</text><rect x=\"110\" y=\"60\" width=\"90\" height=\"60\" fill=\"#2f855a\" fill-opacity=\"0.18\" stroke=\"var(--ink-soft, #777)\"/><text x=\"155.0\" y=\"97.0\" font-size=\"20\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">40</text><rect x=\"200\" y=\"60\" width=\"90\" height=\"60\" fill=\"#c0392b\" fill-opacity=\"0.10\" stroke=\"var(--ink-soft, #777)\"/><text x=\"245.0\" y=\"97.0\" font-size=\"20\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">10</text><text x=\"100\" y=\"155.0\" font-size=\"13\" text-anchor=\"end\" font-weight=\"normal\" fill=\"var(--ink, #222)\">Dog</text><rect x=\"110\" y=\"120\" width=\"90\" height=\"60\" fill=\"#c0392b\" fill-opacity=\"0.10\" stroke=\"var(--ink-soft, #777)\"/><text x=\"155.0\" y=\"157.0\" font-size=\"20\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">5</text><rect x=\"200\" y=\"120\" width=\"90\" height=\"60\" fill=\"#2f855a\" fill-opacity=\"0.18\" stroke=\"var(--ink-soft, #777)\"/><text x=\"245.0\" y=\"157.0\" font-size=\"20\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">45</text></svg>"
+        },
+        {
+          "type": "mc",
+          "category": "Accuracy and the Confusion Matrix",
+          "question": "In the confusion matrix shown (rows actual, columns predicted), how many dogs did the model wrongly call cats?",
+          "options": [
+            "5",
+            "10",
+            "40",
+            "45"
+          ],
+          "correct": 0,
+          "explanation": "Actual dog, predicted cat: the bottom-left cell, 5. The 10 are cats wrongly called dogs.",
+          "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 200\" role=\"img\" aria-label=\"Confusion matrix of actual class against predicted class\" style=\"max-width:340px;width:100%;height:auto;font-family:sans-serif\"><title>Confusion matrix of actual class against predicted class</title><text x=\"200\" y=\"22\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">Predicted</text><text x=\"155.0\" y=\"50\" font-size=\"13\" text-anchor=\"middle\" font-weight=\"normal\" fill=\"var(--ink, #222)\">Cat</text><text x=\"245.0\" y=\"50\" font-size=\"13\" text-anchor=\"middle\" font-weight=\"normal\" fill=\"var(--ink, #222)\">Dog</text><text x=\"40\" y=\"120\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">Actual</text><text x=\"100\" y=\"95.0\" font-size=\"13\" text-anchor=\"end\" font-weight=\"normal\" fill=\"var(--ink, #222)\">Cat</text><rect x=\"110\" y=\"60\" width=\"90\" height=\"60\" fill=\"#2f855a\" fill-opacity=\"0.18\" stroke=\"var(--ink-soft, #777)\"/><text x=\"155.0\" y=\"97.0\" font-size=\"20\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">40</text><rect x=\"200\" y=\"60\" width=\"90\" height=\"60\" fill=\"#c0392b\" fill-opacity=\"0.10\" stroke=\"var(--ink-soft, #777)\"/><text x=\"245.0\" y=\"97.0\" font-size=\"20\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">10</text><text x=\"100\" y=\"155.0\" font-size=\"13\" text-anchor=\"end\" font-weight=\"normal\" fill=\"var(--ink, #222)\">Dog</text><rect x=\"110\" y=\"120\" width=\"90\" height=\"60\" fill=\"#c0392b\" fill-opacity=\"0.10\" stroke=\"var(--ink-soft, #777)\"/><text x=\"155.0\" y=\"157.0\" font-size=\"20\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">5</text><rect x=\"200\" y=\"120\" width=\"90\" height=\"60\" fill=\"#2f855a\" fill-opacity=\"0.18\" stroke=\"var(--ink-soft, #777)\"/><text x=\"245.0\" y=\"157.0\" font-size=\"20\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">45</text></svg>"
+        },
+        {
+          "type": "mc",
+          "category": "Accuracy and the Confusion Matrix",
+          "question": "Treating 'Cat' as the positive class, what do the 5 dogs the model called cats count as?",
+          "options": [
+            "True positives",
+            "False positives",
+            "False negatives",
+            "True negatives"
+          ],
+          "correct": 1,
+          "explanation": "Predicted positive but actually negative is a false positive. Actual cats called dogs (10) are false negatives.",
+          "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 200\" role=\"img\" aria-label=\"Confusion matrix of actual class against predicted class\" style=\"max-width:340px;width:100%;height:auto;font-family:sans-serif\"><title>Confusion matrix of actual class against predicted class</title><text x=\"200\" y=\"22\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">Predicted</text><text x=\"155.0\" y=\"50\" font-size=\"13\" text-anchor=\"middle\" font-weight=\"normal\" fill=\"var(--ink, #222)\">Cat</text><text x=\"245.0\" y=\"50\" font-size=\"13\" text-anchor=\"middle\" font-weight=\"normal\" fill=\"var(--ink, #222)\">Dog</text><text x=\"40\" y=\"120\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">Actual</text><text x=\"100\" y=\"95.0\" font-size=\"13\" text-anchor=\"end\" font-weight=\"normal\" fill=\"var(--ink, #222)\">Cat</text><rect x=\"110\" y=\"60\" width=\"90\" height=\"60\" fill=\"#2f855a\" fill-opacity=\"0.18\" stroke=\"var(--ink-soft, #777)\"/><text x=\"155.0\" y=\"97.0\" font-size=\"20\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">40</text><rect x=\"200\" y=\"60\" width=\"90\" height=\"60\" fill=\"#c0392b\" fill-opacity=\"0.10\" stroke=\"var(--ink-soft, #777)\"/><text x=\"245.0\" y=\"97.0\" font-size=\"20\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">10</text><text x=\"100\" y=\"155.0\" font-size=\"13\" text-anchor=\"end\" font-weight=\"normal\" fill=\"var(--ink, #222)\">Dog</text><rect x=\"110\" y=\"120\" width=\"90\" height=\"60\" fill=\"#c0392b\" fill-opacity=\"0.10\" stroke=\"var(--ink-soft, #777)\"/><text x=\"155.0\" y=\"157.0\" font-size=\"20\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">5</text><rect x=\"200\" y=\"120\" width=\"90\" height=\"60\" fill=\"#2f855a\" fill-opacity=\"0.18\" stroke=\"var(--ink-soft, #777)\"/><text x=\"245.0\" y=\"157.0\" font-size=\"20\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">45</text></svg>"
         }
       ]
     },
@@ -936,10 +1086,10 @@
           "options": [
             "How many different kinds of problem a model can be applied to without retraining",
             "How quickly a model can be trained on a very large training set",
-            "How closely a model reproduces the answers for its own training examples",
-            "How well a model performs on new examples that were not in its training set"
+            "How well a model performs on new examples that were not in its training set",
+            "How closely a model reproduces the answers for its own training examples"
           ],
-          "correct": 3,
+          "correct": 2,
           "explanation": "A model that generalizes extends what it learned to unseen data."
         },
         {
@@ -947,12 +1097,12 @@
           "category": "Generalization, Bias and Variance",
           "question": "What is overfitting?",
           "options": [
-            "The model memorizes the training set instead of learning the pattern behind it",
             "The model is too simple to capture the complexity that is in the data",
             "The model is given too few examples for the algorithm to start training",
-            "The model is trained for so short a time that the parameters never change"
+            "The model is trained for so short a time that the parameters never change",
+            "The model memorizes the training set instead of learning the pattern behind it"
           ],
-          "correct": 0,
+          "correct": 3,
           "explanation": "An overfit model matches the training data very closely but does not carry over to new data."
         },
         {
@@ -960,12 +1110,12 @@
           "category": "Generalization, Bias and Variance",
           "question": "What is underfitting?",
           "options": [
-            "The model memorizes the training set instead of learning the pattern in it",
             "The model is too simple to capture the complexity of the data",
+            "The model memorizes the training set instead of learning the pattern in it",
             "The model gets perfect results on the training set and poor results on new data",
             "The model is trained with so many examples that it can no longer improve"
           ],
-          "correct": 1,
+          "correct": 0,
           "explanation": "An underfit model fails to capture the pattern even in the training data."
         },
         {
@@ -974,11 +1124,11 @@
           "question": "Which pair of symptoms points to overfitting?",
           "options": [
             "Low training accuracy and low test accuracy",
-            "Low training accuracy and high test accuracy",
             "High training accuracy and low test accuracy",
+            "Low training accuracy and high test accuracy",
             "High training accuracy and high test accuracy"
           ],
-          "correct": 2,
+          "correct": 1,
           "explanation": "A big gap between training and test performance means the model memorized the training set."
         },
         {
@@ -988,10 +1138,10 @@
           "options": [
             "Underfitting, and its bias is too high",
             "Underfitting, and its variance is too high",
-            "Overfitting, and its bias is too high",
-            "Overfitting, and its variance is too high"
+            "Overfitting, and its variance is too high",
+            "Overfitting, and its bias is too high"
           ],
-          "correct": 3,
+          "correct": 2,
           "explanation": "Great on training, poor on test: overfitting, which goes with high variance and low bias."
         },
         {
@@ -999,12 +1149,12 @@
           "category": "Generalization, Bias and Variance",
           "question": "A model scores 55% on its training data and 54% on its test data. What is the most likely problem?",
           "options": [
-            "Underfitting, and its bias is too high",
             "Overfitting, and its bias is too high",
             "Overfitting, and its variance is too high",
-            "Underfitting, and its variance is too high"
+            "Underfitting, and its variance is too high",
+            "Underfitting, and its bias is too high"
           ],
-          "correct": 0,
+          "correct": 3,
           "explanation": "Poor on both: the model is too simple, which means high bias."
         },
         {
@@ -1012,12 +1162,12 @@
           "category": "Generalization, Bias and Variance",
           "question": "Which combination describes an overfit model?",
           "options": [
-            "High bias and low variance",
             "High variance and low bias",
+            "High bias and low variance",
             "High bias and high variance",
             "Low bias and low variance"
           ],
-          "correct": 1,
+          "correct": 0,
           "explanation": "Overfit models are too sensitive to the training data (high variance) and fit it closely (low bias)."
         },
         {
@@ -1026,11 +1176,11 @@
           "question": "Which combination describes an underfit model?",
           "options": [
             "High variance and low bias",
-            "High variance and high bias",
             "High bias and low variance",
+            "High variance and high bias",
             "Low variance and low bias"
           ],
-          "correct": 2,
+          "correct": 1,
           "explanation": "Underfit models make strong, simple assumptions (high bias) and change little with the data (low variance)."
         },
         {
@@ -1040,10 +1190,10 @@
           "options": [
             "How accurate the model is on data it has never seen before",
             "How accurate the model was before any training had been done",
-            "How accurate the model is once the hyperparameters are changed",
-            "How accurate the model is on the data it was trained with"
+            "How accurate the model is on the data it was trained with",
+            "How accurate the model is once the hyperparameters are changed"
           ],
-          "correct": 3,
+          "correct": 2,
           "explanation": "Training accuracy comes from the training data."
         },
         {
@@ -1051,12 +1201,12 @@
           "category": "Generalization, Bias and Variance",
           "question": "What does test accuracy measure?",
           "options": [
-            "How accurate the model is on data held back from training",
             "How accurate the model is on the data it learned from",
             "How accurate the model was when training first started",
-            "How accurate the model is on the labels it is given"
+            "How accurate the model is on the labels it is given",
+            "How accurate the model is on data held back from training"
           ],
-          "correct": 0,
+          "correct": 3,
           "explanation": "Test accuracy shows how well the model generalizes to unseen examples."
         },
         {
@@ -1064,12 +1214,12 @@
           "category": "Generalization, Bias and Variance",
           "question": "Why do we keep a separate test set that the model never trains on?",
           "options": [
-            "To give the model extra examples when the training set runs out",
             "To measure how well the model works on examples it has not memorized",
+            "To give the model extra examples when the training set runs out",
             "To let the model correct the labels of its training examples",
             "To make the training run faster by reducing the data it reads"
           ],
-          "correct": 1,
+          "correct": 0,
           "explanation": "Performance on training data alone cannot reveal overfitting; unseen data can."
         },
         {
@@ -1141,6 +1291,104 @@
             "Says an overfit model memorizes the training set and fails to generalize",
             "Says an underfit model is too simple to capture the complexity of the data"
           ]
+        },
+        {
+          "type": "mc",
+          "category": "Generalization, Bias and Variance",
+          "question": "Each plot fits a curve to the same points. Which plot shows overfitting?",
+          "options": [
+            "Plot B, where the line misses the shape of the points",
+            "Plot A, where the curve chases every single point",
+            "Plot C, where the curve follows the overall trend",
+            "None of them, because every plot reaches the points"
+          ],
+          "correct": 1,
+          "explanation": "A curve that wiggles through every point memorizes noise: high variance, low bias.",
+          "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 660 200\" role=\"img\" aria-label=\"Three scatter plots, each with a different curve fitted to the same points\" style=\"max-width:660px;width:100%;height:auto;font-family:sans-serif\"><title>Three scatter plots, each with a different curve fitted to the same points</title><rect x=\"10\" y=\"10\" width=\"200\" height=\"150\" fill=\"none\" stroke=\"var(--ink-soft, #777)\" stroke-width=\"1\"/><path d=\"M24.5 110.9 L33.5 108.2 L42.5 125.0 L51.5 122.4 L60.5 127.6 L69.5 156.8 L78.5 162.1 L87.5 127.5 L96.5 152.9 L105.5 152.4 L114.5 116.0 L123.5 134.4 L132.5 112.2 L141.5 120.4 L150.5 104.0 L159.5 114.7 L168.5 81.2 L177.5 57.2 L186.5 56.9 L195.5 30.5\" fill=\"none\" stroke=\"var(--accent, #2b6cb0)\" stroke-width=\"2\"/><circle cx=\"24.5\" cy=\"110.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"33.5\" cy=\"108.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"42.5\" cy=\"125.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"51.5\" cy=\"122.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"60.5\" cy=\"127.6\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"69.5\" cy=\"156.8\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"78.5\" cy=\"162.1\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"87.5\" cy=\"127.5\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"96.5\" cy=\"152.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"105.5\" cy=\"152.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"114.5\" cy=\"116.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"123.5\" cy=\"134.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"132.5\" cy=\"112.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"141.5\" cy=\"120.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"150.5\" cy=\"104.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"159.5\" cy=\"114.7\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"168.5\" cy=\"81.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"177.5\" cy=\"57.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"186.5\" cy=\"56.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"195.5\" cy=\"30.5\" r=\"3.2\" fill=\"var(--ink, #222)\"/><text x=\"110.0\" y=\"180\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">Plot A</text><rect x=\"225\" y=\"10\" width=\"200\" height=\"150\" fill=\"none\" stroke=\"var(--ink-soft, #777)\" stroke-width=\"1\"/><path d=\"M235.0 151.5 L415.0 75.9\" fill=\"none\" stroke=\"var(--accent, #2b6cb0)\" stroke-width=\"2\"/><circle cx=\"239.5\" cy=\"110.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"248.5\" cy=\"108.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"257.5\" cy=\"125.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"266.5\" cy=\"122.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"275.5\" cy=\"127.6\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"284.5\" cy=\"156.8\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"293.5\" cy=\"162.1\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"302.5\" cy=\"127.5\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"311.5\" cy=\"152.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"320.5\" cy=\"152.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"329.5\" cy=\"116.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"338.5\" cy=\"134.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"347.5\" cy=\"112.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"356.5\" cy=\"120.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"365.5\" cy=\"104.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"374.5\" cy=\"114.7\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"383.5\" cy=\"81.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"392.5\" cy=\"57.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"401.5\" cy=\"56.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"410.5\" cy=\"30.5\" r=\"3.2\" fill=\"var(--ink, #222)\"/><text x=\"325.0\" y=\"180\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">Plot B</text><rect x=\"440\" y=\"10\" width=\"200\" height=\"150\" fill=\"none\" stroke=\"var(--ink-soft, #777)\" stroke-width=\"1\"/><path d=\"M450.0 93.4 L454.5 99.4 L459.0 104.9 L463.5 110.1 L468.0 114.9 L472.5 119.3 L477.0 123.3 L481.5 127.0 L486.0 130.3 L490.5 133.1 L495.0 135.6 L499.5 137.7 L504.0 139.5 L508.5 140.8 L513.0 141.8 L517.5 142.3 L522.0 142.5 L526.5 142.3 L531.0 141.8 L535.5 140.8 L540.0 139.5 L544.5 137.7 L549.0 135.6 L553.5 133.1 L558.0 130.3 L562.5 127.0 L567.0 123.3 L571.5 119.3 L576.0 114.9 L580.5 110.1 L585.0 104.9 L589.5 99.4 L594.0 93.4 L598.5 87.1 L603.0 80.4 L607.5 73.3 L612.0 65.8 L616.5 58.0 L621.0 49.7 L625.5 41.1 L630.0 32.1\" fill=\"none\" stroke=\"var(--accent, #2b6cb0)\" stroke-width=\"2\"/><circle cx=\"454.5\" cy=\"110.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"463.5\" cy=\"108.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"472.5\" cy=\"125.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"481.5\" cy=\"122.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"490.5\" cy=\"127.6\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"499.5\" cy=\"156.8\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"508.5\" cy=\"162.1\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"517.5\" cy=\"127.5\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"526.5\" cy=\"152.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"535.5\" cy=\"152.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"544.5\" cy=\"116.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"553.5\" cy=\"134.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"562.5\" cy=\"112.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"571.5\" cy=\"120.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"580.5\" cy=\"104.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"589.5\" cy=\"114.7\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"598.5\" cy=\"81.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"607.5\" cy=\"57.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"616.5\" cy=\"56.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"625.5\" cy=\"30.5\" r=\"3.2\" fill=\"var(--ink, #222)\"/><text x=\"540.0\" y=\"180\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">Plot C</text></svg>"
+        },
+        {
+          "type": "mc",
+          "category": "Generalization, Bias and Variance",
+          "question": "Each plot fits a curve to the same points. Which plot shows underfitting?",
+          "options": [
+            "Plot A, where the curve follows the overall trend of the points",
+            "Plot B, where the curve bends to touch every one of the points",
+            "Plot C, where a straight line cannot follow the curved pattern",
+            "All three, because none of the curves is exactly on every point"
+          ],
+          "correct": 2,
+          "explanation": "A line that is too simple for the data misses the pattern: high bias, low variance.",
+          "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 660 200\" role=\"img\" aria-label=\"Three scatter plots, each with a different curve fitted to the same points\" style=\"max-width:660px;width:100%;height:auto;font-family:sans-serif\"><title>Three scatter plots, each with a different curve fitted to the same points</title><rect x=\"10\" y=\"10\" width=\"200\" height=\"150\" fill=\"none\" stroke=\"var(--ink-soft, #777)\" stroke-width=\"1\"/><path d=\"M20.0 93.4 L24.5 99.4 L29.0 104.9 L33.5 110.1 L38.0 114.9 L42.5 119.3 L47.0 123.3 L51.5 127.0 L56.0 130.3 L60.5 133.1 L65.0 135.6 L69.5 137.7 L74.0 139.5 L78.5 140.8 L83.0 141.8 L87.5 142.3 L92.0 142.5 L96.5 142.3 L101.0 141.8 L105.5 140.8 L110.0 139.5 L114.5 137.7 L119.0 135.6 L123.5 133.1 L128.0 130.3 L132.5 127.0 L137.0 123.3 L141.5 119.3 L146.0 114.9 L150.5 110.1 L155.0 104.9 L159.5 99.4 L164.0 93.4 L168.5 87.1 L173.0 80.4 L177.5 73.3 L182.0 65.8 L186.5 58.0 L191.0 49.7 L195.5 41.1 L200.0 32.1\" fill=\"none\" stroke=\"var(--accent, #2b6cb0)\" stroke-width=\"2\"/><circle cx=\"24.5\" cy=\"110.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"33.5\" cy=\"108.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"42.5\" cy=\"125.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"51.5\" cy=\"122.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"60.5\" cy=\"127.6\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"69.5\" cy=\"156.8\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"78.5\" cy=\"162.1\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"87.5\" cy=\"127.5\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"96.5\" cy=\"152.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"105.5\" cy=\"152.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"114.5\" cy=\"116.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"123.5\" cy=\"134.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"132.5\" cy=\"112.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"141.5\" cy=\"120.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"150.5\" cy=\"104.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"159.5\" cy=\"114.7\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"168.5\" cy=\"81.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"177.5\" cy=\"57.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"186.5\" cy=\"56.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"195.5\" cy=\"30.5\" r=\"3.2\" fill=\"var(--ink, #222)\"/><text x=\"110.0\" y=\"180\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">Plot A</text><rect x=\"225\" y=\"10\" width=\"200\" height=\"150\" fill=\"none\" stroke=\"var(--ink-soft, #777)\" stroke-width=\"1\"/><path d=\"M239.5 110.9 L248.5 108.2 L257.5 125.0 L266.5 122.4 L275.5 127.6 L284.5 156.8 L293.5 162.1 L302.5 127.5 L311.5 152.9 L320.5 152.4 L329.5 116.0 L338.5 134.4 L347.5 112.2 L356.5 120.4 L365.5 104.0 L374.5 114.7 L383.5 81.2 L392.5 57.2 L401.5 56.9 L410.5 30.5\" fill=\"none\" stroke=\"var(--accent, #2b6cb0)\" stroke-width=\"2\"/><circle cx=\"239.5\" cy=\"110.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"248.5\" cy=\"108.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"257.5\" cy=\"125.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"266.5\" cy=\"122.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"275.5\" cy=\"127.6\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"284.5\" cy=\"156.8\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"293.5\" cy=\"162.1\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"302.5\" cy=\"127.5\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"311.5\" cy=\"152.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"320.5\" cy=\"152.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"329.5\" cy=\"116.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"338.5\" cy=\"134.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"347.5\" cy=\"112.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"356.5\" cy=\"120.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"365.5\" cy=\"104.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"374.5\" cy=\"114.7\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"383.5\" cy=\"81.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"392.5\" cy=\"57.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"401.5\" cy=\"56.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"410.5\" cy=\"30.5\" r=\"3.2\" fill=\"var(--ink, #222)\"/><text x=\"325.0\" y=\"180\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">Plot B</text><rect x=\"440\" y=\"10\" width=\"200\" height=\"150\" fill=\"none\" stroke=\"var(--ink-soft, #777)\" stroke-width=\"1\"/><path d=\"M450.0 151.5 L630.0 75.9\" fill=\"none\" stroke=\"var(--accent, #2b6cb0)\" stroke-width=\"2\"/><circle cx=\"454.5\" cy=\"110.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"463.5\" cy=\"108.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"472.5\" cy=\"125.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"481.5\" cy=\"122.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"490.5\" cy=\"127.6\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"499.5\" cy=\"156.8\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"508.5\" cy=\"162.1\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"517.5\" cy=\"127.5\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"526.5\" cy=\"152.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"535.5\" cy=\"152.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"544.5\" cy=\"116.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"553.5\" cy=\"134.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"562.5\" cy=\"112.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"571.5\" cy=\"120.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"580.5\" cy=\"104.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"589.5\" cy=\"114.7\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"598.5\" cy=\"81.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"607.5\" cy=\"57.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"616.5\" cy=\"56.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"625.5\" cy=\"30.5\" r=\"3.2\" fill=\"var(--ink, #222)\"/><text x=\"540.0\" y=\"180\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">Plot C</text></svg>"
+        },
+        {
+          "type": "mc",
+          "category": "Generalization, Bias and Variance",
+          "question": "Which plot shows the model most likely to generalize well to new points?",
+          "options": [
+            "Plot A, which stays simple and ignores the curve in the data",
+            "Plot B, which touches each point in the training data",
+            "Plot A and Plot B, which are the two extremes of fitting",
+            "Plot C, which follows the trend without chasing noise"
+          ],
+          "correct": 3,
+          "explanation": "The smooth curve captures the pattern and ignores the noise.",
+          "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 660 200\" role=\"img\" aria-label=\"Three scatter plots, each with a different curve fitted to the same points\" style=\"max-width:660px;width:100%;height:auto;font-family:sans-serif\"><title>Three scatter plots, each with a different curve fitted to the same points</title><rect x=\"10\" y=\"10\" width=\"200\" height=\"150\" fill=\"none\" stroke=\"var(--ink-soft, #777)\" stroke-width=\"1\"/><path d=\"M20.0 151.5 L200.0 75.9\" fill=\"none\" stroke=\"var(--accent, #2b6cb0)\" stroke-width=\"2\"/><circle cx=\"24.5\" cy=\"110.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"33.5\" cy=\"108.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"42.5\" cy=\"125.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"51.5\" cy=\"122.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"60.5\" cy=\"127.6\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"69.5\" cy=\"156.8\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"78.5\" cy=\"162.1\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"87.5\" cy=\"127.5\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"96.5\" cy=\"152.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"105.5\" cy=\"152.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"114.5\" cy=\"116.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"123.5\" cy=\"134.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"132.5\" cy=\"112.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"141.5\" cy=\"120.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"150.5\" cy=\"104.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"159.5\" cy=\"114.7\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"168.5\" cy=\"81.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"177.5\" cy=\"57.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"186.5\" cy=\"56.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"195.5\" cy=\"30.5\" r=\"3.2\" fill=\"var(--ink, #222)\"/><text x=\"110.0\" y=\"180\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">Plot A</text><rect x=\"225\" y=\"10\" width=\"200\" height=\"150\" fill=\"none\" stroke=\"var(--ink-soft, #777)\" stroke-width=\"1\"/><path d=\"M239.5 110.9 L248.5 108.2 L257.5 125.0 L266.5 122.4 L275.5 127.6 L284.5 156.8 L293.5 162.1 L302.5 127.5 L311.5 152.9 L320.5 152.4 L329.5 116.0 L338.5 134.4 L347.5 112.2 L356.5 120.4 L365.5 104.0 L374.5 114.7 L383.5 81.2 L392.5 57.2 L401.5 56.9 L410.5 30.5\" fill=\"none\" stroke=\"var(--accent, #2b6cb0)\" stroke-width=\"2\"/><circle cx=\"239.5\" cy=\"110.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"248.5\" cy=\"108.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"257.5\" cy=\"125.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"266.5\" cy=\"122.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"275.5\" cy=\"127.6\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"284.5\" cy=\"156.8\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"293.5\" cy=\"162.1\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"302.5\" cy=\"127.5\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"311.5\" cy=\"152.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"320.5\" cy=\"152.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"329.5\" cy=\"116.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"338.5\" cy=\"134.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"347.5\" cy=\"112.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"356.5\" cy=\"120.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"365.5\" cy=\"104.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"374.5\" cy=\"114.7\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"383.5\" cy=\"81.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"392.5\" cy=\"57.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"401.5\" cy=\"56.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"410.5\" cy=\"30.5\" r=\"3.2\" fill=\"var(--ink, #222)\"/><text x=\"325.0\" y=\"180\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">Plot B</text><rect x=\"440\" y=\"10\" width=\"200\" height=\"150\" fill=\"none\" stroke=\"var(--ink-soft, #777)\" stroke-width=\"1\"/><path d=\"M450.0 93.4 L454.5 99.4 L459.0 104.9 L463.5 110.1 L468.0 114.9 L472.5 119.3 L477.0 123.3 L481.5 127.0 L486.0 130.3 L490.5 133.1 L495.0 135.6 L499.5 137.7 L504.0 139.5 L508.5 140.8 L513.0 141.8 L517.5 142.3 L522.0 142.5 L526.5 142.3 L531.0 141.8 L535.5 140.8 L540.0 139.5 L544.5 137.7 L549.0 135.6 L553.5 133.1 L558.0 130.3 L562.5 127.0 L567.0 123.3 L571.5 119.3 L576.0 114.9 L580.5 110.1 L585.0 104.9 L589.5 99.4 L594.0 93.4 L598.5 87.1 L603.0 80.4 L607.5 73.3 L612.0 65.8 L616.5 58.0 L621.0 49.7 L625.5 41.1 L630.0 32.1\" fill=\"none\" stroke=\"var(--accent, #2b6cb0)\" stroke-width=\"2\"/><circle cx=\"454.5\" cy=\"110.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"463.5\" cy=\"108.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"472.5\" cy=\"125.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"481.5\" cy=\"122.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"490.5\" cy=\"127.6\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"499.5\" cy=\"156.8\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"508.5\" cy=\"162.1\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"517.5\" cy=\"127.5\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"526.5\" cy=\"152.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"535.5\" cy=\"152.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"544.5\" cy=\"116.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"553.5\" cy=\"134.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"562.5\" cy=\"112.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"571.5\" cy=\"120.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"580.5\" cy=\"104.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"589.5\" cy=\"114.7\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"598.5\" cy=\"81.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"607.5\" cy=\"57.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"616.5\" cy=\"56.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"625.5\" cy=\"30.5\" r=\"3.2\" fill=\"var(--ink, #222)\"/><text x=\"540.0\" y=\"180\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">Plot C</text></svg>"
+        },
+        {
+          "type": "mc",
+          "category": "Generalization, Bias and Variance",
+          "question": "A model's curve passes through every training point, as in the plot. What will probably happen on new data?",
+          "options": [
+            "Training error is tiny but test error is large, because the model has high variance",
+            "Training error is large and test error is large, because the model has high bias",
+            "Training error is large but test error is tiny, because the model has high variance",
+            "Training error is tiny and test error is tiny, because the model has low bias"
+          ],
+          "correct": 0,
+          "explanation": "The curve memorized the training points, including their noise.",
+          "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 230 175\" role=\"img\" aria-label=\"A scatter plot with a wiggly curve that passes through every point\" style=\"max-width:230px;width:100%;height:auto;font-family:sans-serif\"><title>A scatter plot with a wiggly curve that passes through every point</title><rect x=\"10\" y=\"10\" width=\"200\" height=\"150\" fill=\"none\" stroke=\"var(--ink-soft, #777)\" stroke-width=\"1\"/><path d=\"M24.5 110.9 L33.5 108.2 L42.5 125.0 L51.5 122.4 L60.5 127.6 L69.5 156.8 L78.5 162.1 L87.5 127.5 L96.5 152.9 L105.5 152.4 L114.5 116.0 L123.5 134.4 L132.5 112.2 L141.5 120.4 L150.5 104.0 L159.5 114.7 L168.5 81.2 L177.5 57.2 L186.5 56.9 L195.5 30.5\" fill=\"none\" stroke=\"var(--accent, #2b6cb0)\" stroke-width=\"2\"/><circle cx=\"24.5\" cy=\"110.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"33.5\" cy=\"108.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"42.5\" cy=\"125.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"51.5\" cy=\"122.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"60.5\" cy=\"127.6\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"69.5\" cy=\"156.8\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"78.5\" cy=\"162.1\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"87.5\" cy=\"127.5\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"96.5\" cy=\"152.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"105.5\" cy=\"152.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"114.5\" cy=\"116.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"123.5\" cy=\"134.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"132.5\" cy=\"112.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"141.5\" cy=\"120.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"150.5\" cy=\"104.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"159.5\" cy=\"114.7\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"168.5\" cy=\"81.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"177.5\" cy=\"57.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"186.5\" cy=\"56.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"195.5\" cy=\"30.5\" r=\"3.2\" fill=\"var(--ink, #222)\"/></svg>"
+        },
+        {
+          "type": "mc",
+          "category": "Generalization, Bias and Variance",
+          "question": "A straight line is fitted to the U-shaped points shown. Which statement describes the model?",
+          "options": [
+            "High variance and low bias, because the line changes with every point",
+            "High bias and low variance, because the line is too simple for the data",
+            "High bias and high variance, because the line misses most of the points",
+            "Low bias and low variance, because the line is smooth and simple"
+          ],
+          "correct": 1,
+          "explanation": "Too simple a model underfits: it is wrong in a consistent way (bias) and changes little with the data.",
+          "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 230 175\" role=\"img\" aria-label=\"A scatter plot with a straight line fitted through U-shaped points\" style=\"max-width:230px;width:100%;height:auto;font-family:sans-serif\"><title>A scatter plot with a straight line fitted through U-shaped points</title><rect x=\"10\" y=\"10\" width=\"200\" height=\"150\" fill=\"none\" stroke=\"var(--ink-soft, #777)\" stroke-width=\"1\"/><path d=\"M20.0 151.5 L200.0 75.9\" fill=\"none\" stroke=\"var(--accent, #2b6cb0)\" stroke-width=\"2\"/><circle cx=\"24.5\" cy=\"110.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"33.5\" cy=\"108.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"42.5\" cy=\"125.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"51.5\" cy=\"122.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"60.5\" cy=\"127.6\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"69.5\" cy=\"156.8\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"78.5\" cy=\"162.1\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"87.5\" cy=\"127.5\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"96.5\" cy=\"152.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"105.5\" cy=\"152.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"114.5\" cy=\"116.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"123.5\" cy=\"134.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"132.5\" cy=\"112.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"141.5\" cy=\"120.4\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"150.5\" cy=\"104.0\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"159.5\" cy=\"114.7\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"168.5\" cy=\"81.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"177.5\" cy=\"57.2\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"186.5\" cy=\"56.9\" r=\"3.2\" fill=\"var(--ink, #222)\"/><circle cx=\"195.5\" cy=\"30.5\" r=\"3.2\" fill=\"var(--ink, #222)\"/></svg>"
+        },
+        {
+          "type": "mc",
+          "category": "Generalization, Bias and Variance",
+          "question": "The chart shows a model's accuracy on its training data and on its test data. What is the diagnosis?",
+          "options": [
+            "Underfitting, so bias is too high",
+            "Underfitting, so variance is too high",
+            "Overfitting, so variance is too high",
+            "A good fit, so bias and variance are both low"
+          ],
+          "correct": 2,
+          "explanation": "Very high training accuracy with much lower test accuracy means the model memorized the training set.",
+          "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 185\" role=\"img\" aria-label=\"Bar chart of training accuracy next to test accuracy\" style=\"max-width:300px;width:100%;height:auto;font-family:sans-serif\"><title>Bar chart of training accuracy next to test accuracy</title><line x1=\"50\" y1=\"150\" x2=\"270\" y2=\"150\" stroke=\"var(--ink-soft, #777)\"/><rect x=\"80\" y=\"22.6\" width=\"60\" height=\"127.4\" fill=\"var(--accent, #2b6cb0)\"/><text x=\"110\" y=\"15.599999999999994\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">98%</text><text x=\"110\" y=\"170\" font-size=\"13\" text-anchor=\"middle\" font-weight=\"normal\" fill=\"var(--ink, #222)\">Training</text><rect x=\"180\" y=\"70.7\" width=\"60\" height=\"79.3\" fill=\"#c0392b\"/><text x=\"210\" y=\"63.7\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">61%</text><text x=\"210\" y=\"170\" font-size=\"13\" text-anchor=\"middle\" font-weight=\"normal\" fill=\"var(--ink, #222)\">Test</text><text x=\"25\" y=\"22\" font-size=\"12\" text-anchor=\"start\" font-weight=\"normal\" fill=\"var(--ink-soft, #777)\">Accuracy</text></svg>"
+        },
+        {
+          "type": "mc",
+          "category": "Generalization, Bias and Variance",
+          "question": "The chart shows a model's accuracy on its training data and on its test data. What is the diagnosis?",
+          "options": [
+            "Overfitting, so variance is too high",
+            "Overfitting, so bias is too high",
+            "A good fit, so bias and variance are both low",
+            "Underfitting, so bias is too high"
+          ],
+          "correct": 3,
+          "explanation": "Low accuracy on both sets means the model is too simple to capture the pattern.",
+          "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 185\" role=\"img\" aria-label=\"Bar chart of training accuracy next to test accuracy\" style=\"max-width:300px;width:100%;height:auto;font-family:sans-serif\"><title>Bar chart of training accuracy next to test accuracy</title><line x1=\"50\" y1=\"150\" x2=\"270\" y2=\"150\" stroke=\"var(--ink-soft, #777)\"/><rect x=\"80\" y=\"82.4\" width=\"60\" height=\"67.6\" fill=\"var(--accent, #2b6cb0)\"/><text x=\"110\" y=\"75.39999999999999\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">52%</text><text x=\"110\" y=\"170\" font-size=\"13\" text-anchor=\"middle\" font-weight=\"normal\" fill=\"var(--ink, #222)\">Training</text><rect x=\"180\" y=\"85.0\" width=\"60\" height=\"65.0\" fill=\"#c0392b\"/><text x=\"210\" y=\"78.0\" font-size=\"14\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"var(--ink, #222)\">50%</text><text x=\"210\" y=\"170\" font-size=\"13\" text-anchor=\"middle\" font-weight=\"normal\" fill=\"var(--ink, #222)\">Test</text><text x=\"25\" y=\"22\" font-size=\"12\" text-anchor=\"start\" font-weight=\"normal\" fill=\"var(--ink-soft, #777)\">Accuracy</text></svg>"
         }
       ]
     },
@@ -1152,12 +1400,12 @@
           "category": "The Machine Learning Process",
           "question": "Which order correctly lists the main stages of training and checking a supervised model?",
           "options": [
+            "Prepare the data, train the model on the training set, then test it on the test set",
             "Train the model on the test set, prepare the data, then check it on the training set",
             "Test the model on the test set, prepare the data, then train it on the training set",
-            "Prepare the data, train the model on the training set, then test it on the test set",
             "Prepare the data, test the model on the training set, then train it on the test set"
           ],
-          "correct": 2,
+          "correct": 0,
           "explanation": "Prepare (gather, choose features and target, split), train, then evaluate on data the model has not seen."
         },
         {
@@ -1166,11 +1414,11 @@
           "question": "Why is the data split into a training set and a test set before the model is fitted?",
           "options": [
             "So the model can learn each example twice and remember it more reliably",
+            "So the model can later be scored on examples it did not learn from",
             "So the model can skip the labels and look for groups in the test examples",
-            "So the model can set its own hyperparameters from the test examples",
-            "So the model can later be scored on examples it did not learn from"
+            "So the model can set its own hyperparameters from the test examples"
           ],
-          "correct": 3,
+          "correct": 1,
           "explanation": "A score on unseen data is the only honest measure of generalization."
         },
         {
@@ -1178,12 +1426,12 @@
           "category": "The Machine Learning Process",
           "question": "In a table of house data, you want to predict the sale price. What is the 'identify features and target' step?",
           "options": [
-            "Choosing the input columns (such as floor area) and the one column to predict (the price)",
             "Choosing the output columns (such as floor area) and the one column to hide (the price)",
             "Choosing the rows used for training (such as the cheapest) and the rows kept for testing",
+            "Choosing the input columns (such as floor area) and the one column to predict (the price)",
             "Choosing the algorithm to use (such as a line) and the number of clusters to look for"
           ],
-          "correct": 0,
+          "correct": 2,
           "explanation": "Features are the inputs; the target is what the model is trained to predict."
         },
         {
@@ -1192,11 +1440,11 @@
           "question": "What happens in the 'fit' step of the process?",
           "options": [
             "The training algorithm learns the model's hyperparameters from the test data",
-            "The training algorithm learns the model's parameters from the training data",
             "The training algorithm learns the model's labels from the training features",
-            "The training algorithm learns the model's accuracy from the unseen examples"
+            "The training algorithm learns the model's accuracy from the unseen examples",
+            "The training algorithm learns the model's parameters from the training data"
           ],
-          "correct": 1,
+          "correct": 3,
           "explanation": "Fitting (training) is where parameters are set by the algorithm. Hyperparameters are chosen by us beforehand."
         },
         {
@@ -1204,13 +1452,46 @@
           "category": "The Machine Learning Process",
           "question": "After a model is fitted, which data should be used to check its accuracy?",
           "options": [
+            "The test set, because the model never saw those examples during training",
             "The training set, because the model learned those examples most thoroughly",
             "The full dataset, because it contains the most examples of every kind",
-            "The test set, because the model never saw those examples during training",
             "The feature columns, because they are the part the model was given"
           ],
-          "correct": 2,
+          "correct": 0,
           "explanation": "Scoring on the training set would reward memorization."
+        },
+        {
+          "type": "mc",
+          "category": "The Machine Learning Process",
+          "question": "A dataset has 1,000 labelled rows. Which split is typical for supervised learning?",
+          "options": [
+            "About 200 rows to train and 800 rows to test",
+            "About 800 rows to train and 200 rows to test",
+            "About 500 rows to train and 500 rows to test",
+            "About 995 rows to train and 5 rows to test"
+          ],
+          "correct": 1,
+          "explanation": "Usually 70-80% of the data trains the model and 20-30% is held back to test it."
+        },
+        {
+          "type": "mc",
+          "category": "The Machine Learning Process",
+          "question": "You hold back 25% of 400 labelled rows as the test set. How many rows are left to train on?",
+          "options": [
+            "100",
+            "25",
+            "300",
+            "375"
+          ],
+          "correct": 2,
+          "explanation": "25% of 400 is 100 test rows, which leaves 300 for training."
+        },
+        {
+          "type": "tf",
+          "category": "The Machine Learning Process",
+          "question": "In a typical split, the larger share of the data goes to the training set.",
+          "correct": true,
+          "explanation": "Roughly 70-80% trains the model and 20-30% tests it."
         },
         {
           "type": "tf",
