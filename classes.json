@@ -169,6 +169,16 @@
           "featured": true,
           "cta": "Read the guide"
         }
+      ],
+      "downloads": [
+        {
+          "id": "nb-classes-scratch",
+          "title": "Notebook: Python Classes & Objects from Scratch",
+          "description": "Jupyter notebook (.ipynb) that builds classes from an empty class up to inheritance and properties, with runnable examples and exercises. Download it and open it in Jupyter, VS Code or Google Colab.",
+          "file": "notebooks/python_classes_from_scratch.ipynb",
+          "featured": true,
+          "cta": "Download the notebook"
+        }
       ]
     },
     {
