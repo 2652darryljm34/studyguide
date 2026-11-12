@@ -50,7 +50,11 @@ function featuredItems(cls){
   const quizzes = (cls.quizzes || []).filter(isFeatured).map(q => ({
     q, href: 'quiz.html?file=' + encodeURIComponent(q.file), cta: q.cta || 'Start the review', go: 'Start'
   }));
-  return guides.concat(tools, quizzes);
+  // Downloadable files (Jupyter notebooks): `file` is the path, saved rather than opened.
+  const downloads = (cls.downloads || []).filter(isFeatured).map(d => ({
+    q: d, href: d.file, cta: d.cta || 'Download', go: 'Download', dl: true
+  }));
+  return guides.concat(tools, downloads, quizzes);
 }
 
 function renderFeatured(classes){
@@ -61,8 +65,8 @@ function renderFeatured(classes){
   const cards = classes.map(cls => {
     const items = featuredItems(cls);
     if(!items.length) return '';
-    const rows = items.map(({ q, href, go }) => `
-      <a class="quiz-row featured-row" href="${escapeHtml(href)}">
+    const rows = items.map(({ q, href, go, dl }) => `
+      <a class="quiz-row featured-row" href="${escapeHtml(href)}"${dl ? ' download' : ''}>
         <div>
           <div class="quiz-row-title">${escapeHtml(q.title)}</div>
           ${q.description ? `<div class="quiz-row-desc">${escapeHtml(q.description)}</div>` : ''}
@@ -105,7 +109,8 @@ function renderClass(cls, index){
   const featured = featuredItems(cls);
   const quizzes = allQuizzes.filter(q => !isFeatured(q));
   const count = allQuizzes.length;
-  const countLabel = count === 1 ? '1 quiz' : `${count} quizzes`;
+  const items = guides.length + (cls.tools || []).length + (cls.downloads || []).length;
+  const countLabel = count === 0 && items ? (items === 1 ? '1 item' : `${items} items`) : count === 1 ? '1 quiz' : `${count} quizzes`;
 
   const guideRows = guides.filter(g => !isFeatured(g)).map(g => `
     <a class="quiz-row guide-row" href="review.html?file=${encodeURIComponent(g.file)}">
@@ -141,8 +146,19 @@ function renderClass(cls, index){
     </a>
   `).join('');
 
-  const featuredRows = featured.map(({ q, href, go }) => `
-    <a class="quiz-row featured-row" href="${escapeHtml(href)}">
+  // Files to save, such as Jupyter notebooks.
+  const downloadRows = (cls.downloads || []).filter(d => !isFeatured(d)).map(d => `
+    <a class="quiz-row tool-row" href="${escapeHtml(d.file)}" download>
+      <div>
+        <div class="quiz-row-title"><span class="guide-badge tool-badge">Notebook</span>${escapeHtml(d.title)}</div>
+        ${d.description ? `<div class="quiz-row-desc">${escapeHtml(d.description)}</div>` : ''}
+      </div>
+      <div class="quiz-row-go">Download &darr;</div>
+    </a>
+  `).join('');
+
+  const featuredRows = featured.map(({ q, href, go, dl }) => `
+    <a class="quiz-row featured-row" href="${escapeHtml(href)}"${dl ? ' download' : ''}>
       <div>
         <div class="quiz-row-title"><span class="new-pill">${escapeHtml(badgeFor(q))}</span>${escapeHtml(q.title)}</div>
         ${q.description ? `<div class="quiz-row-desc">${escapeHtml(q.description)}</div>` : ''}
@@ -178,7 +194,8 @@ function renderClass(cls, index){
         ${guideRows}
         ${exerciseRows}
         ${toolRows}
-        ${rows || '<div class="quiz-row"><span class="quiz-row-desc">No quizzes yet.</span></div>'}
+        ${downloadRows}
+        ${rows || (featuredRows || guideRows || exerciseRows || toolRows || downloadRows ? '' : '<div class="quiz-row"><span class="quiz-row-desc">No quizzes yet.</span></div>')}
       </div>
     </details>
   `;

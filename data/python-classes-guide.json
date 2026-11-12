@@ -1,0 +1,498 @@
+{
+ "title": "Python Classes and Objects: Crash Course",
+ "description": "What classes and objects are, the Python syntax for them (class, __init__, self, attributes, methods), special methods, inheritance, properties, and the mistakes beginners make. Every example is run by Python.",
+ "sections": [
+  {
+   "name": "1. What are classes and objects?",
+   "blocks": [
+    {
+     "type": "paragraph",
+     "text": "A **class** is a blueprint: it describes what a kind of thing *has* (its data) and what it can *do* (its actions). An **object** is one real thing built from that blueprint. One class can make as many objects as you like, and each object keeps its own data."
+    },
+    {
+     "type": "paragraph",
+     "text": "Think of a cookie cutter and cookies: the cutter is the class, each cookie is an object. Or a house plan and the houses built from it."
+    },
+    {
+     "type": "paragraph",
+     "text": "You have used objects since your first Python program. Every value in Python is an object, and its type is its class:"
+    },
+    {
+     "type": "code",
+     "text": "print(type(\"hello\"))\nprint(type([1, 2, 3]))\nprint(\"hello\".upper())\nnums = [3, 1, 2]\nnums.sort()\nprint(nums)\n# <class 'str'>\n# <class 'list'>\n# HELLO\n# [1, 2, 3]"
+    },
+    {
+     "type": "paragraph",
+     "text": "`\"hello\".upper()` asks the string object to do something, and `nums.sort()` asks the list object to do something. Writing your own classes lets you make new kinds of objects with their own data and actions."
+    },
+    {
+     "type": "heading",
+     "text": "The four words to know"
+    },
+    {
+     "type": "table",
+     "headers": [
+      "Term",
+      "Meaning",
+      "Example"
+     ],
+     "rows": [
+      [
+       "**Class**",
+       "The blueprint that defines a kind of object",
+       "`Dog`"
+      ],
+      [
+       "**Object** (or **instance**)",
+       "One thing built from the class",
+       "`rex = Dog(\"Rex\", 3)`"
+      ],
+      [
+       "**Attribute**",
+       "A piece of data stored in an object (a variable that belongs to it)",
+       "`rex.name`"
+      ],
+      [
+       "**Method**",
+       "An action an object can do (a function that belongs to it)",
+       "`rex.bark()`"
+      ]
+     ]
+    },
+    {
+     "type": "note",
+     "label": "Why bother?",
+     "text": "A class keeps related data and the functions that work on it together in one place. Instead of passing a name, an age and a balance into ten different functions, you pass one object that carries them."
+    }
+   ]
+  },
+  {
+   "name": "2. Syntax: defining a class and making objects",
+   "blocks": [
+    {
+     "type": "paragraph",
+     "text": "A class is written with the keyword `class`, a name, a colon and an indented body. By convention class names use **CapitalizedWords**."
+    },
+    {
+     "type": "heading",
+     "text": "The smallest possible class"
+    },
+    {
+     "type": "code",
+     "text": "class Dog:\n    pass\n\nrex = Dog()\nfido = Dog()\nprint(isinstance(rex, Dog))\nprint(rex is fido)\nprint(rex.__class__.__name__)\n# True\n# False\n# Dog"
+    },
+    {
+     "type": "paragraph",
+     "text": "`Dog()` **creates an object** (this is called *instantiating* the class). `rex` and `fido` are two separate objects of the same class, so `rex is fido` is `False`. `pass` just means the body has nothing in it yet."
+    },
+    {
+     "type": "heading",
+     "text": "The full shape of a class"
+    },
+    {
+     "type": "code",
+     "text": "class ClassName:\n    \"\"\"Optional docstring: what this class is for.\"\"\"\n\n    class_attribute = value              # shared by every object\n\n    def __init__(self, param1, param2):  # runs when an object is created\n        self.attr1 = param1              # instance attributes: one set per object\n        self.attr2 = param2\n\n    def method(self, arg):               # a method: first parameter is always self\n        return self.attr1 + arg\n\nobj = ClassName(1, 2)                    # create an object (no 'new' keyword)\nobj.attr1                                # read an attribute\nobj.attr1 = 10                           # change an attribute\nobj.method(5)                            # call a method"
+    },
+    {
+     "type": "list",
+     "items": [
+      "There is **no `new` keyword**: you call the class like a function.",
+      "Everything inside the class is indented under the `class` line.",
+      "Each method is a normal `def`, but its **first parameter is `self`**.",
+      "Attributes are read and written with a dot: `obj.name`."
+     ]
+    }
+   ]
+  },
+  {
+   "name": "3. __init__, self and attributes",
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "__init__: setting up a new object"
+    },
+    {
+     "type": "paragraph",
+     "text": "`__init__` is a special method that Python calls automatically whenever you create an object. It is where you give the new object its starting data. (Pronounced \"dunder init\": two underscores on each side.)"
+    },
+    {
+     "type": "code",
+     "text": "class Dog:\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\n\nrex = Dog(\"Rex\", 3)\nfido = Dog(\"Fido\", 7)\nprint(rex.name, rex.age)\nprint(fido.name, fido.age)\nrex.age = 4\nprint(rex.age, fido.age)\n# Rex 3\n# Fido 7\n# 4 7"
+    },
+    {
+     "type": "heading",
+     "text": "What self means"
+    },
+    {
+     "type": "paragraph",
+     "text": "`self` is the object the method is working on. When you write `Dog(\"Rex\", 3)`, Python makes a blank object, passes it to `__init__` as `self`, and `__init__` fills it in with `self.name = name`. You do **not** pass `self` yourself: Python does it."
+    },
+    {
+     "type": "list",
+     "items": [
+      "`self.name = name` stores the parameter `name` in the object, under the attribute name `name`.",
+      "The two `name`s are different things: `self.name` belongs to the object, the bare `name` is just the parameter.",
+      "`rex` and `fido` each have their **own** `name` and `age`: changing `rex.age` does not touch `fido`."
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Default values"
+    },
+    {
+     "type": "code",
+     "text": "class Dog:\n    def __init__(self, name, age=1):\n        self.name = name\n        self.age = age\n\nprint(Dog(\"Pup\").age)\nprint(Dog(\"Rex\", 3).age)\n# 1\n# 3"
+    },
+    {
+     "type": "heading",
+     "text": "Class attributes versus instance attributes"
+    },
+    {
+     "type": "paragraph",
+     "text": "An attribute assigned **inside the class body** (not inside a method) belongs to the class and is shared by every object. An attribute assigned on `self` belongs to one object."
+    },
+    {
+     "type": "code",
+     "text": "class Dog:\n    species = \"Canis familiaris\"      # class attribute: shared\n\n    def __init__(self, name):\n        self.name = name              # instance attribute: per object\n\nrex = Dog(\"Rex\")\nfido = Dog(\"Fido\")\nprint(rex.species, fido.species)\nprint(Dog.species)\nDog.species = \"Dog\"\nprint(rex.species, fido.species)\n# Canis familiaris Canis familiaris\n# Canis familiaris\n# Dog Dog"
+    },
+    {
+     "type": "note",
+     "label": "Rule of thumb:",
+     "text": "data that differs between objects (a name, a balance) goes on `self`. A constant that is the same for all of them goes on the class."
+    }
+   ]
+  },
+  {
+   "name": "4. Methods",
+   "blocks": [
+    {
+     "type": "paragraph",
+     "text": "A **method** is a function defined inside a class. It always takes `self` first, which is how it reaches the object's data. Methods can read attributes, change them, and return values."
+    },
+    {
+     "type": "code",
+     "text": "class BankAccount:\n    def __init__(self, owner, balance=0):\n        self.owner = owner\n        self.balance = balance\n\n    def deposit(self, amount):\n        self.balance += amount\n\n    def withdraw(self, amount):\n        if amount > self.balance:\n            return False          # not enough money\n        self.balance -= amount\n        return True\n\n    def summary(self):\n        return f\"{self.owner}: ${self.balance}\"\n\nacct = BankAccount(\"Ann\", 100)\nacct.deposit(50)\nprint(acct.withdraw(500))\nprint(acct.withdraw(30))\nprint(acct.summary())\n# False\n# True\n# Ann: $120"
+    },
+    {
+     "type": "heading",
+     "text": "Calling a method"
+    },
+    {
+     "type": "paragraph",
+     "text": "`acct.deposit(50)` is the normal way. Python turns it into `BankAccount.deposit(acct, 50)`, passing `acct` as `self`. That is why a method with the parameters `(self, amount)` is called with just one argument."
+    },
+    {
+     "type": "code",
+     "text": "class Counter:\n    def __init__(self):\n        self.count = 0\n\n    def add(self, n):\n        self.count += n\n\nc = Counter()\nc.add(2)\nCounter.add(c, 3)\nprint(c.count)\n# 5"
+    },
+    {
+     "type": "heading",
+     "text": "Methods calling other methods"
+    },
+    {
+     "type": "code",
+     "text": "class Rectangle:\n    def __init__(self, width, height):\n        self.width = width\n        self.height = height\n\n    def area(self):\n        return self.width * self.height\n\n    def describe(self):\n        return f\"{self.width} x {self.height}, area {self.area()}\"\n\nprint(Rectangle(3, 4).describe())\n# 3 x 4, area 12"
+    },
+    {
+     "type": "paragraph",
+     "text": "Inside a class, call another method of the same object with `self.method()`, not just `method()`."
+    }
+   ]
+  },
+  {
+   "name": "5. Special (dunder) methods",
+   "blocks": [
+    {
+     "type": "paragraph",
+     "text": "Methods whose names start and end with two underscores are hooks Python calls for you. They let your objects work with built-in features like `print`, `==`, `<` and `len`."
+    },
+    {
+     "type": "table",
+     "headers": [
+      "Method",
+      "Called when you...",
+      "Used for"
+     ],
+     "rows": [
+      [
+       "`__init__(self, ...)`",
+       "create the object",
+       "setting up attributes"
+      ],
+      [
+       "`__str__(self)`",
+       "`print(obj)` or `str(obj)`",
+       "a readable text version"
+      ],
+      [
+       "`__repr__(self)`",
+       "look at it in the console, or `repr(obj)`",
+       "an unambiguous version for programmers"
+      ],
+      [
+       "`__eq__(self, other)`",
+       "`obj == other`",
+       "defining what equal means"
+      ],
+      [
+       "`__lt__(self, other)`",
+       "`obj < other`",
+       "sorting and comparing"
+      ],
+      [
+       "`__len__(self)`",
+       "`len(obj)`",
+       "size of a collection-like object"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Without __str__, print is unhelpful"
+    },
+    {
+     "type": "code",
+     "text": "class Dog:\n    def __init__(self, name):\n        self.name = name\n\nprint(Dog(\"Rex\"))\n# <__main__.Dog object at 0x00000265B1BF5010>"
+    },
+    {
+     "type": "paragraph",
+     "text": "The odd text is the default: the class name and where the object lives in memory (the address will differ on your machine). Define `__str__` to fix it."
+    },
+    {
+     "type": "code",
+     "text": "class Dog:\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\n\n    def __str__(self):\n        return f\"{self.name} ({self.age})\"\n\n    def __repr__(self):\n        return f\"Dog({self.name!r}, {self.age!r})\"\n\n    def __eq__(self, other):\n        return self.name == other.name and self.age == other.age\n\n    def __lt__(self, other):\n        return self.age < other.age\n\na, b = Dog(\"Rex\", 3), Dog(\"Rex\", 3)\nprint(a)\nprint([a])\nprint(a == b, a is b)\nprint(sorted([Dog(\"Old\", 9), Dog(\"Pup\", 1)]))\n# Rex (3)\n# [Dog('Rex', 3)]\n# True False\n# [Dog('Pup', 1), Dog('Old', 9)]"
+    },
+    {
+     "type": "paragraph",
+     "text": "`print(a)` uses `__str__`. Printing a *list* of objects uses each object's `__repr__`. Without `__eq__`, `a == b` would be `False` because two separate objects are different unless you say otherwise. `sorted` needs `__lt__`."
+    }
+   ]
+  },
+  {
+   "name": "6. Inheritance",
+   "blocks": [
+    {
+     "type": "paragraph",
+     "text": "**Inheritance** lets a new class start from an existing one. The new class (the **child**, or subclass) gets all the attributes and methods of the **parent** (or superclass), and can add or change things. Write the parent in parentheses after the child's name."
+    },
+    {
+     "type": "code",
+     "text": "class Child(Parent):\n    ..."
+    },
+    {
+     "type": "code",
+     "text": "class Animal:\n    def __init__(self, name):\n        self.name = name\n\n    def speak(self):\n        return \"...\"\n\n    def intro(self):\n        return f\"{self.name} says {self.speak()}\"\n\nclass Dog(Animal):\n    def speak(self):               # overrides the parent's version\n        return \"Woof\"\n\nclass Cat(Animal):\n    def speak(self):\n        return \"Meow\"\n\nfor pet in [Dog(\"Rex\"), Cat(\"Tom\"), Animal(\"Thing\")]:\n    print(pet.intro())\n# Rex says Woof\n# Tom says Meow\n# Thing says ..."
+    },
+    {
+     "type": "list",
+     "items": [
+      "`Dog` and `Cat` did not write `__init__` or `intro`: they **inherited** them from `Animal`.",
+      "`speak` is **overridden**: each child provides its own version, and Python uses the one belonging to the object's real class.",
+      "Calling the same method on different kinds of object and getting different behaviour is called **polymorphism**."
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "super(): reuse the parent's __init__"
+    },
+    {
+     "type": "paragraph",
+     "text": "When the child needs extra attributes, call the parent's `__init__` with `super()` so you do not copy its code."
+    },
+    {
+     "type": "code",
+     "text": "class Animal:\n    def __init__(self, name):\n        self.name = name\n\nclass Dog(Animal):\n    def __init__(self, name, tricks):\n        super().__init__(name)      # sets self.name\n        self.tricks = tricks        # new attribute for Dog only\n\nd = Dog(\"Rex\", [\"sit\", \"roll\"])\nprint(d.name, d.tricks)\nprint(isinstance(d, Dog), isinstance(d, Animal))\nprint(issubclass(Dog, Animal))\n# Rex ['sit', 'roll']\n# True True\n# True"
+    },
+    {
+     "type": "note",
+     "label": "is-a:",
+     "text": "inheritance fits when the child **is a** kind of the parent (a Dog is an Animal). If it only *has* one (a Car has an Engine), store it as an attribute instead."
+    }
+   ]
+  },
+  {
+   "name": "7. Encapsulation and properties",
+   "blocks": [
+    {
+     "type": "paragraph",
+     "text": "**Encapsulation** means keeping an object's data behind a controlled interface so it cannot easily be put into a bad state. Python does not enforce privacy; it uses naming conventions."
+    },
+    {
+     "type": "table",
+     "headers": [
+      "Name",
+      "Meaning"
+     ],
+     "rows": [
+      [
+       "`name`",
+       "public: use freely"
+      ],
+      [
+       "`_name`",
+       "one underscore: *internal*, please do not touch from outside the class (a convention only)"
+      ],
+      [
+       "`__name`",
+       "two underscores: Python renames it to `_ClassName__name` to avoid accidental clashes in subclasses"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "@property: a method that looks like an attribute"
+    },
+    {
+     "type": "paragraph",
+     "text": "A **property** lets you run code (such as validation) when an attribute is read or written, while the outside code still just writes `obj.balance`."
+    },
+    {
+     "type": "code",
+     "text": "class Account:\n    def __init__(self, balance):\n        self._balance = balance\n\n    @property\n    def balance(self):             # getter: obj.balance\n        return self._balance\n\n    @balance.setter\n    def balance(self, value):      # setter: obj.balance = value\n        if value < 0:\n            raise ValueError(\"balance cannot be negative\")\n        self._balance = value\n\na = Account(100)\na.balance = 250\nprint(a.balance)\ntry:\n    a.balance = -5\nexcept ValueError as e:\n    print(\"Error:\", e)\n# 250\n# Error: balance cannot be negative"
+    },
+    {
+     "type": "paragraph",
+     "text": "A property with no setter is read-only: assigning to it raises an `AttributeError`."
+    }
+   ]
+  },
+  {
+   "name": "8. Class methods, static methods and dataclasses",
+   "blocks": [
+    {
+     "type": "table",
+     "headers": [
+      "Kind",
+      "Decorator",
+      "First parameter",
+      "Use it for"
+     ],
+     "rows": [
+      [
+       "Instance method",
+       "(none)",
+       "`self`: the object",
+       "work on one object's data"
+      ],
+      [
+       "Class method",
+       "`@classmethod`",
+       "`cls`: the class",
+       "alternative constructors, work on class-level data"
+      ],
+      [
+       "Static method",
+       "`@staticmethod`",
+       "(none)",
+       "a utility function that belongs with the class but needs neither"
+      ]
+     ]
+    },
+    {
+     "type": "code",
+     "text": "class Dog:\n    count = 0\n\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\n        Dog.count += 1\n\n    @classmethod\n    def from_string(cls, text):          # alternative constructor\n        name, age = text.split(\",\")\n        return cls(name, int(age))\n\n    @staticmethod\n    def is_valid_age(age):\n        return 0 <= age <= 30\n\nrex = Dog.from_string(\"Rex,3\")\nprint(rex.name, rex.age)\nprint(Dog.is_valid_age(45))\nprint(Dog.count)\n# Rex 3\n# False\n# 1"
+    },
+    {
+     "type": "heading",
+     "text": "dataclasses: less typing for data-holding classes"
+    },
+    {
+     "type": "paragraph",
+     "text": "If a class mostly stores data, `@dataclass` writes `__init__`, `__repr__` and `__eq__` for you from the attribute list."
+    },
+    {
+     "type": "code",
+     "text": "from dataclasses import dataclass\n\n@dataclass\nclass Point:\n    x: int\n    y: int = 0\n\np = Point(3)\nprint(p)\nprint(p == Point(3, 0))\n# Point(x=3, y=0)\n# True"
+    }
+   ]
+  },
+  {
+   "name": "9. Syntax at a glance and common mistakes",
+   "blocks": [
+    {
+     "type": "table",
+     "headers": [
+      "I want to...",
+      "Write"
+     ],
+     "rows": [
+      [
+       "define a class",
+       "`class Name:` (indented body)"
+      ],
+      [
+       "create an object",
+       "`obj = Name(arg1, arg2)`"
+      ],
+      [
+       "set up attributes",
+       "`def __init__(self, a, b): self.a = a`"
+      ],
+      [
+       "read / change an attribute",
+       "`obj.a`  /  `obj.a = 5`"
+      ],
+      [
+       "define a method",
+       "`def method(self, x): ...`"
+      ],
+      [
+       "call a method",
+       "`obj.method(x)`"
+      ],
+      [
+       "class-wide variable",
+       "assign in the class body, read as `Name.var` or `obj.var`"
+      ],
+      [
+       "readable printing",
+       "define `__str__(self)`"
+      ],
+      [
+       "inherit",
+       "`class Child(Parent):` and `super().__init__(...)`"
+      ],
+      [
+       "check type",
+       "`isinstance(obj, Name)`"
+      ],
+      [
+       "list an object's attributes",
+       "`vars(obj)`"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Common mistakes"
+    },
+    {
+     "type": "list",
+     "items": [
+      "**Forgetting `self`** in a method definition: `def deposit(amount)` fails with *takes 1 positional argument but 2 were given*, because Python passes the object as the first argument.",
+      "**Forgetting `self.`** when using an attribute: `balance += amount` makes a local variable (and errors), `self.balance += amount` updates the object.",
+      "**Forgetting the parentheses** when creating: `rex = Dog` makes `rex` another name for the class, not an object. Write `Dog(...)`.",
+      "**Forgetting to return**: a method that calculates something but never `return`s gives `None`.",
+      "**A shared mutable class attribute** (next example)."
+     ]
+    },
+    {
+     "type": "code",
+     "text": "class Bad:\n    items = []                 # one list shared by ALL objects\n\n    def add(self, x):\n        self.items.append(x)\n\nclass Good:\n    def __init__(self):\n        self.items = []        # a new list for each object\n\n    def add(self, x):\n        self.items.append(x)\n\na, b = Bad(), Bad()\na.add(1)\nprint(b.items)\n\nc, d = Good(), Good()\nc.add(1)\nprint(d.items)\n# [1]\n# []"
+    },
+    {
+     "type": "paragraph",
+     "text": "`Bad.items` is created once, on the class, so `a` and `b` both see it. Make mutable data (lists, dicts) in `__init__` so each object gets its own."
+    },
+    {
+     "type": "heading",
+     "text": "See an object's data"
+    },
+    {
+     "type": "code",
+     "text": "class Dog:\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\n\nrex = Dog(\"Rex\", 3)\nprint(vars(rex))\nprint(hasattr(rex, \"name\"), hasattr(rex, \"color\"))\n# {'name': 'Rex', 'age': 3}\n# True False"
+    }
+   ]
+  }
+ ]
+}

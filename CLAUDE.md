@@ -138,6 +138,15 @@ web worker (`regexworker.js`, `regexpy.js`; stops a pattern after 3 s). Tests: `
 `node tools/test_regex.js`, `node tools/test_walkthrough.js`. Pyodide loads from jsdelivr (version pinned in
 `regexworker.js`), so the pages need internet on first use.
 
+## Notebooks and the Python classes guide
+
+- Jupyter notebooks live in `notebooks/` and are listed in a class's `"downloads"` array in `classes.json`
+  (`{id, title, description, file}`; `"featured": true` works like on other items). The home page renders them with
+  a `download` link, so they save rather than open. A class with no quizzes shows "N items" instead of "0 quizzes".
+- "Classes & Objects" (`python-classes`) is its own class. Its crash course is `tools/build_oop_guide.py` ->
+  `data/python-classes-guide.json`; examples are executed at build time, like the regex guide. Add further notebooks
+  to its `downloads` array.
+
 ## Option order is shuffled at run time
 
 `assets/quiz.js` shows each multiple-choice question's options in a fresh random order on every attempt,

@@ -98,13 +98,17 @@
           "id": "regex-guide",
           "title": "Regex in Python: Step-by-Step Guide",
           "description": "From a first literal match to complex patterns: character classes, quantifiers, anchors, groups, lookaround, flags, the re module, and building and testing real-world patterns. Every example is run by Python.",
-          "file": "data/regex-guide.json"
+          "file": "data/regex-guide.json",
+          "featured": true,
+          "cta": "Read the guide"
         },
         {
           "id": "regex-cheatsheet",
           "title": "Regex Cheat Sheet (Python)",
           "description": "One page of patterns, quantifiers, anchors, groups, lookaround, flags and re functions, with a worked example for each and a list of the common mistakes.",
-          "file": "data/regex-cheatsheet.json"
+          "file": "data/regex-cheatsheet.json",
+          "featured": true,
+          "cta": "Read the guide"
         }
       ],
       "tools": [
@@ -112,19 +116,58 @@
           "id": "regex-walkthroughs",
           "title": "Regex Walkthroughs",
           "description": "Seven step-through walkthroughs: refining a phone-number pattern, greedy versus lazy, search versus fullmatch, groups, lookahead passwords, growing an email pattern, and catastrophic backtracking.",
-          "href": "walkthrough.html?file=data%2Fregex-walkthroughs.json"
+          "href": "walkthrough.html?file=data%2Fregex-walkthroughs.json",
+          "featured": true,
+          "cta": "Open"
         },
         {
           "id": "regex-playground",
           "title": "Regex Playground (Python)",
           "description": "Type a pattern and test text and see the matches, groups, findall result and re.sub output from Python's real re module, running in your browser.",
-          "href": "regex.html"
+          "href": "regex.html",
+          "featured": true,
+          "cta": "Open"
         },
         {
           "id": "regex-challenges",
           "title": "Regex Challenges",
           "description": "22 graded exercises from 'match the word cat' to IPv4 addresses and emails. Write the pattern; Python checks it against hidden and visible tests.",
-          "href": "regex-challenges.html"
+          "href": "regex-challenges.html",
+          "featured": true,
+          "cta": "Open"
+        }
+      ],
+      "downloads": [
+        {
+          "id": "nb-regex-scratch",
+          "title": "Notebook: Regex from Scratch",
+          "description": "Jupyter notebook (.ipynb) that teaches regular expressions from the first literal match, with runnable examples and checked exercises. Download it and open it in Jupyter, VS Code or Google Colab.",
+          "file": "notebooks/regex_from_scratch.ipynb",
+          "featured": true,
+          "cta": "Download the notebook"
+        },
+        {
+          "id": "nb-regex-100",
+          "title": "Notebook: Regex Practice Gym (100 exercises)",
+          "description": "Jupyter notebook (.ipynb) companion with 100 graded regex exercises and instant pass/fail feedback. Download it and open it in Jupyter, VS Code or Google Colab.",
+          "file": "notebooks/regex_practice_100.ipynb",
+          "featured": true,
+          "cta": "Download the notebook"
+        }
+      ]
+    },
+    {
+      "id": "python-classes",
+      "name": "Classes & Objects",
+      "fullName": "Python classes and objects",
+      "guides": [
+        {
+          "id": "oop-crash-course",
+          "title": "Classes and Objects: Crash Course",
+          "description": "What classes and objects are, and the Python syntax for them: class, __init__, self, attributes, methods, special methods, inheritance, properties and the usual beginner mistakes. Every example is run by Python.",
+          "file": "data/python-classes-guide.json",
+          "featured": true,
+          "cta": "Read the guide"
         }
       ]
     },
