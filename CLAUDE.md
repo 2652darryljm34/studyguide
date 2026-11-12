@@ -127,6 +127,17 @@ Current sets: ITN 170 final (`tools/build_itn170_final_guide.py`, `build_itn170_
 `build_itn170_final.py`). ITD 145 and ITD 256 are archived; they have final quizzes but were finished before this
 rule, so they have no matching final flashcards or guide.
 
+## Regex materials (its own class, not an exam set)
+
+Guide, cheat sheet, walkthroughs, playground and challenges for Python regex. Deliberately no flashcards or quiz, so it
+is not in `SETS`. Every Python example, highlight span and pass/fail cell is computed by Python's `re` when the data is
+built, never typed by hand: `tools/build_regex_guide.py` (guide + cheat sheet), `build_regex_walkthroughs.py`,
+`build_regex_challenges.py` (it runs each reference solution through the page's own grader). Build the guide first (the
+walkthroughs check their topics against it). The playground and challenges run `assets/regexrun.py` under Pyodide in a
+web worker (`regexworker.js`, `regexpy.js`; stops a pattern after 3 s). Tests: `python3 tools/test_regexrun.py`,
+`node tools/test_regex.js`, `node tools/test_walkthrough.js`. Pyodide loads from jsdelivr (version pinned in
+`regexworker.js`), so the pages need internet on first use.
+
 ## Option order is shuffled at run time
 
 `assets/quiz.js` shows each multiple-choice question's options in a fresh random order on every attempt,

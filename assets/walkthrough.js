@@ -8,6 +8,22 @@ function visualHtml(v) {
     return `<ol class="wt-flow">${v.nodes.map((n, i) =>
       `<li class="${i === v.active ? 'wt-now' : i < v.active ? 'wt-past' : ''}"><span>${i + 1}</span>${esc(n)}</li>`).join('')}</ol>`;
   }
+  if (v.type === 'match') {
+    // Each line is text with spans [start, end, group]; where spans overlap the highest group number wins.
+    const line = l => {
+      const g = new Array(l.text.length).fill(-1);
+      l.spans.forEach(([s, e, n = 0]) => { for (let i = s; i < e; i++) g[i] = Math.max(g[i], n); });
+      let out = '', i = 0;
+      while (i < g.length) {
+        let j = i; while (j < g.length && g[j] === g[i]) j++;
+        const part = esc(l.text.slice(i, j));
+        out += g[i] < 0 ? part : `<mark class="wt-g${g[i] % 4}">${part}</mark>`;
+        i = j;
+      }
+      return `<div class="wt-line"><span class="wt-text-line">${out}</span>${l.note ? `<span class="wt-note">${esc(l.note)}</span>` : ''}</div>`;
+    };
+    return `<div class="wt-pat">pattern <code>${esc(v.pattern)}</code>${v.flags ? ` <small>flags: ${esc(v.flags)}</small>` : ''}</div>${v.lines.map(line).join('')}`;
+  }
   const hl = new Set(v.hl.map(([r, c]) => r + ',' + c));
   return `<div class="wt-scroll"><table class="wt-table"><thead><tr>${v.headers.map(h => `<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${
     v.rows.map((row, r) => `<tr>${row.map((c, i) => `<td class="${hl.has(r + ',' + i) ? 'wt-hl' : ''}">${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
@@ -32,7 +48,7 @@ if (typeof document !== 'undefined') {
       <div class="dr-grid">${doc.walkthroughs.map((w, i) => `<button class="dr-tile" data-i="${i}">
         <span class="dr-title">${esc(w.title)}</span><span class="dr-blurb">${esc(w.blurb)}</span>
         <span class="dr-status ${s[w.id] ? 'dr-done' : ''}">${s[w.id] ? 'Finished ✓' : esc(w.topic)} &middot; ${w.steps.length} steps</span></button>`).join('')}</div>
-      <p class="wt-links">${doc.guideFile ? `<a href="review.html?file=${encodeURIComponent(doc.guideFile)}">Study guide</a>` : ''}${doc.quizFile ? ` &middot; <a href="quiz.html?file=${encodeURIComponent(doc.quizFile)}">Quiz</a>` : ''}</p>`;
+      <p class="wt-links">${(doc.links || []).map(l => `<a href="${esc(l.href)}">${esc(l.text)}</a>`).join(' &middot; ')}${doc.links && (doc.guideFile || doc.quizFile) ? ' &middot; ' : ''}${doc.guideFile ? `<a href="review.html?file=${encodeURIComponent(doc.guideFile)}">Study guide</a>` : ''}${doc.quizFile ? ` &middot; <a href="quiz.html?file=${encodeURIComponent(doc.quizFile)}">Quiz</a>` : ''}</p>`;
     appEl.querySelectorAll('.dr-tile').forEach(b => b.addEventListener('click', () => open(+b.dataset.i)));
   }
 

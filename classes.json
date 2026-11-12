@@ -90,6 +90,45 @@
       ]
     },
     {
+      "id": "regex",
+      "name": "Regex",
+      "fullName": "Regular Expressions in Python",
+      "guides": [
+        {
+          "id": "regex-guide",
+          "title": "Regex in Python: Step-by-Step Guide",
+          "description": "From a first literal match to complex patterns: character classes, quantifiers, anchors, groups, lookaround, flags, the re module, and building and testing real-world patterns. Every example is run by Python.",
+          "file": "data/regex-guide.json"
+        },
+        {
+          "id": "regex-cheatsheet",
+          "title": "Regex Cheat Sheet (Python)",
+          "description": "One page of patterns, quantifiers, anchors, groups, lookaround, flags and re functions, with a worked example for each and a list of the common mistakes.",
+          "file": "data/regex-cheatsheet.json"
+        }
+      ],
+      "tools": [
+        {
+          "id": "regex-walkthroughs",
+          "title": "Regex Walkthroughs",
+          "description": "Seven step-through walkthroughs: refining a phone-number pattern, greedy versus lazy, search versus fullmatch, groups, lookahead passwords, growing an email pattern, and catastrophic backtracking.",
+          "href": "walkthrough.html?file=data%2Fregex-walkthroughs.json"
+        },
+        {
+          "id": "regex-playground",
+          "title": "Regex Playground (Python)",
+          "description": "Type a pattern and test text and see the matches, groups, findall result and re.sub output from Python's real re module, running in your browser.",
+          "href": "regex.html"
+        },
+        {
+          "id": "regex-challenges",
+          "title": "Regex Challenges",
+          "description": "22 graded exercises from 'match the word cat' to IPv4 addresses and emails. Write the pattern; Python checks it against hidden and visible tests.",
+          "href": "regex-challenges.html"
+        }
+      ]
+    },
+    {
       "id": "itd132",
       "name": "ITD 132",
       "fullName": "Structured Query Language",

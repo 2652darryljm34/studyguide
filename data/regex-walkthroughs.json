@@ -1,0 +1,1395 @@
+{
+ "title": "Regex Walkthroughs",
+ "guideFile": "data/regex-guide.json",
+ "links": [
+  {
+   "href": "regex.html",
+   "text": "Playground"
+  },
+  {
+   "href": "regex-challenges.html",
+   "text": "Challenges"
+  },
+  {
+   "href": "review.html?file=data%2Fregex-cheatsheet.json",
+   "text": "Cheat sheet"
+  }
+ ],
+ "walkthroughs": [
+  {
+   "id": "phone",
+   "title": "Finding phone numbers, one refinement at a time",
+   "topic": "3. Quantifiers",
+   "blurb": "From the literal 555 to a pattern with boundaries and groups.",
+   "steps": [
+    {
+     "title": "Start with the literal text",
+     "text": "The simplest pattern is the text itself. 555 finds every 555, including the ones inside Room 5550 and Part 1555-0199, which are not phone numbers.",
+     "visual": {
+      "type": "match",
+      "pattern": "555",
+      "flags": "",
+      "lines": [
+       {
+        "text": "Call 555-0199 today",
+        "spans": [
+         [
+          5,
+          8,
+          0
+         ]
+        ],
+        "note": ""
+       },
+       {
+        "text": "Fax: 555-0123 or 555-0177",
+        "spans": [
+         [
+          5,
+          8,
+          0
+         ],
+         [
+          17,
+          20,
+          0
+         ]
+        ],
+        "note": ""
+       },
+       {
+        "text": "Room 5550 is closed",
+        "spans": [
+         [
+          5,
+          8,
+          0
+         ]
+        ],
+        "note": ""
+       },
+       {
+        "text": "Part 1555-0199 is back-ordered",
+        "spans": [
+         [
+          6,
+          9,
+          0
+         ]
+        ],
+        "note": ""
+       }
+      ]
+     }
+    },
+    {
+     "title": "Say what the shape is",
+     "text": "A phone number is three digits, a hyphen, four digits. \\d is one digit and {3} means exactly three of them. The room number is no longer matched, but 555-0199 inside Part 1555-0199 still is.",
+     "visual": {
+      "type": "match",
+      "pattern": "\\d{3}-\\d{4}",
+      "flags": "",
+      "lines": [
+       {
+        "text": "Call 555-0199 today",
+        "spans": [
+         [
+          5,
+          13,
+          0
+         ]
+        ],
+        "note": ""
+       },
+       {
+        "text": "Fax: 555-0123 or 555-0177",
+        "spans": [
+         [
+          5,
+          13,
+          0
+         ],
+         [
+          17,
+          25,
+          0
+         ]
+        ],
+        "note": ""
+       },
+       {
+        "text": "Room 5550 is closed",
+        "spans": [],
+        "note": ""
+       },
+       {
+        "text": "Part 1555-0199 is back-ordered",
+        "spans": [
+         [
+          6,
+          14,
+          0
+         ]
+        ],
+        "note": ""
+       }
+      ]
+     }
+    },
+    {
+     "title": "Add word boundaries",
+     "text": "\\b is a position between a word character and a non-word character. Putting it at both ends means the digits cannot be part of a longer run, so Part 1555-0199 is rejected.",
+     "visual": {
+      "type": "match",
+      "pattern": "\\b\\d{3}-\\d{4}\\b",
+      "flags": "",
+      "lines": [
+       {
+        "text": "Call 555-0199 today",
+        "spans": [
+         [
+          5,
+          13,
+          0
+         ]
+        ],
+        "note": ""
+       },
+       {
+        "text": "Fax: 555-0123 or 555-0177",
+        "spans": [
+         [
+          5,
+          13,
+          0
+         ],
+         [
+          17,
+          25,
+          0
+         ]
+        ],
+        "note": ""
+       },
+       {
+        "text": "Room 5550 is closed",
+        "spans": [],
+        "note": ""
+       },
+       {
+        "text": "Part 1555-0199 is back-ordered",
+        "spans": [],
+        "note": ""
+       }
+      ]
+     }
+    },
+    {
+     "title": "Group the two halves",
+     "text": "Parentheses capture parts of the match so the code can use them separately. Colours show whole match (orange), group 1 (green) and group 2 (blue).",
+     "visual": {
+      "type": "match",
+      "pattern": "\\b(\\d{3})-(\\d{4})\\b",
+      "flags": "",
+      "lines": [
+       {
+        "text": "Call 555-0199 today",
+        "spans": [
+         [
+          5,
+          13,
+          0
+         ],
+         [
+          5,
+          8,
+          1
+         ],
+         [
+          9,
+          13,
+          2
+         ]
+        ],
+        "note": ""
+       },
+       {
+        "text": "Fax: 555-0123 or 555-0177",
+        "spans": [
+         [
+          5,
+          13,
+          0
+         ],
+         [
+          5,
+          8,
+          1
+         ],
+         [
+          9,
+          13,
+          2
+         ],
+         [
+          17,
+          25,
+          0
+         ],
+         [
+          17,
+          20,
+          1
+         ],
+         [
+          21,
+          25,
+          2
+         ]
+        ],
+        "note": ""
+       },
+       {
+        "text": "Room 5550 is closed",
+        "spans": [],
+        "note": ""
+       },
+       {
+        "text": "Part 1555-0199 is back-ordered",
+        "spans": [],
+        "note": ""
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "greedy",
+   "title": "Greedy versus lazy",
+   "topic": "3. Quantifiers",
+   "blurb": "Why <.+> swallows the whole line and how to fix it.",
+   "steps": [
+    {
+     "title": "A greedy pattern grabs too much",
+     "text": "The goal is to find each tag. <.+> reads as: a <, then one or more of any character, then a >. The match is the whole string.",
+     "visual": {
+      "type": "match",
+      "pattern": "<.+>",
+      "flags": "",
+      "lines": [
+       {
+        "text": "<b>bold</b> and <i>it</i>",
+        "spans": [
+         [
+          0,
+          25,
+          0
+         ]
+        ],
+        "note": "1 match"
+       }
+      ]
+     }
+    },
+    {
+     "title": "Why: + takes as much as it can",
+     "text": "Quantifiers are greedy. The engine lets .+ swallow everything first, then gives characters back one at a time until the rest of the pattern (a >) can match. The first character it gives back is the final > of the string, so one huge match results.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Attempt",
+       "What .+ has taken",
+       "Can > come next?"
+      ],
+      "rows": [
+       [
+        "1",
+        "everything to the end of the string",
+        "no: nothing is left to match >"
+       ],
+       [
+        "2",
+        "all but the last character",
+        "the last character is >: yes, the match ends there"
+       ]
+      ],
+      "hl": [
+       [
+        1,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "A lazy pattern takes as little as it can",
+     "text": "Adding ? after the + makes it lazy: .+? takes one character, tries the rest of the pattern, and only takes more if that fails. Now each tag is its own match.",
+     "visual": {
+      "type": "match",
+      "pattern": "<.+?>",
+      "flags": "",
+      "lines": [
+       {
+        "text": "<b>bold</b> and <i>it</i>",
+        "spans": [
+         [
+          0,
+          3,
+          0
+         ],
+         [
+          7,
+          11,
+          0
+         ],
+         [
+          16,
+          19,
+          0
+         ],
+         [
+          21,
+          25,
+          0
+         ]
+        ],
+        "note": "4 matches"
+       }
+      ]
+     }
+    },
+    {
+     "title": "Often better: say what you mean",
+     "text": "[^>]+ means one or more characters that are not >. It cannot run past the end of a tag, so no laziness is needed and it is faster for the engine.",
+     "visual": {
+      "type": "match",
+      "pattern": "<[^>]+>",
+      "flags": "",
+      "lines": [
+       {
+        "text": "<b>bold</b> and <i>it</i>",
+        "spans": [
+         [
+          0,
+          3,
+          0
+         ],
+         [
+          7,
+          11,
+          0
+         ],
+         [
+          16,
+          19,
+          0
+         ],
+         [
+          21,
+          25,
+          0
+         ]
+        ],
+        "note": "4 matches"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "anchors",
+   "title": "search, match, fullmatch and anchors",
+   "topic": "4. Anchors, boundaries and the match functions",
+   "blurb": "Which function answers which question, and the trailing-newline trap.",
+   "steps": [
+    {
+     "title": "Searching finds it anywhere",
+     "text": "re.search looks for the pattern anywhere in the string. \\d{3} finds three digits inside 12345 and inside a123b, which is fine for finding but wrong for checking a whole value.",
+     "visual": {
+      "type": "match",
+      "pattern": "\\d{3}",
+      "flags": "",
+      "lines": [
+       {
+        "text": "123",
+        "spans": [
+         [
+          0,
+          3,
+          0
+         ]
+        ],
+        "note": ""
+       },
+       {
+        "text": "12345",
+        "spans": [
+         [
+          0,
+          3,
+          0
+         ]
+        ],
+        "note": ""
+       },
+       {
+        "text": "a123b",
+        "spans": [
+         [
+          1,
+          4,
+          0
+         ]
+        ],
+        "note": ""
+       }
+      ]
+     }
+    },
+    {
+     "title": "Three functions, three questions",
+     "text": "re.search: is it anywhere? re.match: does it match at the start? re.fullmatch: does the whole string match? For validation you almost always want fullmatch.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "String",
+       "re.search",
+       "re.match",
+       "re.fullmatch"
+      ],
+      "rows": [
+       [
+        "'123'",
+        "'123'",
+        "'123'",
+        "'123'"
+       ],
+       [
+        "'12345'",
+        "'123'",
+        "'123'",
+        "None"
+       ],
+       [
+        "'a123b'",
+        "'123'",
+        "None",
+        "None"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        3
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        2,
+        3
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Or anchor the pattern",
+     "text": "^ matches only at the start and $ only at the end. ^\\d{3}$ with re.search behaves like fullmatch for these strings.",
+     "visual": {
+      "type": "match",
+      "pattern": "^\\d{3}$",
+      "flags": "",
+      "lines": [
+       {
+        "text": "123",
+        "spans": [
+         [
+          0,
+          3,
+          0
+         ]
+        ],
+        "note": ""
+       },
+       {
+        "text": "12345",
+        "spans": [],
+        "note": ""
+       },
+       {
+        "text": "a123b",
+        "spans": [],
+        "note": ""
+       }
+      ]
+     }
+    },
+    {
+     "title": "The trailing-newline trap",
+     "text": "$ also matches just before a final newline, so ^\\d{3}$ accepts '123\\n'. \\Z means the very end of the string, and re.fullmatch has no such trap.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "String",
+       "re.search(r'^\\d{3}$')",
+       "re.search(r'^\\d{3}\\Z')",
+       "re.fullmatch(r'\\d{3}')"
+      ],
+      "rows": [
+       [
+        "'123'",
+        "'123'",
+        "'123'",
+        "'123'"
+       ],
+       [
+        "'123\\n'",
+        "'123'",
+        "None",
+        "None"
+       ],
+       [
+        "'1234'",
+        "None",
+        "None",
+        "None"
+       ]
+      ],
+      "hl": [
+       [
+        1,
+        1
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "groups",
+   "title": "Groups: capture, name and rearrange",
+   "topic": "5. Groups, alternation and backreferences",
+   "blurb": "Pull a date apart, name the pieces, and put them back in a new order.",
+   "steps": [
+    {
+     "title": "Without groups: just the whole match",
+     "text": "This finds both dates, but they come back as plain strings.",
+     "visual": {
+      "type": "match",
+      "pattern": "\\d{4}-\\d{2}-\\d{2}",
+      "flags": "",
+      "lines": [
+       {
+        "text": "Due 2024-03-15 and 2025-12-01",
+        "spans": [
+         [
+          4,
+          14,
+          0
+         ],
+         [
+          19,
+          29,
+          0
+         ]
+        ],
+        "note": ""
+       }
+      ]
+     }
+    },
+    {
+     "title": "Parentheses capture parts",
+     "text": "Each (...) is a numbered group, counted by its opening parenthesis from the left. Orange is the whole match, green the year, blue the month, purple the day.",
+     "visual": {
+      "type": "match",
+      "pattern": "(\\d{4})-(\\d{2})-(\\d{2})",
+      "flags": "",
+      "lines": [
+       {
+        "text": "Due 2024-03-15 and 2025-12-01",
+        "spans": [
+         [
+          4,
+          14,
+          0
+         ],
+         [
+          4,
+          8,
+          1
+         ],
+         [
+          9,
+          11,
+          2
+         ],
+         [
+          12,
+          14,
+          3
+         ],
+         [
+          19,
+          29,
+          0
+         ],
+         [
+          19,
+          23,
+          1
+         ],
+         [
+          24,
+          26,
+          2
+         ],
+         [
+          27,
+          29,
+          3
+         ]
+        ],
+        "note": ""
+       }
+      ]
+     }
+    },
+    {
+     "title": "findall now returns the groups",
+     "text": "With groups in the pattern, re.findall returns a tuple of the groups for each match and no longer returns the whole match. This surprises everyone once.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Call",
+       "Returns"
+      ],
+      "rows": [
+       [
+        "re.findall(r'\\d{4}-\\d{2}-\\d{2}', text)",
+        "['2024-03-15', '2025-12-01']"
+       ],
+       [
+        "re.findall(r'(\\d{4})-(\\d{2})-(\\d{2})', text)",
+        "[('2024', '03', '15'), ('2025', '12', '01')]"
+       ]
+      ],
+      "hl": [
+       [
+        1,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Name the groups",
+     "text": "(?P<name>...) gives a group a name as well as a number, so code reads m.group('y') instead of m.group(1).",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Expression",
+       "Value"
+      ],
+      "rows": [
+       [
+        "m.group('y')",
+        "'2024'"
+       ],
+       [
+        "m.group('m')",
+        "'03'"
+       ],
+       [
+        "m.groupdict()",
+        "{'y': '2024', 'm': '03', 'd': '15'}"
+       ]
+      ],
+      "hl": [
+       [
+        2,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Use groups to rearrange text",
+     "text": "In re.sub, \\1, \\2, \\3 in the replacement stand for the groups. Here the order is reversed to day/month/year.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Before",
+       "After re.sub(pattern, r'\\3/\\2/\\1', text)"
+      ],
+      "rows": [
+       [
+        "Due 2024-03-15 and 2025-12-01",
+        "Due 15/03/2024 and 01/12/2025"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "password",
+   "title": "A password rule, one lookahead at a time",
+   "topic": "6. Lookaround and flags",
+   "blurb": "Each requirement is one lookahead; watch the wrong answers disappear.",
+   "steps": [
+    {
+     "title": "Rule 1: at least 8 characters",
+     "text": "Start with length: .{8,} means any character, 8 or more times. Highlighted cells are wrong answers: it also accepts PASSWORD, password1 and abcdefgh.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "String",
+       "Should match?",
+       "This pattern"
+      ],
+      "rows": [
+       [
+        "Passw0rdX",
+        "yes",
+        "match"
+       ],
+       [
+        "Abcdefg1",
+        "yes",
+        "match"
+       ],
+       [
+        "password1",
+        "no",
+        "match"
+       ],
+       [
+        "PASSWORD",
+        "no",
+        "match"
+       ],
+       [
+        "Ab1",
+        "no",
+        "no match"
+       ],
+       [
+        "abcdefgh",
+        "no",
+        "match"
+       ]
+      ],
+      "hl": [
+       [
+        2,
+        2
+       ],
+       [
+        3,
+        2
+       ],
+       [
+        5,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Rule 2: it needs a digit (lookahead)",
+     "text": "(?=.*\\d) is a lookahead: a check at the current position that looks ahead for 'anything, then a digit' and then consumes nothing. If the check passes, matching continues from the same place with .{8,}.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "String",
+       "Should match?",
+       "This pattern"
+      ],
+      "rows": [
+       [
+        "Passw0rdX",
+        "yes",
+        "match"
+       ],
+       [
+        "Abcdefg1",
+        "yes",
+        "match"
+       ],
+       [
+        "password1",
+        "no",
+        "match"
+       ],
+       [
+        "PASSWORD",
+        "no",
+        "no match"
+       ],
+       [
+        "Ab1",
+        "no",
+        "no match"
+       ],
+       [
+        "abcdefgh",
+        "no",
+        "no match"
+       ]
+      ],
+      "hl": [
+       [
+        2,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Rule 3: it needs an uppercase letter",
+     "text": "A second lookahead, (?=.*[A-Z]), is added in front. Lookaheads do not consume characters, so all of them check the whole string from the start. Every row is now right.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "String",
+       "Should match?",
+       "This pattern"
+      ],
+      "rows": [
+       [
+        "Passw0rdX",
+        "yes",
+        "match"
+       ],
+       [
+        "Abcdefg1",
+        "yes",
+        "match"
+       ],
+       [
+        "password1",
+        "no",
+        "no match"
+       ],
+       [
+        "PASSWORD",
+        "no",
+        "no match"
+       ],
+       [
+        "Ab1",
+        "no",
+        "no match"
+       ],
+       [
+        "abcdefgh",
+        "no",
+        "no match"
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Reading the finished pattern",
+     "text": "Each requirement is its own lookahead, so adding a rule is just adding a (?=...) and the order of the rules does not matter.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Part",
+       "Meaning"
+      ],
+      "rows": [
+       [
+        "(?=.*\\d)",
+        "somewhere ahead there is a digit"
+       ],
+       [
+        "(?=.*[A-Z])",
+        "somewhere ahead there is an uppercase letter"
+       ],
+       [
+        ".{8,}",
+        "then match 8 or more characters (this is the part that consumes the string)"
+       ]
+      ],
+      "hl": [
+       [
+        2,
+        1
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "email",
+   "title": "Growing an email pattern",
+   "topic": "8. Building complex patterns",
+   "blurb": "Four stages, each fixing the failures of the one before.",
+   "steps": [
+    {
+     "title": "Stage 1: the obvious shape",
+     "text": "words, @, words, a dot, words: \\w+@\\w+\\.\\w+. It accepts the simplest address but rejects three real ones (highlighted): dots, + and - in names, a domain with several parts, and a hyphen in the domain.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "String",
+       "Should match?",
+       "This pattern"
+      ],
+      "rows": [
+       [
+        "ann@example.com",
+        "yes",
+        "match"
+       ],
+       [
+        "j.smith+news@mail.co.uk",
+        "yes",
+        "no match"
+       ],
+       [
+        "a_b-c@sub.domain.org",
+        "yes",
+        "no match"
+       ],
+       [
+        "me@my-site.com",
+        "yes",
+        "no match"
+       ],
+       [
+        "ann@",
+        "no",
+        "no match"
+       ],
+       [
+        "@example.com",
+        "no",
+        "no match"
+       ],
+       [
+        "ann@example",
+        "no",
+        "no match"
+       ],
+       [
+        "ann example@x.com",
+        "no",
+        "no match"
+       ],
+       [
+        "ann@@x.com",
+        "no",
+        "no match"
+       ],
+       [
+        "ann@x..com",
+        "no",
+        "no match"
+       ]
+      ],
+      "hl": [
+       [
+        1,
+        2
+       ],
+       [
+        2,
+        2
+       ],
+       [
+        3,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Stage 2: allow more in the name",
+     "text": "Replace \\w+ before the @ with [\\w.+-]+, a set of word characters plus . + and -. Inside [] those three are literal. j.smith+news now works.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "String",
+       "Should match?",
+       "This pattern"
+      ],
+      "rows": [
+       [
+        "ann@example.com",
+        "yes",
+        "match"
+       ],
+       [
+        "j.smith+news@mail.co.uk",
+        "yes",
+        "no match"
+       ],
+       [
+        "a_b-c@sub.domain.org",
+        "yes",
+        "no match"
+       ],
+       [
+        "me@my-site.com",
+        "yes",
+        "no match"
+       ],
+       [
+        "ann@",
+        "no",
+        "no match"
+       ],
+       [
+        "@example.com",
+        "no",
+        "no match"
+       ],
+       [
+        "ann@example",
+        "no",
+        "no match"
+       ],
+       [
+        "ann example@x.com",
+        "no",
+        "no match"
+       ],
+       [
+        "ann@@x.com",
+        "no",
+        "no match"
+       ],
+       [
+        "ann@x..com",
+        "no",
+        "no match"
+       ]
+      ],
+      "hl": [
+       [
+        1,
+        2
+       ],
+       [
+        2,
+        2
+       ],
+       [
+        3,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Stage 3: any number of domain parts",
+     "text": "(?:\\.\\w+)+ means: a dot and a word, repeated one or more times. The (?:...) group is non-capturing: it groups without creating a numbered group. mail.co.uk and sub.domain.org now pass, but my-site.com does not.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "String",
+       "Should match?",
+       "This pattern"
+      ],
+      "rows": [
+       [
+        "ann@example.com",
+        "yes",
+        "match"
+       ],
+       [
+        "j.smith+news@mail.co.uk",
+        "yes",
+        "match"
+       ],
+       [
+        "a_b-c@sub.domain.org",
+        "yes",
+        "match"
+       ],
+       [
+        "me@my-site.com",
+        "yes",
+        "no match"
+       ],
+       [
+        "ann@",
+        "no",
+        "no match"
+       ],
+       [
+        "@example.com",
+        "no",
+        "no match"
+       ],
+       [
+        "ann@example",
+        "no",
+        "no match"
+       ],
+       [
+        "ann example@x.com",
+        "no",
+        "no match"
+       ],
+       [
+        "ann@@x.com",
+        "no",
+        "no match"
+       ],
+       [
+        "ann@x..com",
+        "no",
+        "no match"
+       ]
+      ],
+      "hl": [
+       [
+        3,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Stage 4: hyphens in domain parts",
+     "text": "Domain labels may contain letters, digits and hyphens but not underscores, so \\w is replaced by [A-Za-z0-9-]. Every good address passes and every bad one is rejected.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "String",
+       "Should match?",
+       "This pattern"
+      ],
+      "rows": [
+       [
+        "ann@example.com",
+        "yes",
+        "match"
+       ],
+       [
+        "j.smith+news@mail.co.uk",
+        "yes",
+        "match"
+       ],
+       [
+        "a_b-c@sub.domain.org",
+        "yes",
+        "match"
+       ],
+       [
+        "me@my-site.com",
+        "yes",
+        "match"
+       ],
+       [
+        "ann@",
+        "no",
+        "no match"
+       ],
+       [
+        "@example.com",
+        "no",
+        "no match"
+       ],
+       [
+        "ann@example",
+        "no",
+        "no match"
+       ],
+       [
+        "ann example@x.com",
+        "no",
+        "no match"
+       ],
+       [
+        "ann@@x.com",
+        "no",
+        "no match"
+       ],
+       [
+        "ann@x..com",
+        "no",
+        "no match"
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Good enough, but not perfect",
+     "text": "Real email rules are much looser than this, and a pattern can only check the shape, never that the mailbox exists. For sign-ups, use a simple pattern like this one and then send a confirmation email.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Stage",
+       "Pattern"
+      ],
+      "rows": [
+       [
+        "1",
+        "\\w+@\\w+\\.\\w+"
+       ],
+       [
+        "2",
+        "[\\w.+-]+@\\w+\\.\\w+"
+       ],
+       [
+        "3",
+        "[\\w.+-]+@\\w+(?:\\.\\w+)+"
+       ],
+       [
+        "4",
+        "[\\w.+-]+@[A-Za-z0-9-]+(?:\\.[A-Za-z0-9-]+)+"
+       ]
+      ],
+      "hl": [
+       [
+        3,
+        1
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "backtracking",
+   "title": "Catastrophic backtracking",
+   "topic": "8. Building complex patterns",
+   "blurb": "Why (a+)+$ can hang a program, and the fix.",
+   "steps": [
+    {
+     "title": "A harmless-looking pattern",
+     "text": "(a+)+$ means: one or more groups of a's, then the end of the string. On aaaa it matches at once. The trouble comes when the match must fail, such as aaaa followed by b.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "String",
+       "re.search(r'(a+)+$')"
+      ],
+      "rows": [
+       [
+        "'aaaa'",
+        "'aaaa'"
+       ],
+       [
+        "'aaaab'",
+        "None"
+       ]
+      ],
+      "hl": [
+       [
+        1,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Many ways to split the same run",
+     "text": "A run of n a's can be divided into groups in 2^(n-1) ways: aaaa could be a|a|a|a, aa|aa, a|aaa and so on. When the match fails, the engine backtracks and tries every split before giving up, so the work roughly doubles with every extra a.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "a's before the b",
+       "Ways to split them"
+      ],
+      "rows": [
+       [
+        "4",
+        "8"
+       ],
+       [
+        "10",
+        "512"
+       ],
+       [
+        "20",
+        "524,288"
+       ],
+       [
+        "30",
+        "536,870,912"
+       ]
+      ],
+      "hl": [
+       [
+        3,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "The fix: remove the nesting",
+     "text": "a+$ matches the same strings but cannot split the run, so a failure is found in a single pass. The rule of thumb: be suspicious of a quantifier inside a group that itself has a quantifier.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Pattern",
+       "Behaviour on 30 a's then b"
+      ],
+      "rows": [
+       [
+        "(a+)+$",
+        "effectively never finishes"
+       ],
+       [
+        "a+$",
+        "fails instantly"
+       ]
+      ],
+      "hl": [
+       [
+        1,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Try it safely",
+     "text": "In the regex playground, enter (a+)+$ with the text aaaaaaaaaaaaaaaaaaaaaaaaaaaaaab. It stops the pattern after 3 seconds and explains what happened. Your own programs have no such safety net, so avoid nested quantifiers on text you do not control.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Where",
+       "What happens"
+      ],
+      "rows": [
+       [
+        "Playground",
+        "stopped after 3 seconds"
+       ],
+       [
+        "Your Python script",
+        "the program hangs"
+       ]
+      ],
+      "hl": [
+       [
+        1,
+        1
+       ]
+      ]
+     }
+    }
+   ]
+  }
+ ]
+}

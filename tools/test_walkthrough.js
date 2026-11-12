@@ -18,6 +18,11 @@ for (const f of fs.readdirSync(path.join(root, 'data')).filter(f => f.endsWith('
     steps++;
     const html = visualHtml(s.visual), where = `${f} ${w.id} step ${i + 1}`;
     ok(where + ' has text', s.title && s.text);
+    if (s.visual.type === 'match') {   // one <mark> per run of highlighted text, so just require marks when there are spans
+      const spans = s.visual.lines.reduce((n, l) => n + l.spans.length, 0);
+      ok(`${where} marks`, (html.match(/<mark /g) || []).length > 0 === spans > 0);
+      return;
+    }
     const want = s.visual.type === 'table' ? s.visual.hl.length : 1;
     const got = (html.match(/class="wt-hl"|class="wt-now"/g) || []).length;
     ok(`${where} highlights ${want}, got ${got}`, got === want);

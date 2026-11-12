@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Regex Playground</title>
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/walkthrough.css">
+<link rel="stylesheet" href="assets/regex.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">Quiz<span class="brand-mark">Hub</span></a>
+    <span class="topbar-sub">Regex playground (Python)</span>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="crumb"><a href="index.html">&larr; All classes</a> &middot; <a href="regex-challenges.html">Challenges</a></div>
+  <div class="page-head"><h1>Regex playground</h1></div>
+  <p class="rx-lead">Runs Python's real <code>re</code> module in your browser, so results match what your code will do. Write the pattern exactly as you would inside <code>r"..."</code>.</p>
+  <div id="rx-status" class="rx-status"></div>
+
+  <div class="q-card">
+    <div class="rx-row">
+      <label for="rx-pattern" class="rx-label">Pattern</label>
+      <select id="rx-examples" aria-label="Examples"></select>
+    </div>
+    <input id="rx-pattern" class="fb-input rx-mono" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="e.g. \d+">
+    <div class="rx-row rx-flags">
+      <label><input type="checkbox" class="rx-flag" value="i"> re.I <small>ignore case</small></label>
+      <label><input type="checkbox" class="rx-flag" value="m"> re.M <small>^ $ per line</small></label>
+      <label><input type="checkbox" class="rx-flag" value="s"> re.S <small>. matches newline</small></label>
+      <label><input type="checkbox" class="rx-flag" value="x"> re.X <small>verbose</small></label>
+      <label><input type="checkbox" class="rx-flag" value="a"> re.A <small>ASCII only</small></label>
+    </div>
+    <label for="rx-mode" class="rx-label">Function</label>
+    <select id="rx-mode"></select>
+    <label for="rx-text" class="rx-label">Test text</label>
+    <textarea id="rx-text" class="fb-input rx-mono" rows="5" spellcheck="false"></textarea>
+    <label for="rx-repl" class="rx-label">Replacement for re.sub <small>(optional; <code>\1</code> or <code>\g&lt;name&gt;</code> for groups)</small></label>
+    <input id="rx-repl" class="fb-input rx-mono" type="text" autocomplete="off" spellcheck="false">
+  </div>
+
+  <div id="rx-error" class="rx-error" role="status"></div>
+
+  <div class="q-card">
+    <div class="rx-row"><h2 class="rx-h">Matches</h2><span id="rx-summary" class="rx-summary"></span></div>
+    <pre id="rx-hl" class="rx-hl"></pre>
+    <div id="rx-matches"></div>
+    <div id="rx-extra"></div>
+    <h3 class="rx-h">The Python for this</h3>
+    <pre id="rx-code" class="model-answer guide-code"></pre>
+  </div>
+</div>
+
+<footer class="site">Built for sharing study quizzes with classmates.</footer>
+
+<script src="assets/regexpy.js"></script>
+<script src="assets/regex.js"></script>
+<script src="assets/firebase-config.js"></script>
+<script src="assets/feedback.js"></script>
+<script src="assets/player.js"></script>
+</body>
+</html>

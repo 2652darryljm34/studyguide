@@ -1,0 +1,532 @@
+{
+ "title": "Regex Challenges",
+ "levels": [
+  "Baby steps",
+  "Classes and counts",
+  "Anchors and groups",
+  "Lookaround and tricks",
+  "Real-world patterns"
+ ],
+ "challenges": [
+  {
+   "level": 0,
+   "id": "cat",
+   "title": "Match the word cat",
+   "task": "Write a pattern that matches the string cat and nothing else. The whole string must match (the page uses re.fullmatch).",
+   "hint": "A pattern made only of letters matches exactly those letters.",
+   "solution": "cat",
+   "flags": "",
+   "spec": {
+    "kind": "validate",
+    "good": [
+     "cat"
+    ],
+    "bad": [
+     "Cat",
+     "cats",
+     "dog",
+     "ca"
+    ],
+    "hidden_good": [],
+    "hidden_bad": [
+     "cut"
+    ]
+   }
+  },
+  {
+   "level": 0,
+   "id": "three-digits",
+   "title": "A three-digit number",
+   "task": "Match strings made of exactly three digits, such as 007 or 123. The whole string must match (the page uses re.fullmatch).",
+   "hint": "\\d matches one digit. Say how many with {n}.",
+   "solution": "\\d{3}",
+   "flags": "",
+   "spec": {
+    "kind": "validate",
+    "good": [
+     "007",
+     "123",
+     "999"
+    ],
+    "bad": [
+     "12",
+     "1234",
+     "abc",
+     "12a"
+    ],
+    "hidden_good": [],
+    "hidden_bad": [
+     "1 2"
+    ]
+   }
+  },
+  {
+   "level": 0,
+   "id": "cat-or-dog",
+   "title": "Cat or dog",
+   "task": "Match either the string cat or the string dog. The whole string must match (the page uses re.fullmatch).",
+   "hint": "The | symbol means or.",
+   "solution": "cat|dog",
+   "flags": "",
+   "spec": {
+    "kind": "validate",
+    "good": [
+     "cat",
+     "dog"
+    ],
+    "bad": [
+     "cow",
+     "catdog",
+     "Cat"
+    ],
+    "hidden_good": [],
+    "hidden_bad": []
+   }
+  },
+  {
+   "level": 0,
+   "id": "colour",
+   "title": "Colour, either spelling",
+   "task": "Match color and colour (American and British spelling). The whole string must match (the page uses re.fullmatch).",
+   "hint": "? makes the character before it optional.",
+   "solution": "colou?r",
+   "flags": "",
+   "spec": {
+    "kind": "validate",
+    "good": [
+     "color",
+     "colour"
+    ],
+    "bad": [
+     "colr",
+     "colouur",
+     "colours"
+    ],
+    "hidden_good": [],
+    "hidden_bad": []
+   }
+  },
+  {
+   "level": 0,
+   "id": "numbers",
+   "title": "Pull out every number",
+   "task": "Write a pattern so that re.findall returns every whole number in the text, as strings.",
+   "hint": "One or more digits: \\d with a + after it.",
+   "solution": "\\d+",
+   "flags": "",
+   "spec": {
+    "kind": "extract",
+    "text": "Order 66 shipped on day 12 with 3 boxes at 450 grams.",
+    "expected": [
+     "66",
+     "12",
+     "3",
+     "450"
+    ]
+   }
+  },
+  {
+   "level": 1,
+   "id": "hex-colour",
+   "title": "A hex colour code",
+   "task": "Match a # followed by exactly six hex digits (0-9, a-f, A-F), like #1a2B3c. The whole string must match (the page uses re.fullmatch).",
+   "hint": "Build a set with [0-9a-fA-F]. The # needs no escape.",
+   "solution": "#[0-9a-fA-F]{6}",
+   "flags": "",
+   "spec": {
+    "kind": "validate",
+    "good": [
+     "#1a2b3c",
+     "#FFFFFF",
+     "#000000"
+    ],
+    "bad": [
+     "1a2b3c",
+     "#12345",
+     "#GGGGGG",
+     "#1234567"
+    ],
+    "hidden_good": [],
+    "hidden_bad": [
+     "#12 456"
+    ]
+   }
+  },
+  {
+   "level": 1,
+   "id": "ing-words",
+   "title": "Words ending in -ing",
+   "task": "Make findall return every word that ends in ing (the word can have any letters before it).",
+   "hint": "\\b marks a word edge, \\w+ is a run of word characters.",
+   "solution": "\\b\\w+ing\\b",
+   "flags": "",
+   "spec": {
+    "kind": "extract",
+    "text": "Running and jumping are fun, but sing, ring and king are short. Walking is slow.",
+    "expected": [
+     "Running",
+     "jumping",
+     "sing",
+     "ring",
+     "king",
+     "Walking"
+    ]
+   }
+  },
+  {
+   "level": 1,
+   "id": "zip",
+   "title": "US ZIP code, with optional +4",
+   "task": "Match five digits, optionally followed by a hyphen and four more digits: 90210 or 90210-1234. The whole string must match (the page uses re.fullmatch).",
+   "hint": "Put the hyphen-and-four-digits in a group, then make the whole group optional with ?.",
+   "solution": "\\d{5}(-\\d{4})?",
+   "flags": "",
+   "spec": {
+    "kind": "validate",
+    "good": [
+     "90210",
+     "90210-1234",
+     "10001"
+    ],
+    "bad": [
+     "9021",
+     "902101",
+     "90210-12",
+     "90210-",
+     " 90210"
+    ],
+    "hidden_good": [],
+    "hidden_bad": [
+     "abcde"
+    ]
+   }
+  },
+  {
+   "level": 1,
+   "id": "username",
+   "title": "A username",
+   "task": "Match 3 to 16 characters: letters, digits or underscores, and the first one must be a letter. The whole string must match (the page uses re.fullmatch).",
+   "hint": "One letter first, then {2,15} more word characters.",
+   "solution": "[A-Za-z]\\w{2,15}",
+   "flags": "",
+   "spec": {
+    "kind": "validate",
+    "good": [
+     "bob",
+     "Alice_99",
+     "x_y_z"
+    ],
+    "bad": [
+     "ab",
+     "9lives",
+     "has space",
+     "this_name_is_way_too_long"
+    ],
+    "hidden_good": [],
+    "hidden_bad": [
+     "-dash"
+    ]
+   }
+  },
+  {
+   "level": 1,
+   "id": "quoted",
+   "title": "Text inside quotes",
+   "task": "Make findall return what is inside each pair of double quotes, without the quote marks.",
+   "hint": "A group around the middle makes findall return only the group. Add ? after the repeat so it stops at the first closing quote.",
+   "solution": "\"(.*?)\"",
+   "flags": "",
+   "spec": {
+    "kind": "extract",
+    "text": "She said \"hello\" and then \"goodbye\" before leaving.",
+    "expected": [
+     "hello",
+     "goodbye"
+    ]
+   }
+  },
+  {
+   "level": 1,
+   "id": "collapse",
+   "title": "Collapse the spaces",
+   "task": "Write a pattern so that re.sub(pattern, ' ', text) turns every run of spaces and tabs into one space.",
+   "hint": "\\s matches any whitespace character; + means one or more.",
+   "solution": "\\s+",
+   "flags": "",
+   "spec": {
+    "kind": "sub",
+    "text": "too    many     spaces\t\there",
+    "repl": " ",
+    "expected": "too many spaces here"
+   }
+  },
+  {
+   "level": 2,
+   "id": "time",
+   "title": "A 24-hour time",
+   "task": "Match HH:MM with two-digit hours 00-23 and minutes 00-59, like 09:45. The whole string must match (the page uses re.fullmatch).",
+   "hint": "Hours are [01]\\d or 2[0-3]: put that alternation in a group. Minutes are [0-5]\\d.",
+   "solution": "([01]\\d|2[0-3]):[0-5]\\d",
+   "flags": "",
+   "spec": {
+    "kind": "validate",
+    "good": [
+     "00:00",
+     "09:45",
+     "23:59",
+     "12:30"
+    ],
+    "bad": [
+     "24:00",
+     "12:60",
+     "9:45",
+     "12:5",
+     "1230"
+    ],
+    "hidden_good": [],
+    "hidden_bad": [
+     "12:345"
+    ]
+   }
+  },
+  {
+   "level": 2,
+   "id": "date",
+   "title": "A date, YYYY-MM-DD",
+   "task": "Match a date with a four-digit year, a month 01-12 and a day 01-31. (It does not need to know which months are short.) The whole string must match (the page uses re.fullmatch).",
+   "hint": "Month: 0[1-9] or 1[0-2]. Day: 0[1-9], [12]\\d or 3[01].",
+   "solution": "\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])",
+   "flags": "",
+   "spec": {
+    "kind": "validate",
+    "good": [
+     "2024-02-29",
+     "1999-12-31",
+     "2000-01-01"
+    ],
+    "bad": [
+     "2024-13-01",
+     "2024-00-10",
+     "2024-05-32",
+     "2024-5-09",
+     "24-05-09",
+     "2024/05/09"
+    ],
+    "hidden_good": [],
+    "hidden_bad": [
+     "2024-05-00"
+    ]
+   }
+  },
+  {
+   "level": 2,
+   "id": "date-parts",
+   "title": "Split dates into parts",
+   "task": "Make findall return, for every date in the text, a list of its [year, month, day].",
+   "hint": "Put each part in its own group: with several groups findall returns a tuple per match.",
+   "solution": "(\\d{4})-(\\d{2})-(\\d{2})",
+   "flags": "",
+   "spec": {
+    "kind": "extract",
+    "text": "Born 1990-04-12, hired 2015-09-01, left 2023-11-30.",
+    "expected": [
+     [
+      "1990",
+      "04",
+      "12"
+     ],
+     [
+      "2015",
+      "09",
+      "01"
+     ],
+     [
+      "2023",
+      "11",
+      "30"
+     ]
+    ]
+   }
+  },
+  {
+   "level": 2,
+   "id": "doubled",
+   "title": "Doubled words",
+   "task": "Make findall return each word that is accidentally repeated twice in a row, once per repeat.",
+   "hint": "Capture a word with (\\w+), then refer back to it with \\1. Add \\b so you match whole words.",
+   "solution": "\\b(\\w+) \\1\\b",
+   "flags": "",
+   "spec": {
+    "kind": "extract",
+    "text": "This is is a test of the the system, not not a drill.",
+    "expected": [
+     "is",
+     "the",
+     "not"
+    ]
+   }
+  },
+  {
+   "level": 2,
+   "id": "swap",
+   "title": "Swap Last, First",
+   "task": "Write a pattern so that re.sub(pattern, r'\\2 \\1', text) turns every Lovelace, Ada into Ada Lovelace.",
+   "hint": "Two groups, one for each name, with the comma and space between them.",
+   "solution": "(\\w+), (\\w+)",
+   "flags": "",
+   "spec": {
+    "kind": "sub",
+    "text": "Lovelace, Ada\nTuring, Alan",
+    "repl": "\\2 \\1",
+    "expected": "Ada Lovelace\nAlan Turing"
+   }
+  },
+  {
+   "level": 3,
+   "id": "password",
+   "title": "A password rule",
+   "task": "Match any string of 8 or more characters that contains at least one digit and at least one uppercase letter. The whole string must match (the page uses re.fullmatch).",
+   "hint": "Use two lookaheads at the start, each looking ahead for one requirement: (?=.*\\d) and (?=.*[A-Z]). Then match the characters with .{8,}.",
+   "solution": "(?=.*\\d)(?=.*[A-Z]).{8,}",
+   "flags": "",
+   "spec": {
+    "kind": "validate",
+    "good": [
+     "Passw0rdX",
+     "Abcdefg1",
+     "HELLO2you"
+    ],
+    "bad": [
+     "password1",
+     "PASSWORD",
+     "Ab1",
+     "abcdefgh",
+     "12345678"
+    ],
+    "hidden_good": [],
+    "hidden_bad": []
+   }
+  },
+  {
+   "level": 3,
+   "id": "prices",
+   "title": "Prices after a dollar sign",
+   "task": "Make findall return just the number of each price (not the $). Prices may have cents.",
+   "hint": "A lookbehind (?<=\\$) checks for the $ without including it. Use (?:...) for any group you do not want findall to return.",
+   "solution": "(?<=\\$)\\d+(?:\\.\\d+)?",
+   "flags": "",
+   "spec": {
+    "kind": "extract",
+    "text": "Pens cost $4.50, notebooks $12, and a bag is $120.99 (not 15 percent).",
+    "expected": [
+     "4.50",
+     "12",
+     "120.99"
+    ]
+   }
+  },
+  {
+   "level": 3,
+   "id": "no-error",
+   "title": "Lines without the word error",
+   "task": "Match any line that does not contain the lowercase word error anywhere. The whole string must match (the page uses re.fullmatch).",
+   "hint": "A negative lookahead (?!...) at the start can forbid something later in the string: (?!.*error).",
+   "solution": "(?!.*error).*",
+   "flags": "",
+   "spec": {
+    "kind": "validate",
+    "good": [
+     "all good",
+     "warning: low disk",
+     "info ok"
+    ],
+    "bad": [
+     "error: disk full",
+     "an error occurred",
+     "fatal error"
+    ],
+    "hidden_good": [],
+    "hidden_bad": [
+     "error"
+    ]
+   }
+  },
+  {
+   "level": 3,
+   "id": "log-levels",
+   "title": "Severe log lines",
+   "task": "The text is a log with one entry per line. Make findall return the level (ERROR or WARN) of each entry that has one. The MULTILINE flag is already on, so ^ matches at the start of every line.",
+   "hint": "Anchor with ^, skip the date and time with \\S+ \\S+, then capture (ERROR|WARN).",
+   "solution": "^\\S+ \\S+ (ERROR|WARN)",
+   "flags": "m",
+   "spec": {
+    "kind": "extract",
+    "text": "2024-03-01 12:00:01 ERROR disk full\n2024-03-01 12:00:05 INFO ok\n2024-03-01 12:01:00 WARN low memory",
+    "expected": [
+     "ERROR",
+     "WARN"
+    ]
+   }
+  },
+  {
+   "level": 4,
+   "id": "ipv4",
+   "title": "An IPv4 address",
+   "task": "Match four numbers from 0 to 255 separated by dots, with no leading zeros (so 192.168.1.1 but not 192.168.01.1). The whole string must match (the page uses re.fullmatch).",
+   "hint": "One octet is 25[0-5] or 2[0-4]\\d or 1\\d\\d or [1-9]?\\d. Write it once, then repeat: (octet\\.){3} followed by one more octet. Use (?:...) groups.",
+   "solution": "(?:(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.){3}(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)",
+   "flags": "",
+   "spec": {
+    "kind": "validate",
+    "good": [
+     "192.168.1.1",
+     "0.0.0.0",
+     "255.255.255.255",
+     "10.0.42.7"
+    ],
+    "bad": [
+     "256.1.1.1",
+     "1.2.3",
+     "1.2.3.4.5",
+     "1.2.3.-4",
+     "192.168.01.1",
+     "300.1.1.1",
+     "1.2.3.999"
+    ],
+    "hidden_good": [],
+    "hidden_bad": [
+     "1.2.3.04"
+    ]
+   }
+  },
+  {
+   "level": 4,
+   "id": "email",
+   "title": "An email address (good enough)",
+   "task": "Match a simple email address: a name (letters, digits, and . _ + -), an @, then a domain with at least one dot. The whole string must match (the page uses re.fullmatch).",
+   "hint": "[\\w.+-]+ before the @; after it, a label then one or more (\\.label). Remember to escape the dot.",
+   "solution": "[\\w.+-]+@[A-Za-z0-9-]+(?:\\.[A-Za-z0-9-]+)+",
+   "flags": "",
+   "spec": {
+    "kind": "validate",
+    "good": [
+     "ann@example.com",
+     "j.smith+news@mail.co.uk",
+     "a_b-c@sub.domain.org"
+    ],
+    "bad": [
+     "ann@",
+     "@example.com",
+     "ann@example",
+     "ann example@x.com",
+     "ann@@x.com",
+     "ann@x..com"
+    ],
+    "hidden_good": [],
+    "hidden_bad": [
+     "ann@.com"
+    ]
+   }
+  }
+ ]
+}

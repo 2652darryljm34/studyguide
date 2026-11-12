@@ -1,0 +1,33 @@
+.rx-lead{ margin: 0 0 10px; color: var(--ink-soft); }
+.rx-status{ font-size: 0.88rem; color: var(--ink-soft); min-height: 1.2em; margin-bottom: 8px; }
+.rx-row{ display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 14px; }
+.rx-flags{ justify-content: flex-start; margin: 8px 0 10px; font-size: 0.9rem; }
+.rx-flags small, .rx-label small{ color: var(--ink-soft); }
+.rx-label{ display: block; font-weight: 600; margin: 12px 0 4px; }
+.rx-row .rx-label{ margin: 0 0 4px; }
+.rx-mono{ width: 100%; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.95rem; }
+#rx-text{ resize: vertical; }
+.rx-error{ margin: 12px 0; color: var(--bad); }
+.rx-error:empty{ display: none; }
+.rx-h{ font-size: 1rem; margin: 14px 0 6px; }
+.rx-row .rx-h{ margin: 0; }
+.rx-summary{ color: var(--ink-soft); font-size: 0.9rem; }
+.rx-hl{ margin: 10px 0; padding: 10px 12px; background: var(--paper); border: 1px solid var(--line); border-radius: 8px;
+  white-space: pre-wrap; word-break: break-word; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.95rem; }
+.rx-hl mark, .wt-line mark{ color: inherit; border-radius: 3px; padding: 1px 0; }
+.rx-m0{ background: #f6d9a8; }
+.rx-m1{ background: #b9dcc9; }
+.rx-empty{ display: inline-block; width: 2px; height: 1.1em; vertical-align: text-bottom; background: var(--accent); }
+.rx-none{ color: var(--ink-soft); font-style: italic; }
+.rx-tip{ font-size: 0.88rem; color: var(--ink-soft); margin: 4px 0 0; }
+.rx-bad{ color: var(--bad); }
+.rx-level{ font-size: 1.05rem; margin: 22px 0 10px; }
+.rx-code{ font-family: ui-monospace, Menlo, Consolas, monospace; background: var(--paper); padding: 1px 5px; border-radius: 4px; }
+.rx-cols{ display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0 24px; }
+.rx-list{ list-style: none; margin: 0 0 8px; padding: 0; }
+.rx-list li{ padding: 3px 0; overflow-wrap: anywhere; }
+.rx-mark{ display: inline-block; width: 1.3em; text-align: center; color: var(--ink-soft); }
+.rx-pass{ color: var(--good); font-weight: 700; }
+.rx-fail{ color: var(--bad); font-weight: 700; }
+.rx-good{ color: var(--good); font-weight: 600; }
+.rx-result{ margin: 10px 0; min-height: 1.4em; }

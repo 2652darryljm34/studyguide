@@ -15,3 +15,10 @@
 .wt-flow li.wt-past{ background: var(--good-bg); color: var(--ink); }
 .wt-flow li.wt-now{ background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600; }
 .btn:disabled{ opacity: 0.4; cursor: default; }
+.wt-pat{ margin-bottom: 8px; }
+.wt-pat code, .wt-line .wt-text-line{ font-family: ui-monospace, Menlo, Consolas, monospace; }
+.wt-pat code{ background: var(--paper); padding: 2px 6px; border-radius: 4px; }
+.wt-line{ display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; padding: 5px 0; border-bottom: 1px solid var(--line); white-space: pre-wrap; }
+.wt-note{ color: var(--ink-soft); font-size: 0.88rem; }
+.wt-g0{ background: #f6d9a8; } .wt-g1{ background: #b9dcc9; } .wt-g2{ background: #b8d0ee; } .wt-g3{ background: #e6c3e6; }
+.wt-line mark{ color: inherit; border-radius: 3px; padding: 1px 0; }

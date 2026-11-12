@@ -1,0 +1,425 @@
+{
+ "title": "Regex in Python: Cheat Sheet",
+ "description": "A one-page reference for Python's re module, with an example computed by Python for every row. Use the step-by-step guide to learn it, the playground to try it.",
+ "sections": [
+  {
+   "name": "Characters and classes",
+   "blocks": [
+    {
+     "type": "table",
+     "headers": [
+      "Pattern",
+      "Matches",
+      "Example"
+     ],
+     "rows": [
+      [
+       "`abc`",
+       "the literal text",
+       "`abc` on `xabcx` gives `['abc']`"
+      ],
+      [
+       "`.`",
+       "any character except newline",
+       "`c.t` on `cat c-t ct` gives `['cat', 'c-t']`"
+      ],
+      [
+       "`[abc]`",
+       "one of a, b, c",
+       "`[abc]` on `cabbage` gives `['c', 'a', 'b', 'b', 'a']`"
+      ],
+      [
+       "`[a-z]`",
+       "a range",
+       "`[a-c]` on `abcdef` gives `['a', 'b', 'c']`"
+      ],
+      [
+       "`[^abc]`",
+       "anything but a, b, c",
+       "`[^abc]` on `abcxyz` gives `['x', 'y', 'z']`"
+      ],
+      [
+       "`\\d` `\\D`",
+       "digit / non-digit",
+       "`\\d` on `a1b2` gives `['1', '2']`"
+      ],
+      [
+       "`\\w` `\\W`",
+       "word char / non-word char",
+       "`\\w+` on `hi there!` gives `['hi', 'there']`"
+      ],
+      [
+       "`\\s` `\\S`",
+       "whitespace / non-whitespace",
+       "`\\S+` on `a  b c` gives `['a', 'b', 'c']`"
+      ],
+      [
+       "`\\.` `\\\\` `\\(`",
+       "a literal special character",
+       "`\\.` on `a.b.c` gives `['.', '.']`"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Quantifiers",
+   "blocks": [
+    {
+     "type": "table",
+     "headers": [
+      "Pattern",
+      "Meaning",
+      "Example"
+     ],
+     "rows": [
+      [
+       "`x*`",
+       "0 or more",
+       "`ab*` on `a ab abb` gives `['a', 'ab', 'abb']`"
+      ],
+      [
+       "`x+`",
+       "1 or more",
+       "`\\d+` on `a1 b22` gives `['1', '22']`"
+      ],
+      [
+       "`x?`",
+       "0 or 1",
+       "`colou?r` on `color colour` gives `['color', 'colour']`"
+      ],
+      [
+       "`x{3}`",
+       "exactly 3",
+       "`\\d{3}` on `1234567` gives `['123', '456']`"
+      ],
+      [
+       "`x{2,4}`",
+       "2 to 4",
+       "`\\d{2,4}` on `1 22 333 4444 55555` gives `['22', '333', '4444', '5555']`"
+      ],
+      [
+       "`x*?` `x+?` `x??`",
+       "lazy: as few as possible",
+       "`<.+?>` on `<a><b>` gives `['<a>', '<b>']`"
+      ],
+      [
+       "`x+` (greedy)",
+       "as many as possible",
+       "`<.+>` on `<a><b>` gives `['<a><b>']`"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Anchors and boundaries",
+   "blocks": [
+    {
+     "type": "table",
+     "headers": [
+      "Pattern",
+      "Meaning",
+      "Example"
+     ],
+     "rows": [
+      [
+       "`^`",
+       "start of string (line with `re.M`)",
+       "`^\\w+` on `one two` gives `['one']`"
+      ],
+      [
+       "`$`",
+       "end of string (or before a final newline)",
+       "`\\w+$` on `one two` gives `['two']`"
+      ],
+      [
+       "`\\A` `\\Z`",
+       "very start / very end",
+       "`\\Aone` on `one one` gives `['one']`"
+      ],
+      [
+       "`\\b`",
+       "word boundary",
+       "`\\bcat\\b` on `cat concat cat` gives `['cat', 'cat']`"
+      ],
+      [
+       "`\\B`",
+       "not a word boundary",
+       "`\\Bcat` on `cat concat` gives `['cat']`"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Groups and alternation",
+   "blocks": [
+    {
+     "type": "table",
+     "headers": [
+      "Pattern",
+      "Meaning",
+      "Example"
+     ],
+     "rows": [
+      [
+       "`a|b`",
+       "a or b",
+       "`cat|dog` on `a cat, a dog` gives `['cat', 'dog']`"
+      ],
+      [
+       "`(...)`",
+       "capturing group",
+       "`(\\d+)-(\\d+)` on `10-20` gives `[('10', '20')]`"
+      ],
+      [
+       "`(?:...)`",
+       "grouping only, no capture",
+       "`(?:ab)+` on `ababab` gives `['ababab']`"
+      ],
+      [
+       "`(?P<n>...)`",
+       "named group",
+       "`m.group('n')`, `m.groupdict()`"
+      ],
+      [
+       "`\\1`",
+       "repeat group 1's text",
+       "`(\\w)\\1` on `hello bookkeeper` gives `['l', 'o', 'k', 'e']`"
+      ],
+      [
+       "`(?P=n)`",
+       "repeat named group n's text",
+       "`(?P<c>\\w)(?P=c)` is the same as `(\\w)\\1`"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Lookaround",
+   "blocks": [
+    {
+     "type": "table",
+     "headers": [
+      "Pattern",
+      "Passes when",
+      "Example"
+     ],
+     "rows": [
+      [
+       "`(?=x)`",
+       "x is next",
+       "`\\w+(?=!)` on `hi! yo` gives `['hi']`"
+      ],
+      [
+       "`(?!x)`",
+       "x is not next",
+       "`\\d+(?!\\d|px)` on `10px 20em` gives `['20']`"
+      ],
+      [
+       "`(?<=x)`",
+       "x is just before",
+       "`(?<=\\$)\\d+` on `$5 and 6` gives `['5']`"
+      ],
+      [
+       "`(?<!x)`",
+       "x is not just before",
+       "`(?<!\\$)\\b\\d+` on `$5 and 6` gives `['6']`"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Flags",
+   "blocks": [
+    {
+     "type": "table",
+     "headers": [
+      "Flag",
+      "Inline",
+      "Effect"
+     ],
+     "rows": [
+      [
+       "`re.I`",
+       "`(?i)`",
+       "ignore case"
+      ],
+      [
+       "`re.M`",
+       "`(?m)`",
+       "`^` `$` at each line"
+      ],
+      [
+       "`re.S`",
+       "`(?s)`",
+       "`.` matches newline"
+      ],
+      [
+       "`re.X`",
+       "`(?x)`",
+       "verbose: spaces ignored, `#` comments"
+      ],
+      [
+       "`re.A`",
+       "`(?a)`",
+       "ASCII-only `\\w` `\\d` `\\s` `\\b`"
+      ]
+     ]
+    },
+    {
+     "type": "paragraph",
+     "text": "Combine with `|`: `re.compile(r\"...\", re.I | re.M)`."
+    }
+   ]
+  },
+  {
+   "name": "Functions",
+   "blocks": [
+    {
+     "type": "table",
+     "headers": [
+      "Call",
+      "Returns"
+     ],
+     "rows": [
+      [
+       "`re.search(p, s)`",
+       "first match anywhere, or `None`"
+      ],
+      [
+       "`re.match(p, s)`",
+       "match at the start, or `None`"
+      ],
+      [
+       "`re.fullmatch(p, s)`",
+       "match of the whole string, or `None`"
+      ],
+      [
+       "`re.findall(p, s)`",
+       "list of matches (the groups, if the pattern has any)"
+      ],
+      [
+       "`re.finditer(p, s)`",
+       "iterator of match objects"
+      ],
+      [
+       "`re.sub(p, repl, s)`",
+       "string with matches replaced (`\\1`, `\\g<name>`, or a function)"
+      ],
+      [
+       "`re.split(p, s)`",
+       "list of the pieces between matches"
+      ],
+      [
+       "`re.compile(p, flags)`",
+       "reusable pattern object"
+      ],
+      [
+       "`re.escape(s)`",
+       "s with special characters escaped"
+      ]
+     ]
+    },
+    {
+     "type": "table",
+     "headers": [
+      "Match object",
+      "Gives"
+     ],
+     "rows": [
+      [
+       "`m.group()`",
+       "whole match"
+      ],
+      [
+       "`m.group(1)` `m.group('n')`",
+       "one group"
+      ],
+      [
+       "`m.groups()`",
+       "all groups"
+      ],
+      [
+       "`m.groupdict()`",
+       "named groups as a dict"
+      ],
+      [
+       "`m.span()` `m.start()` `m.end()`",
+       "position"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Ready-made patterns (shape checks, use with re.fullmatch)",
+   "blocks": [
+    {
+     "type": "table",
+     "headers": [
+      "For",
+      "Pattern"
+     ],
+     "rows": [
+      [
+       "Digits only",
+       "`\\d+`"
+      ],
+      [
+       "Hex colour",
+       "`#[0-9a-fA-F]{6}`"
+      ],
+      [
+       "US ZIP, +4 optional",
+       "`\\d{5}(?:-\\d{4})?`"
+      ],
+      [
+       "Time 24h",
+       "`(?:[01]\\d|2[0-3]):[0-5]\\d`"
+      ],
+      [
+       "Date YYYY-MM-DD",
+       "`\\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\\d|3[01])`"
+      ],
+      [
+       "IPv4",
+       "`(?:(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.){3}(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)`"
+      ],
+      [
+       "Simple email",
+       "`[\\w.+-]+@[A-Za-z0-9-]+(?:\\.[A-Za-z0-9-]+)+`"
+      ],
+      [
+       "Collapse whitespace",
+       "`re.sub(r\"\\s+\", \" \", s)`"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Common mistakes",
+   "blocks": [
+    {
+     "type": "list",
+     "items": [
+      "**Forgetting the r:** write `r\"\\d+\"`, not `\"\\d+\"`.",
+      "**search when you meant fullmatch:** `re.search(r\"\\d{3}\", \"a123b\")` is a match. To validate a whole value use `re.fullmatch`.",
+      "**Unescaped dot:** `3.14` also matches `3x14`. Write `3\\.14`.",
+      "**Greedy `.*`:** it runs to the last possible match. Use `.*?` or a negated class such as `[^\"]*`.",
+      "**findall with groups:** it returns the groups, not the whole match. Use `(?:...)` or `finditer`.",
+      "**`|` without a group:** `^cat|dog$` is not the whole-string check you meant. Write `^(?:cat|dog)$`.",
+      "**`[a-Z]`:** ranges go by character code and this one is an error. Write `[a-zA-Z]`.",
+      "**`[abc|def]`:** inside brackets `|` is a literal character. Use `(?:abc|def)`.",
+      "**Nested quantifiers:** `(a+)+` can hang on a failing match.",
+      "**Parsing HTML or JSON with a regex:** use a real parser."
+     ]
+    }
+   ]
+  }
+ ]
+}

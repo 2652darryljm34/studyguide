@@ -10,6 +10,9 @@ A static site for sharing self-study quizzes with classmates via GitHub Pages. N
 | `quiz.html` | The quiz screen. Works for *any* quiz: `quiz.html?file=data/itd256-midterm-review.json` |
 | `review.html` | The study guide screen. Same pattern: `review.html?file=data/itd256-midterm-guide.json`. A guide with a `boxFile` also gets a terminal |
 | `sql.html` | The SQL playground — a scratchpad over the practice database |
+| `regex.html` | The regex playground: Python's real `re` (Pyodide) with highlighted matches, groups, findall and sub output |
+| `regex-challenges.html` | 22 graded regex exercises, checked by the same Python engine |
+| `walkthrough.html` | Step-through walkthroughs: `walkthrough.html?file=data/regex-walkthroughs.json` |
 | `terminal.html` | The Linux playground — a practice RHEL 9 machine with warm-ups and a filesystem browser |
 | `labs.html` | The lab index — the ten lab sheets as a grid |
 | `lab.html` | One lab, with a live terminal beside it: `lab.html?file=data/itn170-labs.json&lab=permissions-ownership` |

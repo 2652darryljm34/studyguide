@@ -1,0 +1,869 @@
+{
+ "title": "Regex in Python: Step-by-Step Guide",
+ "description": "Baby steps to complex patterns: literals, character classes, quantifiers, anchors, groups, lookaround, flags, the re module, and building and testing real-world patterns.",
+ "sections": [
+  {
+   "name": "1. First steps: literal text",
+   "blocks": [
+    {
+     "type": "paragraph",
+     "text": "A **regular expression** (regex) is a pattern that describes a set of strings. You give Python a pattern and some text, and it finds where the pattern fits. In Python the tools live in the `re` module. Everything in this guide is real Python: the `# ...` lines under each example are what it printed."
+    },
+    {
+     "type": "note",
+     "label": "Try it:",
+     "text": "Open the **Regex playground** from the class page and paste any example in as you read. It runs the same Python `re` module."
+    },
+    {
+     "type": "heading",
+     "text": "Your first match"
+    },
+    {
+     "type": "paragraph",
+     "text": "The simplest pattern is just the text you want. `re.search` looks for it anywhere in the string and returns a **match object** (or `None`)."
+    },
+    {
+     "type": "code",
+     "text": "import re\nm = re.search(r\"cat\", \"The cat sat\")\nprint(m)\nprint(m.group(), m.start(), m.end())\n# <re.Match object; span=(4, 7), match='cat'>\n# cat 4 7"
+    },
+    {
+     "type": "paragraph",
+     "text": "`m.group()` is the text that matched, `m.start()` is where it began and `m.end()` is one past the last character."
+    },
+    {
+     "type": "heading",
+     "text": "No match gives None"
+    },
+    {
+     "type": "code",
+     "text": "import re\nprint(re.search(r\"dog\", \"The cat sat\"))\nif re.search(r\"cat\", \"The cat sat\"):\n    print(\"found a cat\")\n# None\n# found a cat"
+    },
+    {
+     "type": "paragraph",
+     "text": "A match object is truthy and `None` is falsy, so `if re.search(...):` is the normal way to ask yes-or-no."
+    },
+    {
+     "type": "heading",
+     "text": "Always write patterns as raw strings"
+    },
+    {
+     "type": "paragraph",
+     "text": "Regex uses the backslash a lot (`\\d`, `\\b`). Python strings also use it (`\\n`). A raw string, written `r\"...\"`, tells Python to leave backslashes alone and hand them to `re` unchanged."
+    },
+    {
+     "type": "code",
+     "text": "print(len(\"\\n\"), len(r\"\\n\"))\n# 1 2"
+    },
+    {
+     "type": "paragraph",
+     "text": "The normal string `\"\\n\"` is one character (a newline); the raw string `r\"\\n\"` is two (a backslash and an n). Get in the habit now: **every pattern starts with r**."
+    },
+    {
+     "type": "heading",
+     "text": "Finding every match"
+    },
+    {
+     "type": "code",
+     "text": "import re\nprint(re.findall(r\"an\", \"banana\"))\n# ['an', 'an']"
+    },
+    {
+     "type": "paragraph",
+     "text": "`re.findall` returns a list of every non-overlapping match, left to right."
+    },
+    {
+     "type": "heading",
+     "text": "Special characters"
+    },
+    {
+     "type": "paragraph",
+     "text": "Most letters and digits match themselves. A few characters have a special meaning: `. ^ $ * + ? { } [ ] \\ | ( )`. To match one of them literally, put a backslash in front."
+    },
+    {
+     "type": "code",
+     "text": "import re\nprint(bool(re.search(r\"3.14\", \"3x14\")))\nprint(bool(re.search(r\"3\\.14\", \"3x14\")))\nprint(re.escape(\"3.14 (approx)\"))\n# True\n# False\n# 3\\.14\\ \\(approx\\)"
+    },
+    {
+     "type": "paragraph",
+     "text": "The unescaped `.` matched the `x`, because a dot means *any character*. `re.escape` adds the backslashes for you when you have a string of plain text to find."
+    },
+    {
+     "type": "note",
+     "label": "Case:",
+     "text": "Patterns are case sensitive: `cat` does not match `Cat`. The `re.IGNORECASE` flag (lesson 6) changes that."
+    }
+   ]
+  },
+  {
+   "name": "2. Character classes",
+   "blocks": [
+    {
+     "type": "paragraph",
+     "text": "A **character class** matches **one** character out of a set. This is the first real step beyond literal text."
+    },
+    {
+     "type": "heading",
+     "text": "The dot: any character"
+    },
+    {
+     "type": "code",
+     "text": "import re\nprint(re.findall(r\"c.t\", \"cat cut c t cart\"))\n# ['cat', 'cut', 'c t']"
+    },
+    {
+     "type": "paragraph",
+     "text": "`.` matches any one character except a newline (the `re.DOTALL` flag changes that). It matched the space in `c t`."
+    },
+    {
+     "type": "heading",
+     "text": "Sets with square brackets"
+    },
+    {
+     "type": "table",
+     "headers": [
+      "Pattern",
+      "Matches one character that is..."
+     ],
+     "rows": [
+      [
+       "`[abc]`",
+       "a, b or c"
+      ],
+      [
+       "`[a-z]`",
+       "any lowercase letter (a **range**)"
+      ],
+      [
+       "`[A-Za-z0-9]`",
+       "any letter or digit (ranges combine)"
+      ],
+      [
+       "`[^0-9]`",
+       "anything that is **not** a digit (`^` first means *not*)"
+      ]
+     ]
+    },
+    {
+     "type": "code",
+     "text": "import re\nprint(re.findall(r\"[aeiou]\", \"regular expressions\"))\nprint(re.findall(r\"[^aeiou\\s]\", \"hi you\"))\n# ['e', 'u', 'a', 'e', 'e', 'i', 'o']\n# ['h', 'y']"
+    },
+    {
+     "type": "note",
+     "label": "Inside brackets:",
+     "text": "most special characters are literal, so `[.+*]` matches a dot, a plus or a star. Put `-` first or last (or write `\\-`) to mean a hyphen, and `^` anywhere but first is just a caret."
+    },
+    {
+     "type": "heading",
+     "text": "Shorthand classes"
+    },
+    {
+     "type": "table",
+     "headers": [
+      "Shorthand",
+      "Matches",
+      "Same as"
+     ],
+     "rows": [
+      [
+       "`\\d`",
+       "a digit",
+       "`[0-9]`"
+      ],
+      [
+       "`\\D`",
+       "a non-digit",
+       "`[^0-9]`"
+      ],
+      [
+       "`\\w`",
+       "a word character: letter, digit or underscore",
+       "`[A-Za-z0-9_]`"
+      ],
+      [
+       "`\\W`",
+       "a non-word character",
+       "`[^A-Za-z0-9_]`"
+      ],
+      [
+       "`\\s`",
+       "whitespace: space, tab, newline...",
+       "`[ \\t\\n\\r\\f\\v]`"
+      ],
+      [
+       "`\\S`",
+       "a non-whitespace character",
+       "`[^ \\t\\n\\r\\f\\v]`"
+      ]
+     ]
+    },
+    {
+     "type": "code",
+     "text": "import re\nprint(re.findall(r\"\\d\", \"Room 4B, floor 12\"))\nprint(re.findall(r\"\\w\", \"a_b-c\"))\n# ['4', '1', '2']\n# ['a', '_', 'b', 'c']"
+    },
+    {
+     "type": "note",
+     "label": "Unicode:",
+     "text": "for text (`str`) patterns, `\\d` and `\\w` also match digits and letters from other alphabets, such as `é`. Add `re.ASCII` if you want only the ASCII ones."
+    }
+   ]
+  },
+  {
+   "name": "3. Quantifiers",
+   "blocks": [
+    {
+     "type": "paragraph",
+     "text": "A **quantifier** says how many times the thing **just before it** may repeat. So far each element matched once; quantifiers let one element match many characters."
+    },
+    {
+     "type": "table",
+     "headers": [
+      "Quantifier",
+      "Means"
+     ],
+     "rows": [
+      [
+       "`*`",
+       "zero or more"
+      ],
+      [
+       "`+`",
+       "one or more"
+      ],
+      [
+       "`?`",
+       "zero or one (optional)"
+      ],
+      [
+       "`{3}`",
+       "exactly 3"
+      ],
+      [
+       "`{2,4}`",
+       "between 2 and 4"
+      ],
+      [
+       "`{2,}`",
+       "2 or more"
+      ]
+     ]
+    },
+    {
+     "type": "code",
+     "text": "import re\nprint(re.findall(r\"\\d+\", \"a1 b22 c333\"))\nprint(re.findall(r\"colou?r\", \"color colour colouur\"))\nprint(re.findall(r\"\\d{3}-\\d{4}\", \"555-0199 and 55-0100\"))\n# ['1', '22', '333']\n# ['color', 'colour']\n# ['555-0199']"
+    },
+    {
+     "type": "heading",
+     "text": "A quantifier applies to one thing"
+    },
+    {
+     "type": "paragraph",
+     "text": "`ab+` means an `a` and then one or more `b`s. To repeat both letters, group them: `(ab)+`."
+    },
+    {
+     "type": "code",
+     "text": "import re\nprint(re.search(r\"ab+\", \"ababab\").group())\nprint(re.search(r\"(ab)+\", \"ababab\").group())\n# ab\n# ababab"
+    },
+    {
+     "type": "heading",
+     "text": "Greedy versus lazy"
+    },
+    {
+     "type": "paragraph",
+     "text": "Quantifiers are **greedy**: they match as much as they can. Add `?` after a quantifier to make it **lazy** (match as little as possible)."
+    },
+    {
+     "type": "code",
+     "text": "import re\nhtml = \"<b>bold</b> and <i>it</i>\"\nprint(re.findall(r\"<.+>\", html))\nprint(re.findall(r\"<.+?>\", html))\n# ['<b>bold</b> and <i>it</i>']\n# ['<b>', '</b>', '<i>', '</i>']"
+    },
+    {
+     "type": "table",
+     "headers": [
+      "Greedy",
+      "Lazy"
+     ],
+     "rows": [
+      [
+       "`*`",
+       "`*?`"
+      ],
+      [
+       "`+`",
+       "`+?`"
+      ],
+      [
+       "`?`",
+       "`??`"
+      ],
+      [
+       "`{n,m}`",
+       "`{n,m}?`"
+      ]
+     ]
+    },
+    {
+     "type": "paragraph",
+     "text": "Often a more precise class beats laziness: `<[^>]+>` means a `<`, then characters that are not `>`, then `>`."
+    },
+    {
+     "type": "note",
+     "label": "See it step by step:",
+     "text": "the **Greedy versus lazy** and **Finding phone numbers** walkthroughs show the engine's choices one at a time."
+    }
+   ]
+  },
+  {
+   "name": "4. Anchors, boundaries and the match functions",
+   "blocks": [
+    {
+     "type": "paragraph",
+     "text": "So far a pattern could match anywhere. **Anchors** pin the match to a position, and the choice of function decides how much of the string must be matched."
+    },
+    {
+     "type": "heading",
+     "text": "Anchors and boundaries"
+    },
+    {
+     "type": "table",
+     "headers": [
+      "Pattern",
+      "Matches the position..."
+     ],
+     "rows": [
+      [
+       "`^`",
+       "at the start of the string (of each line with `re.MULTILINE`)"
+      ],
+      [
+       "`$`",
+       "at the end of the string, or just before a final newline (of each line with `re.MULTILINE`)"
+      ],
+      [
+       "`\\A` and `\\Z`",
+       "the very start and the very end of the string, always"
+      ],
+      [
+       "`\\b`",
+       "a **word boundary**: between a word character and a non-word character (or an edge)"
+      ],
+      [
+       "`\\B`",
+       "anywhere that is **not** a word boundary"
+      ]
+     ]
+    },
+    {
+     "type": "code",
+     "text": "import re\nprint(re.findall(r\"\\bcat\\b\", \"cat concatenate cat's\"))\nprint(re.findall(r\"cat\", \"cat concatenate cat's\"))\n# ['cat', 'cat']\n# ['cat', 'cat', 'cat']"
+    },
+    {
+     "type": "paragraph",
+     "text": "`\\b` takes up no characters: it only checks the position. It stops `cat` from matching inside `concatenate`."
+    },
+    {
+     "type": "heading",
+     "text": "search, match and fullmatch"
+    },
+    {
+     "type": "table",
+     "headers": [
+      "Function",
+      "Question it answers"
+     ],
+     "rows": [
+      [
+       "`re.search(p, s)`",
+       "Is the pattern **anywhere** in the string?"
+      ],
+      [
+       "`re.match(p, s)`",
+       "Does the pattern match **at the start**?"
+      ],
+      [
+       "`re.fullmatch(p, s)`",
+       "Does the pattern match the **whole** string?"
+      ]
+     ]
+    },
+    {
+     "type": "code",
+     "text": "import re\nfor s in [\"123\", \"12345\", \"a123b\"]:\n    print(s, re.search(r\"\\d{3}\", s), re.match(r\"\\d{3}\", s), re.fullmatch(r\"\\d{3}\", s))\n# 123 <re.Match object; span=(0, 3), match='123'> <re.Match object; span=(0, 3), match='123'> <re.Match object; span=(0, 3), match='123'>\n# 12345 <re.Match object; span=(0, 3), match='123'> <re.Match object; span=(0, 3), match='123'> None\n# a123b <re.Match object; span=(1, 4), match='123'> None None"
+    },
+    {
+     "type": "note",
+     "label": "Validating?",
+     "text": "To check that a whole value is valid, use `re.fullmatch` (or anchor with `^...$`). Using `re.search` for validation is the most common beginner bug: `a123b` contains three digits, so it passes."
+    },
+    {
+     "type": "heading",
+     "text": "The trailing newline trap"
+    },
+    {
+     "type": "code",
+     "text": "import re\nprint(bool(re.search(r\"^\\d{3}$\", \"123\\n\")))\nprint(bool(re.search(r\"^\\d{3}\\Z\", \"123\\n\")))\nprint(bool(re.fullmatch(r\"\\d{3}\", \"123\\n\")))\n# True\n# False\n# False"
+    },
+    {
+     "type": "paragraph",
+     "text": "`$` also matches before a final newline, so `^\\d{3}$` accepts `\"123\\n\"`. `\\Z` and `re.fullmatch` do not."
+    }
+   ]
+  },
+  {
+   "name": "5. Groups, alternation and backreferences",
+   "blocks": [
+    {
+     "type": "paragraph",
+     "text": "Parentheses do three jobs: they **group** parts of a pattern, they **capture** the matched text so you can use it, and (with `|`) they limit an **or**."
+    },
+    {
+     "type": "heading",
+     "text": "Alternation: or"
+    },
+    {
+     "type": "code",
+     "text": "import re\nprint(re.findall(r\"cat|dog\", \"a cat and a dog and a cow\"))\nprint(re.findall(r\"gr(?:a|e)y\", \"gray grey groy\"))\n# ['cat', 'dog']\n# ['gray', 'grey']"
+    },
+    {
+     "type": "note",
+     "label": "Precedence:",
+     "text": "`|` has the lowest priority. `^cat|dog$` means (starts with cat) OR (ends with dog). To say *the whole string is cat or dog*, write `^(cat|dog)$`."
+    },
+    {
+     "type": "heading",
+     "text": "Capturing groups"
+    },
+    {
+     "type": "paragraph",
+     "text": "Each `(...)` is a numbered group, counted by its opening parenthesis from the left. Group 0 is the whole match."
+    },
+    {
+     "type": "code",
+     "text": "import re\nm = re.search(r\"(\\d{4})-(\\d{2})-(\\d{2})\", \"Due 2024-03-15.\")\nprint(m.group(0))\nprint(m.group(1), m.group(2), m.group(3))\nprint(m.groups())\n# 2024-03-15\n# 2024 03 15\n# ('2024', '03', '15')"
+    },
+    {
+     "type": "heading",
+     "text": "findall and groups"
+    },
+    {
+     "type": "paragraph",
+     "text": "When a pattern has groups, `re.findall` returns **the groups**, not the whole match: one group gives a list of strings, several groups give a list of tuples."
+    },
+    {
+     "type": "code",
+     "text": "import re\ntext = \"2024-03-15 and 2025-12-01\"\nprint(re.findall(r\"\\d{4}-\\d{2}-\\d{2}\", text))\nprint(re.findall(r\"(\\d{4})-\\d{2}-\\d{2}\", text))\nprint(re.findall(r\"(\\d{4})-(\\d{2})-(\\d{2})\", text))\n# ['2024-03-15', '2025-12-01']\n# ['2024', '2025']\n# [('2024', '03', '15'), ('2025', '12', '01')]"
+    },
+    {
+     "type": "heading",
+     "text": "Non-capturing groups"
+    },
+    {
+     "type": "paragraph",
+     "text": "When you only need grouping, use `(?:...)`. It groups without making a numbered group, which keeps `findall` returning whole matches."
+    },
+    {
+     "type": "code",
+     "text": "import re\nprint(re.findall(r\"(?:\\d{1,3}\\.){3}\\d{1,3}\", \"hosts 10.0.0.1 and 192.168.1.20\"))\n# ['10.0.0.1', '192.168.1.20']"
+    },
+    {
+     "type": "heading",
+     "text": "Named groups"
+    },
+    {
+     "type": "paragraph",
+     "text": "`(?P<name>...)` names a group. Note the **P**: that is Python's spelling."
+    },
+    {
+     "type": "code",
+     "text": "import re\nm = re.search(r\"(?P<user>\\w+)@(?P<host>[\\w.]+)\", \"mail ann@example.com now\")\nprint(m.group(\"user\"), m.group(\"host\"))\nprint(m.groupdict())\n# ann example.com\n# {'user': 'ann', 'host': 'example.com'}"
+    },
+    {
+     "type": "heading",
+     "text": "Backreferences"
+    },
+    {
+     "type": "paragraph",
+     "text": "`\\1` inside a pattern means *the same text group 1 matched*. It finds repeats. (A named group is repeated with `(?P=name)`.)"
+    },
+    {
+     "type": "code",
+     "text": "import re\nprint(re.findall(r\"\\b(\\w+) \\1\\b\", \"This is is a test of the the system\"))\n# ['is', 'the']"
+    }
+   ]
+  },
+  {
+   "name": "6. Lookaround and flags",
+   "blocks": [
+    {
+     "type": "paragraph",
+     "text": "**Lookarounds** check what is next to the current position without including it in the match. **Flags** change how the whole pattern behaves."
+    },
+    {
+     "type": "heading",
+     "text": "Lookahead and lookbehind"
+    },
+    {
+     "type": "table",
+     "headers": [
+      "Syntax",
+      "Name",
+      "Passes when..."
+     ],
+     "rows": [
+      [
+       "`(?=...)`",
+       "positive lookahead",
+       "the text **after** this point matches `...`"
+      ],
+      [
+       "`(?!...)`",
+       "negative lookahead",
+       "the text after this point does **not** match `...`"
+      ],
+      [
+       "`(?<=...)`",
+       "positive lookbehind",
+       "the text **before** this point matches `...`"
+      ],
+      [
+       "`(?<!...)`",
+       "negative lookbehind",
+       "the text before this point does **not** match `...`"
+      ]
+     ]
+    },
+    {
+     "type": "code",
+     "text": "import re\nprices = \"Pens $4.50, bags $120, 15 percent off.\"\nprint(re.findall(r\"(?<=\\$)\\d+(?:\\.\\d+)?\", prices))\nprint(re.findall(r\"\\d+(?= percent)\", prices))\nprint(re.findall(r\"\\b(?!the\\b)\\w+\", \"the cat and the dog\"))\n# ['4.50', '120']\n# ['15']\n# ['cat', 'and', 'dog']"
+    },
+    {
+     "type": "note",
+     "label": "Python limit:",
+     "text": "a lookbehind must be a **fixed width**: `(?<=\\$)` is fine, `(?<=a+)` is an error."
+    },
+    {
+     "type": "heading",
+     "text": "Lookahead as an AND"
+    },
+    {
+     "type": "paragraph",
+     "text": "Because a lookahead consumes nothing, several of them in a row each check the same text from the same place. That makes them a clean way to say *this AND that*. This password rule needs 8+ characters, a digit and an uppercase letter:"
+    },
+    {
+     "type": "code",
+     "text": "import re\nrule = r\"(?=.*\\d)(?=.*[A-Z]).{8,}\"\nfor pw in [\"Passw0rdX\", \"password1\", \"Ab1\"]:\n    print(pw, bool(re.fullmatch(rule, pw)))\n# Passw0rdX True\n# password1 False\n# Ab1 False"
+    },
+    {
+     "type": "heading",
+     "text": "Flags"
+    },
+    {
+     "type": "table",
+     "headers": [
+      "Flag",
+      "Inline",
+      "Effect"
+     ],
+     "rows": [
+      [
+       "`re.IGNORECASE` / `re.I`",
+       "`(?i)`",
+       "ignore upper and lower case"
+      ],
+      [
+       "`re.MULTILINE` / `re.M`",
+       "`(?m)`",
+       "`^` and `$` match at every line, not just the string ends"
+      ],
+      [
+       "`re.DOTALL` / `re.S`",
+       "`(?s)`",
+       "`.` also matches a newline"
+      ],
+      [
+       "`re.VERBOSE` / `re.X`",
+       "`(?x)`",
+       "ignore spaces and allow `#` comments inside the pattern"
+      ],
+      [
+       "`re.ASCII` / `re.A`",
+       "`(?a)`",
+       "`\\w`, `\\d`, `\\s`, `\\b` use ASCII only"
+      ]
+     ]
+    },
+    {
+     "type": "code",
+     "text": "import re\nprint(re.findall(r\"cat\", \"Cat CAT cat\", re.I))\nprint(re.findall(r\"^\\w+\", \"one two\\nthree four\", re.M))\nprint(re.findall(r\"^\\w+\", \"one two\\nthree four\"))\nprint(re.findall(r\"a.b\", \"a\\nb\", re.S))\nprint(re.findall(r\"cat\", \"Cat CAT cat\", re.I | re.M))\n# ['Cat', 'CAT', 'cat']\n# ['one', 'three']\n# ['one']\n# ['a\\nb']\n# ['Cat', 'CAT', 'cat']"
+    },
+    {
+     "type": "paragraph",
+     "text": "Combine flags with `|`."
+    },
+    {
+     "type": "heading",
+     "text": "Verbose patterns"
+    },
+    {
+     "type": "paragraph",
+     "text": "Long patterns become readable with `re.VERBOSE`: whitespace is ignored and `#` starts a comment. Use `\\ ` or `[ ]` if you need a literal space."
+    },
+    {
+     "type": "code",
+     "text": "import re\nphone = re.compile(r\"\"\"\n    \\(?(\\d{3})\\)?   # area code, optional parentheses\n    [-. ]?          # optional separator\n    (\\d{3})         # exchange\n    [-. ]?\n    (\\d{4})         # line number\n\"\"\", re.X)\nprint(phone.search(\"Call (555) 010-0199\").groups())\n# ('555', '010', '0199')"
+    }
+   ]
+  },
+  {
+   "name": "7. The re module toolbox",
+   "blocks": [
+    {
+     "type": "paragraph",
+     "text": "Everything so far used `re.search` and `re.findall`. Here is the whole toolbox."
+    },
+    {
+     "type": "table",
+     "headers": [
+      "Function",
+      "Returns",
+      "Use it to..."
+     ],
+     "rows": [
+      [
+       "`re.search(p, s)`",
+       "match or `None`",
+       "find the first match anywhere"
+      ],
+      [
+       "`re.match(p, s)`",
+       "match or `None`",
+       "match at the start"
+      ],
+      [
+       "`re.fullmatch(p, s)`",
+       "match or `None`",
+       "check the whole string"
+      ],
+      [
+       "`re.findall(p, s)`",
+       "list of strings (or tuples)",
+       "get all matches"
+      ],
+      [
+       "`re.finditer(p, s)`",
+       "iterator of match objects",
+       "get all matches with positions and groups"
+      ],
+      [
+       "`re.sub(p, repl, s)`",
+       "new string",
+       "replace matches"
+      ],
+      [
+       "`re.subn(p, repl, s)`",
+       "(new string, count)",
+       "replace and count"
+      ],
+      [
+       "`re.split(p, s)`",
+       "list of strings",
+       "split on a pattern"
+      ],
+      [
+       "`re.compile(p)`",
+       "pattern object",
+       "reuse a pattern (has the same methods)"
+      ],
+      [
+       "`re.escape(s)`",
+       "string",
+       "make plain text safe to use in a pattern"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "The match object"
+    },
+    {
+     "type": "table",
+     "headers": [
+      "Method",
+      "Gives"
+     ],
+     "rows": [
+      [
+       "`m.group()` / `m.group(0)`",
+       "the whole matched text"
+      ],
+      [
+       "`m.group(1)`, `m.group('name')`",
+       "one group's text (`None` if it did not take part)"
+      ],
+      [
+       "`m.groups()`",
+       "tuple of all groups"
+      ],
+      [
+       "`m.groupdict()`",
+       "dict of the named groups"
+      ],
+      [
+       "`m.start()`, `m.end()`, `m.span()`",
+       "positions in the string"
+      ]
+     ]
+    },
+    {
+     "type": "code",
+     "text": "import re\nfor m in re.finditer(r\"\\d+\", \"a1 b22 c333\"):\n    print(m.group(), m.span())\n# 1 (1, 2)\n# 22 (4, 6)\n# 333 (8, 11)"
+    },
+    {
+     "type": "heading",
+     "text": "Replacing with sub"
+    },
+    {
+     "type": "paragraph",
+     "text": "In the replacement, `\\1` or `\\g<1>` (or `\\g<name>`) insert a group. You can also pass a **function**, which receives each match object."
+    },
+    {
+     "type": "code",
+     "text": "import re\nprint(re.sub(r\"\\s+\", \" \", \"too    many   spaces\"))\nprint(re.sub(r\"(\\w+), (\\w+)\", r\"\\2 \\1\", \"Lovelace, Ada\"))\nprint(re.sub(r\"\\d+\", lambda m: str(int(m.group()) * 2), \"3 apples and 10 pears\"))\nprint(re.subn(r\"a\", \"A\", \"banana\"))\n# too many spaces\n# Ada Lovelace\n# 6 apples and 20 pears\n# ('bAnAnA', 3)"
+    },
+    {
+     "type": "heading",
+     "text": "Splitting"
+    },
+    {
+     "type": "code",
+     "text": "import re\nprint(re.split(r\"[,;]\\s*\", \"a, b;c,  d\"))\n# ['a', 'b', 'c', 'd']"
+    },
+    {
+     "type": "heading",
+     "text": "compile"
+    },
+    {
+     "type": "paragraph",
+     "text": "`re.compile` builds the pattern once so you can reuse it (and keep flags with it). Python also caches recent patterns, so compile is mostly about readability."
+    },
+    {
+     "type": "code",
+     "text": "import re\nword = re.compile(r\"\\b[a-z]+\\b\", re.I)\nprint(word.findall(\"Hello big World\"))\nprint(word.sub(\"*\", \"Hello big World\"))\n# ['Hello', 'big', 'World']\n# * * *"
+    }
+   ]
+  },
+  {
+   "name": "8. Building complex patterns",
+   "blocks": [
+    {
+     "type": "paragraph",
+     "text": "Complex patterns are not written in one go. Build them in small stages and test each stage on strings that **should** match and strings that **should not**."
+    },
+    {
+     "type": "heading",
+     "text": "A method that works"
+    },
+    {
+     "type": "list",
+     "items": [
+      "Write down 3 or more **valid** examples and 3 or more **invalid** ones first.",
+      "Start with the simplest pattern that matches the valid ones.",
+      "Run it against the invalid ones, and tighten it only where a wrong one slips through.",
+      "Decide whether you are **validating** (use `re.fullmatch`) or **extracting** (use `findall` or `finditer`).",
+      "Name groups and use `re.VERBOSE` with comments once it gets long."
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Worked example: an IPv4 address"
+    },
+    {
+     "type": "paragraph",
+     "text": "Four numbers from 0 to 255 separated by dots. First try, just the shape:"
+    },
+    {
+     "type": "code",
+     "text": "import re\nshape = r\"\\d{1,3}(?:\\.\\d{1,3}){3}\"\nfor ip in [\"192.168.1.1\", \"256.1.1.1\", \"1.2.3\"]:\n    print(ip, bool(re.fullmatch(shape, ip)))\n# 192.168.1.1 True\n# 256.1.1.1 True\n# 1.2.3 False"
+    },
+    {
+     "type": "paragraph",
+     "text": "`256.1.1.1` slips through. Each number must be 0-255, which is: `25[0-5]` or `2[0-4]\\d` or `1\\d\\d` or `[1-9]?\\d`."
+    },
+    {
+     "type": "code",
+     "text": "import re\noctet = r\"(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\"\nip = re.compile(rf\"{octet}(?:\\.{octet}){{3}}\")\nfor s in [\"192.168.1.1\", \"256.1.1.1\", \"1.2.3\", \"192.168.01.1\"]:\n    print(s, bool(ip.fullmatch(s)))\n# 192.168.1.1 True\n# 256.1.1.1 False\n# 1.2.3 False\n# 192.168.01.1 False"
+    },
+    {
+     "type": "paragraph",
+     "text": "Building the pattern from a Python variable keeps it readable. `rf\"...\"` is a raw f-string; `{{3}}` writes a literal `{3}`."
+    },
+    {
+     "type": "heading",
+     "text": "Worked example: log lines with named groups"
+    },
+    {
+     "type": "code",
+     "text": "import re\nline_re = re.compile(r\"\"\"\n    ^(?P<date>\\d{4}-\\d{2}-\\d{2})\\s+\n    (?P<time>\\d{2}:\\d{2}:\\d{2})\\s+\n    (?P<level>ERROR|WARN|INFO)\\s+\n    (?P<msg>.*)$\n\"\"\", re.X | re.M)\nlog = \"2024-03-01 12:00:01 ERROR disk full\\n2024-03-01 12:00:05 INFO ok\"\nfor m in line_re.finditer(log):\n    print(m.group(\"level\"), \"|\", m.group(\"msg\"))\n# ERROR | disk full\n# INFO | ok"
+    },
+    {
+     "type": "heading",
+     "text": "Patterns that are good enough"
+    },
+    {
+     "type": "table",
+     "headers": [
+      "For",
+      "Pattern"
+     ],
+     "rows": [
+      [
+       "Hex colour",
+       "`#[0-9a-fA-F]{6}`"
+      ],
+      [
+       "US ZIP (+4 optional)",
+       "`\\d{5}(?:-\\d{4})?`"
+      ],
+      [
+       "24-hour time",
+       "`(?:[01]\\d|2[0-3]):[0-5]\\d`"
+      ],
+      [
+       "Date shape YYYY-MM-DD",
+       "`\\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\\d|3[01])`"
+      ],
+      [
+       "Username, 3-16 chars",
+       "`[A-Za-z]\\w{2,15}`"
+      ],
+      [
+       "Simple email",
+       "`[\\w.+-]+@[A-Za-z0-9-]+(?:\\.[A-Za-z0-9-]+)+`"
+      ]
+     ]
+    },
+    {
+     "type": "note",
+     "label": "Be honest about limits:",
+     "text": "the date pattern accepts `2023-02-31`, and no email pattern proves a mailbox exists. A regex checks **shape**. For real validation, parse with `datetime` or send a confirmation email."
+    },
+    {
+     "type": "heading",
+     "text": "When not to use a regex"
+    },
+    {
+     "type": "list",
+     "items": [
+      "**Nested structures** such as HTML, JSON or balanced parentheses. Use a parser (`html.parser`, `json`).",
+      "**Simple fixed text**: `\"abc\" in s`, `s.startswith(...)`, `s.split(\",\")` are clearer and faster.",
+      "**Dates and numbers**: parse with `datetime` or `int()` once the shape is checked."
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Catastrophic backtracking"
+    },
+    {
+     "type": "paragraph",
+     "text": "A quantifier inside a group that is itself repeated, like `(a+)+$`, can make Python try an exponential number of ways to split the text when the match fails, and the program appears to hang. Avoid nested quantifiers on input you do not control. The **Catastrophic backtracking** walkthrough shows why."
+    }
+   ]
+  }
+ ]
+}

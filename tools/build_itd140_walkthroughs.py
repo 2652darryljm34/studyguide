@@ -335,6 +335,12 @@ def validate(w_id, steps, problems):
             if not 0 <= v["active"] < len(v["nodes"]):
                 problems.append(where + ": active node out of range")
             continue
+        if v["type"] == "match":
+            for l in v["lines"]:
+                for sp in l["spans"]:
+                    if not 0 <= sp[0] < sp[1] <= len(l["text"]):
+                        problems.append("%s: span %r is outside %r" % (where, sp, l["text"]))
+            continue
         width = len(v["headers"])
         for r, row in enumerate(v["rows"]):
             if len(row) != width:
