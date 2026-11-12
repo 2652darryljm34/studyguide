@@ -13,6 +13,7 @@ For every set listed in SETS below it checks that
     count, and the guide has one section per topic (it may add a closing "Common Mix-ups"
     section)
   * the set is listed on the home page in classes.json, with a mastery loop link (and, for ITD 140, number drills)
+  * sets in NEEDS_WALKTHROUGHS also have a walkthroughs file, linked from the home page and from guide topics
 
 When you build a new exam, add its set here (see CLAUDE.md). Exits 1 on any problem.
 """
@@ -43,7 +44,11 @@ SETS = [
 # Sets whose course has number drills (drills.html is ITD 140 only); every set needs a mastery loop.
 NEEDS_DRILLS = ("ITD 140 quiz 1", "ITD 140 supplemental full course")
 
-EXTRA_GUIDE_SECTIONS = ("Common Mix-ups",)
+# Sets that also need step-through walkthroughs (walkthrough.html). New sets go here; earlier ones are exempt.
+# name -> walkthrough file
+NEEDS_WALKTHROUGHS = {"ITD 140 supplemental full course": "data/itd140-walkthroughs.json"}
+
+EXTRA_GUIDE_SECTIONS =("Common Mix-ups",)
 
 
 def load(rel, problems, label):
@@ -111,6 +116,21 @@ def main():
                "no mastery loop link for %s in classes.json" % quiz_f)
         if name in NEEDS_DRILLS:
             expect(any(h.startswith("drills.html") for h in hrefs), "no number drills link under %s" % class_id)
+
+        if name in NEEDS_WALKTHROUGHS:
+            wt_f = NEEDS_WALKTHROUGHS[name]
+            wt = load(wt_f, problems, name)
+            expect(any(wt_f.replace("/", "%2F") in h for h in hrefs), "no walkthroughs link for %s in classes.json" % wt_f)
+            if wt:
+                names = [s["name"] for s in guide["sections"]]
+                expect(wt.get("guideFile") == guide_f and wt.get("quizFile") == quiz_f, "the walkthroughs do not link to this guide and quiz")
+                expect(wt["walkthroughs"], "the walkthroughs file is empty")
+                covered = {w["topic"] for w in wt["walkthroughs"]}
+                for n in names:
+                    expect(n in covered, "no walkthrough for guide section %r" % n)
+                for w in wt["walkthroughs"]:
+                    expect(w["topic"] in names, "walkthrough %r names a topic that is not a guide section" % w["id"])
+                    expect(len(w["steps"]) >= 3, "walkthrough %r has fewer than 3 steps" % w["id"])
 
         print("%-16s guide %2d sections | flashcards %3d cards in %2d topics | quiz %3d questions in %2d sections"
               % (name, len(guide["sections"]), len(cards["cards"]), len(topics),

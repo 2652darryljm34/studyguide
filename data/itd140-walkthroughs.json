@@ -1,0 +1,3129 @@
+{
+ "title": "ITD 140 Walkthroughs",
+ "guideFile": "data/itd140-supplemental-guide.json",
+ "quizFile": "data/itd140-supplemental-quiz.json",
+ "walkthroughs": [
+  {
+   "id": "foundations",
+   "title": "Foundations: training finds the rule",
+   "topic": "1. Machine Learning Foundations",
+   "blurb": "Fit a line to miles-to-km examples and watch the errors shrink to zero.",
+   "steps": [
+    {
+     "title": "Programming versus learning",
+     "text": "In traditional programming a person writes the rules and the computer turns data into answers. In machine learning you supply data and the answers, and the computer works out the rules. The rules it finds are called the model.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "",
+       "Traditional programming",
+       "Machine learning"
+      ],
+      "rows": [
+       [
+        "Goes in",
+        "Data and rules",
+        "Data and answers"
+       ],
+       [
+        "Comes out",
+        "Answers",
+        "The rules (the model)"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Examples with known answers",
+     "text": "Three (miles, km) pairs. Nobody tells the computer how to convert them. The model will be a line y = m*x + b, and m and b are the parameters training must find.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Miles",
+       "Actual km",
+       "Predicted km",
+       "Error"
+      ],
+      "rows": [
+       [
+        "5",
+        "8",
+        "",
+        ""
+       ],
+       [
+        "10",
+        "16",
+        "",
+        ""
+       ],
+       [
+        "20",
+        "32",
+        "",
+        ""
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Start with a guess: m = 1, b = 0",
+     "text": "Predicted km = 1 * miles + 0. Error = actual - predicted. The errors are 3, 6 and 12: a poor model.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Miles",
+       "Actual km",
+       "Predicted km",
+       "Error"
+      ],
+      "rows": [
+       [
+        "5",
+        "8",
+        "5",
+        "3"
+       ],
+       [
+        "10",
+        "16",
+        "10",
+        "6"
+       ],
+       [
+        "20",
+        "32",
+        "20",
+        "12"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        3
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        2,
+        3
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Adjust the parameter: m = 1.5",
+     "text": "Predicted km = 1.5 * miles. The errors shrink to 0.5, 1 and 2. Training repeats this: change the parameters, check the errors, keep changes that help.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Miles",
+       "Actual km",
+       "Predicted km",
+       "Error"
+      ],
+      "rows": [
+       [
+        "5",
+        "8",
+        "7.5",
+        "0.5"
+       ],
+       [
+        "10",
+        "16",
+        "15",
+        "1"
+       ],
+       [
+        "20",
+        "32",
+        "30",
+        "2"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        3
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        2,
+        3
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Adjust again: m = 1.6",
+     "text": "Every prediction now matches, so the errors are 0. Training has found the parameters m = 1.6 and b = 0. That line is the model.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Miles",
+       "Actual km",
+       "Predicted km",
+       "Error"
+      ],
+      "rows": [
+       [
+        "5",
+        "8",
+        "8",
+        "0"
+       ],
+       [
+        "10",
+        "16",
+        "16",
+        "0"
+       ],
+       [
+        "20",
+        "32",
+        "32",
+        "0"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        3
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        2,
+        3
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Use the model on a new value",
+     "text": "A distance the model never saw: 50 miles. Predicted km = 1.6 * 50 + 0 = 80. Miles and km rise together in a straight line, a correlation near +1.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Miles",
+       "Actual km",
+       "Predicted km",
+       "Error"
+      ],
+      "rows": [
+       [
+        "5",
+        "8",
+        "8",
+        "0"
+       ],
+       [
+        "10",
+        "16",
+        "16",
+        "0"
+       ],
+       [
+        "20",
+        "32",
+        "32",
+        "0"
+       ],
+       [
+        "50",
+        "?",
+        "80",
+        "?"
+       ]
+      ],
+      "hl": [
+       [
+        3,
+        2
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "knn",
+   "title": "kNN: classify a new point by voting",
+   "topic": "2. Supervised Learning and Its Algorithms",
+   "blurb": "Measure, sort, take the k nearest, vote, then see how k changes the answer.",
+   "steps": [
+    {
+     "title": "Start: a new point to classify",
+     "text": "Five labelled points, each Red or Blue, are known. A new, unlabelled point sits at (5, 5). kNN labels it by looking at its nearest neighbours.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Point",
+       "Class",
+       "Across",
+       "Up",
+       "Straight-line distance"
+      ],
+      "rows": [
+       [
+        "a (8, 9)",
+        "Blue",
+        "3",
+        "4",
+        ""
+       ],
+       [
+        "e (13, 10)",
+        "Red",
+        "8",
+        "5",
+        ""
+       ],
+       [
+        "c (5, 8)",
+        "Red",
+        "0",
+        "3",
+        ""
+       ],
+       [
+        "d (11, 5)",
+        "Red",
+        "6",
+        "0",
+        ""
+       ],
+       [
+        "b (5, 1)",
+        "Blue",
+        "0",
+        "4",
+        ""
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Measure the distance to each known point",
+     "text": "Straight-line (Euclidean) distance = square root of (across^2 + up^2). For a (8, 9): across 3, up 4, so sqrt(9 + 16) = 5.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Point",
+       "Class",
+       "Across",
+       "Up",
+       "Straight-line distance"
+      ],
+      "rows": [
+       [
+        "a (8, 9)",
+        "Blue",
+        "3",
+        "4",
+        "5"
+       ],
+       [
+        "e (13, 10)",
+        "Red",
+        "8",
+        "5",
+        "9.43"
+       ],
+       [
+        "c (5, 8)",
+        "Red",
+        "0",
+        "3",
+        "3"
+       ],
+       [
+        "d (11, 5)",
+        "Red",
+        "6",
+        "0",
+        "6"
+       ],
+       [
+        "b (5, 1)",
+        "Blue",
+        "0",
+        "4",
+        "4"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        4
+       ],
+       [
+        1,
+        4
+       ],
+       [
+        2,
+        4
+       ],
+       [
+        3,
+        4
+       ],
+       [
+        4,
+        4
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Sort by distance, nearest first",
+     "text": "kNN has no training step beyond remembering the points. The work happens now, at prediction time.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Point",
+       "Class",
+       "Across",
+       "Up",
+       "Straight-line distance"
+      ],
+      "rows": [
+       [
+        "c (5, 8)",
+        "Red",
+        "0",
+        "3",
+        "3"
+       ],
+       [
+        "b (5, 1)",
+        "Blue",
+        "0",
+        "4",
+        "4"
+       ],
+       [
+        "a (8, 9)",
+        "Blue",
+        "3",
+        "4",
+        "5"
+       ],
+       [
+        "d (11, 5)",
+        "Red",
+        "6",
+        "0",
+        "6"
+       ],
+       [
+        "e (13, 10)",
+        "Red",
+        "8",
+        "5",
+        "9.43"
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Take the k = 3 nearest",
+     "text": "With k = 3 the neighbours are c (Red), b (Blue) and a (Blue).",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Point",
+       "Class",
+       "Across",
+       "Up",
+       "Straight-line distance"
+      ],
+      "rows": [
+       [
+        "c (5, 8)",
+        "Red",
+        "0",
+        "3",
+        "3"
+       ],
+       [
+        "b (5, 1)",
+        "Blue",
+        "0",
+        "4",
+        "4"
+       ],
+       [
+        "a (8, 9)",
+        "Blue",
+        "3",
+        "4",
+        "5"
+       ],
+       [
+        "d (11, 5)",
+        "Red",
+        "6",
+        "0",
+        "6"
+       ],
+       [
+        "e (13, 10)",
+        "Red",
+        "8",
+        "5",
+        "9.43"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        0
+       ],
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        0,
+        3
+       ],
+       [
+        0,
+        4
+       ],
+       [
+        1,
+        0
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        1,
+        4
+       ],
+       [
+        2,
+        0
+       ],
+       [
+        2,
+        1
+       ],
+       [
+        2,
+        2
+       ],
+       [
+        2,
+        3
+       ],
+       [
+        2,
+        4
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Majority vote",
+     "text": "Blue 2, Red 1, so the new point is classified Blue. An odd k means a two-class vote cannot tie.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Class",
+       "Votes among the 3 nearest"
+      ],
+      "rows": [
+       [
+        "Blue",
+        "2"
+       ],
+       [
+        "Red",
+        "1"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        0
+       ],
+       [
+        0,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Change k and the answer can change",
+     "text": "k = 1 uses only c, so Red. k = 3 gives Blue. k = 5 uses all five points: Red 3, Blue 2, so Red. A small k follows noise; a large k blurs the boundary. k is a hyperparameter, chosen by you, not learned.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "k",
+       "Neighbours used",
+       "Votes",
+       "Result"
+      ],
+      "rows": [
+       [
+        "1",
+        "c",
+        "Red 1",
+        "Red"
+       ],
+       [
+        "3",
+        "c, b, a",
+        "Blue 2, Red 1",
+        "Blue"
+       ],
+       [
+        "5",
+        "all five",
+        "Red 3, Blue 2",
+        "Red"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        3
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        2,
+        3
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "kfold",
+   "title": "k-fold cross-validation",
+   "topic": "3. Evaluating a Model",
+   "blurb": "Five rounds, each fold takes a turn as the test set.",
+   "steps": [
+    {
+     "title": "Cut the data into k = 5 folds",
+     "text": "100 rows split into 5 folds of 100 / 5 = 20 rows each. Every row sits in exactly one fold.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Round",
+       "Fold 1",
+       "Fold 2",
+       "Fold 3",
+       "Fold 4",
+       "Fold 5",
+       "Score"
+      ],
+      "rows": [
+       [
+        "Round 1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+       ],
+       [
+        "Round 2",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+       ],
+       [
+        "Round 3",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+       ],
+       [
+        "Round 4",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+       ],
+       [
+        "Round 5",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Round 1: fold 1 is the test fold",
+     "text": "Fold 1 (20 rows) is held out for testing. Train on the other 4 folds (80 rows). The model's score on it is 0.82.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Round",
+       "Fold 1",
+       "Fold 2",
+       "Fold 3",
+       "Fold 4",
+       "Fold 5",
+       "Score"
+      ],
+      "rows": [
+       [
+        "Round 1",
+        "Test",
+        "Train",
+        "Train",
+        "Train",
+        "Train",
+        "0.82"
+       ],
+       [
+        "Round 2",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+       ],
+       [
+        "Round 3",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+       ],
+       [
+        "Round 4",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+       ],
+       [
+        "Round 5",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        6
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Round 2: fold 2 is the test fold",
+     "text": "Fold 2 (20 rows) is held out for testing. The model's score on it is 0.78.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Round",
+       "Fold 1",
+       "Fold 2",
+       "Fold 3",
+       "Fold 4",
+       "Fold 5",
+       "Score"
+      ],
+      "rows": [
+       [
+        "Round 1",
+        "Test",
+        "Train",
+        "Train",
+        "Train",
+        "Train",
+        "0.82"
+       ],
+       [
+        "Round 2",
+        "Train",
+        "Test",
+        "Train",
+        "Train",
+        "Train",
+        "0.78"
+       ],
+       [
+        "Round 3",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+       ],
+       [
+        "Round 4",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+       ],
+       [
+        "Round 5",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+       ]
+      ],
+      "hl": [
+       [
+        1,
+        2
+       ],
+       [
+        1,
+        6
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Round 3: fold 3 is the test fold",
+     "text": "Fold 3 (20 rows) is held out for testing. The model's score on it is 0.85.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Round",
+       "Fold 1",
+       "Fold 2",
+       "Fold 3",
+       "Fold 4",
+       "Fold 5",
+       "Score"
+      ],
+      "rows": [
+       [
+        "Round 1",
+        "Test",
+        "Train",
+        "Train",
+        "Train",
+        "Train",
+        "0.82"
+       ],
+       [
+        "Round 2",
+        "Train",
+        "Test",
+        "Train",
+        "Train",
+        "Train",
+        "0.78"
+       ],
+       [
+        "Round 3",
+        "Train",
+        "Train",
+        "Test",
+        "Train",
+        "Train",
+        "0.85"
+       ],
+       [
+        "Round 4",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+       ],
+       [
+        "Round 5",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+       ]
+      ],
+      "hl": [
+       [
+        2,
+        3
+       ],
+       [
+        2,
+        6
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Round 4: fold 4 is the test fold",
+     "text": "Fold 4 (20 rows) is held out for testing. The model's score on it is 0.80.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Round",
+       "Fold 1",
+       "Fold 2",
+       "Fold 3",
+       "Fold 4",
+       "Fold 5",
+       "Score"
+      ],
+      "rows": [
+       [
+        "Round 1",
+        "Test",
+        "Train",
+        "Train",
+        "Train",
+        "Train",
+        "0.82"
+       ],
+       [
+        "Round 2",
+        "Train",
+        "Test",
+        "Train",
+        "Train",
+        "Train",
+        "0.78"
+       ],
+       [
+        "Round 3",
+        "Train",
+        "Train",
+        "Test",
+        "Train",
+        "Train",
+        "0.85"
+       ],
+       [
+        "Round 4",
+        "Train",
+        "Train",
+        "Train",
+        "Test",
+        "Train",
+        "0.80"
+       ],
+       [
+        "Round 5",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+       ]
+      ],
+      "hl": [
+       [
+        3,
+        4
+       ],
+       [
+        3,
+        6
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Round 5: fold 5 is the test fold",
+     "text": "Fold 5 (20 rows) is held out for testing. The model's score on it is 0.80.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Round",
+       "Fold 1",
+       "Fold 2",
+       "Fold 3",
+       "Fold 4",
+       "Fold 5",
+       "Score"
+      ],
+      "rows": [
+       [
+        "Round 1",
+        "Test",
+        "Train",
+        "Train",
+        "Train",
+        "Train",
+        "0.82"
+       ],
+       [
+        "Round 2",
+        "Train",
+        "Test",
+        "Train",
+        "Train",
+        "Train",
+        "0.78"
+       ],
+       [
+        "Round 3",
+        "Train",
+        "Train",
+        "Test",
+        "Train",
+        "Train",
+        "0.85"
+       ],
+       [
+        "Round 4",
+        "Train",
+        "Train",
+        "Train",
+        "Test",
+        "Train",
+        "0.80"
+       ],
+       [
+        "Round 5",
+        "Train",
+        "Train",
+        "Train",
+        "Train",
+        "Test",
+        "0.80"
+       ]
+      ],
+      "hl": [
+       [
+        4,
+        5
+       ],
+       [
+        4,
+        6
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Average the five scores",
+     "text": "(0.82 + 0.78 + 0.85 + 0.80 + 0.80) / 5 = 4.05 / 5 = 0.81. Every row was used for testing exactly once and for training k - 1 = 4 times, so the estimate depends less on one lucky or unlucky split.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Round",
+       "Fold 1",
+       "Fold 2",
+       "Fold 3",
+       "Fold 4",
+       "Fold 5",
+       "Score"
+      ],
+      "rows": [
+       [
+        "Round 1",
+        "Test",
+        "Train",
+        "Train",
+        "Train",
+        "Train",
+        "0.82"
+       ],
+       [
+        "Round 2",
+        "Train",
+        "Test",
+        "Train",
+        "Train",
+        "Train",
+        "0.78"
+       ],
+       [
+        "Round 3",
+        "Train",
+        "Train",
+        "Test",
+        "Train",
+        "Train",
+        "0.85"
+       ],
+       [
+        "Round 4",
+        "Train",
+        "Train",
+        "Train",
+        "Test",
+        "Train",
+        "0.80"
+       ],
+       [
+        "Round 5",
+        "Train",
+        "Train",
+        "Train",
+        "Train",
+        "Test",
+        "0.80"
+       ],
+       [
+        "Mean",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "0.81"
+       ]
+      ],
+      "hl": [
+       [
+        5,
+        6
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "kmeans",
+   "title": "k-means clustering, one round at a time",
+   "topic": "4. Clustering and Distance",
+   "blurb": "Assign points, move centroids, repeat until nothing changes.",
+   "steps": [
+    {
+     "title": "Start: two centroids",
+     "text": "Cluster six numbers into k = 2 groups. Pick two starting centroids at random from the data: c1 = 1 and c2 = 4. k-means is unsupervised: there are no labels.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Point",
+       "Distance to c1",
+       "Distance to c2",
+       "Joins"
+      ],
+      "rows": [
+       [
+        "1",
+        "",
+        "",
+        ""
+       ],
+       [
+        "2",
+        "",
+        "",
+        ""
+       ],
+       [
+        "4",
+        "",
+        "",
+        ""
+       ],
+       [
+        "10",
+        "",
+        "",
+        ""
+       ],
+       [
+        "11",
+        "",
+        "",
+        ""
+       ],
+       [
+        "13",
+        "",
+        "",
+        ""
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Assign every point to its nearest centroid",
+     "text": "Measure each point to both centroids (c1 = 1, c2 = 4) and join the closer one. The point 4 is distance 0 from c2, so it joins B. The point 2 is 1 from c1 and 2 from c2, so it joins A.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Point",
+       "Distance to c1",
+       "Distance to c2",
+       "Joins"
+      ],
+      "rows": [
+       [
+        "1",
+        "0",
+        "3",
+        "A"
+       ],
+       [
+        "2",
+        "1",
+        "2",
+        "A"
+       ],
+       [
+        "4",
+        "3",
+        "0",
+        "B"
+       ],
+       [
+        "10",
+        "9",
+        "6",
+        "B"
+       ],
+       [
+        "11",
+        "10",
+        "7",
+        "B"
+       ],
+       [
+        "13",
+        "12",
+        "9",
+        "B"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        3
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        2,
+        3
+       ],
+       [
+        3,
+        3
+       ],
+       [
+        4,
+        3
+       ],
+       [
+        5,
+        3
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Move each centroid to the mean of its cluster",
+     "text": "A = {1, 2} has mean 1.5. B = {4, 10, 11, 13} has mean 38 / 4 = 9.5. The centroids move: c1 = 1.5, c2 = 9.5.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Cluster",
+       "Members",
+       "New centroid"
+      ],
+      "rows": [
+       [
+        "A",
+        "1, 2",
+        "1.5"
+       ],
+       [
+        "B",
+        "4, 10, 11, 13",
+        "9.5"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Assign again, using the moved centroids",
+     "text": "With c1 = 1.5 and c2 = 9.5 the point 4 is 2.5 from c1 but 5.5 from c2, so it switches from B to A. Assignments can change when the centroids move.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Point",
+       "Distance to c1",
+       "Distance to c2",
+       "Joins"
+      ],
+      "rows": [
+       [
+        "1",
+        "0.5",
+        "8.5",
+        "A"
+       ],
+       [
+        "2",
+        "0.5",
+        "7.5",
+        "A"
+       ],
+       [
+        "4",
+        "2.5",
+        "5.5",
+        "A"
+       ],
+       [
+        "10",
+        "8.5",
+        "0.5",
+        "B"
+       ],
+       [
+        "11",
+        "9.5",
+        "1.5",
+        "B"
+       ],
+       [
+        "13",
+        "11.5",
+        "3.5",
+        "B"
+       ]
+      ],
+      "hl": [
+       [
+        2,
+        3
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Move the centroids again",
+     "text": "A = {1, 2, 4} has mean 7 / 3 = 2.33. B = {10, 11, 13} has mean 34 / 3 = 11.33.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Cluster",
+       "Members",
+       "New centroid"
+      ],
+      "rows": [
+       [
+        "A",
+        "1, 2, 4",
+        "2.33"
+       ],
+       [
+        "B",
+        "10, 11, 13",
+        "11.33"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Assign once more: nothing changes, so stop",
+     "text": "Every point picks the same cluster as before, so moving the centroids again would give the same result. The algorithm has converged. Different starting centroids can end in different clusters, which is why k-means is often run several times.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Point",
+       "Distance to c1",
+       "Distance to c2",
+       "Joins"
+      ],
+      "rows": [
+       [
+        "1",
+        "1.33",
+        "10.33",
+        "A"
+       ],
+       [
+        "2",
+        "0.33",
+        "9.33",
+        "A"
+       ],
+       [
+        "4",
+        "1.67",
+        "7.33",
+        "A"
+       ],
+       [
+        "10",
+        "7.67",
+        "1.33",
+        "B"
+       ],
+       [
+        "11",
+        "8.67",
+        "0.33",
+        "B"
+       ],
+       [
+        "13",
+        "10.67",
+        "1.67",
+        "B"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        3
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        2,
+        3
+       ],
+       [
+        3,
+        3
+       ],
+       [
+        4,
+        3
+       ],
+       [
+        5,
+        3
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "workflow",
+   "title": "The machine learning workflow, stage by stage",
+   "topic": "5. The Machine Learning Workflow",
+   "blurb": "Nine stages from loading data to monitoring the live model.",
+   "steps": [
+    {
+     "title": "1. Load",
+     "text": "Read the dataset into the program, for example a CSV file into a pandas table.",
+     "visual": {
+      "type": "flow",
+      "nodes": [
+       "Load",
+       "Explore",
+       "Transform",
+       "Split",
+       "Create",
+       "Train + test",
+       "Tune",
+       "Predict",
+       "Monitor"
+      ],
+      "active": 0
+     }
+    },
+    {
+     "title": "2. Explore",
+     "text": "Look at it with pandas and charts: its size, the columns, odd values, how the columns relate.",
+     "visual": {
+      "type": "flow",
+      "nodes": [
+       "Load",
+       "Explore",
+       "Transform",
+       "Split",
+       "Create",
+       "Train + test",
+       "Tune",
+       "Predict",
+       "Monitor"
+      ],
+      "active": 1
+     }
+    },
+    {
+     "title": "3. Transform",
+     "text": "scikit-learn needs numbers, so text columns are converted (encoding) and scales are aligned.",
+     "visual": {
+      "type": "flow",
+      "nodes": [
+       "Load",
+       "Explore",
+       "Transform",
+       "Split",
+       "Create",
+       "Train + test",
+       "Tune",
+       "Predict",
+       "Monitor"
+      ],
+      "active": 2
+     }
+    },
+    {
+     "title": "4. Split",
+     "text": "Hold some rows back as a test set: x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2). With 150 rows that is 120 to train on and 30 to test.",
+     "visual": {
+      "type": "flow",
+      "nodes": [
+       "Load",
+       "Explore",
+       "Transform",
+       "Split",
+       "Create",
+       "Train + test",
+       "Tune",
+       "Predict",
+       "Monitor"
+      ],
+      "active": 3
+     }
+    },
+    {
+     "title": "5. Create",
+     "text": "Pick an algorithm and make the model object. Nothing is learned yet.",
+     "visual": {
+      "type": "flow",
+      "nodes": [
+       "Load",
+       "Explore",
+       "Transform",
+       "Split",
+       "Create",
+       "Train + test",
+       "Tune",
+       "Predict",
+       "Monitor"
+      ],
+      "active": 4
+     }
+    },
+    {
+     "title": "6. Train + test",
+     "text": "model.fit(x_train, y_train) learns from the training rows; then model.predict(x_test) is compared with y_test.",
+     "visual": {
+      "type": "flow",
+      "nodes": [
+       "Load",
+       "Explore",
+       "Transform",
+       "Split",
+       "Create",
+       "Train + test",
+       "Tune",
+       "Predict",
+       "Monitor"
+      ],
+      "active": 5
+     }
+    },
+    {
+     "title": "7. Tune",
+     "text": "Adjust the hyperparameters, re-test, and check the accuracy. Only the model is changed, not the test rows.",
+     "visual": {
+      "type": "flow",
+      "nodes": [
+       "Load",
+       "Explore",
+       "Transform",
+       "Split",
+       "Create",
+       "Train + test",
+       "Tune",
+       "Predict",
+       "Monitor"
+      ],
+      "active": 6
+     }
+    },
+    {
+     "title": "8. Predict",
+     "text": "Use the model on live data it has never seen. This is what it was built for.",
+     "visual": {
+      "type": "flow",
+      "nodes": [
+       "Load",
+       "Explore",
+       "Transform",
+       "Split",
+       "Create",
+       "Train + test",
+       "Tune",
+       "Predict",
+       "Monitor"
+      ],
+      "active": 7
+     }
+    },
+    {
+     "title": "9. Monitor",
+     "text": "Watch the live model. If its results drift, tune, retrain or redeploy.",
+     "visual": {
+      "type": "flow",
+      "nodes": [
+       "Load",
+       "Explore",
+       "Transform",
+       "Split",
+       "Create",
+       "Train + test",
+       "Tune",
+       "Predict",
+       "Monitor"
+      ],
+      "active": 8
+     }
+    }
+   ]
+  },
+  {
+   "id": "rfe",
+   "title": "Feature selection with RFE",
+   "topic": "6. Feature Selection",
+   "blurb": "Train, drop the weakest feature, repeat, and see how the families compare.",
+   "steps": [
+    {
+     "title": "Start: four inputs to predict a house price",
+     "text": "RFE (recursive feature elimination) is a wrapper method: it builds a model, drops the weakest feature, and repeats. Goal here: keep the best 2 of 4 features.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Feature",
+       "Round 1 score",
+       "Round 2 score",
+       "Result"
+      ],
+      "rows": [
+       [
+        "area",
+        "",
+        "",
+        ""
+       ],
+       [
+        "rooms",
+        "",
+        "",
+        ""
+       ],
+       [
+        "age",
+        "",
+        "",
+        ""
+       ],
+       [
+        "street_number",
+        "",
+        "",
+        ""
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Round 1: train a model on all four",
+     "text": "The model scores how much each feature helps (illustrative numbers). street_number scores lowest.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Feature",
+       "Round 1 score",
+       "Round 2 score",
+       "Result"
+      ],
+      "rows": [
+       [
+        "area",
+        "0.50",
+        "",
+        ""
+       ],
+       [
+        "rooms",
+        "0.26",
+        "",
+        ""
+       ],
+       [
+        "age",
+        "0.16",
+        "",
+        ""
+       ],
+       [
+        "street_number",
+        "0.02",
+        "",
+        ""
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        2,
+        1
+       ],
+       [
+        3,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Drop the weakest: street_number",
+     "text": "It is eliminated first, so it is ranked last (4th).",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Feature",
+       "Round 1 score",
+       "Round 2 score",
+       "Result"
+      ],
+      "rows": [
+       [
+        "area",
+        "0.50",
+        "",
+        "kept"
+       ],
+       [
+        "rooms",
+        "0.26",
+        "",
+        "kept"
+       ],
+       [
+        "age",
+        "0.16",
+        "",
+        "kept"
+       ],
+       [
+        "street_number",
+        "0.02",
+        "",
+        "dropped (rank 4)"
+       ]
+      ],
+      "hl": [
+       [
+        3,
+        3
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Round 2: train again on the remaining three",
+     "text": "A new model is built without street_number, and the scores are recalculated. age is now the weakest.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Feature",
+       "Round 1 score",
+       "Round 2 score",
+       "Result"
+      ],
+      "rows": [
+       [
+        "area",
+        "0.50",
+        "0.58",
+        "kept"
+       ],
+       [
+        "rooms",
+        "0.26",
+        "0.27",
+        "kept"
+       ],
+       [
+        "age",
+        "0.16",
+        "0.11",
+        "kept"
+       ],
+       [
+        "street_number",
+        "0.02",
+        "-",
+        "dropped (rank 4)"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        2,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Drop the weakest: age",
+     "text": "age is eliminated second, so it is ranked 3rd.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Feature",
+       "Round 1 score",
+       "Round 2 score",
+       "Result"
+      ],
+      "rows": [
+       [
+        "area",
+        "0.50",
+        "0.58",
+        "kept"
+       ],
+       [
+        "rooms",
+        "0.26",
+        "0.27",
+        "kept"
+       ],
+       [
+        "age",
+        "0.16",
+        "0.11",
+        "dropped (rank 3)"
+       ],
+       [
+        "street_number",
+        "0.02",
+        "-",
+        "dropped (rank 4)"
+       ]
+      ],
+      "hl": [
+       [
+        2,
+        3
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Stop at two features",
+     "text": "area and rooms are what is left, so they are the selected features. Features are ranked by the order they were eliminated; the survivors rank best.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Feature",
+       "Round 1 score",
+       "Round 2 score",
+       "Result"
+      ],
+      "rows": [
+       [
+        "area",
+        "0.50",
+        "0.58",
+        "kept"
+       ],
+       [
+        "rooms",
+        "0.26",
+        "0.27",
+        "kept"
+       ],
+       [
+        "age",
+        "0.16",
+        "0.11",
+        "dropped (rank 3)"
+       ],
+       [
+        "street_number",
+        "0.02",
+        "-",
+        "dropped (rank 4)"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        3
+       ],
+       [
+        1,
+        3
+       ]
+      ]
+     }
+    },
+    {
+     "title": "How RFE compares with the other families",
+     "text": "RFE trains many models, so it is slow but very effective. A filter only scores each feature by itself, with no model, so it is fast but less effective. LASSO is embedded: selection happens while one model is fitted.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Family",
+       "Uses a model?",
+       "Speed",
+       "Effectiveness"
+      ],
+      "rows": [
+       [
+        "Filter",
+        "No",
+        "Fast",
+        "Less"
+       ],
+       [
+        "Wrapper (RFE)",
+        "Yes, many times",
+        "Slow",
+        "Very"
+       ],
+       [
+        "Embedded (LASSO)",
+        "Yes, fitted once",
+        "Balanced",
+        "Balanced"
+       ]
+      ],
+      "hl": [
+       [
+        1,
+        0
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "pcalda",
+   "title": "PCA versus LDA",
+   "topic": "7. Dimensionality Reduction",
+   "blurb": "The same six points reduced two ways: by spread, then by class separation.",
+   "steps": [
+    {
+     "title": "Six points, two features, two classes",
+     "text": "Reducing dimensions means going from 2 inputs to 1 while keeping what matters. Red and Blue points differ, but which feature shows that?",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Point",
+       "Class",
+       "x1",
+       "x2"
+      ],
+      "rows": [
+       [
+        "p1",
+        "Red",
+        "1",
+        "1"
+       ],
+       [
+        "p2",
+        "Red",
+        "5",
+        "1"
+       ],
+       [
+        "p3",
+        "Red",
+        "9",
+        "1"
+       ],
+       [
+        "p4",
+        "Blue",
+        "1",
+        "3"
+       ],
+       [
+        "p5",
+        "Blue",
+        "5",
+        "3"
+       ],
+       [
+        "p6",
+        "Blue",
+        "9",
+        "3"
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Measure the spread of each feature",
+     "text": "x1 runs 1 to 9, with a variance of 64 / 6 = 10.67. x2 only runs 1 to 3, with a variance of 1.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Feature",
+       "Mean",
+       "Variance"
+      ],
+      "rows": [
+       [
+        "x1",
+        "5",
+        "10.67"
+       ],
+       [
+        "x2",
+        "2",
+        "1"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "PCA (unsupervised): keep the axis with the most variance",
+     "text": "PCA ignores the class labels and picks the direction where the data is most spread out. Here that is x1. Reduce to that single axis and look at the classes.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Point",
+       "Class",
+       "PC1 (= x1)"
+      ],
+      "rows": [
+       [
+        "p1",
+        "Red",
+        "1"
+       ],
+       [
+        "p2",
+        "Red",
+        "5"
+       ],
+       [
+        "p3",
+        "Red",
+        "9"
+       ],
+       [
+        "p4",
+        "Blue",
+        "1"
+       ],
+       [
+        "p5",
+        "Blue",
+        "5"
+       ],
+       [
+        "p6",
+        "Blue",
+        "9"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        2,
+        2
+       ],
+       [
+        3,
+        2
+       ],
+       [
+        4,
+        2
+       ],
+       [
+        5,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "PCA's result: the classes are mixed",
+     "text": "On the PC1 axis both Red and Blue sit at 1, 5 and 9, so one dimension no longer tells the classes apart. A lot of spread is not the same as a useful split between classes.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "PC1 value",
+       "Classes found there"
+      ],
+      "rows": [
+       [
+        "1",
+        "Red, Blue"
+       ],
+       [
+        "5",
+        "Red, Blue"
+       ],
+       [
+        "9",
+        "Red, Blue"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        2,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "LDA (supervised): keep the axis that separates the classes",
+     "text": "LDA uses the labels and looks for the direction that pulls the classes apart. Here that is x2: every Red is at 1 and every Blue at 3.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Point",
+       "Class",
+       "LD1 (= x2)"
+      ],
+      "rows": [
+       [
+        "p1",
+        "Red",
+        "1"
+       ],
+       [
+        "p2",
+        "Red",
+        "1"
+       ],
+       [
+        "p3",
+        "Red",
+        "1"
+       ],
+       [
+        "p4",
+        "Blue",
+        "3"
+       ],
+       [
+        "p5",
+        "Blue",
+        "3"
+       ],
+       [
+        "p6",
+        "Blue",
+        "3"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        2,
+        2
+       ],
+       [
+        3,
+        2
+       ],
+       [
+        4,
+        2
+       ],
+       [
+        5,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Compare the two",
+     "text": "Dropping the other axis (LD2, which is x1) loses nothing for telling the classes apart. These numbers were chosen to make the contrast clear; real data is rarely this tidy.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "",
+       "PCA",
+       "LDA"
+      ],
+      "rows": [
+       [
+        "Type",
+        "Unsupervised (no labels)",
+        "Supervised (uses labels)"
+       ],
+       [
+        "Maximizes",
+        "Variance (spread)",
+        "Class separation"
+       ],
+       [
+        "On this data",
+        "Classes mixed",
+        "Classes cleanly separated"
+       ]
+      ],
+      "hl": [
+       [
+        2,
+        1
+       ],
+       [
+        2,
+        2
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "onehot",
+   "title": "One-hot encoding",
+   "topic": "8. Feature Encoding",
+   "blurb": "Why numbering categories misleads a model and what one-hot does instead.",
+   "steps": [
+    {
+     "title": "Text a model cannot use",
+     "text": "scikit-learn needs numbers. The colour column holds words, so it has to be converted.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "colour"
+      ],
+      "rows": [
+       [
+        "red"
+       ],
+       [
+        "green"
+       ],
+       [
+        "blue"
+       ],
+       [
+        "green"
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Numbering the categories adds a fake order",
+     "text": "red = 0, green = 1, blue = 2 looks easy, but it tells the model that blue > green > red, and that green is between the other two. No such order exists.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "colour",
+       "number"
+      ],
+      "rows": [
+       [
+        "red",
+        "0"
+       ],
+       [
+        "green",
+        "1"
+       ],
+       [
+        "blue",
+        "2"
+       ],
+       [
+        "green",
+        "1"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        2,
+        1
+       ],
+       [
+        3,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "One-hot: one binary column per category",
+     "text": "Make a column for each colour. Each row has a 1 in the column of its own colour and 0 elsewhere, so no category is bigger than another. In pandas: pd.get_dummies(df['colour']).",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "colour",
+       "is_red",
+       "is_green",
+       "is_blue"
+      ],
+      "rows": [
+       [
+        "red",
+        "1",
+        "0",
+        "0"
+       ],
+       [
+        "green",
+        "0",
+        "1",
+        "0"
+       ],
+       [
+        "blue",
+        "0",
+        "0",
+        "1"
+       ],
+       [
+        "green",
+        "0",
+        "1",
+        "0"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        2,
+        3
+       ],
+       [
+        3,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "The cost: more columns",
+     "text": "3 categories became 3 columns, and 50 categories would become 50. That growth is why the guide also lists compact styles that write the category number in binary.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Categories",
+       "One-hot columns"
+      ],
+      "rows": [
+       [
+        "3",
+        "3"
+       ],
+       [
+        "50",
+        "50"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        1
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "scaling",
+   "title": "Scaling: min-max and standardization",
+   "topic": "9. Scaling",
+   "blurb": "The same column scaled both ways, with every calculation shown.",
+   "steps": [
+    {
+     "title": "A column on its own scale",
+     "text": "A column of ages: 20, 30, 45, 50, 70. Another column might run 1 to 5, or 0 to 100000. Distance-based methods such as kNN would let the big-valued column dominate, so columns are scaled to comparable ranges.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Value",
+       "Min-max: (x - min) / (max - min)",
+       "Standardized: (x - mean) / std dev"
+      ],
+      "rows": [
+       [
+        "20",
+        "",
+        ""
+       ],
+       [
+        "30",
+        "",
+        ""
+       ],
+       [
+        "45",
+        "",
+        ""
+       ],
+       [
+        "50",
+        "",
+        ""
+       ],
+       [
+        "70",
+        "",
+        ""
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Min-max: find the smallest and largest",
+     "text": "min = 20, max = 70, so max - min = 50.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Value",
+       "Min-max: (x - min) / (max - min)",
+       "Standardized: (x - mean) / std dev"
+      ],
+      "rows": [
+       [
+        "20",
+        "",
+        ""
+       ],
+       [
+        "30",
+        "",
+        ""
+       ],
+       [
+        "45",
+        "",
+        ""
+       ],
+       [
+        "50",
+        "",
+        ""
+       ],
+       [
+        "70",
+        "",
+        ""
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        0
+       ],
+       [
+        4,
+        0
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Min-max: apply the formula to every value",
+     "text": "(30 - 20) / 50 = 0.2, (45 - 20) / 50 = 0.5, and so on. The smallest value always becomes 0 and the largest 1.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Value",
+       "Min-max: (x - min) / (max - min)",
+       "Standardized: (x - mean) / std dev"
+      ],
+      "rows": [
+       [
+        "20",
+        "0",
+        ""
+       ],
+       [
+        "30",
+        "0.2",
+        ""
+       ],
+       [
+        "45",
+        "0.5",
+        ""
+       ],
+       [
+        "50",
+        "0.6",
+        ""
+       ],
+       [
+        "70",
+        "1",
+        ""
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        2,
+        1
+       ],
+       [
+        3,
+        1
+       ],
+       [
+        4,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Standardization: find the mean",
+     "text": "(20 + 30 + 45 + 50 + 70) / 5 = 215 / 5 = 43. Subtract it from every value.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Value",
+       "Value - mean (43)",
+       "Squared"
+      ],
+      "rows": [
+       [
+        "20",
+        "-23",
+        "529"
+       ],
+       [
+        "30",
+        "-13",
+        "169"
+       ],
+       [
+        "45",
+        "2",
+        "4"
+       ],
+       [
+        "50",
+        "7",
+        "49"
+       ],
+       [
+        "70",
+        "27",
+        "729"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        2,
+        1
+       ],
+       [
+        3,
+        1
+       ],
+       [
+        4,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Standardization: find the standard deviation",
+     "text": "Average the squares: (529 + 169 + 4 + 49 + 729) / 5 = 1480 / 5 = 296, and the square root is about 17.20. (This is the version scikit-learn's StandardScaler uses; dividing by 4 instead of 5 gives a slightly larger value.)",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Value",
+       "Value - mean (43)",
+       "Squared"
+      ],
+      "rows": [
+       [
+        "20",
+        "-23",
+        "529"
+       ],
+       [
+        "30",
+        "-13",
+        "169"
+       ],
+       [
+        "45",
+        "2",
+        "4"
+       ],
+       [
+        "50",
+        "7",
+        "49"
+       ],
+       [
+        "70",
+        "27",
+        "729"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        2,
+        2
+       ],
+       [
+        3,
+        2
+       ],
+       [
+        4,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Standardization: apply the formula",
+     "text": "(20 - 43) / 17.20 = -1.34. The new column has mean 0 and standard deviation 1; values below the mean are negative.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Value",
+       "Min-max: (x - min) / (max - min)",
+       "Standardized: (x - mean) / std dev"
+      ],
+      "rows": [
+       [
+        "20",
+        "0",
+        "-1.34"
+       ],
+       [
+        "30",
+        "0.2",
+        "-0.76"
+       ],
+       [
+        "45",
+        "0.5",
+        "0.12"
+       ],
+       [
+        "50",
+        "0.6",
+        "0.41"
+       ],
+       [
+        "70",
+        "1",
+        "1.57"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        2,
+        2
+       ],
+       [
+        3,
+        2
+       ],
+       [
+        4,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Which one to use",
+     "text": "Min-max gives 0 to 1 and suits data whose distribution is unknown or not bell-shaped, and kNN or neural nets. Standardization gives mean 0 and standard deviation 1 and suits algorithms that assume normally distributed data.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "",
+       "Min-max",
+       "Standardization"
+      ],
+      "rows": [
+       [
+        "Result",
+        "0 to 1",
+        "Mean 0, std dev 1"
+       ],
+       [
+        "Use when",
+        "Distribution unknown or not Gaussian",
+        "Algorithm assumes Gaussian data"
+       ]
+      ],
+      "hl": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "regularization",
+   "title": "Regularization: L1 versus L2",
+   "topic": "10. Regularization",
+   "blurb": "How a penalty on weights narrows the gap between training and test scores.",
+   "steps": [
+    {
+     "title": "The symptom: a big gap between training and test",
+     "text": "A model scores 99% on the training data but 72% on the test data. It has memorized noise and outliers in the training rows, which is overfitting.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "",
+       "Training accuracy",
+       "Test accuracy"
+      ],
+      "rows": [
+       [
+        "No penalty",
+        "99%",
+        "72%"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Look at its weights",
+     "text": "To chase every wiggle in the training data the model uses large weights (coefficients). Features a and b have big values, and c and d are tiny but still counted.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Feature",
+       "No penalty",
+       "L2 (Ridge)",
+       "L1 (LASSO)"
+      ],
+      "rows": [
+       [
+        "a",
+        "9.0",
+        "",
+        ""
+       ],
+       [
+        "b",
+        "-7.5",
+        "",
+        ""
+       ],
+       [
+        "c",
+        "0.6",
+        "",
+        ""
+       ],
+       [
+        "d",
+        "0.2",
+        "",
+        ""
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        2,
+        1
+       ],
+       [
+        3,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Add a penalty on large weights",
+     "text": "Regularization adds a cost for big weights to the error the model is trying to minimize, so it only keeps a large weight if that weight really helps. The penalty's strength is a hyperparameter that you choose.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "",
+       "What training minimizes"
+      ],
+      "rows": [
+       [
+        "Before",
+        "error"
+       ],
+       [
+        "After",
+        "error + penalty on the weights"
+       ]
+      ],
+      "hl": [
+       [
+        1,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "L2 (Ridge): shrink every weight",
+     "text": "All the weights get smaller and the outlier-driven swings are smoothed out, but none reaches zero. Most or all features stay in the model.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Feature",
+       "No penalty",
+       "L2 (Ridge)",
+       "L1 (LASSO)"
+      ],
+      "rows": [
+       [
+        "a",
+        "9.0",
+        "3.1",
+        ""
+       ],
+       [
+        "b",
+        "-7.5",
+        "-2.6",
+        ""
+       ],
+       [
+        "c",
+        "0.6",
+        "0.3",
+        ""
+       ],
+       [
+        "d",
+        "0.2",
+        "0.1",
+        ""
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        2,
+        2
+       ],
+       [
+        3,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "L1 (LASSO): shrink and zero out",
+     "text": "L1 can push weights to exactly zero. c and d drop out of the model, so LASSO also acts as embedded feature selection.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Feature",
+       "No penalty",
+       "L2 (Ridge)",
+       "L1 (LASSO)"
+      ],
+      "rows": [
+       [
+        "a",
+        "9.0",
+        "3.1",
+        "4.0"
+       ],
+       [
+        "b",
+        "-7.5",
+        "-2.6",
+        "-3.2"
+       ],
+       [
+        "c",
+        "0.6",
+        "0.3",
+        "0"
+       ],
+       [
+        "d",
+        "0.2",
+        "0.1",
+        "0"
+       ]
+      ],
+      "hl": [
+       [
+        2,
+        3
+       ],
+       [
+        3,
+        3
+       ]
+      ]
+     }
+    },
+    {
+     "title": "The result: a smaller gap",
+     "text": "The penalized model fits the training data a little less, but it does much better on the test data. (Example numbers.) More data, feature selection or a larger k for kNN can also help with overfitting.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "",
+       "Training accuracy",
+       "Test accuracy",
+       "Gap"
+      ],
+      "rows": [
+       [
+        "No penalty",
+        "99%",
+        "72%",
+        "27"
+       ],
+       [
+        "With penalty",
+        "93%",
+        "88%",
+        "5"
+       ]
+      ],
+      "hl": [
+       [
+        1,
+        2
+       ],
+       [
+        1,
+        3
+       ]
+      ]
+     }
+    }
+   ]
+  }
+ ]
+}

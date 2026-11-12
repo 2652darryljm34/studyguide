@@ -1,0 +1,17 @@
+.wt-count{ font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 6px; }
+.wt-bar{ height: 6px; background: var(--line); border-radius: 3px; margin-bottom: 14px; overflow: hidden; }
+.wt-bar i{ display: block; height: 100%; background: var(--accent); }
+.wt-title{ font-size: 1.1rem; margin: 0 0 12px; }
+.wt-text{ margin: 14px 0 0; }
+.wt-links{ margin-top: 18px; font-size: 0.9rem; }
+.wt-scroll{ overflow-x: auto; }
+.wt-table{ border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+.wt-table th, .wt-table td{ border: 1px solid var(--line); padding: 6px 10px; text-align: left; min-width: 3.5rem; }
+.wt-table th{ background: var(--paper); }
+.wt-table td.wt-hl{ background: var(--partial-bg); font-weight: 600; box-shadow: inset 0 0 0 2px var(--accent); }
+.wt-flow{ list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.wt-flow li{ border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; color: var(--ink-soft); }
+.wt-flow li span{ display: inline-block; margin-right: 6px; font-weight: 600; }
+.wt-flow li.wt-past{ background: var(--good-bg); color: var(--ink); }
+.wt-flow li.wt-now{ background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600; }
+.btn:disabled{ opacity: 0.4; cursor: default; }

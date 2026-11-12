@@ -102,6 +102,14 @@ When an exam comes up, build all three together and keep them in step, rather th
    default (suggested 30; set `shortCount` to change it, or `"shortCount": 0` to run in full).
 4. **Mastery loop**: a tool in `classes.json` linking `quiz.html?file=<quiz>&mode=mastery`.
 5. **Number drills** (`drills.html`) when the course has calculations. Only ITD 140 has drills so far.
+6. **Step-through walkthroughs** (`walkthrough.html`, `data/<class>-walkthroughs.json`, built by
+   `tools/build_<class>_walkthroughs.py`): at least one per guide section, each tied to its section by `topic`. Show the
+   process as a table or flow, one step at a time, with the numbers worked out (an algorithm's rounds, a split into folds,
+   a formula applied step by step); for a conceptual topic, walk a small example. Same originality rule as questions:
+   your own scenarios and numbers. The builder fails if a guide section has none. Add the set to `NEEDS_WALKTHROUGHS` in
+   `tools/check_study_sets.py` and list the page under the class's `tools` in `classes.json`. Built for ITD 140 first;
+   earlier sets (ITN 170 final, ITD 132/145/256, ITD 140 Quiz 1) are deliberately left without it. Run
+   `node tools/test_walkthrough.js` after touching the page or data.
 
 The first three cover the same topics in the same order, in the same wording, and link to each other. Write each one
 in original words (see "Keep quiz content original"), and give each its own build script in `tools/`.

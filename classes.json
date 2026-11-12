@@ -7,24 +7,22 @@
       "guides": [
         {
           "id": "quiz1-guide",
-          "featured": true,
-          "cta": "Read the guide",
           "title": "Quiz 1 Study Guide",
           "description": "AI versus machine learning, the three types of learning, classification and regression, k-means, parameters and hyperparameters, accuracy and the confusion matrix, and overfitting and underfitting, and the machine learning process, in the same order as the quiz and flashcards.",
           "file": "data/itd140-quiz1-guide.json"
         },
         {
           "id": "supplemental-guide",
-          "title": "SUPPLEMENTAL: Full-Course Study Guide (not for Quiz 1)",
-          "description": "Supplemental, whole-course material for later (final-exam prep). Not the Quiz 1 guide: use the Quiz 1 guide above for the upcoming quiz.",
-          "file": "data/itd140-supplemental-guide.json"
+          "title": "Full-Course Study Guide",
+          "description": "Whole-course material: foundations, supervised algorithms, evaluation, clustering and distance, the workflow, feature selection, PCA and LDA, encoding, scaling and regularization.",
+          "file": "data/itd140-supplemental-guide.json",
+          "featured": true,
+          "cta": "Read the guide"
         }
       ],
       "tools": [
         {
           "id": "quiz1-flashcards",
-          "featured": true,
-          "cta": "Study the flashcards",
           "title": "Quiz 1 Flashcards",
           "description": "39 flip cards, one per term: the definition on the back, when to use it, and an example. Filter by topic, mark cards as known, and shuffle.",
           "href": "flashcards.html?file=data%2Fitd140-quiz1-flashcards.json"
@@ -33,50 +31,61 @@
           "id": "quiz1-mastery",
           "title": "Quiz 1 Mastery Loop",
           "description": "The Quiz 1 questions as a repeat-until-mastered loop: each must be answered correctly twice in a row and misses come back sooner. Choose the topics and how many questions.",
-          "href": "quiz.html?file=data%2Fitd140-quiz1.json&mode=mastery",
-          "featured": true,
-          "cta": "Start the mastery loop"
+          "href": "quiz.html?file=data%2Fitd140-quiz1.json&mode=mastery"
         },
         {
           "id": "quiz1-drills",
           "title": "Quiz 1 Number Drills",
           "description": "Endless calculation practice with new numbers every time: accuracy, confusion matrix terms and overfit versus underfit. Get 5 right in a row to master each drill.",
-          "href": "drills.html?set=quiz1",
+          "href": "drills.html?set=quiz1"
+        },
+        {
+          "id": "supplemental-flashcards",
+          "title": "Full-Course Flashcards",
+          "description": "46 supplemental cards covering the whole course.",
+          "href": "flashcards.html?file=data%2Fitd140-supplemental-flashcards.json",
+          "featured": true,
+          "cta": "Study the flashcards"
+        },
+        {
+          "id": "supplemental-drills",
+          "title": "Number Drills",
+          "description": "Endless calculation practice with new numbers every time: accuracy, confusion matrix terms, scaling, distance, train/test and k-fold sizes, kNN votes. Get 5 right in a row to master each drill.",
+          "href": "drills.html",
           "featured": true,
           "cta": "Practice the drills"
         },
         {
-          "id": "supplemental-flashcards",
-          "title": "SUPPLEMENTAL: Full-Course Flashcards (not for Quiz 1)",
-          "description": "46 supplemental cards covering the whole course for later (final-exam prep). Not the Quiz 1 deck.",
-          "href": "flashcards.html?file=data%2Fitd140-supplemental-flashcards.json"
-        },
-        {
-          "id": "supplemental-drills",
-          "title": "SUPPLEMENTAL: Number Drills (not for Quiz 1)",
-          "description": "Endless calculation practice with new numbers every time: accuracy, confusion matrix terms, scaling, distance, train/test and k-fold sizes, kNN votes. Get 5 right in a row to master each drill. For later in the course, not the Quiz 1 review.",
-          "href": "drills.html"
-        },
-        {
           "id": "supplemental-mastery",
-          "title": "SUPPLEMENTAL: Mastery Loop (not for Quiz 1)",
-          "description": "The full-course question bank as a repeat-until-mastered loop: every question must be answered correctly twice in a row, misses come back sooner, and it ends only when you have mastered them all. Choose how many questions. Not the Quiz 1 review.",
-          "href": "quiz.html?file=data%2Fitd140-supplemental-quiz.json&mode=mastery"
+          "title": "Mastery Loop",
+          "description": "The full-course question bank as a repeat-until-mastered loop: every question must be answered correctly twice in a row, misses come back sooner, and it ends only when you have mastered them all. Choose how many questions.",
+          "href": "quiz.html?file=data%2Fitd140-supplemental-quiz.json&mode=mastery",
+          "featured": true,
+          "cta": "Start the mastery loop"
+        },
+        {
+          "id": "supplemental-walkthroughs",
+          "title": "Step-through Walkthroughs",
+          "description": "Ten walkthroughs, one per study-guide topic: click through each process one step at a time with the numbers worked out, from training a line to k-means, kNN, RFE, PCA versus LDA, scaling and regularization.",
+          "href": "walkthrough.html?file=data%2Fitd140-walkthroughs.json",
+          "featured": true,
+          "cta": "Step through them"
         }
       ],
       "quizzes": [
         {
           "id": "quiz1",
-          "featured": true,
           "title": "Quiz 1: Machine Learning Fundamentals",
           "description": "120 questions across eight topics, including graph and chart questions, with six short-answer questions and a self-check rubric for each, mirroring the quiz's mix of multiple choice and written answers. Choose which topics and how many questions.",
           "file": "data/itd140-quiz1.json"
         },
         {
           "id": "supplemental-quiz",
-          "title": "SUPPLEMENTAL: Full-Course Review (not for Quiz 1)",
-          "description": "108 questions on the whole course, including feature selection, PCA and LDA, encoding, scaling and regularization. Supplemental practice for later in the course. For the upcoming quiz use Quiz 1: Machine Learning Fundamentals.",
-          "file": "data/itd140-supplemental-quiz.json"
+          "title": "Full-Course Review",
+          "description": "108 questions on the whole course, including feature selection, PCA and LDA, encoding, scaling and regularization.",
+          "file": "data/itd140-supplemental-quiz.json",
+          "featured": true,
+          "cta": "Take the quiz"
         }
       ]
     },
