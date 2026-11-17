@@ -220,6 +220,14 @@
           "title": "Quiz 1 Study Guide",
           "description": "Tables and keys, indexes and views, SELECT and JOIN, the system catalog and MySQL data types in one place, in the same order as the quiz and flashcards.",
           "file": "data/itd132-quiz1-guide.json"
+        },
+        {
+          "id": "quiz2-guide",
+          "cta": "Read the guide",
+          "title": "Quiz 2 Study Guide",
+          "description": "CREATE and ALTER TABLE, constraints, INSERT, UPDATE and DELETE, transactions, indexes, EXPLAIN and locks, in the same order as the quiz, flashcards and walkthroughs.",
+          "file": "data/itd132-quiz2-guide.json",
+          "featured": true
         }
       ],
       "tools": [
@@ -241,6 +249,30 @@
           "title": "Quiz 1 Mastery Loop",
           "description": "The Quiz 1 questions as a repeat-until-mastered loop: each must be answered correctly twice in a row and misses come back sooner. SQL questions are left out. Choose the topics and how many questions.",
           "href": "quiz.html?file=data%2Fitd132-quiz1.json&mode=mastery"
+        },
+        {
+          "id": "quiz2-flashcards",
+          "cta": "Study the flashcards",
+          "title": "Quiz 2 Flashcards",
+          "description": "37 flip cards, one per term: the definition on the back, when to use it, and example code. Filter by topic, mark cards as known, and shuffle.",
+          "href": "flashcards.html?file=data%2Fitd132-quiz2-flashcards.json",
+          "featured": true
+        },
+        {
+          "id": "quiz2-mastery",
+          "cta": "Start the mastery loop",
+          "title": "Quiz 2 Mastery Loop",
+          "description": "The Quiz 2 questions as a repeat-until-mastered loop: each must be answered correctly twice in a row and misses come back sooner. SQL questions are left out. Choose the topics and how many questions.",
+          "href": "quiz.html?file=data%2Fitd132-quiz2.json&mode=mastery",
+          "featured": true
+        },
+        {
+          "id": "quiz2-walkthroughs",
+          "cta": "Step through them",
+          "title": "Quiz 2 Step-through Walkthroughs",
+          "description": "Seven walkthroughs, one per study-guide topic: click through ALTER TABLE, constraints, DML, a transaction, an index lookup, EXPLAIN and locks one step at a time.",
+          "href": "walkthrough.html?file=data%2Fitd132-quiz2-walkthroughs.json",
+          "featured": true
         }
       ],
       "quizzes": [
@@ -249,6 +281,14 @@
           "title": "Quiz 1: Relational Databases, SQL and MySQL Data Types",
           "description": "86 questions on tables, rows and columns, primary and foreign keys, indexes, views, stored procedures and triggers, basic SELECT and JOIN queries (4 you run against the practice database), the system catalog, and choosing MySQL numeric, string and date/time types.",
           "file": "data/itd132-quiz1.json"
+        },
+        {
+          "id": "quiz2",
+          "cta": "Take the quiz",
+          "title": "Quiz 2: DDL, DML, Transactions, Indexes and Locks",
+          "description": "108 questions on CREATE and ALTER TABLE, constraints, INSERT, UPDATE and DELETE (6 you run against the practice database), transactions, indexes, EXPLAIN and locks, with two short-answer questions. Choose which topics and how many questions.",
+          "file": "data/itd132-quiz2.json",
+          "featured": true
         }
       ]
     },

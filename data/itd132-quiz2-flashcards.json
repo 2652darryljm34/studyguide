@@ -1,0 +1,266 @@
+{
+  "title": "ITD 132 Quiz 2 Flashcards",
+  "guideFile": "data/itd132-quiz2-guide.json",
+  "quizFile": "data/itd132-quiz2.json",
+  "cards": [
+    {
+      "topic": "Creating and Altering Tables",
+      "term": "DDL",
+      "definition": "Data definition language: the statements that define or change the structure of the database.",
+      "useCase": "CREATE, ALTER and DROP are DDL. In MySQL they end the current transaction.",
+      "example": "CREATE TABLE member (...);"
+    },
+    {
+      "topic": "Creating and Altering Tables",
+      "term": "CREATE TABLE",
+      "definition": "Builds a new table with its columns, data types and constraints.",
+      "useCase": "Use it to define a table that does not exist yet.",
+      "example": "CREATE TABLE member (\n  member_id INT PRIMARY KEY,\n  full_name VARCHAR(80) NOT NULL\n);"
+    },
+    {
+      "topic": "Creating and Altering Tables",
+      "term": "ALTER TABLE ... ADD COLUMN",
+      "definition": "Adds a new column to an existing table. Existing rows get NULL, or the DEFAULT.",
+      "useCase": "Use it when a table needs one more attribute.",
+      "example": "ALTER TABLE member ADD COLUMN phone VARCHAR(20);"
+    },
+    {
+      "topic": "Creating and Altering Tables",
+      "term": "ALTER TABLE ... MODIFY COLUMN",
+      "definition": "Changes the definition of an existing column. It restates the whole definition.",
+      "useCase": "Use it to change a type or size; repeat NOT NULL and DEFAULT to keep them.",
+      "example": "ALTER TABLE book MODIFY COLUMN title VARCHAR(120) NOT NULL;"
+    },
+    {
+      "topic": "Creating and Altering Tables",
+      "term": "DEFAULT",
+      "definition": "The value a column takes when an INSERT leaves it out.",
+      "useCase": "Use it for a sensible starting value such as a status.",
+      "example": "status VARCHAR(10) DEFAULT 'open'"
+    },
+    {
+      "topic": "Constraints",
+      "term": "Constraint",
+      "definition": "A rule the database enforces on every insert and update; a row that breaks it is rejected.",
+      "useCase": "Use them to keep bad data out whichever application writes it.",
+      "example": "NOT NULL, UNIQUE, CHECK, PRIMARY KEY"
+    },
+    {
+      "topic": "Constraints",
+      "term": "NOT NULL",
+      "definition": "A constraint that requires a value in the column.",
+      "useCase": "Use it for facts every row must have.",
+      "example": "hire_date DATE NOT NULL"
+    },
+    {
+      "topic": "Constraints",
+      "term": "UNIQUE",
+      "definition": "A constraint that stops two rows sharing a value in the column. NULLs are allowed.",
+      "useCase": "Use it for values that identify a row but are not the primary key, such as an email.",
+      "example": "email VARCHAR(80) UNIQUE"
+    },
+    {
+      "topic": "Constraints",
+      "term": "CHECK",
+      "definition": "A constraint that rejects a row when a condition on its values is false. Enforced from MySQL 8.0.16.",
+      "useCase": "Use it for ranges and simple rules; a NULL passes, so add NOT NULL too.",
+      "example": "rating INT CHECK (rating BETWEEN 1 AND 5)"
+    },
+    {
+      "topic": "Constraints",
+      "term": "ADD CONSTRAINT",
+      "definition": "Adds a named constraint to an existing table with ALTER TABLE.",
+      "useCase": "Use it to add a rule after the table is built.",
+      "example": "ALTER TABLE member ADD CONSTRAINT uq_email UNIQUE (email);"
+    },
+    {
+      "topic": "Inserting, Updating and Deleting",
+      "term": "DML",
+      "definition": "Data manipulation language: INSERT, UPDATE and DELETE, the statements that change rows.",
+      "useCase": "Use them to add, change and remove data; the table structure stays the same.",
+      "example": "INSERT, UPDATE, DELETE"
+    },
+    {
+      "topic": "Inserting, Updating and Deleting",
+      "term": "INSERT",
+      "definition": "Adds one or more rows. Name the columns, or supply a value for every column in order.",
+      "useCase": "Columns left out take their DEFAULT or NULL.",
+      "example": "INSERT INTO shelf (shelf_id, label) VALUES (4, 'Garden');"
+    },
+    {
+      "topic": "Inserting, Updating and Deleting",
+      "term": "UPDATE",
+      "definition": "Changes values in existing rows: SET gives the new values, WHERE picks the rows.",
+      "useCase": "No WHERE means every row is changed.",
+      "example": "UPDATE item SET price = 9.99 WHERE item_id = 12;"
+    },
+    {
+      "topic": "Inserting, Updating and Deleting",
+      "term": "DELETE",
+      "definition": "Removes rows that match the WHERE condition. With no WHERE it removes every row but keeps the table.",
+      "useCase": "To remove the table itself use DROP TABLE.",
+      "example": "DELETE FROM item WHERE item_id = 12;"
+    },
+    {
+      "topic": "Inserting, Updating and Deleting",
+      "term": "DROP TABLE",
+      "definition": "Removes a table completely: its structure and all of its rows.",
+      "useCase": "Use it when the table is no longer needed.",
+      "example": "DROP TABLE item;"
+    },
+    {
+      "topic": "Transactions",
+      "term": "Transaction",
+      "definition": "A group of statements treated as one unit: all of it takes effect, or none of it.",
+      "useCase": "Use it when several changes must succeed together, such as a transfer.",
+      "example": "Subtract 100 from A and add 100 to B"
+    },
+    {
+      "topic": "Transactions",
+      "term": "START TRANSACTION / BEGIN",
+      "definition": "Opens a transaction; changes stay provisional until COMMIT or ROLLBACK.",
+      "useCase": "Start one before a group of related changes.",
+      "example": "START TRANSACTION;"
+    },
+    {
+      "topic": "Transactions",
+      "term": "COMMIT",
+      "definition": "Makes all the changes of the current transaction permanent.",
+      "useCase": "Run it when every step has succeeded; a ROLLBACK cannot undo it afterwards.",
+      "example": "COMMIT;"
+    },
+    {
+      "topic": "Transactions",
+      "term": "ROLLBACK",
+      "definition": "Undoes all the changes made since the transaction began.",
+      "useCase": "Run it when a step fails, to restore the starting state.",
+      "example": "ROLLBACK;"
+    },
+    {
+      "topic": "Transactions",
+      "term": "Autocommit",
+      "definition": "MySQL's default: each statement commits on its own unless a transaction was started.",
+      "useCase": "START TRANSACTION switches it off until COMMIT or ROLLBACK.",
+      "example": "A lone UPDATE is saved immediately"
+    },
+    {
+      "topic": "Transactions",
+      "term": "ACID",
+      "definition": "Atomicity, consistency, isolation, durability: the properties of a reliable transaction.",
+      "useCase": "Atomic is all or nothing; durable means committed work survives a crash.",
+      "example": "InnoDB supports ACID transactions"
+    },
+    {
+      "topic": "Indexes",
+      "term": "Index",
+      "definition": "A structure that lets the database find rows by a column's value without reading the whole table.",
+      "useCase": "Speeds up reads; slows writes and uses storage. It does not change results.",
+      "example": "Like the index of a book"
+    },
+    {
+      "topic": "Indexes",
+      "term": "BTREE",
+      "definition": "A balanced, sorted tree: the default index type, good for equality, ranges and ORDER BY.",
+      "useCase": "Use it for most columns.",
+      "example": "InnoDB's default index"
+    },
+    {
+      "topic": "Indexes",
+      "term": "HASH index",
+      "definition": "An index that jumps to an exact value. It handles equality only, not ranges.",
+      "useCase": "Used by the MEMORY engine for exact lookups.",
+      "example": "WHERE id = 5"
+    },
+    {
+      "topic": "Indexes",
+      "term": "CREATE INDEX",
+      "definition": "Builds an index on one or more columns: CREATE INDEX name ON table (column).",
+      "useCase": "Index columns used often in WHERE and JOIN that have many different values.",
+      "example": "CREATE INDEX idx_member_email ON member (email);"
+    },
+    {
+      "topic": "Indexes",
+      "term": "DROP INDEX",
+      "definition": "Removes an index: DROP INDEX name ON table.",
+      "useCase": "Drop indexes nobody uses, since they slow writes.",
+      "example": "DROP INDEX idx_member_email ON member;"
+    },
+    {
+      "topic": "Indexes",
+      "term": "Composite index",
+      "definition": "An index on two or more columns together, used from its leftmost column on.",
+      "useCase": "A filter on the first column can use it; a filter on only the second cannot.",
+      "example": "CREATE INDEX idx_name ON person (last_name, first_name);"
+    },
+    {
+      "topic": "Index Usage and EXPLAIN",
+      "term": "EXPLAIN",
+      "definition": "A prefix for SELECT that shows the execution plan: which index is used and how many rows are examined.",
+      "useCase": "Use it to find out why a query is slow. It does not return the rows.",
+      "example": "EXPLAIN SELECT * FROM member WHERE email = 'a@x.com';"
+    },
+    {
+      "topic": "Index Usage and EXPLAIN",
+      "term": "Full table scan (type = ALL)",
+      "definition": "MySQL reads every row of the table to answer the query.",
+      "useCase": "A warning sign on a big table; an index on the filtered column may help.",
+      "example": "type = ALL, key = NULL, rows = 48000"
+    },
+    {
+      "topic": "Index Usage and EXPLAIN",
+      "term": "key and possible_keys",
+      "definition": "possible_keys lists indexes that could be used; key is the one actually chosen (NULL if none).",
+      "useCase": "Check key after adding an index to see that it is used.",
+      "example": "key = idx_member_email"
+    },
+    {
+      "topic": "Index Usage and EXPLAIN",
+      "term": "Non-sargable condition",
+      "definition": "A condition that cannot use an index on the column, such as a function on the column or a leading wildcard.",
+      "useCase": "Rewrite as a range on the plain column, or a LIKE that begins with fixed text.",
+      "example": "WHERE YEAR(order_date) = 2024"
+    },
+    {
+      "topic": "Locks",
+      "term": "Lock",
+      "definition": "A mechanism that stops users working at the same time from corrupting each other's data.",
+      "useCase": "Released when the transaction ends with COMMIT or ROLLBACK.",
+      "example": "An UPDATE locks the row it changes"
+    },
+    {
+      "topic": "Locks",
+      "term": "Table-level lock",
+      "definition": "A lock on a whole table: others wait to write any row.",
+      "useCase": "Simple and cheap, but limits concurrency.",
+      "example": "LOCK TABLES member WRITE;"
+    },
+    {
+      "topic": "Locks",
+      "term": "Row-level lock",
+      "definition": "A lock on only the rows a statement touches, so other rows stay available.",
+      "useCase": "InnoDB uses it, so many users can update one table at once.",
+      "example": "SELECT * FROM seat WHERE seat_id = 5 FOR UPDATE;"
+    },
+    {
+      "topic": "Locks",
+      "term": "Field-level lock",
+      "definition": "A lock on a single value in a single row: the finest granularity.",
+      "useCase": "Most concurrency but most overhead; a concept, not offered by MySQL.",
+      "example": "One cell of one row"
+    },
+    {
+      "topic": "Locks",
+      "term": "Shared and exclusive locks",
+      "definition": "A shared (read) lock can be held by many users; an exclusive (write) lock by one, blocking all others.",
+      "useCase": "Readers can share; a writer needs the data to itself.",
+      "example": "Two readers at once, one writer alone"
+    },
+    {
+      "topic": "Locks",
+      "term": "Deadlock",
+      "definition": "Two transactions each hold a lock the other needs, so neither can continue.",
+      "useCase": "InnoDB detects it and rolls one transaction back. Keep transactions short.",
+      "example": "A waits for B's row while B waits for A's row"
+    }
+  ]
+}

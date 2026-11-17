@@ -35,6 +35,8 @@ SETS = [
      "data/itn170-final-guide.json", "data/itn170-final-flashcards.json", "data/itn170-final-exam.json"),
     ("ITD 132 quiz 1", "itd132",
      "data/itd132-quiz1-guide.json", "data/itd132-quiz1-flashcards.json", "data/itd132-quiz1.json"),
+    ("ITD 132 quiz 2", "itd132",
+     "data/itd132-quiz2-guide.json", "data/itd132-quiz2-flashcards.json", "data/itd132-quiz2.json"),
     ("ITD 140 quiz 1", "itd140",
      "data/itd140-quiz1-guide.json", "data/itd140-quiz1-flashcards.json", "data/itd140-quiz1.json"),
     ("ITD 140 quiz 2", "itd140",
@@ -49,7 +51,8 @@ NEEDS_DRILLS = ("ITD 140 quiz 1", "ITD 140 supplemental full course")
 # Sets that also need step-through walkthroughs (walkthrough.html). New sets go here; earlier ones are exempt.
 # name -> walkthrough file
 NEEDS_WALKTHROUGHS = {"ITD 140 supplemental full course": "data/itd140-walkthroughs.json",
-                      "ITD 140 quiz 2": "data/itd140-quiz2-walkthroughs.json"}
+                      "ITD 140 quiz 2": "data/itd140-quiz2-walkthroughs.json",
+                      "ITD 132 quiz 2": "data/itd132-quiz2-walkthroughs.json"}
 
 EXTRA_GUIDE_SECTIONS =("Common Mix-ups",)
 

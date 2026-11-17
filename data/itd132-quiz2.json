@@ -1,0 +1,1394 @@
+{
+  "title": "Quiz 2: DDL, DML, Transactions, Indexes and Locks",
+  "description": "108 questions on CREATE and ALTER TABLE, constraints, INSERT, UPDATE and DELETE, transactions, indexes, EXPLAIN and locks (6 DML questions you run against the practice database, plus short-answer practice).",
+  "guideFile": "data/itd132-quiz2-guide.json",
+  "dbFile": "data/harborview.sql",
+  "shortCount": 30,
+  "sections": [
+    {
+      "name": "1. Creating and Altering Tables",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Creating and Altering Tables",
+          "question": "Which kind of statement defines or changes the structure of tables rather than the data inside them?",
+          "options": [
+            "DDL, the data definition statements such as CREATE TABLE and ALTER TABLE",
+            "DML, the data manipulation statements such as INSERT and UPDATE and DELETE",
+            "DQL, the data query statements such as SELECT and JOIN and WHERE",
+            "TCL, the transaction control statements such as COMMIT and ROLLBACK"
+          ],
+          "correct": 0,
+          "explanation": "DDL describes structure. DML works on the rows, SELECT reads them, and transaction control groups statements."
+        },
+        {
+          "type": "mc",
+          "category": "Creating and Altering Tables",
+          "question": "What is the difference between CREATE TABLE and ALTER TABLE?",
+          "options": [
+            "CREATE TABLE adds rows to a table, while ALTER TABLE changes those rows afterwards",
+            "CREATE TABLE builds a new table, while ALTER TABLE changes one that already exists",
+            "CREATE TABLE copies an existing table, while ALTER TABLE deletes the copy once done",
+            "CREATE TABLE changes one that already exists, while ALTER TABLE builds a new table"
+          ],
+          "correct": 1,
+          "explanation": "ALTER works on the structure of a table that is already there."
+        },
+        {
+          "type": "mc",
+          "category": "Creating and Altering Tables",
+          "question": "Which statement adds a column named phone, up to 20 characters, to a table called member?",
+          "options": [
+            "ALTER TABLE member MODIFY COLUMN phone VARCHAR(20);",
+            "INSERT INTO member COLUMN phone VARCHAR(20);",
+            "ALTER TABLE member ADD COLUMN phone VARCHAR(20);",
+            "UPDATE TABLE member ADD COLUMN phone VARCHAR(20);"
+          ],
+          "correct": 2,
+          "explanation": "ADD COLUMN creates a new column. MODIFY COLUMN needs a column that exists, and INSERT and UPDATE work on rows, not structure."
+        },
+        {
+          "type": "mc",
+          "category": "Creating and Altering Tables",
+          "question": "What value do the existing rows hold in a column that was just added with ADD COLUMN and no DEFAULT?",
+          "options": [
+            "Zero, because a number column starts at zero for every older row",
+            "An empty string, because a text column starts blank for every older row",
+            "The value of the previous column, because MySQL copies it for every older row",
+            "NULL, because no value was ever supplied for the older rows"
+          ],
+          "correct": 3,
+          "explanation": "Rows that existed before get NULL unless the new column was given a DEFAULT."
+        },
+        {
+          "type": "mc",
+          "category": "Creating and Altering Tables",
+          "question": "Which statement changes the column title of table book from VARCHAR(50) to VARCHAR(120)?",
+          "options": [
+            "ALTER TABLE book MODIFY COLUMN title VARCHAR(120);",
+            "ALTER TABLE book ADD COLUMN title VARCHAR(120);",
+            "ALTER TABLE book DEFAULT COLUMN title VARCHAR(120);",
+            "UPDATE book SET title = VARCHAR(120);"
+          ],
+          "correct": 0,
+          "explanation": "MODIFY COLUMN redefines an existing column. ADD COLUMN would fail because title already exists."
+        },
+        {
+          "type": "mc",
+          "category": "Creating and Altering Tables",
+          "question": "A column is defined as qty INT NOT NULL DEFAULT 0. What does ALTER TABLE stock MODIFY COLUMN qty BIGINT; leave behind?",
+          "options": [
+            "A BIGINT column that is still NOT NULL with a default of 0, because MODIFY changes only the type",
+            "A BIGINT column that allows NULL and has no default, because MODIFY restates the whole definition",
+            "A BIGINT column that is NOT NULL but has no default, because MODIFY keeps one setting only",
+            "An INT column that is still NOT NULL with a default of 0, because MODIFY needs a new name too"
+          ],
+          "correct": 1,
+          "explanation": "MODIFY COLUMN replaces the full column definition. Write NOT NULL DEFAULT 0 again if you want to keep them."
+        },
+        {
+          "type": "mc",
+          "category": "Creating and Altering Tables",
+          "question": "What does the DEFAULT clause do?",
+          "options": [
+            "It supplies the value required of every row so that no other value is accepted",
+            "It supplies the value written over existing rows each time the table is altered",
+            "It supplies the value used when an INSERT does not give the column a value",
+            "It supplies the value shown in a SELECT in place of every NULL in the column"
+          ],
+          "correct": 2,
+          "explanation": "DEFAULT applies when a column is left out of an INSERT. It does not stop a different value being supplied."
+        },
+        {
+          "type": "mc",
+          "category": "Creating and Altering Tables",
+          "question": "A table has a column status VARCHAR(10) DEFAULT 'open'. What does INSERT INTO ticket (ticket_id) VALUES (7); put in status?",
+          "options": [
+            "NULL, because no value was written for the column in the INSERT",
+            "An empty string, because a text column is blank when it is left out",
+            "An error, because every column must be named in an INSERT statement",
+            "open, because the column was left out of the INSERT"
+          ],
+          "correct": 3,
+          "explanation": "A column that is omitted takes its DEFAULT, and only takes NULL if it has no default and allows NULL."
+        },
+        {
+          "type": "mc",
+          "category": "Creating and Altering Tables",
+          "question": "What happens to the data in a column when ALTER TABLE ... DROP COLUMN removes it?",
+          "options": [
+            "The column and all of the values stored in it are removed from the table",
+            "The column is hidden from queries but its values are kept for a later restore",
+            "The column is emptied to NULL but stays in the table as a blank placeholder",
+            "The column is moved to a backup table that MySQL creates for the removed values"
+          ],
+          "correct": 0,
+          "explanation": "Dropping a column deletes its data. Take a copy first if the values may be needed."
+        },
+        {
+          "type": "mc",
+          "category": "Creating and Altering Tables",
+          "question": "A column title VARCHAR(100) holds some 60-character values. What is the risk of MODIFY COLUMN title VARCHAR(30)?",
+          "options": [
+            "The shorter values no longer fit, so the statement can fail or cut the data short",
+            "The longer values no longer fit, so the statement can fail or cut the data short",
+            "The index on the column is rebuilt, so the statement can fail or cut the data short",
+            "The column becomes a number type, so the statement can fail or cut the data short"
+          ],
+          "correct": 1,
+          "explanation": "Shrinking a column can lose or reject data that no longer fits. Check the longest value first."
+        },
+        {
+          "type": "tf",
+          "category": "Creating and Altering Tables",
+          "question": "MODIFY COLUMN is used to change the data type of a column that already exists.",
+          "correct": true,
+          "explanation": "It restates the column's definition, so it can change the type, the size, NULL-ability and the default."
+        },
+        {
+          "type": "tf",
+          "category": "Creating and Altering Tables",
+          "question": "ALTER TABLE can be used to add a column to a table that already holds rows.",
+          "correct": true,
+          "explanation": "The existing rows get NULL, or the DEFAULT if the new column has one."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Creating and Altering Tables",
+          "question": "In ALTER TABLE staff ____ COLUMN phone VARCHAR(20); the missing keyword adds a new column. (one word)",
+          "answers": [
+            "add"
+          ],
+          "explanation": "ADD COLUMN creates the new column; MODIFY COLUMN changes an existing one."
+        },
+        {
+          "type": "matching",
+          "category": "Creating and Altering Tables",
+          "question": "Match each statement to what it does.",
+          "pairs": [
+            {
+              "left": "CREATE TABLE",
+              "right": "Builds a brand new table"
+            },
+            {
+              "left": "ALTER TABLE ... ADD COLUMN",
+              "right": "Adds a column to an existing table"
+            },
+            {
+              "left": "ALTER TABLE ... MODIFY COLUMN",
+              "right": "Changes the definition of an existing column"
+            },
+            {
+              "left": "DEFAULT",
+              "right": "Supplies a value when an INSERT leaves the column out"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2. Constraints",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Constraints",
+          "question": "What is a constraint?",
+          "options": [
+            "A report on a column or table that the database prints after every insert and update",
+            "A copy of a column or table that the database keeps after every insert and update",
+            "A rule on a column or table that the database enforces on every insert and update",
+            "A label on a column or table that the database reads before every insert and update"
+          ],
+          "correct": 2,
+          "explanation": "Constraints keep bad data out at the source, whichever application is writing it."
+        },
+        {
+          "type": "mc",
+          "category": "Constraints",
+          "question": "What does a NOT NULL constraint do?",
+          "options": [
+            "It rejects any row that repeats a value already in the column",
+            "It rejects any row whose value in the column is zero or empty text",
+            "It rejects any row that fails a condition written for the column",
+            "It rejects any row that leaves the column without a value"
+          ],
+          "correct": 3,
+          "explanation": "NOT NULL means a value must be supplied. An empty string is still a value, and zero is a value."
+        },
+        {
+          "type": "mc",
+          "category": "Constraints",
+          "question": "What does a UNIQUE constraint do?",
+          "options": [
+            "It rejects a row whose value already appears in the column in another row",
+            "It rejects a row that is missing a value in the column, whether or not a default has been defined for it",
+            "It rejects a row whose value fails a condition for that column",
+            "It rejects a row that is not linked to a row in another table"
+          ],
+          "correct": 0,
+          "explanation": "UNIQUE stops duplicates. A foreign key is what links rows to another table."
+        },
+        {
+          "type": "mc",
+          "category": "Constraints",
+          "question": "What does a CHECK constraint do?",
+          "options": [
+            "It accepts a row only if the column value is different from all other rows",
+            "It accepts a row only if a condition written for the column is not false",
+            "It accepts a row only if the column has been given a value of some kind",
+            "It accepts a row only if a matching row exists in a related parent table"
+          ],
+          "correct": 1,
+          "explanation": "A CHECK holds a condition such as price >= 0. Rows that make it false are rejected."
+        },
+        {
+          "type": "mc",
+          "category": "Constraints",
+          "question": "Which column definition makes sure a rating is a whole number from 1 to 5?",
+          "options": [
+            "rating INT UNIQUE (rating BETWEEN 1 AND 5)",
+            "rating INT NOT NULL (rating BETWEEN 1 AND 5)",
+            "rating INT CHECK (rating BETWEEN 1 AND 5)",
+            "rating INT DEFAULT (rating BETWEEN 1 AND 5)"
+          ],
+          "correct": 2,
+          "explanation": "A range rule is a CHECK. UNIQUE, NOT NULL and DEFAULT do not test a condition."
+        },
+        {
+          "type": "mc",
+          "category": "Constraints",
+          "question": "Which constraint would you use so that no two members can register with the same email address?",
+          "options": [
+            "CHECK on the email column",
+            "NOT NULL on the email column",
+            "DEFAULT on the email column",
+            "UNIQUE on the email column"
+          ],
+          "correct": 3,
+          "explanation": "UNIQUE prevents duplicates. NOT NULL only forces a value to be present."
+        },
+        {
+          "type": "mc",
+          "category": "Constraints",
+          "question": "Which constraint makes sure every employee row has a hire date supplied?",
+          "options": [
+            "NOT NULL on the hire date column",
+            "UNIQUE on the hire date column",
+            "CHECK on the hire date column",
+            "DEFAULT on the hire date column"
+          ],
+          "correct": 0,
+          "explanation": "NOT NULL requires a value. (A DEFAULT would also fill one in, but would not demand it.)"
+        },
+        {
+          "type": "mc",
+          "category": "Constraints",
+          "question": "Which statement adds a UNIQUE constraint named uq_email to the email column of an existing member table?",
+          "options": [
+            "ALTER TABLE member MODIFY CONSTRAINT uq_email UNIQUE (email);",
+            "ALTER TABLE member ADD CONSTRAINT uq_email UNIQUE (email);",
+            "ALTER TABLE member ADD COLUMN uq_email UNIQUE (email);",
+            "CREATE TABLE member ADD CONSTRAINT uq_email UNIQUE (email);"
+          ],
+          "correct": 1,
+          "explanation": "Constraints are added with ALTER TABLE ... ADD CONSTRAINT name type (columns)."
+        },
+        {
+          "type": "mc",
+          "category": "Constraints",
+          "question": "A table already has a row with the email 'ana@example.com' in a UNIQUE column. What happens on a second INSERT of the same email?",
+          "options": [
+            "The INSERT succeeds and the old row is replaced by the new row",
+            "The INSERT succeeds and both rows are stored with the same email",
+            "The INSERT fails with an error and the new row is not stored",
+            "The INSERT succeeds and the email is changed to make it different"
+          ],
+          "correct": 2,
+          "explanation": "A constraint violation rejects the statement. Nothing is stored."
+        },
+        {
+          "type": "mc",
+          "category": "Constraints",
+          "question": "A column is defined with CHECK (stock >= 0). What happens to a row whose stock is NULL?",
+          "options": [
+            "It is rejected, because the condition cannot be shown to be true",
+            "It is accepted, because NULL is treated as zero by the condition",
+            "It is rejected, because CHECK always demands a value in the column",
+            "It is accepted, because the condition is unknown rather than false"
+          ],
+          "correct": 3,
+          "explanation": "A CHECK only rejects a row when the condition is false. With NULL the result is unknown, so the row passes. Add NOT NULL to forbid NULL."
+        },
+        {
+          "type": "mc",
+          "category": "Constraints",
+          "question": "How does a primary key compare with a UNIQUE constraint?",
+          "options": [
+            "A primary key is unique and not null, and a table has one, while a table can have several UNIQUE columns",
+            "A primary key is unique and nullable, and a table has several, while a table can have one UNIQUE column",
+            "A primary key is unique and not null, and a table has several, while a table can have no UNIQUE column",
+            "A primary key is not unique and not null, and a table has one, while a table can have several UNIQUE columns"
+          ],
+          "correct": 0,
+          "explanation": "Every table gets at most one primary key. UNIQUE can be applied to as many columns as needed."
+        },
+        {
+          "type": "tf",
+          "category": "Constraints",
+          "question": "A UNIQUE column in MySQL can hold more than one NULL.",
+          "correct": true,
+          "explanation": "NULL means 'unknown', so two NULLs are not counted as duplicates."
+        },
+        {
+          "type": "tf",
+          "category": "Constraints",
+          "question": "CHECK constraints are enforced by every version of MySQL.",
+          "correct": false,
+          "explanation": "MySQL 8.0.16 and later enforce them. Older versions accept the syntax but ignore it."
+        },
+        {
+          "type": "matching",
+          "category": "Constraints",
+          "question": "Match each constraint to the rule it enforces.",
+          "pairs": [
+            {
+              "left": "NOT NULL",
+              "right": "A value must be supplied"
+            },
+            {
+              "left": "UNIQUE",
+              "right": "No two rows may share a value"
+            },
+            {
+              "left": "CHECK",
+              "right": "A condition on the value must not be false"
+            },
+            {
+              "left": "PRIMARY KEY",
+              "right": "Unique and not null, identifying each row"
+            }
+          ]
+        },
+        {
+          "type": "fill_blank",
+          "category": "Constraints",
+          "question": "A ____ constraint can reject any row that breaks a condition such as price > 0. (one word)",
+          "answers": [
+            "check"
+          ],
+          "explanation": "CHECK holds the condition."
+        }
+      ]
+    },
+    {
+      "name": "3. Inserting, Updating and Deleting",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Inserting, Updating and Deleting",
+          "question": "Which three statements make up DML, the data manipulation statements?",
+          "options": [
+            "CREATE, ALTER and DROP",
+            "INSERT, UPDATE and DELETE",
+            "COMMIT, ROLLBACK and BEGIN",
+            "SELECT, JOIN and WHERE"
+          ],
+          "correct": 1,
+          "explanation": "DML adds, changes and removes rows. CREATE/ALTER/DROP are DDL."
+        },
+        {
+          "type": "mc",
+          "category": "Inserting, Updating and Deleting",
+          "question": "Which statement adds one row to a table named shelf with columns shelf_id and label?",
+          "options": [
+            "INSERT shelf (shelf_id, label) SET (4, 'Garden');",
+            "ADD INTO shelf (shelf_id, label) VALUES (4, 'Garden');",
+            "INSERT INTO shelf (shelf_id, label) VALUES (4, 'Garden');",
+            "UPDATE shelf (shelf_id, label) VALUES (4, 'Garden');"
+          ],
+          "correct": 2,
+          "explanation": "The form is INSERT INTO table (columns) VALUES (values)."
+        },
+        {
+          "type": "mc",
+          "category": "Inserting, Updating and Deleting",
+          "question": "What must you supply in INSERT INTO shelf VALUES (...), which has no column list?",
+          "options": [
+            "A value for the first column, because the others take their default",
+            "A value for every column, in any order, because names are matched by type",
+            "A value for each column that is NOT NULL, because the rest are skipped",
+            "A value for every column of the table, in the order the columns were defined"
+          ],
+          "correct": 3,
+          "explanation": "Without a column list, MySQL pairs values with columns by position, so all must be given."
+        },
+        {
+          "type": "mc",
+          "category": "Inserting, Updating and Deleting",
+          "question": "How can one INSERT add three rows at once?",
+          "options": [
+            "By listing three sets of values: VALUES (...), (...), (...)",
+            "By repeating the INSERT keyword three times between commas",
+            "By adding a LIMIT 3 clause at the end of the statement",
+            "By writing three table names after the INSERT INTO keywords"
+          ],
+          "correct": 0,
+          "explanation": "Separate row value lists with commas."
+        },
+        {
+          "type": "mc",
+          "category": "Inserting, Updating and Deleting",
+          "question": "What does UPDATE item SET price = 9.99 WHERE item_id = 12; change?",
+          "options": [
+            "The price of every row in the table, as the WHERE is applied last",
+            "The price of the single row whose item_id is 12",
+            "The price of every row whose item_id is greater than 12",
+            "The item_id of the row whose price is 9.99, to the value 12"
+          ],
+          "correct": 1,
+          "explanation": "SET names the new value and WHERE picks the row. item_id is probably the key, so one row matches."
+        },
+        {
+          "type": "mc",
+          "category": "Inserting, Updating and Deleting",
+          "question": "What does UPDATE item SET price = price * 1.10; with no WHERE clause do?",
+          "options": [
+            "It raises the price in the first row only, as the table has no filter",
+            "It raises nothing, because UPDATE needs a WHERE clause to run",
+            "It raises the price in every row of the table by 10%",
+            "It raises the price in the rows that were inserted most recently"
+          ],
+          "correct": 2,
+          "explanation": "Without a WHERE clause the statement applies to all rows. Test the WHERE with a SELECT first."
+        },
+        {
+          "type": "mc",
+          "category": "Inserting, Updating and Deleting",
+          "question": "What does DELETE FROM item; with no WHERE clause do?",
+          "options": [
+            "It removes every row and the table itself, so the name is free to reuse",
+            "It removes the first row only, as the table has no filter to follow",
+            "It removes nothing, because DELETE needs a WHERE clause to run",
+            "It removes every row but leaves the empty table and its structure in place"
+          ],
+          "correct": 3,
+          "explanation": "DELETE removes rows. DROP TABLE removes the table itself."
+        },
+        {
+          "type": "mc",
+          "category": "Inserting, Updating and Deleting",
+          "question": "Which statement removes the table item completely, structure and all rows?",
+          "options": [
+            "DROP TABLE item;",
+            "DELETE FROM item;",
+            "ALTER TABLE item DELETE;",
+            "UPDATE item SET row = NULL;"
+          ],
+          "correct": 0,
+          "explanation": "DROP TABLE is DDL and removes the table. DELETE leaves an empty table behind."
+        },
+        {
+          "type": "mc",
+          "category": "Inserting, Updating and Deleting",
+          "question": "How do you change two columns of the same row in a single UPDATE?",
+          "options": [
+            "Write the SET keyword twice, once for each column being changed",
+            "List them after one SET, separated by a comma: SET a = 1, b = 2",
+            "Join them with AND after one SET: SET a = 1 AND b = 2",
+            "Run two UPDATE statements, because one cannot change two columns"
+          ],
+          "correct": 1,
+          "explanation": "One SET can hold many column = value pairs separated by commas."
+        },
+        {
+          "type": "mc",
+          "category": "Inserting, Updating and Deleting",
+          "question": "A parent row is referenced by rows in a child table through a foreign key. What does DELETE on that parent row do by default?",
+          "options": [
+            "It succeeds and the child rows are removed along with it",
+            "It succeeds and the child rows keep a link to the removed row",
+            "It fails with an error, because child rows would be left pointing at nothing",
+            "It succeeds and the child rows are changed to point at NULL until someone repairs them"
+          ],
+          "correct": 2,
+          "explanation": "The default behaviour protects referential integrity. ON DELETE CASCADE or SET NULL change it."
+        },
+        {
+          "type": "mc",
+          "category": "Inserting, Updating and Deleting",
+          "question": "What is a sensible way to avoid deleting the wrong rows?",
+          "options": [
+            "Run the DELETE with a LIMIT 1000 first, to see which rows it would match",
+            "Run the DELETE without a WHERE first, to see which rows it would match, then restore them",
+            "Run an ALTER TABLE first, to see which rows it would match",
+            "Run a SELECT with the same WHERE clause first, to see which rows it would match"
+          ],
+          "correct": 3,
+          "explanation": "A SELECT with the same WHERE shows exactly what the DELETE or UPDATE will touch, without changing anything."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Inserting, Updating and Deleting",
+          "question": "In UPDATE staff ____ pay = 30 WHERE staff_id = 3; the missing keyword introduces the new value. (one word)",
+          "answers": [
+            "set"
+          ],
+          "explanation": "UPDATE table SET column = value WHERE condition."
+        },
+        {
+          "type": "tf",
+          "category": "Inserting, Updating and Deleting",
+          "question": "A DELETE without a WHERE clause removes the table as well as its rows.",
+          "correct": false,
+          "explanation": "The table stays, empty. DROP TABLE removes the table."
+        },
+        {
+          "type": "sql",
+          "category": "Inserting, Updating and Deleting",
+          "question": "Add a new gadget group to gadget_group with group_id 9 and group_label 'Welding'.",
+          "tables": [
+            "gadget_group"
+          ],
+          "solution": "INSERT INTO gadget_group (group_id, group_label) VALUES (9, 'Welding');",
+          "verify": "SELECT group_id, group_label FROM gadget_group ORDER BY group_id",
+          "explanation": "INSERT INTO table (columns) VALUES (values). The row is then read back."
+        },
+        {
+          "type": "sql",
+          "category": "Inserting, Updating and Deleting",
+          "question": "Add a required safety course (required_flag 1) titled 'Confined Space Entry'. Name the columns you fill and let the database assign the course_id.",
+          "tables": [
+            "safety_course"
+          ],
+          "solution": "INSERT INTO safety_course (course_title, required_flag) VALUES ('Confined Space Entry', 1);",
+          "verify": "SELECT course_id, course_title, required_flag FROM safety_course ORDER BY course_id",
+          "explanation": "Leaving course_id out lets the integer primary key assign the next number."
+        },
+        {
+          "type": "sql",
+          "category": "Inserting, Updating and Deleting",
+          "question": "Change the daily_fee of the gadget with gadget_id 2 to 7.50.",
+          "tables": [
+            "gadget"
+          ],
+          "solution": "UPDATE gadget SET daily_fee = 7.50 WHERE gadget_id = 2;",
+          "verify": "SELECT gadget_id, daily_fee FROM gadget ORDER BY gadget_id",
+          "explanation": "SET gives the new value and WHERE picks the one row."
+        },
+        {
+          "type": "sql",
+          "category": "Inserting, Updating and Deleting",
+          "question": "Mark the patron with patron_id 4 as inactive by setting is_active to 0.",
+          "tables": [
+            "patron"
+          ],
+          "solution": "UPDATE patron SET is_active = 0 WHERE patron_id = 4;",
+          "verify": "SELECT patron_id, is_active FROM patron ORDER BY patron_id",
+          "explanation": "A single-row UPDATE: the WHERE clause uses the primary key."
+        },
+        {
+          "type": "sql",
+          "category": "Inserting, Updating and Deleting",
+          "question": "Add 1.00 to the daily_fee of every gadget whose loan_days is 2.",
+          "tables": [
+            "gadget"
+          ],
+          "solution": "UPDATE gadget SET daily_fee = daily_fee + 1.00 WHERE loan_days = 2;",
+          "verify": "SELECT gadget_id, daily_fee FROM gadget ORDER BY gadget_id",
+          "explanation": "The new value can be an expression using the old value. WHERE limits it to the matching rows."
+        },
+        {
+          "type": "sql",
+          "category": "Inserting, Updating and Deleting",
+          "question": "Remove every ledger_entry whose entry_kind is 'Damage fee'.",
+          "tables": [
+            "ledger_entry"
+          ],
+          "solution": "DELETE FROM ledger_entry WHERE entry_kind = 'Damage fee';",
+          "verify": "SELECT entry_id, entry_kind FROM ledger_entry ORDER BY entry_id",
+          "explanation": "DELETE FROM table WHERE condition removes the matching rows and leaves the others."
+        }
+      ]
+    },
+    {
+      "name": "4. Transactions",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Transactions",
+          "question": "What is a transaction?",
+          "options": [
+            "A group of statements that is treated as one unit: all of it takes effect, or none of it",
+            "A group of statements that is run in the background, so a user does not need to wait",
+            "A group of statements that is stored in the database, so a user can run it again later whenever needed",
+            "A group of statements that is limited to one table, so a user cannot affect other data"
+          ],
+          "correct": 0,
+          "explanation": "A transaction is all-or-nothing, for example both halves of a money transfer."
+        },
+        {
+          "type": "mc",
+          "category": "Transactions",
+          "question": "Which statements start a transaction in MySQL?",
+          "options": [
+            "OPEN TRANSACTION or START",
+            "START TRANSACTION or BEGIN",
+            "COMMIT TRANSACTION or BEGIN",
+            "BEGIN COMMIT or SAVE"
+          ],
+          "correct": 1,
+          "explanation": "Either START TRANSACTION or BEGIN marks the start. The changes after it stay provisional until COMMIT or ROLLBACK."
+        },
+        {
+          "type": "mc",
+          "category": "Transactions",
+          "question": "What does COMMIT do?",
+          "options": [
+            "Undoes all the changes of the current transaction",
+            "Starts a new transaction after saving the last one",
+            "Makes all the changes of the current transaction permanent",
+            "Locks all the tables used by the current transaction"
+          ],
+          "correct": 2,
+          "explanation": "After COMMIT the changes are saved and visible to other users, and cannot be undone by ROLLBACK."
+        },
+        {
+          "type": "mc",
+          "category": "Transactions",
+          "question": "What does ROLLBACK do?",
+          "options": [
+            "Makes all changes made since the transaction started permanent",
+            "Undoes only the most recent statement of the transaction",
+            "Restores the table to how it was at the start of the session",
+            "Undoes all changes made since the transaction started"
+          ],
+          "correct": 3,
+          "explanation": "ROLLBACK discards the whole open transaction. It does not go back past the last COMMIT."
+        },
+        {
+          "type": "mc",
+          "category": "Transactions",
+          "question": "A transfer subtracts 100 from account A and then must add 100 to account B. The second UPDATE fails. What should be done?",
+          "options": [
+            "ROLLBACK, so the subtraction from account A is undone too",
+            "COMMIT, so the subtraction from account A is kept anyway",
+            "Run the second UPDATE again after a COMMIT of the first",
+            "Run a DELETE on account A so that the totals still agree"
+          ],
+          "correct": 0,
+          "explanation": "Both updates must succeed together or not at all. ROLLBACK restores the starting state."
+        },
+        {
+          "type": "mc",
+          "category": "Transactions",
+          "question": "What does the last SELECT return? START TRANSACTION; DELETE FROM seat WHERE seat_id = 5; ROLLBACK; SELECT * FROM seat WHERE seat_id = 5;",
+          "options": [
+            "No rows, because the delete was already carried out",
+            "The row for seat 5, because the delete was rolled back",
+            "An error, because the row no longer exists in the table",
+            "The row for seat 5 marked as deleted until the next commit"
+          ],
+          "correct": 1,
+          "explanation": "ROLLBACK undid the DELETE, so the row is still there."
+        },
+        {
+          "type": "mc",
+          "category": "Transactions",
+          "question": "What does the last SELECT return? START TRANSACTION; INSERT INTO seat (seat_id) VALUES (9); COMMIT; ROLLBACK; SELECT * FROM seat WHERE seat_id = 9;",
+          "options": [
+            "No rows, because the ROLLBACK undid the insert after it",
+            "An error, because there was no open transaction to roll back",
+            "The row for seat 9, because the COMMIT had already made it permanent",
+            "The row for seat 9 with its values changed back to NULL"
+          ],
+          "correct": 2,
+          "explanation": "Once committed the change is permanent. The later ROLLBACK has no transaction to undo."
+        },
+        {
+          "type": "mc",
+          "category": "Transactions",
+          "question": "MySQL runs in autocommit mode by default. What does this mean?",
+          "options": [
+            "Each transaction is committed on its own after a time limit, unless a user cancels it first",
+            "Each statement is rolled back on its own as soon as it finishes, unless a user commits it",
+            "Each transaction is committed on its own when the user logs out, unless it was rolled back",
+            "Each statement is committed on its own as soon as it finishes, unless a transaction was started"
+          ],
+          "correct": 3,
+          "explanation": "START TRANSACTION (or BEGIN) switches autocommit off until COMMIT or ROLLBACK."
+        },
+        {
+          "type": "mc",
+          "category": "Transactions",
+          "question": "A user runs START TRANSACTION, updates some rows, and the connection drops before any COMMIT. What happens to the changes?",
+          "options": [
+            "They are rolled back, because the transaction never committed",
+            "They are committed, because the rows were already changed on disk",
+            "They are kept pending until the user reconnects and decides",
+            "They are committed for the rows that did not cause an error"
+          ],
+          "correct": 0,
+          "explanation": "Uncommitted work is undone, which is what makes a transaction safe."
+        },
+        {
+          "type": "mc",
+          "category": "Transactions",
+          "question": "Which storage engine in MySQL supports transactions?",
+          "options": [
+            "MyISAM, the older engine",
+            "InnoDB, the default engine",
+            "MEMORY, the in-memory engine",
+            "CSV, the text file engine"
+          ],
+          "correct": 1,
+          "explanation": "InnoDB provides transactions and row-level locking. MyISAM does not support transactions."
+        },
+        {
+          "type": "mc",
+          "category": "Transactions",
+          "question": "Which ACID property says that a transaction's changes survive a crash once it has committed?",
+          "options": [
+            "Atomicity",
+            "Consistency",
+            "Durability",
+            "Isolation"
+          ],
+          "correct": 2,
+          "explanation": "Atomicity is all or nothing, consistency keeps the rules true, isolation keeps transactions apart, and durability keeps committed work."
+        },
+        {
+          "type": "tf",
+          "category": "Transactions",
+          "question": "A ROLLBACK can undo a transaction after it has been committed.",
+          "correct": false,
+          "explanation": "COMMIT makes changes permanent. ROLLBACK only affects the open transaction."
+        },
+        {
+          "type": "tf",
+          "category": "Transactions",
+          "question": "In MySQL, a DDL statement such as CREATE TABLE or ALTER TABLE ends the current transaction with an implicit commit.",
+          "correct": true,
+          "explanation": "DDL cannot be rolled back, and it commits what came before it. Keep DDL out of transactions."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Transactions",
+          "question": "To make the changes of a transaction permanent you run ____. (one word)",
+          "answers": [
+            "commit"
+          ],
+          "explanation": "COMMIT saves; ROLLBACK undoes."
+        },
+        {
+          "type": "matching",
+          "category": "Transactions",
+          "question": "Match each ACID property to its meaning.",
+          "pairs": [
+            {
+              "left": "Atomicity",
+              "right": "All of a transaction happens, or none of it"
+            },
+            {
+              "left": "Consistency",
+              "right": "The data obeys all the rules before and after"
+            },
+            {
+              "left": "Isolation",
+              "right": "Transactions in progress do not see each other's partial work"
+            },
+            {
+              "left": "Durability",
+              "right": "Committed changes survive a crash"
+            }
+          ]
+        },
+        {
+          "type": "short_answer",
+          "category": "Transactions",
+          "question": "Explain what a transaction is and why one is used for a bank transfer. Name the statements that start it, save it and undo it.",
+          "answerLang": null,
+          "modelAnswer": "A transaction groups statements so that they succeed or fail as one unit. A transfer needs two updates (take from one account, add to another); if only one happened, money would be lost or created. START TRANSACTION (or BEGIN) opens it, COMMIT makes the changes permanent, and ROLLBACK undoes everything since it opened, for example if the second update fails.",
+          "rubric": [
+            "States that a transaction is an all-or-nothing group of statements",
+            "Explains why the transfer needs it (both updates must happen together)",
+            "Names START TRANSACTION or BEGIN to start it",
+            "Names COMMIT to save and ROLLBACK to undo"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "5. Indexes",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Indexes",
+          "question": "What is the main purpose of an index on a column?",
+          "options": [
+            "To make the database refuse rows whose value in that column repeats another row's value in the same table",
+            "To let the database store the column's values in less space than the table would use",
+            "To make the database keep a second copy of the table so that a crash does not lose data",
+            "To let the database find rows by that column's value quickly instead of reading the whole table"
+          ],
+          "correct": 3,
+          "explanation": "An index works like the index of a book: it points straight to the rows."
+        },
+        {
+          "type": "mc",
+          "category": "Indexes",
+          "question": "What is a BTREE index?",
+          "options": [
+            "A balanced, sorted tree that finds a value in a few steps and also supports range searches",
+            "A flat list of values that is checked from the top and supports equality searches only",
+            "A hash table that jumps straight to a value and supports equality searches only",
+            "A set of bits that marks the rows holding each value and supports range searches only for that column"
+          ],
+          "correct": 0,
+          "explanation": "B-tree is the default index type in InnoDB. It handles =, <, >, BETWEEN and ORDER BY."
+        },
+        {
+          "type": "mc",
+          "category": "Indexes",
+          "question": "Which kind of search can a HASH index (used by the MEMORY engine) handle?",
+          "options": [
+            "Ranges, such as WHERE id > 5, but not exact matches",
+            "Exact matches, such as WHERE id = 5, but not ranges",
+            "Both exact matches and ranges, as a BTREE index does",
+            "Text searches, such as a word inside a long column"
+          ],
+          "correct": 1,
+          "explanation": "A hash index is fast for equality, but it keeps no order, so it cannot serve a range or an ORDER BY."
+        },
+        {
+          "type": "mc",
+          "category": "Indexes",
+          "question": "Which statement creates an index named idx_member_email on the email column of table member?",
+          "options": [
+            "CREATE INDEX member (email) AS idx_member_email;",
+            "ALTER INDEX idx_member_email ON member (email);",
+            "CREATE INDEX idx_member_email ON member (email);",
+            "INSERT INDEX idx_member_email INTO member (email);"
+          ],
+          "correct": 2,
+          "explanation": "The form is CREATE INDEX index_name ON table (column)."
+        },
+        {
+          "type": "mc",
+          "category": "Indexes",
+          "question": "Which statement removes the index idx_member_email from the table member?",
+          "options": [
+            "DROP INDEX member ON idx_member_email;",
+            "DELETE INDEX idx_member_email FROM member;",
+            "ALTER TABLE member REMOVE idx_member_email;",
+            "DROP INDEX idx_member_email ON member;"
+          ],
+          "correct": 3,
+          "explanation": "In MySQL, DROP INDEX needs the index name and the table: DROP INDEX name ON table."
+        },
+        {
+          "type": "mc",
+          "category": "Indexes",
+          "question": "What is the cost of adding an index to a table?",
+          "options": [
+            "Extra storage, and slower INSERT, UPDATE and DELETE because the index must be kept up to date",
+            "Extra storage, and slower SELECT because the index must be read before the table is read",
+            "Extra rows, and slower INSERT because the index must be given a row of its own to hold for each entry",
+            "Extra locks, and slower COMMIT because the index must be rebuilt after each commit"
+          ],
+          "correct": 0,
+          "explanation": "Indexes speed reads but make writes do more work. Add only the ones that are used."
+        },
+        {
+          "type": "mc",
+          "category": "Indexes",
+          "question": "Which column is the best candidate for an index?",
+          "options": [
+            "A column that is rarely used in queries and has many different values",
+            "A column that is often in WHERE or JOIN conditions and has many different values",
+            "A column that is often in WHERE or JOIN conditions and has only two values",
+            "A column that is in a table of ten rows and has many different values"
+          ],
+          "correct": 1,
+          "explanation": "An index pays off for columns that queries filter or join on, and that narrow the result a lot."
+        },
+        {
+          "type": "mc",
+          "category": "Indexes",
+          "question": "Which columns get an index created for them automatically?",
+          "options": [
+            "A NOT NULL column and any CHECK column",
+            "A DEFAULT column and any VARCHAR column",
+            "A primary key column and any UNIQUE column",
+            "The first column of a table and any column with an alias"
+          ],
+          "correct": 2,
+          "explanation": "MySQL needs an index to enforce uniqueness quickly, so PRIMARY KEY and UNIQUE come with one."
+        },
+        {
+          "type": "mc",
+          "category": "Indexes",
+          "question": "A composite index is created on (last_name, first_name). Which query can use it?",
+          "options": [
+            "WHERE first_name = 'Ada', because the second column of the index is filtered",
+            "WHERE last_name = 'Okafor' only if first_name is filtered as well in the query",
+            "WHERE first_name = 'Ada' only if the query is sorted by last_name afterwards",
+            "WHERE last_name = 'Okafor', because the first column of the index is filtered"
+          ],
+          "correct": 3,
+          "explanation": "A composite index is used from its leftmost column onward (the leftmost-prefix rule). Filtering only on the second column cannot use it."
+        },
+        {
+          "type": "mc",
+          "category": "Indexes",
+          "question": "What does CREATE UNIQUE INDEX do beyond speeding up searches?",
+          "options": [
+            "It also rejects any row whose value in the indexed column already exists",
+            "It also rejects any row whose value in the indexed column is NULL",
+            "It also rejects any row whose value in the indexed column is in the wrong order",
+            "It also rejects any query that searches the indexed column more than once"
+          ],
+          "correct": 0,
+          "explanation": "A unique index enforces the same rule as a UNIQUE constraint."
+        },
+        {
+          "type": "tf",
+          "category": "Indexes",
+          "question": "An index changes which rows a query returns.",
+          "correct": false,
+          "explanation": "An index changes only how fast the rows are found. The result is the same with or without it."
+        },
+        {
+          "type": "tf",
+          "category": "Indexes",
+          "question": "Adding more indexes to a table always makes the database faster.",
+          "correct": false,
+          "explanation": "Each index slows writes and uses space. Unused indexes are pure cost."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Indexes",
+          "question": "DROP INDEX idx_member_email ____ member; The missing word links the index to its table. (one word)",
+          "answers": [
+            "on"
+          ],
+          "explanation": "DROP INDEX index_name ON table_name."
+        },
+        {
+          "type": "matching",
+          "category": "Indexes",
+          "question": "Match each term to its meaning.",
+          "pairs": [
+            {
+              "left": "BTREE",
+              "right": "The default sorted tree structure for an index"
+            },
+            {
+              "left": "CREATE INDEX",
+              "right": "Builds an index on one or more columns"
+            },
+            {
+              "left": "DROP INDEX",
+              "right": "Removes an index from a table"
+            },
+            {
+              "left": "Composite index",
+              "right": "An index on two or more columns together"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "6. Index Usage and EXPLAIN",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Index Usage and EXPLAIN",
+          "question": "What does putting EXPLAIN in front of a SELECT do?",
+          "options": [
+            "It runs the query and shows the rows together with the time that was taken, as a profiler does",
+            "It shows how MySQL plans to run the query, including which index it would use",
+            "It checks the query for spelling mistakes and suggests the correct form",
+            "It builds the best index for the query and then runs the query with it"
+          ],
+          "correct": 1,
+          "explanation": "EXPLAIN describes the execution plan. It does not create anything."
+        },
+        {
+          "type": "mc",
+          "category": "Index Usage and EXPLAIN",
+          "question": "In EXPLAIN output, what does the key column show?",
+          "options": [
+            "The index MySQL could have used, listed whether or not it is chosen",
+            "The primary key of the table, listed for every query in the same way",
+            "The index MySQL actually chose to use, or NULL if it uses none",
+            "The column the query sorts by, listed after the WHERE columns"
+          ],
+          "correct": 2,
+          "explanation": "possible_keys lists candidates. key is the one chosen."
+        },
+        {
+          "type": "mc",
+          "category": "Index Usage and EXPLAIN",
+          "question": "In EXPLAIN output, what does type = ALL mean?",
+          "options": [
+            "A full index scan: every index entry is read",
+            "A lookup on every index of the table in turn",
+            "A match on every column named in the WHERE clause",
+            "A full table scan: every row is read"
+          ],
+          "correct": 3,
+          "explanation": "ALL is usually the slowest access type on a big table, and a sign that an index may help."
+        },
+        {
+          "type": "mc",
+          "category": "Index Usage and EXPLAIN",
+          "question": "What does the rows column of EXPLAIN estimate?",
+          "options": [
+            "The number of rows MySQL expects to examine to run the query",
+            "The number of rows the query will return to the user",
+            "The number of rows in the table at the time of the query",
+            "The number of rows that the query will change or delete"
+          ],
+          "correct": 0,
+          "explanation": "A large rows value on a selective query suggests the query is reading too much."
+        },
+        {
+          "type": "mc",
+          "category": "Index Usage and EXPLAIN",
+          "question": "A query's EXPLAIN shows type = ALL, key = NULL and rows = 48000. After CREATE INDEX on the filtered column, what is the likely change?",
+          "options": [
+            "type stays ALL, key stays NULL, and rows rises because the index is also read",
+            "type becomes ref or range, key names the new index, and rows drops sharply",
+            "type becomes ALL, key names the new index, and rows drops sharply to zero",
+            "type becomes ref or range, key stays NULL, and rows is the same as before"
+          ],
+          "correct": 1,
+          "explanation": "Running EXPLAIN again after adding an index is how you check that it is used."
+        },
+        {
+          "type": "mc",
+          "category": "Index Usage and EXPLAIN",
+          "question": "A column order_date has an index. Why can WHERE YEAR(order_date) = 2024 not use it well?",
+          "options": [
+            "The year is a number, so the index on a date column can never be compared with it",
+            "The function is stored in the index, so the index on the column is out of date",
+            "The function is applied to every value, so the sorted index cannot be searched directly",
+            "The equals sign is slower than a range, so the index on the column is skipped"
+          ],
+          "correct": 2,
+          "explanation": "Wrapping an indexed column in a function hides it from the index. Compare the bare column with a range instead."
+        },
+        {
+          "type": "mc",
+          "category": "Index Usage and EXPLAIN",
+          "question": "Which rewrite of WHERE YEAR(order_date) = 2024 lets an index on order_date be used?",
+          "options": [
+            "WHERE YEAR(order_date) BETWEEN 2024 AND 2024 ORDER BY order_date",
+            "WHERE order_date LIKE '%2024%'",
+            "WHERE CAST(order_date AS CHAR) = '2024'",
+            "WHERE order_date >= '2024-01-01' AND order_date < '2025-01-01'"
+          ],
+          "correct": 3,
+          "explanation": "A range on the plain column can use a B-tree. The others still wrap or convert every value."
+        },
+        {
+          "type": "mc",
+          "category": "Index Usage and EXPLAIN",
+          "question": "Which condition can use an index on last_name?",
+          "options": [
+            "WHERE last_name LIKE 'Ok%'",
+            "WHERE last_name LIKE '%kafor'",
+            "WHERE last_name LIKE '%ka%'",
+            "WHERE UPPER(last_name) = 'OKAFOR'"
+          ],
+          "correct": 0,
+          "explanation": "A search that begins with fixed text can use the sorted order. A leading wildcard or a function cannot."
+        },
+        {
+          "type": "mc",
+          "category": "Index Usage and EXPLAIN",
+          "question": "An index exists on a column that holds only 'Y' or 'N' and the query asks for 'Y', which is 70% of the rows. What may MySQL do?",
+          "options": [
+            "Use the index for every row, because an index is always faster than a scan",
+            "Ignore the index and scan the table, because the index would not narrow the result enough",
+            "Refuse to run the query, because an index on a two-value column is not allowed for a column of that kind",
+            "Use the index and return the 'N' rows too, because they share the same entry"
+          ],
+          "correct": 1,
+          "explanation": "An index helps when it selects few rows. For a very common value a scan is cheaper."
+        },
+        {
+          "type": "mc",
+          "category": "Index Usage and EXPLAIN",
+          "question": "In EXPLAIN, which value of the Extra column suggests the rows are sorted by a separate step rather than from an index?",
+          "options": [
+            "Using index",
+            "Using where",
+            "Using filesort",
+            "Using join buffer"
+          ],
+          "correct": 2,
+          "explanation": "Using filesort means an extra sort. An index on the ORDER BY column can often remove it."
+        },
+        {
+          "type": "mc",
+          "category": "Index Usage and EXPLAIN",
+          "question": "A query is slow. What is a good first step?",
+          "options": [
+            "Run COMMIT on it and look for a lock that is holding the table",
+            "Run DROP INDEX on it and look for a table that is too large",
+            "Run UPDATE on it and look for a column that is out of date",
+            "Run EXPLAIN on it and look for type = ALL or a large rows value"
+          ],
+          "correct": 3,
+          "explanation": "EXPLAIN shows whether the query scans the whole table or uses an index."
+        },
+        {
+          "type": "tf",
+          "category": "Index Usage and EXPLAIN",
+          "question": "EXPLAIN returns the rows that the SELECT would return.",
+          "correct": false,
+          "explanation": "It returns the plan: tables, keys, rows to examine. It does not return the data."
+        },
+        {
+          "type": "tf",
+          "category": "Index Usage and EXPLAIN",
+          "question": "possible_keys and key always show the same index.",
+          "correct": false,
+          "explanation": "possible_keys lists indexes that could help. key is the index chosen, and may be NULL."
+        },
+        {
+          "type": "matching",
+          "category": "Index Usage and EXPLAIN",
+          "question": "Match each EXPLAIN column to what it tells you.",
+          "pairs": [
+            {
+              "left": "key",
+              "right": "The index chosen to run the query"
+            },
+            {
+              "left": "possible_keys",
+              "right": "The indexes that could be used"
+            },
+            {
+              "left": "type",
+              "right": "How the table is accessed, such as ALL or ref"
+            },
+            {
+              "left": "rows",
+              "right": "Estimated number of rows examined"
+            }
+          ]
+        },
+        {
+          "type": "short_answer",
+          "category": "Index Usage and EXPLAIN",
+          "question": "A query on a large table filters with WHERE customer_email = 'ana@example.com' and is slow. Describe how you would use EXPLAIN and an index to investigate and fix it, and how you would confirm the fix.",
+          "answerLang": null,
+          "modelAnswer": "Run EXPLAIN SELECT ... and look at type, key and rows. If type is ALL, key is NULL and rows is large, the table is being scanned. Create an index on the filtered column with CREATE INDEX idx_customer_email ON customer (customer_email); then run EXPLAIN again. type should change to ref, key should name the index and rows should drop sharply. The result of the query itself is unchanged.",
+          "rubric": [
+            "Says to run EXPLAIN and names columns to read (type, key, rows)",
+            "Recognises type ALL, key NULL or a large rows value as a full table scan",
+            "Creates an index on the filtered column using CREATE INDEX",
+            "Confirms by running EXPLAIN again and seeing the index used and fewer rows"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "7. Locks",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Locks",
+          "question": "Why does a database use locks?",
+          "options": [
+            "To stop users who work at the same time from corrupting or overwriting each other's data",
+            "To stop users who work at the same time from reading any data that has an index on the table",
+            "To stop users who work at the same time from creating more than one transaction",
+            "To stop users who work at the same time from running slow queries on a large table"
+          ],
+          "correct": 0,
+          "explanation": "Locks keep concurrent access orderly, so each transaction sees consistent data."
+        },
+        {
+          "type": "mc",
+          "category": "Locks",
+          "question": "What is a table-level lock?",
+          "options": [
+            "A lock that covers a single row, so other users wait only to write that row",
+            "A lock that covers a whole table, so other users wait to read or write any of its rows",
+            "A lock that covers a single column, so other users wait only to write that column",
+            "A lock that covers a whole database, so other users wait to read or write any table in it"
+          ],
+          "correct": 1,
+          "explanation": "Table locks are simple but block everyone else working in that table."
+        },
+        {
+          "type": "mc",
+          "category": "Locks",
+          "question": "What is a row-level lock?",
+          "options": [
+            "A lock on only the table a statement touches, so other tables in the database stay available",
+            "A lock on only the column a statement touches, so other columns in the row stay available",
+            "A lock on only the rows a statement touches, so other rows in the table stay available",
+            "A lock on only the index a statement touches, so other indexes on the table stay available"
+          ],
+          "correct": 2,
+          "explanation": "InnoDB uses row-level locks, which lets many users update different rows of one table at once."
+        },
+        {
+          "type": "mc",
+          "category": "Locks",
+          "question": "What is a field-level (column-level) lock?",
+          "options": [
+            "A lock on a single row of a table, the middle grain of locking",
+            "A lock on a whole table of rows, the coarsest grain of locking",
+            "A lock on a whole schema of tables, the widest grain of locking",
+            "A lock on a single value in a single row, the finest grain of locking"
+          ],
+          "correct": 3,
+          "explanation": "Field-level is the finest granularity in the concept, though MySQL does not offer it."
+        },
+        {
+          "type": "mc",
+          "category": "Locks",
+          "question": "What is the trade-off of finer locking, such as row-level compared with table-level?",
+          "options": [
+            "More users can work at once, but the database must keep track of many more locks",
+            "More locks are simpler to manage, but fewer users can work at the same time",
+            "Fewer users can work at once, but the database keeps track of far fewer locks",
+            "More users can work at once, but the data is no longer kept consistent for them"
+          ],
+          "correct": 0,
+          "explanation": "Fine-grained locks give higher concurrency and cost more overhead. Coarse locks are cheap but block more."
+        },
+        {
+          "type": "mc",
+          "category": "Locks",
+          "question": "Two clerks update different rows of the same table. With row-level locking, what happens?",
+          "options": [
+            "The second update waits for the first to finish, because the table is locked",
+            "Both updates can proceed at the same time, because each locks only its own row",
+            "The second update fails with an error, because only one lock is allowed",
+            "Both updates are cancelled, because the rows are in the same table"
+          ],
+          "correct": 1,
+          "explanation": "Row locks conflict only when two users want the same row."
+        },
+        {
+          "type": "mc",
+          "category": "Locks",
+          "question": "Two clerks update different rows of the same table, in an engine that uses table-level locks. What happens?",
+          "options": [
+            "Both updates run at the same time, because they touch different rows",
+            "The second update is run on a copy of the table and merged in later",
+            "The second update waits until the first finishes and releases the table",
+            "Both updates are cancelled, because the rows are in the same table"
+          ],
+          "correct": 2,
+          "explanation": "A table lock blocks other writers on the entire table, whichever row they want."
+        },
+        {
+          "type": "mc",
+          "category": "Locks",
+          "question": "What is the difference between a shared (read) lock and an exclusive (write) lock?",
+          "options": [
+            "One user can hold a shared lock at a time, but many users can hold an exclusive lock together",
+            "Many users can hold either kind together, but an exclusive lock cannot be released early",
+            "One user can hold either kind at a time, but a shared lock can be held for a longer period of time",
+            "Many users can hold a shared lock together, but an exclusive lock can be held by one user only"
+          ],
+          "correct": 3,
+          "explanation": "Readers can share. A writer needs the data to itself, so it blocks both readers and other writers."
+        },
+        {
+          "type": "mc",
+          "category": "Locks",
+          "question": "What is a deadlock?",
+          "options": [
+            "Two transactions each hold a lock the other needs, so neither can continue",
+            "One transaction holds a lock for a very long time, so the others slow down",
+            "Two transactions both want a shared lock on a row, so neither can read it",
+            "One transaction fails to commit before the connection closes, so a lock is lost"
+          ],
+          "correct": 0,
+          "explanation": "MySQL's InnoDB detects deadlocks and rolls back one transaction (the victim) so the other can finish."
+        },
+        {
+          "type": "mc",
+          "category": "Locks",
+          "question": "When are the locks of a transaction normally released?",
+          "options": [
+            "When the statement that took the lock finishes running",
+            "When the transaction ends with a COMMIT or a ROLLBACK",
+            "When the user that took the lock starts another transaction",
+            "When the table that was locked is next read by anyone"
+          ],
+          "correct": 1,
+          "explanation": "Locks held by a transaction last until it ends, which is why transactions should be kept short."
+        },
+        {
+          "type": "mc",
+          "category": "Locks",
+          "question": "Which statement reads rows and also locks them so other transactions cannot change them until the commit?",
+          "options": [
+            "SELECT ... ORDER BY",
+            "SELECT ... LIMIT 1",
+            "SELECT ... FOR UPDATE",
+            "SELECT ... DISTINCT"
+          ],
+          "correct": 2,
+          "explanation": "FOR UPDATE places exclusive row locks on the selected rows."
+        },
+        {
+          "type": "tf",
+          "category": "Locks",
+          "question": "Row-level locking lets two users update different rows of one table at the same time.",
+          "correct": true,
+          "explanation": "Locks conflict only on the same row."
+        },
+        {
+          "type": "tf",
+          "category": "Locks",
+          "question": "A table-level lock leaves other users free to update any row of the table.",
+          "correct": false,
+          "explanation": "A table lock blocks others from writing anywhere in the table."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Locks",
+          "question": "When two transactions each wait for a lock the other holds, the situation is called a ____. (one word)",
+          "answers": [
+            "deadlock"
+          ],
+          "explanation": "InnoDB breaks the deadlock by rolling one transaction back."
+        },
+        {
+          "type": "matching",
+          "category": "Locks",
+          "question": "Match each lock level to its scope.",
+          "pairs": [
+            {
+              "left": "Table-level",
+              "right": "A whole table"
+            },
+            {
+              "left": "Row-level",
+              "right": "One row of a table"
+            },
+            {
+              "left": "Field-level",
+              "right": "One value in one row"
+            },
+            {
+              "left": "Exclusive lock",
+              "right": "Held by one user, blocking all others"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
