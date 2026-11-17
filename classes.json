@@ -23,9 +23,7 @@
           "id": "supplemental-guide",
           "title": "Full-Course Study Guide",
           "description": "Whole-course material: foundations, supervised algorithms, evaluation, clustering and distance, the workflow, feature selection, PCA and LDA, encoding, scaling and regularization.",
-          "file": "data/itd140-supplemental-guide.json",
-          "featured": true,
-          "cta": "Read the guide"
+          "file": "data/itd140-supplemental-guide.json"
         }
       ],
       "tools": [
@@ -75,33 +73,25 @@
           "id": "supplemental-flashcards",
           "title": "Full-Course Flashcards",
           "description": "46 supplemental cards covering the whole course.",
-          "href": "flashcards.html?file=data%2Fitd140-supplemental-flashcards.json",
-          "featured": true,
-          "cta": "Study the flashcards"
+          "href": "flashcards.html?file=data%2Fitd140-supplemental-flashcards.json"
         },
         {
           "id": "supplemental-drills",
           "title": "Number Drills",
           "description": "Endless calculation practice with new numbers every time: accuracy, confusion matrix terms, scaling, distance, train/test and k-fold sizes, kNN votes. Get 5 right in a row to master each drill.",
-          "href": "drills.html",
-          "featured": true,
-          "cta": "Practice the drills"
+          "href": "drills.html"
         },
         {
           "id": "supplemental-mastery",
           "title": "Mastery Loop",
           "description": "The full-course question bank as a repeat-until-mastered loop: every question must be answered correctly twice in a row, misses come back sooner, and it ends only when you have mastered them all. Choose how many questions.",
-          "href": "quiz.html?file=data%2Fitd140-supplemental-quiz.json&mode=mastery",
-          "featured": true,
-          "cta": "Start the mastery loop"
+          "href": "quiz.html?file=data%2Fitd140-supplemental-quiz.json&mode=mastery"
         },
         {
           "id": "supplemental-walkthroughs",
           "title": "Step-through Walkthroughs",
           "description": "Ten walkthroughs, one per study-guide topic: click through each process one step at a time with the numbers worked out, from training a line to k-means, kNN, RFE, PCA versus LDA, scaling and regularization.",
-          "href": "walkthrough.html?file=data%2Fitd140-walkthroughs.json",
-          "featured": true,
-          "cta": "Step through them"
+          "href": "walkthrough.html?file=data%2Fitd140-walkthroughs.json"
         }
       ],
       "quizzes": [
@@ -123,9 +113,7 @@
           "id": "supplemental-quiz",
           "title": "Full-Course Review",
           "description": "108 questions on the whole course, including feature selection, PCA and LDA, encoding, scaling and regularization.",
-          "file": "data/itd140-supplemental-quiz.json",
-          "featured": true,
-          "cta": "Take the quiz"
+          "file": "data/itd140-supplemental-quiz.json"
         }
       ]
     },
