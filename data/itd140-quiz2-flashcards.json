@@ -1,0 +1,392 @@
+{
+  "title": "ITD 140 Quiz 2 Flashcards",
+  "guideFile": "data/itd140-quiz2-guide.json",
+  "quizFile": "data/itd140-quiz2.json",
+  "cards": [
+    {
+      "topic": "Features and Feature Types",
+      "term": "Feature",
+      "definition": "One measurable input column that describes each example.",
+      "useCase": "Choose features that carry information about the target.",
+      "example": "Floor area, bedrooms and age of a house"
+    },
+    {
+      "topic": "Features and Feature Types",
+      "term": "Continuous feature",
+      "definition": "A quantitative feature that can take any value on a smooth scale, decimals included.",
+      "useCase": "Spot it by asking whether a value halfway between two others makes sense.",
+      "example": "Body temperature of 36.8"
+    },
+    {
+      "topic": "Features and Feature Types",
+      "term": "Discrete feature",
+      "definition": "A feature with separate, countable values, usually whole numbers.",
+      "useCase": "Counts are discrete but still quantitative: you can add and average them.",
+      "example": "Number of siblings: 0, 1, 2, 3"
+    },
+    {
+      "topic": "Features and Feature Types",
+      "term": "Qualitative feature",
+      "definition": "A feature that names a category or quality instead of measuring an amount.",
+      "useCase": "Needs encoding before a model can use it. Either ordinal or nominal.",
+      "example": "Eye colour, shirt size"
+    },
+    {
+      "topic": "Features and Feature Types",
+      "term": "Ordinal feature",
+      "definition": "A qualitative feature whose categories have a meaningful order.",
+      "useCase": "The order can be kept when encoding; the gaps between levels are not measured.",
+      "example": "Poor, fair, good"
+    },
+    {
+      "topic": "Features and Feature Types",
+      "term": "Nominal feature",
+      "definition": "A qualitative feature whose categories are names with no order.",
+      "useCase": "Encode it so that no category looks bigger than another, for example with one-hot.",
+      "example": "Country, blood type, postal code"
+    },
+    {
+      "topic": "Missing Data and Removal",
+      "term": "NaN",
+      "definition": "The pandas marker for a missing or undefined value ('not a number').",
+      "useCase": "Find it with df.isna().sum() before deciding how to handle it.",
+      "example": "A blank survey answer loaded as NaN"
+    },
+    {
+      "topic": "Missing Data and Removal",
+      "term": "Drop rows (dropna)",
+      "definition": "Remove every row that has a missing value in any column: df.dropna().",
+      "useCase": "Good when few rows have gaps and many complete rows remain.",
+      "example": "1,000 rows with 15 gaps: 985 rows left"
+    },
+    {
+      "topic": "Missing Data and Removal",
+      "term": "Drop columns",
+      "definition": "Remove a column that has missing values: df.dropna(axis=1) or drop it by name.",
+      "useCase": "Good when most of a column is empty and it adds little.",
+      "example": "A column that is 90% empty"
+    },
+    {
+      "topic": "Missing Data and Removal",
+      "term": "Imputation",
+      "definition": "Filling a missing value with an estimate instead of removing the row.",
+      "useCase": "Use it when removal would lose too much data or bias what is left.",
+      "example": "Replacing a missing age with the median age"
+    },
+    {
+      "topic": "Imputing Numerical Data",
+      "term": "Mean fill",
+      "definition": "Replace gaps with the column average.",
+      "useCase": "Simple, but outliers pull it. It leaves the mean unchanged and shrinks the spread.",
+      "example": "10, 12, 14, 40 and a gap: 19"
+    },
+    {
+      "topic": "Imputing Numerical Data",
+      "term": "Median fill",
+      "definition": "Replace gaps with the middle value of the column.",
+      "useCase": "Prefer it when there are outliers or skew.",
+      "example": "10, 12, 14, 40 and a gap: 13"
+    },
+    {
+      "topic": "Imputing Numerical Data",
+      "term": "Mode fill",
+      "definition": "Replace gaps with the most frequent value.",
+      "useCase": "Works for discrete numbers and for categories.",
+      "example": "3, 5, 5, 7, 5 and a gap: 5"
+    },
+    {
+      "topic": "Imputing Numerical Data",
+      "term": "Constant / random fill",
+      "definition": "Replace gaps with a fixed value, or with a randomly picked existing value.",
+      "useCase": "Quick, but a constant such as 0 can pass for real data, so pair it with a missing indicator.",
+      "example": "Fill gaps with -1"
+    },
+    {
+      "topic": "Imputing Numerical Data",
+      "term": "Missing indicator",
+      "definition": "A new 0/1 column that records which rows had a missing value.",
+      "useCase": "Keep it next to the filled column when the fact of being missing may predict the target.",
+      "example": "income_missing = 1 for a blank income"
+    },
+    {
+      "topic": "Imputing Categorical Data",
+      "term": "Categorical mode fill",
+      "definition": "Put the most common category into every gap.",
+      "useCase": "The default fill for a categorical column, since words have no mean or median.",
+      "example": "Fill a missing city with the most frequent city"
+    },
+    {
+      "topic": "Imputing Categorical Data",
+      "term": "Forward fill ('pad')",
+      "definition": "Copy the previous row's value into the gap. 'pad' is the same as ffill.",
+      "useCase": "Use it only when the row order is meaningful, such as days in a row.",
+      "example": "Red, NaN, NaN, Blue -> Red, Red, Red, Blue"
+    },
+    {
+      "topic": "Imputing Categorical Data",
+      "term": "Backfill",
+      "definition": "Copy the next row's value upward into the gap (bfill).",
+      "useCase": "Same condition as forward fill; it can fill what a forward fill leaves in the first row.",
+      "example": "Red, NaN, NaN, Blue -> Red, Blue, Blue, Blue"
+    },
+    {
+      "topic": "Imputing Categorical Data",
+      "term": "Categorical constant fill",
+      "definition": "Fill gaps with one fixed label, or a randomly chosen existing category.",
+      "useCase": "A label such as 'Unknown' keeps the gap visible as its own category.",
+      "example": "payment = 'Unknown'"
+    },
+    {
+      "topic": "Binning Numerical Data",
+      "term": "Discretization",
+      "definition": "Turning a continuous numeric feature into a limited set of ranges or categories.",
+      "useCase": "Simplifies a feature and softens noise, at the cost of detail.",
+      "example": "Age 37 becomes the bin '30-40'"
+    },
+    {
+      "topic": "Binning Numerical Data",
+      "term": "Binning",
+      "definition": "Replace each value with the bin (range) it falls into. An example of discretization.",
+      "useCase": "Use it to turn numbers into ordered categories.",
+      "example": "10 to 70 in 3 bins: 10-30, 30-50, 50-70"
+    },
+    {
+      "topic": "Binning Numerical Data",
+      "term": "Equal-width binning",
+      "definition": "Bins that each cover the same size of range: (max - min) / number of bins.",
+      "useCase": "Easy to explain; an outlier can leave most rows in a few bins. pd.cut.",
+      "example": "Width 20: 45 falls in 30-50"
+    },
+    {
+      "topic": "Binning Numerical Data",
+      "term": "Equal-frequency binning",
+      "definition": "Bins that each hold about the same number of rows, cut at quantiles.",
+      "useCase": "Keeps the bins balanced even with outliers. pd.qcut.",
+      "example": "1,2,3,4,5,6,7,100 in 2 bins: 1-4 and 5-100"
+    },
+    {
+      "topic": "Binning Numerical Data",
+      "term": "Binarization",
+      "definition": "Binning with one threshold: values on one side become one group and the rest another.",
+      "useCase": "Use it when a single cut-off is meaningful; you choose the threshold.",
+      "example": "Views of 5,000 or more: popular, else unpopular"
+    },
+    {
+      "topic": "Encoding Categorical Data",
+      "term": "Encoding",
+      "definition": "Converting categories into numbers. All data must ultimately be numeric.",
+      "useCase": "Required before most models can use a categorical feature.",
+      "example": "Yes / no becomes 1 / 0"
+    },
+    {
+      "topic": "Encoding Categorical Data",
+      "term": "Binary encoding",
+      "definition": "Map a two-value feature to 0 and 1.",
+      "useCase": "Use it for yes/no style features.",
+      "example": "subscribed: yes = 1, no = 0"
+    },
+    {
+      "topic": "Encoding Categorical Data",
+      "term": "One-hot encoding",
+      "definition": "One 0/1 column per category, with a 1 in the row's own category.",
+      "useCase": "Use it for 3+ nominal categories: it adds no false order. pd.get_dummies.",
+      "example": "red, green, blue -> is_red, is_green, is_blue"
+    },
+    {
+      "topic": "Encoding Categorical Data",
+      "term": "Target encoding",
+      "definition": "Replace each category with a statistic of the target for it, usually the mean.",
+      "useCase": "Use it for features with very many categories. Learn it from training data only, to avoid leakage.",
+      "example": "Targets 1, 0, 1, 1 for category A: 0.75"
+    },
+    {
+      "topic": "Scaling",
+      "term": "Scaling",
+      "definition": "Rescaling features to comparable ranges so large values do not dominate.",
+      "useCase": "Matters for distance-based models such as kNN; trees mostly do not need it.",
+      "example": "Age 0-100 next to salary 0-100000"
+    },
+    {
+      "topic": "Scaling",
+      "term": "Min-max scaling (normalization)",
+      "definition": "(x - min) / (max - min): rescales values to run from 0 to 1.",
+      "useCase": "Use it when you need a fixed range; one outlier squeezes the rest.",
+      "example": "20, 30, 50, 60: 30 becomes 0.25"
+    },
+    {
+      "topic": "Scaling",
+      "term": "Standardization",
+      "definition": "(x - mean) / standard deviation: rescales to mean 0 and standard deviation 1.",
+      "useCase": "No fixed range, so an outlier does not squeeze the rest, though it still shifts the mean and spread.",
+      "example": "Mean 50, sd 10: 70 becomes 2"
+    },
+    {
+      "topic": "Scaling",
+      "term": "Scaling and outliers or skew",
+      "definition": "Min-max is squeezed by an outlier; neither method removes skew because both are linear.",
+      "useCase": "Use a log transform to reduce skew, and fit scalers on training data only.",
+      "example": "Salary with a few huge values"
+    },
+    {
+      "topic": "Scaling",
+      "term": "Choosing min-max or standardization",
+      "definition": "Min-max for unknown or non-bell-shaped data, kNN and neural networks; standardization when the algorithm assumes normal data.",
+      "useCase": "Decide from the distribution and the algorithm.",
+      "example": "kNN on skewed data: min-max"
+    },
+    {
+      "topic": "Validation, Overfitting and Underfitting",
+      "term": "Train-test split",
+      "definition": "Divide the data into a training set to learn from and a test set held back.",
+      "useCase": "Generally 80% train and 20% test.",
+      "example": "250 rows: 200 train, 50 test"
+    },
+    {
+      "topic": "Validation, Overfitting and Underfitting",
+      "term": "Generalization",
+      "definition": "How well a model's performance carries over to unseen data.",
+      "useCase": "Judge it by comparing training and test accuracy.",
+      "example": "Train 91%, test 89%"
+    },
+    {
+      "topic": "Validation, Overfitting and Underfitting",
+      "term": "Overfitting",
+      "definition": "The model memorizes the training data: high training accuracy, much lower test accuracy.",
+      "useCase": "Fix with a simpler model, fewer features, more data or cross-validation.",
+      "example": "Train 98%, test 70%"
+    },
+    {
+      "topic": "Validation, Overfitting and Underfitting",
+      "term": "Underfitting",
+      "definition": "The model is too simple: low accuracy on both training and test data.",
+      "useCase": "Fix with a more flexible model or better features.",
+      "example": "Train 61%, test 59%"
+    },
+    {
+      "topic": "Validation, Overfitting and Underfitting",
+      "term": "Confusion matrix",
+      "definition": "A table of actual versus predicted classes: true and false positives and negatives.",
+      "useCase": "Accuracy is the diagonal over the total; a false negative is a missed positive.",
+      "example": "TP 30, FP 10, FN 20, TN 40: 70%"
+    },
+    {
+      "topic": "Validation, Overfitting and Underfitting",
+      "term": "Cross-validation",
+      "definition": "Split into k folds, use each as the test set once, and average the scores.",
+      "useCase": "Gives a steadier estimate than one split and helps tune settings.",
+      "example": "5 folds of 200 rows: 40 test, 160 train per round"
+    },
+    {
+      "topic": "Curse of Dimensionality",
+      "term": "Curse of dimensionality",
+      "definition": "Problems that grow as the number of features increases: sparse data, similar distances, cost.",
+      "useCase": "Explains why more features can hurt, especially for kNN.",
+      "example": "100 rows and 500 features"
+    },
+    {
+      "topic": "Curse of Dimensionality",
+      "term": "Sparse data",
+      "definition": "With many features the same rows are spread thinly through a huge space.",
+      "useCase": "A reason a model can memorize noise instead of learning a pattern.",
+      "example": "Few neighbours near any point"
+    },
+    {
+      "topic": "Curse of Dimensionality",
+      "term": "Complexity and performance cost",
+      "definition": "More features mean more training time, memory and a harder model to interpret.",
+      "useCase": "Cut the cost with feature selection or dimensionality reduction.",
+      "example": "A model on 5,000 columns"
+    },
+    {
+      "topic": "Feature Selection",
+      "term": "Feature selection",
+      "definition": "Keeping a useful subset of the original features and dropping the rest.",
+      "useCase": "Reduces dimensionality while the columns keep their meaning.",
+      "example": "Keep 12 of 40 columns"
+    },
+    {
+      "topic": "Feature Selection",
+      "term": "Filter method",
+      "definition": "Scores features with simple criteria, such as correlation, before any model is trained.",
+      "useCase": "Cheapest approach; ignores how features work together.",
+      "example": "Drop features with near-zero correlation with the target"
+    },
+    {
+      "topic": "Feature Selection",
+      "term": "Wrapper method",
+      "definition": "Trains a model on feature subsets repeatedly and uses an evaluation metric to choose.",
+      "useCase": "Tends to find a good subset for that model but is the most expensive.",
+      "example": "Recursive feature elimination (RFE)"
+    },
+    {
+      "topic": "Feature Selection",
+      "term": "Embedded method",
+      "definition": "Uses the results of a model, such as coefficients or importances, to choose features.",
+      "useCase": "Cheaper than a wrapper; depends on the model used.",
+      "example": "Lasso coefficients shrunk to zero"
+    },
+    {
+      "topic": "Feature Selection",
+      "term": "Forward and backward selection",
+      "definition": "Wrapper methods: forward adds one feature at a time, backward removes one at a time.",
+      "useCase": "Each step is scored by training a model, so they are effective but slow.",
+      "example": "Add the feature that raises the score most"
+    },
+    {
+      "topic": "Feature Selection",
+      "term": "Low-variance feature",
+      "definition": "A feature whose values barely differ between rows.",
+      "useCase": "A filter can drop it, since it is unlikely to help predict the target.",
+      "example": "A column that is 99% the same value"
+    },
+    {
+      "topic": "Feature Selection",
+      "term": "Correlation coefficient",
+      "definition": "A number from -1 to 1 for the straight-line link between two variables.",
+      "useCase": "Judge by size: -0.85 is as strong as +0.85. Near 0 means little linear link.",
+      "example": "0.02 with the target: candidate to drop"
+    },
+    {
+      "topic": "Feature Selection",
+      "term": "Cross-correlation of features",
+      "definition": "A table of correlations between every pair of features.",
+      "useCase": "Two features near 1 are redundant, so keep one.",
+      "example": "0.97 between two columns"
+    },
+    {
+      "topic": "Feature Selection",
+      "term": "SelectKBest",
+      "definition": "A univariate filter that scores each feature against the target and keeps the k highest.",
+      "useCase": "Quick selection; it misses features that only help in combination.",
+      "example": "SelectKBest(k=5)"
+    },
+    {
+      "topic": "Principal Component Analysis",
+      "term": "PCA (principal component analysis)",
+      "definition": "Builds fewer new, uncorrelated features that keep as much variance as possible.",
+      "useCase": "Dimensionality reduction by transformation. Unsupervised: it ignores the target.",
+      "example": "10 features reduced to 3 components"
+    },
+    {
+      "topic": "Principal Component Analysis",
+      "term": "Principal component",
+      "definition": "A new feature that is a weighted blend of the originals. The first points along the greatest variance.",
+      "useCase": "Components are perpendicular and ordered by the variance they explain.",
+      "example": "PC1 explains 60% of the variance"
+    },
+    {
+      "topic": "Principal Component Analysis",
+      "term": "Explained variance ratio",
+      "definition": "The share of the total variance that each component captures.",
+      "useCase": "Add them up until you reach a target such as 90% to pick how many to keep.",
+      "example": "60 + 25 + 10 = 95%: keep 3"
+    },
+    {
+      "topic": "Principal Component Analysis",
+      "term": "PCA versus feature selection",
+      "definition": "Selection keeps some original columns unchanged; PCA creates new columns from combinations.",
+      "useCase": "Choose selection for interpretability, PCA to compress strongly correlated features. Standardize before PCA.",
+      "example": "Keep 'age'; or use a blend of 'age' and 'income'"
+    }
+  ]
+}

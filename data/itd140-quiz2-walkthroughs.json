@@ -1,0 +1,2475 @@
+{
+ "title": "ITD 140 Quiz 2 Walkthroughs",
+ "guideFile": "data/itd140-quiz2-guide.json",
+ "quizFile": "data/itd140-quiz2.json",
+ "walkthroughs": [
+  {
+   "id": "feature-types",
+   "title": "Naming the type of each feature",
+   "topic": "1. Features and Feature Types",
+   "blurb": "Sort five columns into continuous, discrete, ordinal and nominal.",
+   "steps": [
+    {
+     "title": "Five columns to classify",
+     "text": "A feature is one input column. Its type decides how it is prepared. First ask: is it a measured amount (quantitative) or a category (qualitative)?",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Column",
+       "Example values",
+       "Type"
+      ],
+      "rows": [
+       [
+        "temperature",
+        "36.8, 37.2",
+        ""
+       ],
+       [
+        "siblings",
+        "0, 1, 3",
+        ""
+       ],
+       [
+        "size",
+        "small, large",
+        ""
+       ],
+       [
+        "colour",
+        "red, blue",
+        ""
+       ],
+       [
+        "postal_code",
+        "90210, 10001",
+        ""
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Quantitative: continuous or discrete?",
+     "text": "Temperature can take any value on a scale, decimals included, so it is continuous. Siblings are counted in whole steps, so it is discrete.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Column",
+       "Example values",
+       "Type"
+      ],
+      "rows": [
+       [
+        "temperature",
+        "36.8, 37.2",
+        "Continuous"
+       ],
+       [
+        "siblings",
+        "0, 1, 3",
+        "Discrete"
+       ],
+       [
+        "size",
+        "small, large",
+        ""
+       ],
+       [
+        "colour",
+        "red, blue",
+        ""
+       ],
+       [
+        "postal_code",
+        "90210, 10001",
+        ""
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Qualitative: ordinal or nominal?",
+     "text": "Small to large has an order, so size is ordinal. Colour is only a name, so it is nominal.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Column",
+       "Example values",
+       "Type"
+      ],
+      "rows": [
+       [
+        "temperature",
+        "36.8, 37.2",
+        "Continuous"
+       ],
+       [
+        "siblings",
+        "0, 1, 3",
+        "Discrete"
+       ],
+       [
+        "size",
+        "small, large",
+        "Ordinal"
+       ],
+       [
+        "colour",
+        "red, blue",
+        "Nominal"
+       ],
+       [
+        "postal_code",
+        "90210, 10001",
+        ""
+       ]
+      ],
+      "hl": [
+       [
+        2,
+        2
+       ],
+       [
+        3,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "A number can still be a category",
+     "text": "Postal codes are numbers, but adding two of them or calling one bigger means nothing. They name places, so they are nominal.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Column",
+       "Example values",
+       "Type"
+      ],
+      "rows": [
+       [
+        "temperature",
+        "36.8, 37.2",
+        "Continuous"
+       ],
+       [
+        "siblings",
+        "0, 1, 3",
+        "Discrete"
+       ],
+       [
+        "size",
+        "small, large",
+        "Ordinal"
+       ],
+       [
+        "colour",
+        "red, blue",
+        "Nominal"
+       ],
+       [
+        "postal_code",
+        "90210, 10001",
+        "Nominal"
+       ]
+      ],
+      "hl": [
+       [
+        4,
+        2
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "missing-removal",
+   "title": "Finding gaps and dropping them",
+   "topic": "2. Missing Data and Removal",
+   "blurb": "Count the NaN values, then see what dropna() keeps.",
+   "steps": [
+    {
+     "title": "Find the gaps",
+     "text": "df.isna().sum() counts the missing cells in each column: age has 2, income has 2.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Row",
+       "age",
+       "income"
+      ],
+      "rows": [
+       [
+        "A",
+        "34",
+        "52000"
+       ],
+       [
+        "B",
+        "NaN",
+        "61000"
+       ],
+       [
+        "C",
+        "29",
+        "NaN"
+       ],
+       [
+        "D",
+        "41",
+        "58000"
+       ],
+       [
+        "E",
+        "NaN",
+        "NaN"
+       ]
+      ],
+      "hl": [
+       [
+        1,
+        1
+       ],
+       [
+        4,
+        1
+       ],
+       [
+        2,
+        2
+       ],
+       [
+        4,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Drop rows: dropna()",
+     "text": "A row is removed if any column is missing. Rows B, C and E go; only A and D remain. Two gaps per column cost three rows.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Row",
+       "age",
+       "income"
+      ],
+      "rows": [
+       [
+        "A",
+        "34",
+        "52000"
+       ],
+       [
+        "D",
+        "41",
+        "58000"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        0
+       ],
+       [
+        1,
+        0
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Drop columns: dropna(axis=1)",
+     "text": "This removes any column that has a gap. Both age and income have gaps, so both would go and no features would remain. Dropping columns is for a column that is mostly empty, not this one.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Method",
+       "Rows left",
+       "Columns left"
+      ],
+      "rows": [
+       [
+        "dropna()",
+        "2 of 5",
+        "2"
+       ],
+       [
+        "dropna(axis=1)",
+        "5 of 5",
+        "0"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "So when is removal fine?",
+     "text": "When few rows have gaps and plenty remain, and the gaps are not tied to the outcome. Otherwise fill the values instead (next walkthroughs).",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Situation",
+       "Choice"
+      ],
+      "rows": [
+       [
+        "Few scattered gaps, lots of data",
+        "Drop the rows"
+       ],
+       [
+        "Column is mostly empty",
+        "Drop the column"
+       ],
+       [
+        "Many gaps or not random",
+        "Impute"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        2,
+        1
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "numeric-imputation",
+   "title": "Filling a numeric gap four ways",
+   "topic": "3. Imputing Numerical Data",
+   "blurb": "Mean, median, constant and missing indicator on one small column.",
+   "steps": [
+    {
+     "title": "A column with one gap and one outlier",
+     "text": "Values 10, 12, 14 and 40, plus a NaN. The 40 is an outlier.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Row",
+       "value",
+       "mean fill",
+       "median fill",
+       "missing flag"
+      ],
+      "rows": [
+       [
+        "1",
+        "10",
+        "",
+        "",
+        ""
+       ],
+       [
+        "2",
+        "12",
+        "",
+        "",
+        ""
+       ],
+       [
+        "3",
+        "14",
+        "",
+        "",
+        ""
+       ],
+       [
+        "4",
+        "40",
+        "",
+        "",
+        ""
+       ],
+       [
+        "5",
+        "NaN",
+        "",
+        "",
+        ""
+       ]
+      ],
+      "hl": [
+       [
+        3,
+        1
+       ],
+       [
+        4,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Mean fill",
+     "text": "(10 + 12 + 14 + 40) / 4 = 19. The outlier drags the mean above three of the four values.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Row",
+       "value",
+       "mean fill",
+       "median fill",
+       "missing flag"
+      ],
+      "rows": [
+       [
+        "1",
+        "10",
+        "",
+        "",
+        ""
+       ],
+       [
+        "2",
+        "12",
+        "",
+        "",
+        ""
+       ],
+       [
+        "3",
+        "14",
+        "",
+        "",
+        ""
+       ],
+       [
+        "4",
+        "40",
+        "",
+        "",
+        ""
+       ],
+       [
+        "5",
+        "NaN",
+        "19",
+        "",
+        ""
+       ]
+      ],
+      "hl": [
+       [
+        4,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Median fill",
+     "text": "In order the values are 10, 12, 14, 40. The middle two are 12 and 14, so the median is 13. The outlier barely matters.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Row",
+       "value",
+       "mean fill",
+       "median fill",
+       "missing flag"
+      ],
+      "rows": [
+       [
+        "1",
+        "10",
+        "",
+        "",
+        ""
+       ],
+       [
+        "2",
+        "12",
+        "",
+        "",
+        ""
+       ],
+       [
+        "3",
+        "14",
+        "",
+        "",
+        ""
+       ],
+       [
+        "4",
+        "40",
+        "",
+        "",
+        ""
+       ],
+       [
+        "5",
+        "NaN",
+        "19",
+        "13",
+        ""
+       ]
+      ],
+      "hl": [
+       [
+        4,
+        3
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Constant fill and mode fill",
+     "text": "A constant (say -1) is easy but can look like real data. A mode fill needs a repeated value; this column has none, so every value ties. Both work better on columns with repeats.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Method",
+       "Gap becomes"
+      ],
+      "rows": [
+       [
+        "Mean",
+        "19"
+       ],
+       [
+        "Median",
+        "13"
+       ],
+       [
+        "Constant",
+        "-1"
+       ],
+       [
+        "Mode",
+        "no single mode here"
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Add a missing indicator",
+     "text": "A 0/1 column marks the row that was filled, so the model can still learn from the fact that the value was missing.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Row",
+       "value",
+       "mean fill",
+       "median fill",
+       "missing flag"
+      ],
+      "rows": [
+       [
+        "1",
+        "10",
+        "",
+        "",
+        "0"
+       ],
+       [
+        "2",
+        "12",
+        "",
+        "",
+        "0"
+       ],
+       [
+        "3",
+        "14",
+        "",
+        "",
+        "0"
+       ],
+       [
+        "4",
+        "40",
+        "",
+        "",
+        "0"
+       ],
+       [
+        "5",
+        "NaN",
+        "19",
+        "13",
+        "1"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        4
+       ],
+       [
+        1,
+        4
+       ],
+       [
+        2,
+        4
+       ],
+       [
+        3,
+        4
+       ],
+       [
+        4,
+        4
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "categorical-imputation",
+   "title": "Forward fill, backfill and mode fill",
+   "topic": "4. Imputing Categorical Data",
+   "blurb": "Fill the same gaps three ways and see where each method breaks.",
+   "steps": [
+    {
+     "title": "A column of colours with gaps",
+     "text": "Six rows in order. Rows 2, 3 and 6 are missing. A mean or median makes no sense for words.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Row",
+       "original",
+       "forward fill",
+       "backfill",
+       "mode fill"
+      ],
+      "rows": [
+       [
+        "1",
+        "Red",
+        "",
+        "",
+        ""
+       ],
+       [
+        "2",
+        "NaN",
+        "",
+        "",
+        ""
+       ],
+       [
+        "3",
+        "NaN",
+        "",
+        "",
+        ""
+       ],
+       [
+        "4",
+        "Blue",
+        "",
+        "",
+        ""
+       ],
+       [
+        "5",
+        "Red",
+        "",
+        "",
+        ""
+       ],
+       [
+        "6",
+        "NaN",
+        "",
+        "",
+        ""
+       ]
+      ],
+      "hl": [
+       [
+        1,
+        1
+       ],
+       [
+        2,
+        1
+       ],
+       [
+        5,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Forward fill ('pad')",
+     "text": "Copy the previous row's value down: rows 2 and 3 become Red, row 6 becomes Red. It only makes sense when the rows are in a meaningful order.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Row",
+       "original",
+       "forward fill",
+       "backfill",
+       "mode fill"
+      ],
+      "rows": [
+       [
+        "1",
+        "Red",
+        "Red",
+        "",
+        ""
+       ],
+       [
+        "2",
+        "NaN",
+        "Red",
+        "",
+        ""
+       ],
+       [
+        "3",
+        "NaN",
+        "Red",
+        "",
+        ""
+       ],
+       [
+        "4",
+        "Blue",
+        "Blue",
+        "",
+        ""
+       ],
+       [
+        "5",
+        "Red",
+        "Red",
+        "",
+        ""
+       ],
+       [
+        "6",
+        "NaN",
+        "Red",
+        "",
+        ""
+       ]
+      ],
+      "hl": [
+       [
+        1,
+        2
+       ],
+       [
+        2,
+        2
+       ],
+       [
+        5,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Backfill",
+     "text": "Copy the next row's value up: rows 2 and 3 become Blue. Row 6 has nothing after it, so it stays NaN. (A forward fill has the same problem in row 1.)",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Row",
+       "original",
+       "forward fill",
+       "backfill",
+       "mode fill"
+      ],
+      "rows": [
+       [
+        "1",
+        "Red",
+        "Red",
+        "Red",
+        ""
+       ],
+       [
+        "2",
+        "NaN",
+        "Red",
+        "Blue",
+        ""
+       ],
+       [
+        "3",
+        "NaN",
+        "Red",
+        "Blue",
+        ""
+       ],
+       [
+        "4",
+        "Blue",
+        "Blue",
+        "Blue",
+        ""
+       ],
+       [
+        "5",
+        "Red",
+        "Red",
+        "Red",
+        ""
+       ],
+       [
+        "6",
+        "NaN",
+        "Red",
+        null,
+        ""
+       ]
+      ],
+      "hl": [
+       [
+        1,
+        3
+       ],
+       [
+        2,
+        3
+       ],
+       [
+        5,
+        3
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Mode fill",
+     "text": "The most common colour is Red (2 of the 3 known values), so every gap gets Red, whatever the row order. A constant label such as 'Unknown' is the other common choice.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Row",
+       "original",
+       "forward fill",
+       "backfill",
+       "mode fill"
+      ],
+      "rows": [
+       [
+        "1",
+        "Red",
+        "Red",
+        "Red",
+        "Red"
+       ],
+       [
+        "2",
+        "NaN",
+        "Red",
+        "Blue",
+        "Red"
+       ],
+       [
+        "3",
+        "NaN",
+        "Red",
+        "Blue",
+        "Red"
+       ],
+       [
+        "4",
+        "Blue",
+        "Blue",
+        "Blue",
+        "Red"
+       ],
+       [
+        "5",
+        "Red",
+        "Red",
+        "Red",
+        "Red"
+       ],
+       [
+        "6",
+        "NaN",
+        "Red",
+        null,
+        "Red"
+       ]
+      ],
+      "hl": [
+       [
+        1,
+        4
+       ],
+       [
+        2,
+        4
+       ],
+       [
+        5,
+        4
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "binning",
+   "title": "Equal-width versus equal-frequency bins",
+   "topic": "5. Binning Numerical Data",
+   "blurb": "Cut the same eight values into two bins both ways.",
+   "steps": [
+    {
+     "title": "Eight values and an outlier",
+     "text": "1, 2, 3, 4, 5, 6, 7 and 100. Binning turns numbers into ranges (discretization).",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Value",
+       "equal-width bin",
+       "equal-frequency bin"
+      ],
+      "rows": [
+       [
+        "1",
+        "",
+        ""
+       ],
+       [
+        "2",
+        "",
+        ""
+       ],
+       [
+        "3",
+        "",
+        ""
+       ],
+       [
+        "4",
+        "",
+        ""
+       ],
+       [
+        "5",
+        "",
+        ""
+       ],
+       [
+        "6",
+        "",
+        ""
+       ],
+       [
+        "7",
+        "",
+        ""
+       ],
+       [
+        "100",
+        "",
+        ""
+       ]
+      ],
+      "hl": [
+       [
+        7,
+        0
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Equal-width: find the width",
+     "text": "Width = (max - min) / bins = (100 - 1) / 2 = 49.5, so the cut sits at 50.5: the bins are 1 to 50.5 and 50.5 to 100.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Bin",
+       "Range"
+      ],
+      "rows": [
+       [
+        "low",
+        "1 to 50.5"
+       ],
+       [
+        "high",
+        "50.5 to 100"
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Equal-width: count what lands where",
+     "text": "Seven values crowd into the low bin and only the outlier is in the high bin. The outlier stretched the range.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Value",
+       "equal-width bin",
+       "equal-frequency bin"
+      ],
+      "rows": [
+       [
+        "1",
+        "low",
+        ""
+       ],
+       [
+        "2",
+        "low",
+        ""
+       ],
+       [
+        "3",
+        "low",
+        ""
+       ],
+       [
+        "4",
+        "low",
+        ""
+       ],
+       [
+        "5",
+        "low",
+        ""
+       ],
+       [
+        "6",
+        "low",
+        ""
+       ],
+       [
+        "7",
+        "low",
+        ""
+       ],
+       [
+        "100",
+        "high",
+        ""
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        2,
+        1
+       ],
+       [
+        3,
+        1
+       ],
+       [
+        4,
+        1
+       ],
+       [
+        5,
+        1
+       ],
+       [
+        6,
+        1
+       ],
+       [
+        7,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Equal-frequency: 4 values each",
+     "text": "Sort the values and cut so each bin has 8 / 2 = 4 values: 1 to 4 are low and 5, 6, 7 and 100 are high. The bins are balanced, but the high bin now spans 5 to 100.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Value",
+       "equal-width bin",
+       "equal-frequency bin"
+      ],
+      "rows": [
+       [
+        "1",
+        "low",
+        "low"
+       ],
+       [
+        "2",
+        "low",
+        "low"
+       ],
+       [
+        "3",
+        "low",
+        "low"
+       ],
+       [
+        "4",
+        "low",
+        "low"
+       ],
+       [
+        "5",
+        "low",
+        "high"
+       ],
+       [
+        "6",
+        "low",
+        "high"
+       ],
+       [
+        "7",
+        "low",
+        "high"
+       ],
+       [
+        "100",
+        "high",
+        "high"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        2,
+        2
+       ],
+       [
+        3,
+        2
+       ],
+       [
+        4,
+        2
+       ],
+       [
+        5,
+        2
+       ],
+       [
+        6,
+        2
+       ],
+       [
+        7,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Binarization: one threshold",
+     "text": "A special case: one cut-off you choose, here 5, gives just two groups.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Value",
+       "Binarized (cut-off 5)"
+      ],
+      "rows": [
+       [
+        "1",
+        "low"
+       ],
+       [
+        "2",
+        "low"
+       ],
+       [
+        "3",
+        "low"
+       ],
+       [
+        "4",
+        "low"
+       ],
+       [
+        "5",
+        "high"
+       ],
+       [
+        "6",
+        "high"
+       ],
+       [
+        "7",
+        "high"
+       ],
+       [
+        "100",
+        "high"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        2,
+        1
+       ],
+       [
+        3,
+        1
+       ],
+       [
+        4,
+        1
+       ],
+       [
+        5,
+        1
+       ],
+       [
+        6,
+        1
+       ],
+       [
+        7,
+        1
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "encoding",
+   "title": "One-hot versus target encoding",
+   "topic": "6. Encoding Categorical Data",
+   "blurb": "Encode a colour column one-hot, then a category column by its target mean.",
+   "steps": [
+    {
+     "title": "Models need numbers",
+     "text": "Text categories cannot be fed to a model. Two-value features simply become 0 and 1; features with 3+ values need more care.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "colour"
+      ],
+      "rows": [
+       [
+        "red"
+       ],
+       [
+        "green"
+       ],
+       [
+        "blue"
+       ],
+       [
+        "green"
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Numbering the colours is a trap",
+     "text": "red = 1, green = 2, blue = 3 says blue is greater than red and twice as far from it. None of that is true of colours.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "colour",
+       "number"
+      ],
+      "rows": [
+       [
+        "red",
+        "1"
+       ],
+       [
+        "green",
+        "2"
+       ],
+       [
+        "blue",
+        "3"
+       ],
+       [
+        "green",
+        "2"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        2,
+        1
+       ],
+       [
+        3,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "One-hot: one column per category",
+     "text": "Each row gets a 1 in the column of its own colour and 0 elsewhere. pd.get_dummies(df['colour']). Three categories, three columns.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "colour",
+       "is_red",
+       "is_green",
+       "is_blue"
+      ],
+      "rows": [
+       [
+        "red",
+        "1",
+        "0",
+        "0"
+       ],
+       [
+        "green",
+        "0",
+        "1",
+        "0"
+       ],
+       [
+        "blue",
+        "0",
+        "0",
+        "1"
+       ],
+       [
+        "green",
+        "0",
+        "1",
+        "0"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        2,
+        3
+       ],
+       [
+        3,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Target encoding: the mean target per category",
+     "text": "Six training rows with a target of 0 or 1. Category A appears in four rows with targets 1, 1, 0, 1 and B in two rows with targets 0, 0. Replace each category with its mean target: A = 3 / 4 and B = 0. Compute this on training data only, or the target leaks into the feature.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Category",
+       "Targets in training",
+       "Encoded value"
+      ],
+      "rows": [
+       [
+        "A",
+        "1, 1, 0, 1",
+        "0.75"
+       ],
+       [
+        "B",
+        "0, 0",
+        "0"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "scaling",
+   "title": "Min-max and standardization with an outlier",
+   "topic": "7. Scaling",
+   "blurb": "Scale one column both ways and watch what the outlier does.",
+   "steps": [
+    {
+     "title": "A column with an outlier",
+     "text": "Values 20, 30, 50, 60 and 200. The 200 is an outlier. A model comparing this with a column that runs 0 to 1 would be dominated by it.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Value",
+       "Min-max",
+       "Standardized"
+      ],
+      "rows": [
+       [
+        "20",
+        "",
+        ""
+       ],
+       [
+        "30",
+        "",
+        ""
+       ],
+       [
+        "50",
+        "",
+        ""
+       ],
+       [
+        "60",
+        "",
+        ""
+       ],
+       [
+        "200",
+        "",
+        ""
+       ]
+      ],
+      "hl": [
+       [
+        4,
+        0
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Min-max: (x - min) / (max - min)",
+     "text": "min = 20 and max = 200, so the range is 180. Every value is divided over that range, so the column runs from 0 to 1.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Value",
+       "Min-max",
+       "Standardized"
+      ],
+      "rows": [
+       [
+        "20",
+        "0",
+        ""
+       ],
+       [
+        "30",
+        "0.06",
+        ""
+       ],
+       [
+        "50",
+        "0.17",
+        ""
+       ],
+       [
+        "60",
+        "0.22",
+        ""
+       ],
+       [
+        "200",
+        "1",
+        ""
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        2,
+        1
+       ],
+       [
+        3,
+        1
+       ],
+       [
+        4,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "The outlier squeezed the rest",
+     "text": "Four of the five values are now between 0 and 0.22. One extreme value set the scale for everyone.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Value",
+       "Min-max",
+       "Standardized"
+      ],
+      "rows": [
+       [
+        "20",
+        "0",
+        ""
+       ],
+       [
+        "30",
+        "0.06",
+        ""
+       ],
+       [
+        "50",
+        "0.17",
+        ""
+       ],
+       [
+        "60",
+        "0.22",
+        ""
+       ],
+       [
+        "200",
+        "1",
+        ""
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        2,
+        1
+       ],
+       [
+        3,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Standardization: (x - mean) / standard deviation",
+     "text": "mean = 72, standard deviation = 65.54. The result has mean 0 and standard deviation 1, with no fixed range.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Value",
+       "Min-max",
+       "Standardized"
+      ],
+      "rows": [
+       [
+        "20",
+        "0",
+        "-0.79"
+       ],
+       [
+        "30",
+        "0.06",
+        "-0.64"
+       ],
+       [
+        "50",
+        "0.17",
+        "-0.34"
+       ],
+       [
+        "60",
+        "0.22",
+        "-0.18"
+       ],
+       [
+        "200",
+        "1",
+        "1.95"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        2,
+        2
+       ],
+       [
+        3,
+        2
+       ],
+       [
+        4,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Reading the comparison",
+     "text": "Neither method removes the skew: the 200 is still far from the rest. Standardization lets the outlier be big (a large z-score) instead of forcing the rest into a corner, but it still pulls the mean and spread. Fit on the training set only.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "",
+       "Min-max",
+       "Standardization"
+      ],
+      "rows": [
+       [
+        "Range",
+        "0 to 1",
+        "Not fixed"
+       ],
+       [
+        "Outlier",
+        "Squeezes the rest",
+        "Shifts mean and spread"
+       ],
+       [
+        "Skew",
+        "Unchanged",
+        "Unchanged"
+       ]
+      ],
+      "hl": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Which one to use",
+     "text": "Choose by the data and the algorithm. Min-max suits an unknown or non-bell-shaped distribution and kNN or neural networks. Standardization suits algorithms that assume normally distributed data.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "",
+       "Min-max",
+       "Standardization"
+      ],
+      "rows": [
+       [
+        "Use when",
+        "Distribution unknown or not Gaussian; kNN, neural nets",
+        "Algorithm assumes normal data"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "validation",
+   "title": "Split, score, confusion matrix, cross-validation",
+   "topic": "8. Validation, Overfitting and Underfitting",
+   "blurb": "From an 80/20 split to a confusion matrix and a 5-fold average.",
+   "steps": [
+    {
+     "title": "Split the data 80/20",
+     "text": "250 rows: 250 x 0.8 = 200 to train, 250 x 0.2 = 50 to test. The test rows are never used for learning.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Set",
+       "Rows",
+       "Share"
+      ],
+      "rows": [
+       [
+        "Train",
+        "200",
+        "80%"
+       ],
+       [
+        "Test",
+        "50",
+        "20%"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Compare train and test accuracy",
+     "text": "Generalization is how well the result carries over. A big gap with training higher means overfitting; low on both means underfitting.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Train",
+       "Test",
+       "Diagnosis"
+      ],
+      "rows": [
+       [
+        "98%",
+        "70%",
+        "Overfitting"
+       ],
+       [
+        "61%",
+        "59%",
+        "Underfitting"
+       ],
+       [
+        "91%",
+        "89%",
+        "Generalizes well"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        2,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Build the confusion matrix",
+     "text": "On 100 test predictions: 30 true positives, 20 false negatives (missed positives), 10 false positives and 40 true negatives.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "",
+       "Predicted +",
+       "Predicted -"
+      ],
+      "rows": [
+       [
+        "Actual +",
+        "30",
+        "20"
+       ],
+       [
+        "Actual -",
+        "10",
+        "40"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Accuracy from the diagonal",
+     "text": "Correct = 30 + 40 = 70 out of 100, so accuracy = 70%.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "",
+       "Predicted +",
+       "Predicted -"
+      ],
+      "rows": [
+       [
+        "Actual +",
+        "30",
+        "20"
+       ],
+       [
+        "Actual -",
+        "10",
+        "40"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Cross-validation: 5 folds of 200 rows",
+     "text": "200 rows / 5 folds = 40 rows per fold. Each round tests on one fold (40 rows) and trains on the other four (160 rows). The five scores are averaged.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Round",
+       "Test fold",
+       "Train rows",
+       "Test rows"
+      ],
+      "rows": [
+       [
+        "1",
+        "Fold 1",
+        "160",
+        "40"
+       ],
+       [
+        "2",
+        "Fold 2",
+        "160",
+        "40"
+       ],
+       [
+        "3",
+        "Fold 3",
+        "160",
+        "40"
+       ],
+       [
+        "4",
+        "Fold 4",
+        "160",
+        "40"
+       ],
+       [
+        "5",
+        "Fold 5",
+        "160",
+        "40"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "dimensionality",
+   "title": "Why more features can hurt",
+   "topic": "9. Curse of Dimensionality",
+   "blurb": "Watch the space grow while the number of rows stays put.",
+   "steps": [
+    {
+     "title": "Cut each feature into 10 ranges",
+     "text": "With 1 feature there are 10 regions to cover, with 2 there are 10 x 10 = 100, with 3 there are 1,000. The regions multiply with each feature.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Features",
+       "Regions"
+      ],
+      "rows": [
+       [
+        "1",
+        "10"
+       ],
+       [
+        "2",
+        "100"
+       ],
+       [
+        "3",
+        "1,000"
+       ],
+       [
+        "5",
+        "100,000"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        3,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "100 rows go thin",
+     "text": "100 rows fill the 10 regions of 1 feature (10 rows each). With 3 features there are 1,000 regions, so on average 0.1 rows each. Most regions hold no data at all: the data is sparse.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Features",
+       "Regions",
+       "Rows per region (100 rows)"
+      ],
+      "rows": [
+       [
+        "1",
+        "10",
+        "10"
+       ],
+       [
+        "2",
+        "100",
+        "1"
+       ],
+       [
+        "3",
+        "1,000",
+        "0.1"
+       ],
+       [
+        "5",
+        "100,000",
+        "0"
+       ]
+      ],
+      "hl": [
+       [
+        2,
+        2
+       ],
+       [
+        3,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Consequences",
+     "text": "Distances between points become similar, so kNN's nearest neighbours mean less. The model has more ways to fit noise, so overfitting rises. Training time and memory grow. A table with 100 rows and 500 features is in trouble.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Effect",
+       "Result"
+      ],
+      "rows": [
+       [
+        "Sparse data",
+        "Few rows near any point"
+       ],
+       [
+        "Distances",
+        "All points about equally far"
+       ],
+       [
+        "Overfitting",
+        "More ways to fit noise"
+       ],
+       [
+        "Cost",
+        "More time and memory"
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "The remedies",
+     "text": "Remove features (feature selection) or combine them into fewer new ones (dimensionality reduction such as PCA). One-hot encoding a column with hundreds of categories does the opposite, adding hundreds of dimensions.",
+     "visual": {
+      "type": "flow",
+      "nodes": [
+       "Many features",
+       "Select or reduce",
+       "Fewer features",
+       "Denser data"
+      ],
+      "active": 1
+     }
+    }
+   ]
+  },
+  {
+   "id": "feature-selection",
+   "title": "Choosing features with correlations",
+   "topic": "10. Feature Selection",
+   "blurb": "A filter pass over four features, then the wrapper and embedded alternatives.",
+   "steps": [
+    {
+     "title": "Correlations for four features",
+     "text": "The target link and the largest link to any other feature. All numbers run from -1 to 1.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Feature",
+       "Correlation with target",
+       "Max correlation with another feature"
+      ],
+      "rows": [
+       [
+        "age",
+        "0.62",
+        "0.30"
+       ],
+       [
+        "income",
+        "0.58",
+        "0.95"
+       ],
+       [
+        "height",
+        "0.03",
+        "0.10"
+       ],
+       [
+        "debt",
+        "-0.81",
+        "0.22"
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Drop the weak link to the target",
+     "text": "height has a correlation of 0.03 with the target: almost no straight-line link, so it is a candidate to drop.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Feature",
+       "Correlation with target",
+       "Max correlation with another feature"
+      ],
+      "rows": [
+       [
+        "age",
+        "0.62",
+        "0.30"
+       ],
+       [
+        "income",
+        "0.58",
+        "0.95"
+       ],
+       [
+        "height",
+        "0.03",
+        "0.10"
+       ],
+       [
+        "debt",
+        "-0.81",
+        "0.22"
+       ]
+      ],
+      "hl": [
+       [
+        2,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Keep a strong negative",
+     "text": "debt is -0.81. The sign only says the two move in opposite directions; the size, 0.81, is strong. Keep it.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Feature",
+       "Correlation with target",
+       "Max correlation with another feature"
+      ],
+      "rows": [
+       [
+        "age",
+        "0.62",
+        "0.30"
+       ],
+       [
+        "income",
+        "0.58",
+        "0.95"
+       ],
+       [
+        "height",
+        "0.03",
+        "0.10"
+       ],
+       [
+        "debt",
+        "-0.81",
+        "0.22"
+       ]
+      ],
+      "hl": [
+       [
+        3,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Spot the redundant pair",
+     "text": "income has a 0.95 link to another feature: they carry nearly the same information, so keep one of the pair. Filter methods like this are cheap because no model is trained.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Feature",
+       "Correlation with target",
+       "Max correlation with another feature"
+      ],
+      "rows": [
+       [
+        "age",
+        "0.62",
+        "0.30"
+       ],
+       [
+        "income",
+        "0.58",
+        "0.95"
+       ],
+       [
+        "height",
+        "0.03",
+        "0.10"
+       ],
+       [
+        "debt",
+        "-0.81",
+        "0.22"
+       ]
+      ],
+      "hl": [
+       [
+        1,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "The other two approaches",
+     "text": "A wrapper (such as RFE) repeatedly trains a model on subsets and scores each. An embedded method reads a fitted model's results, for example coefficients that Lasso shrinks to zero. SelectKBest is a filter: it scores each feature alone against the target and keeps the top k. Wrapper variants: forward selection adds one feature at a time, backward elimination removes one at a time, exhaustive search tries every combination. An embedded method fits the model only once.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Approach",
+       "Decides using",
+       "Cost"
+      ],
+      "rows": [
+       [
+        "Filter",
+        "Simple statistics",
+        "Cheapest"
+       ],
+       [
+        "Wrapper",
+        "Model score on subsets",
+        "Highest"
+       ],
+       [
+        "Embedded",
+        "One model's results",
+        "In between"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        2,
+        1
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "pca",
+   "title": "Choosing how many components to keep",
+   "topic": "11. Principal Component Analysis",
+   "blurb": "Read the explained variance and pick the number of components.",
+   "steps": [
+    {
+     "title": "Standardize, then run PCA",
+     "text": "PCA chases variance, which depends on units, so features are standardized first. PCA ignores the target (unsupervised) and builds new features, the principal components, that are uncorrelated. PC1 points along the greatest variance.",
+     "visual": {
+      "type": "flow",
+      "nodes": [
+       "Standardize",
+       "Fit PCA",
+       "Read the variance",
+       "Keep k components"
+      ],
+      "active": 0
+     }
+    },
+    {
+     "title": "Explained variance of each component",
+     "text": "Four components shared out 100% of the variance, in descending order: 60%, 25%, 10% and 5%.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Component",
+       "Explained variance",
+       "Running total"
+      ],
+      "rows": [
+       [
+        "PC1",
+        "60%",
+        ""
+       ],
+       [
+        "PC2",
+        "25%",
+        ""
+       ],
+       [
+        "PC3",
+        "10%",
+        ""
+       ],
+       [
+        "PC4",
+        "5%",
+        ""
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        2,
+        1
+       ],
+       [
+        3,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Add them up",
+     "text": "60 + 25 = 85%, short of 90%. Adding PC3 gives 95%.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Component",
+       "Explained variance",
+       "Running total"
+      ],
+      "rows": [
+       [
+        "PC1",
+        "60%",
+        "60%"
+       ],
+       [
+        "PC2",
+        "25%",
+        "85%"
+       ],
+       [
+        "PC3",
+        "10%",
+        "95%"
+       ],
+       [
+        "PC4",
+        "5%",
+        ""
+       ]
+      ],
+      "hl": [
+       [
+        1,
+        2
+       ],
+       [
+        2,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Keep 3 components",
+     "text": "3 components keep at least 90% of the variance. The data now has 3 columns instead of 4. The cost: each component blends the original features, so it is harder to interpret, and the dropped variance is lost.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Kept",
+       "Variance kept",
+       "Columns"
+      ],
+      "rows": [
+       [
+        "1",
+        "60%",
+        "1"
+       ],
+       [
+        "2",
+        "85%",
+        "2"
+       ],
+       [
+        "3",
+        "95%",
+        "3"
+       ],
+       [
+        "4",
+        "100%",
+        "4"
+       ]
+      ],
+      "hl": [
+       [
+        2,
+        1
+       ],
+       [
+        2,
+        2
+       ]
+      ]
+     }
+    }
+   ]
+  }
+ ]
+}

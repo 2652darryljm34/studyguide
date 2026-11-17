@@ -12,6 +12,14 @@
           "file": "data/itd140-quiz1-guide.json"
         },
         {
+          "id": "quiz2-guide",
+          "title": "Quiz 2 Study Guide",
+          "description": "Features and feature types, missing data and imputation, binning, encoding, scaling, validation, the curse of dimensionality, feature selection and PCA, in the same order as the quiz, flashcards and walkthroughs.",
+          "file": "data/itd140-quiz2-guide.json",
+          "featured": true,
+          "cta": "Read the guide"
+        },
+        {
           "id": "supplemental-guide",
           "title": "Full-Course Study Guide",
           "description": "Whole-course material: foundations, supervised algorithms, evaluation, clustering and distance, the workflow, feature selection, PCA and LDA, encoding, scaling and regularization.",
@@ -38,6 +46,30 @@
           "title": "Quiz 1 Number Drills",
           "description": "Endless calculation practice with new numbers every time: accuracy, confusion matrix terms and overfit versus underfit. Get 5 right in a row to master each drill.",
           "href": "drills.html?set=quiz1"
+        },
+        {
+          "id": "quiz2-flashcards",
+          "title": "Quiz 2 Flashcards",
+          "description": "55 flip cards, one per term: the definition on the back, when to use it, and an example. Filter by topic, mark cards as known, and shuffle.",
+          "href": "flashcards.html?file=data%2Fitd140-quiz2-flashcards.json",
+          "featured": true,
+          "cta": "Study the flashcards"
+        },
+        {
+          "id": "quiz2-mastery",
+          "title": "Quiz 2 Mastery Loop",
+          "description": "The Quiz 2 questions as a repeat-until-mastered loop: each must be answered correctly twice in a row and misses come back sooner. Choose the topics and how many questions.",
+          "href": "quiz.html?file=data%2Fitd140-quiz2.json&mode=mastery",
+          "featured": true,
+          "cta": "Start the mastery loop"
+        },
+        {
+          "id": "quiz2-walkthroughs",
+          "title": "Quiz 2 Step-through Walkthroughs",
+          "description": "Eleven walkthroughs, one per study-guide topic: click through imputation, binning, encoding, scaling, cross-validation, feature selection and PCA one step at a time with the numbers worked out.",
+          "href": "walkthrough.html?file=data%2Fitd140-quiz2-walkthroughs.json",
+          "featured": true,
+          "cta": "Step through them"
         },
         {
           "id": "supplemental-flashcards",
@@ -78,6 +110,14 @@
           "title": "Quiz 1: Machine Learning Fundamentals",
           "description": "120 questions across eight topics, including graph and chart questions, with six short-answer questions and a self-check rubric for each, mirroring the quiz's mix of multiple choice and written answers. Choose which topics and how many questions.",
           "file": "data/itd140-quiz1.json"
+        },
+        {
+          "id": "quiz2",
+          "title": "Quiz 2: Features, Preprocessing and Dimensionality",
+          "description": "141 questions across eleven topics, with five short-answer questions and a self-check rubric for each. Choose which topics and how many questions.",
+          "file": "data/itd140-quiz2.json",
+          "featured": true,
+          "cta": "Take the quiz"
         },
         {
           "id": "supplemental-quiz",

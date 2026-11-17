@@ -1,0 +1,1773 @@
+{
+  "title": "Quiz 2: Features, Preprocessing and Dimensionality",
+  "description": "141 questions on features and feature types, missing data, imputation, binning, encoding, scaling, validation, the curse of dimensionality, feature selection and PCA (with short-answer practice).",
+  "guideFile": "data/itd140-quiz2-guide.json",
+  "shortCount": 40,
+  "sections": [
+    {
+      "name": "1. Features and Feature Types",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Features and Feature Types",
+          "question": "In a dataset used for machine learning, what is a feature?",
+          "options": [
+            "One measurable input column that describes each example",
+            "One finished model that has been trained on every example",
+            "One summary row that lists the average of every column",
+            "One outcome column that the model is built to predict"
+          ],
+          "correct": 0,
+          "explanation": "Features are the inputs, one per column. The thing being predicted is the target."
+        },
+        {
+          "type": "mc",
+          "category": "Features and Feature Types",
+          "question": "Which of these is a continuous quantitative feature?",
+          "options": [
+            "A patient's number of previous hospital visits this year",
+            "A patient's body temperature measured to a tenth of a degree",
+            "A patient's pain rating of mild, moderate or severe",
+            "A patient's blood type, such as A, B, AB or O"
+          ],
+          "correct": 1,
+          "explanation": "A continuous feature can take any value in a range, including decimals. Visit counts are discrete, the pain rating is ordinal and blood type is nominal."
+        },
+        {
+          "type": "mc",
+          "category": "Features and Feature Types",
+          "question": "A column records how many items each customer bought, always a whole number. What type of feature is it?",
+          "options": [
+            "Continuous quantitative: any value on a smooth scale",
+            "Ordinal qualitative: ranked categories with named levels",
+            "Discrete quantitative: countable whole-number amounts",
+            "Nominal qualitative: unordered categories with no ranking"
+          ],
+          "correct": 2,
+          "explanation": "Counts are numbers you can add and average, but they jump in whole steps, so they are discrete."
+        },
+        {
+          "type": "mc",
+          "category": "Features and Feature Types",
+          "question": "What makes a feature ordinal rather than nominal?",
+          "options": [
+            "Its categories are numbers, so the gaps between them are measured exactly",
+            "Its categories are text labels, so they can be sorted alphabetically",
+            "Its categories are few in number, so they can be listed on a short chart",
+            "Its categories have a meaningful order, though the gaps between them are not measured"
+          ],
+          "correct": 3,
+          "explanation": "Ordinal means ranked (small, medium, large). Nominal means named with no ranking (red, green, blue). Alphabetical order is not a meaningful order."
+        },
+        {
+          "type": "mc",
+          "category": "Features and Feature Types",
+          "question": "Which feature is ordinal?",
+          "options": [
+            "Shirt size recorded as small, medium, large or extra large",
+            "Favourite colour recorded as red, green, blue or yellow",
+            "Home country recorded as Canada, Japan, Brazil or Kenya",
+            "Pet type recorded as dog, cat, rabbit or goldfish"
+          ],
+          "correct": 0,
+          "explanation": "Sizes rank from small to extra large. The others are names with no natural order (nominal)."
+        },
+        {
+          "type": "mc",
+          "category": "Features and Feature Types",
+          "question": "A dataset stores postal codes such as 90210 and 10001 as numbers. How should the feature be treated?",
+          "options": [
+            "As continuous: the codes are numbers, so averages of them are meaningful",
+            "As nominal: the codes name places, so arithmetic on them has no meaning",
+            "As discrete quantitative: the codes are whole numbers, so sums of them are useful",
+            "As ordinal: the codes can be sorted, so larger codes mean a larger place"
+          ],
+          "correct": 1,
+          "explanation": "A number used as a label is still a category. Adding two postal codes or calling one 'bigger' tells you nothing."
+        },
+        {
+          "type": "tf",
+          "category": "Features and Feature Types",
+          "question": "Qualitative features describe categories or qualities rather than measured amounts.",
+          "correct": true,
+          "explanation": "Qualitative (categorical) features are nominal or ordinal. Quantitative features are measured amounts."
+        },
+        {
+          "type": "tf",
+          "category": "Features and Feature Types",
+          "question": "A nominal feature has a natural order from lowest to highest.",
+          "correct": false,
+          "explanation": "Nominal categories are only names. Categories with an order are ordinal."
+        },
+        {
+          "type": "matching",
+          "category": "Features and Feature Types",
+          "question": "Match each feature to its type.",
+          "pairs": [
+            {
+              "left": "Height in centimetres",
+              "right": "Continuous quantitative"
+            },
+            {
+              "left": "Number of siblings",
+              "right": "Discrete quantitative"
+            },
+            {
+              "left": "Satisfaction: poor, fair, good",
+              "right": "Ordinal"
+            },
+            {
+              "left": "Eye colour",
+              "right": "Nominal"
+            }
+          ]
+        },
+        {
+          "type": "fill_blank",
+          "category": "Features and Feature Types",
+          "question": "A categorical feature whose values have a natural order, such as low, medium and high, is called ____. (one word)",
+          "answers": [
+            "ordinal"
+          ],
+          "explanation": "Ordinal categories rank in order; nominal categories do not."
+        }
+      ]
+    },
+    {
+      "name": "2. Missing Data and Removal",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Missing Data and Removal",
+          "question": "In pandas, what does NaN stand for in a column?",
+          "options": [
+            "A real number that is stored when a value is exactly zero",
+            "A label that is stored when a category has been left blank",
+            "A placeholder marking a value that is missing or undefined",
+            "A warning that is stored when a value is far outside the range"
+          ],
+          "correct": 2,
+          "explanation": "NaN means 'not a number' and is how pandas marks a missing value. Zero is a real value, not a gap."
+        },
+        {
+          "type": "mc",
+          "category": "Missing Data and Removal",
+          "question": "Which expression gives the number of missing values in each column of a DataFrame df?",
+          "options": [
+            "df.dropna().sum()",
+            "df.fillna().count()",
+            "df.describe().isna()",
+            "df.isna().sum()"
+          ],
+          "correct": 3,
+          "explanation": "isna() marks each missing cell as True, and sum() counts the True values per column."
+        },
+        {
+          "type": "mc",
+          "category": "Missing Data and Removal",
+          "question": "What does df.dropna() do when called with no arguments?",
+          "options": [
+            "Removes every row that has a missing value in any column",
+            "Removes every column that has a missing value in any row",
+            "Removes only the rows where every column is missing a value",
+            "Removes only the cells that are missing and shifts the rest up"
+          ],
+          "correct": 0,
+          "explanation": "By default dropna() works on rows (axis=0) and drops a row if any of its values is NaN."
+        },
+        {
+          "type": "mc",
+          "category": "Missing Data and Removal",
+          "question": "What does df.dropna(axis=1) do?",
+          "options": [
+            "Removes every row that contains at least one missing value",
+            "Removes every column that contains at least one missing value",
+            "Removes the first column whether or not it has missing values",
+            "Removes every column in which all of the values are missing"
+          ],
+          "correct": 1,
+          "explanation": "axis=1 switches the direction from rows to columns."
+        },
+        {
+          "type": "mc",
+          "category": "Missing Data and Removal",
+          "question": "When is dropping the rows that have missing values a reasonable choice?",
+          "options": [
+            "A large share of rows have gaps and few complete rows remain",
+            "Every row has a gap in the same column and that column matters",
+            "A small share of rows have gaps and plenty of complete rows remain",
+            "The gaps follow a pattern and are tied to the outcome being predicted"
+          ],
+          "correct": 2,
+          "explanation": "Removal is simple and safe when it throws away little data and the gaps are not systematic."
+        },
+        {
+          "type": "mc",
+          "category": "Missing Data and Removal",
+          "question": "When is dropping a whole column a sensible way to handle missing data?",
+          "options": [
+            "Most of its values are present, so it can offer the model a great deal",
+            "A few of its values are missing, so the rows can be left in place instead",
+            "All of its values are numeric, so it can be filled with a single average",
+            "Most of its values are missing, so it can offer the model very little"
+          ],
+          "correct": 3,
+          "explanation": "A column that is mostly empty carries little information, and filling it would mean inventing most of it."
+        },
+        {
+          "type": "mc",
+          "category": "Missing Data and Removal",
+          "question": "A table has 1,000 rows and 5 feature columns. Each column is missing about 4% of its values, in different rows. What is likely after df.dropna()?",
+          "options": [
+            "Much more than 4% of the rows are lost, because one gap anywhere removes the row",
+            "Exactly 4% of the rows are lost, because each column loses 4% of its values",
+            "Fewer than 4% of the rows are lost, because the gaps overlap in the same rows",
+            "No rows are lost, because dropna() only removes the single missing cell"
+          ],
+          "correct": 0,
+          "explanation": "Gaps in different columns add up across rows. With 5 columns at 4% each, roughly 18% of the rows have at least one gap."
+        },
+        {
+          "type": "tf",
+          "category": "Missing Data and Removal",
+          "question": "Removing rows with missing values can bias a model if the values are not missing at random.",
+          "correct": true,
+          "explanation": "If, for example, high earners skip an income question, dropping those rows leaves a sample that no longer represents everyone."
+        },
+        {
+          "type": "tf",
+          "category": "Missing Data and Removal",
+          "question": "Dropping rows and dropping columns are two different removal methods.",
+          "correct": true,
+          "explanation": "Rows are removed with dropna(); columns can be removed with dropna(axis=1) or by dropping the column by name."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Missing Data and Removal",
+          "question": "The pandas method that removes rows containing missing values is called ____. (one word, no brackets)",
+          "answers": [
+            "dropna"
+          ],
+          "explanation": "df.dropna() removes rows with any NaN."
+        },
+        {
+          "type": "short_answer",
+          "category": "Missing Data and Removal",
+          "question": "A survey table has 20% of its rows with at least one missing value, and one column that is 90% empty. Describe how you would use removal methods on this data and justify each choice.",
+          "answerLang": null,
+          "modelAnswer": "Drop the 90% empty column: it carries almost no information and filling it would mean inventing most of its values. Then look at the rows. If the remaining gaps are scattered and 20% of rows can be spared, dropna() on rows is simple. If losing a fifth of the data hurts, or the gaps are tied to the outcome, fill the values instead of deleting.",
+          "rubric": [
+            "Drops the mostly empty column and gives the reason (almost no information)",
+            "Considers dropping the incomplete rows with dropna() and states a condition (the loss is small and not systematic)",
+            "Mentions the risk of bias or lost data when many rows are removed",
+            "Names filling the gaps (imputation) as the alternative"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "3. Imputing Numerical Data",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Imputing Numerical Data",
+          "question": "What is imputation?",
+          "options": [
+            "Removing the rows with missing values rather than estimating them",
+            "Filling in missing values with estimated ones rather than removing the rows",
+            "Converting the missing values into a column of text labels",
+            "Rescaling the existing values so that the gaps no longer show"
+          ],
+          "correct": 1,
+          "explanation": "Imputation keeps the row and replaces each gap with a sensible estimate."
+        },
+        {
+          "type": "mc",
+          "category": "Imputing Numerical Data",
+          "question": "A column holds 10, 12, 14, 40 and one NaN. What does a mean fill put in the gap?",
+          "options": [
+            "13",
+            "14",
+            "19",
+            "40"
+          ],
+          "correct": 2,
+          "explanation": "(10 + 12 + 14 + 40) / 4 = 76 / 4 = 19."
+        },
+        {
+          "type": "mc",
+          "category": "Imputing Numerical Data",
+          "question": "A column holds 10, 12, 14, 40 and one NaN. What does a median fill put in the gap?",
+          "options": [
+            "12",
+            "19",
+            "14",
+            "13"
+          ],
+          "correct": 3,
+          "explanation": "The four values in order are 10, 12, 14, 40. The middle two are 12 and 14, and their average is 13."
+        },
+        {
+          "type": "mc",
+          "category": "Imputing Numerical Data",
+          "question": "A salary column has a few extremely large values. Which fill is usually safer, and why?",
+          "options": [
+            "The median, because extreme values do not pull it the way they pull the mean",
+            "The mean, because extreme values are the best guide to a typical salary",
+            "The mode, because every salary appears the same number of times",
+            "The maximum, because the gap is most likely to hold a large salary"
+          ],
+          "correct": 0,
+          "explanation": "The median depends on the middle of the sorted data, so a few extreme values barely move it."
+        },
+        {
+          "type": "mc",
+          "category": "Imputing Numerical Data",
+          "question": "A column holds 3, 5, 5, 7, 5 and one NaN. What does a mode fill put in the gap?",
+          "options": [
+            "3",
+            "5",
+            "7",
+            "25"
+          ],
+          "correct": 1,
+          "explanation": "The mode is the most frequent value, and 5 appears three times."
+        },
+        {
+          "type": "mc",
+          "category": "Imputing Numerical Data",
+          "question": "What is a missing indicator?",
+          "options": [
+            "A new row at the bottom of the table that counts the gaps in each column",
+            "A new error message that stops the program when a gap is found in the data",
+            "A new 0/1 column that records which rows had a missing value before filling",
+            "A new filled value that is chosen at random from the other rows in the column"
+          ],
+          "correct": 2,
+          "explanation": "The indicator is kept next to the filled column so the model can still tell which values were guesses."
+        },
+        {
+          "type": "mc",
+          "category": "Imputing Numerical Data",
+          "question": "Why might you add a missing indicator along with a numerical fill?",
+          "options": [
+            "Because the filled value is always exactly equal to the true value",
+            "Because the model cannot run unless every column has a twin column",
+            "Because the indicator replaces the need to fill the original column",
+            "Because the fact that a value was missing can itself be informative"
+          ],
+          "correct": 3,
+          "explanation": "For example, a blank income answer may signal something about the person. The indicator keeps that signal."
+        },
+        {
+          "type": "mc",
+          "category": "Imputing Numerical Data",
+          "question": "What is the risk of filling every gap in an age column with the constant 0?",
+          "options": [
+            "Zero looks like a real age, so it can distort the distribution and mislead the model",
+            "Zero is not a number, so pandas refuses to store it in a numeric column",
+            "Zero is always larger than the true age, so every prediction is pushed up",
+            "Zero removes the row from the table, so the number of examples falls"
+          ],
+          "correct": 0,
+          "explanation": "A constant is easy to apply but can be mistaken for real data. A value such as -1 plus a missing indicator is clearer."
+        },
+        {
+          "type": "tf",
+          "category": "Imputing Numerical Data",
+          "question": "Filling gaps with the column's mean leaves the column's mean unchanged.",
+          "correct": true,
+          "explanation": "Adding values equal to the mean does not move the average."
+        },
+        {
+          "type": "tf",
+          "category": "Imputing Numerical Data",
+          "question": "Filling gaps with the column's mean also leaves the column's spread (variance) unchanged.",
+          "correct": false,
+          "explanation": "Every filled value sits at the centre, so the spread shrinks. Heavy mean filling makes the column look less variable than it really is."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Imputing Numerical Data",
+          "question": "A numeric column contains a few huge outliers. The fill that is least affected by them is the ____. (one word)",
+          "answers": [
+            "median"
+          ],
+          "explanation": "The median is the middle value, so extremes do not move it."
+        }
+      ]
+    },
+    {
+      "name": "4. Imputing Categorical Data",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Imputing Categorical Data",
+          "question": "A column of favourite colours has gaps. Which numerical fill cannot be used on it?",
+          "options": [
+            "Mode fill, because words have no most frequent entry",
+            "Mean fill, because words have no average",
+            "Constant fill, because words cannot be stored as a fixed value",
+            "Missing indicator, because words cannot be flagged as absent"
+          ],
+          "correct": 1,
+          "explanation": "You cannot average words. The mode, a constant such as 'Unknown' and a missing indicator all work on categories."
+        },
+        {
+          "type": "mc",
+          "category": "Imputing Categorical Data",
+          "question": "What does a mode fill do to a categorical column?",
+          "options": [
+            "Puts the category that appears least often into every gap",
+            "Puts a random category chosen from the column into every gap",
+            "Puts the most common category into every gap",
+            "Puts the category from the neighbouring row into every gap"
+          ],
+          "correct": 2,
+          "explanation": "In pandas: df['city'].fillna(df['city'].mode()[0])."
+        },
+        {
+          "type": "mc",
+          "category": "Imputing Categorical Data",
+          "question": "A column holds Red, NaN, NaN, Blue in row order. What does a forward fill give?",
+          "options": [
+            "Red, Blue, Blue, Blue",
+            "Red, Red, Blue, Blue",
+            "Blue, Red, Red, Blue",
+            "Red, Red, Red, Blue"
+          ],
+          "correct": 3,
+          "explanation": "Forward fill copies the last known value downward into each gap."
+        },
+        {
+          "type": "mc",
+          "category": "Imputing Categorical Data",
+          "question": "A column holds Red, NaN, NaN, Blue in row order. What does a backfill give?",
+          "options": [
+            "Red, Blue, Blue, Blue",
+            "Red, Red, Red, Blue",
+            "Red, Red, Blue, Blue",
+            "Blue, Red, Red, Blue"
+          ],
+          "correct": 0,
+          "explanation": "Backfill copies the next known value upward into each gap."
+        },
+        {
+          "type": "mc",
+          "category": "Imputing Categorical Data",
+          "question": "In pandas, which fill method name means the same thing as forward fill?",
+          "options": [
+            "bfill",
+            "pad",
+            "mode",
+            "interpolate"
+          ],
+          "correct": 1,
+          "explanation": "'pad' and 'ffill' both propagate the last valid value forward. 'bfill' and 'backfill' go the other way."
+        },
+        {
+          "type": "mc",
+          "category": "Imputing Categorical Data",
+          "question": "When is forward fill or backfill a poor choice?",
+          "options": [
+            "The rows are in time order, so the neighbouring row is a sensible guess",
+            "The column is categorical, so the neighbouring row is a different type",
+            "The rows have no meaningful order, so the neighbouring row is an arbitrary guess",
+            "The gaps are short, so the neighbouring row is only one step away"
+          ],
+          "correct": 2,
+          "explanation": "These methods suit ordered data such as daily records. In shuffled data the row above says nothing about the missing value."
+        },
+        {
+          "type": "mc",
+          "category": "Imputing Categorical Data",
+          "question": "You fill every gap in a 'payment method' column with the new label 'Unknown'. Which method is this?",
+          "options": [
+            "Mode fill, using the most common category in the column",
+            "Backfill, using the next known value from the rows below",
+            "Missing indicator, using a separate 0/1 column for the gaps",
+            "Constant fill, using a fixed label instead of a real category"
+          ],
+          "correct": 3,
+          "explanation": "A fixed value is a constant fill. It also acts as a missing flag inside the column, because 'Unknown' marks where data was absent."
+        },
+        {
+          "type": "tf",
+          "category": "Imputing Categorical Data",
+          "question": "After a forward fill, a missing value in the very first row is still missing.",
+          "correct": true,
+          "explanation": "There is no earlier value to copy. A backfill, or a different method, is needed for that row."
+        },
+        {
+          "type": "matching",
+          "category": "Imputing Categorical Data",
+          "question": "Match each categorical fill to what it does.",
+          "pairs": [
+            {
+              "left": "Mode fill",
+              "right": "Uses the most common category"
+            },
+            {
+              "left": "Forward fill ('pad')",
+              "right": "Copies the previous row's value"
+            },
+            {
+              "left": "Backfill",
+              "right": "Copies the next row's value"
+            },
+            {
+              "left": "Constant fill",
+              "right": "Uses one fixed label such as 'Unknown'"
+            }
+          ]
+        },
+        {
+          "type": "fill_blank",
+          "category": "Imputing Categorical Data",
+          "question": "Filling a categorical gap with the most frequent category is called ____ fill. (one word)",
+          "answers": [
+            "mode"
+          ],
+          "explanation": "The mode is the most frequent value."
+        },
+        {
+          "type": "short_answer",
+          "category": "Imputing Categorical Data",
+          "question": "A column of customer 'region' values has 8% missing entries. Describe two different ways to fill it and one weakness of each.",
+          "answerLang": null,
+          "modelAnswer": "Mode fill puts the most common region into every gap. It is quick, but it makes the most common region look even more common and can bury real differences. Constant fill (or a missing indicator) labels the gaps 'Unknown' or adds a 0/1 flag. It keeps the information that a value was missing, but 'Unknown' becomes an extra category the model has to handle, and the gaps are not turned into real regions.",
+          "rubric": [
+            "Describes one valid fill (mode, constant, forward/backfill or missing indicator)",
+            "Describes a second, different valid fill",
+            "Gives a genuine weakness for the first method",
+            "Gives a genuine weakness for the second method"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "5. Binning Numerical Data",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Binning Numerical Data",
+          "question": "What is discretization?",
+          "options": [
+            "Turning a continuous numeric feature into a small set of ranges or categories",
+            "Turning a categorical feature into one 0/1 column for each category",
+            "Turning a raw feature into a standard scale with the same average",
+            "Turning a table with gaps into one with every missing value filled"
+          ],
+          "correct": 0,
+          "explanation": "Binning is the common way to discretize: each value is replaced by the bin it falls into."
+        },
+        {
+          "type": "mc",
+          "category": "Binning Numerical Data",
+          "question": "How does equal-width binning choose its bins?",
+          "options": [
+            "Each bin holds the same number of values, whatever size of range it covers",
+            "Each bin covers the same size of range, whatever number of values fall inside",
+            "Each bin is centred on the average value, whatever size of range it covers",
+            "Each bin is chosen by a person, whatever size of range the values cover"
+          ],
+          "correct": 1,
+          "explanation": "Width = (max - min) / number of bins. Counts per bin can then differ a lot."
+        },
+        {
+          "type": "mc",
+          "category": "Binning Numerical Data",
+          "question": "How does equal-frequency binning choose its bins?",
+          "options": [
+            "Each bin covers exactly the same size of range, so the counts can differ",
+            "Each bin is placed at a fixed spacing of ten, so the counts can differ",
+            "Each bin holds roughly the same number of values, so the ranges can differ",
+            "Each bin is formed from the rows that share a category, so the sizes can differ"
+          ],
+          "correct": 2,
+          "explanation": "Frequency bins are cut at quantiles, so each bin contains about the same number of rows."
+        },
+        {
+          "type": "mc",
+          "category": "Binning Numerical Data",
+          "question": "A feature runs from 10 to 70 and is cut into 3 equal-width bins. Which bin does the value 45 fall in?",
+          "options": [
+            "10 to 30",
+            "50 to 70",
+            "40 to 60",
+            "30 to 50"
+          ],
+          "correct": 3,
+          "explanation": "Width = (70 - 10) / 3 = 20, so the bins are 10 to 30, 30 to 50 and 50 to 70."
+        },
+        {
+          "type": "mc",
+          "category": "Binning Numerical Data",
+          "question": "The values are 1, 2, 3, 4, 5, 6, 7 and 100. They are cut into 2 equal-width bins. How many values land in the upper bin?",
+          "options": [
+            "1",
+            "4",
+            "2",
+            "7"
+          ],
+          "correct": 0,
+          "explanation": "Width = 99 / 2 = 49.5, so the bins are 1 to 50.5 and 50.5 to 100. Only the outlier 100 reaches the upper bin."
+        },
+        {
+          "type": "mc",
+          "category": "Binning Numerical Data",
+          "question": "The values are 1, 2, 3, 4, 5, 6, 7 and 100. They are cut into 2 equal-frequency bins. Which values share the upper bin?",
+          "options": [
+            "7 and 100",
+            "5, 6, 7 and 100",
+            "100 alone",
+            "4, 5, 6 and 7"
+          ],
+          "correct": 1,
+          "explanation": "Equal frequency puts 4 values in each bin: 1 to 4 in the lower bin and 5, 6, 7 and 100 in the upper."
+        },
+        {
+          "type": "mc",
+          "category": "Binning Numerical Data",
+          "question": "Which statement about outliers and binning is correct?",
+          "options": [
+            "Equal-frequency bins can be crowded by an outlier, but equal-width bins stay balanced",
+            "Both kinds of bins grow wider to hold an outlier, and each stays equally balanced",
+            "Equal-width bins can be crowded by an outlier, but equal-frequency bins stay balanced",
+            "Neither kind of bin is affected by an outlier, because binning ignores the actual values"
+          ],
+          "correct": 2,
+          "explanation": "One extreme value stretches the range, so equal-width bins leave most values in a few bins. Equal-frequency bins are cut by rank."
+        },
+        {
+          "type": "mc",
+          "category": "Binning Numerical Data",
+          "question": "In pandas, which function makes equal-frequency bins?",
+          "options": [
+            "pd.cut()",
+            "pd.bin()",
+            "pd.round()",
+            "pd.qcut()"
+          ],
+          "correct": 3,
+          "explanation": "qcut cuts at quantiles (equal frequency). cut() uses equal-width bins unless you pass the edges yourself."
+        },
+        {
+          "type": "mc",
+          "category": "Binning Numerical Data",
+          "question": "A 'minutes watched' column is turned into 'long' (30 minutes or more) and 'short' (under 30) using one cut-off. What is this called?",
+          "options": [
+            "Binarization: a threshold splits a continuous value into two groups",
+            "Standardization: a mean and spread turn a continuous value into a z-score",
+            "One-hot encoding: a column per category turns a label into several columns",
+            "Forward fill: a neighbouring row turns a missing value into a copied value"
+          ],
+          "correct": 0,
+          "explanation": "Binarization is binning with a single threshold, so every value lands in one of two groups."
+        },
+        {
+          "type": "mc",
+          "category": "Binning Numerical Data",
+          "question": "How does binarization differ from equal-width binning?",
+          "options": [
+            "It uses several chosen thresholds and gives many groups, rather than two same-size ranges",
+            "It uses one chosen threshold and gives two groups, rather than several same-size ranges",
+            "It uses the column average as the cut and gives equal counts, rather than same-size ranges",
+            "It uses the target as the cut and gives one group per class, rather than same-size ranges"
+          ],
+          "correct": 1,
+          "explanation": "The threshold is a judgement call, such as 5,000 views for 'popular'. Equal-width bins are computed from the min, max and number of bins."
+        },
+        {
+          "type": "tf",
+          "category": "Binning Numerical Data",
+          "question": "Binning loses detail, because values inside the same bin become identical.",
+          "correct": true,
+          "explanation": "That is the trade-off: a simpler, less noisy feature at the cost of some precision."
+        },
+        {
+          "type": "tf",
+          "category": "Binning Numerical Data",
+          "question": "Binning is an example of discretization.",
+          "correct": true,
+          "explanation": "Discretization is the general idea of turning continuous values into a limited set of categories; binning is how."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Binning Numerical Data",
+          "question": "Splitting a range into bins of the same size, whatever their counts, is called equal-____ binning. (one word)",
+          "answers": [
+            "width"
+          ],
+          "explanation": "Equal-width bins have the same range; equal-frequency bins have the same count."
+        }
+      ]
+    },
+    {
+      "name": "6. Encoding Categorical Data",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Encoding Categorical Data",
+          "question": "Why must categorical features be encoded before most models can use them?",
+          "options": [
+            "The algorithms refuse text for security reasons, so all data must be anonymous",
+            "The algorithms run faster on text, so all data must be converted back later",
+            "The algorithms do arithmetic on the inputs, so all data must ultimately be numeric",
+            "The algorithms need every column to match, so all data must have the same length"
+          ],
+          "correct": 2,
+          "explanation": "Distances, weights and sums need numbers. Text categories must be turned into numbers first."
+        },
+        {
+          "type": "mc",
+          "category": "Encoding Categorical Data",
+          "question": "How is a binary feature such as 'subscribed' (yes or no) usually encoded?",
+          "options": [
+            "As one column of -1, 0 and 1",
+            "As two columns of words",
+            "As one column of 1 to 10",
+            "As one column of 0 and 1"
+          ],
+          "correct": 3,
+          "explanation": "Two values map to 0 and 1."
+        },
+        {
+          "type": "mc",
+          "category": "Encoding Categorical Data",
+          "question": "When is one-hot encoding the right choice?",
+          "options": [
+            "A nominal feature has three or more categories with no natural order",
+            "A nominal feature has exactly two categories with no natural order",
+            "An ordinal feature has three or more categories with a natural order",
+            "A continuous feature has many distinct values with a natural order"
+          ],
+          "correct": 0,
+          "explanation": "Two categories need only a binary column. Ordered categories can keep their order as numbers."
+        },
+        {
+          "type": "mc",
+          "category": "Encoding Categorical Data",
+          "question": "Why is it a problem to encode red, green and blue as 1, 2 and 3?",
+          "options": [
+            "It makes the column too small, so the model has too few values to learn from",
+            "It tells the model that blue is greater than red and sits twice as far away",
+            "It makes the column non-numeric, so the model cannot use any of its values",
+            "It makes the colours random, so the model sees a different order every run"
+          ],
+          "correct": 1,
+          "explanation": "The numbers invent an order and distances that the colours do not have."
+        },
+        {
+          "type": "mc",
+          "category": "Encoding Categorical Data",
+          "question": "A 'city' feature has 12 distinct values. How many new columns does one-hot encoding create?",
+          "options": [
+            "1",
+            "2",
+            "12",
+            "11"
+          ],
+          "correct": 2,
+          "explanation": "One 0/1 column per category. (Some tools offer to drop one, since it can be worked out from the others.)"
+        },
+        {
+          "type": "mc",
+          "category": "Encoding Categorical Data",
+          "question": "What does target encoding do?",
+          "options": [
+            "Replaces each category with the number of times that category appears in the data",
+            "Replaces each category with a 0/1 column that says whether the row is in that category",
+            "Replaces each category with its position in an alphabetical list of the categories",
+            "Replaces each category with a statistic of the target for that category, such as its mean"
+          ],
+          "correct": 3,
+          "explanation": "It links the feature value to the target value statistically. The other options describe frequency encoding, one-hot and label encoding."
+        },
+        {
+          "type": "mc",
+          "category": "Encoding Categorical Data",
+          "question": "Category 'A' appears in four training rows whose targets are 1, 0, 1 and 1. What is the target-encoded value for A (mean of the target)?",
+          "options": [
+            "0.75",
+            "0.25",
+            "0.50",
+            "3"
+          ],
+          "correct": 0,
+          "explanation": "Three of the four targets are 1, so the mean is 3 / 4 = 0.75."
+        },
+        {
+          "type": "mc",
+          "category": "Encoding Categorical Data",
+          "question": "What is the main risk of target encoding?",
+          "options": [
+            "It uses the same number for every category, so it hides all the differences",
+            "It uses the answer column, so it can leak the target into the features and overfit",
+            "It uses one column for each category, so it makes the table far too wide",
+            "It uses the row order, so it gives different results when the rows are shuffled"
+          ],
+          "correct": 1,
+          "explanation": "Calculate the encoding from the training data only (or inside cross-validation), never from the test rows' targets."
+        },
+        {
+          "type": "mc",
+          "category": "Encoding Categorical Data",
+          "question": "A 'postal code' feature has 800 categories. Which encoding avoids adding 800 columns?",
+          "options": [
+            "One-hot encoding, which gives one numeric column",
+            "Binary encoding, which gives one column per category",
+            "Target encoding, which gives one numeric column",
+            "Equal-width binning, which gives one column per category"
+          ],
+          "correct": 2,
+          "explanation": "High-cardinality features make one-hot very wide. Target encoding stays one column, with the leakage caveat."
+        },
+        {
+          "type": "tf",
+          "category": "Encoding Categorical Data",
+          "question": "One-hot encoding adds no false order between the categories.",
+          "correct": true,
+          "explanation": "Each category gets its own column, so none is bigger than another."
+        },
+        {
+          "type": "tf",
+          "category": "Encoding Categorical Data",
+          "question": "Target encoding should be calculated using the target values of the test set.",
+          "correct": false,
+          "explanation": "That would leak test answers into the features. Learn the encoding from training data only."
+        },
+        {
+          "type": "matching",
+          "category": "Encoding Categorical Data",
+          "question": "Match each encoding to the situation it suits.",
+          "pairs": [
+            {
+              "left": "Binary (0 and 1)",
+              "right": "A feature with two values, such as yes or no"
+            },
+            {
+              "left": "One-hot",
+              "right": "A nominal feature with a handful of categories"
+            },
+            {
+              "left": "Target encoding",
+              "right": "A feature with very many categories"
+            },
+            {
+              "left": "Binning",
+              "right": "A numeric feature turned into ranges"
+            }
+          ]
+        },
+        {
+          "type": "fill_blank",
+          "category": "Encoding Categorical Data",
+          "question": "The pandas function pd.get_____ () creates one-hot columns. (one word)",
+          "answers": [
+            "dummies"
+          ],
+          "explanation": "pd.get_dummies(df['colour']) one-hot encodes a column."
+        }
+      ]
+    },
+    {
+      "name": "7. Scaling",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Scaling",
+          "question": "Why scale numeric features?",
+          "options": [
+            "So features with small values are removed from the model entirely",
+            "So features with missing values are filled in with the average",
+            "So features with text values are turned into columns of numbers",
+            "So features with large values do not dominate those with small values"
+          ],
+          "correct": 3,
+          "explanation": "A salary in the tens of thousands would swamp an age under 100 in a distance calculation. Scaling puts them on comparable ranges."
+        },
+        {
+          "type": "mc",
+          "category": "Scaling",
+          "question": "What is the formula for min-max scaling?",
+          "options": [
+            "(x - min) / (max - min)",
+            "(x - mean) / standard deviation",
+            "(x - median) / (max - min)",
+            "x / (max + min)"
+          ],
+          "correct": 0,
+          "explanation": "The smallest value becomes 0 and the largest becomes 1. The mean and standard deviation formula is standardization."
+        },
+        {
+          "type": "mc",
+          "category": "Scaling",
+          "question": "A column holds 20, 30, 50 and 60. What is 30 after min-max scaling?",
+          "options": [
+            "0.50",
+            "0.25",
+            "0.10",
+            "0.75"
+          ],
+          "correct": 1,
+          "explanation": "(30 - 20) / (60 - 20) = 10 / 40 = 0.25."
+        },
+        {
+          "type": "mc",
+          "category": "Scaling",
+          "question": "A column has mean 50 and standard deviation 10. What is the value 70 after standardization?",
+          "options": [
+            "20",
+            "7",
+            "2",
+            "0.2"
+          ],
+          "correct": 2,
+          "explanation": "(70 - 50) / 10 = 2, meaning two standard deviations above the mean."
+        },
+        {
+          "type": "mc",
+          "category": "Scaling",
+          "question": "What are the mean and standard deviation of a standardized column?",
+          "options": [
+            "A mean of 1 and a standard deviation of 0",
+            "A mean of 0.5 and a standard deviation of 1",
+            "A mean of 0 and a standard deviation of 0.5",
+            "A mean of 0 and a standard deviation of 1"
+          ],
+          "correct": 3,
+          "explanation": "Standardization is also called z-score scaling: the column is re-centred on 0 and measured in standard deviations."
+        },
+        {
+          "type": "mc",
+          "category": "Scaling",
+          "question": "What happens to min-max scaling when one value is a huge outlier?",
+          "options": [
+            "The outlier becomes 1 and the other values are squeezed into a narrow band near 0",
+            "The outlier becomes 0 and the other values are spread evenly across the range",
+            "The outlier is removed and the other values are spread across a wider range",
+            "The outlier is ignored and the other values are scaled exactly as they were before"
+          ],
+          "correct": 0,
+          "explanation": "Min-max uses the extremes, so one extreme value sets the scale for everyone."
+        },
+        {
+          "type": "mc",
+          "category": "Scaling",
+          "question": "Compared with min-max scaling, how does standardization treat outliers?",
+          "options": [
+            "It sets a fixed range, so an outlier is forced to equal 1 and the rest are compressed",
+            "It sets no fixed range, so an outlier does not compress the rest, though it still moves the mean and spread",
+            "It sets no fixed range, so an outlier is deleted and cannot affect the mean or spread",
+            "It sets a fixed range, so an outlier is replaced with the median and the rest are unchanged"
+          ],
+          "correct": 1,
+          "explanation": "Standardized values can be any size, so an outlier simply gets a large z-score. It is less damaging than under min-max, but not harmless."
+        },
+        {
+          "type": "mc",
+          "category": "Scaling",
+          "question": "A feature is strongly right-skewed (a long tail of large values). What does scaling do to the skew?",
+          "options": [
+            "It removes the skew, because scaled values are always spread symmetrically",
+            "It reverses the skew, because the long tail is moved to the other side",
+            "Nothing: scaling changes the range or centre but not the shape of the distribution",
+            "It doubles the skew, because the large values are stretched even further"
+          ],
+          "correct": 2,
+          "explanation": "Both methods are linear, so the shape stays the same. A transform such as log reduces skew."
+        },
+        {
+          "type": "mc",
+          "category": "Scaling",
+          "question": "Which type of model is most affected by unscaled features?",
+          "options": [
+            "Decision trees that split on one feature at a time",
+            "Random forests that average many such decision trees",
+            "Rule lists that test one feature against one threshold",
+            "Distance-based models such as kNN"
+          ],
+          "correct": 3,
+          "explanation": "kNN adds feature differences into one distance, so scale matters. Trees compare one feature at a time, so scale rarely matters."
+        },
+        {
+          "type": "mc",
+          "category": "Scaling",
+          "question": "On which data should a scaler learn its minimum, maximum, mean or standard deviation?",
+          "options": [
+            "The training set only, then apply the same numbers to the test set",
+            "The test set only, then apply the same numbers to the training set",
+            "The full dataset before splitting, so both parts share the same numbers",
+            "Each set separately, so that both parts end up with the same distribution"
+          ],
+          "correct": 0,
+          "explanation": "Fitting on the test set (or the full dataset) leaks information about unseen data into training."
+        },
+        {
+          "type": "mc",
+          "category": "Scaling",
+          "question": "A kNN model is built on features whose distribution is unknown and not bell-shaped. Which scaling is the usual choice?",
+          "options": [
+            "Standardization, which needs the data to follow a normal distribution",
+            "Min-max scaling, which needs no assumption about the distribution",
+            "No scaling, which works because kNN compares one feature at a time",
+            "A log transform, which makes every feature follow a normal distribution"
+          ],
+          "correct": 1,
+          "explanation": "Min-max suits unknown or non-Gaussian data and distance-based models such as kNN or neural networks."
+        },
+        {
+          "type": "mc",
+          "category": "Scaling",
+          "question": "When does standardization fit better than min-max scaling?",
+          "options": [
+            "The algorithm needs every value to lie between 0 and 1 exactly",
+            "The algorithm compares one feature at a time and ignores the scale",
+            "The algorithm assumes the data are roughly normally distributed",
+            "The algorithm works on category labels rather than numeric columns"
+          ],
+          "correct": 2,
+          "explanation": "Standardization centres the data on 0 with a standard deviation of 1, which is what methods assuming a normal distribution expect."
+        },
+        {
+          "type": "tf",
+          "category": "Scaling",
+          "question": "Min-max scaling always produces a column with a mean of 0.",
+          "correct": false,
+          "explanation": "Min-max gives values from 0 to 1, and the mean depends on the data. Standardization is the one that gives mean 0."
+        },
+        {
+          "type": "tf",
+          "category": "Scaling",
+          "question": "Standardized values can be negative.",
+          "correct": true,
+          "explanation": "Values below the column's mean have negative z-scores."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Scaling",
+          "question": "Min-max scaling is often called ____. (one word)",
+          "answers": [
+            "normalization"
+          ],
+          "explanation": "Min-max scaling is commonly called normalization."
+        }
+      ]
+    },
+    {
+      "name": "8. Validation, Overfitting and Underfitting",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Validation, Overfitting and Underfitting",
+          "question": "Why is the data split into a training set and a test set?",
+          "options": [
+            "To remove the examples that contain missing or extreme values",
+            "To double the number of examples the model learns from",
+            "To save time by using fewer features in each of the sets",
+            "To measure performance on examples the model has not seen"
+          ],
+          "correct": 3,
+          "explanation": "A model can look perfect on data it learned from. Only held-back data shows how it generalizes."
+        },
+        {
+          "type": "mc",
+          "category": "Validation, Overfitting and Underfitting",
+          "question": "Which train-test split ratio is generally recommended?",
+          "options": [
+            "About 80% training and 20% test",
+            "About 50% training and 50% test",
+            "About 95% training and 5% test",
+            "About 20% training and 80% test"
+          ],
+          "correct": 0,
+          "explanation": "80/20 gives plenty of training data while keeping a test set big enough to be meaningful."
+        },
+        {
+          "type": "mc",
+          "category": "Validation, Overfitting and Underfitting",
+          "question": "A dataset has 250 rows and is split 80/20. How many rows are in the test set?",
+          "options": [
+            "20",
+            "50",
+            "80",
+            "200"
+          ],
+          "correct": 1,
+          "explanation": "20% of 250 = 50 test rows, leaving 200 for training."
+        },
+        {
+          "type": "mc",
+          "category": "Validation, Overfitting and Underfitting",
+          "question": "A model scores 98% on the training set and 70% on the test set. What does this suggest?",
+          "options": [
+            "Underfitting: it was too simple to capture the pattern in the training data",
+            "Good fit: it learned the pattern and generalizes to new data well",
+            "Overfitting: it memorized the training data and does not generalize",
+            "Leakage: it was given the test labels and used them to score itself"
+          ],
+          "correct": 2,
+          "explanation": "A large gap between training and test accuracy, with training far higher, is the sign of overfitting."
+        },
+        {
+          "type": "mc",
+          "category": "Validation, Overfitting and Underfitting",
+          "question": "A model scores 61% on the training set and 59% on the test set. What does this suggest?",
+          "options": [
+            "Overfitting: it is too complex, so it does well on one set only",
+            "Good fit: it is balanced, so it does equally well on both sets",
+            "Leakage: it is too lucky, so it does worse on the set it never saw",
+            "Underfitting: it is too simple, so it does poorly on both sets"
+          ],
+          "correct": 3,
+          "explanation": "Low accuracy on both sets means the model has not captured the pattern."
+        },
+        {
+          "type": "mc",
+          "category": "Validation, Overfitting and Underfitting",
+          "question": "A model scores 91% on training data and 89% on test data. What is the best conclusion?",
+          "options": [
+            "It generalizes well: the two scores are high and close together",
+            "It underfits badly: the two scores are close, so it has learned too little",
+            "It overfits badly: the two scores are high, so it has memorized the data",
+            "It cheats: the two scores differ at all, so it has seen the test data"
+          ],
+          "correct": 0,
+          "explanation": "Generalization means the training result carries over to unseen data. A small gap with high scores is the goal."
+        },
+        {
+          "type": "mc",
+          "category": "Validation, Overfitting and Underfitting",
+          "question": "A confusion matrix has 30 true positives, 10 false positives, 20 false negatives and 40 true negatives. What is the accuracy?",
+          "options": [
+            "30%",
+            "70%",
+            "60%",
+            "75%"
+          ],
+          "correct": 1,
+          "explanation": "Correct predictions are the diagonal: 30 + 40 = 70 out of 100 total."
+        },
+        {
+          "type": "mc",
+          "category": "Validation, Overfitting and Underfitting",
+          "question": "In a confusion matrix, what does a false negative mean?",
+          "options": [
+            "The model predicted positive but the actual class was negative",
+            "The model predicted negative and the actual class was negative",
+            "The model predicted negative but the actual class was positive",
+            "The model predicted positive and the actual class was positive"
+          ],
+          "correct": 2,
+          "explanation": "The first word says whether the prediction was right; the second is what the model predicted. A false negative is a missed positive."
+        },
+        {
+          "type": "mc",
+          "category": "Validation, Overfitting and Underfitting",
+          "question": "What does k-fold cross-validation do?",
+          "options": [
+            "Splits the data into k parts and uses only the first part as the test set, keeping its score",
+            "Splits the data into k parts and trains on the smallest part, averaging the weights",
+            "Splits the data into k parts and shuffles them k times, keeping the best score",
+            "Splits the data into k parts and uses each part once as the test set, averaging the scores"
+          ],
+          "correct": 3,
+          "explanation": "Every row is used for testing exactly once and for training k - 1 times."
+        },
+        {
+          "type": "mc",
+          "category": "Validation, Overfitting and Underfitting",
+          "question": "A dataset of 200 rows is used for 5-fold cross-validation. How many rows are in each round's test fold and training set?",
+          "options": [
+            "40 test rows and 160 training rows",
+            "20 test rows and 180 training rows",
+            "50 test rows and 150 training rows",
+            "40 test rows and 40 training rows"
+          ],
+          "correct": 0,
+          "explanation": "200 / 5 = 40 rows per fold. Each round trains on the other four folds: 160 rows."
+        },
+        {
+          "type": "mc",
+          "category": "Validation, Overfitting and Underfitting",
+          "question": "Why can cross-validation be more reliable than a single train-test split?",
+          "options": [
+            "The score does not depend on the training rows, since none are used in it",
+            "The score does not depend on one lucky or unlucky choice of test rows",
+            "The score does not depend on the model, since the same one is used each time",
+            "The score does not depend on the features, since the folds ignore the columns"
+          ],
+          "correct": 1,
+          "explanation": "Averaging over several different test folds smooths out a single odd split."
+        },
+        {
+          "type": "tf",
+          "category": "Validation, Overfitting and Underfitting",
+          "question": "The test set can be used repeatedly to tune the model's settings without any harm.",
+          "correct": false,
+          "explanation": "Tuning against the test set makes its score optimistic. Use a validation set or cross-validation for tuning."
+        },
+        {
+          "type": "tf",
+          "category": "Validation, Overfitting and Underfitting",
+          "question": "With 5-fold cross-validation, five models are trained.",
+          "correct": true,
+          "explanation": "One per round, each tested on a different fold."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Validation, Overfitting and Underfitting",
+          "question": "How well a model performs on new, unseen data is called ____. (one word)",
+          "answers": [
+            "generalization",
+            "generalisation"
+          ],
+          "explanation": "Generalization is the goal: the training result should carry over to unseen data."
+        },
+        {
+          "type": "short_answer",
+          "category": "Validation, Overfitting and Underfitting",
+          "question": "A model has 99% accuracy on the training set and 64% on the test set. Explain what is wrong, how the two numbers show it, and name two things you might try.",
+          "answerLang": null,
+          "modelAnswer": "The model is overfitting: it has memorized the training examples, including their noise, so it does not generalize. The warning sign is the large gap, with training accuracy far above test accuracy. Fixes include using a simpler model or a smaller number of features, getting more training data, or using cross-validation to choose settings that generalize.",
+          "rubric": [
+            "Names the problem as overfitting (memorizing the training data)",
+            "Uses the gap between the training and test accuracy as the evidence",
+            "Gives at least one reasonable fix, such as a simpler model, fewer features or more data",
+            "Says that the test score is the better estimate of real-world performance"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "9. Curse of Dimensionality",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Curse of Dimensionality",
+          "question": "What is the curse of dimensionality?",
+          "options": [
+            "Problems that grow as the number of rows increases, such as slower sorting and memory use",
+            "Problems that grow as the number of classes decreases, such as a lack of variety in the targets",
+            "Problems that grow as the number of features increases, such as sparse data and rising cost",
+            "Problems that grow as the number of missing values increases, such as biased averages"
+          ],
+          "correct": 2,
+          "explanation": "Dimensions are features. More of them makes the space larger and the data thinner."
+        },
+        {
+          "type": "mc",
+          "category": "Curse of Dimensionality",
+          "question": "What happens to the data as features are added while the number of rows stays the same?",
+          "options": [
+            "The rows pack together in a much smaller space, so the data becomes dense",
+            "The rows stay equally spread in the same space, so the data stays the same",
+            "The rows merge with their neighbours in a smaller space, so the data shrinks",
+            "The rows spread out through a much larger space, so the data becomes sparse"
+          ],
+          "correct": 3,
+          "explanation": "Each new feature multiplies the volume of the space, so the same number of points covers less of it."
+        },
+        {
+          "type": "mc",
+          "category": "Curse of Dimensionality",
+          "question": "How does high dimensionality affect distance-based methods such as kNN?",
+          "options": [
+            "Distances between points become similar, so 'nearest' neighbours are less meaningful",
+            "Distances between points become exact, so the nearest neighbours are easier to find",
+            "Distances between points become zero, so the nearest neighbours are all identical",
+            "Distances between points are unchanged, so the nearest neighbours are equally clear"
+          ],
+          "correct": 0,
+          "explanation": "In many dimensions nearly every point is about as far from the query as every other."
+        },
+        {
+          "type": "mc",
+          "category": "Curse of Dimensionality",
+          "question": "How does adding many features usually change the risk of overfitting?",
+          "options": [
+            "It falls, because the model has more information to separate the noise from the signal",
+            "It rises, because the model has more ways to fit the noise in the training data",
+            "It stays the same, because the model ignores features that do not help it",
+            "It falls to zero, because the model can describe each row in more detail"
+          ],
+          "correct": 1,
+          "explanation": "With many features and few rows, a model can often find a pattern that is only noise."
+        },
+        {
+          "type": "mc",
+          "category": "Curse of Dimensionality",
+          "question": "What generally happens to the amount of data needed to cover the feature space well as features are added?",
+          "options": [
+            "It grows slowly, roughly in proportion to the features",
+            "It stays fixed, regardless of how many features there are",
+            "It grows very fast, roughly exponentially",
+            "It shrinks, because each feature provides more clues about the target"
+          ],
+          "correct": 2,
+          "explanation": "Covering the space at the same density takes many times more points for each extra dimension."
+        },
+        {
+          "type": "mc",
+          "category": "Curse of Dimensionality",
+          "question": "Besides accuracy, what else gets worse as the number of features climbs?",
+          "options": [
+            "Training time and memory use, because there is less to compute and store",
+            "Test accuracy and training accuracy, because both always fall with more columns",
+            "Number of rows and missing values, because both always rise with more columns",
+            "Training time and memory use, because there is more to compute and store"
+          ],
+          "correct": 3,
+          "explanation": "Complexity and cost rise with dimensionality; a bigger model is also harder to interpret."
+        },
+        {
+          "type": "mc",
+          "category": "Curse of Dimensionality",
+          "question": "Which action is a standard remedy for the curse of dimensionality?",
+          "options": [
+            "Feature selection or dimensionality reduction such as PCA",
+            "Adding more columns until the model has enough detail",
+            "Filling the missing values in every column with the mean",
+            "Raising the training share of the split from 80% to 99%"
+          ],
+          "correct": 0,
+          "explanation": "Both remove or combine features so the model works in a smaller space."
+        },
+        {
+          "type": "mc",
+          "category": "Curse of Dimensionality",
+          "question": "A table has 100 rows and 500 features. Which concern is the most pressing?",
+          "options": [
+            "There are far more rows than features, so underfitting is very likely",
+            "There are far more features than rows, so overfitting is very likely",
+            "There are as many rows as features, so the model must be too simple",
+            "There are no categorical features, so the model cannot be trained"
+          ],
+          "correct": 1,
+          "explanation": "With so few rows in such a large space, a model can memorize the training data."
+        },
+        {
+          "type": "tf",
+          "category": "Curse of Dimensionality",
+          "question": "Adding more features always improves a model's accuracy.",
+          "correct": false,
+          "explanation": "Useless or redundant features can add noise and cost, and past a point accuracy can get worse."
+        },
+        {
+          "type": "tf",
+          "category": "Curse of Dimensionality",
+          "question": "One-hot encoding a column with hundreds of categories raises the number of dimensions a great deal.",
+          "correct": true,
+          "explanation": "It adds one column per category, which can feed the curse of dimensionality."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Curse of Dimensionality",
+          "question": "The problems of sparse data and rising cost that come with many features are called the curse of ____. (one word)",
+          "answers": [
+            "dimensionality"
+          ],
+          "explanation": "Dimensionality is the number of features."
+        }
+      ]
+    },
+    {
+      "name": "10. Feature Selection",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Feature Selection",
+          "question": "What is a filter method of feature selection?",
+          "options": [
+            "It repeatedly trains a model on different feature subsets and keeps the subset with the best score",
+            "It reads the weights or importances from a model that has already been trained and drops the low ones",
+            "It scores features with simple statistics, such as correlation, and drops the weak ones before any model is trained",
+            "It combines the original features into a few new ones that keep as much of the variation as possible"
+          ],
+          "correct": 2,
+          "explanation": "Filters are fast and independent of any model. The other options describe wrapper, embedded and PCA."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Selection",
+          "question": "What is a wrapper method of feature selection?",
+          "options": [
+            "It scores each feature with a simple statistic and drops the weak ones before any model is trained",
+            "It reads weights or importances from one trained model and drops the features with the lowest ones",
+            "It combines the original features into a few new ones that keep as much of the variation as possible",
+            "It trains a model on feature subsets over and over and uses an evaluation score to decide which to keep"
+          ],
+          "correct": 3,
+          "explanation": "Recursive feature elimination (RFE) is an example. It is accurate for the chosen model but expensive, since many models are trained."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Selection",
+          "question": "What is an embedded method of feature selection?",
+          "options": [
+            "It uses the results of a model, such as coefficients or importances, to decide which features to remove",
+            "It tests feature subsets with repeated training runs and an evaluation score to choose the best set",
+            "It ranks features with simple statistics like correlation and removes the weak ones before training",
+            "It merges the original features into a few new ones that keep as much of the variation as possible"
+          ],
+          "correct": 0,
+          "explanation": "Examples: Lasso regression shrinking some coefficients to zero, and the importance scores of a decision tree."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Selection",
+          "question": "Two features have a correlation coefficient of 0.97 with each other. What does this suggest?",
+          "options": [
+            "They are nearly unrelated, so both of them should be kept",
+            "They are nearly redundant, so one of them can usually be dropped",
+            "They are nearly identical to the target, so both should be kept",
+            "They are nearly random noise, so both of them should be dropped"
+          ],
+          "correct": 1,
+          "explanation": "Highly correlated features carry the same information. Keeping both adds cost without adding much."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Selection",
+          "question": "A feature has a correlation coefficient of 0.02 with the target. What does this suggest?",
+          "options": [
+            "Strong positive relationship with the target, so it is a candidate to keep",
+            "Strong negative relationship with the target, so it is a candidate to keep",
+            "Little straight-line relationship with the target, so it is a candidate to drop",
+            "Perfect redundancy with another feature, so it is a candidate to merge"
+          ],
+          "correct": 2,
+          "explanation": "A coefficient near 0 means almost no linear relationship. It could still have a non-linear one, so it is a hint, not a proof."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Selection",
+          "question": "A feature has a correlation of -0.85 with the target. How should it be treated?",
+          "options": [
+            "As weakly related to the target, because a negative coefficient means a poor feature",
+            "As unrelated to the target, because the minus sign cancels the strength of the link",
+            "As redundant with the target, because correlations below zero repeat the target",
+            "As strongly related to the target, because the size of the coefficient is what matters"
+          ],
+          "correct": 3,
+          "explanation": "A negative sign only means that the two move in opposite directions. -0.85 is as strong as +0.85."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Selection",
+          "question": "What does SelectKBest(k=5) do?",
+          "options": [
+            "Scores each feature against the target and keeps the five with the highest scores",
+            "Scores each pair of features against each other and keeps the five least related",
+            "Scores each row against the target and keeps the five rows that fit the best",
+            "Scores each class against the features and keeps the five most common classes"
+          ],
+          "correct": 0,
+          "explanation": "It is a univariate filter method: one score per feature, then the top k."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Selection",
+          "question": "What does 'univariate' mean in univariate feature selection?",
+          "options": [
+            "Each feature is judged together with all the others, as a combined group",
+            "Each feature is judged on its own against the target, ignoring the others",
+            "Each feature is judged against the others, ignoring the target entirely",
+            "Each feature is judged on one training row at a time, ignoring the rest"
+          ],
+          "correct": 1,
+          "explanation": "The weakness is that it can miss features that are only useful in combination."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Selection",
+          "question": "Which approach usually costs the most computing time?",
+          "options": [
+            "A filter method, because it trains a model for every feature it scores",
+            "An embedded method, because it trains a model for every subset it tries",
+            "A wrapper method, because it trains a model for every subset it tries",
+            "A correlation check, because it trains a model for every pair it compares"
+          ],
+          "correct": 2,
+          "explanation": "Filters are cheapest, embedded methods piggyback on a single training run, and wrappers train many models."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Selection",
+          "question": "What does forward feature selection do?",
+          "options": [
+            "Starts with every feature and removes the one that helps least, one at a time",
+            "Starts with no features and adds all of them whose correlation passes a cut-off",
+            "Starts with every feature and keeps the ones a single fitted model rates highest",
+            "Starts with no features and adds the one that helps most, one at a time"
+          ],
+          "correct": 3,
+          "explanation": "Forward selection and backward elimination are both wrapper methods. They score each step by training a model."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Selection",
+          "question": "What does backward feature elimination do?",
+          "options": [
+            "Starts with every feature and removes the weakest one, one at a time",
+            "Starts with no features and adds the strongest one, one at a time",
+            "Starts with every feature and removes all of the weak ones in one step",
+            "Starts with no features and adds the ones that are the least correlated"
+          ],
+          "correct": 0,
+          "explanation": "Each round refits the model without one feature and drops the one whose removal hurts the score least."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Selection",
+          "question": "What does an exhaustive feature search do?",
+          "options": [
+            "Tries every pair of features and keeps the pair with the highest correlation",
+            "Tries every possible combination of features and keeps the best-scoring set",
+            "Tries every feature on its own and keeps the one with the strongest score",
+            "Tries every model type on the full set and keeps the one with the best score"
+          ],
+          "correct": 1,
+          "explanation": "It is the most thorough wrapper approach, but the number of combinations explodes as features are added."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Selection",
+          "question": "Why might a feature with very low variance be dropped by a filter method?",
+          "options": [
+            "Its values differ greatly between rows, so it is likely to add noise to the target",
+            "Its values repeat another column exactly, so it is certain to hold the same information",
+            "Its values barely differ between rows, so it is unlikely to help predict the target",
+            "Its values are missing in most rows, so it is impossible to give the model any signal"
+          ],
+          "correct": 2,
+          "explanation": "A column that is nearly constant cannot separate one outcome from another. Histograms and bar charts show this quickly."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Selection",
+          "question": "How often does an embedded method fit the model, compared with a wrapper method?",
+          "options": [
+            "Many times, which makes it dearer than a wrapper that fits a single time",
+            "Never, which makes it quicker than a filter that scores the features directly",
+            "Once per feature, which makes it the same cost as a wrapper in every case",
+            "Once, which makes it cheaper than a wrapper that refits for every subset"
+          ],
+          "correct": 3,
+          "explanation": "An embedded method such as Lasso selects features as a side effect of one training run, so it balances speed against effectiveness."
+        },
+        {
+          "type": "matching",
+          "category": "Feature Selection",
+          "question": "Match each approach to an example.",
+          "pairs": [
+            {
+              "left": "Filter",
+              "right": "Dropping features whose correlation with the target is near zero"
+            },
+            {
+              "left": "Wrapper",
+              "right": "Recursive feature elimination, repeatedly refitting a model"
+            },
+            {
+              "left": "Embedded",
+              "right": "Lasso shrinking some coefficients to exactly zero"
+            },
+            {
+              "left": "Cross-correlation of features",
+              "right": "A table of correlations between every pair of features"
+            }
+          ]
+        },
+        {
+          "type": "tf",
+          "category": "Feature Selection",
+          "question": "Feature selection keeps a subset of the original features without changing them.",
+          "correct": true,
+          "explanation": "That is how it differs from PCA, which builds new features."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Feature Selection",
+          "question": "A feature-selection method that repeatedly trains a model on subsets and judges each by an evaluation metric is called a ____ method. (one word)",
+          "answers": [
+            "wrapper"
+          ],
+          "explanation": "Filter methods use simple criteria, wrapper methods use a model's score, and embedded methods use a model's own results."
+        },
+        {
+          "type": "short_answer",
+          "category": "Feature Selection",
+          "question": "Describe the three approaches to feature selection (filter, wrapper, embedded). For each, give one example and one point of comparison.",
+          "answerLang": null,
+          "modelAnswer": "Filter: scores features with simple criteria such as correlation with the target, independent of any model; it is fast but ignores how features work together. Wrapper: repeatedly trains a model on different subsets and keeps what scores best, as in recursive feature elimination; it tends to find a good set for that model but is expensive. Embedded: uses the results of a model, such as Lasso coefficients or tree importances, to pick features during training; it is cheaper than a wrapper but depends on the chosen model.",
+          "rubric": [
+            "Describes the filter approach with an example (correlation or a statistical test)",
+            "Describes the wrapper approach with an example (such as RFE)",
+            "Describes the embedded approach with an example (such as Lasso or tree importances)",
+            "Compares them, for example on speed or dependence on a model"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "11. Principal Component Analysis",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Principal Component Analysis",
+          "question": "What does principal component analysis (PCA) do?",
+          "options": [
+            "Builds a smaller set of new, uncorrelated features that keep as much of the variation as possible",
+            "Picks a smaller set of the original features that have the highest correlation with the target",
+            "Builds a larger set of new, correlated features that describe the same variation more simply",
+            "Picks a smaller set of rows that are the most typical of each class in the training data"
+          ],
+          "correct": 0,
+          "explanation": "PCA is dimensionality reduction by transformation, not by choosing columns."
+        },
+        {
+          "type": "mc",
+          "category": "Principal Component Analysis",
+          "question": "Which direction does the first principal component point along?",
+          "options": [
+            "The direction in which the data varies the least",
+            "The direction in which the data varies the most",
+            "The direction in which the target is most correlated",
+            "The direction in which the data is most evenly spread"
+          ],
+          "correct": 1,
+          "explanation": "Later components capture the most remaining variation, at right angles to the earlier ones."
+        },
+        {
+          "type": "mc",
+          "category": "Principal Component Analysis",
+          "question": "How are the principal components related to each other?",
+          "options": [
+            "They are parallel to each other, so they are fully correlated",
+            "They are copies of each other, so they are fully redundant",
+            "They are perpendicular to each other, so they are uncorrelated",
+            "They are tied to the target, so they are fully predictive"
+          ],
+          "correct": 2,
+          "explanation": "Each component is orthogonal to the others, so it adds information the others do not have."
+        },
+        {
+          "type": "mc",
+          "category": "Principal Component Analysis",
+          "question": "Does PCA use the target variable?",
+          "options": [
+            "Yes: it picks components by how well they predict the target, so it is supervised",
+            "Yes: it needs the target to scale the features, so it is semi-supervised",
+            "No: it looks only at the rows, so it is a type of reinforcement learning",
+            "No: it looks only at the features, so it is an unsupervised technique"
+          ],
+          "correct": 3,
+          "explanation": "PCA finds directions of variance in the features alone, which may or may not be useful for predicting the target."
+        },
+        {
+          "type": "mc",
+          "category": "Principal Component Analysis",
+          "question": "Why are features usually standardized before PCA?",
+          "options": [
+            "A feature with a large scale would otherwise dominate the variance and the components",
+            "A feature with a small scale would otherwise be dropped before the components are found",
+            "A feature with missing values would otherwise be filled with the mean automatically",
+            "A feature with text values would otherwise be turned into a number automatically"
+          ],
+          "correct": 0,
+          "explanation": "PCA chases variance, and variance depends on units. Scaling gives every feature an equal chance."
+        },
+        {
+          "type": "mc",
+          "category": "Principal Component Analysis",
+          "question": "Components explain 60%, 25%, 10% and 5% of the variance. How many are needed to keep at least 90%?",
+          "options": [
+            "2",
+            "3",
+            "4",
+            "1"
+          ],
+          "correct": 1,
+          "explanation": "60 + 25 = 85%, which is short of 90%. Adding the third (10%) gives 95%."
+        },
+        {
+          "type": "mc",
+          "category": "Principal Component Analysis",
+          "question": "What is a drawback of using PCA components as features?",
+          "options": [
+            "Each component repeats one original feature, so the model learns nothing new",
+            "Each component adds many new features, so the model has more data to process",
+            "Each component mixes many original features, so the model is harder to interpret",
+            "Each component needs the target, so the model has less data to test on"
+          ],
+          "correct": 2,
+          "explanation": "A component is a weighted blend of the original columns, which no longer have their original meaning."
+        },
+        {
+          "type": "mc",
+          "category": "Principal Component Analysis",
+          "question": "How does PCA differ from filter-style feature selection?",
+          "options": [
+            "PCA keeps some originals unchanged, while selection creates new features from combinations",
+            "PCA needs the target to score each column, while selection ignores the target completely",
+            "PCA drops rows that carry little variance, while selection drops columns that carry none",
+            "PCA creates new features from combinations, while selection keeps some originals unchanged"
+          ],
+          "correct": 3,
+          "explanation": "Selection removes columns. PCA replaces the columns with new ones."
+        },
+        {
+          "type": "mc",
+          "category": "Principal Component Analysis",
+          "question": "A table has 10 features. PCA is run and 3 components are kept. How many columns does the transformed data have?",
+          "options": [
+            "3",
+            "7",
+            "10",
+            "13"
+          ],
+          "correct": 0,
+          "explanation": "The data is rebuilt using only the kept components, one column per component."
+        },
+        {
+          "type": "tf",
+          "category": "Principal Component Analysis",
+          "question": "The components found by PCA are ordered, with the first explaining the most variance.",
+          "correct": true,
+          "explanation": "Each later component explains no more of the variance than the one before it."
+        },
+        {
+          "type": "tf",
+          "category": "Principal Component Analysis",
+          "question": "PCA removes the need to standardize, because it works the same on any scale.",
+          "correct": false,
+          "explanation": "PCA is sensitive to scale, so features are normally standardized first."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Principal Component Analysis",
+          "question": "The share of the total variance that one principal component captures is called its explained variance ____. (one word)",
+          "answers": [
+            "ratio"
+          ],
+          "explanation": "In scikit-learn, pca.explained_variance_ratio_ lists the share for each component."
+        },
+        {
+          "type": "short_answer",
+          "category": "Principal Component Analysis",
+          "question": "Explain what PCA does and why it is used. Give one benefit and one cost of using it.",
+          "answerLang": null,
+          "modelAnswer": "PCA turns the original features into a smaller set of new features called principal components. They are uncorrelated, and the first captures the most variance, the next the most of what remains, and so on. Keeping only the first few reduces the number of features, which helps with the curse of dimensionality, speed and overfitting. The cost is interpretability, because each component is a blend of the original features, and information in the dropped components is lost. Features are usually standardized first.",
+          "rubric": [
+            "Says PCA builds new features (components) from combinations of the originals",
+            "Says components are ordered by the variance they capture",
+            "Gives a benefit, such as fewer dimensions, speed or less overfitting",
+            "Gives a cost, such as lost interpretability or lost variance"
+          ]
+        }
+      ]
+    }
+  ]
+}
