@@ -1,0 +1,630 @@
+{
+  "title": "ITD 140 Quiz 3 Flashcards",
+  "guideFile": "data/itd140-quiz3-guide.json",
+  "quizFile": "data/itd140-quiz3.json",
+  "cards": [
+    {
+      "topic": "Supervised Learning Basics",
+      "term": "Supervised learning",
+      "definition": "Learning a mapping from inputs to a known target using labeled examples.",
+      "useCase": "Needs a label on every training row, so data with no target column cannot be used.",
+      "example": "Emails labeled spam or not spam"
+    },
+    {
+      "topic": "Supervised Learning Basics",
+      "term": "Target (label)",
+      "definition": "The column holding the known answer that the model learns to predict.",
+      "useCase": "Everything else in the table is a candidate feature.",
+      "example": "'Churned' in a customer table"
+    },
+    {
+      "topic": "Supervised Learning Basics",
+      "term": "Classification",
+      "definition": "Supervised learning where the target is a category.",
+      "useCase": "Scored with accuracy, precision, recall and F1.",
+      "example": "Benign or malignant tumor"
+    },
+    {
+      "topic": "Supervised Learning Basics",
+      "term": "Regression",
+      "definition": "Supervised learning where the target is a number on a continuous scale.",
+      "useCase": "Scored with MSE and R-squared.",
+      "example": "Price of a used car"
+    },
+    {
+      "topic": "Supervised Learning Basics",
+      "term": "Training set",
+      "definition": "The labeled rows (about 70-80%) the model learns from.",
+      "useCase": "Fit the model on these rows only.",
+      "example": "480 of 600 rows"
+    },
+    {
+      "topic": "Supervised Learning Basics",
+      "term": "Test set",
+      "definition": "Labeled rows (about 20-30%) held back to judge the model on unseen data.",
+      "useCase": "Never learn from them, or the score is not fair.",
+      "example": "120 of 600 rows"
+    },
+    {
+      "topic": "Evaluation Metrics",
+      "term": "Confusion matrix",
+      "definition": "A count of predictions by actual and predicted class: TP, FP, FN, TN.",
+      "useCase": "Every classification metric is computed from these four numbers.",
+      "example": "TP 40, FP 10, FN 20, TN 130"
+    },
+    {
+      "topic": "Evaluation Metrics",
+      "term": "False positive",
+      "definition": "A negative row that the model wrongly calls positive: a false alarm.",
+      "useCase": "Precision drops as false positives rise.",
+      "example": "A genuine purchase blocked as fraud"
+    },
+    {
+      "topic": "Evaluation Metrics",
+      "term": "False negative",
+      "definition": "A positive row that the model wrongly calls negative: a miss.",
+      "useCase": "Recall drops as false negatives rise.",
+      "example": "A sick patient cleared as healthy"
+    },
+    {
+      "topic": "Evaluation Metrics",
+      "term": "Accuracy",
+      "definition": "(TP + TN) / all rows: the share of predictions that were right.",
+      "useCase": "Misleading when one class is rare.",
+      "example": "170 / 200 = 0.85"
+    },
+    {
+      "topic": "Evaluation Metrics",
+      "term": "Precision",
+      "definition": "TP / (TP + FP): of the rows flagged positive, the share that really were.",
+      "useCase": "Prioritize it when a false alarm is costly.",
+      "example": "40 / 50 = 0.80"
+    },
+    {
+      "topic": "Evaluation Metrics",
+      "term": "Recall (sensitivity)",
+      "definition": "TP / (TP + FN): of the truly positive rows, the share that were found.",
+      "useCase": "Prioritize it when a miss is costly.",
+      "example": "40 / 60 = 0.67"
+    },
+    {
+      "topic": "Evaluation Metrics",
+      "term": "F1-score",
+      "definition": "2 x precision x recall / (precision + recall), the harmonic mean of the two.",
+      "useCase": "One number when both kinds of error matter; low if either is low.",
+      "example": "P 0.60, R 0.30: F1 = 0.40"
+    },
+    {
+      "topic": "Evaluation Metrics",
+      "term": "Imbalanced classes",
+      "definition": "A dataset where one class is far rarer than the other.",
+      "useCase": "Accuracy can look high while the rare class is never found; check recall and F1.",
+      "example": "9,700 normal and 300 fraud rows"
+    },
+    {
+      "topic": "Evaluation Metrics",
+      "term": "MSE (mean squared error)",
+      "definition": "The average of the squared gaps between actual and predicted values.",
+      "useCase": "Lower is better; large misses count heavily. RMSE is its square root.",
+      "example": "Errors 1, 2, 3: (1 + 4 + 9) / 3 = 4.67"
+    },
+    {
+      "topic": "Evaluation Metrics",
+      "term": "R-squared (R2)",
+      "definition": "The share of the target's variance a model explains: 1 is perfect, 0 equals predicting the mean.",
+      "useCase": "Can be negative on test data for a model worse than the mean.",
+      "example": "R2 = 0.8: 80% of the variance explained"
+    },
+    {
+      "topic": "Cross-Validation, Overfitting and Underfitting",
+      "term": "Generalization",
+      "definition": "How well a model performs on new data it has not seen.",
+      "useCase": "The aim of every evaluation step.",
+      "example": "Test score close to training score"
+    },
+    {
+      "topic": "Cross-Validation, Overfitting and Underfitting",
+      "term": "Overfitting",
+      "definition": "High training score but much lower test score: noise has been memorized.",
+      "useCase": "Fix with a simpler model, more data, pruning or regularization.",
+      "example": "99% train, 71% test"
+    },
+    {
+      "topic": "Cross-Validation, Overfitting and Underfitting",
+      "term": "Underfitting",
+      "definition": "Low scores on both training and test data: the model is too simple.",
+      "useCase": "Fix with a more flexible model or better features.",
+      "example": "58% train, 57% test"
+    },
+    {
+      "topic": "Cross-Validation, Overfitting and Underfitting",
+      "term": "Bias and variance",
+      "definition": "Bias: error from over-simple assumptions. Variance: sensitivity to the particular training sample.",
+      "useCase": "Underfitting is high bias; overfitting is high variance.",
+      "example": "A straight line on a curve: high bias"
+    },
+    {
+      "topic": "Cross-Validation, Overfitting and Underfitting",
+      "term": "k-fold cross-validation",
+      "definition": "Split into k folds and train k models, each validating on a different fold; average the scores.",
+      "useCase": "A steadier estimate than one split, and every row is validated once.",
+      "example": "5 folds of 100 rows: 5 models"
+    },
+    {
+      "topic": "Cross-Validation, Overfitting and Underfitting",
+      "term": "Stratified k-fold",
+      "definition": "k-fold where every fold keeps the class proportions of the full data.",
+      "useCase": "Use when classes are imbalanced.",
+      "example": "10% fraud in every fold"
+    },
+    {
+      "topic": "Cross-Validation, Overfitting and Underfitting",
+      "term": "Leave-one-out",
+      "definition": "k-fold with k equal to the number of rows: one row validates, the rest train.",
+      "useCase": "Only for very small datasets; one model per row.",
+      "example": "100 rows: 100 models"
+    },
+    {
+      "topic": "Cross-Validation, Overfitting and Underfitting",
+      "term": "Time-series split",
+      "definition": "Validation that always trains on the past and tests on the future, without shuffling.",
+      "useCase": "For data ordered in time, so the model never learns from the future.",
+      "example": "Train Jan-Jun, test Jul"
+    },
+    {
+      "topic": "K-Nearest Neighbors",
+      "term": "KNN",
+      "definition": "Predicts from the k closest training points: a majority vote for classes, an average for numbers.",
+      "useCase": "Simple, no training step; needs scaled features.",
+      "example": "k = 5: three neighbors are class A, so A"
+    },
+    {
+      "topic": "K-Nearest Neighbors",
+      "term": "Lazy learner",
+      "definition": "An algorithm that builds no model in training and defers the work to prediction.",
+      "useCase": "That makes prediction slow on large datasets.",
+      "example": "KNN stores the rows and measures distances later"
+    },
+    {
+      "topic": "K-Nearest Neighbors",
+      "term": "Euclidean distance",
+      "definition": "Straight-line distance: the square root of the sum of squared gaps.",
+      "useCase": "The usual default distance.",
+      "example": "(1,2) to (4,6): 5"
+    },
+    {
+      "topic": "K-Nearest Neighbors",
+      "term": "Manhattan distance",
+      "definition": "The sum of the absolute gaps along each axis, like street-grid blocks.",
+      "useCase": "Cheaper to compute: no squares or square root.",
+      "example": "(2,7) to (6,4): 7"
+    },
+    {
+      "topic": "K-Nearest Neighbors",
+      "term": "Choosing k",
+      "definition": "Small k follows noise (overfit); large k blurs groups toward the majority class (underfit).",
+      "useCase": "Pick k by cross-validation; use an odd k for two classes.",
+      "example": "Try 1, 3, 5, 7, 9 and keep the best CV score"
+    },
+    {
+      "topic": "K-Nearest Neighbors",
+      "term": "Feature scaling for KNN",
+      "definition": "Rescaling features so that none dominates the distance.",
+      "useCase": "Do it before KNN, K-Means and other distance-based methods.",
+      "example": "Income (tens of thousands) versus age"
+    },
+    {
+      "topic": "Decision Trees",
+      "term": "Decision tree",
+      "definition": "A model that asks a chain of feature tests and ends in a prediction at a leaf.",
+      "useCase": "Readable as rules; needs no scaling.",
+      "example": "If income > 50k and age < 30, then class A"
+    },
+    {
+      "topic": "Decision Trees",
+      "term": "Root, internal node and leaf",
+      "definition": "Root: the first test. Internal node: a test on one feature. Leaf: the final prediction.",
+      "useCase": "Rows are routed down branches until they reach a leaf.",
+      "example": "Root asks 'income > 50k?'"
+    },
+    {
+      "topic": "Decision Trees",
+      "term": "Gini impurity",
+      "definition": "1 minus the sum of squared class shares: 0 for a pure node, 0.5 for an even two-class mix.",
+      "useCase": "The tree picks the split with the lowest weighted Gini.",
+      "example": "6 A and 2 B: 0.375"
+    },
+    {
+      "topic": "Decision Trees",
+      "term": "Entropy",
+      "definition": "A measure of mixing: minus the sum of p x log2(p). 0 for a pure node, 1 bit for an even two-class mix.",
+      "useCase": "An alternative to Gini for choosing splits.",
+      "example": "50/50 node: 1 bit"
+    },
+    {
+      "topic": "Decision Trees",
+      "term": "Information gain",
+      "definition": "The drop in entropy from a parent node to its weighted children.",
+      "useCase": "The split with the largest gain wins.",
+      "example": "Parent 1.0, children 0.4: gain 0.6"
+    },
+    {
+      "topic": "Decision Trees",
+      "term": "Pruning and depth limits",
+      "definition": "Cutting branches or capping depth so a tree cannot memorize the training rows.",
+      "useCase": "The main defense against decision-tree overfitting.",
+      "example": "max_depth=4, min_samples_leaf=5"
+    },
+    {
+      "topic": "Random Forests",
+      "term": "Ensemble learning",
+      "definition": "Combining many models so that the joint prediction beats any single one.",
+      "useCase": "A random forest is an ensemble of decision trees.",
+      "example": "100 trees vote"
+    },
+    {
+      "topic": "Random Forests",
+      "term": "Random forest",
+      "definition": "Many decision trees, each trained on a bootstrap sample with random feature subsets, combined by vote or average.",
+      "useCase": "More accurate and stable than one tree, but harder to read.",
+      "example": "RandomForestClassifier(n_estimators=100)"
+    },
+    {
+      "topic": "Random Forests",
+      "term": "Bootstrap sample",
+      "definition": "Rows drawn at random with replacement to train one tree.",
+      "useCase": "Makes each tree see a different version of the data.",
+      "example": "Row 7 appears twice, row 9 not at all"
+    },
+    {
+      "topic": "Random Forests",
+      "term": "Random feature subset",
+      "definition": "At each split a tree may consider only some of the features.",
+      "useCase": "Keeps the trees different so their errors cancel.",
+      "example": "3 of 10 features per split"
+    },
+    {
+      "topic": "Random Forests",
+      "term": "Out-of-bag rows",
+      "definition": "Rows left out of a tree's bootstrap sample (about one third).",
+      "useCase": "Provide a free validation estimate for that tree.",
+      "example": "Score each tree on its unseen rows"
+    },
+    {
+      "topic": "Linear and Logistic Regression",
+      "term": "Multiple linear regression",
+      "definition": "Predicts a number as an intercept plus a weighted sum of several features.",
+      "useCase": "Assumes a straight-line relationship, independent errors with constant spread, and little multicollinearity.",
+      "example": "y = 12 + 3x1 + 2x2"
+    },
+    {
+      "topic": "Linear and Logistic Regression",
+      "term": "Coefficient",
+      "definition": "The change in the prediction for a one-unit rise in one feature, holding the others constant.",
+      "useCase": "An association within the model, not proof of cause.",
+      "example": "-35 per km from the center: rent falls by 35"
+    },
+    {
+      "topic": "Linear and Logistic Regression",
+      "term": "Intercept",
+      "definition": "The predicted value when every feature is 0.",
+      "useCase": "The starting point of the equation.",
+      "example": "12 in y = 12 + 3x1 + 2x2"
+    },
+    {
+      "topic": "Linear and Logistic Regression",
+      "term": "Residual",
+      "definition": "The actual value minus the predicted value.",
+      "useCase": "Residuals should be centered on zero with no pattern and constant spread.",
+      "example": "Actual 50, predicted 46: residual 4"
+    },
+    {
+      "topic": "Linear and Logistic Regression",
+      "term": "Multicollinearity",
+      "definition": "Two or more features strongly correlated with each other.",
+      "useCase": "Makes coefficients unstable, with sizes swinging and signs flipping; drop or combine features.",
+      "example": "square_feet and square_meters"
+    },
+    {
+      "topic": "Linear and Logistic Regression",
+      "term": "VIF (variance inflation factor)",
+      "definition": "A score showing how well a feature is predicted by the other features.",
+      "useCase": "Values above roughly 5-10 signal multicollinearity.",
+      "example": "VIF of 25 for one feature"
+    },
+    {
+      "topic": "Linear and Logistic Regression",
+      "term": "Adjusted R-squared",
+      "definition": "R-squared that is penalized for each extra feature.",
+      "useCase": "Plain R2 never falls on the training data when a feature is added.",
+      "example": "Adding a random column lowers it"
+    },
+    {
+      "topic": "Linear and Logistic Regression",
+      "term": "Logistic regression",
+      "definition": "A classifier that outputs a probability from 0 to 1, then applies a threshold.",
+      "useCase": "Despite the name, it predicts categories, not numbers.",
+      "example": "0.83 > 0.5: predict spam"
+    },
+    {
+      "topic": "Unsupervised Learning Basics",
+      "term": "Unsupervised learning",
+      "definition": "Learning from data with no target labels, looking for structure in the features.",
+      "useCase": "Cannot be checked against an answer key.",
+      "example": "Customer segments from purchase data"
+    },
+    {
+      "topic": "Unsupervised Learning Basics",
+      "term": "Clustering",
+      "definition": "Grouping rows so that members resemble each other more than members of other groups.",
+      "useCase": "The most common unsupervised task.",
+      "example": "Three kinds of shoppers"
+    },
+    {
+      "topic": "Unsupervised Learning Basics",
+      "term": "Dimensionality reduction",
+      "definition": "Describing the data with fewer features while keeping as much information as possible.",
+      "useCase": "Unsupervised, along with clustering. PCA is the standard example.",
+      "example": "60 survey columns to 5"
+    },
+    {
+      "topic": "Unsupervised Learning Basics",
+      "term": "Hard versus soft clustering",
+      "definition": "Hard: each point in exactly one cluster. Soft (fuzzy): a degree of membership in several.",
+      "useCase": "Soft clustering suits points that sit between groups.",
+      "example": "70% sports, 30% politics"
+    },
+    {
+      "topic": "Unsupervised Learning Basics",
+      "term": "Three clustering families",
+      "definition": "Centroid-based (K-Means), connectivity-based (hierarchical), density-based (DBSCAN).",
+      "useCase": "Choose by cluster shape and by whether you know k.",
+      "example": "K-Means, agglomerative, DBSCAN"
+    },
+    {
+      "topic": "K-Means Clustering",
+      "term": "K-Means",
+      "definition": "Forms k clusters by assigning points to the nearest centroid and moving centroids to their means until stable.",
+      "useCase": "You choose k first; it assumes round, similar-sized clusters.",
+      "example": "k = 3 customer groups"
+    },
+    {
+      "topic": "K-Means Clustering",
+      "term": "Centroid",
+      "definition": "The mean position of the points in a cluster.",
+      "useCase": "Moves each iteration until assignments stop changing.",
+      "example": "(1,2), (3,4), (5,9) give (3,5)"
+    },
+    {
+      "topic": "K-Means Clustering",
+      "term": "Inertia",
+      "definition": "The sum of squared distances from each point to its own centroid.",
+      "useCase": "Lower means tighter clusters, but it always falls as k grows.",
+      "example": "Inertia 120 at k = 3"
+    },
+    {
+      "topic": "K-Means Clustering",
+      "term": "Elbow plot",
+      "definition": "A plot of inertia against k; the best k sits at the bend where the drop levels off.",
+      "useCase": "A visual way to choose k.",
+      "example": "Sharp drop to k = 4, then flat: choose 4"
+    },
+    {
+      "topic": "K-Means Clustering",
+      "term": "k-means++ and n_init",
+      "definition": "A smarter start for the centroids, and reruns from different starts keeping the lowest inertia.",
+      "useCase": "K-Means can settle in a poor local optimum depending on its start.",
+      "example": "KMeans(n_clusters=3, n_init=10)"
+    },
+    {
+      "topic": "K-Means Clustering",
+      "term": "K-Means and outliers",
+      "definition": "A centroid is a mean, so an extreme point drags it off the cluster's center.",
+      "useCase": "Remove outliers or use a method such as DBSCAN; also scale features first.",
+      "example": "One huge value skews a cluster"
+    },
+    {
+      "topic": "Hierarchical Clustering",
+      "term": "Agglomerative clustering",
+      "definition": "Bottom-up: every point starts as a cluster and the two closest are merged, repeatedly.",
+      "useCase": "No need to choose k in advance.",
+      "example": "Merge 1 and 2 first, then the next closest"
+    },
+    {
+      "topic": "Hierarchical Clustering",
+      "term": "Divisive clustering",
+      "definition": "Top-down: start with one cluster and split it repeatedly.",
+      "useCase": "The reverse of agglomerative.",
+      "example": "One cluster splits into two, then four"
+    },
+    {
+      "topic": "Hierarchical Clustering",
+      "term": "Dendrogram",
+      "definition": "A tree of merges; the height of each join is the distance at which the merge happened.",
+      "useCase": "Cut it with a horizontal line: the lines crossed are the clusters.",
+      "example": "A cut across 4 lines gives 4 clusters"
+    },
+    {
+      "topic": "Hierarchical Clustering",
+      "term": "Single and complete linkage",
+      "definition": "Single: distance between the closest pair of points. Complete: between the farthest pair.",
+      "useCase": "Single tends to chain; complete gives compact clusters.",
+      "example": "Chained, stringy clusters (single)"
+    },
+    {
+      "topic": "Hierarchical Clustering",
+      "term": "Average and Ward linkage",
+      "definition": "Average: mean distance over all pairs. Ward: merge the pair that raises within-cluster variance least.",
+      "useCase": "Ward gives compact, K-Means-like clusters.",
+      "example": "linkage='ward'"
+    },
+    {
+      "topic": "DBSCAN",
+      "term": "DBSCAN",
+      "definition": "Density-based clustering: clusters are dense regions separated by sparse ones; sparse points are noise.",
+      "useCase": "No k needed; finds any shape and flags outliers.",
+      "example": "Two concentric rings"
+    },
+    {
+      "topic": "DBSCAN",
+      "term": "eps",
+      "definition": "The radius of the neighborhood around a point.",
+      "useCase": "Too small leaves much noise; too large merges clusters.",
+      "example": "eps = 0.5"
+    },
+    {
+      "topic": "DBSCAN",
+      "term": "min_samples",
+      "definition": "How many points must lie within eps for a point to count as a core point.",
+      "useCase": "A higher value is stricter and creates more noise.",
+      "example": "min_samples = 5"
+    },
+    {
+      "topic": "DBSCAN",
+      "term": "Core, border and noise points",
+      "definition": "Core: dense. Border: within eps of a core but not dense. Noise: reachable from no core.",
+      "useCase": "Noise is labeled -1 and left unassigned.",
+      "example": "A lone point far from everything"
+    },
+    {
+      "topic": "DBSCAN",
+      "term": "DBSCAN weaknesses",
+      "definition": "Struggles when clusters differ greatly in density, and is sensitive to eps.",
+      "useCase": "Use a k-distance plot to choose eps, and scale the features.",
+      "example": "A tight cluster beside a loose one"
+    },
+    {
+      "topic": "Principal Component Analysis",
+      "term": "PCA",
+      "definition": "Builds fewer new, uncorrelated features (components) that keep as much variance as possible.",
+      "useCase": "Unsupervised dimensionality reduction; it ignores the target.",
+      "example": "30 features to 4 components"
+    },
+    {
+      "topic": "Principal Component Analysis",
+      "term": "Principal component",
+      "definition": "A weighted blend of all the original features. The first points along the greatest variance.",
+      "useCase": "Components are perpendicular and ordered by variance.",
+      "example": "PC1 explains 50% of the variance"
+    },
+    {
+      "topic": "Principal Component Analysis",
+      "term": "Explained variance ratio",
+      "definition": "The share of the total variance that each component holds.",
+      "useCase": "Add them up until you reach a goal such as 90-95% to choose how many to keep.",
+      "example": "50 + 20 + 15 + 10 = 95%: keep 4"
+    },
+    {
+      "topic": "Principal Component Analysis",
+      "term": "Scree plot",
+      "definition": "A plot of the explained variance of each component in order.",
+      "useCase": "Stop where the curve flattens.",
+      "example": "Steep to PC3, then level"
+    },
+    {
+      "topic": "Principal Component Analysis",
+      "term": "Standardize before PCA",
+      "definition": "PCA chases variance, so features in large units would dominate unless scaled.",
+      "useCase": "Standardize first, then fit PCA.",
+      "example": "StandardScaler then PCA(n_components=0.95)"
+    },
+    {
+      "topic": "Principal Component Analysis",
+      "term": "PCA versus LDA",
+      "definition": "PCA is unsupervised and maximizes variance. LDA uses the labels to maximize class separation.",
+      "useCase": "Both reduce dimensions; only LDA needs the target.",
+      "example": "PCA to compress, LDA to separate known classes"
+    },
+    {
+      "topic": "Neural Network Basics",
+      "term": "Perceptron",
+      "definition": "A neuron that computes an activation of the weighted sum of inputs plus a bias.",
+      "useCase": "One perceptron can only draw a straight-line boundary, so it cannot learn XOR.",
+      "example": "output = activation(w1x1 + w2x2 + b)"
+    },
+    {
+      "topic": "Neural Network Basics",
+      "term": "Weight",
+      "definition": "A learned number that scales how strongly one input influences a neuron.",
+      "useCase": "A weight near 0 means that input has almost no influence.",
+      "example": "w = 0.02: negligible input"
+    },
+    {
+      "topic": "Neural Network Basics",
+      "term": "Bias",
+      "definition": "A learned constant added to the weighted sum that shifts where a neuron activates.",
+      "useCase": "Weights and biases are the parameters that training changes.",
+      "example": "b = -2 delays activation"
+    },
+    {
+      "topic": "Neural Network Basics",
+      "term": "Activation function",
+      "definition": "A non-linear function applied to a neuron's sum so the network can learn curves.",
+      "useCase": "Without it, stacked layers collapse into one linear transformation.",
+      "example": "ReLU, sigmoid, tanh, softmax"
+    },
+    {
+      "topic": "Neural Network Basics",
+      "term": "ReLU, sigmoid, tanh, softmax",
+      "definition": "ReLU: max(0, x). Sigmoid: 0 to 1. Tanh: -1 to 1. Softmax: probabilities summing to 1.",
+      "useCase": "ReLU for hidden layers; sigmoid for two classes; softmax for many classes.",
+      "example": "ReLU(-3) = 0"
+    },
+    {
+      "topic": "Neural Network Basics",
+      "term": "Layers (input, hidden, output)",
+      "definition": "Data enters the input layer, passes through hidden layers, and the prediction leaves the output layer.",
+      "useCase": "Input neurons = number of features. Deep learning means two or more hidden layers.",
+      "example": "8 features: 8 input neurons"
+    },
+    {
+      "topic": "Neural Network Basics",
+      "term": "Parameters versus hyperparameters",
+      "definition": "Parameters (weights, biases) are learned. Layers, neurons and learning rate are set beforehand.",
+      "useCase": "Count a dense layer's parameters as inputs x neurons + neurons.",
+      "example": "4-5-3 network: 43 parameters"
+    },
+    {
+      "topic": "Training: Gradient Descent and Backpropagation",
+      "term": "Loss function",
+      "definition": "A score of how far the predictions are from the true targets.",
+      "useCase": "Training tries to make it small. MSE for regression, cross-entropy for classification.",
+      "example": "MSE of 4.0"
+    },
+    {
+      "topic": "Training: Gradient Descent and Backpropagation",
+      "term": "Forward pass",
+      "definition": "Pushing inputs through the layers to get a prediction.",
+      "useCase": "The first step of each training iteration.",
+      "example": "Inputs to hidden to output"
+    },
+    {
+      "topic": "Training: Gradient Descent and Backpropagation",
+      "term": "Backpropagation",
+      "definition": "Finds the gradient of the loss for every weight and bias by working backward with the chain rule.",
+      "useCase": "It supplies the gradients; gradient descent uses them.",
+      "example": "Output error flows back to earlier layers"
+    },
+    {
+      "topic": "Training: Gradient Descent and Backpropagation",
+      "term": "Gradient descent",
+      "definition": "Repeatedly nudges each weight against its gradient to reduce the loss.",
+      "useCase": "w_new = w_old - learning rate x gradient.",
+      "example": "5 - 0.1 x 2 = 4.8"
+    },
+    {
+      "topic": "Training: Gradient Descent and Backpropagation",
+      "term": "Learning rate",
+      "definition": "The step size that scales each gradient descent update.",
+      "useCase": "Too large overshoots and the loss bounces; too small is very slow.",
+      "example": "0.01 versus 5.0"
+    },
+    {
+      "topic": "Training: Gradient Descent and Backpropagation",
+      "term": "Epoch, batch and mini-batch",
+      "definition": "Epoch: one pass over all training data. Batch: all rows per update. Mini-batch: a small group per update.",
+      "useCase": "Mini-batch is the usual compromise between one row and all rows.",
+      "example": "Updates after every 32 rows"
+    }
+  ]
+}

@@ -1,0 +1,3369 @@
+{
+ "title": "ITD 140 Quiz 3 Walkthroughs",
+ "guideFile": "data/itd140-quiz3-guide.json",
+ "quizFile": "data/itd140-quiz3.json",
+ "walkthroughs": [
+  {
+   "id": "supervised-basics",
+   "title": "From labeled data to a test score",
+   "topic": "1. Supervised Learning Basics",
+   "blurb": "Split labeled rows, fit, predict and compare with the known answers.",
+   "steps": [
+    {
+     "title": "Labeled data and the target",
+     "text": "Each of the 200 emails has features and a known label (spam or ham). The label is the target: the answer the model learns to predict. With a category target this is classification.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Part",
+       "Role"
+      ],
+      "rows": [
+       [
+        "Feature columns",
+        "Inputs the model reads"
+       ],
+       [
+        "Label column",
+        "The target to predict"
+       ]
+      ],
+      "hl": [
+       [
+        1,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Split the rows: test_size = 0.2",
+     "text": "200 x 0.2 = 40 rows are held back as the test set and 160 rows train the model. The test rows are never used for learning.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Set",
+       "Rows",
+       "Share"
+      ],
+      "rows": [
+       [
+        "Train",
+        "160",
+        "80%"
+       ],
+       [
+        "Test",
+        "40",
+        "20%"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Fit, then predict",
+     "text": "model.fit(x_train, y_train) learns from the training rows. model.predict(x_test) then returns a predicted label for every test row, without being shown the answers.",
+     "visual": {
+      "type": "flow",
+      "nodes": [
+       "Split",
+       "fit(train)",
+       "predict(test)",
+       "Compare"
+      ],
+      "active": 2
+     }
+    },
+    {
+     "title": "Compare with the known labels",
+     "text": "Here are the first 8 test rows. The predictions are lined up against the true labels.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Test row",
+       "Actual (label)",
+       "Predicted",
+       "Correct?"
+      ],
+      "rows": [
+       [
+        "1",
+        "spam",
+        "spam",
+        ""
+       ],
+       [
+        "2",
+        "ham",
+        "ham",
+        ""
+       ],
+       [
+        "3",
+        "ham",
+        "spam",
+        ""
+       ],
+       [
+        "4",
+        "spam",
+        "spam",
+        ""
+       ],
+       [
+        "5",
+        "ham",
+        "ham",
+        ""
+       ],
+       [
+        "6",
+        "spam",
+        "ham",
+        ""
+       ],
+       [
+        "7",
+        "ham",
+        "ham",
+        ""
+       ],
+       [
+        "8",
+        "ham",
+        "ham",
+        ""
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Score it",
+     "text": "6 of 8 are right, so accuracy = 6 / 8 = 0.75. The score is honest because the model never saw these rows.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Test row",
+       "Actual (label)",
+       "Predicted",
+       "Correct?"
+      ],
+      "rows": [
+       [
+        "1",
+        "spam",
+        "spam",
+        "yes"
+       ],
+       [
+        "2",
+        "ham",
+        "ham",
+        "yes"
+       ],
+       [
+        "3",
+        "ham",
+        "spam",
+        "no"
+       ],
+       [
+        "4",
+        "spam",
+        "spam",
+        "yes"
+       ],
+       [
+        "5",
+        "ham",
+        "ham",
+        "yes"
+       ],
+       [
+        "6",
+        "spam",
+        "ham",
+        "no"
+       ],
+       [
+        "7",
+        "ham",
+        "ham",
+        "yes"
+       ],
+       [
+        "8",
+        "ham",
+        "ham",
+        "yes"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        3
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        2,
+        3
+       ],
+       [
+        3,
+        3
+       ],
+       [
+        4,
+        3
+       ],
+       [
+        5,
+        3
+       ],
+       [
+        6,
+        3
+       ],
+       [
+        7,
+        3
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "metrics",
+   "title": "Accuracy, precision, recall, F1, MSE and R-squared",
+   "topic": "2. Evaluation Metrics",
+   "blurb": "Compute every metric from one confusion matrix, then see why accuracy can mislead.",
+   "steps": [
+    {
+     "title": "The confusion matrix",
+     "text": "200 test rows sorted by actual and predicted class: 40 true positives, 20 false negatives (misses), 10 false positives (false alarms) and 130 true negatives.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "",
+       "Predicted positive",
+       "Predicted negative"
+      ],
+      "rows": [
+       [
+        "Actual positive",
+        "40",
+        "20"
+       ],
+       [
+        "Actual negative",
+        "10",
+        "130"
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Accuracy",
+     "text": "(TP + TN) / all = (40 + 130) / 200 = 0.85.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "",
+       "Predicted positive",
+       "Predicted negative"
+      ],
+      "rows": [
+       [
+        "Actual positive",
+        "40",
+        "20"
+       ],
+       [
+        "Actual negative",
+        "10",
+        "130"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Precision",
+     "text": "Of the 50 rows flagged positive, 40 really were: TP / (TP + FP) = 40 / 50 = 0.8.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "",
+       "Predicted positive",
+       "Predicted negative"
+      ],
+      "rows": [
+       [
+        "Actual positive",
+        "40",
+        "20"
+       ],
+       [
+        "Actual negative",
+        "10",
+        "130"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Recall",
+     "text": "Of the 60 rows that really were positive, 40 were found: TP / (TP + FN) = 40 / 60 = 0.67.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "",
+       "Predicted positive",
+       "Predicted negative"
+      ],
+      "rows": [
+       [
+        "Actual positive",
+        "40",
+        "20"
+       ],
+       [
+        "Actual negative",
+        "10",
+        "130"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "F1-score",
+     "text": "2 x P x R / (P + R) = 2 x 0.8 x 0.667 / (0.8 + 0.667) = 0.73. The harmonic mean is never above the plain average and is pulled toward the lower of the two, so a model cannot hide a weak recall behind a strong precision.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Metric",
+       "Value"
+      ],
+      "rows": [
+       [
+        "Precision",
+        "0.8"
+       ],
+       [
+        "Recall",
+        "0.67"
+       ],
+       [
+        "F1",
+        "0.73"
+       ]
+      ],
+      "hl": [
+       [
+        2,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "When accuracy lies",
+     "text": "1,000 parts: 990 normal and 10 defective. A model that says 'normal' every time is right 99% of the time and finds 0% of the defects (recall 0 / 10).",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "",
+       "Predicted defect",
+       "Predicted normal"
+      ],
+      "rows": [
+       [
+        "Actual defect",
+        "0",
+        "10"
+       ],
+       [
+        "Actual normal",
+        "0",
+        "990"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Regression: MSE and R-squared",
+     "text": "Actual values 10, 12, 14, 20, errors (actual - predicted) 2, -3, 1, 4. MSE = (4 + 9 + 1 + 16) / 4 = 7.5. The mean of the actuals is 14; R2 = 1 - SSres / SStot = 1 - 30 / 56 = 0.46.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Actual",
+       "Predicted",
+       "Error",
+       "Squared error"
+      ],
+      "rows": [
+       [
+        "10",
+        "8",
+        "2",
+        "4"
+       ],
+       [
+        "12",
+        "15",
+        "-3",
+        "9"
+       ],
+       [
+        "14",
+        "13",
+        "1",
+        "1"
+       ],
+       [
+        "20",
+        "16",
+        "4",
+        "16"
+       ]
+      ],
+      "hl": []
+     }
+    }
+   ]
+  },
+  {
+   "id": "cross-validation",
+   "title": "5-fold cross-validation and spotting overfitting",
+   "topic": "3. Cross-Validation, Overfitting and Underfitting",
+   "blurb": "Rotate the validation fold, average the scores, and read train versus test.",
+   "steps": [
+    {
+     "title": "Cut the data into 5 folds",
+     "text": "100 rows / 5 folds = 20 rows per fold. Each fold takes one turn as the validation set.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Fold",
+       "Rows"
+      ],
+      "rows": [
+       [
+        "Fold 1",
+        "20"
+       ],
+       [
+        "Fold 2",
+        "20"
+       ],
+       [
+        "Fold 3",
+        "20"
+       ],
+       [
+        "Fold 4",
+        "20"
+       ],
+       [
+        "Fold 5",
+        "20"
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Train 5 models, rotating the validation fold",
+     "text": "Each round validates on one fold (20 rows) and trains on the other 4 (80 rows). Every row is validated exactly once.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Round",
+       "Validate on",
+       "Train on",
+       "Score"
+      ],
+      "rows": [
+       [
+        "1",
+        "Fold 1",
+        "the other 4 folds",
+        "0.82"
+       ],
+       [
+        "2",
+        "Fold 2",
+        "the other 4 folds",
+        "0.78"
+       ],
+       [
+        "3",
+        "Fold 3",
+        "the other 4 folds",
+        "0.85"
+       ],
+       [
+        "4",
+        "Fold 4",
+        "the other 4 folds",
+        "0.8"
+       ],
+       [
+        "5",
+        "Fold 5",
+        "the other 4 folds",
+        "0.75"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        2,
+        1
+       ],
+       [
+        3,
+        1
+       ],
+       [
+        4,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Average the scores",
+     "text": "(0.82 + 0.78 + 0.85 + 0.8 + 0.75) / 5 = 0.8. One split could have landed on an easy or a hard test set; the average is steadier.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Round",
+       "Score"
+      ],
+      "rows": [
+       [
+        "1",
+        "0.82"
+       ],
+       [
+        "2",
+        "0.78"
+       ],
+       [
+        "3",
+        "0.85"
+       ],
+       [
+        "4",
+        "0.8"
+       ],
+       [
+        "5",
+        "0.75"
+       ],
+       [
+        "Average",
+        "0.8"
+       ]
+      ],
+      "hl": [
+       [
+        5,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Read train versus test",
+     "text": "A big gap with training higher is overfitting (high variance). Low on both is underfitting (high bias).",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Train",
+       "Test",
+       "Diagnosis"
+      ],
+      "rows": [
+       [
+        "99%",
+        "71%",
+        "Overfitting"
+       ],
+       [
+        "58%",
+        "57%",
+        "Underfitting"
+       ],
+       [
+        "90%",
+        "88%",
+        "Generalizes well"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        2,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Pick the right splitter",
+     "text": "Stratified k-fold keeps class proportions, leave-one-out uses k = number of rows, and a time-series split trains on the past and tests on the future.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Situation",
+       "Technique"
+      ],
+      "rows": [
+       [
+        "A rare class",
+        "Stratified k-fold"
+       ],
+       [
+        "Very few rows",
+        "Leave-one-out"
+       ],
+       [
+        "Rows ordered in time",
+        "Time-series split"
+       ],
+       [
+        "Plenty of data, a quick check",
+        "Hold-out"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        2,
+        1
+       ],
+       [
+        3,
+        1
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "knn",
+   "title": "Classifying a point with KNN",
+   "topic": "4. K-Nearest Neighbors",
+   "blurb": "Measure distances, rank the neighbors, and vote with different values of k.",
+   "steps": [
+    {
+     "title": "A new point to classify",
+     "text": "Training points have two features and a class (A or B). The new point is (3, 3). KNN is a lazy learner: nothing was fitted, so all the work happens now.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Training point",
+       "Class"
+      ],
+      "rows": [
+       [
+        "(1, 1)",
+        "A"
+       ],
+       [
+        "(2, 2)",
+        "A"
+       ],
+       [
+        "(2, 4.2)",
+        "A"
+       ],
+       [
+        "(4, 4.5)",
+        "B"
+       ],
+       [
+        "(5, 3)",
+        "B"
+       ],
+       [
+        "(3, 3.5)",
+        "B"
+       ],
+       [
+        "(6, 6)",
+        "B"
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Measure the distance to every point",
+     "text": "Euclidean distance = sqrt((x1 - x2)^2 + (y1 - y2)^2). For (1, 1) to (3, 3): sqrt(8) = 2.83. (Manhattan would give 4.)",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Training point",
+       "Class",
+       "Euclidean distance"
+      ],
+      "rows": [
+       [
+        "(1, 1)",
+        "A",
+        "2.83"
+       ],
+       [
+        "(2, 2)",
+        "A",
+        "1.41"
+       ],
+       [
+        "(2, 4.2)",
+        "A",
+        "1.56"
+       ],
+       [
+        "(4, 4.5)",
+        "B",
+        "1.8"
+       ],
+       [
+        "(5, 3)",
+        "B",
+        "2"
+       ],
+       [
+        "(3, 3.5)",
+        "B",
+        "0.5"
+       ],
+       [
+        "(6, 6)",
+        "B",
+        "4.24"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Rank the neighbors",
+     "text": "Sort by distance. The nearest is (3, 3.5) (B), then (2, 2) (A), then (2, 4.2) (A).",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Rank",
+       "Point",
+       "Class",
+       "Distance"
+      ],
+      "rows": [
+       [
+        "1",
+        "(3, 3.5)",
+        "B",
+        "0.5"
+       ],
+       [
+        "2",
+        "(2, 2)",
+        "A",
+        "1.41"
+       ],
+       [
+        "3",
+        "(2, 4.2)",
+        "A",
+        "1.56"
+       ],
+       [
+        "4",
+        "(4, 4.5)",
+        "B",
+        "1.8"
+       ],
+       [
+        "5",
+        "(5, 3)",
+        "B",
+        "2"
+       ],
+       [
+        "6",
+        "(1, 1)",
+        "A",
+        "2.83"
+       ],
+       [
+        "7",
+        "(6, 6)",
+        "B",
+        "4.24"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        0
+       ],
+       [
+        1,
+        0
+       ],
+       [
+        2,
+        0
+       ]
+      ]
+     }
+    },
+    {
+     "title": "k = 1: follow the single nearest",
+     "text": "The nearest point is class B, so k = 1 predicts B. One noisy point could decide everything: overfitting.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "k",
+       "Neighbors' classes",
+       "Prediction"
+      ],
+      "rows": [
+       [
+        "1",
+        "1 B",
+        "B"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "k = 3 and k = 5: let more neighbors vote",
+     "text": "k = 3 gives 2 A, 1 B, so A wins. k = 5 gives 2 A, 3 B, so B wins. The answer changed with k. Raising k smooths the boundary, and a very large k drifts toward the majority class (underfitting).",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "k",
+       "Neighbors' classes",
+       "Prediction"
+      ],
+      "rows": [
+       [
+        "1",
+        "1 B",
+        "B"
+       ],
+       [
+        "3",
+        "2 A, 1 B",
+        "A"
+       ],
+       [
+        "5",
+        "2 A, 3 B",
+        "B"
+       ]
+      ],
+      "hl": [
+       [
+        1,
+        2
+       ],
+       [
+        2,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Scale first, then choose k by cross-validation",
+     "text": "Distances treat every feature alike, so a feature with huge numbers would drown the rest. Rescale, then compare cross-validated scores for several k (an odd k avoids ties between two classes).",
+     "visual": {
+      "type": "flow",
+      "nodes": [
+       "Scale features",
+       "Try k = 1, 3, 5, 7",
+       "Cross-validate",
+       "Keep best k"
+      ],
+      "active": 2
+     }
+    }
+   ]
+  },
+  {
+   "id": "decision-trees",
+   "title": "Choosing a split with Gini impurity",
+   "topic": "5. Decision Trees",
+   "blurb": "Score two candidate splits and pick the purer one.",
+   "steps": [
+    {
+     "title": "A node to split",
+     "text": "A node holds 5 yes and 5 no rows (10 in all). Gini impurity = 1 - sum of p^2 = 1 - (0.5^2 + 0.5^2) = 0.5, the most mixed a two-class node can be. Entropy = 1 bit.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Yes",
+       "No",
+       "Gini",
+       "Entropy"
+      ],
+      "rows": [
+       [
+        "5",
+        "5",
+        "0.5",
+        "1"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Two candidate splits",
+     "text": "The tree tries splitting on different features. Each gives a left and a right child.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Split",
+       "Left (yes / no)",
+       "Right (yes / no)"
+      ],
+      "rows": [
+       [
+        "Split A",
+        "4 / 1",
+        "1 / 4"
+       ],
+       [
+        "Split B",
+        "3 / 2",
+        "2 / 3"
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Gini of each child",
+     "text": "Gini = 1 - sum of p^2. For a child with 4 yes and 1 no: 1 - (0.8^2 + 0.2^2) = 0.32.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Split",
+       "Left Gini",
+       "Right Gini"
+      ],
+      "rows": [
+       [
+        "Split A",
+        "0.32",
+        "0.32"
+       ],
+       [
+        "Split B",
+        "0.48",
+        "0.48"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Weight by child size",
+     "text": "Each child has 5 of the 10 rows, so each counts for half. Weighted Gini = 0.5 x left + 0.5 x right.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Split",
+       "Weighted Gini"
+      ],
+      "rows": [
+       [
+        "Split A",
+        "0.32"
+       ],
+       [
+        "Split B",
+        "0.48"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Pick the purer split: Split A",
+     "text": "Split A has the lower weighted Gini (0.32 versus 0.48), so it makes the children purest and the tree uses it. Using entropy instead gives the same choice: 0.72 versus 0.97 bits remain, so information gain is larger for Split A.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Split",
+       "Weighted Gini",
+       "Weighted entropy"
+      ],
+      "rows": [
+       [
+        "Split A",
+        "0.32",
+        "0.72"
+       ],
+       [
+        "Split B",
+        "0.48",
+        "0.97"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Stop growing before it memorizes",
+     "text": "The tree repeats on each child until leaves are pure, which risks memorizing the training rows. max_depth, min_samples_leaf and pruning limit that overfitting.",
+     "visual": {
+      "type": "flow",
+      "nodes": [
+       "Split the node",
+       "Children purer?",
+       "Repeat on children",
+       "Stop: depth or size limit"
+      ],
+      "active": 3
+     }
+    }
+   ]
+  },
+  {
+   "id": "random-forest",
+   "title": "How a forest builds and votes",
+   "topic": "6. Random Forests",
+   "blurb": "Draw bootstrap samples, see what each tree misses, then combine the votes.",
+   "steps": [
+    {
+     "title": "A bootstrap sample for each tree",
+     "text": "Each tree trains on 8 rows drawn at random with replacement from the 8 training rows, so some repeat and some are missing.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Tree",
+       "Rows drawn (ids)"
+      ],
+      "rows": [
+       [
+        "Tree 1",
+        "2, 2, 2, 3, 4, 5, 7, 8"
+       ],
+       [
+        "Tree 2",
+        "1, 1, 3, 4, 5, 5, 6, 7"
+       ],
+       [
+        "Tree 3",
+        "1, 2, 3, 4, 4, 5, 5, 5"
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Out-of-bag rows",
+     "text": "The rows a tree never drew are out-of-bag, about one third of them. They can check that tree for free.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Tree",
+       "Distinct rows used",
+       "Out-of-bag rows"
+      ],
+      "rows": [
+       [
+        "Tree 1",
+        "6",
+        "1, 6"
+       ],
+       [
+        "Tree 2",
+        "6",
+        "2, 8"
+       ],
+       [
+        "Tree 3",
+        "5",
+        "6, 7, 8"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        2,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Random features at each split",
+     "text": "Besides different rows, each split only considers a random subset of the features (say 2 of 5). Trees therefore differ, so their mistakes differ.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Tree",
+       "Features offered at its first split"
+      ],
+      "rows": [
+       [
+        "Tree 1",
+        "f1, f3"
+       ],
+       [
+        "Tree 2",
+        "f2, f5"
+       ],
+       [
+        "Tree 3",
+        "f1, f4"
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Combine by majority vote",
+     "text": "Five trees predict spam, ham, spam, spam, ham. The class with the most votes wins: 3 spam versus 2 ham, so the forest predicts spam.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Tree",
+       "Vote"
+      ],
+      "rows": [
+       [
+        "1",
+        "spam"
+       ],
+       [
+        "2",
+        "ham"
+       ],
+       [
+        "3",
+        "spam"
+       ],
+       [
+        "4",
+        "spam"
+       ],
+       [
+        "5",
+        "ham"
+       ],
+       [
+        "Forest",
+        "spam"
+       ]
+      ],
+      "hl": [
+       [
+        5,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Regression: average instead",
+     "text": "For a numeric target the forest averages its trees. Trees predicting 10, 14 and 12 give (10 + 14 + 12) / 3 = 12. Because errors cancel, the forest has lower variance than one deep tree.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Tree",
+       "Prediction"
+      ],
+      "rows": [
+       [
+        "1",
+        "10"
+       ],
+       [
+        "2",
+        "14"
+       ],
+       [
+        "3",
+        "12"
+       ],
+       [
+        "Forest (average)",
+        "12"
+       ]
+      ],
+      "hl": [
+       [
+        3,
+        1
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "regression",
+   "title": "Predictions, residuals, R-squared and multicollinearity",
+   "topic": "7. Linear and Logistic Regression",
+   "blurb": "Use a fitted equation, measure its errors, then see what correlated features do.",
+   "steps": [
+    {
+     "title": "A fitted model",
+     "text": "y = 12 + 3 x1 + 2 x2. The intercept 12 is the prediction when both features are 0. The coefficient 3 means: with x2 held constant, each extra unit of x1 raises the prediction by 3.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Part",
+       "Value"
+      ],
+      "rows": [
+       [
+        "Intercept",
+        "12"
+       ],
+       [
+        "Coefficient of x1",
+        "3"
+       ],
+       [
+        "Coefficient of x2",
+        "2"
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Predict each row",
+     "text": "Plug the features in: row 1 is 12 + 3(4) + 2(5) = 34.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "x1",
+       "x2",
+       "Actual y",
+       "Predicted"
+      ],
+      "rows": [
+       [
+        "4",
+        "5",
+        "36",
+        "34"
+       ],
+       [
+        "1",
+        "2",
+        "20",
+        "19"
+       ],
+       [
+        "2",
+        "6",
+        "31",
+        "30"
+       ],
+       [
+        "5",
+        "1",
+        "27",
+        "29"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        3
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        2,
+        3
+       ],
+       [
+        3,
+        3
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Residuals",
+     "text": "Residual = actual - predicted. They should be centered near zero with no pattern.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Actual y",
+       "Predicted",
+       "Residual",
+       "Squared"
+      ],
+      "rows": [
+       [
+        "36",
+        "34",
+        "2",
+        "4"
+       ],
+       [
+        "20",
+        "19",
+        "1",
+        "1"
+       ],
+       [
+        "31",
+        "30",
+        "1",
+        "1"
+       ],
+       [
+        "27",
+        "29",
+        "-2",
+        "4"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        2,
+        2
+       ],
+       [
+        3,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "MSE and R-squared",
+     "text": "MSE = 10 / 4 = 2.5. The mean of y is 28.5, so SStot = 137. R2 = 1 - 10 / 137 = 0.927: the model explains about 93% of the variance. Predicting the mean every time would give R2 = 0.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Measure",
+       "Value"
+      ],
+      "rows": [
+       [
+        "SSres",
+        "10"
+       ],
+       [
+        "SStot",
+        "137"
+       ],
+       [
+        "MSE",
+        "2.5"
+       ],
+       [
+        "R2",
+        "0.927"
+       ]
+      ],
+      "hl": [
+       [
+        2,
+        1
+       ],
+       [
+        3,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Spot multicollinearity",
+     "text": "Correlation between features: x1 and a second feature that is almost a copy of it correlates at 0.999, while x1 and an unrelated feature correlate at 0.13. Two features that move together give the model no way to share the credit, so coefficients swing or flip sign when one is added or dropped.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Feature pair",
+       "Correlation"
+      ],
+      "rows": [
+       [
+        "x1 and near-copy",
+        "0.999"
+       ],
+       [
+        "x1 and unrelated",
+        "0.13"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Handle it, and logistic regression",
+     "text": "Drop or combine the redundant feature, use PCA, or regularize (Ridge). Logistic regression is different: it outputs a probability, for example 0.83, and a 0.5 threshold turns it into a class.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Probability",
+       "Threshold 0.5",
+       "Class"
+      ],
+      "rows": [
+       [
+        "0.83",
+        "above",
+        "positive"
+       ],
+       [
+        "0.31",
+        "below",
+        "negative"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "unsupervised-basics",
+   "title": "Supervised or unsupervised?",
+   "topic": "8. Unsupervised Learning Basics",
+   "blurb": "Sort tasks by whether they have a target, then read hard versus soft membership.",
+   "steps": [
+    {
+     "title": "The test: is there a target column?",
+     "text": "If every row carries a known answer, learning is supervised. If there are only features, it is unsupervised and the model looks for structure.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Task",
+       "Has a target?",
+       "Kind"
+      ],
+      "rows": [
+       [
+        "Predict a price",
+        "yes",
+        "Supervised"
+       ],
+       [
+        "Group customers by behavior",
+        "no",
+        "Unsupervised"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Sort six tasks",
+     "text": "Classification and regression are supervised. Clustering, dimensionality reduction and association are unsupervised.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Task",
+       "Kind"
+      ],
+      "rows": [
+       [
+        "Spam or not",
+        "Supervised (classification)"
+       ],
+       [
+        "Estimate rainfall",
+        "Supervised (regression)"
+       ],
+       [
+        "Customer segments",
+        "Unsupervised (clustering)"
+       ],
+       [
+        "60 columns to 5",
+        "Unsupervised (dimensionality reduction)"
+       ],
+       [
+        "Products bought together",
+        "Unsupervised (association)"
+       ]
+      ],
+      "hl": [
+       [
+        2,
+        1
+       ],
+       [
+        3,
+        1
+       ],
+       [
+        4,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Hard versus soft clustering",
+     "text": "Hard clustering commits each point to one cluster. Soft clustering gives a degree of membership in several; the shares add up to 1.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Article",
+       "Sports",
+       "Politics",
+       "Total",
+       "Hard label"
+      ],
+      "rows": [
+       [
+        "1",
+        "0.70",
+        "0.30",
+        "1",
+        "Sports"
+       ],
+       [
+        "2",
+        "0.10",
+        "0.90",
+        "1",
+        "Politics"
+       ],
+       [
+        "3",
+        "0.50",
+        "0.50",
+        "1",
+        "tie"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Three clustering families",
+     "text": "Each family defines a cluster differently.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Family",
+       "Example",
+       "Cluster means"
+      ],
+      "rows": [
+       [
+        "Centroid-based",
+        "K-Means",
+        "Points near a mean"
+       ],
+       [
+        "Connectivity-based",
+        "Hierarchical",
+        "Points linked by merges"
+       ],
+       [
+        "Density-based",
+        "DBSCAN",
+        "A crowded region"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        2,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "No answer key, so judge by structure",
+     "text": "A good clustering has tight clusters that are far from one another. Measures such as inertia or a silhouette score help, because there are no labels to compare against.",
+     "visual": {
+      "type": "flow",
+      "nodes": [
+       "Unlabeled data",
+       "Cluster",
+       "Check tightness",
+       "Interpret groups"
+      ],
+      "active": 2
+     }
+    }
+   ]
+  },
+  {
+   "id": "kmeans",
+   "title": "Two K-Means iterations and an elbow plot",
+   "topic": "9. K-Means Clustering",
+   "blurb": "Assign and update by hand on nine numbers, then read inertia against k.",
+   "steps": [
+    {
+     "title": "Nine points and k = 3",
+     "text": "Points on a line: 1, 2, 3, 10, 11, 12, 20, 21, 22. Start with three centroids at 1, 2, 3, a poor start on purpose.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Point",
+       "1",
+       "2",
+       "3",
+       "10",
+       "11",
+       "12",
+       "20",
+       "21",
+       "22"
+      ],
+      "rows": [
+       [
+        "Cluster",
+        "?",
+        "?",
+        "?",
+        "?",
+        "?",
+        "?",
+        "?",
+        "?",
+        "?"
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Iteration 1: assign each point to the nearest centroid",
+     "text": "Distance is |point - centroid|. With centroids 1, 2, 3 every point from 3 up joins the third centroid.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Point",
+       "Nearest centroid",
+       "Cluster"
+      ],
+      "rows": [
+       [
+        "1",
+        "1",
+        "1"
+       ],
+       [
+        "2",
+        "2",
+        "2"
+       ],
+       [
+        "3",
+        "3",
+        "3"
+       ],
+       [
+        "10",
+        "3",
+        "3"
+       ],
+       [
+        "11",
+        "3",
+        "3"
+       ],
+       [
+        "12",
+        "3",
+        "3"
+       ],
+       [
+        "20",
+        "3",
+        "3"
+       ],
+       [
+        "21",
+        "3",
+        "3"
+       ],
+       [
+        "22",
+        "3",
+        "3"
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Iteration 1: move each centroid to its mean",
+     "text": "Cluster means become 1, 2, 14.14. The third centroid jumps toward the middle of its many points.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Cluster",
+       "Points",
+       "New centroid"
+      ],
+      "rows": [
+       [
+        "1",
+        "1",
+        "1"
+       ],
+       [
+        "2",
+        "2",
+        "2"
+       ],
+       [
+        "3",
+        "3, 10, 11, 12, 20, 21, 22",
+        "14.14"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        2,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Repeat until the assignments stop changing",
+     "text": "It took 3 iterations and stopped at centroids 1, 2.5, 16 because no point changed cluster. But the inertia is 154.5, far from the best possible (6, shown in the last step). This bad start got stuck in a local optimum, which is why scikit-learn reruns K-Means (n_init) and keeps the lowest inertia.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Iteration",
+       "Centroids at the start",
+       "Inertia"
+      ],
+      "rows": [
+       [
+        "1",
+        "1, 2, 3",
+        "1168"
+       ],
+       [
+        "2",
+        "1, 2, 14.14",
+        "175.69"
+       ],
+       [
+        "3",
+        "1, 2.5, 16",
+        "154.5"
+       ]
+      ],
+      "hl": [
+       [
+        2,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Inertia: tightness of the clusters",
+     "text": "Inertia = sum of squared distances from each point to its centroid, here 154.5. Lower means tighter clusters.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Point",
+       "Centroid",
+       "Squared distance"
+      ],
+      "rows": [
+       [
+        "1",
+        "1",
+        "0"
+       ],
+       [
+        "2",
+        "2.5",
+        "0.25"
+       ],
+       [
+        "3",
+        "2.5",
+        "0.25"
+       ],
+       [
+        "10",
+        "16",
+        "36"
+       ],
+       [
+        "11",
+        "16",
+        "25"
+       ],
+       [
+        "12",
+        "16",
+        "16"
+       ],
+       [
+        "20",
+        "16",
+        "16"
+       ],
+       [
+        "21",
+        "16",
+        "25"
+       ],
+       [
+        "22",
+        "16",
+        "36"
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "The elbow plot",
+     "text": "The best inertia for each k (trying every possible start): it always falls as k grows, drops by a lot until k = 3, then barely. The elbow at k = 3 matches the three natural groups, and k = 3 can reach an inertia of 6 from a good start.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "k",
+       "Inertia"
+      ],
+      "rows": [
+       [
+        "1",
+        "548"
+       ],
+       [
+        "2",
+        "127.5"
+       ],
+       [
+        "3",
+        "6"
+       ],
+       [
+        "4",
+        "4.5"
+       ],
+       [
+        "5",
+        "3"
+       ]
+      ],
+      "hl": [
+       [
+        2,
+        1
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "hierarchical",
+   "title": "Agglomerative merges and cutting a dendrogram",
+   "topic": "10. Hierarchical Clustering",
+   "blurb": "Merge the closest clusters step by step, then cut the tree to get clusters.",
+   "steps": [
+    {
+     "title": "Every point starts alone",
+     "text": "Five points on a number line: 1, 2, 6, 7, 15. Agglomerative clustering begins with five clusters, one per point.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Cluster",
+       "P1",
+       "P2",
+       "P3",
+       "P4",
+       "P5"
+      ],
+      "rows": [
+       [
+        "Contents",
+        "1",
+        "2",
+        "6",
+        "7",
+        "15"
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Merge the closest pair (single linkage)",
+     "text": "Single linkage measures cluster distance by the closest pair of points. Each row is one merge, and the distance is the height on the dendrogram.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Merge",
+       "Joined",
+       "Height"
+      ],
+      "rows": [
+       [
+        "1",
+        "1 + 2",
+        "1"
+       ],
+       [
+        "2",
+        "6 + 7",
+        "1"
+       ],
+       [
+        "3",
+        "1, 2 + 6, 7",
+        "4"
+       ],
+       [
+        "4",
+        "1, 2, 6, 7 + 15",
+        "8"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        2,
+        2
+       ],
+       [
+        3,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Complete linkage gives different heights",
+     "text": "Complete linkage uses the farthest pair, so merges happen at larger heights.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Merge",
+       "Single height",
+       "Complete height"
+      ],
+      "rows": [
+       [
+        "1",
+        "1",
+        "1"
+       ],
+       [
+        "2",
+        "1",
+        "1"
+       ],
+       [
+        "3",
+        "4",
+        "6"
+       ],
+       [
+        "4",
+        "8",
+        "14"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        2,
+        2
+       ],
+       [
+        3,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Cut the dendrogram at height 3",
+     "text": "Keep only the merges at or below height 3: the cut crosses 3 vertical lines, so there are 3 clusters. A long gap in heights (here from 4 to 8) marks a natural place to cut.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Merge",
+       "Height",
+       "Below the cut?"
+      ],
+      "rows": [
+       [
+        "1",
+        "1",
+        "yes"
+       ],
+       [
+        "2",
+        "1",
+        "yes"
+       ],
+       [
+        "3",
+        "4",
+        "no"
+       ],
+       [
+        "4",
+        "8",
+        "no"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        2,
+        2
+       ],
+       [
+        3,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Costs and benefits",
+     "text": "You need not choose k first, and the tree shows every level. But it works from all pairwise distances (slow on big data) and a merge can never be undone.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Benefit",
+       "Cost"
+      ],
+      "rows": [
+       [
+        "No k needed up front",
+        "Slow on large datasets"
+       ],
+       [
+        "Dendrogram shows the structure",
+        "Merges are permanent"
+       ]
+      ],
+      "hl": []
+     }
+    }
+   ]
+  },
+  {
+   "id": "dbscan",
+   "title": "Core, border and noise points",
+   "topic": "11. DBSCAN",
+   "blurb": "Count neighbors within eps, label each point, and grow the clusters.",
+   "steps": [
+    {
+     "title": "Two settings",
+     "text": "eps = 1.1 is the neighborhood radius and min_samples = 3 is how many points (the point included) must fall inside it for a point to count as dense. There are 10 points.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Point"
+      ],
+      "rows": [
+       [
+        "(1, 1)"
+       ],
+       [
+        "(1, 2)"
+       ],
+       [
+        "(2, 1)"
+       ],
+       [
+        "(2, 2)"
+       ],
+       [
+        "(3, 2)"
+       ],
+       [
+        "(8, 8)"
+       ],
+       [
+        "(8, 9)"
+       ],
+       [
+        "(9, 8)"
+       ],
+       [
+        "(9, 9)"
+       ],
+       [
+        "(5, 14)"
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Count the neighbors of each point",
+     "text": "Distance uses the straight line. Point (1, 1) has neighbors [(1, 1), (1, 2), (2, 1)], so 3 points.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Point",
+       "Neighbors within eps (incl. itself)"
+      ],
+      "rows": [
+       [
+        "(1, 1)",
+        "3"
+       ],
+       [
+        "(1, 2)",
+        "3"
+       ],
+       [
+        "(2, 1)",
+        "3"
+       ],
+       [
+        "(2, 2)",
+        "4"
+       ],
+       [
+        "(3, 2)",
+        "2"
+       ],
+       [
+        "(8, 8)",
+        "3"
+       ],
+       [
+        "(8, 9)",
+        "3"
+       ],
+       [
+        "(9, 8)",
+        "3"
+       ],
+       [
+        "(9, 9)",
+        "3"
+       ],
+       [
+        "(5, 14)",
+        "1"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Core points",
+     "text": "A point with at least 3 points inside eps is a core point (dense).",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Point",
+       "Neighbors within eps (incl. itself)",
+       "Type"
+      ],
+      "rows": [
+       [
+        "(1, 1)",
+        "3",
+        "core"
+       ],
+       [
+        "(1, 2)",
+        "3",
+        "core"
+       ],
+       [
+        "(2, 1)",
+        "3",
+        "core"
+       ],
+       [
+        "(2, 2)",
+        "4",
+        "core"
+       ],
+       [
+        "(3, 2)",
+        "2",
+        "?"
+       ],
+       [
+        "(8, 8)",
+        "3",
+        "core"
+       ],
+       [
+        "(8, 9)",
+        "3",
+        "core"
+       ],
+       [
+        "(9, 8)",
+        "3",
+        "core"
+       ],
+       [
+        "(9, 9)",
+        "3",
+        "core"
+       ],
+       [
+        "(5, 14)",
+        "1",
+        "?"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        2,
+        2
+       ],
+       [
+        3,
+        2
+       ],
+       [
+        5,
+        2
+       ],
+       [
+        6,
+        2
+       ],
+       [
+        7,
+        2
+       ],
+       [
+        8,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Border points and noise",
+     "text": "A non-core point within eps of a core point is a border point. A point reachable from no core point is noise, labeled -1.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Point",
+       "Neighbors within eps (incl. itself)",
+       "Type"
+      ],
+      "rows": [
+       [
+        "(1, 1)",
+        "3",
+        "core"
+       ],
+       [
+        "(1, 2)",
+        "3",
+        "core"
+       ],
+       [
+        "(2, 1)",
+        "3",
+        "core"
+       ],
+       [
+        "(2, 2)",
+        "4",
+        "core"
+       ],
+       [
+        "(3, 2)",
+        "2",
+        "border"
+       ],
+       [
+        "(8, 8)",
+        "3",
+        "core"
+       ],
+       [
+        "(8, 9)",
+        "3",
+        "core"
+       ],
+       [
+        "(9, 8)",
+        "3",
+        "core"
+       ],
+       [
+        "(9, 9)",
+        "3",
+        "core"
+       ],
+       [
+        "(5, 14)",
+        "1",
+        "noise"
+       ]
+      ],
+      "hl": [
+       [
+        4,
+        2
+       ],
+       [
+        9,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Grow the clusters",
+     "text": "Clusters grow by chaining outward from core points. DBSCAN found 2 clusters without being told how many, and left 1 point(s) as noise.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Point",
+       "Type",
+       "Cluster label"
+      ],
+      "rows": [
+       [
+        "(1, 1)",
+        "core",
+        "0"
+       ],
+       [
+        "(1, 2)",
+        "core",
+        "0"
+       ],
+       [
+        "(2, 1)",
+        "core",
+        "0"
+       ],
+       [
+        "(2, 2)",
+        "core",
+        "0"
+       ],
+       [
+        "(3, 2)",
+        "border",
+        "0"
+       ],
+       [
+        "(8, 8)",
+        "core",
+        "1"
+       ],
+       [
+        "(8, 9)",
+        "core",
+        "1"
+       ],
+       [
+        "(9, 8)",
+        "core",
+        "1"
+       ],
+       [
+        "(9, 9)",
+        "core",
+        "1"
+       ],
+       [
+        "(5, 14)",
+        "noise",
+        "-1"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        2,
+        2
+       ],
+       [
+        3,
+        2
+       ],
+       [
+        4,
+        2
+       ],
+       [
+        5,
+        2
+       ],
+       [
+        6,
+        2
+       ],
+       [
+        7,
+        2
+       ],
+       [
+        8,
+        2
+       ],
+       [
+        9,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "What the settings do",
+     "text": "A larger eps merges clusters and creates less noise. A larger min_samples is stricter, so more points become noise. Both depend on the scale of the data, so scale first.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Change",
+       "Effect"
+      ],
+      "rows": [
+       [
+        "eps up",
+        "Clusters merge, less noise"
+       ],
+       [
+        "eps down",
+        "Clusters split, more noise"
+       ],
+       [
+        "min_samples up",
+        "Stricter, more noise"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        2,
+        1
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "pca",
+   "title": "How much variance each component keeps",
+   "topic": "12. Principal Component Analysis",
+   "blurb": "Find the variance along each component, then choose how many to keep.",
+   "steps": [
+    {
+     "title": "Two correlated features",
+     "text": "Eight rows with two features that rise together. PCA is unsupervised: the target, if any, is ignored. Features are standardized first in practice; here both share a scale so the idea shows directly.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "x",
+       "y"
+      ],
+      "rows": [
+       [
+        "2.5",
+        "2.4"
+       ],
+       [
+        "0.5",
+        "0.7"
+       ],
+       [
+        "2.2",
+        "2.9"
+       ],
+       [
+        "1.9",
+        "2.2"
+       ],
+       [
+        "3.1",
+        "3"
+       ],
+       [
+        "2.3",
+        "2.7"
+       ],
+       [
+        "2",
+        "1.6"
+       ],
+       [
+        "1",
+        "1.1"
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Variance and covariance",
+     "text": "var(x) = 0.688, var(y) = 0.731 and cov(x, y) = 0.651. The large positive covariance says the two features carry overlapping information.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "",
+       "x",
+       "y"
+      ],
+      "rows": [
+       [
+        "x",
+        "0.688",
+        "0.651"
+       ],
+       [
+        "y",
+        "0.651",
+        "0.731"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Variance along each component",
+     "text": "The eigenvalues of that matrix are the variances along the components: 1.361 for PC1 (the direction of greatest variance) and 0.058 for PC2, at right angles to it. The total, 1.419, is unchanged.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Component",
+       "Variance"
+      ],
+      "rows": [
+       [
+        "PC1",
+        "1.361"
+       ],
+       [
+        "PC2",
+        "0.058"
+       ],
+       [
+        "Total",
+        "1.419"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Explained variance ratio",
+     "text": "PC1 holds 1.361 / 1.419 = 95.9% of the variance and PC2 the remaining 4.1%. Keeping only PC1 turns two columns into one while keeping most of the information.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Component",
+       "Share"
+      ],
+      "rows": [
+       [
+        "PC1",
+        "95.9%"
+       ],
+       [
+        "PC2",
+        "4.1%"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Choose how many components to keep",
+     "text": "For a dataset with five components the ratios are 50%, 20%, 15%, 10%, 5%. Running totals: 50%, 70%, 85%, 95%, 100%. Reaching at least 90% needs 4 components.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Component",
+       "Share",
+       "Running total"
+      ],
+      "rows": [
+       [
+        "PC1",
+        "50%",
+        "50%"
+       ],
+       [
+        "PC2",
+        "20%",
+        "70%"
+       ],
+       [
+        "PC3",
+        "15%",
+        "85%"
+       ],
+       [
+        "PC4",
+        "10%",
+        "95%"
+       ],
+       [
+        "PC5",
+        "5%",
+        "100%"
+       ]
+      ],
+      "hl": [
+       [
+        3,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "The trade-off",
+     "text": "Fewer columns means faster, simpler models and 2-D plots. But each component blends every original feature, so it has no ready-made name, and the dropped variance is lost.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Benefit",
+       "Cost"
+      ],
+      "rows": [
+       [
+        "Fewer dimensions",
+        "Components are hard to interpret"
+       ],
+       [
+        "Removes redundancy",
+        "Dropped variance is lost"
+       ]
+      ],
+      "hl": []
+     }
+    }
+   ]
+  },
+  {
+   "id": "neural-basics",
+   "title": "One neuron's forward calculation and counting parameters",
+   "topic": "13. Neural Network Basics",
+   "blurb": "Weighted sum, bias, activation, then count the weights and biases in a small network.",
+   "steps": [
+    {
+     "title": "One neuron",
+     "text": "Inputs x = (2, 3), weights w = (0.5, -1) and bias b = 1. A neuron computes activation(w1x1 + w2x2 + b). Weights scale each input; the bias shifts where the neuron activates.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Input",
+       "Weight"
+      ],
+      "rows": [
+       [
+        "2",
+        "0.5"
+       ],
+       [
+        "3",
+        "-1"
+       ],
+       [
+        "bias",
+        "1"
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Weighted sum plus bias",
+     "text": "2 x 0.5 + 3 x -1 + 1 = 1 + -3 + 1 = -1.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Term",
+       "Value"
+      ],
+      "rows": [
+       [
+        "w1 x x1",
+        "1"
+       ],
+       [
+        "w2 x x2",
+        "-3"
+       ],
+       [
+        "bias",
+        "1"
+       ],
+       [
+        "Sum",
+        "-1"
+       ]
+      ],
+      "hl": [
+       [
+        3,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Apply an activation function",
+     "text": "The same sum -1 gives different outputs: ReLU = max(0, -1) = 0, sigmoid = 0.269 (between 0 and 1), tanh = -0.762 (between -1 and 1).",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Activation",
+       "Output"
+      ],
+      "rows": [
+       [
+        "ReLU",
+        "0"
+       ],
+       [
+        "Sigmoid",
+        "0.269"
+       ],
+       [
+        "Tanh",
+        "-0.762"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        2,
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Why a non-linear activation",
+     "text": "Without one, each layer is just a weighted sum, and a stack of weighted sums is still one weighted sum. The non-linearity lets a network learn curved boundaries (and XOR, which one perceptron cannot).",
+     "visual": {
+      "type": "flow",
+      "nodes": [
+       "Input layer",
+       "Hidden layers (non-linear)",
+       "Output layer",
+       "Prediction"
+      ],
+      "active": 1
+     }
+    },
+    {
+     "title": "Layers and architecture",
+     "text": "A network with 4 inputs, 5 hidden neurons and 3 outputs. The input layer has one neuron per feature. Two or more hidden layers count as deep learning.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Layer",
+       "Neurons"
+      ],
+      "rows": [
+       [
+        "Input",
+        "4"
+       ],
+       [
+        "Hidden",
+        "5"
+       ],
+       [
+        "Output",
+        "3"
+       ]
+      ],
+      "hl": []
+     }
+    },
+    {
+     "title": "Count the parameters",
+     "text": "A dense layer has inputs x neurons weights plus one bias per neuron. Total = 43. Weights and biases are what training changes; the layer sizes are hyperparameters.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Layer",
+       "Weights",
+       "Biases",
+       "Total"
+      ],
+      "rows": [
+       [
+        "4 to 5",
+        "20",
+        "5",
+        "25"
+       ],
+       [
+        "5 to 3",
+        "15",
+        "3",
+        "18"
+       ],
+       [
+        "All",
+        "35",
+        "8",
+        "43"
+       ]
+      ],
+      "hl": [
+       [
+        2,
+        3
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "gradient-descent",
+   "title": "Gradient descent on a one-weight loss",
+   "topic": "14. Training: Gradient Descent and Backpropagation",
+   "blurb": "Take downhill steps on a loss, then see what a bad learning rate does.",
+   "steps": [
+    {
+     "title": "A loss to minimize",
+     "text": "Take one weight w and the loss (w - 3)^2, which is smallest at w = 3. Start at w = 0, so the loss is 9. The gradient is 2(w - 3) = -6: the loss is falling as w increases, so w should move up.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Weight",
+       "Loss",
+       "Gradient"
+      ],
+      "rows": [
+       [
+        "0",
+        "9",
+        "-6"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "The update rule",
+     "text": "new w = old w - learning rate x gradient. With learning rate 0.3: 0 - 0.3 x -6 = 1.8. The minus sign moves against the gradient.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Step",
+       "Weight",
+       "Loss",
+       "Gradient",
+       "New weight"
+      ],
+      "rows": [
+       [
+        "1",
+        "0",
+        "9",
+        "-6",
+        "1.8"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        4
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Keep stepping",
+     "text": "Each step uses the new weight's gradient. The loss falls every time and the steps shrink as the slope flattens near the minimum.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Step",
+       "Weight",
+       "Loss",
+       "Gradient",
+       "New weight"
+      ],
+      "rows": [
+       [
+        "1",
+        "0",
+        "9",
+        "-6",
+        "1.8"
+       ],
+       [
+        "2",
+        "1.8",
+        "1.44",
+        "-2.4",
+        "2.52"
+       ],
+       [
+        "3",
+        "2.52",
+        "0.23",
+        "-0.96",
+        "2.81"
+       ],
+       [
+        "4",
+        "2.81",
+        "0.037",
+        "-0.38",
+        "2.92"
+       ],
+       [
+        "5",
+        "2.92",
+        "0.006",
+        "-0.15",
+        "2.97"
+       ],
+       [
+        "6",
+        "2.97",
+        "0.001",
+        "-0.06",
+        "2.99"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        2,
+        2
+       ],
+       [
+        3,
+        2
+       ],
+       [
+        4,
+        2
+       ],
+       [
+        5,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Learning rate too large",
+     "text": "With a rate of 1.1 each step overshoots the minimum on the other side by more than it started, so the loss grows instead of shrinking.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Step",
+       "Weight",
+       "Loss",
+       "Gradient",
+       "New weight"
+      ],
+      "rows": [
+       [
+        "1",
+        "0",
+        "9",
+        "-6",
+        "6.6"
+       ],
+       [
+        "2",
+        "6.6",
+        "12.96",
+        "7.2",
+        "-1.32"
+       ],
+       [
+        "3",
+        "-1.32",
+        "18.66",
+        "-8.64",
+        "8.18"
+       ],
+       [
+        "4",
+        "8.18",
+        "26.87",
+        "10.37",
+        "-3.22"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        2,
+        2
+       ],
+       [
+        3,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Learning rate too small",
+     "text": "With a rate of 0.01 the loss does fall, but only by tiny amounts, so training is very slow.",
+     "visual": {
+      "type": "table",
+      "headers": [
+       "Step",
+       "Weight",
+       "Loss",
+       "Gradient",
+       "New weight"
+      ],
+      "rows": [
+       [
+        "1",
+        "0",
+        "9",
+        "-6",
+        "0.06"
+       ],
+       [
+        "2",
+        "0.06",
+        "8.644",
+        "-5.88",
+        "0.119"
+       ],
+       [
+        "3",
+        "0.119",
+        "8.301",
+        "-5.762",
+        "0.176"
+       ]
+      ],
+      "hl": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        2,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Where backpropagation fits",
+     "text": "In a network there are thousands of weights. Backpropagation uses the chain rule to get the gradient for each one, working back from the output. Gradient descent then applies this update to all of them. One pass over all the training data is an epoch.",
+     "visual": {
+      "type": "flow",
+      "nodes": [
+       "Forward pass",
+       "Loss",
+       "Backpropagation (gradients)",
+       "Gradient descent update"
+      ],
+      "active": 2
+     }
+    }
+   ]
+  }
+ ]
+}

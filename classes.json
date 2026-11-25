@@ -15,7 +15,13 @@
           "id": "quiz2-guide",
           "title": "Quiz 2 Study Guide",
           "description": "Features and feature types, missing data and imputation, binning, encoding, scaling, validation, the curse of dimensionality, feature selection and PCA, in the same order as the quiz, flashcards and walkthroughs.",
-          "file": "data/itd140-quiz2-guide.json",
+          "file": "data/itd140-quiz2-guide.json"
+        },
+        {
+          "id": "quiz3-guide",
+          "title": "Quiz 3 Study Guide",
+          "description": "Supervised learning, evaluation metrics, cross-validation, KNN, decision trees, random forests, regression, unsupervised learning, K-Means, hierarchical clustering, DBSCAN, PCA and neural networks, in the same order as the quiz, flashcards and walkthroughs.",
+          "file": "data/itd140-quiz3-guide.json",
           "featured": true,
           "cta": "Read the guide"
         },
@@ -49,23 +55,41 @@
           "id": "quiz2-flashcards",
           "title": "Quiz 2 Flashcards",
           "description": "55 flip cards, one per term: the definition on the back, when to use it, and an example. Filter by topic, mark cards as known, and shuffle.",
-          "href": "flashcards.html?file=data%2Fitd140-quiz2-flashcards.json",
-          "featured": true,
-          "cta": "Study the flashcards"
+          "href": "flashcards.html?file=data%2Fitd140-quiz2-flashcards.json"
         },
         {
           "id": "quiz2-mastery",
           "title": "Quiz 2 Mastery Loop",
           "description": "The Quiz 2 questions as a repeat-until-mastered loop: each must be answered correctly twice in a row and misses come back sooner. Choose the topics and how many questions.",
-          "href": "quiz.html?file=data%2Fitd140-quiz2.json&mode=mastery",
-          "featured": true,
-          "cta": "Start the mastery loop"
+          "href": "quiz.html?file=data%2Fitd140-quiz2.json&mode=mastery"
         },
         {
           "id": "quiz2-walkthroughs",
           "title": "Quiz 2 Step-through Walkthroughs",
           "description": "Eleven walkthroughs, one per study-guide topic: click through imputation, binning, encoding, scaling, cross-validation, feature selection and PCA one step at a time with the numbers worked out.",
-          "href": "walkthrough.html?file=data%2Fitd140-quiz2-walkthroughs.json",
+          "href": "walkthrough.html?file=data%2Fitd140-quiz2-walkthroughs.json"
+        },
+        {
+          "id": "quiz3-flashcards",
+          "title": "Quiz 3 Flashcards",
+          "description": "89 flip cards, one per term: the definition on the back, when to use it, and an example. Filter by topic, mark cards as known, and shuffle.",
+          "href": "flashcards.html?file=data%2Fitd140-quiz3-flashcards.json",
+          "featured": true,
+          "cta": "Study the flashcards"
+        },
+        {
+          "id": "quiz3-mastery",
+          "title": "Quiz 3 Mastery Loop",
+          "description": "The Quiz 3 questions as a repeat-until-mastered loop: each must be answered correctly twice in a row and misses come back sooner. Choose the topics and how many questions.",
+          "href": "quiz.html?file=data%2Fitd140-quiz3.json&mode=mastery",
+          "featured": true,
+          "cta": "Start the mastery loop"
+        },
+        {
+          "id": "quiz3-walkthroughs",
+          "title": "Quiz 3 Step-through Walkthroughs",
+          "description": "Fourteen walkthroughs, one per study-guide topic: click through metrics, cross-validation, KNN, Gini splits, random forests, regression, K-Means, DBSCAN, PCA, a neuron and gradient descent one step at a time with the numbers worked out.",
+          "href": "walkthrough.html?file=data%2Fitd140-quiz3-walkthroughs.json",
           "featured": true,
           "cta": "Step through them"
         },
@@ -105,7 +129,13 @@
           "id": "quiz2",
           "title": "Quiz 2: Features, Preprocessing and Dimensionality",
           "description": "141 questions across eleven topics, with five short-answer questions and a self-check rubric for each. Choose which topics and how many questions.",
-          "file": "data/itd140-quiz2.json",
+          "file": "data/itd140-quiz2.json"
+        },
+        {
+          "id": "quiz3",
+          "title": "Quiz 3: Supervised and Unsupervised Learning, and Neural Networks",
+          "description": "198 questions across fourteen topics, with seven short-answer questions and a self-check rubric for each. Choose which topics and how many questions.",
+          "file": "data/itd140-quiz3.json",
           "featured": true,
           "cta": "Take the quiz"
         },

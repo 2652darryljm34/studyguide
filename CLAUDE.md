@@ -125,6 +125,8 @@ Then:
 
 ITD 140 Quiz 2 (features, preprocessing, validation, dimensionality) is a full set with walkthroughs: `tools/build_itd140_quiz2_guide.py`, `build_itd140_quiz2_flashcards.py`, `build_itd140_quiz2.py` (questions in `itd140_quiz2_questions.py`), `build_itd140_quiz2_walkthroughs.py`; featured while the quiz is upcoming.
 
+ITD 140 Quiz 3 (supervised and unsupervised learning, evaluation, KNN, trees, forests, regression, clustering, PCA, neural networks) is a full set with walkthroughs: `tools/build_itd140_quiz3_guide.py`, `build_itd140_quiz3_flashcards.py`, `build_itd140_quiz3.py` (questions in `itd140_quiz3_questions.py`), `build_itd140_quiz3_walkthroughs.py`; featured while the quiz is upcoming. Run the guide builder first (the walkthroughs check their topics against it).
+
 ITD 132 Quiz 2 (DDL, constraints, DML, transactions, indexes, EXPLAIN, locks) is also a full set with walkthroughs: `tools/build_itd132_quiz2_guide.py`, `build_itd132_quiz2_flashcards.py`, `build_itd132_quiz2.py` (questions in `itd132_quiz2_questions.py`), `build_itd132_quiz2_walkthroughs.py`; featured while the quiz is upcoming.
 
 Current sets: ITN 170 final (`tools/build_itn170_final_guide.py`, `build_itn170_flashcards.py`,

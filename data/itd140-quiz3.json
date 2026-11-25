@@ -1,0 +1,2525 @@
+{
+  "title": "Quiz 3: Supervised and Unsupervised Learning, and Neural Networks",
+  "description": "198 questions on supervised learning, evaluation metrics, cross-validation, KNN, decision trees, random forests, regression, clustering, PCA and neural networks, with short-answer practice. Choose which topics and how many questions.",
+  "guideFile": "data/itd140-quiz3-guide.json",
+  "shortCount": 40,
+  "sections": [
+    {
+      "name": "1. Supervised Learning Basics",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Supervised Learning Basics",
+          "question": "A hospital holds 5,000 past patient records, each with lab values and a note of whether the patient was readmitted within 30 days. Which kind of learning does this data suit?",
+          "options": [
+            "Unsupervised learning, because the lab values are numbers that can be grouped by similarity",
+            "Supervised learning, because every record carries the known outcome to learn from",
+            "Dimensionality reduction, because the many lab values can be merged into a few new columns",
+            "Clustering, because patients with similar records can be placed in the same group"
+          ],
+          "correct": 1,
+          "explanation": "A recorded outcome for every row is a label, which is what supervised learning needs."
+        },
+        {
+          "type": "mc",
+          "category": "Supervised Learning Basics",
+          "question": "Which prediction task is a regression problem?",
+          "options": [
+            "Deciding whether a used car will pass or fail its yearly inspection",
+            "Sorting used cars into economy, family or luxury categories by features",
+            "Estimating the selling price of a used car from its age and mileage",
+            "Flagging used car listings as genuine or fraudulent from their details"
+          ],
+          "correct": 2,
+          "explanation": "Regression predicts a number on a continuous scale. The others each predict a category."
+        },
+        {
+          "type": "mc",
+          "category": "Supervised Learning Basics",
+          "question": "A model must label each support ticket as one of five product categories. What kind of task is this?",
+          "options": [
+            "Regression: the target is a number that can fall anywhere on a scale",
+            "Clustering: the target groups are discovered from the data itself",
+            "Regression: the five categories are coded as the numbers 1 to 5",
+            "Classification: the target is one of a fixed set of categories"
+          ],
+          "correct": 3,
+          "explanation": "Coding categories as numbers does not make the target continuous. A fixed set of labels is classification."
+        },
+        {
+          "type": "mc",
+          "category": "Supervised Learning Basics",
+          "question": "A table is built to predict whether a customer will cancel a subscription. Which column is the target?",
+          "options": [
+            "The column recording whether each past customer did cancel",
+            "The column holding each customer's monthly bill amount",
+            "The column listing each customer's unique ID number",
+            "The column counting each customer's support calls this year"
+          ],
+          "correct": 0,
+          "explanation": "The target is the answer the model learns to predict. The other columns are candidate features (or an ID that carries no information)."
+        },
+        {
+          "type": "mc",
+          "category": "Supervised Learning Basics",
+          "question": "Why is accuracy measured on a test set instead of on the rows the model trained on?",
+          "options": [
+            "Training rows are always too few to give a score that means anything",
+            "Rows it already saw can be memorized, so they do not show how it handles new data",
+            "Scores on training rows cannot be computed once the model has finished fitting",
+            "Test rows are cleaner than training rows because they were checked for errors"
+          ],
+          "correct": 1,
+          "explanation": "The aim is to estimate performance on unseen data. A model can score well on rows it memorized and still fail on new ones."
+        },
+        {
+          "type": "mc",
+          "category": "Supervised Learning Basics",
+          "question": "A labeled dataset of 600 rows is split with test_size=0.25. How many rows are used for training?",
+          "options": [
+            "150 rows",
+            "300 rows",
+            "450 rows",
+            "475 rows"
+          ],
+          "correct": 2,
+          "explanation": "The test set is 600 x 0.25 = 150 rows, leaving 600 - 150 = 450 to train on."
+        },
+        {
+          "type": "mc",
+          "category": "Supervised Learning Basics",
+          "question": "Which order of steps is correct for a supervised learning workflow?",
+          "options": [
+            "Fit on all the data, split it afterwards, predict on the training part, compare with the known labels",
+            "Split the data, fit on the test part, predict on the training part, compare with the new labels",
+            "Predict on the test part, fit on the training part, split the data, compare with the known labels",
+            "Split the data, fit on the training part, predict on the test part, compare with the known labels"
+          ],
+          "correct": 3,
+          "explanation": "The model must learn from training rows only, then be judged on test rows whose answers it has not seen."
+        },
+        {
+          "type": "mc",
+          "category": "Supervised Learning Basics",
+          "question": "In scikit-learn, what does model.predict(x_test) return?",
+          "options": [
+            "The model's predicted target for every row of x_test",
+            "The true target values for every row of x_test",
+            "The accuracy score of the model on x_test",
+            "A new set of features computed from x_test"
+          ],
+          "correct": 0,
+          "explanation": "predict returns predictions. They are then compared with y_test, the true answers."
+        },
+        {
+          "type": "tf",
+          "category": "Supervised Learning Basics",
+          "question": "A classification model's target is a number that can take any value on a continuous scale.",
+          "correct": false,
+          "explanation": "That describes a regression target. A classification target is a category."
+        },
+        {
+          "type": "tf",
+          "category": "Supervised Learning Basics",
+          "question": "In supervised learning, the training data must include the correct answer for every row.",
+          "correct": true,
+          "explanation": "Those correct answers are the labels the model learns the mapping from."
+        },
+        {
+          "type": "matching",
+          "category": "Supervised Learning Basics",
+          "question": "Match each task to the kind of problem it is.",
+          "pairs": [
+            {
+              "left": "Predict tomorrow's rainfall in millimetres",
+              "right": "Regression"
+            },
+            {
+              "left": "Decide whether a photo shows a cat or a dog",
+              "right": "Classification"
+            },
+            {
+              "left": "Group news articles by theme with no labels",
+              "right": "Clustering"
+            },
+            {
+              "left": "Shrink 80 columns to 5 new ones",
+              "right": "Dimensionality reduction"
+            }
+          ]
+        },
+        {
+          "type": "fill_blank",
+          "category": "Supervised Learning Basics",
+          "question": "A supervised problem whose target is a category is called ____. (one word)",
+          "answers": [
+            "classification"
+          ],
+          "explanation": "Classification predicts categories; regression predicts numbers."
+        }
+      ]
+    },
+    {
+      "name": "2. Evaluation Metrics",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Evaluation Metrics",
+          "question": "A spam filter flags 50 emails and 40 of them really are spam. What is its precision, and what does that measure?",
+          "options": [
+            "0.80: of all the spam that arrived, 80% was caught by the filter",
+            "0.80: of the emails flagged as spam, 80% really were spam",
+            "0.20: of the emails flagged as spam, 20% really were spam",
+            "0.40: of all the emails in the inbox, 40% were flagged as spam"
+          ],
+          "correct": 1,
+          "explanation": "Precision = TP / (TP + FP) = 40 / 50. It looks only at the rows the model flagged positive."
+        },
+        {
+          "type": "mc",
+          "category": "Evaluation Metrics",
+          "question": "A screening test finds 45 of the 60 people who actually have a condition. What is its recall?",
+          "options": [
+            "0.25 (the 15 missed out of 60)",
+            "0.45 (45 out of 100)",
+            "0.75 (45 of the 60)",
+            "0.80 (60 out of 75)"
+          ],
+          "correct": 2,
+          "explanation": "Recall = TP / (TP + FN) = 45 / 60 = 0.75."
+        },
+        {
+          "type": "mc",
+          "category": "Evaluation Metrics",
+          "question": "A fraud model scans card purchases. Which outcome is a false positive?",
+          "options": [
+            "A fraudulent purchase that the model lets through as genuine",
+            "A fraudulent purchase that the model correctly blocks as fraud",
+            "A genuine purchase that the model correctly approves as genuine",
+            "A genuine purchase that the model blocks as fraud"
+          ],
+          "correct": 3,
+          "explanation": "A false positive is a wrong 'positive' call, where positive means fraud here. Letting fraud through is a false negative."
+        },
+        {
+          "type": "mc",
+          "category": "Evaluation Metrics",
+          "question": "A line has 990 normal parts and 10 defective ones. A model labels all 1,000 as normal. Which statement is true?",
+          "options": [
+            "Accuracy is 99%, but recall for defective parts is 0, so it is useless for finding defects",
+            "Accuracy is 99% and recall for defective parts is 99%, so it finds nearly all defects",
+            "Accuracy is 50% and recall for defective parts is 0, since it guessed a single class",
+            "Accuracy is 1% and recall for defective parts is 100%, since it ignored normal parts"
+          ],
+          "correct": 0,
+          "explanation": "990 of 1,000 are right (99%), but not one defect is found. Accuracy hides this when classes are imbalanced."
+        },
+        {
+          "type": "mc",
+          "category": "Evaluation Metrics",
+          "question": "For which job is high recall the main priority?",
+          "options": [
+            "Cleaning a newsletter list, where wrongly removing a subscriber is the worst outcome",
+            "Screening luggage for dangerous items, where a missed item is the worst outcome",
+            "Recommending films, where showing a poor suggestion is the worst outcome",
+            "Flagging plagiarism for penalties, where accusing an honest student is the worst outcome"
+          ],
+          "correct": 1,
+          "explanation": "Recall counts how many real positives are found, so it matters most when a miss (false negative) is costly. The others are costly false positives, which precision tracks."
+        },
+        {
+          "type": "mc",
+          "category": "Evaluation Metrics",
+          "question": "What does the F1-score combine?",
+          "options": [
+            "Accuracy and recall, in an arithmetic mean that stays high if either one is high",
+            "Precision and accuracy, in a product that grows as the number of classes grows",
+            "Precision and recall, in a harmonic mean that stays low if either one is low",
+            "True positives and true negatives, in a ratio that shrinks as the dataset grows"
+          ],
+          "correct": 2,
+          "explanation": "F1 = 2 x precision x recall / (precision + recall). It rewards a balance of the two."
+        },
+        {
+          "type": "mc",
+          "category": "Evaluation Metrics",
+          "question": "A model has precision 0.60 and recall 0.30. What is its F1-score?",
+          "options": [
+            "0.45",
+            "0.18",
+            "0.30",
+            "0.40"
+          ],
+          "correct": 3,
+          "explanation": "F1 = 2 x 0.60 x 0.30 / (0.60 + 0.30) = 0.36 / 0.90 = 0.40. The simple average (0.45) would overstate it."
+        },
+        {
+          "type": "mc",
+          "category": "Evaluation Metrics",
+          "question": "What does mean squared error (MSE) measure for a regression model?",
+          "options": [
+            "The average of the squared gaps between actual and predicted values",
+            "The share of the target's variation that the model accounts for",
+            "The average of the signed gaps between actual and predicted values, so errors cancel",
+            "The count of predictions that landed exactly on the actual value"
+          ],
+          "correct": 0,
+          "explanation": "Squaring stops positive and negative errors cancelling and punishes large misses. The share of variation explained is R-squared."
+        },
+        {
+          "type": "mc",
+          "category": "Evaluation Metrics",
+          "question": "A regression model's R-squared on held-out data comes out negative, at -0.4. How should that be read?",
+          "options": [
+            "It explains 40% of the variance, with the minus sign showing the direction",
+            "It predicts worse than always guessing the mean of the target",
+            "It has a mean squared error of 0.4, which means it fits the data well",
+            "The model is broken, because R-squared cannot go below zero"
+          ],
+          "correct": 1,
+          "explanation": "R-squared 0 equals predicting the mean. On unseen data it can fall below 0 for a model that is worse than that."
+        },
+        {
+          "type": "mc",
+          "category": "Evaluation Metrics",
+          "question": "Which pair of metrics is used to judge a regression model?",
+          "options": [
+            "Precision and recall",
+            "Accuracy and F1-score",
+            "Mean squared error and R-squared",
+            "Sensitivity and a confusion matrix"
+          ],
+          "correct": 2,
+          "explanation": "MSE and R-squared score numeric predictions. The others score classifiers."
+        },
+        {
+          "type": "mc",
+          "category": "Evaluation Metrics",
+          "question": "On a test set, a classifier has TP 35, FP 5, FN 15 and TN 45. What is its accuracy?",
+          "options": [
+            "0.70",
+            "0.875",
+            "0.45",
+            "0.80"
+          ],
+          "correct": 3,
+          "explanation": "Correct = 35 + 45 = 80 out of 100 rows. 0.70 is recall (35 / 50) and 0.875 is precision (35 / 40)."
+        },
+        {
+          "type": "tf",
+          "category": "Evaluation Metrics",
+          "question": "A model can have high accuracy and still be poor at finding the minority class.",
+          "correct": true,
+          "explanation": "With imbalanced classes the majority class dominates the accuracy figure."
+        },
+        {
+          "type": "tf",
+          "category": "Evaluation Metrics",
+          "question": "Recall is calculated as TP / (TP + FP).",
+          "correct": false,
+          "explanation": "That is precision. Recall is TP / (TP + FN)."
+        },
+        {
+          "type": "matching",
+          "category": "Evaluation Metrics",
+          "question": "Match each metric to the question it answers.",
+          "pairs": [
+            {
+              "left": "Accuracy",
+              "right": "What share of all predictions were correct?"
+            },
+            {
+              "left": "Precision",
+              "right": "Of the rows flagged positive, how many really were?"
+            },
+            {
+              "left": "Recall",
+              "right": "Of the rows that really were positive, how many were found?"
+            },
+            {
+              "left": "F1-score",
+              "right": "How balanced are precision and recall?"
+            }
+          ]
+        },
+        {
+          "type": "fill_blank",
+          "category": "Evaluation Metrics",
+          "question": "The metric TP / (TP + FN), the share of real positives that are found, is called ____. (one word)",
+          "answers": [
+            "recall",
+            "sensitivity"
+          ],
+          "explanation": "Recall, also called sensitivity or the true positive rate."
+        }
+      ]
+    },
+    {
+      "name": "3. Cross-Validation, Overfitting and Underfitting",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Cross-Validation, Overfitting and Underfitting",
+          "question": "A model reaches 99% on its training rows and 71% on its test rows. How should this be described?",
+          "options": [
+            "Overfitting: it memorized details of the training rows that do not carry over",
+            "Underfitting: it is too simple to capture the pattern in either set of rows",
+            "Good generalization: scoring higher on training rows is expected and harmless",
+            "Data leakage: the test rows were accidentally included in the training data"
+          ],
+          "correct": 0,
+          "explanation": "A large drop from training to test is the sign of overfitting. Leakage would inflate the test score instead."
+        },
+        {
+          "type": "mc",
+          "category": "Cross-Validation, Overfitting and Underfitting",
+          "question": "A straight-line model scores 58% on training rows and 57% on test rows, though the true pattern is clearly curved. What is the likely cause?",
+          "options": [
+            "Overfitting: the model has memorized noise in the training rows",
+            "Underfitting: the model is too simple to capture the curve",
+            "High variance: the model changes a lot between training samples",
+            "Class imbalance: the model has ignored the minority class"
+          ],
+          "correct": 1,
+          "explanation": "Low scores on both sets point to underfitting, which is high bias."
+        },
+        {
+          "type": "mc",
+          "category": "Cross-Validation, Overfitting and Underfitting",
+          "question": "In 10-fold cross-validation on 500 rows, how many rows are in each validation fold and how many models are trained?",
+          "options": [
+            "50 rows per fold; 1 model",
+            "10 rows per fold; 50 models",
+            "50 rows per fold; 10 models",
+            "450 rows per fold; 10 models"
+          ],
+          "correct": 2,
+          "explanation": "500 / 10 = 50 rows per fold, and one model is trained for each fold, validating on that fold and training on the other nine."
+        },
+        {
+          "type": "mc",
+          "category": "Cross-Validation, Overfitting and Underfitting",
+          "question": "When is stratified k-fold preferred over plain k-fold?",
+          "options": [
+            "When the target is a number, so each fold needs to keep the same average",
+            "When the rows are in time order, so each fold needs to keep that order",
+            "When the dataset is tiny, so each fold needs to hold exactly one row",
+            "When one class is rare, so each fold needs to keep the same class proportions"
+          ],
+          "correct": 3,
+          "explanation": "Stratification keeps the class mix of the full data in every fold, which matters when a class is rare."
+        },
+        {
+          "type": "mc",
+          "category": "Cross-Validation, Overfitting and Underfitting",
+          "question": "What is leave-one-out cross-validation?",
+          "options": [
+            "k-fold where k equals the number of rows, so each row is validated once on its own",
+            "k-fold where k equals 2, so the data is split into halves that swap roles",
+            "A single split that leaves one feature out of the model each time",
+            "A method that removes one outlier row before each training run"
+          ],
+          "correct": 0,
+          "explanation": "It trains one model per row, which is thorough but expensive, so it is used on small datasets."
+        },
+        {
+          "type": "mc",
+          "category": "Cross-Validation, Overfitting and Underfitting",
+          "question": "Two years of daily sales are used to predict future sales. Which validation is appropriate?",
+          "options": [
+            "Shuffle all days randomly and use plain k-fold so each fold is varied",
+            "Train on earlier days and validate on later days, never shuffling the order",
+            "Validate on the earliest days and train on later days to test the model hard",
+            "Use leave-one-out so each day is predicted from days on both sides of it"
+          ],
+          "correct": 1,
+          "explanation": "A model must not learn from the future to predict the past. Time-ordered data needs a forward-looking split."
+        },
+        {
+          "type": "mc",
+          "category": "Cross-Validation, Overfitting and Underfitting",
+          "question": "One model beats another on a single 80/20 split. Why check with cross-validation before choosing it?",
+          "options": [
+            "The single split trains on too few rows for either model to learn anything",
+            "Cross-validation always shows that the more complex model is the better one",
+            "The win may depend on which rows landed in the test set; folds average that out",
+            "A single split cannot produce a usable accuracy score for a model at all"
+          ],
+          "correct": 2,
+          "explanation": "One split's score can be lucky or unlucky. The average of several folds is a more stable estimate."
+        },
+        {
+          "type": "mc",
+          "category": "Cross-Validation, Overfitting and Underfitting",
+          "question": "How is cross-validation used when choosing a hyperparameter such as k in KNN?",
+          "options": [
+            "Train once with each k and keep whichever scored best on the test set",
+            "Pick the k that gives the highest training accuracy across all the folds",
+            "Choose k at random inside each fold and average the chosen values",
+            "Score each candidate k across the folds and keep the k with the best average"
+          ],
+          "correct": 3,
+          "explanation": "Tuning on the test set would leak it. Cross-validation scores on held-out folds inside the training data."
+        },
+        {
+          "type": "mc",
+          "category": "Cross-Validation, Overfitting and Underfitting",
+          "question": "Which change is most likely to reduce overfitting in a deep decision tree?",
+          "options": [
+            "Limit the tree's depth or prune its branches so it cannot memorize rows",
+            "Let the tree grow until every leaf holds a single training row",
+            "Remove the test set so that all rows are used for learning",
+            "Add more splits so the tree fits the training rows more closely"
+          ],
+          "correct": 0,
+          "explanation": "Constraining complexity (max_depth, pruning) forces the tree to learn general patterns, not individual rows."
+        },
+        {
+          "type": "mc",
+          "category": "Cross-Validation, Overfitting and Underfitting",
+          "question": "Which description matches high variance?",
+          "options": [
+            "The fitted model misses the pattern because its assumptions are too simple",
+            "The fitted model changes a lot if it is trained on a different sample of the data",
+            "The fitted model gives the same predictions no matter which features are used",
+            "The fitted model's errors all fall in the same direction as the target"
+          ],
+          "correct": 1,
+          "explanation": "High variance goes with overfitting. Missing the pattern through simple assumptions is high bias."
+        },
+        {
+          "type": "tf",
+          "category": "Cross-Validation, Overfitting and Underfitting",
+          "question": "In k-fold cross-validation, every row is used for validation exactly once.",
+          "correct": true,
+          "explanation": "Each fold takes one turn as the validation set."
+        },
+        {
+          "type": "tf",
+          "category": "Cross-Validation, Overfitting and Underfitting",
+          "question": "A model that scores far higher on its training data than on its test data is underfitting.",
+          "correct": false,
+          "explanation": "That gap is overfitting. Underfitting scores poorly on both."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Cross-Validation, Overfitting and Underfitting",
+          "question": "A model too simple to capture the pattern, scoring poorly on both training and test data, is said to be ____. (one word)",
+          "answers": [
+            "underfitting",
+            "underfit"
+          ],
+          "explanation": "Underfitting means high bias."
+        },
+        {
+          "type": "matching",
+          "category": "Cross-Validation, Overfitting and Underfitting",
+          "question": "Match each validation technique to its description.",
+          "pairs": [
+            {
+              "left": "Hold-out",
+              "right": "One single train/test split"
+            },
+            {
+              "left": "Stratified k-fold",
+              "right": "Each fold keeps the class proportions"
+            },
+            {
+              "left": "Leave-one-out",
+              "right": "One row validates and all the rest train"
+            },
+            {
+              "left": "Time-series split",
+              "right": "Trains on the past and validates on the future"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "4. K-Nearest Neighbors",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "K-Nearest Neighbors",
+          "question": "A KNN classifier uses k = 3. The three nearest training points to a new row are labeled A, B and A. What class is predicted?",
+          "options": [
+            "B: the neighbor listed second sets the class",
+            "A and B: the row receives both labels at once",
+            "A: it wins the vote two to one",
+            "No class: three neighbors are too few to decide"
+          ],
+          "correct": 2,
+          "explanation": "KNN takes the majority class among the k nearest neighbors."
+        },
+        {
+          "type": "mc",
+          "category": "K-Nearest Neighbors",
+          "question": "What is the Euclidean distance between the points (1, 2) and (4, 6)?",
+          "options": [
+            "7",
+            "25",
+            "3",
+            "5"
+          ],
+          "correct": 3,
+          "explanation": "sqrt((4 - 1)^2 + (6 - 2)^2) = sqrt(9 + 16) = 5. The value 7 is the Manhattan distance."
+        },
+        {
+          "type": "mc",
+          "category": "K-Nearest Neighbors",
+          "question": "What is the Manhattan distance between (2, 7) and (6, 4)?",
+          "options": [
+            "7",
+            "5",
+            "25",
+            "12"
+          ],
+          "correct": 0,
+          "explanation": "|6 - 2| + |4 - 7| = 4 + 3 = 7. The value 5 is the Euclidean distance."
+        },
+        {
+          "type": "mc",
+          "category": "K-Nearest Neighbors",
+          "question": "Which problem is most likely when k is set to 1?",
+          "options": [
+            "Underfitting: the boundary becomes so smooth that it blurs small groups",
+            "Overfitting: the boundary follows every point, including noisy ones",
+            "Ties: a single neighbor cannot vote, so no class is ever predicted",
+            "Slow training: one neighbor needs a model to be built beforehand"
+          ],
+          "correct": 1,
+          "explanation": "With k = 1 a single mislabeled or noisy point decides its whole neighborhood."
+        },
+        {
+          "type": "mc",
+          "category": "K-Nearest Neighbors",
+          "question": "k is raised to nearly the size of the whole training set. What happens to the predictions?",
+          "options": [
+            "They match each point's own label, because every vote is decided locally",
+            "They become exact, because more neighbors always means more accuracy",
+            "They drift toward the majority class, since it dominates nearly every vote",
+            "They stop changing between points, because only a single class centroid counts"
+          ],
+          "correct": 2,
+          "explanation": "A very large k averages over almost everything, so the biggest class wins nearly everywhere: underfitting."
+        },
+        {
+          "type": "mc",
+          "category": "K-Nearest Neighbors",
+          "question": "What is the soundest way to choose k?",
+          "options": [
+            "Always use the square root of the number of features",
+            "Pick the k that gives 100% accuracy on the training rows",
+            "Use the largest odd number below the count of rows",
+            "Try several values and compare their cross-validated scores"
+          ],
+          "correct": 3,
+          "explanation": "k is a hyperparameter, so it is tuned on held-out data. k = 1 always scores 100% on training rows, which proves nothing."
+        },
+        {
+          "type": "mc",
+          "category": "K-Nearest Neighbors",
+          "question": "Which step best prepares features for KNN?",
+          "options": [
+            "Rescale them (min-max or standardization) so each contributes comparably to distances",
+            "Sort the rows by the feature with the largest values so close rows sit together",
+            "Drop the feature with the smallest values because it adds the least information",
+            "Convert every feature to a category so distances are counted in whole steps"
+          ],
+          "correct": 0,
+          "explanation": "KNN is built on distances, so a feature with huge numbers would swamp the others unless the scales are aligned."
+        },
+        {
+          "type": "mc",
+          "category": "K-Nearest Neighbors",
+          "question": "At which point does KNN do most of its computing work?",
+          "options": [
+            "During training, when it fits weights to minimize the error on every row",
+            "At prediction time, when it measures distances from the new row to the stored rows",
+            "During splitting, when it decides which features to rank first",
+            "After prediction, when it re-evaluates which stored rows were most useful"
+          ],
+          "correct": 1,
+          "explanation": "KNN is a lazy learner: training just stores the data."
+        },
+        {
+          "type": "mc",
+          "category": "K-Nearest Neighbors",
+          "question": "Which is a genuine weakness of KNN?",
+          "options": [
+            "It cannot represent a curved boundary between classes",
+            "It needs a long training phase before it can predict anything",
+            "Prediction slows as the stored data grows, since every row is compared",
+            "It requires the target to be a number rather than a category of any kind"
+          ],
+          "correct": 2,
+          "explanation": "Each prediction needs distances to all stored rows. KNN makes no straight-line assumption and has no real training phase."
+        },
+        {
+          "type": "mc",
+          "category": "K-Nearest Neighbors",
+          "question": "How does KNN make a prediction when the target is a number?",
+          "options": [
+            "It takes the most common target value among the k nearest rows",
+            "It fits one straight line through the k nearest training rows",
+            "It copies the target of the single farthest of the k rows",
+            "It averages the target values of the k nearest training rows"
+          ],
+          "correct": 3,
+          "explanation": "KNN regression averages the neighbors' values. Voting is for classification."
+        },
+        {
+          "type": "mc",
+          "category": "K-Nearest Neighbors",
+          "question": "Compared with Euclidean distance, Manhattan distance is",
+          "options": [
+            "Measured along the axes, like walking a street grid, with no squaring or square root",
+            "Measured as the straight line between the points, using the Pythagorean theorem",
+            "Measured on only the feature with the largest gap, ignoring all the other features",
+            "Measured as the angle between the two points' feature vectors, ignoring their length"
+          ],
+          "correct": 0,
+          "explanation": "Manhattan distance sums the gaps along each axis, which is cheaper to compute."
+        },
+        {
+          "type": "tf",
+          "category": "K-Nearest Neighbors",
+          "question": "KNN needs its features to be scaled for its distances to be meaningful.",
+          "correct": true,
+          "explanation": "Otherwise the feature with the largest numbers dominates every distance."
+        },
+        {
+          "type": "tf",
+          "category": "K-Nearest Neighbors",
+          "question": "KNN builds a model during training by fitting a set of weights.",
+          "correct": false,
+          "explanation": "KNN stores the training data and does its work when a prediction is requested."
+        },
+        {
+          "type": "fill_blank",
+          "category": "K-Nearest Neighbors",
+          "question": "In KNN, k is a ____ that is set before training rather than learned from the data. (one word)",
+          "answers": [
+            "hyperparameter"
+          ],
+          "explanation": "Hyperparameters are chosen by the user, often with cross-validation."
+        },
+        {
+          "type": "short_answer",
+          "category": "K-Nearest Neighbors",
+          "question": "Explain how KNN classifies a new point, and describe what happens to the decision boundary as k grows from 1 to a large value.",
+          "answerLang": null,
+          "modelAnswer": "KNN measures the distance (usually Euclidean, sometimes Manhattan) from the new point to every training point, takes the k closest, and assigns the class that most of them hold. With k = 1 the boundary is jagged and follows every point, including noise, so the model overfits. As k grows the boundary becomes smoother; if k is very large, the majority class dominates and small groups are lost, which is underfitting. Features should be scaled first and k chosen with cross-validation.",
+          "rubric": [
+            "Describes measuring distance to the training points and taking the k nearest",
+            "Says the class is chosen by majority vote of those neighbors",
+            "Says small k gives a jagged boundary and overfitting",
+            "Says large k gives a smooth boundary that leans to the majority class (underfitting)"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "5. Decision Trees",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Decision Trees",
+          "question": "In a fitted decision tree, what does a leaf node hold?",
+          "options": [
+            "A test on one feature that routes rows down a branch",
+            "The final prediction for rows that reach it, like a class label",
+            "The training row that was nearest to the split point",
+            "The feature that was removed because it was found uninformative"
+          ],
+          "correct": 1,
+          "explanation": "Internal nodes are tests; leaves hold the answer."
+        },
+        {
+          "type": "mc",
+          "category": "Decision Trees",
+          "question": "A node holds 10 rows: 5 of class A and 5 of class B. What is its Gini impurity?",
+          "options": [
+            "0",
+            "1",
+            "0.5",
+            "0.25"
+          ],
+          "correct": 2,
+          "explanation": "Gini = 1 - (0.5^2 + 0.5^2) = 0.5, the maximum for two classes."
+        },
+        {
+          "type": "mc",
+          "category": "Decision Trees",
+          "question": "A node holds 10 rows: 9 of class A and 1 of class B. What is its Gini impurity?",
+          "options": [
+            "0.82",
+            "0.10",
+            "0.90",
+            "0.18"
+          ],
+          "correct": 3,
+          "explanation": "Gini = 1 - (0.9^2 + 0.1^2) = 1 - 0.82 = 0.18."
+        },
+        {
+          "type": "mc",
+          "category": "Decision Trees",
+          "question": "What does a Gini impurity of 0 mean for a node?",
+          "options": [
+            "Every row in the node belongs to the same class",
+            "The node holds an equal mix of all the classes present",
+            "The node has no rows left that could be split further",
+            "The node was created by a split that separated nothing"
+          ],
+          "correct": 0,
+          "explanation": "0 is a pure node. That is the goal of each split."
+        },
+        {
+          "type": "mc",
+          "category": "Decision Trees",
+          "question": "In a two-class problem, which node has the highest entropy?",
+          "options": [
+            "A node with 90% of its rows in a single class",
+            "A node with half its rows in each class",
+            "A node where every row is from the same class",
+            "A node with 75% of its rows in a single class"
+          ],
+          "correct": 1,
+          "explanation": "Entropy peaks (1 bit) at an even mix and is 0 for a pure node."
+        },
+        {
+          "type": "mc",
+          "category": "Decision Trees",
+          "question": "How does a decision tree choose between candidate splits?",
+          "options": [
+            "It picks the split that sends the most rows down a single branch",
+            "It picks the split on the feature that has the largest numeric values",
+            "It picks the split whose child nodes are purest, for example the lowest weighted Gini",
+            "It picks the split that keeps the child nodes as mixed as possible to avoid bias"
+          ],
+          "correct": 2,
+          "explanation": "Splitting is a search for the cut that makes the resulting groups as pure as possible."
+        },
+        {
+          "type": "mc",
+          "category": "Decision Trees",
+          "question": "A tree grown until every leaf holds a single training row scores 100% on training data and 70% on test data. What is the best fix?",
+          "options": [
+            "Grow it deeper so the remaining test errors are also memorized",
+            "Standardize the features so that the splits become less extreme",
+            "Remove the test set so the gap can no longer be measured",
+            "Cap the maximum depth or require a minimum number of rows per leaf"
+          ],
+          "correct": 3,
+          "explanation": "Limiting depth or leaf size (or pruning) stops the tree memorizing rows."
+        },
+        {
+          "type": "mc",
+          "category": "Decision Trees",
+          "question": "Which statement about preparing features for a decision tree is true?",
+          "options": [
+            "Scaling is not required, because each split compares one feature with a threshold",
+            "Scaling is required, because splits add up the values of several features at once",
+            "Standardizing is required, because splits assume the features are normally distributed",
+            "Scaling is required, because trees measure the distance between whole rows"
+          ],
+          "correct": 0,
+          "explanation": "A threshold on one feature is unaffected by the scale of the others, unlike a distance-based method such as KNN."
+        },
+        {
+          "type": "mc",
+          "category": "Decision Trees",
+          "question": "What is information gain?",
+          "options": [
+            "The count of extra rows that a split sends to the larger child node",
+            "The drop in entropy from a parent to its children, weighted by size",
+            "The rise in the tree's depth after a new split has been added to it",
+            "The average entropy of the leaves after the whole tree is grown"
+          ],
+          "correct": 1,
+          "explanation": "The split with the largest information gain makes the biggest step toward purity."
+        },
+        {
+          "type": "mc",
+          "category": "Decision Trees",
+          "question": "Why can a decision tree change a lot when a few training rows change?",
+          "options": [
+            "Trees store every training row, so deleting any row removes one of the leaves",
+            "Trees re-estimate their weights after each update, so small changes pile up",
+            "Each split is chosen greedily, so one new early split reshapes what follows",
+            "Trees depend on the row order, so shuffling the rows always rebuilds them"
+          ],
+          "correct": 2,
+          "explanation": "This instability is a reason to use ensembles such as random forests."
+        },
+        {
+          "type": "tf",
+          "category": "Decision Trees",
+          "question": "A decision tree can only be used when the target is a category.",
+          "correct": false,
+          "explanation": "Regression trees predict a number, typically the average target in a leaf."
+        },
+        {
+          "type": "tf",
+          "category": "Decision Trees",
+          "question": "In a two-class problem, a node with Gini impurity 0.5 is as mixed as it can be.",
+          "correct": true,
+          "explanation": "0.5 is the maximum Gini impurity for two classes."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Decision Trees",
+          "question": "The first test at the top of a decision tree is called the ____ node. (one word)",
+          "answers": [
+            "root"
+          ],
+          "explanation": "The root is the starting question."
+        },
+        {
+          "type": "matching",
+          "category": "Decision Trees",
+          "question": "Match each decision tree term to its meaning.",
+          "pairs": [
+            {
+              "left": "Root node",
+              "right": "The first test, at the top of the tree"
+            },
+            {
+              "left": "Internal node",
+              "right": "A test on one feature that routes rows to branches"
+            },
+            {
+              "left": "Leaf",
+              "right": "Holds the final prediction"
+            },
+            {
+              "left": "Pruning",
+              "right": "Cutting branches back to reduce overfitting"
+            }
+          ]
+        },
+        {
+          "type": "short_answer",
+          "category": "Decision Trees",
+          "question": "Describe how a decision tree decides where to split, using Gini impurity or entropy, and explain one way to keep a tree from overfitting.",
+          "answerLang": null,
+          "modelAnswer": "At each node the tree tries candidate splits on the features and picks the one whose child nodes are purest, meaning lowest weighted Gini impurity or the highest information gain (biggest drop in entropy). A pure node has Gini 0 and entropy 0. It repeats on each child until the leaves are pure or a limit is reached. A fully grown tree memorizes the training data, so overfitting is limited by capping max_depth, requiring a minimum number of rows per leaf, or pruning branches.",
+          "rubric": [
+            "Says the tree picks the split that makes the child nodes purest",
+            "Names Gini impurity or entropy (or information gain) as the measure",
+            "Notes that a pure node scores 0",
+            "Gives a way to limit overfitting: depth limit, minimum leaf size or pruning"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "6. Random Forests",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Random Forests",
+          "question": "A single deep tree overfits. What does a random forest change to reduce this?",
+          "options": [
+            "It grows one tree wider so that every leaf can hold more rows at once",
+            "It trains one tree on all rows and removes only its least used branches",
+            "It trains each tree on identical rows and features with different depth limits",
+            "It averages many trees that each saw different rows and features, so their errors differ"
+          ],
+          "correct": 3,
+          "explanation": "Different trees make different mistakes, and combining them cancels many out. That lowers variance."
+        },
+        {
+          "type": "mc",
+          "category": "Random Forests",
+          "question": "What is a bootstrap sample?",
+          "options": [
+            "Rows drawn with replacement, so some repeat and others are left out",
+            "Rows drawn without replacement, so each row appears at most once",
+            "A copy of the data in which every feature has been standardized or rescaled",
+            "The rows held out for the final test and never used in training"
+          ],
+          "correct": 0,
+          "explanation": "Drawing with replacement gives each tree a slightly different version of the training data."
+        },
+        {
+          "type": "mc",
+          "category": "Random Forests",
+          "question": "Why does each split in a random forest consider only a random subset of the features?",
+          "options": [
+            "So the forest never needs to scale the features before splitting them",
+            "So the trees differ from one another and do not all make the same mistakes",
+            "So each tree can concentrate on the single most important feature",
+            "So the trees can be trained without any bootstrap sampling of rows"
+          ],
+          "correct": 1,
+          "explanation": "If every tree could use the strongest feature, all the trees would look alike and averaging would help less."
+        },
+        {
+          "type": "mc",
+          "category": "Random Forests",
+          "question": "How does a random forest classifier produce its final prediction?",
+          "options": [
+            "The deepest tree's prediction is used, since it saw the most detail",
+            "The first tree's prediction is used and the rest only double-check it",
+            "Each tree votes and the class with the most votes wins",
+            "The tree with the lowest training error is used on its own"
+          ],
+          "correct": 2,
+          "explanation": "The forest combines all its trees by majority vote."
+        },
+        {
+          "type": "mc",
+          "category": "Random Forests",
+          "question": "How does a random forest regressor predict a number?",
+          "options": [
+            "It takes the most common prediction among its trees",
+            "It uses the largest prediction among all its trees",
+            "It fits a straight line through the trees' predictions",
+            "It averages the predictions of all its trees"
+          ],
+          "correct": 3,
+          "explanation": "Voting is for classification. Regression averages."
+        },
+        {
+          "type": "mc",
+          "category": "Random Forests",
+          "question": "What are out-of-bag rows?",
+          "options": [
+            "Rows left out of a tree's bootstrap sample, usable to check that tree",
+            "Rows with missing values that a tree is unable to split on at all",
+            "Rows the forest labeled as outliers and then removed",
+            "Rows kept for the final test set and never trained on at all"
+          ],
+          "correct": 0,
+          "explanation": "About one third of the rows are left out of each bootstrap sample, giving a free validation estimate."
+        },
+        {
+          "type": "mc",
+          "category": "Random Forests",
+          "question": "What happens when more trees are added to a random forest?",
+          "options": [
+            "Each tree gets deeper, so overfitting rises steadily with every tree added",
+            "Results steady and overfitting stays low, but training and prediction take longer",
+            "Training time falls because the work is shared out across the trees",
+            "Accuracy on the training data always climbs until it finally reaches 100%"
+          ],
+          "correct": 1,
+          "explanation": "More trees reduce randomness in the result at the cost of time and memory."
+        },
+        {
+          "type": "mc",
+          "category": "Random Forests",
+          "question": "Compared with one decision tree, a random forest is",
+          "options": [
+            "Usually less accurate, but easier to read as a set of rules",
+            "Usually faster to train, and just as easy to read as a set of rules",
+            "Usually more accurate and stable, but harder to read as a set of rules",
+            "Usually more accurate, and easier to read because it averages away detail"
+          ],
+          "correct": 2,
+          "explanation": "A forest trades readability and speed for accuracy and stability."
+        },
+        {
+          "type": "mc",
+          "category": "Random Forests",
+          "question": "Combining many models so that their joint prediction beats any single one is called",
+          "options": [
+            "Cross-validation, which rotates which rows are held out",
+            "Regularization, which penalizes large coefficients",
+            "Dimensionality reduction, which builds fewer new features",
+            "Ensemble learning"
+          ],
+          "correct": 3,
+          "explanation": "A random forest is an ensemble of decision trees."
+        },
+        {
+          "type": "tf",
+          "category": "Random Forests",
+          "question": "In a random forest, every tree is trained on exactly the same rows.",
+          "correct": false,
+          "explanation": "Each tree gets its own bootstrap sample."
+        },
+        {
+          "type": "tf",
+          "category": "Random Forests",
+          "question": "Averaging the predictions of many trees lowers variance compared with relying on one deep tree.",
+          "correct": true,
+          "explanation": "Averaging many different trees smooths out their individual errors."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Random Forests",
+          "question": "The rows drawn with replacement to train each tree in a random forest form a ____ sample. (one word)",
+          "answers": [
+            "bootstrap"
+          ],
+          "explanation": "Bootstrap sampling is the 'bagging' part of a random forest."
+        },
+        {
+          "type": "short_answer",
+          "category": "Random Forests",
+          "question": "A single deep tree overfits, yet a forest of such trees often does not. Explain what the forest does differently that improves its results on new data.",
+          "answerLang": null,
+          "modelAnswer": "A single deep tree overfits: it memorizes the training data and changes a lot if the data changes. A random forest trains many trees, each on a bootstrap sample (rows drawn with replacement) and with only a random subset of features considered at each split, so the trees are different from each other. Classification takes a majority vote and regression takes the average. Because the trees make different errors, many of the errors cancel, so the forest has lower variance and overfits less.",
+          "rubric": [
+            "Says a single deep tree overfits or is unstable",
+            "Mentions bootstrap samples and/or random feature subsets that make the trees differ",
+            "Says predictions are combined by voting or averaging",
+            "Concludes that errors cancel, giving lower variance and better generalization"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "7. Linear and Logistic Regression",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Linear and Logistic Regression",
+          "question": "A model predicts monthly rent from square_feet (coefficient 1.8) and distance_to_center (coefficient -35). What does -35 mean?",
+          "options": [
+            "With square_feet held constant, each extra unit of distance lowers predicted rent by 35",
+            "Rent falls by exactly 35 for every extra unit of distance, whatever else changes",
+            "Distance explains 35% of the variation in rent across all the listings",
+            "The model's error shrinks by 35 each time the distance increases by one unit"
+          ],
+          "correct": 0,
+          "explanation": "A coefficient is the change in the prediction per one-unit change in that feature, holding the others constant. It is an association, not proof of cause."
+        },
+        {
+          "type": "mc",
+          "category": "Linear and Logistic Regression",
+          "question": "In the model y = 12 + 3x1 + 2x2, what does the 12 represent?",
+          "options": [
+            "The amount y rises for each extra feature added",
+            "The predicted y when both features equal 0",
+            "The average of y across all the training rows",
+            "The error that is left over after the model is fitted"
+          ],
+          "correct": 1,
+          "explanation": "12 is the intercept, the prediction when every feature is 0."
+        },
+        {
+          "type": "mc",
+          "category": "Linear and Logistic Regression",
+          "question": "Using y = 12 + 3x1 + 2x2, what is the prediction when x1 = 4 and x2 = 5?",
+          "options": [
+            "22",
+            "29",
+            "34",
+            "46"
+          ],
+          "correct": 2,
+          "explanation": "12 + 3(4) + 2(5) = 12 + 12 + 10 = 34."
+        },
+        {
+          "type": "mc",
+          "category": "Linear and Logistic Regression",
+          "question": "Which is an assumption of linear regression?",
+          "options": [
+            "The features are all measured on the same scale as the target",
+            "The target takes only a few distinct category values to predict",
+            "The features are uncorrelated with the target they are meant to predict",
+            "The residuals have roughly constant spread across all predictions"
+          ],
+          "correct": 3,
+          "explanation": "Constant variance of the residuals (homoscedasticity) is one. The features must relate to the target, and no scaling is required."
+        },
+        {
+          "type": "mc",
+          "category": "Linear and Logistic Regression",
+          "question": "What is multicollinearity?",
+          "options": [
+            "Two or more features that are strongly correlated with each other",
+            "Two or more features that are strongly correlated with the target",
+            "A target that depends on several features through a curved relationship",
+            "Residuals whose spread grows with the size of the prediction"
+          ],
+          "correct": 0,
+          "explanation": "It is correlation among the features, not between features and the target."
+        },
+        {
+          "type": "mc",
+          "category": "Linear and Logistic Regression",
+          "question": "A regression includes both square_feet and square_meters of the same houses. What is the likely consequence?",
+          "options": [
+            "The model cannot be fitted at all because the two features use different units",
+            "Their coefficients become unstable, though predictions may stay accurate",
+            "Predictions become far less accurate and the R-squared drops to zero",
+            "The residuals will no longer be centered on zero after fitting"
+          ],
+          "correct": 1,
+          "explanation": "Two features carrying the same information are the extreme case of multicollinearity: the model cannot split the credit between them."
+        },
+        {
+          "type": "mc",
+          "category": "Linear and Logistic Regression",
+          "question": "Two features have a correlation of 0.97 with each other. What is a sensible response?",
+          "options": [
+            "Keep both and multiply them to build a stronger single feature",
+            "Drop whichever one correlates most strongly with the target",
+            "Drop one of them, or combine them, before fitting the model",
+            "Standardize both so that their correlation falls below 0.5"
+          ],
+          "correct": 2,
+          "explanation": "Keep one representative. Scaling does not change a correlation."
+        },
+        {
+          "type": "mc",
+          "category": "Linear and Logistic Regression",
+          "question": "A feature has a very high VIF (variance inflation factor). What does this indicate?",
+          "options": [
+            "It is the most predictive feature of the target in the model",
+            "It has a large number of missing values that must be filled",
+            "Its residuals are not normally distributed around zero in the plot",
+            "It is largely predictable from the other features"
+          ],
+          "correct": 3,
+          "explanation": "VIF flags multicollinearity. Values above roughly 5 to 10 are a worry."
+        },
+        {
+          "type": "mc",
+          "category": "Linear and Logistic Regression",
+          "question": "On the training data, what happens to R-squared when you add a useless random feature to a linear regression?",
+          "options": [
+            "It stays the same or rises slightly, hence adjusted R-squared",
+            "It always falls, since the random feature adds only noise",
+            "It rises sharply, because every feature adds real information",
+            "It becomes negative, since the feature is unrelated to the target"
+          ],
+          "correct": 0,
+          "explanation": "Extra features can never reduce training R-squared, so adjusted R-squared penalizes them."
+        },
+        {
+          "type": "mc",
+          "category": "Linear and Logistic Regression",
+          "question": "Model A has an MSE of 4.0 and model B has an MSE of 9.0 on the same test set. Which statement is true?",
+          "options": [
+            "Model B explains more variance because its MSE is larger",
+            "Model A's predictions are closer to the actual values on average",
+            "Model A is overfit because its MSE is lower than B's",
+            "The models cannot be compared because MSE has no units"
+          ],
+          "correct": 1,
+          "explanation": "Lower MSE means smaller squared errors on the same data."
+        },
+        {
+          "type": "mc",
+          "category": "Linear and Logistic Regression",
+          "question": "A logistic regression outputs 0.83 for an email, using a 0.5 threshold. What happens?",
+          "options": [
+            "The email is 83% spam-like text, so it gets a score but no class",
+            "The email is assigned to the negative class, since 0.83 is far from 1.0 and so unconvincing",
+            "It is assigned to the positive class, such as spam, since 0.83 beats 0.5",
+            "The model predicts 0.83 as the target value, as regression would"
+          ],
+          "correct": 2,
+          "explanation": "Logistic regression outputs a probability and a threshold turns it into a class."
+        },
+        {
+          "type": "tf",
+          "category": "Linear and Logistic Regression",
+          "question": "Multicollinearity is about features correlated with each other, not features correlated with the target.",
+          "correct": true,
+          "explanation": "Correlation with the target is what you want. Correlation among the features causes the problem."
+        },
+        {
+          "type": "tf",
+          "category": "Linear and Logistic Regression",
+          "question": "Logistic regression is a regression algorithm used to predict continuous numbers.",
+          "correct": false,
+          "explanation": "Despite the name it is a classifier that outputs a probability."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Linear and Logistic Regression",
+          "question": "In regression, the actual value minus the predicted value is called the ____. (one word)",
+          "answers": [
+            "residual",
+            "error"
+          ],
+          "explanation": "Residuals should be centered on zero with no pattern."
+        },
+        {
+          "type": "matching",
+          "category": "Linear and Logistic Regression",
+          "question": "Match each term to its meaning.",
+          "pairs": [
+            {
+              "left": "Intercept",
+              "right": "The prediction when every feature is 0"
+            },
+            {
+              "left": "Coefficient",
+              "right": "The change in prediction per one-unit change in a feature, others held constant"
+            },
+            {
+              "left": "Residual",
+              "right": "The actual value minus the predicted value"
+            },
+            {
+              "left": "VIF",
+              "right": "A check for features predictable from the other features"
+            }
+          ]
+        },
+        {
+          "type": "short_answer",
+          "category": "Linear and Logistic Regression",
+          "question": "Explain multicollinearity in a multiple linear regression: what it is, how you can detect it, and one way to handle it.",
+          "answerLang": null,
+          "modelAnswer": "Multicollinearity means two or more of the features are strongly correlated with each other, so they carry overlapping information. The model cannot tell which one deserves the credit, so the coefficients become unstable: they swing in size or change sign when a feature is added or removed, even though predictions may stay fine. It can be detected with a correlation matrix of the features or with VIF (values above roughly 5 to 10 are a concern). It can be handled by dropping or combining the redundant features, using PCA, or using regularization such as Ridge.",
+          "rubric": [
+            "Defines it as features correlated with each other",
+            "Says coefficients become unstable or hard to interpret",
+            "Names a way to detect it, such as a correlation matrix or VIF",
+            "Names a remedy, such as dropping or combining features, PCA or regularization"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "8. Unsupervised Learning Basics",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Unsupervised Learning Basics",
+          "question": "A retailer has purchase histories but no labels and wants to find natural customer groups. Which approach fits?",
+          "options": [
+            "Classification, because each customer needs to be assigned a class",
+            "Regression, because purchases are numeric values that need predicting",
+            "Supervised learning, because the purchase histories act as the labels",
+            "Clustering, because no target exists and the goal is to find structure"
+          ],
+          "correct": 3,
+          "explanation": "With no target column the task is unsupervised, and grouping similar rows is clustering."
+        },
+        {
+          "type": "mc",
+          "category": "Unsupervised Learning Basics",
+          "question": "Which of these is NOT an unsupervised task?",
+          "options": [
+            "Predicting a customer's next purchase amount from past purchases",
+            "Grouping customers who have similar buying habits",
+            "Compressing 60 survey columns into a few summary columns",
+            "Finding products that are often bought together in one basket"
+          ],
+          "correct": 0,
+          "explanation": "Predicting a known numeric outcome is supervised regression. The others look for structure without a target."
+        },
+        {
+          "type": "mc",
+          "category": "Unsupervised Learning Basics",
+          "question": "Which result would a good clustering produce?",
+          "options": [
+            "Points within a cluster are far apart, and the clusters sit close to one another",
+            "Points within a cluster are close together and the clusters are far from each other",
+            "Every cluster contains exactly the same number of points as every other",
+            "Each cluster matches one of the known target labels in the data"
+          ],
+          "correct": 1,
+          "explanation": "Clusters should be tight and well separated. There are no known labels to match."
+        },
+        {
+          "type": "mc",
+          "category": "Unsupervised Learning Basics",
+          "question": "A news article is 70% 'sports' and 30% 'politics' under a clustering method. Which kind of clustering is this?",
+          "options": [
+            "Hard, because each article is placed in its closest cluster",
+            "Density-based, because the article was found in a crowded region",
+            "Soft (fuzzy), because membership is shared across clusters",
+            "Hierarchical, because the article was merged into a larger cluster"
+          ],
+          "correct": 2,
+          "explanation": "Soft clustering gives a degree of membership in several clusters instead of one."
+        },
+        {
+          "type": "mc",
+          "category": "Unsupervised Learning Basics",
+          "question": "K-Means, hierarchical clustering and DBSCAN are grouped, in that order, as",
+          "options": [
+            "Density-based, centroid-based and connectivity-based",
+            "Connectivity-based, density-based and centroid-based",
+            "Centroid-based, density-based and connectivity-based",
+            "Centroid-based, connectivity-based and density-based"
+          ],
+          "correct": 3,
+          "explanation": "K-Means uses centroids, hierarchical clustering links clusters by connectivity, DBSCAN uses density."
+        },
+        {
+          "type": "mc",
+          "category": "Unsupervised Learning Basics",
+          "question": "Why is judging an unsupervised result harder than judging a supervised one?",
+          "options": [
+            "There are no known correct labels to compare the output against",
+            "The algorithms refuse to produce any numeric scores for their results",
+            "The data is always too small to be evaluated in any meaningful way",
+            "The features are not allowed to be compared between two separate runs"
+          ],
+          "correct": 0,
+          "explanation": "Measures such as inertia or the silhouette score exist, but there is no answer key."
+        },
+        {
+          "type": "mc",
+          "category": "Unsupervised Learning Basics",
+          "question": "What is the aim of dimensionality reduction?",
+          "options": [
+            "Group the rows into clusters so that each row receives a cluster label",
+            "Represent the data with fewer features, keeping as much information as possible",
+            "Increase the number of features so that the model has more to learn from",
+            "Remove rows that look like outliers so that the data is cleaner overall"
+          ],
+          "correct": 1,
+          "explanation": "Fewer features means faster, simpler models. PCA is the standard example."
+        },
+        {
+          "type": "mc",
+          "category": "Unsupervised Learning Basics",
+          "question": "Which task finds items that tend to occur together, such as products bought in the same basket?",
+          "options": [
+            "Regression, which predicts a continuous number from the features",
+            "Classification, which assigns each row to a predefined category",
+            "Association, also called data association",
+            "Binarization, which turns a numeric column into two groups"
+          ],
+          "correct": 2,
+          "explanation": "Association is an unsupervised task alongside clustering."
+        },
+        {
+          "type": "tf",
+          "category": "Unsupervised Learning Basics",
+          "question": "Unsupervised learning needs a target column to learn from.",
+          "correct": false,
+          "explanation": "Unsupervised learning works on data with no labels."
+        },
+        {
+          "type": "tf",
+          "category": "Unsupervised Learning Basics",
+          "question": "Clustering and dimensionality reduction are both unsupervised.",
+          "correct": true,
+          "explanation": "Neither needs a target. Classification and regression are the supervised tasks."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Unsupervised Learning Basics",
+          "question": "Clustering is a form of ____ learning, because it needs no labels. (one word)",
+          "answers": [
+            "unsupervised"
+          ],
+          "explanation": "No labels means unsupervised."
+        },
+        {
+          "type": "matching",
+          "category": "Unsupervised Learning Basics",
+          "question": "Match each method to its family.",
+          "pairs": [
+            {
+              "left": "K-Means",
+              "right": "Centroid-based clustering"
+            },
+            {
+              "left": "Agglomerative clustering",
+              "right": "Connectivity-based (hierarchical) clustering"
+            },
+            {
+              "left": "DBSCAN",
+              "right": "Density-based clustering"
+            },
+            {
+              "left": "PCA",
+              "right": "Dimensionality reduction"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "9. K-Means Clustering",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "K-Means Clustering",
+          "question": "In K-Means, what happens in the update step?",
+          "options": [
+            "Each point moves to the position of the centroid it is nearest to",
+            "Each cluster with fewer than k points is deleted from the model entirely",
+            "Each centroid is replaced by the point farthest from all the others",
+            "Each centroid moves to the mean of the points now assigned to it"
+          ],
+          "correct": 3,
+          "explanation": "Assign points, then recompute each centroid as the mean of its cluster, and repeat."
+        },
+        {
+          "type": "mc",
+          "category": "K-Means Clustering",
+          "question": "When does K-Means stop iterating?",
+          "options": [
+            "When the assignments no longer change between iterations",
+            "When every cluster contains the same number of points",
+            "When the inertia reaches exactly zero",
+            "When every point has been used as a centroid once"
+          ],
+          "correct": 0,
+          "explanation": "Once no point changes cluster, the centroids stop moving and the algorithm has converged."
+        },
+        {
+          "type": "mc",
+          "category": "K-Means Clustering",
+          "question": "What does inertia measure in K-Means?",
+          "options": [
+            "The sum of the distances between every pair of centroids",
+            "The sum of squared distances from each point to its assigned centroid",
+            "The number of points that changed cluster in the last iteration",
+            "The largest distance from any centroid to its farthest point"
+          ],
+          "correct": 1,
+          "explanation": "Lower inertia means tighter clusters."
+        },
+        {
+          "type": "mc",
+          "category": "K-Means Clustering",
+          "question": "On an elbow plot, inertia is plotted against k. How is the best k read?",
+          "options": [
+            "At the k with the lowest inertia, since lower is always better",
+            "At the k where inertia first rises above the previous value",
+            "At the bend where adding clusters stops reducing inertia by much",
+            "At the k with the highest inertia, since that shows the most spread"
+          ],
+          "correct": 2,
+          "explanation": "The elbow marks diminishing returns."
+        },
+        {
+          "type": "mc",
+          "category": "K-Means Clustering",
+          "question": "Why can't you simply choose the k with the lowest inertia?",
+          "options": [
+            "Inertia is lowest at k = 1, which is always too few clusters",
+            "Inertia only counts clusters with more than two points, so a small k is penalized",
+            "Inertia is undefined for values of k above 10 in scikit-learn",
+            "Inertia keeps falling as k grows, reaching 0 when every point is its own cluster"
+          ],
+          "correct": 3,
+          "explanation": "More centroids always sit closer to the points, so the minimum would always pick the largest k."
+        },
+        {
+          "type": "mc",
+          "category": "K-Means Clustering",
+          "question": "Why is K-Means sensitive to outliers?",
+          "options": [
+            "A centroid is a mean, so one extreme point can pull it away from its cluster's center",
+            "A centroid is a median, so extreme points flip which cluster is chosen first",
+            "Outliers form a cluster of their own automatically, which uses up one value of k",
+            "Outliers increase the number of iterations until the algorithm fails to converge"
+          ],
+          "correct": 0,
+          "explanation": "Means move toward extreme values, which drags the centroid and the cluster boundary with it."
+        },
+        {
+          "type": "mc",
+          "category": "K-Means Clustering",
+          "question": "K-Means is run twice on the same data from different random starting centroids. What can happen?",
+          "options": [
+            "The final clusters are always identical, since it converges to a single answer",
+            "The final clusters can differ, so it is rerun several times and the lowest inertia kept",
+            "The value of k differs, since the number of clusters is found automatically",
+            "The data differs, since the points are re-sampled on each run"
+          ],
+          "correct": 1,
+          "explanation": "K-Means can settle in a local optimum. scikit-learn's n_init reruns it and keeps the best result."
+        },
+        {
+          "type": "mc",
+          "category": "K-Means Clustering",
+          "question": "Centroids sit at (0, 0) and (6, 6). A point at (2, 1) is assigned to which, and by what rule?",
+          "options": [
+            "The (6, 6) centroid, because larger coordinates carry more weight",
+            "The (0, 0) centroid, because it was listed first among the centroids",
+            "The (0, 0) centroid, because it is nearer by Euclidean distance",
+            "Neither centroid, because the point lies between the two of them"
+          ],
+          "correct": 2,
+          "explanation": "Distance to (0, 0) is sqrt(5), about 2.2; distance to (6, 6) is sqrt(41), about 6.4."
+        },
+        {
+          "type": "mc",
+          "category": "K-Means Clustering",
+          "question": "Why should features be scaled before running K-Means?",
+          "options": [
+            "Centroids cannot be calculated for features that have large values",
+            "Scaling chooses the number of clusters automatically from the data",
+            "Scaling guarantees that the algorithm converges in a single iteration",
+            "Distances drive the assignments, so a feature with large values would dominate"
+          ],
+          "correct": 3,
+          "explanation": "Like KNN, K-Means is distance-based."
+        },
+        {
+          "type": "mc",
+          "category": "K-Means Clustering",
+          "question": "The points (1, 2), (3, 4) and (5, 9) are assigned to one cluster. Where does its centroid move?",
+          "options": [
+            "(3, 5)",
+            "(5, 9)",
+            "(3, 4)",
+            "(9, 15)"
+          ],
+          "correct": 0,
+          "explanation": "Mean of x: (1 + 3 + 5) / 3 = 3. Mean of y: (2 + 4 + 9) / 3 = 5."
+        },
+        {
+          "type": "tf",
+          "category": "K-Means Clustering",
+          "question": "K-Means requires you to choose the number of clusters before running it.",
+          "correct": true,
+          "explanation": "k is an input. Elbow plots help to choose it."
+        },
+        {
+          "type": "tf",
+          "category": "K-Means Clustering",
+          "question": "Inertia always increases when k increases.",
+          "correct": false,
+          "explanation": "It decreases, reaching 0 when k equals the number of points."
+        },
+        {
+          "type": "fill_blank",
+          "category": "K-Means Clustering",
+          "question": "The center of a K-Means cluster, found as the mean of its points, is called the ____. (one word)",
+          "answers": [
+            "centroid"
+          ],
+          "explanation": "Centroid-based clustering is named after it."
+        },
+        {
+          "type": "short_answer",
+          "category": "K-Means Clustering",
+          "question": "Describe the steps of K-Means and explain how an elbow plot helps choose k.",
+          "answerLang": null,
+          "modelAnswer": "Choose k and place k starting centroids (randomly, or with k-means++). Assign every point to its nearest centroid using Euclidean distance. Move each centroid to the mean of the points assigned to it. Repeat the assign and update steps until the assignments stop changing. Inertia is the sum of squared distances from each point to its centroid. It always falls as k grows, so an elbow plot of inertia against k is used instead: choose the k at the bend, after which extra clusters reduce inertia only a little.",
+          "rubric": [
+            "Describes initialization, then assigning points to the nearest centroid",
+            "Describes moving each centroid to the mean of its points and repeating until stable",
+            "Defines inertia as the sum of squared distances to the centroids",
+            "Says the best k is at the elbow, where the drop in inertia levels off"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "10. Hierarchical Clustering",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Hierarchical Clustering",
+          "question": "What does agglomerative clustering do at its first step?",
+          "options": [
+            "Treats all points as one cluster, then splits off the farthest point",
+            "Treats every point as its own cluster, then merges the closest two",
+            "Places k centroids at random, then assigns each point to the nearest",
+            "Marks dense regions as cores, then expands outward from them"
+          ],
+          "correct": 1,
+          "explanation": "Agglomerative is bottom-up: it starts with n clusters and merges. The other options describe divisive, K-Means and DBSCAN."
+        },
+        {
+          "type": "mc",
+          "category": "Hierarchical Clustering",
+          "question": "On a dendrogram, what does the height at which two branches join represent?",
+          "options": [
+            "The number of points inside the two clusters combined",
+            "The order in which the points first appeared in the original dataset",
+            "The distance between the two clusters when they were merged",
+            "The density of points around the place where they join"
+          ],
+          "correct": 2,
+          "explanation": "Higher joins are merges of clusters that were further apart."
+        },
+        {
+          "type": "mc",
+          "category": "Hierarchical Clustering",
+          "question": "A horizontal cut across a dendrogram crosses 4 vertical lines. How many clusters does the cut produce?",
+          "options": [
+            "3: one fewer than the number of lines crossed",
+            "5: one more than the number of lines crossed",
+            "2: the cut splits the tree into two halves",
+            "4: each crossed line is one cluster"
+          ],
+          "correct": 3,
+          "explanation": "Count the vertical lines the cut crosses."
+        },
+        {
+          "type": "mc",
+          "category": "Hierarchical Clustering",
+          "question": "Where is a good place to cut a dendrogram?",
+          "options": [
+            "Across a tall vertical stretch with no merges, where clusters are far apart",
+            "At the very bottom, where every point is its own cluster",
+            "Across many short lines packed together, where merges are frequent",
+            "At the root, where all the points are in one cluster"
+          ],
+          "correct": 0,
+          "explanation": "A long gap before the next merge suggests natural, well-separated clusters."
+        },
+        {
+          "type": "mc",
+          "category": "Hierarchical Clustering",
+          "question": "Single linkage measures the distance between two clusters as",
+          "options": [
+            "The distance between their farthest pair of points",
+            "The distance between their closest pair of points",
+            "The average distance over all pairs of points",
+            "The distance between the two clusters' centroids"
+          ],
+          "correct": 1,
+          "explanation": "Single = minimum, complete = maximum, average = mean over pairs."
+        },
+        {
+          "type": "mc",
+          "category": "Hierarchical Clustering",
+          "question": "Which linkage uses the farthest pair of points and tends to give compact clusters?",
+          "options": [
+            "Single linkage",
+            "Average linkage",
+            "Complete linkage",
+            "Divisive linkage"
+          ],
+          "correct": 2,
+          "explanation": "Complete linkage is the maximum pairwise distance. Single linkage uses the minimum."
+        },
+        {
+          "type": "mc",
+          "category": "Hierarchical Clustering",
+          "question": "Which linkage is most likely to produce long, stringy, chained clusters?",
+          "options": [
+            "Complete linkage",
+            "Average linkage",
+            "Ward linkage",
+            "Single linkage"
+          ],
+          "correct": 3,
+          "explanation": "One close pair is enough to merge two clusters, so chains of nearby points join up."
+        },
+        {
+          "type": "mc",
+          "category": "Hierarchical Clustering",
+          "question": "What is an advantage of hierarchical clustering over K-Means?",
+          "options": [
+            "You need not choose the number of clusters up front",
+            "It runs faster on datasets with millions of rows",
+            "It always produces round clusters of equal size",
+            "It undoes a merge if the merge later turns out to be poor"
+          ],
+          "correct": 0,
+          "explanation": "The dendrogram shows every level, and you choose where to cut afterwards."
+        },
+        {
+          "type": "mc",
+          "category": "Hierarchical Clustering",
+          "question": "Why is agglomerative clustering hard to use on very large datasets?",
+          "options": [
+            "It requires every feature to be categorical before any merging can start",
+            "It uses all pairwise distances, which grow fast as points are added",
+            "It must be rerun once for every possible value of k",
+            "It cannot handle more than three features at a time during merging"
+          ],
+          "correct": 1,
+          "explanation": "n points give about n squared / 2 distances."
+        },
+        {
+          "type": "mc",
+          "category": "Hierarchical Clustering",
+          "question": "Points on a number line sit at 1, 2, 5 and 9. Which two does agglomerative clustering merge first?",
+          "options": [
+            "5 and 9, the pair that is farthest from the others",
+            "2 and 5, because 5 is the middle point of the set",
+            "1 and 2, the closest pair at distance 1",
+            "1 and 9, the pair spanning the whole range"
+          ],
+          "correct": 2,
+          "explanation": "The first merge is always the two closest clusters."
+        },
+        {
+          "type": "tf",
+          "category": "Hierarchical Clustering",
+          "question": "A merge made in agglomerative clustering can be undone later.",
+          "correct": false,
+          "explanation": "Merges are permanent, which is one weakness of the method."
+        },
+        {
+          "type": "tf",
+          "category": "Hierarchical Clustering",
+          "question": "Agglomerative clustering is a bottom-up approach.",
+          "correct": true,
+          "explanation": "It starts with single points and merges upward."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Hierarchical Clustering",
+          "question": "The tree diagram showing the order and distance of cluster merges is called a ____. (one word)",
+          "answers": [
+            "dendrogram"
+          ],
+          "explanation": "Cut it with a horizontal line to choose the clusters."
+        },
+        {
+          "type": "matching",
+          "category": "Hierarchical Clustering",
+          "question": "Match each linkage to how it measures the distance between two clusters.",
+          "pairs": [
+            {
+              "left": "Single",
+              "right": "Closest pair of points"
+            },
+            {
+              "left": "Complete",
+              "right": "Farthest pair of points"
+            },
+            {
+              "left": "Average",
+              "right": "Mean over all pairs of points"
+            },
+            {
+              "left": "Ward",
+              "right": "The merge that raises within-cluster variance the least"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "11. DBSCAN",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "DBSCAN",
+          "question": "In DBSCAN, raising eps while keeping min_samples fixed tends to",
+          "options": [
+            "Split clusters apart and add noise, since each neighborhood contains fewer points",
+            "Increase the number of clusters, since every point seeks out its own",
+            "Make no difference, since only min_samples decides which points are core",
+            "Merge clusters and reduce noise, since each neighborhood contains more points"
+          ],
+          "correct": 3,
+          "explanation": "A bigger radius reaches more neighbors, so more points become core and clusters join."
+        },
+        {
+          "type": "mc",
+          "category": "DBSCAN",
+          "question": "Raising min_samples while keeping eps fixed makes DBSCAN",
+          "options": [
+            "Stricter about what counts as dense, so more points become noise",
+            "Looser about what counts as dense, so fewer points become noise",
+            "Faster to converge, while giving the same clusters as before",
+            "Return exactly min_samples clusters from the dataset"
+          ],
+          "correct": 0,
+          "explanation": "Fewer points reach the higher neighbor count needed to be core."
+        },
+        {
+          "type": "mc",
+          "category": "DBSCAN",
+          "question": "A point has only 2 neighbors inside eps (min_samples = 5) but sits within eps of a core point. What is it?",
+          "options": [
+            "A core point: any point that lies within eps of another core point",
+            "A border point: part of a cluster but not dense enough to be core itself",
+            "A noise point: any point with fewer than min_samples neighbors",
+            "A centroid: it will be moved to the mean of the cluster"
+          ],
+          "correct": 1,
+          "explanation": "Border points join a cluster through a nearby core point. Only points reachable from no core point are noise."
+        },
+        {
+          "type": "mc",
+          "category": "DBSCAN",
+          "question": "What label does scikit-learn's DBSCAN give to noise points?",
+          "options": [
+            "0: the first cluster, as a default",
+            "The label of the nearest cluster, flagged as low confidence",
+            "-1: they belong to no cluster",
+            "NaN: the row is removed from the results"
+          ],
+          "correct": 2,
+          "explanation": "Noise is labeled -1 and stays in the output."
+        },
+        {
+          "type": "mc",
+          "category": "DBSCAN",
+          "question": "Which situation is a clear advantage of DBSCAN?",
+          "options": [
+            "It always finds exactly the number of clusters you ask it to find",
+            "It works best when every cluster has a different density",
+            "It needs no distance measure, so features need no scaling",
+            "It finds crescent or ring shaped clusters and flags outliers as noise"
+          ],
+          "correct": 3,
+          "explanation": "DBSCAN follows dense regions of any shape and does not force outliers into clusters."
+        },
+        {
+          "type": "mc",
+          "category": "DBSCAN",
+          "question": "Which data would DBSCAN struggle with?",
+          "options": [
+            "Clusters with very different densities, because one eps cannot suit them all",
+            "Clusters shaped like crescents, because only round blobs have core points",
+            "A dataset with a few outliers, because they must be assigned to a cluster",
+            "A dataset with no labels, because DBSCAN needs a target to learn from"
+          ],
+          "correct": 0,
+          "explanation": "A single eps and min_samples define 'dense' for the whole dataset."
+        },
+        {
+          "type": "mc",
+          "category": "DBSCAN",
+          "question": "How does DBSCAN decide how many clusters there are?",
+          "options": [
+            "You supply k up front, as you do with K-Means",
+            "Each connected dense region becomes a cluster",
+            "A dendrogram is cut at a chosen height to select that count",
+            "The elbow of an inertia plot is read to select that count"
+          ],
+          "correct": 1,
+          "explanation": "The count is a result of eps, min_samples and the data."
+        },
+        {
+          "type": "mc",
+          "category": "DBSCAN",
+          "question": "A k-distance plot is used with DBSCAN to help choose which setting?",
+          "options": [
+            "k, the number of clusters to find",
+            "The learning rate of the algorithm",
+            "eps, the neighborhood radius",
+            "The number of principal components to keep"
+          ],
+          "correct": 2,
+          "explanation": "The bend in the sorted distances to each point's k-th neighbor suggests a good eps."
+        },
+        {
+          "type": "mc",
+          "category": "DBSCAN",
+          "question": "What makes a point a core point in DBSCAN?",
+          "options": [
+            "It sits at the exact mean position of its cluster",
+            "It is the point farthest from every noise point",
+            "It has the most neighbors of any point in the dataset",
+            "At least min_samples points lie within eps of it"
+          ],
+          "correct": 3,
+          "explanation": "Core points are the dense ones from which clusters grow."
+        },
+        {
+          "type": "tf",
+          "category": "DBSCAN",
+          "question": "DBSCAN requires you to specify the number of clusters in advance.",
+          "correct": false,
+          "explanation": "You set eps and min_samples instead."
+        },
+        {
+          "type": "tf",
+          "category": "DBSCAN",
+          "question": "In DBSCAN, a point can be left out of every cluster.",
+          "correct": true,
+          "explanation": "Such points are labeled as noise."
+        },
+        {
+          "type": "fill_blank",
+          "category": "DBSCAN",
+          "question": "DBSCAN's two settings are eps and ____. (use the setting's name)",
+          "answers": [
+            "min_samples",
+            "min samples",
+            "minpts",
+            "minsamples"
+          ],
+          "explanation": "min_samples is the neighbor count a point needs to be core."
+        },
+        {
+          "type": "matching",
+          "category": "DBSCAN",
+          "question": "Match each DBSCAN term to its meaning.",
+          "pairs": [
+            {
+              "left": "eps",
+              "right": "The radius of the neighborhood around a point"
+            },
+            {
+              "left": "Core point",
+              "right": "Has at least min_samples neighbors within eps"
+            },
+            {
+              "left": "Border point",
+              "right": "Within eps of a core point but not core itself"
+            },
+            {
+              "left": "Noise",
+              "right": "Reachable from no core point and left unassigned"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "12. Principal Component Analysis",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Principal Component Analysis",
+          "question": "A dataset with 30 features is reduced to 4 principal components. Which statement is correct?",
+          "options": [
+            "The 4 columns are new features, each blending all 30 originals",
+            "The 4 columns are the original features that survived after 26 were dropped as noise",
+            "The 4 columns are cluster labels, one for each of four groups found in the data",
+            "The 4 columns are averages of the 30 features taken over each group of rows"
+          ],
+          "correct": 0,
+          "explanation": "Principal components are weighted combinations of every original feature, not a subset of them."
+        },
+        {
+          "type": "mc",
+          "category": "Principal Component Analysis",
+          "question": "Five components explain 50%, 20%, 15%, 10% and 5% of the variance. What is the fewest components that keep at least 90%?",
+          "options": [
+            "3",
+            "4",
+            "5",
+            "2"
+          ],
+          "correct": 1,
+          "explanation": "Running totals: 50, 70, 85, 95. Three give only 85%, so four are needed."
+        },
+        {
+          "type": "mc",
+          "category": "Principal Component Analysis",
+          "question": "Why should features be standardized before PCA?",
+          "options": [
+            "PCA cannot read features that have a mean above zero",
+            "PCA selects features by their correlation with the target, which scaling reveals",
+            "PCA chases variance, so a feature measured in large units would dominate",
+            "Standardizing turns the components back into the original features"
+          ],
+          "correct": 2,
+          "explanation": "Without scaling, the component directions just follow the feature with the biggest numbers."
+        },
+        {
+          "type": "mc",
+          "category": "Principal Component Analysis",
+          "question": "Is PCA supervised or unsupervised, and why?",
+          "options": [
+            "Supervised: it keeps the directions that best predict the target",
+            "Supervised: it needs labeled rows to find the components",
+            "Unsupervised: it groups the rows into clusters of similar rows",
+            "Unsupervised: it uses only the features and never looks at the target"
+          ],
+          "correct": 3,
+          "explanation": "PCA works on the features alone. It reduces dimensions; it does not form clusters."
+        },
+        {
+          "type": "mc",
+          "category": "Principal Component Analysis",
+          "question": "Which direction does the first principal component follow?",
+          "options": [
+            "The direction in which the data varies the most",
+            "The direction in which the data varies the least",
+            "The direction of the original feature with the largest mean",
+            "The direction that best separates the known classes"
+          ],
+          "correct": 0,
+          "explanation": "Component 1 captures the greatest variance. Separating known classes is the job of LDA, a supervised method."
+        },
+        {
+          "type": "mc",
+          "category": "Principal Component Analysis",
+          "question": "How does PCA differ from LDA (linear discriminant analysis)?",
+          "options": [
+            "PCA is supervised and maximizes class separation, while LDA is unsupervised and maximizes variance",
+            "PCA is unsupervised and maximizes variance, while LDA uses the labels to maximize class separation",
+            "Both are unsupervised, but LDA keeps every component while PCA keeps only a few",
+            "PCA selects original features, while LDA builds new features from the labels"
+          ],
+          "correct": 1,
+          "explanation": "Both reduce dimensions, but only LDA uses the target."
+        },
+        {
+          "type": "mc",
+          "category": "Principal Component Analysis",
+          "question": "How are principal components related to one another?",
+          "options": [
+            "They are identical copies, ordered by how many rows each one uses",
+            "They are nested, so each contains all of the earlier components",
+            "They are uncorrelated: each is perpendicular to the earlier ones",
+            "They are correlated by design so the variance is shared out evenly"
+          ],
+          "correct": 2,
+          "explanation": "Each later component captures the most remaining variance at a right angle to those before it."
+        },
+        {
+          "type": "mc",
+          "category": "Principal Component Analysis",
+          "question": "Which is a typical application of PCA?",
+          "options": [
+            "Predicting a numeric target from several features",
+            "Labeling emails as spam or not spam for a mail filter",
+            "Filling missing values with the column median",
+            "Reducing 50 features to 2 so the data can be plotted"
+          ],
+          "correct": 3,
+          "explanation": "Visualization, speed-ups and noise reduction are the classic uses."
+        },
+        {
+          "type": "mc",
+          "category": "Principal Component Analysis",
+          "question": "What is the main cost of replacing features with principal components?",
+          "options": [
+            "Each component blends all the features, so it is harder to interpret",
+            "The model can no longer be trained on numeric data afterwards",
+            "Rows must be removed so that the columns can be combined into new ones",
+            "The target column has to be dropped as well"
+          ],
+          "correct": 0,
+          "explanation": "Any meaning has to be inferred from which features carry large weights in a component."
+        },
+        {
+          "type": "mc",
+          "category": "Principal Component Analysis",
+          "question": "On a scree plot of explained variance, where do you typically stop adding components?",
+          "options": [
+            "Where the curve peaks, so each component adds the most",
+            "Where the curve flattens, so extra components add little variance",
+            "At the first component, since it holds all of the information",
+            "Where the curve crosses zero, since negative variance is noise"
+          ],
+          "correct": 1,
+          "explanation": "A scree plot shows diminishing returns, like an elbow plot."
+        },
+        {
+          "type": "tf",
+          "category": "Principal Component Analysis",
+          "question": "PCA ignores the target variable.",
+          "correct": true,
+          "explanation": "It is unsupervised: it only looks at the features."
+        },
+        {
+          "type": "tf",
+          "category": "Principal Component Analysis",
+          "question": "The explained variance ratios of all the components together add up to 100%.",
+          "correct": true,
+          "explanation": "Together the components hold all the variance. Keeping fewer keeps a share of it."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Principal Component Analysis",
+          "question": "The new features that PCA creates are called principal ____. (one word)",
+          "answers": [
+            "components",
+            "component"
+          ],
+          "explanation": "Principal components."
+        },
+        {
+          "type": "short_answer",
+          "category": "Principal Component Analysis",
+          "question": "Explain what PCA does, how you choose the number of components to keep, and one drawback of using it.",
+          "answerLang": null,
+          "modelAnswer": "PCA builds a smaller set of new, uncorrelated features called principal components, each a weighted combination of all the original features. The first captures the most variance and each later one the most of what remains. It is unsupervised and works best after standardizing. To choose how many to keep, add up the explained variance ratios (or read a scree plot) and keep enough components to reach a target such as 90 to 95%. A drawback is that components are blends of the original features, so they are hard to interpret, and the variance in the dropped components is lost.",
+          "rubric": [
+            "Says PCA builds new uncorrelated features (components) from combinations of the originals",
+            "Says components are ordered by the variance they capture",
+            "Explains choosing components by cumulative explained variance or a scree plot",
+            "Gives a drawback, such as lost interpretability or lost variance"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "13. Neural Network Basics",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Neural Network Basics",
+          "question": "What does a single perceptron compute?",
+          "options": [
+            "The average of its inputs, passed through the loss function",
+            "The distance from its inputs to the nearest centroid, passed through a threshold",
+            "A weighted sum of its inputs plus a bias, passed through an activation function",
+            "The product of its inputs and a bias, passed through backpropagation"
+          ],
+          "correct": 2,
+          "explanation": "output = activation(w1x1 + w2x2 + ... + b)."
+        },
+        {
+          "type": "mc",
+          "category": "Neural Network Basics",
+          "question": "During training, a weight is pushed toward zero. What does that mean for its input?",
+          "options": [
+            "The input is being treated as the most important one",
+            "The input is being removed from the dataset's table",
+            "The input's activation function has been changed to ReLU",
+            "The input has less and less influence on the neuron's output"
+          ],
+          "correct": 3,
+          "explanation": "A weight scales the signal on its connection. Near 0 it contributes almost nothing."
+        },
+        {
+          "type": "mc",
+          "category": "Neural Network Basics",
+          "question": "In a neuron computing sigmoid(w*x + b), what does the bias b do?",
+          "options": [
+            "It shifts the point at which the neuron switches on",
+            "It scales how strongly x affects the output",
+            "It records how often the network has been wrong so far in training",
+            "It pulls the output toward the majority class"
+          ],
+          "correct": 0,
+          "explanation": "The bias is a learned constant added to the weighted sum."
+        },
+        {
+          "type": "mc",
+          "category": "Neural Network Basics",
+          "question": "Which of these is a hyperparameter, not a learned parameter?",
+          "options": [
+            "A bias value in a hidden neuron",
+            "The number of hidden layers, chosen before training",
+            "A weight on a connection between two layers",
+            "The gradient computed for a weight at the last step"
+          ],
+          "correct": 1,
+          "explanation": "Weights and biases are learned. The architecture and learning rate are set by the designer."
+        },
+        {
+          "type": "mc",
+          "category": "Neural Network Basics",
+          "question": "A network with five layers uses only linear activations. What can it learn?",
+          "options": [
+            "More than a single linear model, since each layer adds complexity",
+            "Simple patterns in the first layer and curves in the later layers",
+            "Only what one linear model could learn, since the layers collapse into one",
+            "Nothing, since linear activations stop the weights from updating"
+          ],
+          "correct": 2,
+          "explanation": "Stacked linear transformations are still one linear transformation. Non-linear activations give depth its power."
+        },
+        {
+          "type": "mc",
+          "category": "Neural Network Basics",
+          "question": "What does the ReLU activation output for inputs of -3 and 4?",
+          "options": [
+            "-3 and 4",
+            "0 and 1",
+            "3 and 4",
+            "0 and 4"
+          ],
+          "correct": 3,
+          "explanation": "ReLU(x) = max(0, x)."
+        },
+        {
+          "type": "mc",
+          "category": "Neural Network Basics",
+          "question": "Which activation function has outputs that range from -1 to 1?",
+          "options": [
+            "Tanh",
+            "Sigmoid",
+            "ReLU",
+            "Softmax"
+          ],
+          "correct": 0,
+          "explanation": "Sigmoid is 0 to 1, ReLU is 0 and above, and softmax gives probabilities that sum to 1."
+        },
+        {
+          "type": "mc",
+          "category": "Neural Network Basics",
+          "question": "A network must pick among 6 classes. What does its output layer typically use?",
+          "options": [
+            "One neuron with ReLU, whose value is rounded to a class number",
+            "Six neurons with softmax, so the outputs are probabilities that sum to 1",
+            "Six neurons with step functions, so every output is 0 or 1",
+            "One neuron with sigmoid, whose value is split into six equal ranges"
+          ],
+          "correct": 1,
+          "explanation": "Multiclass output uses one neuron per class with softmax."
+        },
+        {
+          "type": "mc",
+          "category": "Neural Network Basics",
+          "question": "A network has 8 input features, two hidden layers, and predicts one number. How many neurons does its input layer have?",
+          "options": [
+            "1, one per target value",
+            "2, one per hidden layer",
+            "8, one per feature",
+            "16, one per feature in each hidden layer"
+          ],
+          "correct": 2,
+          "explanation": "The input layer has one neuron for each feature."
+        },
+        {
+          "type": "mc",
+          "category": "Neural Network Basics",
+          "question": "A dense layer takes 6 inputs and has 4 neurons. How many weights and biases does it have in total?",
+          "options": [
+            "24",
+            "10",
+            "36",
+            "28"
+          ],
+          "correct": 3,
+          "explanation": "Weights: 6 x 4 = 24. Biases: 4, one per neuron. Total 28."
+        },
+        {
+          "type": "mc",
+          "category": "Neural Network Basics",
+          "question": "According to the course, a network counts as deep learning when it has",
+          "options": [
+            "Two or more hidden layers between the input and output",
+            "More than ten hidden layers between input and output",
+            "A hidden layer and an output layer of its own",
+            "Any activation function other than a step function"
+          ],
+          "correct": 0,
+          "explanation": "Deep learning uses neural nets with 2+ hidden layers."
+        },
+        {
+          "type": "mc",
+          "category": "Neural Network Basics",
+          "question": "What is a downside of making a network much larger, with many more layers and neurons?",
+          "options": [
+            "It loses the ability to represent curved boundaries",
+            "It can overfit the data and costs much more to train",
+            "It can no longer be trained with gradient descent at that size",
+            "It must use a step activation to stay stable"
+          ],
+          "correct": 1,
+          "explanation": "More capacity can represent more complex patterns, but also memorize noise."
+        },
+        {
+          "type": "mc",
+          "category": "Neural Network Basics",
+          "question": "Why can a single perceptron not learn XOR?",
+          "options": [
+            "XOR has too many input features for one perceptron to read",
+            "A perceptron's activation cannot output both 0 and 1",
+            "The XOR classes cannot be separated by one straight line",
+            "XOR needs a loss function that perceptrons do not have"
+          ],
+          "correct": 2,
+          "explanation": "A perceptron draws a single linear boundary. Hidden layers with non-linear activations solve XOR."
+        },
+        {
+          "type": "tf",
+          "category": "Neural Network Basics",
+          "question": "A neural network's weights are set by hand and stay fixed during training.",
+          "correct": false,
+          "explanation": "Weights and biases are the values that change during training."
+        },
+        {
+          "type": "tf",
+          "category": "Neural Network Basics",
+          "question": "A network that predicts a house price typically has a single neuron in its output layer.",
+          "correct": true,
+          "explanation": "One number to predict means one output neuron."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Neural Network Basics",
+          "question": "The learned constant added to a neuron's weighted sum is called the ____. (one word)",
+          "answers": [
+            "bias"
+          ],
+          "explanation": "Weights and biases together are the network's parameters."
+        },
+        {
+          "type": "matching",
+          "category": "Neural Network Basics",
+          "question": "Match each neural network term to its role.",
+          "pairs": [
+            {
+              "left": "Weight",
+              "right": "Scales how much one input influences a neuron"
+            },
+            {
+              "left": "Bias",
+              "right": "Shifts the point at which a neuron activates"
+            },
+            {
+              "left": "Activation function",
+              "right": "Adds non-linearity to a neuron's output"
+            },
+            {
+              "left": "Hidden layer",
+              "right": "Sits between the input layer and the output layer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "14. Training: Gradient Descent and Backpropagation",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Training: Gradient Descent and Backpropagation",
+          "question": "In gradient descent, what is the gradient of the loss with respect to a weight?",
+          "options": [
+            "The size of the next step taken, regardless of what the loss is",
+            "The value the weight would have if training were finished",
+            "The share of training rows that the weight was updated on",
+            "How much the loss changes when that weight changes slightly"
+          ],
+          "correct": 3,
+          "explanation": "The gradient points uphill. The update moves the weight the opposite way."
+        },
+        {
+          "type": "mc",
+          "category": "Training: Gradient Descent and Backpropagation",
+          "question": "With w = 5, a gradient of 2 and a learning rate of 0.1, what is the weight after one gradient descent step?",
+          "options": [
+            "4.8",
+            "5.2",
+            "4.0",
+            "3.0"
+          ],
+          "correct": 0,
+          "explanation": "w_new = 5 - 0.1 x 2 = 4.8. The step goes against the gradient."
+        },
+        {
+          "type": "mc",
+          "category": "Training: Gradient Descent and Backpropagation",
+          "question": "During training the loss jumps up and down and sometimes grows. What is the likely cause?",
+          "options": [
+            "The learning rate is too small, so the steps never reach the minimum",
+            "The learning rate is too large, so the steps overshoot the minimum",
+            "The network has too few hidden layers to represent the pattern",
+            "The test set is too small to give a stable score"
+          ],
+          "correct": 1,
+          "explanation": "Overshooting makes the loss bounce or blow up. A learning rate that is too small gives slow, steady progress instead."
+        },
+        {
+          "type": "mc",
+          "category": "Training: Gradient Descent and Backpropagation",
+          "question": "Training is very slow, with the loss falling by tiny amounts each epoch. What is the likely cause?",
+          "options": [
+            "The learning rate is too large, so each step overshoots",
+            "The network has too many output neurons for the targets",
+            "The learning rate is too small, so each step is tiny",
+            "The activation function has been set to ReLU everywhere"
+          ],
+          "correct": 2,
+          "explanation": "Tiny steps mean slow progress toward the minimum."
+        },
+        {
+          "type": "mc",
+          "category": "Training: Gradient Descent and Backpropagation",
+          "question": "What does backpropagation compute?",
+          "options": [
+            "The new weights themselves, using the learning rate and the previous weights",
+            "The network's predictions, found by working forward from the inputs to the output",
+            "The best number of layers and neurons for the data it is given, by trial",
+            "The gradient of the loss for every weight and bias, found working backward"
+          ],
+          "correct": 3,
+          "explanation": "Backpropagation applies the chain rule backward through the layers to get the gradients."
+        },
+        {
+          "type": "mc",
+          "category": "Training: Gradient Descent and Backpropagation",
+          "question": "How do backpropagation and gradient descent relate?",
+          "options": [
+            "Backpropagation supplies the gradients and gradient descent uses them to update the weights",
+            "Gradient descent supplies the gradients and backpropagation uses them to update the weights",
+            "They are two names for the same single step of training",
+            "Backpropagation chooses the loss function and gradient descent chooses the activation"
+          ],
+          "correct": 0,
+          "explanation": "Backpropagation finds the direction. Gradient descent takes the step."
+        },
+        {
+          "type": "mc",
+          "category": "Training: Gradient Descent and Backpropagation",
+          "question": "What is an epoch?",
+          "options": [
+            "One update of a single weight in the network",
+            "One full pass of all the training data through the network",
+            "One layer of neurons in the network, input to output",
+            "One small batch of rows used in a single update"
+          ],
+          "correct": 1,
+          "explanation": "A batch is the group of rows used per update. An epoch is a pass over all of them."
+        },
+        {
+          "type": "mc",
+          "category": "Training: Gradient Descent and Backpropagation",
+          "question": "What does the loss function do?",
+          "options": [
+            "It decides which neurons are removed from the network",
+            "It sets the learning rate for each epoch",
+            "It scores how far the predictions are from the true targets",
+            "It splits the data into training and test sets"
+          ],
+          "correct": 2,
+          "explanation": "Training tries to make the loss small. MSE and cross-entropy are common losses."
+        },
+        {
+          "type": "mc",
+          "category": "Training: Gradient Descent and Backpropagation",
+          "question": "A network updates its weights after each group of 32 training rows. Which variant is this?",
+          "options": [
+            "Batch gradient descent, which uses every row for each update",
+            "Stochastic gradient descent, which uses one row for each update",
+            "Backpropagation through time, which is used for each epoch",
+            "Mini-batch gradient descent"
+          ],
+          "correct": 3,
+          "explanation": "Mini-batch is the usual compromise between one row and all rows."
+        },
+        {
+          "type": "mc",
+          "category": "Training: Gradient Descent and Backpropagation",
+          "question": "Which order describes one training step?",
+          "options": [
+            "Forward pass, compute the loss, backpropagate the gradients, update the weights",
+            "Compute the loss, forward pass, update the weights, backpropagate the gradients",
+            "Update the weights, forward pass, compute the loss, backpropagate the gradients",
+            "Backpropagate the gradients, update the weights, forward pass, compute the loss"
+          ],
+          "correct": 0,
+          "explanation": "You need a prediction before a loss, a loss before gradients, and gradients before an update."
+        },
+        {
+          "type": "tf",
+          "category": "Training: Gradient Descent and Backpropagation",
+          "question": "Gradient descent finds the best weights by trying every possible combination of them.",
+          "correct": false,
+          "explanation": "It takes many small steps downhill on the loss instead."
+        },
+        {
+          "type": "tf",
+          "category": "Training: Gradient Descent and Backpropagation",
+          "question": "Raising the learning rate always makes training converge faster.",
+          "correct": false,
+          "explanation": "Too large a rate overshoots and can make the loss grow."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Training: Gradient Descent and Backpropagation",
+          "question": "The setting that scales each gradient descent update is called the ____ rate. (one word)",
+          "answers": [
+            "learning"
+          ],
+          "explanation": "Learning rate: new weight = old weight - learning rate x gradient."
+        },
+        {
+          "type": "short_answer",
+          "category": "Training: Gradient Descent and Backpropagation",
+          "question": "Describe one training iteration of a neural network, naming the forward pass, the loss, backpropagation and the gradient descent update.",
+          "answerLang": null,
+          "modelAnswer": "In the forward pass the inputs flow through the layers (weights, biases and activations) to produce a prediction. The loss function, such as MSE or cross-entropy, scores how far the prediction is from the true target. Backpropagation then works backward from the output using the chain rule to find the gradient of the loss with respect to every weight and bias. Gradient descent updates each parameter against its gradient: new weight = old weight - learning rate x gradient. Repeating this over many epochs lowers the loss.",
+          "rubric": [
+            "Describes the forward pass producing a prediction",
+            "Says a loss function measures the error",
+            "Says backpropagation computes the gradients backward through the layers",
+            "Gives the update w = w - learning rate x gradient"
+          ]
+        }
+      ]
+    }
+  ]
+}
