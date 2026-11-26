@@ -41,10 +41,8 @@ def main():
         return 1
 
     quiz = {
-        "title": "SUPPLEMENTAL: Full-Course Review (not for Quiz 1)",
-        "description": "%d questions across ten topics of the whole course, including feature selection, PCA and LDA, "
-                       "encoding, scaling and regularization. Supplemental practice for later in the course. "
-                       "It is NOT the Quiz 1 review: for the upcoming quiz use Quiz 1: Machine Learning Fundamentals." % total,
+        "title": "ITD 140 Final: Full-Course Review",
+        "description": "%d questions across fifteen topics of the whole course for the final exam: foundations, supervised algorithms, evaluation, clustering, the workflow, feature selection, PCA, encoding, scaling, regularization, imputation, trees, forests and perceptrons, neural networks, hyperparameter tuning, and fairness and bias." % total,
         "guideFile": "data/itd140-supplemental-guide.json",
         "shortCount": 40,
         "sections": [{"name": n, "questions": qs} for n, qs in SECTIONS],

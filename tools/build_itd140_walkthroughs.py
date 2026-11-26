@@ -303,6 +303,144 @@ REGU = [
                [["No penalty", "99%", "72%", "27"], ["With penalty", "93%", "88%", "5"]], [(1, 2), (1, 3)])),
 ]
 
+# ---- 11. Imputation ---------------------------------------------------------------------------------------
+IH = ["Hour", "Reading", "Mean fill", "Forward fill", "Back fill"]
+IMPUTE = [
+    step("The problem: gaps in a column",
+         "A sensor logged a temperature each hour, but three readings are missing. Most algorithms cannot accept blanks, so each gap has to be filled with a stand-in. This is imputation.",
+         table(["Hour", "Reading"], [["1", "20"], ["2", "?"], ["3", "24"], ["4", "?"], ["5", "?"], ["6", "28"]], [(1, 1), (3, 1), (4, 1)])),
+    step("Mean substitution",
+         "Average the known values: (20 + 24 + 28) / 3 = 24. Every gap becomes 24, whatever its position. Good for numbers with no strong outliers; an extreme value would drag the mean.",
+         table(IH, [["1", "20", "20", "", ""], ["2", "?", "24", "", ""], ["3", "24", "24", "", ""], ["4", "?", "24", "", ""], ["5", "?", "24", "", ""], ["6", "28", "28", "", ""]],
+               [(1, 2), (3, 2), (4, 2)])),
+    step("Forward fill",
+         "Copy the previous known value down. Hour 2 takes hour 1's 20; hours 4 and 5 take hour 3's 24. This suits ordered data such as readings over time.",
+         table(IH, [["1", "20", "20", "20", ""], ["2", "?", "24", "20", ""], ["3", "24", "24", "24", ""], ["4", "?", "24", "24", ""], ["5", "?", "24", "24", ""], ["6", "28", "28", "28", ""]],
+               [(1, 3), (3, 3), (4, 3)])),
+    step("Back fill",
+         "Copy the next known value up. Hour 2 takes hour 3's 24; hours 4 and 5 take hour 6's 28.",
+         table(IH, [["1", "20", "20", "20", "20"], ["2", "?", "24", "20", "24"], ["3", "24", "24", "24", "24"], ["4", "?", "24", "24", "28"], ["5", "?", "24", "24", "28"], ["6", "28", "28", "28", "28"]],
+               [(1, 4), (3, 4), (4, 4)])),
+    step("Categories use the mode",
+         "A category such as payment method has no average. Fill its gaps with the most common value, the mode. Here card appears twice, so both gaps become card.",
+         table(["Row", "Payment", "Mode fill"], [["1", "card", "card"], ["2", "?", "card"], ["3", "cash", "cash"], ["4", "card", "card"], ["5", "?", "card"]], [(1, 2), (4, 2)])),
+    step("Arbitrary value, and a warning",
+         "A fixed marker such as -1 (or a random value) tells the model that the value was missing. Whichever method you choose, work the fill value out from the training rows only and reuse it on the test rows.",
+         table(["Method", "Fills with", "Best for"],
+               [["Mean", "Average", "Numbers, few outliers"], ["Mode", "Most common", "Categories"], ["Forward / back", "Neighbour", "Ordered data"], ["Arbitrary", "Marker such as -1", "Flagging missing"]], [(3, 1)])),
+]
+
+# ---- 12. A perceptron ------------------------------------------------------------------------------------
+import math
+PH = ["Input", "Weight", "Product"]
+PSUM = 2 * 0.5 + 3 * -1.0 + 1
+PSIG = 1 / (1 + math.exp(-PSUM))
+PSUM2 = 2 * 0.5 + 3 * -0.2 + 1
+PSIG2 = 1 / (1 + math.exp(-PSUM2))
+PERC = [
+    step("One neuron, two inputs",
+         "A perceptron is a single artificial neuron. It has two inputs x1 = 2 and x2 = 3, a weight for each (0.5 and -1) and a bias of 1. The weights and bias are the parameters that training would adjust.",
+         table(["Part", "Value"], [["x1", "2"], ["x2", "3"], ["w1", "0.5"], ["w2", "-1"], ["bias", "1"]], [(2, 1), (3, 1), (4, 1)])),
+    step("Multiply each input by its weight",
+         "The weight says how much an input counts. 2 x 0.5 = 1 and 3 x -1 = -3.",
+         table(PH, [["x1 = 2", "0.5", "1"], ["x2 = 3", "-1", "-3"]], [(0, 2), (1, 2)])),
+    step("Add the products and the bias",
+         "1 + (-3) + 1 = -1. The bias is a constant that shifts the sum, changing where the neuron switches on.",
+         table(["Step", "Value"], [["Products added", "-2"], ["Bias", "+1"], ["Sum", "-1"]], [(2, 1)])),
+    step("ReLU activation",
+         "ReLU outputs 0 for a negative sum and the sum itself otherwise. The sum is -1, so the output is 0 and the neuron stays off.",
+         table(["Sum", "ReLU output"], [["-1", "0"]], [(0, 1)])),
+    step("Sigmoid activation",
+         "Sigmoid squeezes any sum into a value between 0 and 1. The same sum of -1 gives about %.2f, which a yes/no classifier would read as 'probably no'." % PSIG,
+         table(["Sum", "Sigmoid output"], [["-1", "%.2f" % PSIG]], [(0, 1)])),
+    step("Change a weight and the output changes",
+         "Training works by nudging weights. If w2 changes from -1 to -0.2 the sum becomes 1 + (-0.6) + 1 = %.1f. ReLU now outputs %.1f and sigmoid about %.2f. A single perceptron can only learn classes that a straight line separates." % (PSUM2, PSUM2, PSIG2),
+         table(["", "w2 = -1", "w2 = -0.2"], [["Sum", "-1", "%.1f" % PSUM2], ["ReLU", "0", "%.1f" % PSUM2], ["Sigmoid", "%.2f" % PSIG, "%.2f" % PSIG2]], [(0, 2), (1, 2), (2, 2)])),
+]
+
+# ---- 13. Training a network ------------------------------------------------------------------------------
+def _epochs(lr, w=0.8, n=3, x=2.0, y=1.0):
+    rows = []
+    for e in range(1, n + 1):
+        pred = w * x
+        err = pred - y
+        loss = err * err
+        grad = 2 * err * x
+        new = w - lr * grad
+        rows.append([str(e), "%.3f" % w, "%.3f" % pred, "%.4f" % loss, "%.3f" % grad, "%.3f" % new])
+        w = new
+    return rows
+NH = ["Epoch", "Weight", "Prediction", "Loss", "Gradient", "New weight"]
+NNT = [
+    step("A one-weight network",
+         "To see the training loop with numbers, use one input x = 2, one weight w = 0.8 (no bias) and a target of 1.0. The prediction is w x x. The loss is the squared error. The learning rate is a hyperparameter, here 0.1.",
+         table(["Part", "Value"], [["Input x", "2"], ["Starting weight w", "0.8"], ["Target", "1.0"], ["Learning rate", "0.1"]], [(3, 1)])),
+    step("Forward pass and loss",
+         "Prediction = 0.8 x 2 = 1.6. Error = 1.6 - 1.0 = 0.6. Loss = 0.6 squared = 0.36. The loss function says how wrong the network is.",
+         table(NH, [_epochs(0.1)[0][:4] + ["", ""]], [(0, 3)])),
+    step("Backpropagation gives the gradient",
+         "Working backwards from the loss, the gradient of the loss with respect to w is 2 x error x x = 2 x 0.6 x 2 = 2.4. It says which way, and how steeply, the loss rises as w rises.",
+         table(NH, [_epochs(0.1)[0][:5] + [""]], [(0, 4)])),
+    step("Update the weight",
+         "new weight = old weight - learning rate x gradient = 0.8 - 0.1 x 2.4 = 0.56. The weight moves in the direction that lowers the loss.",
+         table(NH, _epochs(0.1)[:1], [(0, 5)])),
+    step("Repeat every epoch",
+         "Each epoch is one pass over the training data. The prediction moves toward the target and the loss shrinks: 0.36, then 0.0144, then 0.0006.",
+         table(NH, _epochs(0.1), [(0, 3), (1, 3), (2, 3)])),
+    step("A learning rate that is too large",
+         "With a learning rate of 0.6 the first update is 0.8 - 0.6 x 2.4 = -0.64. The weight overshoots the best value and the loss gets worse. Too small a rate trains slowly; too large a rate overshoots.",
+         table(NH, _epochs(0.6, n=2), [(0, 3), (1, 3)])),
+]
+
+# ---- 14. Hyperparameter search ---------------------------------------------------------------------------
+HP = [("1", "uniform", "0.84"), ("1", "distance", "0.86"), ("3", "uniform", "0.88"), ("3", "distance", "0.89"),
+      ("5", "uniform", "0.90"), ("5", "distance", "0.91"), ("7", "uniform", "0.89"), ("7", "distance", "0.90")]
+HH = ["k", "Weighting", "5-fold score"]
+TUNE = [
+    step("Hyperparameters versus parameters",
+         "kNN has no weights to learn, but you must choose k and how neighbours are weighted before training. Those are hyperparameters. Parameters are the values training finds itself, such as regression coefficients or network weights.",
+         table(["", "Parameters", "Hyperparameters"], [["Set by", "Training", "You"], ["Example", "Weights, coefficients", "k, tree depth, learning rate"]], [(0, 2)])),
+    step("Grid search: every combination",
+         "Try k in {1, 3, 5, 7} with weighting in {uniform, distance}: 4 x 2 = 8 combinations. Each one is scored with 5-fold cross-validation, so grid search fits 8 x 5 = 40 models.",
+         table(HH, [list(r) for r in HP], [])),
+    step("Pick the winner",
+         "The best score is 0.91, at k = 5 with distance weighting. Grid search is thorough, but it only knows about the values you listed, and its cost multiplies with every extra setting.",
+         table(HH, [list(r) for r in HP], [(5, 0), (5, 1), (5, 2)])),
+    step("Randomized search: a fixed number of draws",
+         "Instead of all 8, draw 3 combinations at random, for example (3, uniform), (5, distance) and (7, uniform). That is 3 x 5 = 15 fits. It found 0.91 here, but a random draw can miss the best one; with big grids it is often close enough for far less work.",
+         table(HH, [list(HP[2]), list(HP[5]), list(HP[6])], [(1, 2)])),
+    step("Bayesian search: learn from earlier trials",
+         "Bayesian search uses the scores so far to choose the next setting. After 0.88 at k = 3 and 0.89 at k = 7, it would try near k = 5 next instead of drawing blindly. Fewer trials are needed, but each choice depends on the last.",
+         table(["Trial", "Setting tried", "Score", "What it learns"],
+               [["1", "k = 3, uniform", "0.88", "Middle values look good"], ["2", "k = 7, uniform", "0.89", "Higher k is not worse"], ["3", "k = 5, distance", "0.91", "Best so far"]], [(2, 2)])),
+    step("Keep the test set for the end",
+         "All the scores above come from cross-validation on the training data. Only the final chosen model is checked once on the held-out test set. Tuning against the test set would make its score too hopeful.",
+         table(["Stage", "Data used"], [["Compare settings", "Cross-validation folds of the training data"], ["Final check", "Test set, once"]], [(1, 1)])),
+]
+
+# ---- 15. Bias metrics ------------------------------------------------------------------------------------
+BIASM = [
+    step("The data",
+         "A loan model's training data has two groups. Group A (the advantaged group) has 200 applicants of whom 120 were approved. Group B (the disadvantaged group) has 100 applicants of whom 40 were approved.",
+         table(["Group", "Applicants", "Approved"], [["A", "200", "120"], ["B", "100", "40"]], [])),
+    step("Normalized class imbalance (CI)",
+         "CI = (n_a - n_d) / (n_a + n_d) = (200 - 100) / (200 + 100) = 100 / 300 = 0.33. It measures how uneven the group sizes are: 0 is balanced, and a value near 1 means one group dominates the data.",
+         table(["Term", "Value"], [["n_a", "200"], ["n_d", "100"], ["CI", "0.33"]], [(2, 1)])),
+    step("Proportion of positive labels in each group",
+         "q_a = 120 / 200 = 0.60 and q_d = 40 / 100 = 0.40. These are the approval rates of each group.",
+         table(["Group", "Approved / applicants", "Proportion"], [["A", "120 / 200", "0.60"], ["B", "40 / 100", "0.40"]], [(0, 2), (1, 2)])),
+    step("Difference in proportions of labels (DPL)",
+         "DPL = q_a - q_d = 0.60 - 0.40 = 0.20. A value of 0 would mean both groups are approved at the same rate. A 0.20 gap is a signal to investigate.",
+         table(["Metric", "Value", "0 means"], [["CI", "0.33", "Equal group sizes"], ["DPL", "0.20", "Equal approval rates"]], [(1, 1)])),
+    step("Ask why the gap exists",
+         "The metrics say that a gap exists, not why. It could come from sample bias (a group under-represented), selection bias (how applicants were chosen), measurement bias (a feature recorded less accurately for one group), confirmation bias (how results were read) or historical bias (past decisions that were themselves unfair).",
+         table(["Bias", "Looks like"],
+               [["Sample", "Group not represented well"], ["Selection", "Skewed way of choosing examples"], ["Measurement", "Values less accurate for a group"], ["Confirmation", "Evidence read to fit a belief"], ["Historical", "Accurate record of an unfair past"]], [])),
+    step("Group fairness versus individual fairness",
+         "Group fairness looks at outcomes between groups, which is what DPL measures. Individual fairness asks whether two similar applicants get similar decisions whichever group they are in. Closing the group gap can treat similar individuals differently, so say which one you are measuring.",
+         table(["", "Group fairness", "Individual fairness"], [["Asks", "Similar outcomes across groups?", "Similar people treated alike?"], ["Metric", "DPL, CI", "Compare close pairs of people"]], [(0, 1), (0, 2)])),
+]
+
 # In guide order, one or more per guide section (main() fails if a section has none).
 WALKTHROUGHS = [
     ("foundations", "Foundations: training finds the rule", "1. Machine Learning Foundations",
@@ -325,6 +463,16 @@ WALKTHROUGHS = [
      "The same column scaled both ways, with every calculation shown.", SCALING),
     ("regularization", "Regularization: L1 versus L2", "10. Regularization",
      "How a penalty on weights narrows the gap between training and test scores.", REGU),
+    ("imputation", "Imputation: filling the gaps", "11. Feature Types and Imputation",
+     "Mean, forward fill, back fill and mode on the same column of readings.", IMPUTE),
+    ("perceptron", "A perceptron, step by step", "12. Trees, Forests and Perceptrons",
+     "Weights, bias, sum and activation worked out on one neuron.", PERC),
+    ("nntrain", "Training a network: loss, backpropagation and learning rate", "13. Neural Networks in Detail",
+     "One weight updated over three epochs, then a learning rate that is too big.", NNT),
+    ("tuning", "Grid, random and Bayesian search", "14. Hyperparameter Tuning",
+     "Eight kNN settings searched three ways, scored with cross-validation.", TUNE),
+    ("bias-metrics", "Bias metrics on a loan model", "15. Fairness, Bias and Data Quality",
+     "Class imbalance and difference in proportions worked out for two groups.", BIASM),
 ]
 
 

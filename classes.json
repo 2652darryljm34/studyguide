@@ -15,7 +15,8 @@
           "id": "quiz2-guide",
           "title": "Quiz 2 Study Guide",
           "description": "Features and feature types, missing data and imputation, binning, encoding, scaling, validation, the curse of dimensionality, feature selection and PCA, in the same order as the quiz, flashcards and walkthroughs.",
-          "file": "data/itd140-quiz2-guide.json"
+          "file": "data/itd140-quiz2-guide.json",
+          "featured": true
         },
         {
           "id": "quiz3-guide",
@@ -28,7 +29,7 @@
         {
           "id": "supplemental-guide",
           "title": "Full-Course Study Guide",
-          "description": "Whole-course material: foundations, supervised algorithms, evaluation, clustering and distance, the workflow, feature selection, PCA and LDA, encoding, scaling and regularization.",
+          "description": "Final exam review of the whole course in fifteen topics: foundations through regularization, plus feature types and imputation, trees, forests and perceptrons, neural networks in detail, hyperparameter tuning, and fairness and bias.",
           "file": "data/itd140-supplemental-guide.json"
         }
       ],
@@ -55,19 +56,22 @@
           "id": "quiz2-flashcards",
           "title": "Quiz 2 Flashcards",
           "description": "55 flip cards, one per term: the definition on the back, when to use it, and an example. Filter by topic, mark cards as known, and shuffle.",
-          "href": "flashcards.html?file=data%2Fitd140-quiz2-flashcards.json"
+          "href": "flashcards.html?file=data%2Fitd140-quiz2-flashcards.json",
+          "featured": true
         },
         {
           "id": "quiz2-mastery",
           "title": "Quiz 2 Mastery Loop",
           "description": "The Quiz 2 questions as a repeat-until-mastered loop: each must be answered correctly twice in a row and misses come back sooner. Choose the topics and how many questions.",
-          "href": "quiz.html?file=data%2Fitd140-quiz2.json&mode=mastery"
+          "href": "quiz.html?file=data%2Fitd140-quiz2.json&mode=mastery",
+          "featured": true
         },
         {
           "id": "quiz2-walkthroughs",
           "title": "Quiz 2 Step-through Walkthroughs",
           "description": "Eleven walkthroughs, one per study-guide topic: click through imputation, binning, encoding, scaling, cross-validation, feature selection and PCA one step at a time with the numbers worked out.",
-          "href": "walkthrough.html?file=data%2Fitd140-quiz2-walkthroughs.json"
+          "href": "walkthrough.html?file=data%2Fitd140-quiz2-walkthroughs.json",
+          "featured": true
         },
         {
           "id": "quiz3-flashcards",
@@ -96,7 +100,7 @@
         {
           "id": "supplemental-flashcards",
           "title": "Full-Course Flashcards",
-          "description": "46 supplemental cards covering the whole course.",
+          "description": "87 cards covering the whole course for the final, in the same fifteen topics and order as the guide and quiz.",
           "href": "flashcards.html?file=data%2Fitd140-supplemental-flashcards.json"
         },
         {
@@ -114,7 +118,7 @@
         {
           "id": "supplemental-walkthroughs",
           "title": "Step-through Walkthroughs",
-          "description": "Ten walkthroughs, one per study-guide topic: click through each process one step at a time with the numbers worked out, from training a line to k-means, kNN, RFE, PCA versus LDA, scaling and regularization.",
+          "description": "Fifteen walkthroughs, one per study-guide topic: click through each process one step at a time with the numbers worked out, from training a line to training a network, tuning hyperparameters and measuring bias.",
           "href": "walkthrough.html?file=data%2Fitd140-walkthroughs.json"
         }
       ],
@@ -129,7 +133,9 @@
           "id": "quiz2",
           "title": "Quiz 2: Features, Preprocessing and Dimensionality",
           "description": "141 questions across eleven topics, with five short-answer questions and a self-check rubric for each. Choose which topics and how many questions.",
-          "file": "data/itd140-quiz2.json"
+          "file": "data/itd140-quiz2.json",
+          "featured": true,
+          "cta": "Take the quiz"
         },
         {
           "id": "quiz3",
@@ -142,7 +148,7 @@
         {
           "id": "supplemental-quiz",
           "title": "Full-Course Review",
-          "description": "108 questions on the whole course, including feature selection, PCA and LDA, encoding, scaling and regularization.",
+          "description": "191 questions on the whole course for the final, including imputation, forests and perceptrons, neural networks, hyperparameter tuning, and fairness and bias.",
           "file": "data/itd140-supplemental-quiz.json"
         }
       ]

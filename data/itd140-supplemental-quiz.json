@@ -1,6 +1,6 @@
 {
-  "title": "SUPPLEMENTAL: Full-Course Review (not for Quiz 1)",
-  "description": "108 questions across ten topics of the whole course, including feature selection, PCA and LDA, encoding, scaling and regularization. Supplemental practice for later in the course. It is NOT the Quiz 1 review: for the upcoming quiz use Quiz 1: Machine Learning Fundamentals.",
+  "title": "ITD 140 Final: Full-Course Review",
+  "description": "191 questions across fifteen topics of the whole course for the final exam: foundations, supervised algorithms, evaluation, clustering, the workflow, feature selection, PCA, encoding, scaling, regularization, imputation, trees, forests and perceptrons, neural networks, hyperparameter tuning, and fairness and bias.",
   "guideFile": "data/itd140-supplemental-guide.json",
   "shortCount": 40,
   "sections": [
@@ -654,6 +654,71 @@
               "right": "The straight-line distance between two points"
             }
           ]
+        },
+        {
+          "type": "mc",
+          "category": "Clustering and Distance",
+          "question": "What problem does k-means++ address in k-means clustering?",
+          "options": [
+            "Poor final clusters that come from random starting centroids landing close together",
+            "Slow runs that come from a distance formula that costs too much to compute",
+            "Unstable results that come from a cluster count that was never chosen",
+            "Noisy groups that come from points that were never given any labels"
+          ],
+          "correct": 0,
+          "explanation": "k-means++ only changes how the starting centroids are picked: it spreads them apart."
+        },
+        {
+          "type": "mc",
+          "category": "Clustering and Distance",
+          "question": "In hierarchical clustering, what does cutting a dendrogram at one height give you?",
+          "options": [
+            "A set of centroids, one for each feature the cut crosses",
+            "A set of clusters, one for each branch the cut crosses",
+            "A set of labels, one for each training row the cut crosses",
+            "A set of noise points, one for each leaf the cut crosses"
+          ],
+          "correct": 1,
+          "explanation": "The dendrogram is a tree of merges. A higher cut gives fewer, larger clusters; a lower cut gives more, smaller ones."
+        },
+        {
+          "type": "mc",
+          "category": "Clustering and Distance",
+          "question": "A scatter plot shows two crescent-shaped groups plus a few stray points far from both. Which method suits it best?",
+          "options": [
+            "k-means, which fits curved groups and gives each stray its own centroid",
+            "k-means++, which fits curved groups and drops each stray from the data",
+            "DBSCAN, which follows dense regions and marks the strays as noise",
+            "A dendrogram, which fits curved groups and labels each stray as a class"
+          ],
+          "correct": 2,
+          "explanation": "Density-based clustering finds shapes of any form and treats isolated points as noise. Centroid methods prefer round blobs."
+        },
+        {
+          "type": "mc",
+          "category": "Clustering and Distance",
+          "question": "What is the Manhattan (L1) distance between the points (1, 2) and (4, 6)?",
+          "options": [
+            "5",
+            "25",
+            "12",
+            "7"
+          ],
+          "correct": 3,
+          "explanation": "|1 - 4| + |2 - 6| = 3 + 4 = 7. The Euclidean (L2) distance would be 5."
+        },
+        {
+          "type": "mc",
+          "category": "Clustering and Distance",
+          "question": "Which statement correctly compares L1 and L2 distance for the same two points?",
+          "options": [
+            "L1 is never smaller than L2, because it adds the steps instead of cutting across",
+            "L2 is never smaller than L1, because it cuts across instead of adding the steps",
+            "L1 and L2 are equal, because both measure the gap between the same two points",
+            "L1 is smaller than L2 only when the points differ in a single coordinate"
+          ],
+          "correct": 0,
+          "explanation": "For example 3 east and 4 north gives L1 = 7 and L2 = 5. They are equal only when the points differ along a single axis."
         }
       ]
     },
@@ -1050,6 +1115,61 @@
               "right": "Another word for a feature or input"
             }
           ]
+        },
+        {
+          "type": "mc",
+          "category": "Dimensionality Reduction",
+          "question": "A team grows a dataset from 4 features to 400 features but keeps 500 rows. What is the most likely effect?",
+          "options": [
+            "Points become dense, distances spread apart and underfitting gets easier",
+            "Points become sparse, distances look alike and overfitting gets easier",
+            "Points become sparse, distances spread apart and training gets much faster",
+            "Points become dense, distances look alike and the test error always falls"
+          ],
+          "correct": 1,
+          "explanation": "This is the curse of dimensionality: the space grows much faster than the data."
+        },
+        {
+          "type": "mc",
+          "category": "Dimensionality Reduction",
+          "question": "Each feature is split into 8 bins. How many cells does the space have with 3 features?",
+          "options": [
+            "24",
+            "64",
+            "512",
+            "8,000"
+          ],
+          "correct": 2,
+          "explanation": "8 x 8 x 8 = 512 cells. Every added feature multiplies the number of cells, which is why data gets sparse."
+        },
+        {
+          "type": "mc",
+          "category": "Dimensionality Reduction",
+          "question": "Which action is a direct answer to the curse of dimensionality?",
+          "options": [
+            "Apply one-hot encoding so each category gets its own column",
+            "Apply min-max scaling so every column sits between 0 and 1",
+            "Apply forward fill so each missing value copies the one above",
+            "Apply PCA so a few components keep most of the variance"
+          ],
+          "correct": 3,
+          "explanation": "PCA, feature selection and removing correlated columns all cut the number of dimensions. Encoding and scaling do not."
+        },
+        {
+          "type": "tf",
+          "category": "Dimensionality Reduction",
+          "question": "Adding more features to a model can lower its accuracy on new data.",
+          "correct": true,
+          "explanation": "With a fixed number of rows, extra features make the data sparse and invite overfitting."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Dimensionality Reduction",
+          "question": "As features pile up, the data gets sparse and distances lose meaning. This problem is called the curse of ____.",
+          "answers": [
+            "dimensionality"
+          ],
+          "explanation": "The curse of dimensionality."
         }
       ]
     },
@@ -1183,6 +1303,52 @@
               "right": "Implies an order that the categories may not have"
             }
           ]
+        },
+        {
+          "type": "mc",
+          "category": "Feature Encoding",
+          "question": "A 'city' column has 400 different values and one-hot encoding would add 400 columns. Which encoding keeps one column?",
+          "options": [
+            "Target encoding, replacing each city with its average target value",
+            "Binary encoding, replacing each city with a yes or no flag",
+            "Min-max scaling, replacing each city with a value from 0 to 1",
+            "Binarization, replacing each city with a threshold comparison"
+          ],
+          "correct": 0,
+          "explanation": "Target encoding keeps one column however many categories exist. Compute it from the training data only."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Encoding",
+          "question": "In the training data, city A has 5 rows with targets 1, 0, 1, 1, 0. What is the target-encoded value for city A?",
+          "options": [
+            "0.4",
+            "0.6",
+            "3",
+            "5"
+          ],
+          "correct": 1,
+          "explanation": "The average target for city A is 3 / 5 = 0.6."
+        },
+        {
+          "type": "tf",
+          "category": "Feature Encoding",
+          "question": "Target encoding values should be worked out from the training data only, never from the test data.",
+          "correct": true,
+          "explanation": "Using test labels would leak the answers into the features."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Encoding",
+          "question": "A 'smoker' column holds only yes or no. What does binary encoding do to it?",
+          "options": [
+            "Turns it into three columns holding 1 for yes and 0 for no",
+            "Turns it into one column holding the average target for each value",
+            "Turns it into one column holding 1 for yes and 0 for no",
+            "Turns it into one column holding a range from 0 to 1 for each value"
+          ],
+          "correct": 2,
+          "explanation": "A two-valued feature needs just one 0/1 column."
         }
       ]
     },
@@ -1424,6 +1590,902 @@
             "Diagnoses the problem as overfitting",
             "Names a suitable technique and explains how it helps (for example regularization)",
             "Names a second suitable technique and explains how it helps"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "11. Feature Types and Imputation",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Feature Types and Imputation",
+          "question": "Which kind of feature is a shirt size recorded as small, medium or large?",
+          "options": [
+            "Nominal, a category with no meaningful order",
+            "Continuous, a number that can take any value",
+            "Discrete, a number counted in whole steps",
+            "Ordinal, a category with a meaningful order"
+          ],
+          "correct": 3,
+          "explanation": "The sizes are categories (qualitative) and they have a natural order, so they are ordinal."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Types and Imputation",
+          "question": "Which kind of feature is the colour of a car recorded as red, green or blue?",
+          "options": [
+            "Nominal, a category with no meaningful order",
+            "Ordinal, a category with a meaningful order",
+            "Continuous, a number that can take any value",
+            "Discrete, a number counted in whole steps"
+          ],
+          "correct": 0,
+          "explanation": "Colours are categories with no order, so they are nominal."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Types and Imputation",
+          "question": "A column records how many children live in each household. What kind of feature is it?",
+          "options": [
+            "Continuous quantitative, because the values can be fractions",
+            "Discrete quantitative, because the values are whole counts",
+            "Ordinal qualitative, because the values can be ranked",
+            "Nominal qualitative, because the values are only labels"
+          ],
+          "correct": 1,
+          "explanation": "A count of children can only be 0, 1, 2 and so on, so it is discrete. It is quantitative, not qualitative."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Types and Imputation",
+          "question": "A thermometer column holds values such as 21.7 and 19.2. What kind of feature is it?",
+          "options": [
+            "Discrete quantitative, because the values are whole counts",
+            "Ordinal qualitative, because the values can be ranked",
+            "Continuous quantitative, because any value on a scale is possible",
+            "Nominal qualitative, because the values are only labels"
+          ],
+          "correct": 2,
+          "explanation": "Temperatures can take any value on a scale, including fractions."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Types and Imputation",
+          "question": "What is imputation?",
+          "options": [
+            "Removing every column that contains an outlier so the model trains faster",
+            "Converting text categories into columns of zeros and ones",
+            "Rescaling every column so the values sit between zero and one",
+            "Filling in missing values with stand-in values so the row can still be used"
+          ],
+          "correct": 3,
+          "explanation": "Most algorithms cannot accept blanks, so gaps are filled by imputation."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Types and Imputation",
+          "question": "The column 3, ?, 9, ?, 6 has two gaps. What does mean substitution put in each gap?",
+          "options": [
+            "6",
+            "3",
+            "9",
+            "4.5"
+          ],
+          "correct": 0,
+          "explanation": "The known values 3, 9 and 6 have mean (3 + 9 + 6) / 3 = 6."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Types and Imputation",
+          "question": "A 'payment method' column (card, cash, transfer) has some blanks. Which fill is the most natural?",
+          "options": [
+            "Mean substitution, using the average of the payment methods",
+            "Mode substitution, using the most common payment method",
+            "Binarization, using a threshold on the payment methods",
+            "Min-max scaling, using the range of the payment methods"
+          ],
+          "correct": 1,
+          "explanation": "A mean does not exist for categories; the most common value (the mode) does."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Types and Imputation",
+          "question": "Hourly readings are 12, ?, ?, 18. What does a forward fill produce?",
+          "options": [
+            "12, 15, 15, 18",
+            "12, 18, 18, 18",
+            "12, 12, 12, 18",
+            "12, 0, 0, 18"
+          ],
+          "correct": 2,
+          "explanation": "A forward fill copies the previous known value down into each gap."
+        },
+        {
+          "type": "mc",
+          "category": "Feature Types and Imputation",
+          "question": "Hourly readings are 12, ?, ?, 18. What does a back fill produce?",
+          "options": [
+            "12, 12, 12, 18",
+            "12, 15, 15, 18",
+            "12, 0, 0, 18",
+            "12, 18, 18, 18"
+          ],
+          "correct": 3,
+          "explanation": "A back fill copies the next known value up into each gap."
+        },
+        {
+          "type": "tf",
+          "category": "Feature Types and Imputation",
+          "question": "Mean substitution is a safe choice for a numeric column that contains a few extreme outliers.",
+          "correct": false,
+          "explanation": "Outliers drag the mean, so the filled values can be misleading."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Feature Types and Imputation",
+          "question": "Filling blanks in a categorical column with its most common value is called ____ substitution.",
+          "answers": [
+            "mode"
+          ],
+          "explanation": "Mean is for numbers, mode for categories."
+        },
+        {
+          "type": "matching",
+          "category": "Feature Types and Imputation",
+          "question": "Match each imputation method to how it fills a gap.",
+          "pairs": [
+            {
+              "left": "Mean substitution",
+              "right": "Average of the known values"
+            },
+            {
+              "left": "Mode substitution",
+              "right": "Most common known value"
+            },
+            {
+              "left": "Forward fill",
+              "right": "Previous row's value"
+            },
+            {
+              "left": "Back fill",
+              "right": "Next row's value"
+            }
+          ]
+        },
+        {
+          "type": "short_answer",
+          "category": "Feature Types and Imputation",
+          "question": "A table of hourly sensor readings has gaps, and a separate 'vehicle type' column also has gaps. Pick an imputation method for each column and explain why.",
+          "answerLang": null,
+          "modelAnswer": "For the hourly readings, forward fill or back fill suits ordered data, since a reading is usually close to its neighbours in time; mean substitution is a fallback for numbers when order does not matter. For the vehicle type, a nominal category has no average, so mode substitution fills each gap with the most common type. Whatever fill is used should be worked out from the training data and reused on the test data.",
+          "rubric": [
+            "Chooses forward or back fill (or mean) for the ordered numeric column and says why",
+            "Chooses mode substitution for the categorical column and says a mean cannot be used",
+            "Mentions computing fill values from training data only (or flagging missing values)"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "12. Trees, Forests and Perceptrons",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Trees, Forests and Perceptrons",
+          "question": "How does a random forest reach its prediction for a new example?",
+          "options": [
+            "Many trees each predict a class and the class with the most votes wins",
+            "One deep tree predicts a class and that class is kept as the answer",
+            "Many trees each predict a number and the average of them is rounded",
+            "One neuron predicts a class and that class is passed through a sigmoid"
+          ],
+          "correct": 0,
+          "explanation": "A forest combines many trees trained on random samples of the rows and features."
+        },
+        {
+          "type": "mc",
+          "category": "Trees, Forests and Perceptrons",
+          "question": "Why does a random forest usually overfit less than a single deep decision tree?",
+          "options": [
+            "Pruning each tree down to one question removes every quirk it learned",
+            "Averaging the votes of many different trees cancels out each tree's quirks",
+            "Training each tree on every row at once lets it memorize the true pattern",
+            "Feeding each tree the same features makes all the trees agree with each other"
+          ],
+          "correct": 1,
+          "explanation": "Each tree sees a random sample, so their individual errors differ and voting reduces variance."
+        },
+        {
+          "type": "mc",
+          "category": "Trees, Forests and Perceptrons",
+          "question": "What does a single perceptron compute?",
+          "options": [
+            "A vote taken among the labels of the nearest training points",
+            "A distance measured from the input to the nearest cluster centre",
+            "An activation applied to a weighted sum of the inputs plus a bias",
+            "A split chosen on the feature that best separates the classes"
+          ],
+          "correct": 2,
+          "explanation": "A perceptron is one artificial neuron."
+        },
+        {
+          "type": "mc",
+          "category": "Trees, Forests and Perceptrons",
+          "question": "What is the role of the bias in a neuron?",
+          "options": [
+            "It scales each input, changing how much that input counts",
+            "It squeezes the sum, changing the range of the output",
+            "It measures the error, changing how far the weights move",
+            "It shifts the sum, changing where the neuron switches on"
+          ],
+          "correct": 3,
+          "explanation": "A weight scales one input; the bias is a constant added to the total."
+        },
+        {
+          "type": "mc",
+          "category": "Trees, Forests and Perceptrons",
+          "question": "What does the weight on an input control?",
+          "options": [
+            "How strongly that input influences the neuron's sum",
+            "How far the neuron's sum is shifted before the activation",
+            "How wide the range of the neuron's output is allowed to be",
+            "How many neurons receive the output of this neuron next"
+          ],
+          "correct": 0,
+          "explanation": "Training adjusts the weights to reduce the loss."
+        },
+        {
+          "type": "mc",
+          "category": "Trees, Forests and Perceptrons",
+          "question": "A neuron has inputs (1, 4), weights (2, 0.5) and bias -1. What is its output with a ReLU activation?",
+          "options": [
+            "2",
+            "3",
+            "-1",
+            "0"
+          ],
+          "correct": 1,
+          "explanation": "The sum is 2 + 2 - 1 = 3. ReLU keeps positive values, so the output is 3."
+        },
+        {
+          "type": "mc",
+          "category": "Trees, Forests and Perceptrons",
+          "question": "What does ReLU output for a sum of -3?",
+          "options": [
+            "-3",
+            "3",
+            "0",
+            "0.05"
+          ],
+          "correct": 2,
+          "explanation": "ReLU outputs 0 for any negative sum and the sum itself otherwise."
+        },
+        {
+          "type": "mc",
+          "category": "Trees, Forests and Perceptrons",
+          "question": "Which activation squeezes any sum into a smooth value between 0 and 1?",
+          "options": [
+            "ReLU, often used at the output of a yes/no classifier",
+            "Sigmoid, often used to scale the inputs of a distance model",
+            "ReLU, often used to squeeze a sum into a smooth range",
+            "Sigmoid, often used at the output of a yes/no classifier"
+          ],
+          "correct": 3,
+          "explanation": "Sigmoid gives a probability-like value; ReLU gives 0 or the sum."
+        },
+        {
+          "type": "mc",
+          "category": "Trees, Forests and Perceptrons",
+          "question": "Why does a network need an activation function between its layers?",
+          "options": [
+            "Without one, stacked layers collapse into a single linear model",
+            "Without one, the layers cannot be given any starting weights",
+            "Without one, the loss can no longer be measured on the output",
+            "Without one, the training rows must be shuffled before each pass"
+          ],
+          "correct": 0,
+          "explanation": "A chain of purely linear steps is still just one linear step."
+        },
+        {
+          "type": "tf",
+          "category": "Trees, Forests and Perceptrons",
+          "question": "A single perceptron can learn any pattern, including classes that no straight line can separate.",
+          "correct": false,
+          "explanation": "A single perceptron learns only linearly separable classes."
+        },
+        {
+          "type": "tf",
+          "category": "Trees, Forests and Perceptrons",
+          "question": "A random forest is built from many decision trees.",
+          "correct": true,
+          "explanation": "Each tree is trained on a random sample, and the trees vote."
+        },
+        {
+          "type": "matching",
+          "category": "Trees, Forests and Perceptrons",
+          "question": "Match each term to its meaning.",
+          "pairs": [
+            {
+              "left": "Weight",
+              "right": "How much one input counts"
+            },
+            {
+              "left": "Bias",
+              "right": "Constant added to the sum"
+            },
+            {
+              "left": "ReLU",
+              "right": "0 for negatives, otherwise the sum"
+            },
+            {
+              "left": "Random forest",
+              "right": "Many trees that vote"
+            }
+          ]
+        },
+        {
+          "type": "short_answer",
+          "category": "Trees, Forests and Perceptrons",
+          "question": "Describe step by step how a perceptron turns three inputs into an output, naming the weights, the bias and the activation function.",
+          "answerLang": null,
+          "modelAnswer": "Each input is multiplied by its own weight, which says how much that input counts. The three products are added together and the bias, a constant, is added to the total. The sum is then passed through an activation function such as ReLU (0 for negatives, the sum otherwise) or sigmoid (a value between 0 and 1). Training adjusts the weights and the bias so the outputs match the labels.",
+          "rubric": [
+            "Says each input is multiplied by a weight and the results are summed",
+            "Says the bias is added to the sum",
+            "Says an activation function (ReLU or sigmoid) turns the sum into the output"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "13. Neural Networks in Detail",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Neural Networks in Detail",
+          "question": "Which of these is a hyperparameter of a neural network?",
+          "options": [
+            "The weight on one connection, found while the network trains",
+            "The learning rate, chosen before training starts",
+            "The bias on one neuron, found while the network trains",
+            "The loss on one example, found while the network trains"
+          ],
+          "correct": 1,
+          "explanation": "Weights and biases are parameters; learning rate, number of layers and neurons, activation function and epochs are hyperparameters."
+        },
+        {
+          "type": "mc",
+          "category": "Neural Networks in Detail",
+          "question": "Which of these are the parameters of a neural network?",
+          "options": [
+            "The learning rate and number of epochs that you choose",
+            "The layers and activation functions that you choose",
+            "The weights and biases that training learns",
+            "The loss and accuracy scores that testing reports"
+          ],
+          "correct": 2,
+          "explanation": "Parameters are learned from the data; hyperparameters are set beforehand."
+        },
+        {
+          "type": "mc",
+          "category": "Neural Networks in Detail",
+          "question": "What does the loss function tell a network during training?",
+          "options": [
+            "How fast its weights should move, a number it tries to keep fixed",
+            "How many layers it should have, a number it tries to grow",
+            "How many epochs remain, a number it tries to count down",
+            "How wrong its current predictions are, a number it tries to shrink"
+          ],
+          "correct": 3,
+          "explanation": "Training tries to lower the loss, for example mean squared error."
+        },
+        {
+          "type": "mc",
+          "category": "Neural Networks in Detail",
+          "question": "What is the likely effect of setting the learning rate far too large?",
+          "options": [
+            "The weights overshoot and the loss bounces around or grows",
+            "The weights barely move and the loss falls very slowly",
+            "The weights freeze at zero and the loss stays constant",
+            "The weights match the training set and the loss reaches zero"
+          ],
+          "correct": 0,
+          "explanation": "Too small trains slowly; too large overshoots the best values."
+        },
+        {
+          "type": "mc",
+          "category": "Neural Networks in Detail",
+          "question": "What does feed-forward, fully connected mean for a network?",
+          "options": [
+            "Data moves both ways and each neuron feeds only the nearest neuron",
+            "Data moves one way and each neuron feeds every neuron in the next layer",
+            "Data moves one way and each neuron feeds only one neuron in the next layer",
+            "Data moves in loops and each neuron feeds every neuron in its own layer"
+          ],
+          "correct": 1,
+          "explanation": "Fully connected layers join every neuron to every neuron in the next layer."
+        },
+        {
+          "type": "mc",
+          "category": "Neural Networks in Detail",
+          "question": "What does backpropagation do in training?",
+          "options": [
+            "Works forwards from the inputs to pick each feature that is dropped",
+            "Works backwards from the labels to choose each cluster that is merged",
+            "Works backwards from the loss to update each weight so the loss falls",
+            "Works forwards from the weights to count each epoch that is left"
+          ],
+          "correct": 2,
+          "explanation": "It finds how much each weight contributed to the loss and updates it, every epoch."
+        },
+        {
+          "type": "mc",
+          "category": "Neural Networks in Detail",
+          "question": "A weight is 0.80, its gradient is 0.50 and the learning rate is 0.1. What is the weight after one update?",
+          "options": [
+            "0.85",
+            "0.30",
+            "0.40",
+            "0.75"
+          ],
+          "correct": 3,
+          "explanation": "new weight = 0.80 - 0.1 x 0.50 = 0.75."
+        },
+        {
+          "type": "mc",
+          "category": "Neural Networks in Detail",
+          "question": "A weight is 1.20, its gradient is -0.40 and the learning rate is 0.5. What is the weight after one update?",
+          "options": [
+            "1.40",
+            "1.00",
+            "0.80",
+            "1.60"
+          ],
+          "correct": 0,
+          "explanation": "new weight = 1.20 - 0.5 x (-0.40) = 1.40. A negative gradient raises the weight."
+        },
+        {
+          "type": "mc",
+          "category": "Neural Networks in Detail",
+          "question": "What is an epoch?",
+          "options": [
+            "One update of a single weight using a single gradient",
+            "One full pass of the training data through the network",
+            "One layer of neurons between the input and the output",
+            "One check of the finished network against the test set"
+          ],
+          "correct": 1,
+          "explanation": "Training normally runs many epochs."
+        },
+        {
+          "type": "mc",
+          "category": "Neural Networks in Detail",
+          "question": "How does deep learning differ from traditional machine learning on features?",
+          "options": [
+            "Hidden layers copy the hand-picked features, so more of them are needed",
+            "Hidden layers drop the raw features, so labels are no longer needed",
+            "Hidden layers build their own features, so fewer hand-picked ones are needed",
+            "Hidden layers sort the hand-picked features, so scaling is no longer needed"
+          ],
+          "correct": 2,
+          "explanation": "Deep learning stacks 2 or more hidden layers; traditional models rely on features chosen by hand."
+        },
+        {
+          "type": "tf",
+          "category": "Neural Networks in Detail",
+          "question": "Backpropagation updates the weights each epoch with the aim of reducing the loss.",
+          "correct": true,
+          "explanation": "That is the training loop: forward pass, loss, backpropagation, update."
+        },
+        {
+          "type": "tf",
+          "category": "Neural Networks in Detail",
+          "question": "The learning rate is a parameter that the network learns during training.",
+          "correct": false,
+          "explanation": "It is a hyperparameter chosen before training."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Neural Networks in Detail",
+          "question": "One full pass over the training data is called an ____.",
+          "answers": [
+            "epoch"
+          ],
+          "explanation": "Training repeats for many epochs."
+        },
+        {
+          "type": "matching",
+          "category": "Neural Networks in Detail",
+          "question": "Match each neural network term to its meaning.",
+          "pairs": [
+            {
+              "left": "Loss function",
+              "right": "Measures how wrong predictions are"
+            },
+            {
+              "left": "Learning rate",
+              "right": "Size of each weight update"
+            },
+            {
+              "left": "Backpropagation",
+              "right": "Finds each weight's share of the error"
+            },
+            {
+              "left": "Epoch",
+              "right": "One pass over the training data"
+            }
+          ]
+        },
+        {
+          "type": "short_answer",
+          "category": "Neural Networks in Detail",
+          "question": "Explain how a feed-forward neural network is trained, naming the loss function, backpropagation, the learning rate and an epoch.",
+          "answerLang": null,
+          "modelAnswer": "In each epoch the training data goes forward through the layers and the network makes predictions. The loss function measures how wrong they are. Backpropagation works backwards from the output to find how much each weight and bias contributed to the loss. Each weight is then updated by subtracting the learning rate times its gradient, so the loss goes down. An epoch is one full pass over the training data, and training repeats for many epochs.",
+          "rubric": [
+            "Says data goes forward and the loss function measures the error",
+            "Says backpropagation finds each weight's contribution and the weights are updated",
+            "Says the learning rate sets the step size and an epoch is one pass over the data"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "14. Hyperparameter Tuning",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Hyperparameter Tuning",
+          "question": "Which of these is a hyperparameter?",
+          "options": [
+            "The split threshold at one node, found while the tree is grown",
+            "The coefficient of a regression line, found while the model is fitted",
+            "The weight on a connection, found while the network is trained",
+            "The maximum depth of a decision tree, set before training"
+          ],
+          "correct": 3,
+          "explanation": "You set hyperparameters; training finds parameters."
+        },
+        {
+          "type": "mc",
+          "category": "Hyperparameter Tuning",
+          "question": "What does grid search do?",
+          "options": [
+            "Tries every combination of the listed hyperparameter values",
+            "Tries a fixed number of combinations drawn at random from the ranges",
+            "Tries the next combination chosen from the scores of earlier trials",
+            "Tries one combination and keeps it if its score beats the baseline"
+          ],
+          "correct": 0,
+          "explanation": "It is thorough, but the cost multiplies with each added setting."
+        },
+        {
+          "type": "mc",
+          "category": "Hyperparameter Tuning",
+          "question": "What is the main advantage of randomized search over grid search?",
+          "options": [
+            "It tries every combination in the grid, so no value is ever missed",
+            "It tries a fixed number of draws, so the cost stays under control",
+            "It tries the next draw from earlier scores, so few trials are needed",
+            "It tries each draw on the test set, so the final score is more honest"
+          ],
+          "correct": 1,
+          "explanation": "A fixed number of random draws often finds a near-best setting for far less work."
+        },
+        {
+          "type": "mc",
+          "category": "Hyperparameter Tuning",
+          "question": "How does Bayesian search choose which hyperparameters to try next?",
+          "options": [
+            "It uses a fixed list of settings to try each combination in turn",
+            "It uses a random draw to pick each setting independently of the past",
+            "It uses the scores of the trials so far to pick the most promising setting",
+            "It uses the test set to pick the setting that scores highest there"
+          ],
+          "correct": 2,
+          "explanation": "Each trial informs the next, so fewer trials are needed."
+        },
+        {
+          "type": "mc",
+          "category": "Hyperparameter Tuning",
+          "question": "A grid has 4 values of k and 3 distance measures. How many combinations does a grid search try?",
+          "options": [
+            "7",
+            "9",
+            "43",
+            "12"
+          ],
+          "correct": 3,
+          "explanation": "4 x 3 = 12 combinations."
+        },
+        {
+          "type": "mc",
+          "category": "Hyperparameter Tuning",
+          "question": "A grid search has 24 combinations and scores each with 5-fold cross-validation. How many models are fitted?",
+          "options": [
+            "120",
+            "29",
+            "24",
+            "5"
+          ],
+          "correct": 0,
+          "explanation": "24 x 5 = 120 fits. A randomized search of 10 draws would need 10 x 5 = 50."
+        },
+        {
+          "type": "mc",
+          "category": "Hyperparameter Tuning",
+          "question": "Why is each hyperparameter setting scored with k-fold cross-validation rather than one train-test split?",
+          "options": [
+            "One extra split could otherwise leak the test labels into the features",
+            "One lucky or unlucky split could otherwise decide which setting wins",
+            "One single fold could otherwise change the number of parameters learned",
+            "One fixed split could otherwise stop the grid from trying every value"
+          ],
+          "correct": 1,
+          "explanation": "Averaging over the folds gives a steadier score for each setting."
+        },
+        {
+          "type": "mc",
+          "category": "Hyperparameter Tuning",
+          "question": "Which situation points to randomized or Bayesian search instead of grid search?",
+          "options": [
+            "Each trial is fast and there are only two hyperparameters to tune",
+            "Each trial is slow and there is only one hyperparameter to tune",
+            "Each trial is slow and there are many hyperparameters to tune",
+            "Each trial is fast and every value must be tested at least once"
+          ],
+          "correct": 2,
+          "explanation": "Grid cost multiplies with every added setting."
+        },
+        {
+          "type": "tf",
+          "category": "Hyperparameter Tuning",
+          "question": "A grid search finds the best-scoring combination among the values you listed.",
+          "correct": true,
+          "explanation": "It tries them all, though a value you left out is never tried."
+        },
+        {
+          "type": "tf",
+          "category": "Hyperparameter Tuning",
+          "question": "Tuning hyperparameters repeatedly against the final test set is good practice.",
+          "correct": false,
+          "explanation": "Keep the test set aside; tune with cross-validation on the training data."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Hyperparameter Tuning",
+          "question": "A ____ search tries a fixed number of randomly drawn hyperparameter combinations.",
+          "answers": [
+            "randomized",
+            "random"
+          ],
+          "explanation": "Randomized search."
+        },
+        {
+          "type": "matching",
+          "category": "Hyperparameter Tuning",
+          "question": "Match each search method to its description.",
+          "pairs": [
+            {
+              "left": "Grid search",
+              "right": "Every listed combination"
+            },
+            {
+              "left": "Randomized search",
+              "right": "A fixed number of random draws"
+            },
+            {
+              "left": "Bayesian search",
+              "right": "Next try chosen from past scores"
+            }
+          ]
+        },
+        {
+          "type": "short_answer",
+          "category": "Hyperparameter Tuning",
+          "question": "Compare grid search, randomized search and Bayesian search for tuning hyperparameters, and say how k-fold cross-validation is used with them.",
+          "answerLang": null,
+          "modelAnswer": "Grid search tries every combination of the listed values, which is thorough but gets expensive as settings are added. Randomized search tries a fixed number of random combinations, which is cheaper and often near-best. Bayesian search uses the results of earlier trials to choose the next setting, so it needs fewer trials. With each, every candidate is scored by k-fold cross-validation, so the choice does not depend on one split, and the test set is kept for the final check.",
+          "rubric": [
+            "Describes grid search as trying every combination and growing costly",
+            "Describes randomized search as a fixed number of random draws",
+            "Describes Bayesian search as using past results to pick the next try",
+            "Says each candidate is scored with k-fold cross-validation"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "15. Fairness, Bias and Data Quality",
+      "questions": [
+        {
+          "type": "mc",
+          "category": "Fairness, Bias and Data Quality",
+          "question": "What is the difference between group fairness and individual fairness?",
+          "options": [
+            "Group fairness treats similar people alike; individual fairness compares outcomes between groups",
+            "Group fairness compares accuracy between models; individual fairness compares accuracy between rows",
+            "Group fairness checks the training data only; individual fairness checks the test data only",
+            "Group fairness compares outcomes between groups; individual fairness treats similar people alike"
+          ],
+          "correct": 3,
+          "explanation": "The two can conflict: equalizing group outcomes may mean treating two similar individuals differently."
+        },
+        {
+          "type": "mc",
+          "category": "Fairness, Bias and Data Quality",
+          "question": "A face-recognition model is trained on photos that are almost all of adults. Which bias is this?",
+          "options": [
+            "Sample bias, because the data does not represent everyone the model will serve",
+            "Measurement bias, because the camera records some faces less accurately than others",
+            "Confirmation bias, because the team kept only the photos that matched its belief",
+            "Historical bias, because the past treated some groups unfairly in the records"
+          ],
+          "correct": 0,
+          "explanation": "The data under-represents some groups of the population."
+        },
+        {
+          "type": "mc",
+          "category": "Fairness, Bias and Data Quality",
+          "question": "A phone survey about a city service reaches only people who answer calls on weekday afternoons. Which bias is this?",
+          "options": [
+            "Sample bias, because the survey was far too small to be reliable",
+            "Selection bias, because the way people were chosen skews who is in the data",
+            "Measurement bias, because the phone line records answers inaccurately",
+            "Confirmation bias, because the team read answers to fit its own belief"
+          ],
+          "correct": 1,
+          "explanation": "The method of choosing respondents skews the data."
+        },
+        {
+          "type": "mc",
+          "category": "Fairness, Bias and Data Quality",
+          "question": "A fitness sensor reads heart rate less accurately on darker skin. Which bias is this?",
+          "options": [
+            "Selection bias, because the wearers were picked in a skewed way",
+            "Sample bias, because too few darker-skinned people were included",
+            "Measurement bias, because the recording tool is less accurate for some people",
+            "Historical bias, because the past treated those people unfairly"
+          ],
+          "correct": 2,
+          "explanation": "The values themselves are recorded with a group-dependent error."
+        },
+        {
+          "type": "mc",
+          "category": "Fairness, Bias and Data Quality",
+          "question": "An analyst keeps only the experiment runs that agree with a favourite theory. Which bias is this?",
+          "options": [
+            "Selection bias, because the participants were chosen in a skewed way",
+            "Measurement bias, because the tool recorded the values inaccurately",
+            "Historical bias, because the old records treated some groups unfairly",
+            "Confirmation bias, because the evidence is read to support an existing belief"
+          ],
+          "correct": 3,
+          "explanation": "Confirmation bias is about how people collect and read evidence."
+        },
+        {
+          "type": "mc",
+          "category": "Fairness, Bias and Data Quality",
+          "question": "How does historical bias differ from selection bias?",
+          "options": [
+            "Historical bias stays even with perfect sampling; selection bias comes from how the data was gathered",
+            "Selection bias stays even with perfect sampling; historical bias comes from how the data was gathered",
+            "Historical bias comes from the model's loss function; selection bias comes from its activation function",
+            "Historical bias affects the test data only; selection bias affects the training data only"
+          ],
+          "correct": 0,
+          "explanation": "Historical bias is an accurate record of an unfair world. Selection bias is a flaw in the data collection."
+        },
+        {
+          "type": "mc",
+          "category": "Fairness, Bias and Data Quality",
+          "question": "Group A has 300 members and group B has 100. What is the normalized class imbalance (n_a - n_d) / (n_a + n_d)?",
+          "options": [
+            "0.25",
+            "0.5",
+            "2",
+            "0.75"
+          ],
+          "correct": 1,
+          "explanation": "(300 - 100) / 400 = 0.5."
+        },
+        {
+          "type": "mc",
+          "category": "Fairness, Bias and Data Quality",
+          "question": "In group A, 90 of 120 applicants are approved. In group B, 33 of 60 are approved. What is the difference in proportions of labels, q_a - q_d?",
+          "options": [
+            "0.02",
+            "0.75",
+            "0.20",
+            "57"
+          ],
+          "correct": 2,
+          "explanation": "q_a = 90 / 120 = 0.75 and q_d = 33 / 60 = 0.55, so the difference is 0.20."
+        },
+        {
+          "type": "mc",
+          "category": "Fairness, Bias and Data Quality",
+          "question": "A difference in proportions of labels of 0 means what?",
+          "options": [
+            "Both groups have exactly the same number of members",
+            "Both groups were measured with exactly the same tool",
+            "Both groups were chosen with exactly the same method",
+            "Both groups receive the positive outcome at the same rate"
+          ],
+          "correct": 3,
+          "explanation": "It compares the share of positive outcomes between two groups."
+        },
+        {
+          "type": "mc",
+          "category": "Fairness, Bias and Data Quality",
+          "question": "Which set lists characteristics of high-quality data?",
+          "options": [
+            "Accurate, complete, consistent, current and representative",
+            "Accurate, compressed, consistent, encrypted and one-hot encoded",
+            "Scaled, complete, shuffled, current and reduced by PCA",
+            "Large, labelled, sorted, normalized and free of every outlier"
+          ],
+          "correct": 0,
+          "explanation": "Representative data covers everyone the model will serve."
+        },
+        {
+          "type": "tf",
+          "category": "Fairness, Bias and Data Quality",
+          "question": "Removing the sensitive column, such as gender, from the data guarantees that a model is fair.",
+          "correct": false,
+          "explanation": "Other columns can act as proxies, and historical bias remains in the labels."
+        },
+        {
+          "type": "tf",
+          "category": "Fairness, Bias and Data Quality",
+          "question": "Historical bias can be present even when the sample was drawn perfectly at random.",
+          "correct": true,
+          "explanation": "The data faithfully records an unfair past."
+        },
+        {
+          "type": "fill_blank",
+          "category": "Fairness, Bias and Data Quality",
+          "question": "Building models that are fair, explainable and accountable is called ____ AI.",
+          "answers": [
+            "responsible"
+          ],
+          "explanation": "Responsible AI."
+        },
+        {
+          "type": "matching",
+          "category": "Fairness, Bias and Data Quality",
+          "question": "Match each kind of bias to its description.",
+          "pairs": [
+            {
+              "left": "Sample bias",
+              "right": "Data does not represent the population"
+            },
+            {
+              "left": "Selection bias",
+              "right": "How examples were chosen skews the data"
+            },
+            {
+              "left": "Measurement bias",
+              "right": "Values are recorded less accurately for some"
+            },
+            {
+              "left": "Historical bias",
+              "right": "An unfair past is recorded accurately"
+            }
+          ]
+        },
+        {
+          "type": "short_answer",
+          "category": "Fairness, Bias and Data Quality",
+          "question": "A bank's loan model approves 75% of one group and 55% of another. Explain how you would describe this with a bias metric, and what group fairness and individual fairness would each ask.",
+          "answerLang": null,
+          "modelAnswer": "The difference in proportions of labels is 0.75 - 0.55 = 0.20, a gap in approval rates between the groups, and the normalized class imbalance shows whether the group sizes are even. Group fairness asks whether the groups receive similar outcomes, so a 0.20 gap is a warning sign. Individual fairness asks whether two similar applicants get similar decisions whichever group they belong to. The two can conflict, so the team must say which one it is measuring and look for sample, selection, measurement or historical bias behind the gap.",
+          "rubric": [
+            "Computes or describes the difference in proportions of labels (0.20)",
+            "Explains group fairness as similar outcomes between groups",
+            "Explains individual fairness as similar people treated alike",
+            "Mentions looking for a kind of bias behind the gap"
           ]
         }
       ]

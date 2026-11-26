@@ -1,6 +1,6 @@
 {
-  "title": "SUPPLEMENTAL: Full-Course Study Guide (not for Quiz 1)",
-  "description": "Supplemental, whole-course material: foundations, supervised algorithms, evaluation, clustering and distance, the workflow, feature selection, PCA and LDA, encoding, scaling and regularization. This is NOT the Quiz 1 guide.",
+  "title": "ITD 140 Final: Full-Course Study Guide",
+  "description": "Whole-course final exam review: foundations, supervised algorithms, evaluation, clustering, the workflow, feature selection, PCA and LDA, encoding, scaling, regularization, feature types and imputation, trees, forests and perceptrons, neural networks in detail, hyperparameter tuning, and fairness and bias.",
   "quizFile": "data/itd140-supplemental-quiz.json",
   "flashcardsFile": "data/itd140-supplemental-flashcards.json",
   "sections": [
@@ -9,8 +9,8 @@
       "blocks": [
         {
           "type": "note",
-          "label": "SUPPLEMENTAL:",
-          "text": "This guide covers the whole course and is **not** the Quiz 1 guide. For the upcoming quiz, use the Quiz 1 Study Guide."
+          "label": "Final exam:",
+          "text": "This guide covers the whole course for the final. Earlier quiz guides cover their own topics in more depth."
         },
         {
           "type": "heading",
@@ -272,7 +272,15 @@
         },
         {
           "type": "paragraph",
-          "text": "Example: 3 blocks east and 4 north is Manhattan **7** and Euclidean **5**."
+          "text": "Example: 3 blocks east and 4 north is Manhattan **7** and Euclidean **5**. Manhattan is the **L1** distance and Euclidean the **L2** distance."
+        },
+        {
+          "type": "list",
+          "items": [
+            "**k-means++** only changes the **starting centroids**: it spreads them out instead of picking them purely at random, so the final clusters are steadier.",
+            "**Hierarchical clustering** is drawn as a **dendrogram**, a tree of merges. Cutting the tree at a chosen height gives a chosen number of clusters.",
+            "**DBSCAN** finds groups of any shape and labels isolated points as **noise** (outliers) instead of forcing them into a cluster."
+          ]
         }
       ]
     },
@@ -416,6 +424,18 @@
         {
           "type": "paragraph",
           "text": "Example: if LD1 separates two classes cleanly and LD2 does not, drop LD2 and still get the same results."
+        },
+        {
+          "type": "subheading",
+          "text": "The curse of dimensionality"
+        },
+        {
+          "type": "paragraph",
+          "text": "Every feature added is another dimension, and the space grows far faster than the data. Examples spread **thin (sparse)**, **distances between points become similar** so neighbours stop meaning much, the model gets **more complex and slower**, and it **overfits** more easily unless the number of examples grows too."
+        },
+        {
+          "type": "paragraph",
+          "text": "Example: with 10 bins per feature, 1 feature has 10 cells, 3 features have 1,000 and 5 features have 100,000. Fixes: **feature selection** (filter, wrapper, embedded), **elimination** of correlated or low-variance columns, or **dimensionality reduction** such as PCA."
         }
       ]
     },
@@ -455,6 +475,8 @@
         {
           "type": "list",
           "items": [
+            "**Binary encoding:** a two-valued feature becomes 0 and 1 (yes = 1, no = 0). The name is also used for writing a category number in binary digits, one column per bit.",
+            "**Target encoding:** each category is replaced by the **average of the target** for that category. It keeps one column however many categories there are, but a rare category's average is noisy and the target can **leak** into the feature, so compute it from the training data only.",
             "In pandas: **pd.get_dummies(column)** one-hot encodes a column.",
             "The course slides name scikit-learn's LabelEncoder here. Be aware that it maps categories to integer codes; OneHotEncoder is the class that produces binary columns.",
             "The slides also show a 'multiple-hot' style that writes each category's number in binary and uses one column per bit, which needs fewer columns than one-hot. (Elsewhere, 'multi-hot' can mean a row with several 1s. Use your instructor's wording.)"
@@ -531,6 +553,417 @@
           "type": "note",
           "label": "Remember:",
           "text": "LASSO = L1. If a model scores 99% on training and 72% on test, regularization, feature selection, more data or a larger k (for kNN) can all help."
+        }
+      ]
+    },
+    {
+      "name": "11. Feature Types and Imputation",
+      "blocks": [
+        {
+          "type": "subheading",
+          "text": "What is a feature?"
+        },
+        {
+          "type": "paragraph",
+          "text": "A **feature** is one measurable input column that describes each example. The **target** (label) is the column the model must predict."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Kind",
+            "Meaning",
+            "Example"
+          ],
+          "rows": [
+            [
+              "**Continuous** (quantitative)",
+              "Any value on a scale, including fractions",
+              "Height 172.4 cm"
+            ],
+            [
+              "**Discrete** (quantitative)",
+              "Countable whole numbers",
+              "Number of siblings"
+            ],
+            [
+              "**Nominal** (qualitative)",
+              "Categories with **no order**",
+              "Colour, city"
+            ],
+            [
+              "**Ordinal** (qualitative)",
+              "Categories with a **meaningful order**",
+              "Small, medium, large"
+            ]
+          ]
+        },
+        {
+          "type": "subheading",
+          "text": "Imputation: filling in missing values"
+        },
+        {
+          "type": "paragraph",
+          "text": "Most algorithms cannot accept blanks. **Imputation** fills each gap with a stand-in value so the row can still be used."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Method",
+            "How it fills the gap",
+            "Best for"
+          ],
+          "rows": [
+            [
+              "**Mean substitution**",
+              "The average of the known values",
+              "Numeric columns with no strong outliers"
+            ],
+            [
+              "**Mode substitution**",
+              "The most common value",
+              "Categorical columns"
+            ],
+            [
+              "**Forward fill**",
+              "Copies the previous row's value down",
+              "Ordered data such as time series"
+            ],
+            [
+              "**Back fill**",
+              "Copies the next row's value up",
+              "Ordered data such as time series"
+            ],
+            [
+              "**Arbitrary / random value**",
+              "A fixed marker (such as -1) or a random draw",
+              "Flagging that the value was missing"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Worked example: the column 4, ?, 8, ?, 6 has known mean (4 + 8 + 6) / 3 = **6**, so both gaps become 6. The column 10, ?, ?, 14 becomes 10, 10, 10, 14 with a forward fill and 10, 14, 14, 14 with a back fill."
+        },
+        {
+          "type": "note",
+          "label": "Remember:",
+          "text": "Work out the fill value from the **training** data only, then reuse it on the test data. An outlier drags the mean, so it can mislead mean substitution."
+        }
+      ]
+    },
+    {
+      "name": "12. Trees, Forests and Perceptrons",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Model",
+            "How it decides",
+            "Notes"
+          ],
+          "rows": [
+            [
+              "**Decision tree**",
+              "A chain of yes/no questions about feature values ends in a class",
+              "Easy to read; one deep tree **overfits**"
+            ],
+            [
+              "**Random forest**",
+              "Many trees, each trained on a random sample of rows and features; the class with the **most votes** wins",
+              "Less overfitting and less variance than one tree; harder to read"
+            ],
+            [
+              "**Perceptron**",
+              "One artificial neuron: weighted sum of inputs plus a bias, then an activation",
+              "Learns only **linearly separable** classes"
+            ]
+          ]
+        },
+        {
+          "type": "subheading",
+          "text": "Inside a neuron"
+        },
+        {
+          "type": "list",
+          "items": [
+            "**Weight:** how much one input counts. Training adjusts the weights.",
+            "**Bias:** a constant added to the sum, shifting the point at which the neuron switches on.",
+            "**Activation function:** turns the sum into the output. Without one, stacked layers collapse into a single linear model."
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Activation",
+            "Output",
+            "Typical use"
+          ],
+          "rows": [
+            [
+              "**ReLU**",
+              "0 if the sum is negative, otherwise the sum itself",
+              "Hidden layers"
+            ],
+            [
+              "**Sigmoid**",
+              "A smooth S-curve between 0 and 1",
+              "Output of a yes/no (binary) classifier"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Worked example: inputs (2, 3), weights (0.5, -1), bias 1. The sum is 1 - 3 + 1 = **-1**. ReLU gives **0**. Sigmoid gives about **0.27**."
+        },
+        {
+          "type": "note",
+          "label": "Remember:",
+          "text": "A neural network is many of these neurons arranged in layers. A single perceptron cannot learn a pattern that no straight line can separate."
+        }
+      ]
+    },
+    {
+      "name": "13. Neural Networks in Detail",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Term",
+            "Meaning"
+          ],
+          "rows": [
+            [
+              "**Neuron**",
+              "One unit: weighted sum plus bias, then an activation"
+            ],
+            [
+              "**Parameters**",
+              "The **weights and biases**, learned during training"
+            ],
+            [
+              "**Hyperparameters**",
+              "Settings chosen **before** training: learning rate, number of layers and neurons, activation function, epochs"
+            ],
+            [
+              "**Loss function**",
+              "A number measuring how wrong the predictions are (for example mean squared error); training tries to reduce it"
+            ],
+            [
+              "**Learning rate**",
+              "How big a step each weight takes when it is updated"
+            ],
+            [
+              "**Epoch**",
+              "One full pass over the training data"
+            ]
+          ]
+        },
+        {
+          "type": "subheading",
+          "text": "Feed-forward (fully connected) network"
+        },
+        {
+          "type": "paragraph",
+          "text": "Data flows **one way**, input layer to hidden layer(s) to output layer, and **every neuron connects to every neuron in the next layer**. Traditional machine learning needs features chosen by hand; a deep network (2 or more hidden layers) builds its own features layer by layer."
+        },
+        {
+          "type": "subheading",
+          "text": "Training: backpropagation"
+        },
+        {
+          "type": "list",
+          "items": [
+            "**Forward pass:** run an example through the network to get a prediction.",
+            "**Loss:** compare the prediction with the label.",
+            "**Backpropagation:** work backwards from the output to find how much each weight contributed to the loss.",
+            "**Update:** new weight = old weight - learning rate x gradient. Repeat every epoch so the loss goes down."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Worked example: weight 0.80, gradient 0.50, learning rate 0.1 gives 0.80 - 0.1 x 0.50 = **0.75**. A learning rate that is too large overshoots; one that is too small trains very slowly."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Simulator to try: https://github.profammons.com/neural-network-simulator.html",
+            "Visual tour: https://distill.pub/2020/grand-tour/"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "14. Hyperparameter Tuning",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "",
+            "Parameters",
+            "Hyperparameters"
+          ],
+          "rows": [
+            [
+              "Set by",
+              "The **training algorithm**",
+              "**You**, before training"
+            ],
+            [
+              "Examples",
+              "Regression coefficients; network weights and biases",
+              "k in kNN; tree depth; learning rate; number of clusters"
+            ],
+            [
+              "Changed by",
+              "Fitting to the data",
+              "Trying settings and comparing validation scores"
+            ]
+          ]
+        },
+        {
+          "type": "subheading",
+          "text": "Ways to search"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Method",
+            "How it works",
+            "Trade-off"
+          ],
+          "rows": [
+            [
+              "**Grid search**",
+              "Tries **every combination** of the listed values",
+              "Thorough but the cost multiplies with each setting"
+            ],
+            [
+              "**Randomized search**",
+              "Tries a fixed number of **randomly drawn** combinations",
+              "Cheaper; often finds a near-best setting"
+            ],
+            [
+              "**Bayesian search**",
+              "Uses past results to **choose the next** setting to try",
+              "Fewer trials; each choice depends on the last"
+            ]
+          ]
+        },
+        {
+          "type": "subheading",
+          "text": "Scoring each setting"
+        },
+        {
+          "type": "paragraph",
+          "text": "Each candidate is scored with **k-fold cross-validation** so one lucky split cannot decide the winner. The final test set is kept aside until the end."
+        },
+        {
+          "type": "paragraph",
+          "text": "Worked example: 3 values of k, 2 weighting options and 4 tree depths in a grid give 3 x 2 x 4 = **24** combinations. With 5-fold validation that is 24 x 5 = **120** fits. A randomized search of 10 draws needs only 10 x 5 = **50**."
+        }
+      ]
+    },
+    {
+      "name": "15. Fairness, Bias and Data Quality",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "**Responsible AI** means building models that are fair, explainable and accountable. A model learns whatever pattern is in its data, including unfair ones."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Fairness",
+            "Question it asks"
+          ],
+          "rows": [
+            [
+              "**Group fairness**",
+              "Do **groups** (for example by age or gender) receive similar outcomes on average?"
+            ],
+            [
+              "**Individual fairness**",
+              "Are **similar people** treated similarly, whatever group they belong to?"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The two can conflict: equalizing outcomes across groups can mean treating two similar individuals differently."
+        },
+        {
+          "type": "subheading",
+          "text": "Kinds of bias"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Bias",
+            "What goes wrong"
+          ],
+          "rows": [
+            [
+              "**Sample bias**",
+              "The data does not represent the population (too few of some group)"
+            ],
+            [
+              "**Selection bias**",
+              "The way examples were chosen or who responded skews the data"
+            ],
+            [
+              "**Measurement bias**",
+              "The tool or the way a value is recorded is inaccurate or inconsistent across groups"
+            ],
+            [
+              "**Confirmation bias**",
+              "People collect or read results in a way that supports what they already believe"
+            ],
+            [
+              "**Historical bias**",
+              "The world itself was unfair, so even perfectly collected data copies old inequality"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Historical vs selection:",
+          "text": "Selection bias is a flaw in **how the data was gathered**. Historical bias remains even if the sampling is flawless, because the data accurately records an unfair past."
+        },
+        {
+          "type": "subheading",
+          "text": "High-quality data"
+        },
+        {
+          "type": "paragraph",
+          "text": "Accurate, complete, consistent, up to date, relevant to the question and **representative** of everyone the model will serve."
+        },
+        {
+          "type": "subheading",
+          "text": "Bias metrics"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Metric",
+            "Formula",
+            "Reads as"
+          ],
+          "rows": [
+            [
+              "**Normalized class imbalance (CI)**",
+              "(n_a - n_d) / (n_a + n_d)",
+              "How uneven the group sizes are: 0 balanced, near 1 one group dominates"
+            ],
+            [
+              "**Difference in proportions of labels (DPL)**",
+              "q_a - q_d",
+              "Gap in the share of positive outcomes between the two groups: 0 means equal"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Worked example: 200 applicants in group A, 120 approved (q = 0.60), and 100 in group B, 40 approved (q = 0.40). CI = (200 - 100) / 300 = **0.33** and DPL = 0.60 - 0.40 = **0.20**."
         }
       ]
     }

@@ -4,7 +4,7 @@ Builds the ITD 140 SUPPLEMENTAL full-course flashcards -> data/itd140-supplement
 
     python3 tools/build_itd140_full_flashcards.py
 
-One card per term, grouped into the same ten topics as the supplemental quiz and guide. Terms must be
+One card per term, grouped into the same fifteen topics as the supplemental quiz and guide. Terms must be
 unique (the deck remembers "known" cards by term), and the build refuses incomplete cards.
 """
 
@@ -177,13 +177,152 @@ c(R, "L2 (Ridge)", "Regularization that shrinks weights but keeps most or all fe
   "Use it to smooth out outliers without dropping features.",
   "Many small weights, none exactly zero")
 
+# ---- final-exam additions: extra cards inside earlier topics ----
+c(C, "k-means++", "A k-means start-up rule that spreads the first centroids apart instead of choosing them purely at random.",
+  "Use it to get steadier clusters from run to run.",
+  "Starting centroids far apart, not two inside one blob")
+c(C, "Dendrogram", "The tree diagram of hierarchical clustering that shows which clusters merged and at what distance.",
+  "Cut it at a height to get a chosen number of clusters.",
+  "Cutting a tall tree at the second level leaves 3 clusters")
+c(C, "Manhattan (L1) and Euclidean (L2) distance", "L1 adds the horizontal and vertical steps; L2 is the straight-line distance.",
+  "Pick the distance a clustering or kNN algorithm measures with.",
+  "3 east and 4 north: L1 = 7, L2 = 5")
+c(D, "Curse of dimensionality", "As features are added, data becomes sparse, distances look alike and models get slower and overfit more.",
+  "Reduce features, or gather far more examples.",
+  "10 bins: 1 feature = 10 cells, 5 features = 100,000 cells")
+c(N, "Binary encoding", "Turning a two-valued feature into 0 and 1.",
+  "Use it for yes/no features.",
+  "smoker = yes becomes 1")
+c(N, "Target encoding", "Replacing each category with the average target value for that category.",
+  "Use it when a category has too many values for one-hot. Build it from training data only.",
+  "City 'Dover' becomes 0.62 = its share of positive labels")
+
+# ---- final-exam additions: new topics ----
+T = "Feature Types and Imputation"
+c(T, "Feature", "One measurable input column that describes each example.",
+  "Choose and prepare features before training.",
+  "Age, income and city for a loan model")
+c(T, "Continuous vs discrete feature", "Continuous values can be any number on a scale; discrete values are countable whole numbers.",
+  "Both are quantitative; check which one a column is before choosing a method.",
+  "Height 172.4 cm versus 3 siblings")
+c(T, "Nominal vs ordinal feature", "Both are categories; ordinal ones have a meaningful order, nominal ones do not.",
+  "Ordinal categories can be numbered in order; nominal ones should be one-hot encoded.",
+  "Small < medium < large versus red, green, blue")
+c(T, "Imputation", "Filling in missing values with a stand-in so the row can still be used.",
+  "Use it because most algorithms cannot accept blanks.",
+  "Blank age replaced by the average age")
+c(T, "Mean and mode substitution", "Fill gaps with the average (numbers) or the most common value (categories).",
+  "Mean for numeric columns, mode for categorical ones.",
+  "4, ?, 8, ?, 6: both gaps become 6")
+c(T, "Forward and back fill", "Copy the previous value down (forward) or the next value up (back) into a gap.",
+  "Use them for ordered data such as readings over time.",
+  "10, ?, ?, 14 forward-fills to 10, 10, 10, 14")
+c(T, "Arbitrary value imputation", "Fill gaps with a fixed marker or random value, such as -1.",
+  "Use it when you want the model to know the value was missing.",
+  "Missing income set to -1")
+
+K = "Trees, Forests and Perceptrons"
+c(K, "Decision tree", "A chain of yes/no questions about feature values that ends in a class.",
+  "Use it when you need a model you can read.",
+  "Is salary above 50k? Is the commute under 30 minutes?")
+c(K, "Random forest", "Many decision trees trained on random samples; the class with the most votes wins.",
+  "Use it to cut the overfitting of a single deep tree.",
+  "100 trees vote: 71 say spam")
+c(K, "Perceptron", "One artificial neuron that applies an activation to a weighted sum of inputs plus a bias.",
+  "It can only learn classes that a straight line separates.",
+  "Two inputs, two weights, one bias")
+c(K, "Weight and bias", "A weight sets how much an input counts; a bias shifts when the neuron switches on.",
+  "Both are parameters that training adjusts.",
+  "sum = 0.5*x1 - 1*x2 + 1")
+c(K, "ReLU", "An activation that outputs 0 for negative sums and the sum itself otherwise.",
+  "Common in hidden layers.",
+  "-1 becomes 0; 3 stays 3")
+c(K, "Sigmoid", "An activation that squeezes any sum into a smooth value between 0 and 1.",
+  "Use it at the output of a yes/no classifier.",
+  "Sum -1 gives about 0.27")
+
+U = "Neural Networks in Detail"
+c(U, "Parameters vs hyperparameters (network)", "Weights and biases are learned parameters; learning rate, layers and epochs are chosen before training.",
+  "Tune hyperparameters yourself and let training fit the parameters.",
+  "Learning rate 0.01 is chosen; weights are learned")
+c(U, "Loss function", "A number that measures how wrong the network's predictions are.",
+  "Training tries to make it smaller each epoch.",
+  "Mean squared error")
+c(U, "Learning rate", "The size of the step each weight takes during an update.",
+  "Too large overshoots; too small trains slowly.",
+  "0.1 x gradient 0.5 moves a weight by 0.05")
+c(U, "Feed-forward (fully connected) network", "A network where data flows one way and every neuron connects to every neuron in the next layer.",
+  "The standard layout for tabular data.",
+  "Input, two hidden layers, output")
+c(U, "Backpropagation", "Working backwards from the loss to find how much each weight contributed, then updating the weights.",
+  "It runs every epoch so the loss goes down.",
+  "0.80 - 0.1 x 0.50 = 0.75")
+c(U, "Epoch", "One full pass of the training data through the network.",
+  "Training usually takes many epochs.",
+  "20 epochs over 1,000 rows")
+c(U, "Traditional vs deep learning", "Traditional ML needs hand-picked features; deep learning stacks 2 or more hidden layers that build features themselves.",
+  "Use deep learning when features are hard to design, as with images.",
+  "Hand-picked salary and commute versus raw pixels")
+
+H = "Hyperparameter Tuning"
+c(H, "Hyperparameter vs parameter", "A hyperparameter is set by you before training; a parameter is learned from the data.",
+  "Tune the first, never set the second by hand.",
+  "k in kNN versus coefficients in regression")
+c(H, "Grid search", "Trying every combination of the listed hyperparameter values.",
+  "Use it when there are few settings and few values.",
+  "3 x 2 x 4 = 24 combinations")
+c(H, "Randomized search", "Trying a fixed number of randomly drawn hyperparameter combinations.",
+  "Use it when a full grid would take too long.",
+  "10 random draws instead of 24 combinations")
+c(H, "Bayesian search", "Using the results so far to choose which hyperparameters to try next.",
+  "Use it when every trial is expensive.",
+  "A good score at depth 6 steers the next try near 6")
+c(H, "Cross-validation in tuning", "Each candidate setting is scored by k-fold cross-validation rather than one split.",
+  "Stops one lucky split from picking the winner.",
+  "24 combinations x 5 folds = 120 fits")
+
+B = "Fairness, Bias and Data Quality"
+c(B, "Responsible AI", "Building models that are fair, explainable and accountable.",
+  "Check data and results for harm to groups and individuals.",
+  "Auditing a loan model's approvals")
+c(B, "Group vs individual fairness", "Group fairness compares outcomes between groups; individual fairness asks that similar people be treated alike.",
+  "They can conflict, so state which one you measure.",
+  "Equal approval rates by gender versus equal treatment of two similar applicants")
+c(B, "Sample bias", "The data does not represent the population the model will serve.",
+  "Check who is missing from the data.",
+  "Training photos taken almost only of adults")
+c(B, "Selection bias", "The way examples were chosen skews the data.",
+  "Check how the data was gathered.",
+  "Surveying only people who answer phone calls")
+c(B, "Measurement bias", "A tool or recording method is less accurate or inconsistent for some cases.",
+  "Check how each value was measured.",
+  "A sensor that reads low for darker skin")
+c(B, "Confirmation bias", "Collecting or reading results in a way that backs a belief already held.",
+  "Look for evidence that could prove you wrong.",
+  "Keeping only the runs that agree with your idea")
+c(B, "Historical bias", "Unfairness from the past that stays in accurate data, even with flawless sampling.",
+  "Do not treat past decisions as neutral labels.",
+  "Past hiring records that favoured one group")
+c(B, "Normalized class imbalance", "(n_a - n_d) / (n_a + n_d): how uneven the sizes of two groups are.",
+  "0 means balanced; near 1 means one group dominates.",
+  "200 versus 100: (200 - 100) / 300 = 0.33")
+c(B, "Difference in proportions of labels", "The gap between two groups in the share of positive outcomes: q_a - q_d.",
+  "0 means equal outcome rates.",
+  "0.60 approved versus 0.40 approved: 0.20")
+c(B, "High-quality data", "Data that is accurate, complete, consistent, current, relevant and representative.",
+  "Check these before trusting a model's results.",
+  "No gaps, no duplicates, every group present")
+
+ORDER = [F, S, E, C, W, X, D, N, Z, R, T, K, U, H, B]
+CARDS.sort(key=lambda x: ORDER.index(x["topic"]))
+
 if __name__ == "__main__":
     seen = set()
     for card in CARDS:
         assert all(card.values()), card
         assert card["term"] not in seen, card["term"]
         seen.add(card["term"])
-    deck = {"title": "SUPPLEMENTAL: Full-Course Flashcards (not for Quiz 1)",
+    deck = {"title": "ITD 140 Final: Full-Course Flashcards",
             "guideFile": "data/itd140-supplemental-guide.json", "quizFile": "data/itd140-supplemental-quiz.json", "cards": CARDS}
     with open(OUT, "w", encoding="utf-8", newline="\n") as fh:
         json.dump(deck, fh, indent=2, ensure_ascii=False)

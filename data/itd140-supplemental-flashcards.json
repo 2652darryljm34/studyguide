@@ -1,5 +1,5 @@
 {
-  "title": "SUPPLEMENTAL: Full-Course Flashcards (not for Quiz 1)",
+  "title": "ITD 140 Final: Full-Course Flashcards",
   "guideFile": "data/itd140-supplemental-guide.json",
   "quizFile": "data/itd140-supplemental-quiz.json",
   "cards": [
@@ -144,6 +144,27 @@
       "example": "(0,0) to (3,4) is 7"
     },
     {
+      "topic": "Clustering and Distance",
+      "term": "k-means++",
+      "definition": "A k-means start-up rule that spreads the first centroids apart instead of choosing them purely at random.",
+      "useCase": "Use it to get steadier clusters from run to run.",
+      "example": "Starting centroids far apart, not two inside one blob"
+    },
+    {
+      "topic": "Clustering and Distance",
+      "term": "Dendrogram",
+      "definition": "The tree diagram of hierarchical clustering that shows which clusters merged and at what distance.",
+      "useCase": "Cut it at a height to get a chosen number of clusters.",
+      "example": "Cutting a tall tree at the second level leaves 3 clusters"
+    },
+    {
+      "topic": "Clustering and Distance",
+      "term": "Manhattan (L1) and Euclidean (L2) distance",
+      "definition": "L1 adds the horizontal and vertical steps; L2 is the straight-line distance.",
+      "useCase": "Pick the distance a clustering or kNN algorithm measures with.",
+      "example": "3 east and 4 north: L1 = 7, L2 = 5"
+    },
+    {
       "topic": "The Machine Learning Workflow",
       "term": "ML project steps",
       "definition": "Load, explore, transform, split, create, train and test, tune, predict on live data, monitor.",
@@ -242,6 +263,13 @@
       "example": "A dataset with 57 columns has 57 dimensions"
     },
     {
+      "topic": "Dimensionality Reduction",
+      "term": "Curse of dimensionality",
+      "definition": "As features are added, data becomes sparse, distances look alike and models get slower and overfit more.",
+      "useCase": "Reduce features, or gather far more examples.",
+      "example": "10 bins: 1 feature = 10 cells, 5 features = 100,000 cells"
+    },
+    {
       "topic": "Feature Encoding",
       "term": "Binarization",
       "definition": "Converting a continuous value into two classes at a threshold.",
@@ -275,6 +303,20 @@
       "definition": "The pandas function that one-hot encodes a column.",
       "useCase": "Call it on the categorical column.",
       "example": "pd.get_dummies(df['colour'])"
+    },
+    {
+      "topic": "Feature Encoding",
+      "term": "Binary encoding",
+      "definition": "Turning a two-valued feature into 0 and 1.",
+      "useCase": "Use it for yes/no features.",
+      "example": "smoker = yes becomes 1"
+    },
+    {
+      "topic": "Feature Encoding",
+      "term": "Target encoding",
+      "definition": "Replacing each category with the average target value for that category.",
+      "useCase": "Use it when a category has too many values for one-hot. Build it from training data only.",
+      "example": "City 'Dover' becomes 0.62 = its share of positive labels"
     },
     {
       "topic": "Scaling",
@@ -324,6 +366,251 @@
       "definition": "Regularization that shrinks weights but keeps most or all features.",
       "useCase": "Use it to smooth out outliers without dropping features.",
       "example": "Many small weights, none exactly zero"
+    },
+    {
+      "topic": "Feature Types and Imputation",
+      "term": "Feature",
+      "definition": "One measurable input column that describes each example.",
+      "useCase": "Choose and prepare features before training.",
+      "example": "Age, income and city for a loan model"
+    },
+    {
+      "topic": "Feature Types and Imputation",
+      "term": "Continuous vs discrete feature",
+      "definition": "Continuous values can be any number on a scale; discrete values are countable whole numbers.",
+      "useCase": "Both are quantitative; check which one a column is before choosing a method.",
+      "example": "Height 172.4 cm versus 3 siblings"
+    },
+    {
+      "topic": "Feature Types and Imputation",
+      "term": "Nominal vs ordinal feature",
+      "definition": "Both are categories; ordinal ones have a meaningful order, nominal ones do not.",
+      "useCase": "Ordinal categories can be numbered in order; nominal ones should be one-hot encoded.",
+      "example": "Small < medium < large versus red, green, blue"
+    },
+    {
+      "topic": "Feature Types and Imputation",
+      "term": "Imputation",
+      "definition": "Filling in missing values with a stand-in so the row can still be used.",
+      "useCase": "Use it because most algorithms cannot accept blanks.",
+      "example": "Blank age replaced by the average age"
+    },
+    {
+      "topic": "Feature Types and Imputation",
+      "term": "Mean and mode substitution",
+      "definition": "Fill gaps with the average (numbers) or the most common value (categories).",
+      "useCase": "Mean for numeric columns, mode for categorical ones.",
+      "example": "4, ?, 8, ?, 6: both gaps become 6"
+    },
+    {
+      "topic": "Feature Types and Imputation",
+      "term": "Forward and back fill",
+      "definition": "Copy the previous value down (forward) or the next value up (back) into a gap.",
+      "useCase": "Use them for ordered data such as readings over time.",
+      "example": "10, ?, ?, 14 forward-fills to 10, 10, 10, 14"
+    },
+    {
+      "topic": "Feature Types and Imputation",
+      "term": "Arbitrary value imputation",
+      "definition": "Fill gaps with a fixed marker or random value, such as -1.",
+      "useCase": "Use it when you want the model to know the value was missing.",
+      "example": "Missing income set to -1"
+    },
+    {
+      "topic": "Trees, Forests and Perceptrons",
+      "term": "Decision tree",
+      "definition": "A chain of yes/no questions about feature values that ends in a class.",
+      "useCase": "Use it when you need a model you can read.",
+      "example": "Is salary above 50k? Is the commute under 30 minutes?"
+    },
+    {
+      "topic": "Trees, Forests and Perceptrons",
+      "term": "Random forest",
+      "definition": "Many decision trees trained on random samples; the class with the most votes wins.",
+      "useCase": "Use it to cut the overfitting of a single deep tree.",
+      "example": "100 trees vote: 71 say spam"
+    },
+    {
+      "topic": "Trees, Forests and Perceptrons",
+      "term": "Perceptron",
+      "definition": "One artificial neuron that applies an activation to a weighted sum of inputs plus a bias.",
+      "useCase": "It can only learn classes that a straight line separates.",
+      "example": "Two inputs, two weights, one bias"
+    },
+    {
+      "topic": "Trees, Forests and Perceptrons",
+      "term": "Weight and bias",
+      "definition": "A weight sets how much an input counts; a bias shifts when the neuron switches on.",
+      "useCase": "Both are parameters that training adjusts.",
+      "example": "sum = 0.5*x1 - 1*x2 + 1"
+    },
+    {
+      "topic": "Trees, Forests and Perceptrons",
+      "term": "ReLU",
+      "definition": "An activation that outputs 0 for negative sums and the sum itself otherwise.",
+      "useCase": "Common in hidden layers.",
+      "example": "-1 becomes 0; 3 stays 3"
+    },
+    {
+      "topic": "Trees, Forests and Perceptrons",
+      "term": "Sigmoid",
+      "definition": "An activation that squeezes any sum into a smooth value between 0 and 1.",
+      "useCase": "Use it at the output of a yes/no classifier.",
+      "example": "Sum -1 gives about 0.27"
+    },
+    {
+      "topic": "Neural Networks in Detail",
+      "term": "Parameters vs hyperparameters (network)",
+      "definition": "Weights and biases are learned parameters; learning rate, layers and epochs are chosen before training.",
+      "useCase": "Tune hyperparameters yourself and let training fit the parameters.",
+      "example": "Learning rate 0.01 is chosen; weights are learned"
+    },
+    {
+      "topic": "Neural Networks in Detail",
+      "term": "Loss function",
+      "definition": "A number that measures how wrong the network's predictions are.",
+      "useCase": "Training tries to make it smaller each epoch.",
+      "example": "Mean squared error"
+    },
+    {
+      "topic": "Neural Networks in Detail",
+      "term": "Learning rate",
+      "definition": "The size of the step each weight takes during an update.",
+      "useCase": "Too large overshoots; too small trains slowly.",
+      "example": "0.1 x gradient 0.5 moves a weight by 0.05"
+    },
+    {
+      "topic": "Neural Networks in Detail",
+      "term": "Feed-forward (fully connected) network",
+      "definition": "A network where data flows one way and every neuron connects to every neuron in the next layer.",
+      "useCase": "The standard layout for tabular data.",
+      "example": "Input, two hidden layers, output"
+    },
+    {
+      "topic": "Neural Networks in Detail",
+      "term": "Backpropagation",
+      "definition": "Working backwards from the loss to find how much each weight contributed, then updating the weights.",
+      "useCase": "It runs every epoch so the loss goes down.",
+      "example": "0.80 - 0.1 x 0.50 = 0.75"
+    },
+    {
+      "topic": "Neural Networks in Detail",
+      "term": "Epoch",
+      "definition": "One full pass of the training data through the network.",
+      "useCase": "Training usually takes many epochs.",
+      "example": "20 epochs over 1,000 rows"
+    },
+    {
+      "topic": "Neural Networks in Detail",
+      "term": "Traditional vs deep learning",
+      "definition": "Traditional ML needs hand-picked features; deep learning stacks 2 or more hidden layers that build features themselves.",
+      "useCase": "Use deep learning when features are hard to design, as with images.",
+      "example": "Hand-picked salary and commute versus raw pixels"
+    },
+    {
+      "topic": "Hyperparameter Tuning",
+      "term": "Hyperparameter vs parameter",
+      "definition": "A hyperparameter is set by you before training; a parameter is learned from the data.",
+      "useCase": "Tune the first, never set the second by hand.",
+      "example": "k in kNN versus coefficients in regression"
+    },
+    {
+      "topic": "Hyperparameter Tuning",
+      "term": "Grid search",
+      "definition": "Trying every combination of the listed hyperparameter values.",
+      "useCase": "Use it when there are few settings and few values.",
+      "example": "3 x 2 x 4 = 24 combinations"
+    },
+    {
+      "topic": "Hyperparameter Tuning",
+      "term": "Randomized search",
+      "definition": "Trying a fixed number of randomly drawn hyperparameter combinations.",
+      "useCase": "Use it when a full grid would take too long.",
+      "example": "10 random draws instead of 24 combinations"
+    },
+    {
+      "topic": "Hyperparameter Tuning",
+      "term": "Bayesian search",
+      "definition": "Using the results so far to choose which hyperparameters to try next.",
+      "useCase": "Use it when every trial is expensive.",
+      "example": "A good score at depth 6 steers the next try near 6"
+    },
+    {
+      "topic": "Hyperparameter Tuning",
+      "term": "Cross-validation in tuning",
+      "definition": "Each candidate setting is scored by k-fold cross-validation rather than one split.",
+      "useCase": "Stops one lucky split from picking the winner.",
+      "example": "24 combinations x 5 folds = 120 fits"
+    },
+    {
+      "topic": "Fairness, Bias and Data Quality",
+      "term": "Responsible AI",
+      "definition": "Building models that are fair, explainable and accountable.",
+      "useCase": "Check data and results for harm to groups and individuals.",
+      "example": "Auditing a loan model's approvals"
+    },
+    {
+      "topic": "Fairness, Bias and Data Quality",
+      "term": "Group vs individual fairness",
+      "definition": "Group fairness compares outcomes between groups; individual fairness asks that similar people be treated alike.",
+      "useCase": "They can conflict, so state which one you measure.",
+      "example": "Equal approval rates by gender versus equal treatment of two similar applicants"
+    },
+    {
+      "topic": "Fairness, Bias and Data Quality",
+      "term": "Sample bias",
+      "definition": "The data does not represent the population the model will serve.",
+      "useCase": "Check who is missing from the data.",
+      "example": "Training photos taken almost only of adults"
+    },
+    {
+      "topic": "Fairness, Bias and Data Quality",
+      "term": "Selection bias",
+      "definition": "The way examples were chosen skews the data.",
+      "useCase": "Check how the data was gathered.",
+      "example": "Surveying only people who answer phone calls"
+    },
+    {
+      "topic": "Fairness, Bias and Data Quality",
+      "term": "Measurement bias",
+      "definition": "A tool or recording method is less accurate or inconsistent for some cases.",
+      "useCase": "Check how each value was measured.",
+      "example": "A sensor that reads low for darker skin"
+    },
+    {
+      "topic": "Fairness, Bias and Data Quality",
+      "term": "Confirmation bias",
+      "definition": "Collecting or reading results in a way that backs a belief already held.",
+      "useCase": "Look for evidence that could prove you wrong.",
+      "example": "Keeping only the runs that agree with your idea"
+    },
+    {
+      "topic": "Fairness, Bias and Data Quality",
+      "term": "Historical bias",
+      "definition": "Unfairness from the past that stays in accurate data, even with flawless sampling.",
+      "useCase": "Do not treat past decisions as neutral labels.",
+      "example": "Past hiring records that favoured one group"
+    },
+    {
+      "topic": "Fairness, Bias and Data Quality",
+      "term": "Normalized class imbalance",
+      "definition": "(n_a - n_d) / (n_a + n_d): how uneven the sizes of two groups are.",
+      "useCase": "0 means balanced; near 1 means one group dominates.",
+      "example": "200 versus 100: (200 - 100) / 300 = 0.33"
+    },
+    {
+      "topic": "Fairness, Bias and Data Quality",
+      "term": "Difference in proportions of labels",
+      "definition": "The gap between two groups in the share of positive outcomes: q_a - q_d.",
+      "useCase": "0 means equal outcome rates.",
+      "example": "0.60 approved versus 0.40 approved: 0.20"
+    },
+    {
+      "topic": "Fairness, Bias and Data Quality",
+      "term": "High-quality data",
+      "definition": "Data that is accurate, complete, consistent, current, relevant and representative.",
+      "useCase": "Check these before trusting a model's results.",
+      "example": "No gaps, no duplicates, every group present"
     }
   ]
 }

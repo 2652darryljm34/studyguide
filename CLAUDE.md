@@ -129,6 +129,8 @@ ITD 140 Quiz 3 (supervised and unsupervised learning, evaluation, KNN, trees, fo
 
 ITD 132 Quiz 2 (DDL, constraints, DML, transactions, indexes, EXPLAIN, locks) is also a full set with walkthroughs: `tools/build_itd132_quiz2_guide.py`, `build_itd132_quiz2_flashcards.py`, `build_itd132_quiz2.py` (questions in `itd132_quiz2_questions.py`), `build_itd132_quiz2_walkthroughs.py`; featured while the quiz is upcoming.
 
+ITD 140 final is the old "supplemental full course" set (`build_itd140_full_guide.py`, `build_itd140_full_flashcards.py`, `build_itd140_full.py` with questions in `itd140_full_questions.py`, `build_itd140_walkthroughs.py`), extended to fifteen topics covering the final's study list (imputation, forests/perceptrons, neural networks, hyperparameter tuning, fairness and bias). Not featured yet; flag its guide, flashcards, quiz, mastery loop and walkthroughs `"featured": true` when the final is near.
+
 Current sets: ITN 170 final (`tools/build_itn170_final_guide.py`, `build_itn170_flashcards.py`,
 `build_itn170_final.py`). ITD 145 and ITD 256 are archived; they have final quizzes but were finished before this
 rule, so they have no matching final flashcards or guide.
